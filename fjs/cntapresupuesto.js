@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var id, opcion;
     opcion = 4;
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#btnNuevo").click(function() {
+    $("#btnNuevo").click(function () {
 
         window.location.href = "presupuesto.php";
         //$("#formDatos").trigger("reset");
@@ -45,10 +45,10 @@ $(document).ready(function() {
     var fila; //capturar la fila para editar o borrar el registro
 
     //botón EDITAR    
-    $(document).on("click", ".btnEditar", function() {
+    $(document).on("click", ".btnEditar", function () {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
-
+        console.log(id);
         window.location.href = "pres.php?folio=" + id;
 
 
@@ -57,7 +57,7 @@ $(document).ready(function() {
 
 
     //botón BORRAR
-    $(document).on("click", ".btnBorrar", function() {
+    $(document).on("click", ".btnBorrar", function () {
         fila = $(this);
 
         id = parseInt($(this).closest("tr").find('td:eq(0)').text());
@@ -76,7 +76,7 @@ $(document).ready(function() {
                 dataType: "json",
                 data: { id: id, opcion: opcion },
 
-                success: function(data) {
+                success: function (data) {
                     console.log(fila);
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
@@ -94,7 +94,7 @@ $(document).ready(function() {
         min = checkTime(min);
         sec = checkTime(sec);
         document.getElementById("clock").innerHTML = hr + " : " + min + " : " + sec;
-        var time = setTimeout(function() { startTime() }, 500);
+        var time = setTimeout(function () { startTime() }, 500);
     }
 
     function checkTime(i) {
@@ -104,7 +104,7 @@ $(document).ready(function() {
         return i;
     }
 
-    $("#formDatos").submit(function(e) {
+    $("#formDatos").submit(function (e) {
         e.preventDefault();
         var nombre = $.trim($("#nombre").val());
         var calle = $.trim($("#calle").val());
@@ -131,7 +131,7 @@ $(document).ready(function() {
                 type: "POST",
                 dataType: "json",
                 data: { nombre: nombre, calle: calle, num: num, col: col, cp: cp, cd: cd, edo: edo, tel: tel, cel: cel, id: id, opcion: opcion },
-                success: function(data) {
+                success: function (data) {
                     console.log(data);
                     console.log(fila);
 
