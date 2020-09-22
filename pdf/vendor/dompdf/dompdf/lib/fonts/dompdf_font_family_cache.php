@@ -134,4 +134,17 @@
   'kabrio' => array(
     'normal' => $fontDir . '\3a9b3a999b7b1136c02cfca3739fddd0',
   ),
+  'font awesome 5 brands' => array(
+    'normal' => $fontDir . '\652323e48397a6485d1c1b1af15508ec',
+  ),
+  'font awesome 5 free' => array(
+    'normal' => $fontDir . '\3a834242b51178d630bf2e4b8f56a9e8',
+  ),
+  'ionicons' => array(
+    'normal' => $fontDir . '\499ed0e151682fc2c1ba5340c204f05f',
+  ),
+  'source sans pro' => array(
+    'italic' => $fontDir . '\120f826d42ce02c5331340b891f821ef',
+    'normal' => $fontDir . '\891cae020a7dc5d2aa8254f4fb770830',
+  ),
 ) ?>

@@ -88,7 +88,7 @@ p, label, span, table{
 #factura_detalle thead th{
 	background: #058167;
 	color: #FFF;
-	padding: 5px;
+	padding: 3px;
 }
 #detalle_productos tr:nth-child(even) {
     background: #ededed;

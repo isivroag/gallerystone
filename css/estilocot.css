@@ -14,6 +14,7 @@ table {
     font-size: 10pt;
 }
 
+
 .empresa {
     font-family: 'BrixSansBlack';
     font-size: 16pt;
@@ -32,7 +33,7 @@ table {
 
 #page_pdf {
     width: 95%;
-    margin: 15px auto 10px auto;
+    margin: 15px auto ;
 }
 
 #factura_head,
@@ -106,17 +107,27 @@ table {
 
 #factura_detalle {
     border-collapse: collapse;
+
 }
 
 #factura_detalle thead th {
     background: #ec6c2b;
     color: #FFF;
-    padding: 5px;
+    padding: 3px;
     font-size: 15px;
 }
 
+
+
 #detalle_productos tr:nth-child(even) {
     background: #ededed;
+   
+
+}
+#detalle_productos tr {
+    
+   line-height: 15px;;
+
 }
 
 #detalle_totales span {
@@ -124,7 +135,7 @@ table {
 }
 
 .nota {
-    font-size: 10pt;
+    font-size: 8pt;
 }
 
 .label_gracias {
