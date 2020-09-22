@@ -1,0 +1,52 @@
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+.bg-gradient-orange {
+    color: white;
+}
+
+.active {
+    color: white;
+    background-color: orange;
+}
+
+.hide_column {
+    display: none;
+}
+
+.seleccionado {
+    color: #ffffff !important;
+    background-color: #eb7d3d !important;
+    border-color: #dee2e6 #dee2e6 #ffffff !important;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #ffffff;
+    background-color: #007bff;
+}
+
+
+/*
+.has-treeview .nav-treeview .nav-item:hover,
+.has-treeview .nav-treeview .nav-item:focus {
+    background-color: rgba(241, 185, 152, 0.87) !important;
+    border-color: #f75c03 !important;
+    color: #ffffff !important;
+}*/
