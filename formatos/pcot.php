@@ -156,11 +156,11 @@ if ($folio != "") {
 					<tr>
 					<td><?php echo $row['nom_concepto'] ?></td>
 					<td><?php echo $row['nom_item'] ?></td>
-					<td><?php echo $row['formato'] ?></td>
+					<td class="textcenter"><?php echo $row['formato'] ?></td>
 					<td class="textcenter"><?php echo $row['cantidad'] ?></td>
 					<td class="textcenter"><?php echo $row['nom_umedida'] ?></td>
-					<td class="textright">$ <?php echo $row['precio'] ?></td>
-					<td class="textright">$ <?php echo $row['total'] ?></td>
+					<td class="textright">$ <?php echo number_format($row['precio'],2) ?></td>
+					<td class="textright">$ <?php echo number_format($row['total'],2)?></td>
 					</tr>
 				<?php
 				}
@@ -180,7 +180,7 @@ if ($folio != "") {
 			</tr>
 			<tr>
 				<th colspan="6" class="textright"><span>TOTAL:</span></th>
-				<th class="textright"><span>$ <?php echo $total?></span></th>
+				<th class="textright"><span>$ <?php echo number_format($total,2)?></span></th>
 			</tr>
 			</tfoot>
 

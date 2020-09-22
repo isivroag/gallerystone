@@ -417,7 +417,9 @@ $(document).ready(function() {
                 */
         $("#idprecio").val(idPrecio);
         $("#unidad").val(unidad);
+        
         $("#precio").val(PrecioMaterial);
+        
         $("#cantidad").prop('disabled', false);
         $("#modalPrecio").modal("hide");
 

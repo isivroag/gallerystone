@@ -125,7 +125,7 @@ table {
 
 }
 #detalle_productos tr {
-    
+    padding: 5px;
    line-height: 15px;;
 
 }
