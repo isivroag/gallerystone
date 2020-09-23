@@ -1,11 +1,16 @@
+
 <?php
 
 //print_r($_REQUEST);
 //exit;
 //echo base64_encode('2');
 //exit;
+$correo="";
 $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
 
+$correo = (isset($_GET['correo'])) ? $_GET['correo'] : '';
+//$name = (isset($_GET['name'])) ? $_GET['name'] : '';
+echo $correo;
 
 require_once '../pdf/vendor/autoload.php';
 
@@ -29,7 +34,7 @@ $dompdf->render();
 $dompdf->stream('Presupuesto'.$folio.'.pdf',array('Attachment'=>0));
 $file = $dompdf->output();
 file_put_contents($file_name, $file);
-
+ob_end_clean();
 
 require '../plugins/phpmailer/class.phpmailer.php';
 require '../plugins/phpmailer/class.smtp.php';
@@ -43,8 +48,10 @@ $mail->Password = '66obispo.colima';
 $mail->SMTPSecure = 'tls';
 $mail->From = 'israel_romero@tecniem.com';
 $mail->FromName = 'Israel Romero';
-//$mail->addAddress('odette.chimal@gmail.com');
-$mail->addAddress('isivroag@hotmail.com');
+$mail->clearAddresses();
+$mail->ClearAllRecipients();
+$mail->addAddress($correo);
+$mail->addCC($correo);
 $mail->WordWrap = 50;
 $mail->isHTML(true);
 
@@ -63,25 +70,21 @@ if ($mail->send()) {
 
 if ($mensaje == 1) {
     echo '<script type="text/javascript">
-            Swal.fire({
-                title: "Envio Exitoso",
-                text: "El presupuesto fue enviado con exito",
-                icon: "success",
-            });
-
-                </script>';
+    alert("Enviado");
+           </script>';
 } else {
     echo '<script type="text/javascript">
-            Swal.fire({
-                title: "Error de Envio",
-                text: "No fue posible enviar el documento",
-                icon: "error",
-            });
-
-                </script>';
+    alert("No enviado!");
+           </script>';
 }
+$mail->clearAddresses();
+$mail->clearAttachments();
+$mail->SmtpClose();
+unset($mail);
 unlink($file_name);
 
 exit;
+
 ?>
+
 <script src="../plugins/sweetalert2/sweetalert2.all.min.js"></script>
