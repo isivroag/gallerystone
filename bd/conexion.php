@@ -6,7 +6,7 @@
             define('servidor','localhost');
             define('bd_nombre','gstone');
             define('usuario','root');
-            define('password','tecniem');
+            define('password','');
 
             $opciones=array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 
