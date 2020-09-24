@@ -106,14 +106,14 @@
                 <p>Subtipos</p>
               </a>
             </li>
-
+<!--
             <li class="nav-item">
-              <a href="cntaservicio.php" class="nav-link  <?php echo ($pagina == 'servicio') ? "active seleccionado" : ""; ?> ">
+              <a href="cntaservicio.php" class="nav-link  <?php //echo ($pagina == 'servicio') ? "active seleccionado" : ""; ?> ">
                 <i class="fas fa-hammer nav-icon"></i>
                 <p>Servicios</p>
               </a>
             </li>
-
+-->
 
 
           </ul>
