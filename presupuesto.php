@@ -178,7 +178,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                   <div class="col-lg-1">
                     <div class="form-group input-group-sm">
                       <label for="folior" class="col-form-label">Folio:</label>
-                      <input type="text" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
+                      <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
                       <input type="text" class="form-control" name="folior" id="folior" value="<?php echo  "TMP-".$folio; ?>">
                     </div>
                   </div>
