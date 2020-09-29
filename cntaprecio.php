@@ -150,7 +150,7 @@ $message = "";
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="unidad" class="col-form-label">Formato:</label>
-                                        <input type="text" class="form-control" name="unidad" id="unidad">
+                                        <input type="text" class="form-control" name="unidad" id="unidad" autocomplete="off" placeholder="Formato">
                                     </div>
                                 </div>
 
@@ -173,7 +173,7 @@ $message = "";
                                 <div class="col-sm-6">
                                     <div class="form-group input-group-sm">
                                         <label for="precio" class="col-form-label">Precio:</label>
-                                        <input type="text" class="form-control" name="precio" id="precio">
+                                        <input type="text" class="form-control" name="precio" id="precio" autocomplete="off" placeholder="Precio">
                                     </div>
                                 </div>
 

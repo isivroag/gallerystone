@@ -108,14 +108,14 @@ $message = "";
                             <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="clave" class="col-form-label">Clave:</label>
-                                        <input type="text" class="form-control" name="clave" id="clave">
+                                        <input type="text" class="form-control" name="clave" id="clave" autocomplete="off" placeholder="Clave">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="nombre" class="col-form-label">Nombre Acabado:</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre">
+                                        <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre">
                                     </div>
                                 </div>
 

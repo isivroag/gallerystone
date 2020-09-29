@@ -9,6 +9,8 @@ $subtipo = (isset($_POST['subtipo'])) ? $_POST['subtipo'] : '';
 $id_tipo = (isset($_POST['id_tipo'])) ? $_POST['id_tipo'] : '';
 $id_subtipo = (isset($_POST['id_subtipo'])) ? $_POST['id_subtipo'] : '';
 
+$subtipo = ucfirst(strtolower($subtipo));
+
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch ($opcion) {

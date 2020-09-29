@@ -146,14 +146,14 @@ $message = "";
                                 <div class="col-sm-6">
                                     <div class="form-group input-group-sm">
                                         <label for="clave" class="col-form-label">Clave:</label>
-                                        <input type="text" class="form-control" name="clave" id="clave">
+                                        <input type="text" class="form-control" name="clave" id="clave" autocomplete="off" placeholder="Clave">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="nombre" class="col-form-label">Nombre:</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre">
+                                        <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre">
                                     </div>
                                 </div>
 
@@ -211,6 +211,7 @@ $message = "";
                                             
                                             <option id="material" value="Material">Material</option>
                                             <option id="servicio" value="Servicio">Servicio</option>
+                                            <option id="servicio" value="Producto">Producto</option>
 
                                             
                                         </select>

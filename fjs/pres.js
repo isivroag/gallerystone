@@ -556,12 +556,8 @@ $(document).ready(function() {
 
         tablaMat.clear();
         tablaMat.draw();
-        var tipo = $("#usomat").val();
-        if (tipo == "Si") {
-            tipoitem = "Material";
-        } else {
-            tipoitem = "Servicio";
-        }
+        var tipoitem = $("#usomat").val();
+       
 
         $.ajax({
             type: "POST",

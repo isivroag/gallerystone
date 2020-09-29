@@ -1,21 +1,22 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var id_concepto, opcion;
     opcion = 4;
 
     tablaVis = $("#tablaV").DataTable({
-        stateSave: true,
+        keys: true,
+        "bStateSave": true,
 
         paging: true,
 
 
         "columnDefs": [{
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
-            },
-            { className: "hide_column", "targets": [2] },
-            { className: "hide_column", "targets": [4] },
-            { className: "hide_column", "targets": [6] },
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
+        },
+        { className: "hide_column", "targets": [2] },
+        { className: "hide_column", "targets": [4] },
+        { className: "hide_column", "targets": [6] },
         ],
 
         //Para cambiar el lenguaje a español
@@ -34,9 +35,12 @@ $(document).ready(function() {
             },
             "sProcessing": "Procesando...",
         }
+        
+     
+
     });
 
-    $("#btnNuevo").click(function() {
+    $("#btnNuevo").click(function () {
 
         //window.location.href = "prospecto.php";
         $("#formDatos").trigger("reset");
@@ -55,7 +59,7 @@ $(document).ready(function() {
     var fila; //capturar la fila para editar o borrar el registro
 
     //botón EDITAR    
-    $(document).on("click", ".btnEditar", function() {
+    $(document).on("click", ".btnEditar", function () {
         fila = $(this).closest("tr");
         id_concepto = parseInt(fila.find('td:eq(0)').text());
 
@@ -96,7 +100,7 @@ $(document).ready(function() {
     });
 
     //botón BORRAR
-    $(document).on("click", ".btnBorrar", function() {
+    $(document).on("click", ".btnBorrar", function () {
         fila = $(this);
 
 
@@ -117,7 +121,7 @@ $(document).ready(function() {
                 dataType: "json",
                 data: { id_concepto: id_concepto, opcion: opcion },
 
-                success: function(data) {
+                success: function (data) {
                     console.log(fila);
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
@@ -126,7 +130,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#tipo").change(function() {
+    $("#tipo").change(function () {
         listar();
     });
 
@@ -142,7 +146,7 @@ $(document).ready(function() {
             url: "bd/buscarsubtipo.php",
             dataType: "json",
             data: { id: id },
-            success: function(res) {
+            success: function (res) {
 
                 if (res.length > 0) {
                     for (var i = 0; i < res.length; i++) {
@@ -163,7 +167,7 @@ $(document).ready(function() {
         });
     }
 
-    $("#formDatos").submit(function(e) {
+    $("#formDatos").submit(function (e) {
         e.preventDefault();
         var concepto = $.trim($("#nombre").val());
         var id_tipo = $.trim($("#tipo").val());
@@ -193,7 +197,7 @@ $(document).ready(function() {
                 type: "POST",
                 dataType: "json",
                 data: { concepto: concepto, id_umedida: id_umedida, id_tipo: id_tipo, id_subtipo: id_subtipo, uso: uso, id_concepto: id_concepto, opcion: opcion },
-                success: function(data) {
+                success: function (data) {
                     console.log(data);
 
                     //tablaPersonas.ajax.reload(null, false);
@@ -205,7 +209,7 @@ $(document).ready(function() {
                     concepto = data[0].nom_concepto;
                     id_umedida = data[0].id_umedida;
                     umedida = data[0].nom_umedida;
-                    uso = data[0].uso_mat;
+                    uso = data[0].tipo;
 
                     if (opcion == 1) {
                         tablaVis.row.add([id_concepto, concepto, id_tipo, tipo, id_subtipo, subtipo, id_umedida, umedida, uso]).draw();

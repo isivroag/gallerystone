@@ -6,6 +6,7 @@ $conexion = $objeto->connect();
 // Recepción de los datos enviados mediante POST desde el JS   
 
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
+$nombre = ucfirst(strtolower($nombre));
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 

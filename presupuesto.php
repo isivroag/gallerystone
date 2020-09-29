@@ -542,7 +542,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                     <th>Concepto</th>
                     <th>id Umedida</th>
                     <th>U. Medida</th>
-                    <th>Cotiza Material</th>
+                    <th>Clasificación</th>
                     <th>Seleccionar</th>
                   </tr>
                 </thead>
@@ -555,7 +555,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                       <td><?php echo $datc['nom_concepto'] ?></td>
                       <td><?php echo $datc['id_umedida'] ?></td>
                       <td><?php echo $datc['nom_umedida'] ?></td>
-                      <td><?php echo $datc['uso_mat'] ?></td>
+                      <td><?php echo $datc['tipo'] ?></td>
 
                       <td></td>
                     </tr>

@@ -13,6 +13,9 @@ $concepto = (isset($_POST['concepto'])) ? $_POST['concepto'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
+$concepto = ucfirst(strtolower($concepto));
+$obs = ucfirst(strtolower($obs));
+
 
 switch ($opcion) {
         case 1: //alta

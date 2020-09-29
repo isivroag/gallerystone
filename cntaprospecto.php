@@ -127,70 +127,70 @@ $message = "";
                 <div class="col-sm-12">
                   <div class="form-group input-group-sm">
                     <label for="nombre" class="col-form-label">Nombre:</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre">
+                    <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre">
                   </div>
                 </div>
 
                 <div class="col-sm-12">
                   <div class="form-group input-group-sm">
                     <label for="correo" class="col-form-label">Correo Eléctronico:</label>
-                    <input type="text" class="form-control" name="correo" id="correo">
+                    <input type="text" class="form-control" name="correo" id="correo" autocomplete="off" placeholder="Correo Eléctronico">
                   </div>
                 </div>
 
                 <div class="col-sm-6">
                   <div class="form-group input-group-sm">
                     <label for="calle" class="col-form-label">Calle:</label>
-                    <input type="text" class="form-control" name="calle" id="calle">
+                    <input type="text" class="form-control" name="calle" id="calle" autocomplete="off" placeholder="Calle">
                   </div>
                 </div>
 
                 <div class="col-sm-3">
                   <div class="form-group input-group-sm">
                     <label for="col" class="col-form-label">Colonia:</label>
-                    <input type="text" class="form-control" name="col" id="col">
+                    <input type="text" class="form-control" name="col" id="col" autocomplete="off" placeholder="Colonia">
                   </div>
                 </div>
 
                 <div class="col-sm-1">
                   <div class="form-group input-group-sm">
                     <label for="num" class="col-form-label">Num:</label>
-                    <input type="text" class="form-control" name="num" id="num">
+                    <input type="text" class="form-control" name="num" id="num" autocomplete="off" placeholder="#">
                   </div>
                 </div>
 
                 <div class="col-sm-2">
                   <div class="form-group input-group-sm">
                     <label for="cp" class="col-form-label">CP:</label>
-                    <input type="text" class="form-control" name="cp" id="cp">
+                    <input type="text" class="form-control" name="cp" id="cp" autocomplete="off" placeholder="C.P.">
                   </div>
                 </div>
 
                 <div class="col-sm-3">
                   <div class="form-group input-group-sm">
                     <label for="cd" class="col-form-label">Ciudad:</label>
-                    <input type="text" class="form-control" name="cd" id="cd">
+                    <input type="text" class="form-control" name="cd" id="cd" autocomplete="off" placeholder="Ciudad">
                   </div>
                 </div>
 
                 <div class="col-sm-3">
                   <div class="form-group input-group-sm">
                     <label for="edo" class="col-form-label">Estado:</label>
-                    <input type="text" class="form-control" name="edo" id="edo">
+                    <input type="text" class="form-control" name="edo" id="edo" autocomplete="off" placeholder="Estado">
                   </div>
                 </div>
 
                 <div class="col-sm-3">
                   <div class="form-group input-group-sm">
                     <label for="tel" class="col-form-label">Tel:</label>
-                    <input type="text" class="form-control" name="tel" id="tel">
+                    <input type="text" class="form-control" name="tel" id="tel" autocomplete="off" placeholder="Tel.">
                   </div>
                 </div>
 
                 <div class="col-sm-3">
                   <div class="form-group input-group-sm">
-                    <label for="cel" class="col-form-label">Movil:</label>
-                    <input type="text" class="form-control" name="cel" id="cel">
+                    <label for="cel" class="col-form-label">Móvil:</label>
+                    <input type="text" class="form-control" name="cel" id="cel" autocomplete="off" placeholder="Móvil">
                   </div>
                 </div>
 

@@ -106,7 +106,7 @@ $message = "";
 
                 <div class="input-group">
 
-                  <input type="text" class="form-control" name="nom_pros" id="nom_pros">
+                  <input type="text" class="form-control" name="nom_pros" id="nom_pros" autocomplete="off" placeholder="Prospecto">
                   <span class="input-group-append">
                     <button id="bcliente" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
                   </span>
@@ -119,7 +119,7 @@ $message = "";
               <div class="col-sm-8">
                 <div class="form-group">
                   <label for="concepto" class="col-form-label">Concepto Cita</label>
-                  <input type="text" class="form-control" name="concepto" id="concepto">
+                  <input type="text" class="form-control" name="concepto" id="concepto" autocomplete="off" placeholder="Concepto de Cita">
                 </div>
               </div>
 
@@ -128,7 +128,7 @@ $message = "";
                   <label for="fecha" class="col-form-label">Fecha Y Hora:</label>
 
                   <div class="input-group date" id="datetimepicker1" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
-                    <input type="text" id="fecha" name="fecha" class="form-control datetimepicker-input " data-target="#datetimepicker1" />
+                    <input type="text" id="fecha" name="fecha" class="form-control datetimepicker-input " data-target="#datetimepicker1" autocomplete="off" placeholder="Fecha y Hora">
                     <div class="input-group-append " data-target="#datetimepicker1" data-toggle="datetimepicker">
                       <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -147,7 +147,7 @@ $message = "";
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="obs" class="col-form-label">Observaciones:</label>
-                  <textarea class="form-control" name="obs" id="obs"  rows="3"></textarea>
+                  <textarea class="form-control" name="obs" id="obs" rows="3" autocomplete="off" placeholder="Observaciones"></textarea>
                 </div>
               </div>
 
@@ -185,15 +185,15 @@ $message = "";
 
       <!-- Default box -->
       <div class="modal fade" id="modalProspecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-xl " role="document">
           <div class="modal-content w-auto">
             <div class="modal-header bg-gradient-primary">
               <h5 class="modal-title" id="exampleModalLabel">BUSCAR PROSPECTO</h5>
 
             </div>
             <br>
-            <div class="table table-hover table-responsive w-auto" style="padding:10px">
-              <table name="tablaC" id="tablaC" class="table-striped table-bordered table-condensed" style="width:100%">
+            <div class="table-hover table-responsive w-auto" style="padding:15px">
+              <table name="tablaC" id="tablaC" class="table  table-sm table-striped table-bordered table-condensed" style="width:100%">
                 <thead class="text-center">
                   <tr>
                     <th>Id</th>

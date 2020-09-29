@@ -12,11 +12,13 @@ $id_concepto = (isset($_POST['id_concepto'])) ? $_POST['id_concepto'] : '';
 $id_umedida = (isset($_POST['id_umedida'])) ? $_POST['id_umedida'] : '';
 $uso = (isset($_POST['uso'])) ? $_POST['uso'] : '';
 
+$concepto = ucfirst(strtolower($concepto));
+
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO concepto (nom_concepto,id_t_concepto,id_subt_concepto,id_umedida,uso_mat) VALUES('$concepto','$id_tipo','$id_subtipo','$id_umedida','$uso')";
+        $consulta = "INSERT INTO concepto (nom_concepto,id_t_concepto,id_subt_concepto,id_umedida,tipo) VALUES('$concepto','$id_tipo','$id_subtipo','$id_umedida','$uso')";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
@@ -26,7 +28,7 @@ switch ($opcion) {
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE concepto SET nom_concepto='$concepto',id_umedida='$id_umedida',id_t_concepto='$id_tipo',id_subt_concepto='$id_subtipo',uso_mat='$uso' WHERE id_concepto='$id_concepto'";
+        $consulta = "UPDATE concepto SET nom_concepto='$concepto',id_umedida='$id_umedida',id_t_concepto='$id_tipo',id_subt_concepto='$id_subtipo',tipo='$uso' WHERE id_concepto='$id_concepto'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 

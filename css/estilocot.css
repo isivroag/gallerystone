@@ -10,18 +10,18 @@ p,
 label,
 span,
 table {
-    font-family: 'BrixSansRegular';
+    /*font-family: 'BrixSansRegular';*/
     font-size: 10pt;
 }
 
 
 .empresa {
-    font-family: 'BrixSansBlack';
+    /*font-family: 'BrixSansBlack';*/
     font-size: 16pt;
 }
 
 .encabezado {
-    font-family: 'BrixSansBlack';
+   /* font-family: 'BrixSansBlack';*/
     font-size: 12pt;
     display: block;
     background: #ec6c2b;
@@ -131,7 +131,7 @@ table {
 }
 
 #detalle_totales span {
-    font-family: 'BrixSansBlack';
+    /*font-family: 'BrixSansBlack';*/
 }
 
 .nota {

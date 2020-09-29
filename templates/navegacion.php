@@ -57,7 +57,7 @@
             <li class="nav-item">
               <a href="cntainsumo.php" class="nav-link <?php echo ($pagina == 'insumo') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-gem nav-icon"></i>
-                <p>Insumo</p>
+                <p>Materia Prima</p>
               </a>
             </li>
 

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var id, opcion;
 
 
@@ -13,14 +13,14 @@ $(document).ready(function() {
 
 
         "columnDefs": [{
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"
-            },
-            { className: "text-center", "targets": [4] },
-            { className: "text-center", "targets": [5] },
-            { className: "text-right", "targets": [6] },
-            { className: "text-right", "targets": [7] }
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"
+        },
+        { className: "text-center", "targets": [4] },
+        { className: "text-center", "targets": [5] },
+        { className: "text-right", "targets": [6] },
+        { className: "text-right", "targets": [7] }
         ],
 
 
@@ -154,7 +154,7 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on("click", "#bcliente", function() {
+    $(document).on("click", "#bcliente", function () {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
@@ -163,30 +163,75 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click", "#bconcepto", function() {
+    $(document).on("click", "#bconcepto", function () {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
         $("#modalConcepto").modal("show");
 
+        $("#claveconcepto").val("");
+        $("#concepto").val("");
+        $("#id_umedida").val("");
+        $("#usomat").val("");
+        $("#nom_umedida").val("");
+        $("#bmaterial").prop('disabled', true);
+        $("#clavemat").val("");
+        $("#material").val("");
+        $("#clave").val("");
+        $("#idprecio").val("");
+        $("#unidad").val("");
+
+        $("#precio").val("");
+        $("#cantidad").val("");
+        $("#cantidad").prop('disabled', true);
+
+
+
+
+
+
+
     });
 
-    $(document).on("click", "#bmaterial", function() {
+    $(document).on("click", "#bmaterial", function () {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
         $("#modalMaterial").modal("show");
 
+
+
+
+        $("#clavemat").val("");
+        $("#material").val("");
+        $("#clave").val("");
+        $("#idprecio").val("");
+        $("#unidad").val("");
+
+        $("#precio").val("");
+        $("#cantidad").val("");
+        $("#cantidad").prop('disabled', true);
+
     });
 
-    $(document).on("click", "#bprecio", function() {
+    $(document).on("click", "#bprecio", function () {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
         $("#modalPrecio").modal("show");
+
+
+
+
+        $("#idprecio").val("");
+        $("#unidad").val("");
+
+        $("#precio").val("");
+        $("#cantidad").val("");
+        $("#cantidad").prop('disabled', true);
 
     });
 
@@ -209,7 +254,7 @@ $(document).ready(function() {
             });
         });
     */
-    $(document).on("click", ".btnSelCliente", function() {
+    $(document).on("click", ".btnSelCliente", function () {
         fila = $(this).closest("tr");
 
         IdCliente = fila.find('td:eq(0)').text();
@@ -232,7 +277,7 @@ $(document).ready(function() {
             url: "bd/tmppres.php",
             dataType: "json",
             data: { IdCliente: IdCliente, tokenid: tokenid, folio: folio, opcion: opcion },
-            success: function(res) {
+            success: function (res) {
 
                 if (res == 0) {
                     Swal.fire({
@@ -248,7 +293,7 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click", "#btnGuardar", function() {
+    $(document).on("click", "#btnGuardar", function () {
         folio = $('#folio').val();
 
         $.ajax({
@@ -257,7 +302,7 @@ $(document).ready(function() {
             url: "bd/trasladopres.php",
             dataType: "json",
             data: { folio: folio },
-            success: function(res) {
+            success: function (res) {
 
                 if (res == 0) {
                     Swal.fire({
@@ -272,7 +317,7 @@ $(document).ready(function() {
                         icon: 'success',
                     })
 
-                    window.setTimeout(function() {
+                    window.setTimeout(function () {
                         window.location.href = "pres.php?folio=" + res;
                     }, 1000);
 
@@ -284,7 +329,7 @@ $(document).ready(function() {
 
 
 
-    $(document).on("click", "#btnGuardarHead", function() {
+    $(document).on("click", "#btnGuardarHead", function () {
 
         IdCliente = $("#id_pros").val();
         fecha = $("#fecha").val();
@@ -307,7 +352,7 @@ $(document).ready(function() {
             url: "bd/tmppres.php",
             dataType: "json",
             data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion },
-            success: function(res) {
+            success: function (res) {
 
                 if (res == 0) {
                     Swal.fire({
@@ -323,7 +368,7 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click", ".btnBorrar", function() {
+    $(document).on("click", ".btnBorrar", function () {
 
         fila = $(this);
 
@@ -348,7 +393,7 @@ $(document).ready(function() {
                 dataType: "json",
                 data: { id: id, total: total, folio: folio, opcion: opcion },
 
-                success: function() {
+                success: function () {
 
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
@@ -359,7 +404,7 @@ $(document).ready(function() {
     });
 
 
-    $(document).on("click", ".btnSelConcepto", function() {
+    $(document).on("click", ".btnSelConcepto", function () {
         fila = $(this).closest("tr");
 
         idConcepto = fila.find('td:eq(0)').text();
@@ -387,7 +432,7 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click", ".btnSelMaterial", function() {
+    $(document).on("click", ".btnSelMaterial", function () {
         fila = $(this).closest("tr");
 
         idMaterial = fila.find('td:eq(0)').text();
@@ -405,7 +450,7 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click", ".btnSelPrecio", function() {
+    $(document).on("click", ".btnSelPrecio", function () {
         fila = $(this).closest("tr");
 
         idPrecio = fila.find('td:eq(0)').text();
@@ -417,23 +462,31 @@ $(document).ready(function() {
                 */
         $("#idprecio").val(idPrecio);
         $("#unidad").val(unidad);
-        
+
         $("#precio").val(PrecioMaterial);
-        
+
         $("#cantidad").prop('disabled', false);
         $("#modalPrecio").modal("hide");
 
 
     });
 
-    $(document).on("click", "#btlimpiar", function() {
+    $(document).on("click", "#btlimpiar", function () {
 
 
-        $("#clavemat").val("");
-        $("#material").val("");
-        $("#precio").val("");
         $("#claveconcepto").val("");
         $("#concepto").val("");
+        $("#id_umedida").val("");
+        $("#usomat").val("");
+        $("#nom_umedida").val("");
+        $("#bmaterial").prop('disabled', true);
+        $("#clavemat").val("");
+        $("#material").val("");
+        $("#clave").val("");
+        $("#idprecio").val("");
+        $("#unidad").val("");
+
+        $("#precio").val("");
         $("#cantidad").val("");
 
         $("#cantidad").prop('disabled', true);
@@ -441,7 +494,7 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click", "#btnagregar", function() {
+    $(document).on("click", "#btnagregar", function () {
 
         folio = $("#folio").val();
         idconcepto = $("#claveconcepto").val();
@@ -482,7 +535,7 @@ $(document).ready(function() {
                 url: "bd/detalletemp.php",
                 dataType: "json",
                 data: { folio: folio, idconcepto: idconcepto, id_item: id_item, id_precio: id_precio, precio: precio, cantidad: cantidad, total: total, opcion: opcion },
-                success: function(data) {
+                success: function (data) {
                     console.log(data)
                     id_reg = data[0].id_reg;
                     nom_concepto = data[0].nom_concepto;
@@ -496,6 +549,22 @@ $(document).ready(function() {
 
                     tablaVis.row.add([id_reg, nom_concepto, nom_item, formato, cantidad, nom_umedida, precio, total]).draw();
                     buscartotal();
+
+                    $("#claveconcepto").val("");
+                    $("#concepto").val("");
+                    $("#id_umedida").val("");
+                    $("#usomat").val("");
+                    $("#nom_umedida").val("");
+                    $("#bmaterial").prop('disabled', true);
+                    $("#clavemat").val("");
+                    $("#material").val("");
+                    $("#clave").val("");
+                    $("#idprecio").val("");
+                    $("#unidad").val("");
+
+                    $("#precio").val("");
+                    $("#cantidad").val("");
+                    $("#cantidad").prop('disabled', true);
 
 
 
@@ -528,7 +597,7 @@ $(document).ready(function() {
             url: "bd/buscarprecio.php",
             dataType: "json",
             data: { id: id, id_umedida: id_umedida },
-            success: function(res) {
+            success: function (res) {
 
 
                 for (var i = 0; i < res.length; i++) {
@@ -554,7 +623,7 @@ $(document).ready(function() {
             url: "bd/buscartotal.php",
             dataType: "json",
             data: { folio: folio },
-            success: function(res) {
+            success: function (res) {
                 $("#total").val(res[0].total);
 
             }
@@ -566,12 +635,9 @@ $(document).ready(function() {
 
         tablaMat.clear();
         tablaMat.draw();
-        var tipo = $("#usomat").val();
-        if (tipo == "Si") {
-            tipoitem = "Material";
-        } else {
-            tipoitem = "Servicio";
-        }
+        tipoitem = $("#usomat").val();
+        console.log(tipoitem);
+
 
         $.ajax({
             type: "POST",
@@ -579,7 +645,7 @@ $(document).ready(function() {
             dataType: "json",
             data: { tipoitem: tipoitem },
 
-            success: function(res) {
+            success: function (res) {
 
 
                 for (var i = 0; i < res.length; i++) {

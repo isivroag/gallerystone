@@ -109,7 +109,7 @@ $message = "";
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="nombre" class="col-form-label">Nombre:</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre">
+                                        <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre">
                                     </div>
                                 </div>
 

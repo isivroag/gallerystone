@@ -13,6 +13,9 @@ $concepto = (isset($_POST['proyecto'])) ? $_POST['proyecto'] : '';
 $ubicacion = (isset($_POST['ubicacion'])) ? $_POST['ubicacion'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
+$concepto = ucfirst(strtolower($concepto));
+$ubicacion = ucfirst(strtolower($ubicacion));
+
 
 switch ($opcion) {
     case 1: //alta

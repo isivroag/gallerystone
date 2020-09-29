@@ -74,7 +74,7 @@ $message = "";
                                             <th>Subtipo</th>
                                             <th>Id Unidad</th>
                                             <th>Unidad</th>
-                                            <th>Cotizar Mat.</th>
+                                            <th>Clasificación</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -91,7 +91,7 @@ $message = "";
                                                 <td><?php echo $dat['nom_subtipo'] ?></td>
                                                 <td><?php echo $dat['id_umedida'] ?></td>
                                                 <td><?php echo $dat['nom_umedida'] ?></td>
-                                                <td><?php echo $dat['uso_mat'] ?></td>
+                                                <td><?php echo $dat['tipo'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -170,10 +170,11 @@ $message = "";
 
                                 <div class="col-sm-6">
                                     <div class="form-group input-group-sm">
-                                        <label for="uso" class="col-form-label">Cotizar Material:</label>
+                                        <label for="uso" class="col-form-label">Clasificación:</label>
                                         <select class="form-control" name="uso" id="uso">
-                                            <option id="Si" value="Si">SI</option>
-                                            <option id="No" value="NO">NO</option>
+                                            <option id="material" value="Material">Material</option>
+                                            <option id="servicio" value="Servicio">Servicio</option>
+                                            <option id="producto" value="Producto">Producto</option>
 
                                         </select>
                                     </div>
@@ -182,7 +183,7 @@ $message = "";
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="nombre" class="col-form-label">Concepto:</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre">
+                                        <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre del concepto">
                                     </div>
                                 </div>
 

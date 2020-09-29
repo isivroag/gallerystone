@@ -14,6 +14,8 @@ $precio = (isset($_POST['precio'])) ? $_POST['precio'] : '';
 $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
 $total= (isset($_POST['total'])) ? $_POST['total'] : '';
 
+
+
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $id= (isset($_POST['id'])) ? $_POST['id'] : '';
 

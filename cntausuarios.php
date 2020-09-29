@@ -129,12 +129,12 @@ $message = "";
 
                                 <div class="form-group">
                                     <label for="nombre" class="col-form-label">Nombre:</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre">
+                                    <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="username" class="col-form-label">Nombre de Usuario:</label>
-                                    <input type="text" class="form-control" name="username" id="username">
+                                    <input type="text" class="form-control" name="username" id="username" autocomplete="off" placeholder="Login">
                                 </div>
                                 <div class="form-group">
                                     <label for="pass1" class="col-form-label">Contraseña:</label>

@@ -17,6 +17,14 @@ $cel = (isset($_POST['cel'])) ? $_POST['cel'] : '';
 $correo = (isset($_POST['correo'])) ? $_POST['correo'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
+$nombre = ucfirst(strtolower($nombre));
+$calle = ucfirst(strtolower($calle));
+$col = ucfirst(strtolower($col));
+$cd = ucfirst(strtolower($cd));
+$edo = ucfirst(strtolower($edo));
+
+
+
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){

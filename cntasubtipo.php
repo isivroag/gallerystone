@@ -115,7 +115,7 @@ $message = "";
                                 <div class="col-sm-6">
                                 <div class="form-group input-group-sm auto">
                                     <label for="tipo" class="col-form-label">Tipo:</label>
-                                    <select class="form-control" name="tipo" id="tipo">
+                                    <select class="form-control" name="tipo" id="tipo" autocomplete="off" placeholder="Tipo">
                                         <?php
                                             foreach ($datat as $dtt)
                                             {
@@ -132,7 +132,7 @@ $message = "";
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="nombre" class="col-form-label">Nombre:</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre">
+                                        <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre">
                                     </div>
                                 </div>
 
