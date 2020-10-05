@@ -34,7 +34,7 @@ if(isset($_SESSION["s_usuario"])){
 <body class="hold-transition login-page" style="background:white">
 <div class="login-box">
   <div class="login-logo">
-    <img src="img/LOGOF.PNG" alt="">
+    <img src="img/logof.png" alt="">
     
   </div>
   <!-- /.login-logo -->

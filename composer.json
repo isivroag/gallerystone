@@ -1,0 +1,6 @@
+{"require": {
+    "spipu/html2pdf":"*.*",
+    "dompdf/dompdf": "*.*"
+}
+
+}

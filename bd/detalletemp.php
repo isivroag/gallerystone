@@ -19,7 +19,7 @@ $id= (isset($_POST['id'])) ? $_POST['id'] : '';
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO detalle_tmp (folio_pres,id_concepto,id_item,id_precio,precio,cantidad,total) values ('$folio','$id_concepto','$id_item','$id_precio','$precio','$cantidad','$total')";
+        $consulta = "INSERT INTO detalle_tmp (folio_pres,id_concepto,id_item,id_precio,precio,cantidad,total) VALUES ('$folio','$id_concepto','$id_item','$id_precio','$precio','$cantidad','$total')";
         
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -28,7 +28,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta = "SELECT * FROM vdetalle_tmp WHERE folio_pres='$folio' ORDER BY id_reg desc limit 1";
+        $consulta = "SELECT * FROM vdetalle_tmp WHERE folio_pres='$folio' ORDER BY id_reg DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

@@ -9,6 +9,9 @@
 
 	require_once '../pdf/vendor/autoload.php';
 	use Dompdf\Dompdf;
+	
+
+	
 			
 			
 			ob_start();
@@ -17,8 +20,9 @@
 
 			// instantiate and use the dompdf class
 			$dompdf = new Dompdf();
+			
 
-			$dompdf->loadHtml($html);
+			$dompdf->loadHtml($html,'UTF-8');
 			// (Optional) Setup the paper size and orientation
 			$dompdf->setPaper('letter', 'portrait');
 			// Render the HTML as PDF

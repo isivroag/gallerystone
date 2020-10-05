@@ -30,7 +30,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta = "SELECT * FROM vdetalle_pres WHERE folio_pres='$folio' ORDER BY id_reg desc limit 1";
+        $consulta = "SELECT * FROM vdetalle_pres WHERE folio_pres='$folio' ORDER BY id_reg DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

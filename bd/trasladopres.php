@@ -28,7 +28,7 @@ foreach ($dt as $row) {
     $total = $row['total'];
 }
 
-$consulta = "UPDATE tmp_pres set estado_pres=2 WHERE folio_pres='$folio'";
+$consulta = "UPDATE tmp_pres SET estado_pres=2 WHERE folio_pres='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
@@ -61,7 +61,7 @@ foreach ($dt as $row) {
     $cantidad = $row['cantidad'];
     $total = $row['total'];
 
-    $consultain = "INSERT INTO detalle_pres (folio_pres,id_concepto,id_item,id_precio,precio,cantidad,total) values ('$foliopres','$id_concepto','$id_item','$id_precio','$precio','$cantidad','$total')";
+    $consultain = "INSERT INTO detalle_pres (folio_pres,id_concepto,id_item,id_precio,precio,cantidad,total) VALUES ('$foliopres','$id_concepto','$id_item','$id_precio','$precio','$cantidad','$total')";
     $resultadoin = $conexion->prepare($consultain);
     $resultadoin->execute();
 }

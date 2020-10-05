@@ -1,10 +1,11 @@
-@import url('fonts/BrixSansRegular.css');
-@import url('fonts/BrixSansBlack.css');
+/*@import url('fonts/BrixSansRegular.css');
+@import url('fonts/BrixSansBlack.css');*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 
 p,
 label,
@@ -31,14 +32,14 @@ table {
     margin-bottom: 5px;
 }
 
-#page_pdf {
+.page_pdf {
     width: 95%;
     margin: 15px auto ;
 }
 
-#factura_head,
-#factura_cliente,
-#factura_detalle {
+.factura_head,
+.factura_cliente,
+.factura_detalle {
     width: 100%;
     margin-bottom: 10px;
 }
@@ -105,12 +106,12 @@ table {
     padding: 0 15px;
 }
 
-#factura_detalle {
+.factura_detalle {
     border-collapse: collapse;
 
 }
 
-#factura_detalle thead th {
+.factura_detalle thead th {
     background: #ec6c2b;
     color: #FFF;
     padding: 3px;
@@ -119,20 +120,20 @@ table {
 
 
 
-#detalle_productos tr:nth-child(even) {
+.detalle_productos tr:nth-child(even) {
     background: #ededed;
    
 
 }
-#detalle_productos tr {
+.detalle_productos tr {
     padding: 5px;
    line-height: 15px;;
 
 }
 
-#detalle_totales span {
-    /*font-family: 'BrixSansBlack';*/
-}
+/*.detalle_totales span {
+    font-family: 'BrixSansBlack';
+}*/
 
 .nota {
     font-size: 8pt;

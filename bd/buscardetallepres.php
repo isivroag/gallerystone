@@ -9,7 +9,7 @@ $conexion = $objeto->connect();
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 
 
-$consulta = "SELECT * FROM vdetalle_pres where folio_pres='$folio' order by id_reg";
+$consulta = "SELECT * FROM vdetalle_pres WHERE folio_pres='$folio' ORDER BY id_reg";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

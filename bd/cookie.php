@@ -17,7 +17,7 @@ if ($id_usuario != '' && $pass!='') {
 
 
 
-        $consulta = "SELECT * FROM w_usuario where username='$id_usuario' AND password='$pass'";
+        $consulta = "SELECT * FROM w_usuario WHERE username='$id_usuario' AND password='$pass'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 

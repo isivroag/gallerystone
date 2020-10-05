@@ -9,7 +9,7 @@ $conexion = $objeto->connect();
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 
 
-$consulta = "SELECT * FROM vtmppres where folio_pres='$folio'";
+$consulta = "SELECT * FROM vtmppres WHERE folio_pres='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
