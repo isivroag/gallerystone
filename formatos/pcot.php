@@ -95,8 +95,8 @@ if ($folio != "") {
 	<div class="page_pdf">
 		<div>
 			<table class="factura_head">
-				<tbody>
-					<tr>
+				
+					
 						<td class="logo_factura">
 							<div>
 								<img style="width:180px;" src="../img/logof.png">
@@ -121,8 +121,8 @@ if ($folio != "") {
 							</div>
 						</td>
 
-					</tr>
-				</tbody>
+					
+				
 			</table>
 		</div>
 		<div>

@@ -5,7 +5,7 @@
     use Spipu\Html2Pdf\Html2Pdf;
 
     ob_start();
-	include(dirname('__FILE__').'/pcot.php');
+	include(dirname('__FILE__').'/pcotizacion.php');
     $html = ob_get_clean();
     
     $html2pdf =new HTML2PDF('P','A4','es','true','UTF-8');

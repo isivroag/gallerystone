@@ -159,3 +159,8 @@ table {
     border: 1px solid black;
     border-collapse: collapse;
 }
+
+table { overflow: visible !important; }
+thead { display: table-header-group }
+tfoot { display: table-row-group }
+tr { page-break-inside: avoid }

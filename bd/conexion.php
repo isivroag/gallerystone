@@ -4,9 +4,9 @@
         function connect(){
         
             define('servidor','localhost');
-            define('bd_nombre','c0110108_gs');
-            define('usuario','c0110108_gs');
-            define('password','GS2020erp');
+            define('bd_nombre','tecniemc_gs');
+            define('usuario','tecniemc_gs');
+            define('password','GS2020erptec');
 
             $opciones=array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 
