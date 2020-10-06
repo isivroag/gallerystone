@@ -162,7 +162,7 @@ $(document).ready(function() {
         var x = parseInt((window.screen.width / 2) - (ancho / 2));
         var y = parseInt((window.screen.height / 2) - (alto / 2));
 
-        url = "formatos/generacot.php?folio=" + folio;
+        url = "formatos/pdf.php?folio=" + folio;
         console.log(url)
         window.open(url, "Presupuesto", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
 
@@ -177,7 +177,7 @@ $(document).ready(function() {
         var x = parseInt((window.screen.width / 2) - (ancho / 2));
         var y = parseInt((window.screen.height / 2) - (alto / 2));
 
-        url = "formatos/enviarcot.php?folio=" + folio + "&correo=" + correo;
+        url = "formatos/enviarcotizacion.php?folio=" + folio + "&correo=" + correo;
         console.log(url)
         window.open(url, "Presupuesto", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
 

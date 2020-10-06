@@ -1,28 +1,32 @@
-/*@import url('fonts/BrixSansRegular.css');
-@import url('fonts/BrixSansBlack.css');*/
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
 p,
 label,
 span,
 table {
-    /*font-family: 'BrixSansRegular';*/
+  
     font-size: 10pt;
 }
 
 
 .empresa {
-    /*font-family: 'BrixSansBlack';*/
+   
     font-size: 16pt;
 }
 
 .encabezado {
-   /* font-family: 'BrixSansBlack';*/
+ 
     font-size: 12pt;
     display: block;
     background: #ec6c2b;
@@ -131,9 +135,6 @@ table {
 
 }
 
-/*.detalle_totales span {
-    font-family: 'BrixSansBlack';
-}*/
 
 .nota {
     font-size: 8pt;
@@ -164,3 +165,19 @@ table { overflow: visible !important; }
 thead { display: table-header-group }
 tfoot { display: table-row-group }
 tr { page-break-inside: avoid }
+
+#logo {
+    float: left;
+    margin-top: 8px;
+  }
+
+  #company {
+    float: center;
+    text-align: center;
+  }
+
+  #folio {
+    float: right;
+    text-align: center;
+  }
+

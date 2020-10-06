@@ -6,8 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Svg\\' => array($vendorDir . '/phenx/php-svg-lib/src/Svg'),
-    'Spipu\\Html2Pdf\\' => array($vendorDir . '/spipu/html2pdf/src'),
-    'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
-    'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
+    'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'Mpdf\\' => array($vendorDir . '/mpdf/mpdf/src'),
+    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
 );
