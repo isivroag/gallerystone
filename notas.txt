@@ -1,0 +1,8 @@
+11/10/2020
+Cambios en las tablas presupuesto y tmp_pres
+
+ALTER TABLE presupuesto ADD COLUMN total DECIMAL(10,2) GENERATED ALWAYS AS (ROUND((subtotal* 1.16),2)) ;
+ALTER TABLE presupuesto ADD COLUMN iva DECIMAL(10,2) GENERATED ALWAYS AS (ROUND(subtotal*1.16,2)-subtotal);
+
+ALTER TABLE tmp_pres ADD COLUMN total DECIMAL(10,2) GENERATED ALWAYS AS (ROUND((subtotal* 1.16),2)) ;
+ALTER TABLE tmp_pres ADD COLUMN iva DECIMAL(10,2) GENERATED ALWAYS AS (ROUND(subtotal*1.16,2)-subtotal);
