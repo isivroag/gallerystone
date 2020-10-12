@@ -26,7 +26,10 @@ if ($resultado->rowCount() >= 1) {
     $idpros = $dt['id_pros'];
     $concepto = $dt['concepto_pres'];
     $ubicacion = $dt['ubicacion'];
+    $subtotal=$dt['subtotal'];
+    
     $total=$dt['total'];
+    $iva=$dt['iva'];
   }
   if ($idpros != 0) {
     $consultapros = "SELECT nombre,correo FROM prospecto where id_pros='$idpros'";
@@ -64,6 +67,8 @@ if ($resultado->rowCount() >= 1) {
     $concepto = "";
     $ubicacion = "";
     $correo = "";
+    $subtotal="0.00";
+    $iva="0.00";
     $total="0.00";
   }
 }
@@ -399,7 +404,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" disabled>
+                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal;?>" disabled>
                       </div>
                     </div>
 
@@ -413,7 +418,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="iva" id="iva" disabled>
+                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;?>" disabled>
                       </div>
                     </div>
 

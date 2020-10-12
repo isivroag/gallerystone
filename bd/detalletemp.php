@@ -24,7 +24,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta="UPDATE tmp_pres SET total=total+'$total' WHERE folio_pres='$folio'";
+        $consulta="UPDATE tmp_pres SET subtotal=subtotal+'$total' WHERE folio_pres='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
@@ -41,7 +41,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta="UPDATE tmp_pres SET total=total-'$total' WHERE folio_pres='$folio'";
+        $consulta="UPDATE tmp_pres SET subtotal=subtotal-'$total' WHERE folio_pres='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         

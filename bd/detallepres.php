@@ -26,7 +26,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta="UPDATE presupuesto SET total=total+'$total' WHERE folio_pres='$folio'";
+        $consulta="UPDATE presupuesto SET subtotal=subtotal+'$total' WHERE folio_pres='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
@@ -43,7 +43,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta="UPDATE presupuesto SET total=total-'$total' WHERE folio_pres='$folio'";
+        $consulta="UPDATE presupuesto SET subtotal=subtotal-'$total' WHERE folio_pres='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         

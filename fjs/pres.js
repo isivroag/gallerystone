@@ -15,7 +15,7 @@ $(document).ready(function() {
         "columnDefs": [{
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"
+                "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
             },
             { className: "text-center", "targets": [4] },
             { className: "text-center", "targets": [5] },
@@ -163,7 +163,7 @@ $(document).ready(function() {
         var y = parseInt((window.screen.height / 2) - (alto / 2));
 
         url = "formatos/pdf.php?folio=" + folio;
-        console.log(url)
+
         window.open(url, "Presupuesto", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
 
     });
@@ -178,7 +178,7 @@ $(document).ready(function() {
         var y = parseInt((window.screen.height / 2) - (alto / 2));
 
         url = "formatos/enviarcotizacion.php?folio=" + folio + "&correo=" + correo;
-        console.log(url)
+
         window.open(url, "Presupuesto", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
 
     });
@@ -315,7 +315,8 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click", ".btnBorrar", function() {
+    $(document).on("click", ".btnBorrar", function(event) {
+        event.preventDefault();
 
         fila = $(this);
 
@@ -323,12 +324,9 @@ $(document).ready(function() {
         total = $(this).closest("tr").find('td:eq(7)').text();
         folio = $("#folio").val();
         opcion = 2;
-        console.log(id);
-        console.log(total);
-        console.log(folio);
-        console.log(opcion);
+
         //agregar codigo de sweatalert2
-        var respuesta = confirm("¿Está seguro de eliminar el registro: ?");
+        var respuesta = confirm("¿Está seguro de eliminar el registro?");
 
 
 
@@ -454,14 +452,9 @@ $(document).ready(function() {
         total = cantidad * PrecioMaterial;
         opcion = 1;
 
-        console.log("folio " + folio);
-        console.log("Concepto " + idconcepto);
-        console.log("Item " + id_item);
-        console.log("IdPrecio " + id_precio);
-        console.log("Precio " + precio);
-        console.log("Cantidad " + cantidad);
-        console.log("Total " + total);
-        console.log("Opcion " + opcion);
+
+
+
 
         if (folio.length != 0 && idconcepto.length != 0 && id_item.length != 0 &&
             idprecio.length != 0 && precio.length != 0 &&
@@ -473,7 +466,7 @@ $(document).ready(function() {
                 dataType: "json",
                 data: { folio: folio, idconcepto: idconcepto, id_item: id_item, id_precio: id_precio, precio: precio, cantidad: cantidad, total: total, opcion: opcion },
                 success: function(data) {
-                    console.log(data)
+
                     id_reg = data[0].id_reg;
                     nom_concepto = data[0].nom_concepto;
                     nom_item = data[0].nom_item;
@@ -545,6 +538,8 @@ $(document).ready(function() {
             dataType: "json",
             data: { folio: folio },
             success: function(res) {
+                $("#subtotal").val(res[0].subtotal);
+                $("#iva").val(res[0].iva);
                 $("#total").val(res[0].total);
 
             }
@@ -557,7 +552,7 @@ $(document).ready(function() {
         tablaMat.clear();
         tablaMat.draw();
         var tipoitem = $("#usomat").val();
-       
+
 
         $.ajax({
             type: "POST",

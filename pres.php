@@ -31,7 +31,10 @@ if ($folio != "") {
     $idpros = $dt['id_pros'];
     $concepto = $dt['concepto_pres'];
     $ubicacion = $dt['ubicacion'];
-    $total= $dt['total'];
+    $subtotal=$dt['subtotal'];
+    
+    $total=$dt['total'];
+    $iva=$dt['iva'];
   }
 
   if ($idpros != 0) {
@@ -396,7 +399,7 @@ else{
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" disabled>
+                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal;?>" disabled>
                       </div>
                     </div>
 
@@ -410,7 +413,7 @@ else{
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="iva" id="iva" disabled>
+                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;?>" disabled>
                       </div>
                     </div>
 

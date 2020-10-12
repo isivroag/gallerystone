@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var id, opcion;
 
 
@@ -13,14 +13,14 @@ $(document).ready(function () {
 
 
         "columnDefs": [{
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"
-        },
-        { className: "text-center", "targets": [4] },
-        { className: "text-center", "targets": [5] },
-        { className: "text-right", "targets": [6] },
-        { className: "text-right", "targets": [7] }
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
+            },
+            { className: "text-center", "targets": [4] },
+            { className: "text-center", "targets": [5] },
+            { className: "text-right", "targets": [6] },
+            { className: "text-right", "targets": [7] }
         ],
 
 
@@ -154,7 +154,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on("click", "#bcliente", function () {
+    $(document).on("click", "#bcliente", function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
@@ -163,7 +163,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#bconcepto", function () {
+    $(document).on("click", "#bconcepto", function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
@@ -194,7 +194,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#bmaterial", function () {
+    $(document).on("click", "#bmaterial", function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
@@ -216,7 +216,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#bprecio", function () {
+    $(document).on("click", "#bprecio", function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
@@ -254,7 +254,7 @@ $(document).ready(function () {
             });
         });
     */
-    $(document).on("click", ".btnSelCliente", function () {
+    $(document).on("click", ".btnSelCliente", function() {
         fila = $(this).closest("tr");
 
         IdCliente = fila.find('td:eq(0)').text();
@@ -277,7 +277,7 @@ $(document).ready(function () {
             url: "bd/tmppres.php",
             dataType: "json",
             data: { IdCliente: IdCliente, tokenid: tokenid, folio: folio, opcion: opcion },
-            success: function (res) {
+            success: function(res) {
 
                 if (res == 0) {
                     Swal.fire({
@@ -293,7 +293,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#btnGuardar", function () {
+    $(document).on("click", "#btnGuardar", function() {
         folio = $('#folio').val();
 
         $.ajax({
@@ -302,7 +302,7 @@ $(document).ready(function () {
             url: "bd/trasladopres.php",
             dataType: "json",
             data: { folio: folio },
-            success: function (res) {
+            success: function(res) {
 
                 if (res == 0) {
                     Swal.fire({
@@ -317,7 +317,7 @@ $(document).ready(function () {
                         icon: 'success',
                     })
 
-                    window.setTimeout(function () {
+                    window.setTimeout(function() {
                         window.location.href = "pres.php?folio=" + res;
                     }, 1000);
 
@@ -329,7 +329,7 @@ $(document).ready(function () {
 
 
 
-    $(document).on("click", "#btnGuardarHead", function () {
+    $(document).on("click", "#btnGuardarHead", function() {
 
         IdCliente = $("#id_pros").val();
         fecha = $("#fecha").val();
@@ -352,7 +352,7 @@ $(document).ready(function () {
             url: "bd/tmppres.php",
             dataType: "json",
             data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion },
-            success: function (res) {
+            success: function(res) {
 
                 if (res == 0) {
                     Swal.fire({
@@ -368,20 +368,17 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", ".btnBorrar", function () {
-
+    $(document).on("click", ".btnBorrar", function(event) {
+        event.preventDefault();
         fila = $(this);
 
         id = parseInt($(this).closest("tr").find('td:eq(0)').text());
         total = $(this).closest("tr").find('td:eq(7)').text();
         folio = $("#folio").val();
         opcion = 2;
-        console.log(id);
-        console.log(total);
-        console.log(folio);
-        console.log(opcion);
+
         //agregar codigo de sweatalert2
-        var respuesta = confirm("¿Está seguro de eliminar el registro: ?");
+        var respuesta = confirm("¿Está seguro de eliminar el registro?");
 
 
 
@@ -393,7 +390,7 @@ $(document).ready(function () {
                 dataType: "json",
                 data: { id: id, total: total, folio: folio, opcion: opcion },
 
-                success: function () {
+                success: function() {
 
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
@@ -404,7 +401,7 @@ $(document).ready(function () {
     });
 
 
-    $(document).on("click", ".btnSelConcepto", function () {
+    $(document).on("click", ".btnSelConcepto", function() {
         fila = $(this).closest("tr");
 
         idConcepto = fila.find('td:eq(0)').text();
@@ -432,7 +429,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", ".btnSelMaterial", function () {
+    $(document).on("click", ".btnSelMaterial", function() {
         fila = $(this).closest("tr");
 
         idMaterial = fila.find('td:eq(0)').text();
@@ -450,7 +447,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", ".btnSelPrecio", function () {
+    $(document).on("click", ".btnSelPrecio", function() {
         fila = $(this).closest("tr");
 
         idPrecio = fila.find('td:eq(0)').text();
@@ -471,7 +468,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#btlimpiar", function () {
+    $(document).on("click", "#btlimpiar", function() {
 
 
         $("#claveconcepto").val("");
@@ -494,7 +491,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#btnagregar", function () {
+    $(document).on("click", "#btnagregar", function() {
 
         folio = $("#folio").val();
         idconcepto = $("#claveconcepto").val();
@@ -517,14 +514,7 @@ $(document).ready(function () {
         total = cantidad * PrecioMaterial;
         opcion = 1;
 
-        console.log("folio " + folio);
-        console.log("Concepto " + idconcepto);
-        console.log("Item " + id_item);
-        console.log("IdPrecio " + id_precio);
-        console.log("Precio " + precio);
-        console.log("Cantidad " + cantidad);
-        console.log("Total " + total);
-        console.log("Opcion " + opcion);
+
 
         if (folio.length != 0 && idconcepto.length != 0 && id_item.length != 0 &&
             idprecio.length != 0 && precio.length != 0 &&
@@ -535,8 +525,8 @@ $(document).ready(function () {
                 url: "bd/detalletemp.php",
                 dataType: "json",
                 data: { folio: folio, idconcepto: idconcepto, id_item: id_item, id_precio: id_precio, precio: precio, cantidad: cantidad, total: total, opcion: opcion },
-                success: function (data) {
-                    console.log(data)
+                success: function(data) {
+
                     id_reg = data[0].id_reg;
                     nom_concepto = data[0].nom_concepto;
                     nom_item = data[0].nom_item;
@@ -597,7 +587,7 @@ $(document).ready(function () {
             url: "bd/buscarprecio.php",
             dataType: "json",
             data: { id: id, id_umedida: id_umedida },
-            success: function (res) {
+            success: function(res) {
 
 
                 for (var i = 0; i < res.length; i++) {
@@ -623,7 +613,13 @@ $(document).ready(function () {
             url: "bd/buscartotal.php",
             dataType: "json",
             data: { folio: folio },
-            success: function (res) {
+            success: function(res) {
+
+
+                $("#subtotal").val(res[0].subtotal);
+
+
+                $("#iva").val(res[0].iva);
                 $("#total").val(res[0].total);
 
             }
@@ -636,7 +632,7 @@ $(document).ready(function () {
         tablaMat.clear();
         tablaMat.draw();
         tipoitem = $("#usomat").val();
-        console.log(tipoitem);
+
 
 
         $.ajax({
@@ -645,7 +641,7 @@ $(document).ready(function () {
             dataType: "json",
             data: { tipoitem: tipoitem },
 
-            success: function (res) {
+            success: function(res) {
 
 
                 for (var i = 0; i < res.length; i++) {
