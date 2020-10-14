@@ -1,16 +1,52 @@
 <?php
 include_once('bd/funcion.php');
-?>
 
-<body class="hold-transition sidebar-mini">
+if (isset($_COOKIE["barra"])){
+  $barra=$_COOKIE["barra"];
+}
+else{
+
+  $barra="";
+  setcookie("barra", $barra,time () + 604800,"/");
+  
+
+}
+
+
+
+?>
+<script>
+  function funcion(){
+  
+    valor=$('#barra').val();    
+    console.log("hola");
+    if (valor==""){
+      $('#barra').val("sidebar-collapse")
+      document.cookie = "barra=sidebar-collapse;max-age=3600;path=/";
+      //$.cookie.set('barra',"sidebar-callapse");
+
+    }
+    else{
+      $('#barra').val("")
+      document.cookie = "barra=;max-age=3600;path=/";
+      //$.cookie.set('barra','');
+
+    }
+
+
+};
+</script>
+
+<body class="hold-transition sidebar-mini <?php echo $barra ?>">
   <!-- Site wrapper -->
   <div class="wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <li class="nav-item"  >
+          <button class="nav-link btn btn-sm" style="border:none;background:none;" onclick="funcion()" data-widget="pushmenu" value="<?php echo $barra ?>" id="barra" href="#" ><i class="fas fa-bars"></i></button>
+          <!--<a class="nav-link" data-widget="pushmenu" id="barra" href="#" role="button"><i class="fas fa-bars"></i></a>-->
         </li>
 
 

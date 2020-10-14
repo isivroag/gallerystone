@@ -172,7 +172,7 @@
         <li class="nav-item">
           <a class="nav-link" href="bd/logout.php">
             <i class="fas fa-fw fa-sign-out-alt"></i>
-            <span>Salir</span></a>
+            <p>Salir</p></a>
         </li>
 
       </ul>

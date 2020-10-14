@@ -129,7 +129,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-body">
 
               <div class="table-responsive" style="padding: 10px;">
-                <table name="tablaV" id="tablaV" class="table table-striped no-wraped table-bordered table-condensed mx-auto" style="width:100%">
+                <table name="tablaV" id="tablaV" class="table table-striped table-sm no-wraped table-bordered table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-info">
                     <tr>
                       <th>Folio</th>
@@ -148,7 +148,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                         <td><?php echo $dat['folio_pres'] ?></td>
                         <td><?php echo $dat['fecha_pres'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
-                        <td class="text-right"><?php echo "$ ".number_format( $dat['total'],2) ?></td>
+                        <td class="text-right"><?php echo "$ ".number_format( $dat['subtotal'],2) ?></td>
                         
                       </tr>
                     <?php
@@ -188,7 +188,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="card-body">
             <div class="table-responsive" style="padding: 10px;">
-                <table name="tablaC" id="tablaC" class="table table-striped table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                <table name="tablaC" id="tablaC" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-primary">
                     <tr>
                       <th>Folio</th>
