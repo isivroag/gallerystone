@@ -47,9 +47,9 @@
 
 
           <ul class="nav nav-treeview">
-          <li class="nav-item">
+            <li class="nav-item">
               <a href="cntaumedida.php" class="nav-link <?php echo ($pagina == 'umedida') ? "active seleccionado" : ""; ?>  ">
-              <i class="fas fa-ruler-combined nav-icon"></i>
+                <i class="fas fa-ruler-combined nav-icon"></i>
                 <p>Unidad de Medida</p>
               </a>
             </li>
@@ -81,13 +81,7 @@
                 <p>Materiales y Servicios</p>
               </a>
             </li>
-<!--
-            <li class="nav-item">
-              <a href="#" class="nav-link <?php // echo ($pagina == 'formato') ? "active seleccionado" : ""; ?>  ">
-                <i class="fas fa-file-invoice-dollar nav-icon"></i>
-                <p>Formato/Precio</p>
-              </a>
-            </li>-->
+
             <li class="nav-item">
               <a href="cntaconcepto.php" class="nav-link <?php echo ($pagina == 'concepto') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-toolbox nav-icon"></i>
@@ -100,24 +94,19 @@
                 <p>Tipos</p>
               </a>
             </li>
+
             <li class="nav-item">
               <a href="cntasubtipo.php" class="nav-link <?php echo ($pagina == 'subtipo') ? "active seleccionado" : ""; ?> ">
                 <i class="fas fa-stream  nav-icon"></i>
                 <p>Subtipos</p>
               </a>
             </li>
-<!--
-            <li class="nav-item">
-              <a href="cntaservicio.php" class="nav-link  <?php //echo ($pagina == 'servicio') ? "active seleccionado" : ""; ?> ">
-                <i class="fas fa-hammer nav-icon"></i>
-                <p>Servicios</p>
-              </a>
-            </li>
--->
 
 
           </ul>
+
         </li>
+
 
         <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto') ? "menu-open" : ""; ?>">
 
@@ -155,6 +144,40 @@
         </li>
 
 
+        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina== 'partida' ) ? "menu-open" : ""; ?>">
+
+
+          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina== 'partida') ? "active" : ""; ?>">
+            <i class="nav-icon fas fa-grip-horizontal "></i>
+            <p>
+              Gestión de Egresos
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+          <li class="nav-item">
+              <a href="cntapartida.php" class="nav-link <?php echo ($pagina == 'partida') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                <p>Partidas</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntaproveedor.php" class="nav-link <?php echo ($pagina == 'proveedor') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-people-carry nav-icon"></i>
+                <p>Proveedores</p>
+              </a>
+            </li>
+           
+
+
+
+          </ul>
+        </li>
+
+
+
         <?php if ($_SESSION['s_rol'] == '2') {
         ?>
           <hr class="sidebar-divider">
@@ -172,7 +195,8 @@
         <li class="nav-item">
           <a class="nav-link" href="bd/logout.php">
             <i class="fas fa-fw fa-sign-out-alt"></i>
-            <p>Salir</p></a>
+            <p>Salir</p>
+          </a>
         </li>
 
       </ul>
