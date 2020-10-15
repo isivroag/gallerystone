@@ -144,10 +144,10 @@
         </li>
 
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina== 'partida' ) ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina== 'partida' || $pagina== 'cxp') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina== 'partida') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina== 'partida' || $pagina== 'cxp') ? "active" : ""; ?>">
             <i class="nav-icon fas fa-grip-horizontal "></i>
             <p>
               Gestión de Egresos
@@ -170,7 +170,12 @@
               </a>
             </li>
            
-
+            <li class="nav-item">
+              <a href="cntacxp.php" class="nav-link <?php echo ($pagina == 'cxp') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                <p>Cuentas por Pagar</p>
+              </a>
+            </li>
 
 
           </ul>
