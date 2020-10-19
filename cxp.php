@@ -1,4 +1,3 @@
-
 <?php
 $pagina = "cxp";
 
@@ -11,13 +10,13 @@ include_once 'bd/conexion.php';
 
 $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
 $objeto = new conn();
-  $conexion = $objeto->connect();
-  $tokenid = md5($_SESSION['s_usuario']);
+$conexion = $objeto->connect();
+$tokenid = md5($_SESSION['s_usuario']);
 
 if ($folio != "") {
-  
 
-  $consulta = "SELECT * FROM cxp where folio_cxp='$folio'";
+
+  $consulta = "SELECT * FROM vcxp where folio_cxp='$folio'";
 
   $resultado = $conexion->prepare($consulta);
   $resultado->execute();
@@ -26,21 +25,21 @@ if ($folio != "") {
   $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
   foreach ($data as $dt) {
-    $folio = $dt['folio_pres'];
+    $folio = $dt['folio_cxp'];
 
     $fecha = $dt['fecha'];
     $fecha_limite = $dt['fecha_limite'];
     $id_prov = $dt['id_prov'];
     $nombre = $dt['nombre'];
     $id_partida = $dt['id_partida'];
-    $nom_partida=$dt['nom_partida'];
-    $concepto=$dt['concepto'];
-    $facturado=$dt['facturado'];
-    $referencia=$dt['referencia'];
-    $subtotal=$dt['subtotal'];
-    $total=$dt['total'];
-    $iva=$dt['iva'];
-    $saldo=$dt['saldo'];
+    $nom_partida = $dt['nom_partida'];
+    $concepto = $dt['concepto'];
+    $facturado = $dt['facturado'];
+    $referencia = $dt['referencia'];
+    $subtotal = $dt['subtotal'];
+    $total = $dt['total'];
+    $iva = $dt['iva'];
+    $saldo = $dt['saldo'];
   }
 
 
@@ -48,39 +47,33 @@ if ($folio != "") {
 
 
   $message = "";
+} else {
+  $folio = "";
 
-
-
-  
-
-}
-else{
-    $folio = "";
-
-    $fecha =  date('Y-m-d');
-    $fecha_limite = date('Y-m-d');
-    $id_prov = "";
-    $nombre = "";
-    $id_partida = "";
-    $nom_partida="";
-    $concepto="";
-    $facturado="";
-    $referencia="";
-    $subtotal=0;
-    $total=0;
-    $iva=0;
-    $saldo=0;
+  $fecha =  date('Y-m-d');
+  $fecha_limite = date('Y-m-d');
+  $id_prov = "";
+  $nombre = "";
+  $id_partida = "";
+  $nom_partida = "";
+  $concepto = "";
+  $facturado = "";
+  $referencia = "";
+  $subtotal = 0;
+  $total = 0;
+  $iva = 0;
+  $saldo = 0;
 }
 
-    $consultac = "SELECT * FROM proveedor order by id_prov";
-    $resultadoc = $conexion->prepare($consultac);
-    $resultadoc->execute();
-    $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
+$consultac = "SELECT * FROM proveedor order by id_prov";
+$resultadoc = $conexion->prepare($consultac);
+$resultadoc->execute();
+$datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
-    $consultacon = "SELECT * FROM partida order by id_partida";
-    $resultadocon = $conexion->prepare($consultacon);
-    $resultadocon->execute();
-    $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
+$consultacon = "SELECT * FROM partida order by id_partida";
+$resultadocon = $conexion->prepare($consultacon);
+$resultadocon->execute();
+$datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -110,7 +103,7 @@ else{
 
             <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square"></i> Nuevo</button>
             <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-            
+
           </div>
         </div>
 
@@ -126,12 +119,7 @@ else{
             <div class="card card-widget" style="margin-bottom:0px;">
 
               <div class="card-header bg-gradient-primary " style="margin:0px;padding:8px">
-                <div class="card-tools" style="margin:0px;padding:0px;">
-
-                  <button id="btnGuardarHead" name="btnGuardarHead" type="button" class="btn bg-gradient-orange btn-sm">
-                    <i class="far fa-save"></i>
-                  </button>
-                </div>
+               
                 <h1 class="card-title ">Datos Cuentas Por Pagar</h1>
               </div>
 
@@ -157,12 +145,12 @@ else{
 
                   <div class="col-lg-2">
                     <div class="form-group input-group-sm">
-                    <label for="fecha" class="col-form-label">Fecha:</label>
+                      <label for="fecha" class="col-form-label">Fecha:</label>
                       <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
                     </div>
                   </div>
 
-                  
+
 
 
                   <div class="col-lg-2">
@@ -175,7 +163,7 @@ else{
 
                   <div class="col-lg-5">
                     <div class="form-group">
-                      
+
                       <input type="hidden" class="form-control" name="id_partida" id="id_partida" value="<?php echo $id_partida; ?>">
                       <label for="partida" class="col-form-label">Partida:</label>
 
@@ -195,34 +183,33 @@ else{
                       <label for="fechal" class="col-form-label">Crédito /Fecha Limite:</label>
 
                       <div class="input-group input-group-sm">
-                      
+
                         <span class="input-group-prepend input-group-text">
                           <input type="checkbox" class="" name="ccredito" id="ccredito">
                         </span>
-                        
-                  
-                      <input type="date" class="form-control" name="fechal" id="fechal" value="<?php echo $fecha_limite; ?>">
-                    </div>
 
-                      
+
+                        <input type="date" class="form-control" name="fechal" id="fechal" value="<?php echo $fecha_limite; ?>" disabled>
+                      </div>
+
+
                     </div>
                   </div>
                   <div class="col-lg-2">
                     <div class="form-group input-group-sm">
-                      <label for="referencia" class="col-form-label">Facturado / No. Fact:</label>
+                      <label for="referencia" class="col-form-label">Facturado / No. Fact /Ref:</label>
                       <div class="input-group input-group-sm">
-                      
+
                         <span class="input-group-prepend input-group-text">
-                          <input type="checkbox" class="" name="ccredito" id="ccredito">
+                          <input type="checkbox" class="" name="cfactura" id="cfactura">
                         </span>
-                        
-                  
-                        <input type="text" class="form-control" name="referencia" id="referencia" value="<?php echo   $referencia; ?>">
-                    </div>
-                      
+
+
+                        <input type="text" class="form-control" name="referencia" id="referencia" value="<?php echo  $referencia; ?>">
+                      </div>
+
                     </div>
                   </div>
-
 
 
                 </div>
@@ -231,13 +218,79 @@ else{
                   <div class="col-sm-9">
 
                     <div class="form-group">
-                      <label for="proyecto" class="col-form-label">Concepto:</label>
-                      <textarea rows="2" class="form-control" name="proyecto" id="proyecto"><?php echo $concepto; ?></textarea>
+                      <label for="concepto" class="col-form-label">Concepto:</label>
+                      <textarea rows="2" class="form-control" name="concepto" id="concepto"><?php echo $concepto; ?></textarea>
                     </div>
 
                   </div>
 
-                  
+
+
+                </div>
+
+                <div class="row justify-content-sm-center">
+                <div class=" offset-lg-0 col-lg-2 ">
+                    <div class="form-group">
+                      <input type="checkbox" class="form-check-input" id="cmanual" name="cmanual">
+                      <label class="form-check-label" for="cmanual">Calculo Manual</label>
+                    </div>
+                  </div>
+
+                  <div class=" offset-lg-4 col-lg-2 ">
+                    <div class="form-group">
+                      <input type="checkbox" class="form-check-input " id="cinverso" name="cinverso">
+                      <label class="form-check-label" for="cinverso">Calculo Inverso</label>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row justify-content-sm-center" style="padding:5px 0px;margin-bottom:5px">
+
+                  <div class="col-lg-3 ">
+
+                    <label for="subtotal" class="col-form-label ">Subtotal:</label>
+
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-dollar-sign"></i>
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal; ?>">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 ">
+                    <label for="iva" class="col-form-label">IVA:</label>
+
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-dollar-sign"></i>
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva; ?>" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 ">
+                    <label for="total" class="col-form-label ">Total:</label>
+
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-dollar-sign"></i>
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total; ?>" disabled>
+                    </div>
+
+
+                  </div>
 
                 </div>
 
@@ -246,72 +299,7 @@ else{
 
             </div>
             <!-- Formulario Agrear Item -->
-           
-            <!-- Tabla -->
-            <div class="content" style="padding:5px 0px;">
 
-              <div class="card card-widget">
-
-                <div class="card-body" style="margin:0px;padding:3px;">
-
-                  
-
-                  <div class="row justify-content-sm-center" style="padding:5px 0px;">
-
-                    <div class="col-lg-3 ">
-
-                      <label for="subtotal" class="col-form-label ">Subtotal:</label>
-
-                      <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fas fa-dollar-sign"></i>
-                          </span>
-                        </div>
-
-                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal;?>" disabled>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3 ">
-                      <label for="iva" class="col-form-label">IVA:</label>
-
-                      <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fas fa-dollar-sign"></i>
-                          </span>
-                        </div>
-
-                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;?>" disabled>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3 ">
-                      <label for="total" class="col-form-label ">Total:</label>
-
-                      <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fas fa-dollar-sign"></i>
-                          </span>
-                        </div>
-
-                        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total;?>" disabled>
-                      </div>
-
-
-                    </div>
-
-                  </div>
-
-
-                </div>
-
-              </div>
-
-            </div>
-            <!-- Formulario totales -->
 
           </div>
 
@@ -348,7 +336,7 @@ else{
                     <th>Id</th>
                     <th>RFC</th>
                     <th>Proveedor</th>
-             
+
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -360,7 +348,7 @@ else{
                       <td><?php echo $datc['id_prov'] ?></td>
                       <td><?php echo $datc['rfc'] ?></td>
                       <td><?php echo $datc['nombre'] ?></td>
-                     
+
 
                       <td></td>
                     </tr>
@@ -420,19 +408,19 @@ else{
     </div>
   </section>
 
- 
 
- 
+
+
   <!-- /.content -->
 </div>
 
 <script>
-//  window.addEventListener('beforeunload', function(event) {
-    // Cancel the event as stated by the standard.
- //   event.preventDefault();
+  //  window.addEventListener('beforeunload', function(event) {
+  // Cancel the event as stated by the standard.
+  //   event.preventDefault();
 
-    // Chrome requires returnValue to be set.
-    //event.returnValue = "";
+  // Chrome requires returnValue to be set.
+  //event.returnValue = "";
   //});
 </script>
 

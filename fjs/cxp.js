@@ -106,25 +106,7 @@ $(document).ready(function() {
     });
 
 
-    /*
-        $(document).on("change", "#folio", function() {
-            folio = $("#folio").val();
 
-            $.ajax({
-
-                type: "POST",
-                url: "bd/buscardetalletmp.php",
-                dataType: "json",
-                data: { folio: folio },
-                success: function(res) {
-
-                    for (var i = 0; i < res.length; i++) {
-                        tablaVis.row.add([res[i].id_reg, res[i].nom_concepto, res[i].nom_item, res[i].formato, res[i].cantidad, res[i].nom_umedida, res[i].precio, res[i].total]).draw();
-                    }
-                }
-            });
-        });
-    */
     $(document).on("click", ".btnSelCliente", function() {
         fila = $(this).closest("tr");
 
@@ -133,142 +115,94 @@ $(document).ready(function() {
 
         opcion = 1;
 
-
-
         $("#id_prov").val(idprov);
         $("#nombre").val(nomprov);
-
-
-
         $("#modalProspecto").modal("hide");
 
     });
 
     $(document).on("click", "#btnGuardar", function() {
-        folio = $('#folio').val();
-
-        $.ajax({
-
-            type: "POST",
-            url: "bd/trasladopres.php",
-            dataType: "json",
-            data: { folio: folio },
-            success: function(res) {
-
-                if (res == 0) {
-                    Swal.fire({
-                        title: 'Error al Guardar',
-                        text: "No se puedo guardar los datos del cliente",
-                        icon: 'error',
-                    })
-                } else {
-                    Swal.fire({
-                        title: 'Operación Exitosa',
-                        text: "Presupuesto Guardado",
-                        icon: 'success',
-                    })
-
-                    window.setTimeout(function() {
-                        window.location.href = "pres.php?folio=" + res;
-                    }, 1000);
-
-                }
-            }
-        });
-
-    });
-
-
-
-    $(document).on("click", "#btnGuardarHead", function() {
-
-        IdCliente = $("#id_pros").val();
         fecha = $("#fecha").val();
-        tokenid = $('#tokenid').val();
-        folio = $('#folio').val();
-        proyecto = $('#proyecto').val();
-        ubicacion = $('#ubicacion').val();
+        fechal = $("#fechal").val();
+        id_prov = $("#id_prov").val();
+        id_partida = $("#id_partida").val();
+        concepto = $("#concepto").val();
+        facturado = $("#cfactura").val();
+        referencia = $("#referencia").val();
+        subtotal = $("#subtotal").val();
+        iva = $("#iva").val();
+        total = $("#total").val();
+        tokenid = $("#tokenid").val();
+        opcion = 1;
 
+        console.log(fecha);
+        console.log(fechal);
+        console.log(id_prov);
+        console.log(id_partida);
+        console.log(concepto);
+        console.log(facturado);
+        console.log(referencia);
+        console.log(subtotal);
+        console.log(iva);
+        console.log(total);
+        console.log(tokenid);
 
-
-
-        opcion = 2;
-
-
-
-
-        $.ajax({
-
-            type: "POST",
-            url: "bd/tmppres.php",
-            dataType: "json",
-            data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion },
-            success: function(res) {
-
-                if (res == 0) {
-                    Swal.fire({
-                        title: 'Error al Guardar',
-                        text: "No se puedo guardar los datos del cliente",
-                        icon: 'error',
-                    })
-                }
-            }
-        });
-
-        $("#modalProspecto").modal("hide");
-
-    });
-
-    $(document).on("click", ".btnBorrar", function(event) {
-        event.preventDefault();
-        fila = $(this);
-
-        id = parseInt($(this).closest("tr").find('td:eq(0)').text());
-        total = $(this).closest("tr").find('td:eq(7)').text();
-        folio = $("#folio").val();
-        opcion = 2;
-
-        //agregar codigo de sweatalert2
-        var respuesta = confirm("¿Está seguro de eliminar el registro?");
-
-
-
-        if (respuesta) {
+        if (subtotal.length != 0 && iva.length != 0 && total.length != 0 &&
+            concepto.length != 0 && id_partida.length != 0 &&
+            id_prov.length != 0) {
             $.ajax({
 
-                url: "bd/detalletemp.php",
                 type: "POST",
+                url: "bd/crudcxp.php",
                 dataType: "json",
-                data: { id: id, total: total, folio: folio, opcion: opcion },
+                data: { fecha: fecha, fechal: fechal, id_prov: id_prov, id_partida: id_partida, concepto: concepto, facturado: facturado, referencia: referencia, subtotal: subtotal, iva: iva, total: total, saldo: total, tokenid: tokenid, opcion: opcion },
+                success: function(res) {
 
-                success: function() {
+                    if (res == 0) {
+                        Swal.fire({
+                            title: 'Error al Guardar',
+                            text: "No se puedo guardar los datos del cliente",
+                            icon: 'error',
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Operación Exitosa',
+                            text: "Presupuesto Guardado",
+                            icon: 'success',
+                        })
 
+                        window.setTimeout(function() {
+                            window.location.href = "cntacxp.php";
+                        }, 1500);
 
-                    tablaVis.row(fila.parents('tr')).remove().draw();
-                    buscartotal();
+                    }
                 }
             });
+        } else {
+            Swal.fire({
+                title: 'Datos Faltantes',
+                text: "Debe ingresar todos los datos del Item",
+                icon: 'warning',
+            })
+            return false;
         }
     });
 
 
+
+
     $(document).on("click", ".btnSelConcepto", function() {
         fila = $(this).closest("tr");
-
         idpartida = fila.find('td:eq(0)').text();
         partida = fila.find('td:eq(1)').text();
-
-
         $("#id_partida").val(idpartida);
         $("#partida").val(partida);
-
-
-
-
-
-
         $("#modalConcepto").modal("hide");
 
+    });
+
+    $(document).on("click", "#btnNuevo", function() {
+        limpiar();
     });
 
     $(document).on("click", ".btnSelMaterial", function() {
@@ -277,9 +211,6 @@ $(document).ready(function() {
         idMaterial = fila.find('td:eq(0)').text();
         NomMaterial = fila.find('td:eq(2)').text();
         ClaveMaterial = fila.find('td:eq(1)').text();
-
-        /*
-         */
         $("#clavemat").val(idMaterial);
         $("#material").val(NomMaterial);
         $("#clave").val(ClaveMaterial);
@@ -290,9 +221,138 @@ $(document).ready(function() {
     });
 
 
+    $("#subtotal").on("change keyup paste click", function() {
+        if ($('#cmanual').prop('checked')) {
 
 
+        } else {
+            if ($('#cinverso').prop('checked')) {
 
+            } else {
+                valor = $("#subtotal").val();
+                calculo(valor);
+            }
+        }
+
+
+    });
+
+    $("#total").on("change keyup paste click", function() {
+        if ($('#cmanual').prop('checked')) {
+
+
+        } else {
+            if ($('#cinverso').prop('checked')) {
+                valor = $("#total").val();
+                calculoinverso(valor);
+            }
+        }
+
+    });
+
+    $("#ccredito").on("click", function() {
+        if ($('#ccredito').prop('checked')) {
+            $("#fechal").prop('disabled', false);
+        } else {
+            $("#fechal").prop('disabled', true);
+        }
+        $("#fechal").val($("#fecha").val());
+
+
+    });
+
+    $("#cinverso").on("click", function() {
+        if ($('#cinverso').prop('checked')) {
+            $("#total").prop('disabled', false);
+            $("#subtotal").prop('disabled', true);
+        } else {
+            $("#total").prop('disabled', true);
+            $("#subtotal").prop('disabled', false);
+        }
+
+
+    });
+
+    $("#cmanual").on("click", function() {
+        if ($('#cmanual').prop('checked')) {
+            $("#total").prop('disabled', false);
+            $("#subtotal").prop('disabled', false);
+            $("#iva").prop('disabled', false);
+        } else {
+            if ($('#cinverso').prop('checked')) {
+                $("#total").prop('disabled', false);
+                $("#subtotal").prop('disabled', true);
+            } else {
+                $("#total").prop('disabled', true);
+                $("#subtotal").prop('disabled', false);
+            }
+            $("#iva").prop('disabled', true);
+        }
+
+    });
+
+
+    function limpiar() {
+
+        var today = new Date();
+        var dd = today.getDate();
+
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+
+
+        $("#id_prov").val('');
+        $("#nombre").val('');
+        $("#fecha").val(today);
+        $("#folio").val('');
+        $("#folior").val('');
+        $("#id_partida").val('');
+        $("#partida").val('');
+        $("#ccredito").val(false);
+        $("#fechal").val(today);
+        $("#cfactura").val(false);
+        $("#referencia").val('');
+        $("#proyecto").val('');
+        $("#subtotal").val('');
+        $("#iva").val('');
+        $("#total").val('');
+        $("#cinverso").val(false);
+    };
+
+
+    function calculo(subtotal) {
+
+        total = round(subtotal * 1.16, 2);
+
+        iva = round(total - subtotal, 2);
+
+
+        $("#iva").val(iva);
+        $("#total").val(total);
+    };
+
+    function calculoinverso(total) {
+
+        subtotal = round(total / 1.16, 2);
+        iva = round(total - subtotal, 2);
+
+        $("#subtotal").val(subtotal);
+        $("#iva").val(iva);
+
+    };
+
+    function round(value, decimals) {
+        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    }
 
 
 
