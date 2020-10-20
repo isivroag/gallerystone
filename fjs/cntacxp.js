@@ -4,12 +4,40 @@ $(document).ready(function() {
 
     tablaVis = $("#tablaV").DataTable({
 
+        dom: "<'row justify-content-center'<'col-sm-12 col-md-2'l><'col-sm-12 col-md-2'B><'col-sm-12 col-md-2'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+
+        buttons: [{
+                extend: 'excelHtml5',
+                "text": "<i class='fas fa-file-excel'> Excel</i>",
+                "titleAttr": "Exportar a Excel",
+                "className": 'btn bg-success ',
+                exportOptions: { columns: [1, 2, 3, 4, 5, 6] }
+            },
+            {
+                extend: 'pdfHtml5',
+                "text": "<i class='far fa-file-pdf'> PDF</i>",
+                "titleAttr": "Exportar a PDF",
+                "className": 'btn bg-danger',
+                exportOptions: { columns: [1, 2, 3, 4, 5, 6] }
+            }
+
+
+
+        ],
 
 
         "columnDefs": [{
             "targets": -1,
             "data": null,
             "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"
+        }, {
+            "render": function(data, type, row) {
+                return commaSeparateNumber(data);
+            },
+            "targets": [4, 5]
         }],
 
         //Para cambiar el lenguaje a español
@@ -27,6 +55,46 @@ $(document).ready(function() {
                 "sPrevious": "Anterior"
             },
             "sProcessing": "Procesando...",
+        }
+    });
+
+    function commaSeparateNumber(val) {
+        while (/(\d+)(\d{3})/.test(val.toString())) {
+            val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+        }
+        val = '$ ' + val
+        return val;
+    }
+
+
+    $("#btnBuscar").click(function() {
+        var inicio = $('#inicio').val();
+        var final = $('#final').val();
+        console.log(inicio)
+        console.log(final)
+        tablaVis.clear();
+        tablaVis.draw();
+
+        if (inicio != '' && final != '') {
+            $.ajax({
+                type: "POST",
+                url: "bd/buscarcxp.php",
+                dataType: "json",
+                data: { inicio: inicio, final: final },
+                success: function(data) {
+                    console.log(data)
+                    for (var i = 0; i < data.length; i++) {
+
+                        tablaVis.row.add([data[i].folio_cxp, data[i].fecha, data[i].nombre, data[i].concepto, data[i].total, data[i].saldo, data[i].fecha_limite]).draw();
+
+                        //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
+                    }
+
+
+                }
+            });
+        } else {
+            alert("Selecciona ambas fechas");
         }
     });
 
@@ -79,6 +147,7 @@ $(document).ready(function() {
                 success: function(data) {
                     console.log(fila);
 
+
                     tablaVis.row(fila.parents('tr')).remove().draw();
                 }
             });
@@ -103,6 +172,19 @@ $(document).ready(function() {
         }
         return i;
     }
+    jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+        "formatted-num-pre": function(a) {
+            a = (a === "-" || a === "") ? 0 : a.replace(/[^\d\-\.]/g, "");
+            return parseFloat(a);
+        },
 
+        "formatted-num-asc": function(a, b) {
+            return a - b;
+        },
+
+        "formatted-num-desc": function(a, b) {
+            return b - a;
+        }
+    });
 
 });

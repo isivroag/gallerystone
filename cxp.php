@@ -15,7 +15,7 @@ $tokenid = md5($_SESSION['s_usuario']);
 
 if ($folio != "") {
 
-
+  $opcion=2;
   $consulta = "SELECT * FROM vcxp where folio_cxp='$folio'";
 
   $resultado = $conexion->prepare($consulta);
@@ -49,7 +49,7 @@ if ($folio != "") {
   $message = "";
 } else {
   $folio = "";
-
+  $opcion=1;
   $fecha =  date('Y-m-d');
   $fecha_limite = date('Y-m-d');
   $id_prov = "";
@@ -130,6 +130,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                   <div class="col-lg-5">
                     <div class="form-group">
                       <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
+                      <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
                       <input type="hidden" class="form-control" name="id_prov" id="id_prov" value="<?php echo $id_prov; ?>">
                       <label for="nombre" class="col-form-label">Proveedor:</label>
 
@@ -230,16 +231,16 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="row justify-content-sm-center">
                 <div class=" offset-lg-0 col-lg-2 ">
-                    <div class="form-group">
-                      <input type="checkbox" class="form-check-input" id="cmanual" name="cmanual">
-                      <label class="form-check-label" for="cmanual">Calculo Manual</label>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="cmanual" name="cmanual">
+                      <label class="custom-control-label" for="cmanual">Calculo Manual</label>
                     </div>
                   </div>
 
                   <div class=" offset-lg-4 col-lg-2 ">
-                    <div class="form-group">
-                      <input type="checkbox" class="form-check-input " id="cinverso" name="cinverso">
-                      <label class="form-check-label" for="cinverso">Calculo Inverso</label>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input " id="cinverso" name="cinverso">
+                      <label class="custom-control-label" for="cinverso">Calculo Inverso</label>
                     </div>
                   </div>
 
@@ -431,3 +432,4 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>

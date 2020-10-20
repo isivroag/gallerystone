@@ -65,6 +65,8 @@ $(document).ready(function() {
 
 
 
+
+
     $(document).on("click", "#bproveedor", function() {
 
         $(".modal-header").css("background-color", "#007bff");
@@ -122,6 +124,7 @@ $(document).ready(function() {
     });
 
     $(document).on("click", "#btnGuardar", function() {
+        folio = $("#folio").val();
         fecha = $("#fecha").val();
         fechal = $("#fechal").val();
         id_prov = $("#id_prov").val();
@@ -133,19 +136,8 @@ $(document).ready(function() {
         iva = $("#iva").val();
         total = $("#total").val();
         tokenid = $("#tokenid").val();
-        opcion = 1;
+        opcion = $("#opcion").val();;
 
-        console.log(fecha);
-        console.log(fechal);
-        console.log(id_prov);
-        console.log(id_partida);
-        console.log(concepto);
-        console.log(facturado);
-        console.log(referencia);
-        console.log(subtotal);
-        console.log(iva);
-        console.log(total);
-        console.log(tokenid);
 
         if (subtotal.length != 0 && iva.length != 0 && total.length != 0 &&
             concepto.length != 0 && id_partida.length != 0 &&
@@ -155,7 +147,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "bd/crudcxp.php",
                 dataType: "json",
-                data: { fecha: fecha, fechal: fechal, id_prov: id_prov, id_partida: id_partida, concepto: concepto, facturado: facturado, referencia: referencia, subtotal: subtotal, iva: iva, total: total, saldo: total, tokenid: tokenid, opcion: opcion },
+                data: { fecha: fecha, fechal: fechal, id_prov: id_prov, id_partida: id_partida, concepto: concepto, facturado: facturado, referencia: referencia, subtotal: subtotal, iva: iva, total: total, saldo: total, tokenid: tokenid, folio: folio, opcion: opcion },
                 success: function(res) {
 
                     if (res == 0) {

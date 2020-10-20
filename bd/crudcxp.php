@@ -32,19 +32,19 @@ switch ($opcion) {
         $consulta = "INSERT INTO cxp (fecha,fecha_limite,id_prov,id_partida,concepto,facturado,referencia,subtotal,iva,total,saldo,tokenid) VALUES ('$fecha','$fecha_limite','$id_prov','$id_partida','$concepto','$facturado','$referencia','$subtotal','$iva','$total','$saldo','$tokenid')";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        $data=1;
+        $data = 1;
 
-        
+
 
         break;
-        case 2:
-            
+    case 2:
+        $consulta = "UPDATE cxp SET fecha='$fecha',fecha_limite='$fecha_limite',id_prov='$id_prov',id_partida='$id_partida',concepto='$concepto',facturado='$facturado',referencia='$referencia',subtotal='$subtotal',iva='$iva',total='$total',saldo='$total',tokenid='$tokenid' WHERE folio_cxp='$folio'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = 1;
+
         break;
-  
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
 $conexion = NULL;
-
-
-?>
