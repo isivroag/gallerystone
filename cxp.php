@@ -415,15 +415,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
   <!-- /.content -->
 </div>
 
-<script>
-  //  window.addEventListener('beforeunload', function(event) {
-  // Cancel the event as stated by the standard.
-  //   event.preventDefault();
 
-  // Chrome requires returnValue to be set.
-  //event.returnValue = "";
-  //});
-</script>
 
 <?php include_once 'templates/footer.php'; ?>
 <script src="fjs/cxp.js"></script>

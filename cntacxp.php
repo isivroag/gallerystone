@@ -17,6 +17,16 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+$consultag = "SET lc_time_names = 'es_ES'";
+$resultadog = $conexion->prepare($consultag);
+$resultadog->execute();
+
+$consultag = "SELECT SUM(total) AS total,monthname(fecha) as mes FROM vcxp GROUP BY MONTH(fecha) order by MONTH(fecha)";
+$resultadog = $conexion->prepare($consultag);
+$resultadog->execute();
+$datag = $resultadog->fetchAll(PDO::FETCH_ASSOC);
+
+
 $message = "";
 
 
@@ -53,29 +63,29 @@ $message = "";
             <div class="card-header bg-gradient-orange">
               Filtro por rango de Fecha
             </div>
-          <div class="card-body">
-            <div class="row justify-content-center">
-              <div class="col-lg-2">
-                <div class="form-group input-group-sm">
-                  <label for="fecha" class="col-form-label">Desde:</label>
-                  <input type="date" class="form-control" name="inicio" id="inicio">
+            <div class="card-body">
+              <div class="row justify-content-center">
+                <div class="col-lg-2">
+                  <div class="form-group input-group-sm">
+                    <label for="fecha" class="col-form-label">Desde:</label>
+                    <input type="date" class="form-control" name="inicio" id="inicio">
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-lg-2">
-                <div class="form-group input-group-sm">
-                  <label for="fecha" class="col-form-label">Hasta:</label>
-                  <input type="date" class="form-control" name="final" id="final">
+                <div class="col-lg-2">
+                  <div class="form-group input-group-sm">
+                    <label for="fecha" class="col-form-label">Hasta:</label>
+                    <input type="date" class="form-control" name="final" id="final">
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-lg-1 align-self-end text-center">
-                <div class="form-group input-group-sm">
-                  <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                <div class="col-lg-1 align-self-end text-center">
+                  <div class="form-group input-group-sm">
+                    <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
           </div>
 
           <div class="row">
@@ -116,21 +126,52 @@ $message = "";
               </div>
             </div>
           </div>
+
+        </div>
+        <br>
+
+        <div class="card ">
+          <div class="card-header bg-lightblue color-palette border-0">
+            <h3 class="card-title">
+              <i class="fas fa-th mr-1"></i>
+              Egresos
+            </h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn bg-lightblue btn-sm" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn bg-lightblue btn-sm" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-sm-7">
+                <canvas class="chart bg-lightblue" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+       
+          <!-- /.card-footer -->
         </div>
 
       </div>
-      <!-- /.card-body -->
-      <div class="card-footer">
-        Footer
-      </div>
+
+
       <!-- /.card-footer-->
     </div>
     <!-- /.card -->
 
   </section>
 
+
   <!-- /.content -->
 </div>
+
 
 
 <?php include_once 'templates/footer.php'; ?>
@@ -146,3 +187,85 @@ $message = "";
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 <script src="http://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>
+<script src="plugins/chart.js/Chart.min.js"></script>
+<script>
+ $(function() {
+
+
+var salesGraphChartCanvas = $('#line-chart').get(0).getContext('2d');
+//$('#revenue-chart').get(0).getContext('2d');
+
+
+
+var salesGraphChartData = {
+    labels: [<?php foreach($datag as $d):?>
+        "<?php echo $d['mes']?>", 
+        <?php endforeach; ?>],
+    datasets: [{
+        label: 'Egresos Totales Por Mes',
+        fill: true,
+        borderWidth: 2,
+        lineTension: 0,
+        spanGaps: true,
+        borderColor: '#efefef',
+        pointRadius: 3,
+        pointHoverRadius: 7,
+        pointColor: '#efefef',
+        pointBackgroundColor: '#efefef',
+        data: [
+        <?php foreach($datag as $d):?>
+        <?php echo $d['total'];?>, 
+        <?php endforeach; ?>
+            ]   
+           }]
+}
+
+var salesGraphChartOptions = {
+    animationEnabled: true,
+    theme: "light2",
+    maintainAspectRatio: false,
+    responsive: true,
+    legend: {
+        display: true,
+        position: 'bottom',
+        labels: {
+                fontColor: '#efefef'
+            }
+    },
+    scales: {
+        xAxes: [{
+            ticks: {
+                fontColor: '#efefef',
+            },
+            gridLines: {
+                display: false,
+                color: '#efefef',
+                drawBorder: true,
+            }
+        }],
+        yAxes: [{
+            ticks: {
+                stepSize: 2500,
+                fontColor: '#efefef',
+                beginAtZero: true
+            },
+            gridLines: {
+                display: true,
+                color: '#efefef',
+                drawBorder: true,
+                zeroLineColor: '#efefef'
+            }
+        }]
+    }
+}
+
+// This will get the first returned node in the jQuery collection.
+var salesGraphChart = new Chart(salesGraphChartCanvas, {
+
+    type: 'line',
+    data: salesGraphChartData,
+    options: salesGraphChartOptions
+})
+
+});
+</script>
