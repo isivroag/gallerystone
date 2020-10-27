@@ -76,6 +76,21 @@ $(document).ready(function() {
 
     });
 
+    
+    $(document).on("click", "#bproveedorplus", function() {
+
+        window.location.href = "cntaproveedor.php";
+        
+
+    });
+
+    
+    $(document).on("click", "#bpartidaplus", function() {
+
+        window.location.href = "cntapartida.php" ;
+
+    });
+
     $(document).on("click", "#bpartida", function() {
 
         $(".modal-header").css("background-color", "#007bff");
@@ -98,9 +113,6 @@ $(document).ready(function() {
         $("#precio").val("");
         $("#cantidad").val("");
         $("#cantidad").prop('disabled', true);
-
-
-
 
 
 

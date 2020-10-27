@@ -101,7 +101,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
         <div class="row">
           <div class="col-lg-12">
 
-            <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square"></i> Nuevo</button>
+          <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
             <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
 
           </div>
@@ -139,6 +139,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                         <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nombre; ?>" disabled>
                         <span class="input-group-append">
                           <button id="bproveedor" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
+                          <button id="bproveedorplus" type="button" class="btn btn-success "><i class="fas fa-plus-square"></i></button>
                         </span>
                       </div>
                     </div>
@@ -173,6 +174,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                         <input type="text" class="form-control" name="partida" id="partida" value="<?php echo $nom_partida; ?>" disabled>
                         <span class="input-group-append">
                           <button id="bpartida" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
+                          <button id="bpartidaplus" type="button" class="btn btn-success "><i class="fas fa-plus-square"></i></button>
                         </span>
                       </div>
                     </div>
