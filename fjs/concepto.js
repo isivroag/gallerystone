@@ -4,9 +4,8 @@ $(document).ready(function () {
 
     tablaVis = $("#tablaV").DataTable({
         keys: true,
-        "bStateSave": true,
-
-        paging: true,
+        stateSave: true,
+        "paging": true,
 
 
         "columnDefs": [{
