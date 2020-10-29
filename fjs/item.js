@@ -162,16 +162,16 @@ $(document).ready(function() {
                     insumo = data[0].nom_insumo;
                     id_color = data[0].id_color;
                     clave_color = data[0].clave_color;
-                    color = data[0].nom_Color;
+                    color = data[0].nom_color;
                     id_acabado = data[0].id_acabado;
                     clave_acabado = data[0].clave_acabado;
                     acabado = data[0].nom_acabado;
                     tipo = data[0].tipo_item;
 
                     if (opcion == 1) {
-                        tablaVis.row.add([id, clave, nombre, id_insumo, clave_insumo, insumo, id_color, clave_insumo, insumo, id_acabado, clave_acabado, acabado, tipo]).draw();
+                        tablaVis.row.add([id, clave, nombre, id_insumo, clave_insumo, insumo, id_color, clave_color, color, id_acabado, clave_acabado, acabado, tipo]).draw();
                     } else {
-                        tablaVis.row(fila).data([id, clave, nombre, id_insumo, clave_insumo, insumo, id_color, clave_insumo, insumo, id_acabado, clave_acabado, acabado, tipo]).draw();
+                        tablaVis.row(fila).data([id, clave, nombre, id_insumo, clave_insumo, insumo, id_color, clave_color, color, id_acabado, clave_acabado, acabado, tipo]).draw();
                     }
                 }
             });
