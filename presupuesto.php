@@ -27,8 +27,9 @@ if ($resultado->rowCount() >= 1) {
     $concepto = $dt['concepto_pres'];
     $ubicacion = $dt['ubicacion'];
     $subtotal=$dt['subtotal'];
-    
+    $descuento=$dt['descuento'];
     $total=$dt['total'];
+    $gtotal=$dt['gtotal'];
     $iva=$dt['iva'];
   }
   if ($idpros != 0) {
@@ -70,6 +71,8 @@ if ($resultado->rowCount() >= 1) {
     $subtotal="0.00";
     $iva="0.00";
     $total="0.00";
+    $descuento="0.00";
+    $gtotal="0.00";
   }
 }
 
@@ -434,6 +437,38 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                         </div>
 
                         <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total;?>" disabled>
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-lg-2 ">
+                      <label for="total" class="col-form-label ">Descuento:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento;?>" disabled>
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-lg-2 ">
+                      <label for="total" class="col-form-label ">Gran Total:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal;?>" disabled>
                       </div>
 
 
