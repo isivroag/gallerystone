@@ -197,6 +197,21 @@ $(document).ready(function() {
         $(".modal-header").css("color", "white");
 
         $("#modalConcepto").modal("show");
+        $("#claveconcepto").val("");
+        $("#concepto").val("");
+        $("#id_umedida").val("");
+        $("#usomat").val("");
+        $("#nom_umedida").val("");
+        $("#bmaterial").prop('disabled', true);
+        $("#clavemat").val("");
+        $("#material").val("");
+        $("#clave").val("");
+        $("#idprecio").val("");
+        $("#unidad").val("");
+
+        $("#precio").val("");
+        $("#cantidad").val("");
+        $("#cantidad").prop('disabled', true);
 
     });
 
@@ -207,6 +222,18 @@ $(document).ready(function() {
 
         $("#modalMaterial").modal("show");
 
+        
+        $("#clavemat").val("");
+        $("#material").val("");
+        $("#clave").val("");
+        $("#idprecio").val("");
+        $("#unidad").val("");
+
+        $("#precio").val("");
+        $("#cantidad").val("");
+        $("#cantidad").prop('disabled', true);
+
+
     });
 
     $(document).on("click", "#bprecio", function() {
@@ -215,6 +242,14 @@ $(document).ready(function() {
         $(".modal-header").css("color", "white");
 
         $("#modalPrecio").modal("show");
+
+        
+        $("#idprecio").val("");
+        $("#unidad").val("");
+
+        $("#precio").val("");
+        $("#cantidad").val("");
+        $("#cantidad").prop('disabled', true);
 
     });
 
@@ -417,11 +452,19 @@ $(document).ready(function() {
     $(document).on("click", "#btlimpiar", function() {
 
 
-        $("#clavemat").val("");
-        $("#material").val("");
-        $("#precio").val("");
         $("#claveconcepto").val("");
         $("#concepto").val("");
+        $("#id_umedida").val("");
+        $("#usomat").val("");
+        $("#nom_umedida").val("");
+        $("#bmaterial").prop('disabled', true);
+        $("#clavemat").val("");
+        $("#material").val("");
+        $("#clave").val("");
+        $("#idprecio").val("");
+        $("#unidad").val("");
+
+        $("#precio").val("");
         $("#cantidad").val("");
 
         $("#cantidad").prop('disabled', true);
@@ -479,7 +522,21 @@ $(document).ready(function() {
 
                     tablaVis.row.add([id_reg, nom_concepto, nom_item, formato, cantidad, nom_umedida, precio, total]).draw();
                     buscartotal();
+                    $("#claveconcepto").val("");
+                    $("#concepto").val("");
+                    $("#id_umedida").val("");
+                    $("#usomat").val("");
+                    $("#nom_umedida").val("");
+                    $("#bmaterial").prop('disabled', true);
+                    $("#clavemat").val("");
+                    $("#material").val("");
+                    $("#clave").val("");
+                    $("#idprecio").val("");
+                    $("#unidad").val("");
 
+                    $("#precio").val("");
+                    $("#cantidad").val("");
+                    $("#cantidad").prop('disabled', true);
 
 
 
@@ -541,6 +598,8 @@ $(document).ready(function() {
                 $("#subtotal").val(res[0].subtotal);
                 $("#iva").val(res[0].iva);
                 $("#total").val(res[0].total);
+                $("#descuento").val(res[0].descuento);
+                $("#gtotal").val(res[0].gtotal);
 
             }
         });

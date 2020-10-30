@@ -32,7 +32,8 @@ if ($folio != "") {
     $concepto = $dt['concepto_pres'];
     $ubicacion = $dt['ubicacion'];
     $subtotal=$dt['subtotal'];
-    
+    $descuento=$dt['descuento'];
+    $gtotal=$dt['gtotal'];
     $total=$dt['total'];
     $iva=$dt['iva'];
   }
@@ -433,6 +434,39 @@ else{
 
 
                     </div>
+
+                    <div class="col-lg-2 ">
+                      <label for="total" class="col-form-label ">Descuento:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento;?>" disabled>
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-lg-2 ">
+                      <label for="total" class="col-form-label ">Gran Total:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal;?>" disabled>
+                      </div>
+
+
+                    </div>
+
 
                   </div>
 

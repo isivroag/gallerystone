@@ -537,6 +537,7 @@ $(document).ready(function() {
                     total = data[0].total;
 
 
+
                     tablaVis.row.add([id_reg, nom_concepto, nom_item, formato, cantidad, nom_umedida, precio, total]).draw();
                     buscartotal();
 
@@ -621,6 +622,8 @@ $(document).ready(function() {
 
                 $("#iva").val(res[0].iva);
                 $("#total").val(res[0].total);
+                $("#descuento").val(res[0].descuento);
+                $("#gtotal").val(res[0].gtotal);
 
             }
         });

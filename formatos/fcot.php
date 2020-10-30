@@ -30,7 +30,11 @@ if ($folio != "") {
 		$idpros = $dt['id_pros'];
 		$concepto = $dt['concepto_pres'];
 		$ubicacion = $dt['ubicacion'];
-		$total = $dt['total'];
+    $total = $dt['total'];
+    $iva = $dt['iva'];
+    $subtotal = $dt['subtotal'];
+    $descuento = $dt['descuento'];
+    $gtotal = $dt['gtotal'];
 	}
 
 	if ($idpros != 0) {
@@ -139,18 +143,29 @@ $plantilla.=
           <tr>
             <td colspan="3"></td>
             <td colspan="3">SUBTOTAL</td>
-            <td>$0,000.00</td>
+            <td>$ '. number_format($subtotal, 2) .'</td>
           </tr>
           <tr>
             <td colspan="3"></td>
             <td colspan="3">IVA 16%</td>
-            <td>$0,000.00</td>
+            <td>$ '. number_format($iva, 2) .'</td>
           </tr>
           <tr>
             <td colspan="3"></td>
             <td colspan="3">TOTAL</td>
-            <td>'. number_format($total, 2) .'</td>
+            <td>$ '. number_format($total, 2) .'</td>
           </tr>
+          <tr>
+          <td colspan="3"></td>
+          <td colspan="3">DESCUENTO</td>
+          <td>$ '. number_format($descuento, 2) .'</td>
+        </tr>
+        <tr>
+        <td colspan="3"></td>
+        <td colspan="3">GRAN TOTAL</td>
+        <td>$ '. number_format($gtotal, 2) .'</td>
+      </tr>
+
         </tfoot>
       </table>
 

@@ -30,6 +30,45 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
+         //buscar subtotal
+         $consulta="SELECT total FROM presupuesto WHERE folio_pres='$folio'";
+         $resultado = $conexion->prepare($consulta);
+         $resultado->execute();
+ 
+         if ($resultado->rowCount() >= 1) {
+         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+ 
+         foreach ($data as $dt) {
+             $monto = $dt['total'];
+         }
+         }
+         else{
+             $monto=0;
+         }
+         //buscar descuento
+         $consulta="SELECT descuento FROM pdescuento WHERE '$monto' between m_inicial and m_final";
+         $resultado = $conexion->prepare($consulta);
+         $resultado->execute();
+ 
+         if ($resultado->rowCount() >= 1) {
+             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+     
+             foreach ($data as $dt) {
+                 $descuento = $dt['descuento'];
+             }
+             }
+             else{
+                 $descuento=0;
+             }
+ 
+          $mdes= round($monto * ($descuento/100),0);
+ 
+         //actualizar descuento en tabla presupuesto
+ 
+         $consulta="UPDATE presupuesto SET descuento='$mdes' WHERE folio_pres='$folio'";
+         $resultado = $conexion->prepare($consulta);
+         $resultado->execute();
+
         $consulta = "SELECT * FROM vdetalle_pres WHERE folio_pres='$folio' ORDER BY id_reg DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -46,6 +85,41 @@ switch ($opcion) {
         $consulta="UPDATE presupuesto SET subtotal=subtotal-'$total' WHERE folio_pres='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
+
+         //buscar subtotal
+         $consulta="SELECT total FROM presupuesto WHERE folio_pres='$folio'";
+         $resultado = $conexion->prepare($consulta);
+         $resultado->execute();
+         if ($resultado->rowCount() >= 1) {
+             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+             foreach ($data as $dt) {
+             $monto = $dt['total'];
+             }
+             }
+         else{
+             $monto=0;
+             }
+      //buscar descuento
+         $consulta="SELECT descuento FROM pdescuento WHERE '$monto' between m_inicial and m_final";
+         $resultado = $conexion->prepare($consulta);
+         $resultado->execute();
+ 
+         if ($resultado->rowCount() >= 1) {
+             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+     
+             foreach ($data as $dt) {
+                 $descuento = $dt['descuento'];
+             }
+             }
+             else{
+                 $descuento=0;
+             }
+ 
+       $mdes= round($monto * ($descuento/100),0);
+      //actualizar descuento en tabla presupuesto
+     $consulta="UPDATE presupuesto SET descuento='$mdes' WHERE folio_pres='$folio'";
+     $resultado = $conexion->prepare($consulta);
+     $resultado->execute();
         
         
           
