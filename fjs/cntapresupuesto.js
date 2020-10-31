@@ -9,7 +9,7 @@ $(document).ready(function () {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-success btnVender'><i class='fas fa-check-square'></i></button><button class='btn btn-sm btn-info btnLlamar'><i class='fas fa-phone'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"
         }],
 
         //Para cambiar el lenguaje a español
@@ -54,6 +54,15 @@ $(document).ready(function () {
 
     });
 
+    $(document).on("click", ".btnLlamar", function () {
+        fila = $(this).closest("tr");
+        id = parseInt(fila.find('td:eq(0)').text());
+        console.log(id);
+        window.location.href = "pres.php?folio=" + id;
+
+
+    });
+
 
 
     //botón BORRAR
@@ -71,7 +80,7 @@ $(document).ready(function () {
         if (respuesta) {
             $.ajax({
 
-                url: "bd/crudpros.php",
+                url: "",
                 type: "POST",
                 dataType: "json",
                 data: { id: id, opcion: opcion },
