@@ -172,14 +172,34 @@ $(document).ready(function() {
         folio = $('#folio').val();
         correo = $("#correo").val();
 
-        var ancho = 1000;
-        var alto = 800;
-        var x = parseInt((window.screen.width / 2) - (ancho / 2));
-        var y = parseInt((window.screen.height / 2) - (alto / 2));
+        estado = "2";
+        nota = "Envio de Corre electronico";
+        fecha = $("#fecha").val();
+        usuario = $("#nameuser").val();
 
-        url = "formatos/enviarcotizacion.php?folio=" + folio + "&correo=" + correo;
+        $.ajax({
+            type: "POST",
+            url: "bd/estadopres.php",
+            dataType: "json",
 
-        window.open(url, "Presupuesto", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
+            data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
+            success: function() {
+
+                var ancho = 1000;
+                var alto = 800;
+                var x = parseInt((window.screen.width / 2) - (ancho / 2));
+                var y = parseInt((window.screen.height / 2) - (alto / 2));
+
+                url = "formatos/enviarcotizacion.php?folio=" + folio + "&correo=" + correo;
+
+                window.open(url, "Presupuesto", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
+            }
+
+        });
+
+
+
+
 
     });
     $(document).on("click", "#bcliente", function() {
@@ -222,7 +242,7 @@ $(document).ready(function() {
 
         $("#modalMaterial").modal("show");
 
-        
+
         $("#clavemat").val("");
         $("#material").val("");
         $("#clave").val("");
@@ -243,7 +263,7 @@ $(document).ready(function() {
 
         $("#modalPrecio").modal("show");
 
-        
+
         $("#idprecio").val("");
         $("#unidad").val("");
 

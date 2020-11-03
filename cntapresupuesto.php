@@ -76,8 +76,30 @@ $message="";
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_pres'] ?></td>
                         
-                        <td class="text-right"><?php echo "$ ".number_format( $dat['total'],2) ?></td>
-                        <td><?php  echo ($dat['estado_pres']==1) ? "PENDIENTE":"";   ?></td>
+                        <td class="text-right"><?php echo "$ ".number_format( $dat['gtotal'],2) ?></td>
+                        <td><?php  
+                        switch ($dat['estado_pres']) {
+                          Case 0:
+                            echo"<span class='bg-danger'> RECHAZADO </span>";
+                            break;
+                        
+                          case 1:
+                              echo "<span class='bg-warning'> PENDIENTE </span>";
+                              break;
+                          case 2:
+                            echo "<span class='bg-primary'> ENVIADO </span>";
+                            break;
+                          case 3:
+                            echo "<span class='bg-success'> ACEPTADO </span>";
+                            break;
+                          case 4:
+                            echo "<span class='bg-purple'> EN ESPERA </span>";
+                            break;
+                            }
+
+                          
+                        
+                        ?></td>
                        
 
                         <td></td>
@@ -101,6 +123,72 @@ $message="";
     </div>
     <!-- /.card -->
 
+  </section>
+
+  <section>
+    <div class="modal fade" id="modalcall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog " role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-primary">
+            <h5 class="modal-title" id="exampleModalLabel">NUEVO PROSPECTO</h5>
+
+          </div>
+          <div class="card card-widget" style="margin: 10px;">
+            <form id="formllamada" action="" method="POST">
+              <div class="modal-body row">
+
+
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <label for="estado" class="col-form-label">Estado:</label>
+
+                    <select class="form-control" name="estado" id="estado">
+                                        
+                      <option id="3" value="3"> Aceptado</option>
+                      <option id="4" value="4"> En Espera</option>
+                      <option id="0" value="0"> Rechazado</option>
+
+
+                    </select>
+                    
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <label for="nota" class="col-form-label">Notas:</label>
+                    <textarea rows="3" class="form-control" name="nota" id="nota" placeholder="Notas"></textarea>
+                    
+                  </div>
+                </div>
+
+                
+
+              </div>
+          </div>
+
+
+          <?php
+          if ($message != "") {
+          ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <span class="badge "><?php echo ($message); ?></span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+
+            </div>
+
+          <?php
+          }
+          ?>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+            <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </section>
  
   <!-- /.content -->

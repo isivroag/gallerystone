@@ -316,14 +316,37 @@ $(document).ready(function() {
                         text: "Presupuesto Guardado",
                         icon: 'success',
                     })
+                    folio = res;
 
-                    window.setTimeout(function() {
-                        window.location.href = "pres.php?folio=" + res;
-                    }, 1000);
+                    estado = "1";
+                    nota = "Creacion";
+                    fecha = $("#fecha").val();
+                    usuario = $("#nameuser").val();
+                    console.log(folio);
+                    $.ajax({
+                        type: "POST",
+                        url: "bd/estadopres.php",
+                        dataType: "json",
+
+                        data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
+                        success: function() {
+                            console.log(folio);
+                            window.setTimeout(function() {
+                                window.location.href = "pres.php?folio=" + folio;
+                            }, 1000);
+                        }
+
+                    });
+
 
                 }
             }
         });
+
+
+
+
+
 
     });
 
@@ -455,8 +478,8 @@ $(document).ready(function() {
         PrecioMaterial = fila.find('td:eq(2)').text();
 
         /*
-        
-                */
+            
+                            */
         $("#idprecio").val(idPrecio);
         $("#unidad").val(unidad);
 

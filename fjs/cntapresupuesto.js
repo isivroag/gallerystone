@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var id, opcion;
     opcion = 4;
 
@@ -9,7 +9,7 @@ $(document).ready(function () {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-success btnVender'><i class='fas fa-check-square'></i></button><button class='btn btn-sm btn-info btnLlamar'><i class='fas fa-phone'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-success btnLlamar'><i class='fas fa-phone'></i></button><button class='btn btn-sm bg-orange  btnhistory'><i class='fas fa-history text-light'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>"
         }],
 
         //Para cambiar el lenguaje a español
@@ -30,7 +30,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#btnNuevo").click(function () {
+    $("#btnNuevo").click(function() {
 
         window.location.href = "presupuesto.php";
         //$("#formDatos").trigger("reset");
@@ -45,7 +45,7 @@ $(document).ready(function () {
     var fila; //capturar la fila para editar o borrar el registro
 
     //botón EDITAR    
-    $(document).on("click", ".btnEditar", function () {
+    $(document).on("click", ".btnEditar", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
         console.log(id);
@@ -54,11 +54,15 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", ".btnLlamar", function () {
+    $(document).on("click", ".btnLlamar", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
-        console.log(id);
-        window.location.href = "pres.php?folio=" + id;
+        $("#formllamada").trigger("reset");
+        $(".modal-header").css("background-color", "#28a745");
+        $(".modal-header").css("color", "white");
+        $(".modal-title").text("Llamada de seguimiento");
+        $("#modalcall").modal("show");
+
 
 
     });
@@ -66,7 +70,7 @@ $(document).ready(function () {
 
 
     //botón BORRAR
-    $(document).on("click", ".btnBorrar", function () {
+    $(document).on("click", ".btnBorrar", function() {
         fila = $(this);
 
         id = parseInt($(this).closest("tr").find('td:eq(0)').text());
@@ -85,7 +89,7 @@ $(document).ready(function () {
                 dataType: "json",
                 data: { id: id, opcion: opcion },
 
-                success: function (data) {
+                success: function(data) {
                     console.log(fila);
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
@@ -103,7 +107,7 @@ $(document).ready(function () {
         min = checkTime(min);
         sec = checkTime(sec);
         document.getElementById("clock").innerHTML = hr + " : " + min + " : " + sec;
-        var time = setTimeout(function () { startTime() }, 500);
+        var time = setTimeout(function() { startTime() }, 500);
     }
 
     function checkTime(i) {
@@ -113,57 +117,27 @@ $(document).ready(function () {
         return i;
     }
 
-    $("#formDatos").submit(function (e) {
+    $("#formllamada").submit(function(e) {
         e.preventDefault();
-        var nombre = $.trim($("#nombre").val());
-        var calle = $.trim($("#calle").val());
-        var col = $.trim($("#col").val());
-        var num = $.trim($("#num").val());
-        var cp = $.trim($("#cp").val());
-        var cd = $.trim($("#cd").val());
-        var edo = $.trim($("#edo").val());
-        var tel = $.trim($("#tel").val());
-        var cel = $.trim($("#cel").val());
+        folio = id;
+        estado = $("#estado").val();
+        nota = $("#nota").val();
+        fecha = $("#fechasys").val();
+        usuario = $("#nameuser").val();
 
-        if (nombre.length == 0 || calle.length == 0 || col.length == 0 ||
-            num.length == 0 || cp.length == 0 || cd.length == 0 || edo.length == 0 ||
-            tel.length == 0 || cel.length == 0) {
-            Swal.fire({
-                title: 'Datos Faltantes',
-                text: "Debe ingresar todos los datos del Prospecto",
-                icon: 'warning',
-            })
-            return false;
-        } else {
-            $.ajax({
-                url: "bd/crudpros.php",
-                type: "POST",
-                dataType: "json",
-                data: { nombre: nombre, calle: calle, num: num, col: col, cp: cp, cd: cd, edo: edo, tel: tel, cel: cel, id: id, opcion: opcion },
-                success: function (data) {
-                    console.log(data);
-                    console.log(fila);
+        $.ajax({
+            type: "POST",
+            url: "bd/estadopres.php",
+            dataType: "json",
 
-                    //tablaPersonas.ajax.reload(null, false);
-                    id = data[0].id_pros;
-                    nombre = data[0].nombre;
-                    calle = data[0].calle;
-                    num = data[0].num;
-                    col = data[0].col;
-                    cp = data[0].cp;
-                    cd = data[0].cd;
-                    edo = data[0].edo;
-                    tel = data[0].tel;
-                    cel = data[0].cel;
-                    if (opcion == 1) {
-                        tablaVis.row.add([id, nombre, calle, num, col, cp, cd, edo, tel, cel]).draw();
-                    } else {
-                        tablaVis.row(fila).data([id, nombre, calle, num, col, cp, cd, edo, tel, cel]).draw();
-                    }
-                }
-            });
-            $("#modalCRUD").modal("hide");
-        }
+            data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
+            success: function() {
+
+
+            }
+        });
+        $("#modalcall").modal("hide");
+
     });
 
 });
