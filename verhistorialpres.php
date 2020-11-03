@@ -10,9 +10,31 @@ include_once "templates/navegacion.php";
 
 include_once 'bd/conexion.php';
 
-$message="";
+$folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
+
+$objeto = new conn();
+$conexion = $objeto->connect();
 
 
+$consulta = "SELECT * FROM presupuesto";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+if ($resultado->rowCount() >= 1) {
+    $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+  
+    foreach ($data as $dt) {
+      $fechaini = $dt['fecha_pres'];
+    }
+}
+
+
+
+$consulta = "SELECT * FROM notaspres order by id_nota";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+
+
+$data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -41,7 +63,7 @@ $message="";
             <div class="timeline">
               <!-- timeline time label -->
               <div class="time-label">
-                <span class="bg-red"> 5/03/2020</span>
+                <span class="bg-red"> <?php echo $fechaini; ?></span>
               </div>
               <!-- /.timeline-label -->
               <!-- timeline item -->
