@@ -79,7 +79,7 @@ $message="";
                         <td class="text-right"><?php echo "$ ".number_format( $dat['gtotal'],2) ?></td>
                         <td><?php  
                         switch ($dat['estado_pres']) {
-                          Case 0:
+                          case 0:
                             echo"<span class='bg-danger'> RECHAZADO </span>";
                             break;
                         

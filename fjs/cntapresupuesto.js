@@ -48,7 +48,7 @@ $(document).ready(function() {
     $(document).on("click", ".btnEditar", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
-        console.log(id);
+        
         window.location.href = "pres.php?folio=" + id;
 
 
@@ -67,6 +67,15 @@ $(document).ready(function() {
 
     });
 
+    
+    $(document).on("click", ".btnhistory", function() {
+        fila = $(this).closest("tr");
+        id = parseInt(fila.find('td:eq(0)').text());
+        window.location.href = "verhistorialpres.php?folio=" + id;
+
+
+
+    });
 
 
     //botón BORRAR
@@ -132,6 +141,7 @@ $(document).ready(function() {
 
             data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
             success: function() {
+                window.location.reload(true); 
 
 
             }
@@ -139,5 +149,8 @@ $(document).ready(function() {
         $("#modalcall").modal("hide");
 
     });
+
+
+
 
 });

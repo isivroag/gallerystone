@@ -1,5 +1,5 @@
 <?php
-$pagina="historial";
+$pagina = "historial";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -20,16 +20,16 @@ $consulta = "SELECT * FROM presupuesto";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 if ($resultado->rowCount() >= 1) {
-    $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-  
-    foreach ($data as $dt) {
-      $fechaini = $dt['fecha_pres'];
-    }
+  $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+  foreach ($data as $dt) {
+    $fechaini = $dt['fecha_pres'];
+  }
 }
 
 
 
-$consulta = "SELECT * FROM notaspres order by id_nota";
+$consulta = "SELECT * FROM notaspres where folio_pres='$folio'order by id_nota";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
@@ -40,103 +40,118 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Historial de Presupuesto</h1>
-          </div>
-          
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Historial de Presupuesto</h1>
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        
-        <!-- Timelime example  -->
-        <div class="row">
-          <div class="col-md-12">
-            <!-- The time line -->
-            <div class="timeline">
-              <!-- timeline time label -->
-              <div class="time-label">
-                <span class="bg-red"> <?php echo $fechaini; ?></span>
-              </div>
-              <!-- /.timeline-label -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-envelope bg-blue"></i>
-                <div class="timeline-item">
-                  
-                  <h3 class="timeline-header"><a href="#">Enviado</a> isivroag@hotmail.com</h3>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
 
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-phone bg-green"></i>
-                <div class="timeline-item">
-                  
-                  <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-comments bg-yellow"></i>
-                <div class="timeline-item">
-                  
-                  <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                  
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline time label -->
-              <div class="time-label">
-                <span class="bg-green">4/09/2020</span>
-              </div>
-              <!-- /.timeline-label -->
-              <!-- timeline item -->
-              <div>
-                <i class="fa fa-camera bg-purple"></i>
-                <div class="timeline-item">
-                 
-                  <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                  
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-video bg-maroon"></i>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
 
-                <div class="timeline-item">
-                  
-                  <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
+      <!-- Timelime example  -->
+      <div class="row">
+        <div class="col-md-12">
+          <!-- The time line -->
+          <div class="timeline">
 
+
+            <?php
+            foreach ($data2 as $dt2) {
+
+              $opcion = $dt2['estado'];
+              switch ($opcion) {
+                case 0:
+
+                  echo "<div class='time-label'>";
+                  echo "<span class='bg-danger'>" . $dt2['fecha'] . "</span>";
+                  echo "</div>";
+                  echo "<div>";
+                  echo "<i class='fas fa-times-circle bg-danger'></i>";
+                  echo "<div class='timeline-item'>";
+                  echo "<h3 class='timeline-header'><a href='#'>Rechazado </a>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "</div>";
+                  echo "</div>";
+
+
+                  break;
+                case 1:
                   
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <div>
-                <i class="fas fa-clock bg-gray"></i>
-              </div>
+                  echo "<div class='time-label'>";
+                  echo "<span class='bg-warning'>" . $dt2['fecha'] . "</span>";
+                  echo "</div>";
+                  echo "<div>";
+                  echo "<i class='fas fa-keyboard bg-warning'></i>";
+                  echo "<div class='timeline-item'>";
+                  echo "<h3 class='timeline-header'><a href='#'>Creado </a>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "</div>";
+                  echo "</div>";
+                  break;
+                case 2:
+                  
+                  echo "<div class='time-label'>";
+                  echo "<span class='bg-blue'>" . $dt2['fecha'] . "</span>";
+                  echo "</div>";
+                  echo "<div>";
+                  echo "<i class='fas fa-envelope bg-blue'></i>";
+                  echo "<div class='timeline-item'>";
+                  echo "<h3 class='timeline-header'><a href='#'>Enviado </a>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "</div>";
+                  echo "</div>";
+                  break;
+                case 3:
+                  
+                  echo "<div class='time-label'>";
+                  echo "<span class='bg-success'>" . $dt2['fecha'] . "</span>";
+                  echo "</div>";
+                  echo "<div>";
+                  echo "<i class='fas fa-dollar-sign bg-success'></i>";
+                  echo "<div class='timeline-item'>";
+                  echo "<h3 class='timeline-header'><a href='#'>Aceptado </a>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "</div>";
+                  echo "</div>";
+                  break;
+                case 4:
+                  
+                  echo "<div class='time-label'>";
+                  echo "<span class='bg-purple'>" . $dt2['fecha'] . "</span>";
+                  echo "</div>";
+                  echo "<div>";
+                  echo "<i class='fas fa-pause-circle bg-purple'></i>";
+                  echo "<div class='timeline-item'>";
+                  echo "<h3 class='timeline-header'><a href='#'>En Espera </a>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "</div>";
+                  echo "</div>";
+                  break;
+              }
+            }
+            ?>
+            <div>
+              <i class="fas fa-clock bg-info"></i>
             </div>
           </div>
-          <!-- /.col -->
+
+
+            
+          </div>
         </div>
+        <!-- /.col -->
       </div>
-      <!-- /.timeline -->
+    </div>
+    <!-- /.timeline -->
 
-    </section>
-    <!-- /.content -->
-  </div>
+  </section>
+  <!-- /.content -->
+</div>
 
-  <?php include_once 'templates/footer.php'; ?>
+<?php include_once 'templates/footer.php'; ?>
 <script src="fjs/cntapresupuesto.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
