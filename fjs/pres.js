@@ -154,6 +154,18 @@ $(document).ready(function() {
         }
     });
 
+    $("#btnNuevo").click(function() {
+
+        window.location.href = "presupuesto.php";
+        //$("#formDatos").trigger("reset");
+        //$(".modal-header").css("background-color", "#28a745");
+        //$(".modal-header").css("color", "white");
+        //$(".modal-title").text("Nuevo Prospecto");
+        //$("#modalCRUD").modal("show");
+        //id = null;
+        //opcion = 1; //alta
+    });
+
     $(document).on("click", "#btnVer", function() {
 
         folio = $('#folio').val();

@@ -294,16 +294,27 @@ $(document).ready(function() {
     });
 
     $(document).on("click", "#btnGuardar", function() {
+
+
+
+
+        IdCliente = $("#id_pros").val();
+        fecha = $("#fecha").val();
+        tokenid = $('#tokenid').val();
         folio = $('#folio').val();
+        proyecto = $('#proyecto').val();
+        ubicacion = $('#ubicacion').val();
+
+        opcion = 2;
 
         $.ajax({
 
             type: "POST",
-            url: "bd/trasladopres.php",
+            url: "bd/tmppres.php",
             dataType: "json",
-            data: { folio: folio },
+            data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion },
             success: function(res) {
-
+                console.log("Guardo el Head");
                 if (res == 0) {
                     Swal.fire({
                         title: 'Error al Guardar',
@@ -311,37 +322,62 @@ $(document).ready(function() {
                         icon: 'error',
                     })
                 } else {
-                    Swal.fire({
-                        title: 'Operación Exitosa',
-                        text: "Presupuesto Guardado",
-                        icon: 'success',
-                    })
-                    folio = res;
 
-                    estado = "1";
-                    nota = "Creacion";
-                    fecha = $("#fecha").val();
-                    usuario = $("#nameuser").val();
-                    console.log(folio);
                     $.ajax({
+
                         type: "POST",
-                        url: "bd/estadopres.php",
+                        url: "bd/trasladopres.php",
                         dataType: "json",
+                        data: { folio: folio },
+                        success: function(res) {
 
-                        data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
-                        success: function() {
-                            console.log(folio);
-                            window.setTimeout(function() {
-                                window.location.href = "pres.php?folio=" + folio;
-                            }, 1000);
+                            if (res == 0) {
+                                Swal.fire({
+                                    title: 'Error al Guardar',
+                                    text: "No se puedo guardar los datos del cliente",
+                                    icon: 'error',
+                                })
+                            } else {
+                                console.log("Guardo traslado a ventas");
+                                Swal.fire({
+                                    title: 'Operación Exitosa',
+                                    text: "Presupuesto Guardado",
+                                    icon: 'success',
+                                })
+                                folio = res;
+
+                                estado = "1";
+                                nota = "Creacion";
+                                fecha = $("#fecha").val();
+                                usuario = $("#nameuser").val();
+                                console.log(folio);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "bd/estadopres.php",
+                                    dataType: "json",
+
+                                    data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
+                                    success: function() {
+                                        console.log("Guardo la nota");
+                                        window.setTimeout(function() {
+                                            window.location.href = "pres.php?folio=" + folio;
+                                        }, 1000);
+                                    }
+
+                                });
+
+
+                            }
                         }
-
                     });
-
 
                 }
             }
         });
+
+
+
+
 
 
 
@@ -354,40 +390,7 @@ $(document).ready(function() {
 
     $(document).on("click", "#btnGuardarHead", function() {
 
-        IdCliente = $("#id_pros").val();
-        fecha = $("#fecha").val();
-        tokenid = $('#tokenid').val();
-        folio = $('#folio').val();
-        proyecto = $('#proyecto').val();
-        ubicacion = $('#ubicacion').val();
-
-
-
-
-        opcion = 2;
-
-
-
-
-        $.ajax({
-
-            type: "POST",
-            url: "bd/tmppres.php",
-            dataType: "json",
-            data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion },
-            success: function(res) {
-
-                if (res == 0) {
-                    Swal.fire({
-                        title: 'Error al Guardar',
-                        text: "No se puedo guardar los datos del cliente",
-                        icon: 'error',
-                    })
-                }
-            }
-        });
-
-        $("#modalProspecto").modal("hide");
+        guardarhead();
 
     });
 
@@ -597,6 +600,37 @@ $(document).ready(function() {
         }
 
     });
+
+    function guardarhead() {
+        IdCliente = $("#id_pros").val();
+        fecha = $("#fecha").val();
+        tokenid = $('#tokenid').val();
+        folio = $('#folio').val();
+        proyecto = $('#proyecto').val();
+        ubicacion = $('#ubicacion').val();
+
+        opcion = 2;
+
+        $.ajax({
+
+            type: "POST",
+            url: "bd/tmppres.php",
+            dataType: "json",
+            data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion },
+            success: function(res) {
+
+                if (res == 0) {
+                    Swal.fire({
+                        title: 'Error al Guardar',
+                        text: "No se puedo guardar los datos del cliente",
+                        icon: 'error',
+                    })
+                }
+            }
+        });
+
+
+    };
 
     function listar() {
         id = $('#clavemat').val();

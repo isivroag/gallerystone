@@ -41,20 +41,17 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Historial de Presupuesto</h1>
-        </div>
+  
 
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
+ 
 
   <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
+  <div class="card">
+  <div class="card-header">
+        <h1 class="card-title mx-auto">Historial dePresupuestos</h1>
+      </div>
+
+    <div class="card-body">
 
       <!-- Timelime example  -->
       <div class="row">
@@ -131,6 +128,7 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                   echo "</div>";
                   break;
               }
+              
             }
             ?>
             <div>

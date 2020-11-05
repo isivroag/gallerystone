@@ -114,8 +114,8 @@ else{
           <div class="col-lg-12">
 
             
-            <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
-            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+            <button id="btnNuevo" name="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+            <button id="btnGuardar" name="btnGuardar" type="button" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
             <button id="btnVer" name="btnVer" type="button" class="btn bg-gradient-primary btn-ms"><i class="fas fa-file-pdf"></i> Preview</button>
             <button id="btnEnviar" name="btnEnviar" type="button" class="btn bg-gradient-purple btn-ms"><i class="fas fa-envelope-square"></i> Enviar</button>
           </div>
