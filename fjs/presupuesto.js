@@ -372,7 +372,6 @@ $(document).ready(function() {
         
 
         event.preventDefault();
-       
         fila = $(this);
         id = parseInt($(this).closest("tr").find('td:eq(0)').text());
         total = $(this).closest("tr").find('td:eq(7)').text();
@@ -393,27 +392,14 @@ $(document).ready(function() {
 
         }).then(function (isConfirm) {
             if (isConfirm.value) {
-
-
-
-                //agregar codigo de sweatalert2
-
-              
-
-
-
                 $.ajax({
-
                     url: "bd/detalletemp.php",
                     type: "POST",
                     dataType: "json",
                     data: { id: id, total: total, folio: folio, opcion: opcion },
-
                     success: function () {
-
-
-                        tablaVis.row(fila.parents('tr')).remove().draw();
-                        buscartotal();
+                    tablaVis.row(fila.parents('tr')).remove().draw();
+                    buscartotal();
                     }
                 });
 

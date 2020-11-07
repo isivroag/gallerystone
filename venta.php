@@ -1,0 +1,431 @@
+
+<?php
+$pagina = "venta";
+
+include_once "templates/header.php";
+include_once "templates/barra.php";
+include_once "templates/navegacion.php";
+
+
+include_once 'bd/conexion.php';
+
+$folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
+
+if ($folio != "") {
+  $objeto = new conn();
+  $conexion = $objeto->connect();
+  $tokenid = md5($_SESSION['s_usuario']);
+
+  $consulta = "SELECT * FROM venta where folio_vta='$folio'";
+
+  $resultado = $conexion->prepare($consulta);
+  $resultado->execute();
+
+
+  $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+  foreach ($data as $dt) {
+    $folio = $dt['folio_vta'];
+
+    $fecha = $dt['fecha_vta'];
+    $idclie = $dt['id_clie'];
+    $concepto = $dt['concepto_vta'];
+    $ubicacion = $dt['ubicacion'];
+    $subtotal=$dt['subtotal'];
+    $descuento=$dt['descuento'];
+    $gtotal=$dt['gtotal'];
+    $total=$dt['total'];
+    $iva=$dt['iva'];
+    $saldo=$dt['saldo'];
+  }
+
+  if ($idclie != 0) {
+    $consultapros = "SELECT nombre,correo FROM cliente where id_clie='$idclie'";
+
+    $resultadopros = $conexion->prepare($consultapros);
+    $resultadopros->execute();
+    if ($resultado->rowCount() >= 1) {
+        $datapros = $resultadopros->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($datapros as $dtp) {
+        $prospecto = $dtp['nombre'];
+        $correo = $dtp['correo'];
+    }
+    } else {
+        $prospecto = "";
+        $correo = "";
+        }
+    } else {
+    $prospecto = "";
+    $correo = "";
+  }
+
+
+
+  $message = "";
+
+
+
+    $consultac = "SELECT * FROM cliente order by id_cliente";
+    $resultadoc = $conexion->prepare($consultac);
+    $resultadoc->execute();
+    $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
+
+    $consultacon = "SELECT * FROM vconceptos order by id_concepto";
+    $resultadocon = $conexion->prepare($consultacon);
+    $resultadocon->execute();
+    $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
+    $consultadet = "SELECT * FROM vdetalle_vta where folio_vta='$folio' order by id_reg";
+    $resultadodet = $conexion->prepare($consultadet);
+    $resultadodet->execute();
+    $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
+}
+else{
+    $folio = "";
+
+    $fecha = "";
+    $idclie = "";
+    $concepto = "";
+    $ubicacion = "";
+    $subtotal="";
+    $descuento="";
+    $gtotal="";
+    $total="";
+    $iva="";
+    $prospecto = "";
+    $correo = "";
+    $saldo="";
+}
+
+
+
+
+
+?>
+
+<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header bg-gradient-green">
+        <h1 class="card-title mx-auto">Venta</h1>
+      </div>
+
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-lg-12">
+
+           
+           
+          
+
+          </div>
+        </div>
+
+        <br>
+
+
+        <!-- Formulario Datos de Cliente -->
+        <form id="formDatos" action="" method="POST">
+
+
+          <div class="content" disab>
+
+            <div class="card card-widget" style="margin-bottom:0px;">
+
+              <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
+                <div class="card-tools" style="margin:0px;padding:0px;">
+
+                
+                </div>
+                <h1 class="card-title ">Datos de la Venta</h1>
+              </div>
+
+              <div class="card-body" style="margin:0px;padding:1px;">
+
+                <div class="row justify-content-sm-center">
+
+                  <div class="col-lg-5">
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
+                      <input type="hidden" class="form-control" name="id_pros" id="id_pros" value="<?php echo $idpros; ?>">
+                      <label for="nombre" class="col-form-label">Cliente:</label>
+
+                      <div class="input-group input-group-sm">
+
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $prospecto; ?>" disabled>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="form-group input-group-sm">
+                      <label for="correo" class="col-form-label">Email:</label>
+                      <input type="text" class="form-control" name="correo" id="correo" value="<?php echo $correo; ?>" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2">
+                    <div class="form-group input-group-sm">
+                      <label for="fecha" class="col-form-label">Fecha:</label>
+                      <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>" disabled> 
+                    </div>
+                  </div>
+
+
+                  <div class="col-lg-1">
+                    <div class="form-group input-group-sm">
+                      <label for="folior" class="col-form-label">Folio:</label>
+                      
+                      <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>" disabled>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class=" row justify-content-sm-center">
+                  <div class="col-sm-6">
+
+                    <div class="form-group">
+                      <label for="proyecto" class="col-form-label">Descripcion del Proyecto:</label>
+                      <textarea rows="2" class="form-control" name="proyecto" id="proyecto" disabled><?php echo $concepto; ?></textarea>
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-5">
+
+                    <div class="form-group">
+                      <label for="ubicacion" class="col-form-label">Ubicación:</label>
+                      <textarea rows="2" class="form-control" name="ubicacion" id="ubicacion" disabled><?php echo $ubicacion; ?></textarea>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+            </div>
+            <!-- Formulario Agrear Item -->
+          
+            <!-- Tabla -->
+            <div class="content" style="padding:5px 0px;">
+
+              <div class="card card-widget">
+              <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
+                <div class="card-tools" style="margin:0px;padding:0px;">
+                    </div>
+                <h1 class="card-title ">Detalle</h1>
+              </div>
+
+                <div class="card-body" style="margin:0px;padding:3px;">
+
+                  <div class="row">
+
+                    <div class="col-lg-12 mx-auto">
+
+                      <div class="table-responsive" style="padding:5px;">
+
+                        <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                          <thead class="text-center bg-gradient-green">
+                            <tr>
+                              <th>Id</th>
+                              <th>Concepto</th>
+                              <th>Descripcion</th>
+                              <th>Formato</th>
+                              <th>Cantidad</th>
+                              <th>U. Medida</th>
+                              <th>P.U.</th>
+                              <th>Monto</th>
+                           
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            foreach ($datadet as $datdet) {
+                            ?>
+                              <tr>
+                                <td><?php echo $datdet['id_reg'] ?></td>
+                                <td><?php echo $datdet['nom_concepto'] ?></td>
+                                <td><?php echo $datdet['nom_item'] ?></td>
+                                <td><?php echo $datdet['formato'] ?></td>
+                                <td><?php echo $datdet['cantidad'] ?></td>
+                                <td><?php echo $datdet['nom_umedida'] ?></td>
+                                <td><?php echo $datdet['precio'] ?></td>
+                                <td><?php echo $datdet['total'] ?></td>
+
+                               
+                              </tr>
+                            <?php
+                            }
+                            ?>
+
+                          </tbody>
+                        </table>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="row justify-content-sm-end" style="padding:5px 0px;">
+
+                    <div class="col-lg-2 ">
+
+                      <label for="subtotal" class="col-form-label ">Subtotal:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal;?>" disabled>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-2 ">
+                      <label for="iva" class="col-form-label">IVA:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;?>" disabled>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-2 ">
+                      <label for="total" class="col-form-label ">Total:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total;?>" disabled>
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-lg-2 ">
+                      <label for="total" class="col-form-label ">Descuento:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento;?>" disabled>
+                      </div>
+
+
+                    </div>
+
+                    <div class="col-lg-2 ">
+                      <label for="total" class="col-form-label ">Gran Total:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal;?>" disabled>
+                      </div>
+
+
+                    </div>
+                    <div class="col-lg-2 ">
+                      <label for="total" class="col-form-label ">Saldo:</label>
+
+                      <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fas fa-dollar-sign"></i>
+                          </span>
+                        </div>
+
+                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $saldo;?>" disabled>
+                      </div>
+
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+              </div>
+
+            </div>
+            <!-- Formulario totales -->
+
+          </div>
+
+
+        </form>
+
+
+        <!-- /.card-body -->
+
+        <!-- /.card-footer-->
+      </div>
+
+    </div>
+
+    <!-- /.card -->
+
+  </section>
+
+
+
+
+
+  
+
+ 
+
+</div>
+
+<script>
+//  window.addEventListener('beforeunload', function(event) {
+    // Cancel the event as stated by the standard.
+ //   event.preventDefault();
+
+    // Chrome requires returnValue to be set.
+    //event.returnValue = "";
+  //});
+</script>
+
+<?php include_once 'templates/footer.php'; ?>
+<script src="fjs/venta.js"></script>
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>

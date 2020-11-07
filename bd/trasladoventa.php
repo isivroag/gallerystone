@@ -21,7 +21,11 @@ foreach ($dt as $row) {
     $concepto = $row['concepto_pres'];
     $ubicacion = $row['ubicacion'];
     $subtotal = $row['subtotal'];
+    $iva = $row['iva'];
+    $total = $row['total'];
     $descuento = $row['descuento'];
+    $gtotal = $row['gtotal'];
+    
 }
 
 $consulta = "SELECT * FROM cliente where id_pros='$id_pros'";
@@ -29,15 +33,15 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
 if ($resultado->rowCount() >= 1) {
-    $dt = $resultado->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($data as $dt) {
+    $dta = $resultado->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($dta as $dt) {
         $id_cliente = $dt['id_clie'];
     }
 } else {
     $id_cliente = "";
 }
 
-if ($id_cliente != "") {
+if ($id_cliente == "") {
 
     $consulta = "SELECT * FROM prospecto WHERE id_pros='$id_pros'";
     $resultado = $conexion->prepare($consulta);
@@ -46,7 +50,7 @@ if ($id_cliente != "") {
 
 
     foreach ($dt as $row) {
-
+        $rfc="";
         $nomclie = $row['nombre'];
         $correoclie = $row['correo'];
         $calleclie = $row['calle'];
@@ -58,7 +62,7 @@ if ($id_cliente != "") {
         $telclie = $row['tel'];
         $celclie = $row['cel'];
 
-        $consulta = "INSERT INTO cliente (nombre,correo, calle, col, num, cp,cd,edo,tel,cel,id_pros) VALUES('$nomclie','$correoclie', '$calleclie', '$colclie','$numclie','$cpclie','$cdclie','$edoclie','$telclie','$celclie','$id_pros') ";			
+        $consulta = "INSERT INTO cliente (rfc,nombre,correo, calle, col, num, cp,cd,edo,tel,cel,id_pros) VALUES('$rfc','$nomclie','$correoclie', '$calleclie', '$colclie','$numclie','$cpclie','$cdclie','$edoclie','$telclie','$celclie','$id_pros') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
@@ -81,11 +85,11 @@ if ($id_cliente != "") {
 
 
 
-$consulta = "UPDATE presupuesto SET estado_pres=4 WHERE folio_pres='$folio'";
+$consulta = "UPDATE presupuesto SET estado_pres=3 WHERE folio_pres='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
-
-$consulta = "INSERT INTO venta (id_clie,fecha_pres,concepto_pres,ubicacion,subtotal,tokenid,estado_vta,descuento) VALUES('$id_clie','$fecha','$concepto','$ubicacion','$subtotal','$tokenid','1','$descuento')";
+$fecha=date('Y-m-d');
+$consulta = "INSERT INTO venta (id_clie,fecha_vta,concepto_vta,ubicacion,subtotal,iva,total,tokenid,estado_vta,descuento,gtotal,saldo) VALUES('$id_cliente','$fecha','$concepto','$ubicacion','$subtotal','$iva','$total','$tokenid','1','$descuento','$gtotal','$gtotal')";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
@@ -114,7 +118,7 @@ foreach ($dt as $row) {
     $cantidad = $row['cantidad'];
     $total = $row['total'];
 
-    $consultain = "INSERT INTO detalle_vta (folio_pres,id_concepto,id_item,id_precio,precio,cantidad,total) VALUES ('$foliovta','$id_concepto','$id_item','$id_precio','$precio','$cantidad','$total')";
+    $consultain = "INSERT INTO detalle_vta (folio_vta,id_concepto,id_item,id_precio,precio,cantidad,total) VALUES ('$foliovta','$id_concepto','$id_item','$id_precio','$precio','$cantidad','$total')";
     $resultadoin = $conexion->prepare($consultain);
     $resultadoin->execute();
 }
@@ -122,5 +126,5 @@ foreach ($dt as $row) {
 
 
 
-print json_encode($foliopres, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+print json_encode($foliovta, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
 $conexion = NULL;

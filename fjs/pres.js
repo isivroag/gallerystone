@@ -172,6 +172,38 @@ $(document).ready(function () {
         }).then(function (isConfirm) {
             if (isConfirm.value) {
                 console.log("Aceptado");
+                folio = $('#folio').val();
+                $.ajax({
+
+                    type: "POST",
+                    url: "bd/trasladoventa.php",
+                    dataType: "json",
+                    data: { folio: folio },
+                    success: function(res) {
+
+                        if (res == 0) {
+                            Swal.fire({
+                                title: 'Error al Guardar',
+                                text: "No se puedo guardar los datos del cliente",
+                                icon: 'error',
+                            })
+                        } else {
+                            console.log("Guardo traslado a ventas");
+                            Swal.fire({
+                                title: 'Operación Exitosa',
+                                text: "Presupuesto Guardado",
+                                icon: 'success',
+                            })
+                            folio = res;
+                            window.setTimeout(function() {
+                                window.location.href = "venta.php?folio=" + folio;
+                            }, 1000);
+                            
+
+                        }
+                    }
+                });
+
             } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
                 console.log("Cancelado");
             }
