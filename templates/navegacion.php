@@ -145,22 +145,65 @@
           </ul>
         </li>
 
+        <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza') ? "menu-open" : ""; ?>">
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina== 'partida' || $pagina== 'cxp') ? "menu-open" : ""; ?>">
 
-
-          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina== 'partida' || $pagina== 'cxp') ? "active" : ""; ?>">
-            <i class="nav-icon fas fa-grip-horizontal "></i>
+          <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza') ? "active" : ""; ?>">
+            <span class="fa-stack">
+              <i class=" fas fa-dollar-sign "></i>
+              <i class=" fas fa-arrow-up "></i>
+            </span>
             <p>
-              Gestión de Egresos
+              Ingresos
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
 
-          <li class="nav-item">
-              <a href="cntapartida.php" class="nav-link <?php echo ($pagina == 'partida') ? "active seleccionado" : ""; ?>  ">
+            <li class="nav-item">
+              <a href="cntacliente.php" class="nav-link <?php echo ($pagina == 'cliente') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-address-card nav-icon"></i>
+                <p>Clientes</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntaventa.php" class="nav-link <?php echo ($pagina == 'venta') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-cash-register nav-icon"></i>
+                <p>Ventas</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntacxc.php" class="nav-link <?php echo ($pagina == 'cxc') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-file-invoice-dollar nav-icon"></i>
+                <p>Cuentas por Cobrar</p>
+              </a>
+            </li>
+
+
+          </ul>
+        </li>
+
+
+        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp') ? "menu-open" : ""; ?>">
+
+
+          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp') ? "active" : ""; ?>">
+          <span class="fa-stack">
+              <i class=" fas fa-dollar-sign "></i>
+              <i class=" fas fa-arrow-down "></i>
+            </span>
+            <p>
+              Egresos
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+              <a href="cntapartida.php" class="nav-link <?php echo ($pagina == 'partida') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-list-alt nav-icon"></i>
                 <p>Partidas</p>
               </a>
             </li>
@@ -171,7 +214,7 @@
                 <p>Proveedores</p>
               </a>
             </li>
-           
+
             <li class="nav-item">
               <a href="cntacxp.php" class="nav-link <?php echo ($pagina == 'cxp') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-file-invoice-dollar nav-icon"></i>
@@ -182,6 +225,8 @@
 
           </ul>
         </li>
+
+
 
 
 

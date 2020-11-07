@@ -104,7 +104,7 @@ else{
 
     <!-- Default box -->
     <div class="card">
-      <div class="card-header">
+      <div class="card-header bg-gradient-blue">
         <h1 class="card-title mx-auto">Presupuestos</h1>
       </div>
 
@@ -113,11 +113,12 @@ else{
         <div class="row">
           <div class="col-lg-12">
 
-            
+            <button id="btnVta" name="btnVta" type="button" class="btn bg-gradient-primary btn-ms"><i class="fas fa-dollar-sign"></i> Traspaso a Venta</button>
             <button id="btnNuevo" name="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
             <button id="btnGuardar" name="btnGuardar" type="button" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-            <button id="btnVer" name="btnVer" type="button" class="btn bg-gradient-primary btn-ms"><i class="fas fa-file-pdf"></i> Preview</button>
+            <button id="btnVer" name="btnVer" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-file-pdf"></i> Preview</button>
             <button id="btnEnviar" name="btnEnviar" type="button" class="btn bg-gradient-purple btn-ms"><i class="fas fa-envelope-square"></i> Enviar</button>
+
           </div>
         </div>
 

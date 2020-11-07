@@ -235,25 +235,7 @@ $(document).ready(function() {
 
     });
 
-    /*
-        $(document).on("change", "#folio", function() {
-            folio = $("#folio").val();
 
-            $.ajax({
-
-                type: "POST",
-                url: "bd/buscardetalletmp.php",
-                dataType: "json",
-                data: { folio: folio },
-                success: function(res) {
-
-                    for (var i = 0; i < res.length; i++) {
-                        tablaVis.row.add([res[i].id_reg, res[i].nom_concepto, res[i].nom_item, res[i].formato, res[i].cantidad, res[i].nom_umedida, res[i].precio, res[i].total]).draw();
-                    }
-                }
-            });
-        });
-    */
     $(document).on("click", ".btnSelCliente", function() {
         fila = $(this).closest("tr");
 
@@ -375,15 +357,6 @@ $(document).ready(function() {
             }
         });
 
-
-
-
-
-
-
-
-
-
     });
 
 
@@ -391,39 +364,65 @@ $(document).ready(function() {
     $(document).on("click", "#btnGuardarHead", function() {
 
         guardarhead();
+        mensaje();
 
     });
 
     $(document).on("click", ".btnBorrar", function(event) {
-        event.preventDefault();
-        fila = $(this);
+        
 
+        event.preventDefault();
+       
+        fila = $(this);
         id = parseInt($(this).closest("tr").find('td:eq(0)').text());
         total = $(this).closest("tr").find('td:eq(7)').text();
         folio = $("#folio").val();
         opcion = 2;
 
-        //agregar codigo de sweatalert2
-        var respuesta = confirm("¿Está seguro de eliminar el registro?");
+
+        swal.fire({
+            title: "Borrar",
+            text: "¿Realmente desea borrar este elemento?",
+
+            showCancelButton: true,
+            icon: 'warning',
+            focusConfirm: true,
+            confirmButtonText: "Aceptar",
+
+            cancelButtonText: "Cancelar",
+
+        }).then(function (isConfirm) {
+            if (isConfirm.value) {
 
 
 
-        if (respuesta) {
-            $.ajax({
+                //agregar codigo de sweatalert2
 
-                url: "bd/detalletemp.php",
-                type: "POST",
-                dataType: "json",
-                data: { id: id, total: total, folio: folio, opcion: opcion },
-
-                success: function() {
+              
 
 
-                    tablaVis.row(fila.parents('tr')).remove().draw();
-                    buscartotal();
-                }
-            });
-        }
+
+                $.ajax({
+
+                    url: "bd/detalletemp.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: { id: id, total: total, folio: folio, opcion: opcion },
+
+                    success: function () {
+
+
+                        tablaVis.row(fila.parents('tr')).remove().draw();
+                        buscartotal();
+                    }
+                });
+
+
+            } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
+
+            }
+        });
+
     });
 
 
@@ -686,6 +685,19 @@ $(document).ready(function() {
         });
     };
 
+    function mensaje() {
+        swal.fire({
+            title: "Presupuesto",
+            text: "Guardado",
+
+
+            icon: 'success',
+            focusConfirm: true,
+            confirmButtonText: "Aceptar",
+
+
+        })
+    }
 
     function listarmat() {
 
