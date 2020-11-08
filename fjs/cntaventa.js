@@ -49,7 +49,7 @@ $(document).ready(function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
         
-        window.location.href = "pres.php?folio=" + id;
+        window.location.href = "venta.php?folio=" + id;
 
 
     });

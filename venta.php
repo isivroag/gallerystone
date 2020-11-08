@@ -123,11 +123,8 @@ else{
 
         <div class="row">
           <div class="col-lg-12">
-
-           
-           
-          
-
+          <button id="btnPagar" name="btnPagar" type="button" class="btn bg-gradient-primary btn-ms"><i class="fas fa-dollar-sign"></i> Pagar</button>
+            <button id="btnCal" name="btnCal" type="button" class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="far fa-calendar-alt text-light"></i><span class="text-light"> Instalación</span></button>
           </div>
         </div>
 
