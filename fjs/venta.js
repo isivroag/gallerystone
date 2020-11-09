@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var id, opcion;
 
 
@@ -13,10 +13,10 @@ $(document).ready(function () {
 
 
         "columnDefs": [
-        { className: "text-center", "targets": [4] },
-        { className: "text-center", "targets": [5] },
-        { className: "text-right", "targets": [6] },
-        { className: "text-right", "targets": [7] }
+            { className: "text-center", "targets": [4] },
+            { className: "text-center", "targets": [5] },
+            { className: "text-right", "targets": [6] },
+            { className: "text-right", "targets": [7] }
         ],
 
 
@@ -37,10 +37,53 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on("click", "#btnCal", function() {
 
-   
-  
+        $(".modal-header").css("background-color", "#007bff");
+        $(".modal-header").css("color", "white");
 
+        $("#modalCita").modal("show");
+
+    });
+
+    $(document).on("click", "#btnGuardarcita", function() {
+
+        var folio_vta = $.trim($("#folior").val());
+
+        var concepto = $.trim($("#concepto").val());
+        var fecha = $.trim($("#fechac").val());
+        var obs = $.trim($("#obs").val());
+
+
+        opcion = 1;
+
+        $.ajax({
+            url: "bd/citasv.php",
+            type: "POST",
+            dataType: "json",
+            data: { folio_vta: folio_vta, fecha: fecha, obs: obs, concepto: concepto, opcion: opcion },
+            success: function(res) {
+
+                mensaje();
+            }
+        });
+
+        $("#modalCita").modal("hide");
+    });
+
+    function mensaje() {
+        swal.fire({
+
+            text: "Cita Guardada",
+
+
+            icon: 'success',
+            focusConfirm: true,
+            confirmButtonText: "Aceptar",
+
+
+        })
+    }
 
 
 })
