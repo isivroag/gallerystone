@@ -46,7 +46,7 @@ $message = "";
 
     <!-- Default box -->
     <div class="card ">
-      <div class="card-header">
+      <div class="card-header bg-gradient-purple text-light">
         <h4 class="card-title text-center">Cuentas por Pagar</h4>
       </div>
 
@@ -55,13 +55,13 @@ $message = "";
         <div class="row">
           <div class="col-lg-12">
             
-            <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+            <button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
           </div>
         </div>
         <br>
         <div class="container-fluid">
           <div class="card">
-            <div class="card-header bg-gradient-orange">
+            <div class="card-header bg-gradient-purple">
               Filtro por rango de Fecha
             </div>
             <div class="card-body">
@@ -93,7 +93,7 @@ $message = "";
             <div class="col-lg-12">
               <div class="table-responsive">
                 <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
-                  <thead class="text-center bg-gradient-orange">
+                  <thead class="text-center bg-gradient-purple">
                     <tr>
                       <th>Folio</th>
                       <th>Fecha</th>

@@ -54,7 +54,7 @@ $message = "";
 
         <!-- Default box -->
         <div class="card ">
-            <div class="card-header">
+            <div class="card-header bg-gradient-orange text-light">
                 <h1 class="card-title mx-auto">Precios</h1>
             </div>
 
@@ -68,16 +68,16 @@ $message = "";
                 </div>
                 <br>
                 <div class="container-fluid">
-                    <div class="row justify-content-sm-center bg-gradient-gray py-2 px-3 mt-4" disabled>
-                        <div class="col-sm-3 form-inline">
+                    <div class="row justify-content-sm-center bg-gradient-orange py-2 px-3 mt-4" disabled>
+                        <div class="col-sm-3 ">
                             <label for="iditem" class="col-form-label">Id Item: </label>
                             <input type="text" class="form-control" name="iditem" id="iditem" value="<?php echo $id_item ?>" disabled>
                         </div>
-                        <div class="col-sm-3 form-inline">
+                        <div class="col-sm-3 ">
                             <label for="clavemat" class="col-form-label">Clave Item: </label>
                             <input type="text" class="form-control" name="clavemat" id="clavemat" value="<?php echo $clave_item ?>" disabled>
                         </div>
-                        <div class="col-sm-3 form-inline">
+                        <div class="col-sm-3 ">
                             <label for="nommat" class="col-form-label">Descripción: </label>
                             <input type="text" class="form-control" name="nommat" id="nommat" value="<?php echo $nom_item ?>" disabled>
                         </div>
@@ -124,9 +124,7 @@ $message = "";
 
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-                Footer
-            </div>
+           
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->

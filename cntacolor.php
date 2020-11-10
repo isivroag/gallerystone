@@ -36,7 +36,7 @@ $message = "";
 
         <!-- Default box -->
         <div class="card">
-            <div class="card-header bg-orange">
+            <div class="card-header bg-gradient-orange text-light">
                 <h1 class="card-title mx-auto text-light">Colores</h1>
             </div>
 

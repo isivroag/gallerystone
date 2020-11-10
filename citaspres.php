@@ -50,7 +50,7 @@ $message = "";
 
   <!-- Main content -->
   <section class="card">
-    <div class="card-header light">
+    <div class="card-header bg-gradient-orange text-light">
       <h2 class="card-title mx-auto">Calendario de Citas para Presupuesto</h2>
     </div>
     <div class="card-body">

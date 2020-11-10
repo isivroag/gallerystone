@@ -36,8 +36,8 @@ $message = "";
 
         <!-- Default box -->
         <div class="card">
-            <div class="card-header">
-                <h1 class="card-title mx-auto">Insumo/Materia Prima</h1>
+            <div class="card-header bg-gradient-orange text-light">
+                <h1 class="card-title mx-auto">Materia Prima</h1>
             </div>
 
             <div class="card-body">
@@ -84,9 +84,7 @@ $message = "";
 
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-                Footer
-            </div>
+           
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->

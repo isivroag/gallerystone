@@ -46,7 +46,7 @@ $message = "";
 
         <!-- Default box -->
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-gradient-orange text-light">
                 <h1 class="card-title mx-auto">Conceptos</h1>
             </div>
 
@@ -106,9 +106,7 @@ $message = "";
 
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-                Footer
-            </div>
+            
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->

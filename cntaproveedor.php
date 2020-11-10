@@ -36,7 +36,7 @@ $message = "";
 
     <!-- Default box -->
     <div class="card">
-      <div class="card-header">
+      <div class="card-header bg-gradient-purple text-light">
         <h1 class="card-title mx-auto">Proveedores</h1>
       </div>
 
@@ -103,9 +103,7 @@ $message = "";
 
       </div>
       <!-- /.card-body -->
-      <div class="card-footer">
-        Footer
-      </div>
+     
       <!-- /.card-footer-->
     </div>
     <!-- /.card -->
@@ -117,7 +115,7 @@ $message = "";
     <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header bg-gradient-primary">
+          <div class="modal-header bg-gradient-purple">
             <h5 class="modal-title" id="exampleModalLabel">NUEVO PROVEEDOR</h5>
 
           </div>
