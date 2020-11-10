@@ -24,23 +24,38 @@ switch ($opcion) {
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 $res=1;
+                print json_encode($res, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
                 break;
         case 2:
                 $consulta = "UPDATE citav SET fecha='$fecha' WHERE folio_citav='$id' ";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
-                $res=1;
+                $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
                 break;
 
 
         case 3:
+                $consulta = "SELECT * FROM citav WHERE folio_vta='$folio_vta'";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+                if ($resultado->rowCount() >= 1){
+                        $res=1;
+                }
+                else{
+                        $res=0;
+                }
+                print json_encode($res, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+                
+                break;
+        case 4:
                 $consulta = "SELECT * FROM vcitav WHERE id='$id'";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
-                
-                $res=1;
-                break;
+                $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+        break;
 }
 
-print json_encode($res, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+
 $conexion = NULL;

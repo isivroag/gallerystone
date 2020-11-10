@@ -11,15 +11,12 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vcitap order by folio_citap";
+$consulta = "SELECT * FROM vcitav order by folio_citav";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$consultac = "SELECT * FROM prospecto order by id_pros";
-$resultadoc = $conexion->prepare($consultac);
-$resultadoc->execute();
-$datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
+
 
 $message = "";
 
@@ -50,15 +47,15 @@ $message = "";
 
   <!-- Main content -->
   <section class="card">
-    <div class="card-header light">
-      <h2 class="card-title mx-auto">Calendario de Citas para Presupuesto</h2>
+    <div class="card-header bg-gradient-green light">
+      <h2 class="card-title mx-auto">Calendario de Citas de Instalación</h2>
     </div>
     <div class="card-body">
 
       <div class="row">
         <div class="col-lg-12">
           
-          <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+          
         </div>
       </div>
       <br>
@@ -90,8 +87,8 @@ $message = "";
     <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header bg-gradient-primary">
-            <h5 class="modal-title" id="exampleModalLabel">Agendar Cita-Presupuesto</h5>
+          <div class="modal-header bg-gradient-green">
+            <h5 class="modal-title" id="exampleModalLabel">Agendar Cita-Instalación</h5>
 
           </div>
           <form id="formDatos" action="" method="POST">
@@ -102,14 +99,12 @@ $message = "";
               <div class="form-group">
               <input type="hidden" class="form-control" name="folio" id="folio">
                 <input type="hidden" class="form-control" name="id_pros" id="id_pros">
-                <label for="nombre" class="col-form-label">Prospecto:</label>
+                <label for="nombre" class="col-form-label">Cliente:</label>
 
                 <div class="input-group">
 
                   <input type="text" class="form-control" name="nom_pros" id="nom_pros" autocomplete="off" placeholder="Prospecto">
-                  <span class="input-group-append">
-                    <button id="bcliente" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
-                  </span>
+                  
                 </div>
               </div>
             </div>
@@ -180,74 +175,7 @@ $message = "";
     </div>
   </section>
 
-  <section>
-    <div class="container">
-
-      <!-- Default box -->
-      <div class="modal fade" id="modalProspecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl " role="document">
-          <div class="modal-content w-auto">
-            <div class="modal-header bg-gradient-primary">
-              <h5 class="modal-title" id="exampleModalLabel">BUSCAR PROSPECTO</h5>
-
-            </div>
-            <br>
-            <div class="table-hover table-responsive w-auto" style="padding:15px">
-              <table name="tablaC" id="tablaC" class="table  table-sm table-striped table-bordered table-condensed" style="width:100%">
-                <thead class="text-center">
-                  <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Calle</th>
-                    <th>Num</th>
-                    <th>Colonia</th>
-                    <th>C.P.</th>
-                    <th>Ciudad</th>
-                    <th>Estado</th>
-                    <th>Telefono</th>
-                    <th>Celular</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  foreach ($datac as $datc) {
-                  ?>
-                    <tr>
-                      <td><?php echo $datc['id_pros'] ?></td>
-                      <td><?php echo $datc['nombre'] ?></td>
-                      <td><?php echo $datc['correo'] ?></td>
-                      <td><?php echo $datc['calle'] ?></td>
-                      <td><?php echo $datc['num'] ?></td>
-                      <td><?php echo $datc['col'] ?></td>
-                      <td><?php echo $datc['cp'] ?></td>
-                      <td><?php echo $datc['cd'] ?></td>
-                      <td><?php echo $datc['edo'] ?></td>
-                      <td><?php echo $datc['tel'] ?></td>
-                      <td><?php echo $datc['cel'] ?></td>
-
-                      <td></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
-                </tbody>
-              </table>
-            </div>
-
-
-          </div>
-
-        </div>
-        <!-- /.card-body -->
-
-        <!-- /.card-footer-->
-      </div>
-      <!-- /.card -->
-
-    </div>
-  </section>
+ 
 
 
   <!-- /.content -->
@@ -256,7 +184,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/citap.js"></script>
+<script src="fjs/citav.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

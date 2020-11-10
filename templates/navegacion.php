@@ -28,10 +28,9 @@
                with font-awesome or any other icon font library -->
         <li class="nav-item ">
           <a href="inicio.php" class="nav-link <?php echo ($pagina == 'home') ? "active" : ""; ?> ">
-            <i class="nav-icon fas fa-home"></i>
-            <p>
+            <i class="nav-icon fas fa-home "></i>
+            <p >
               Home
-
             </p>
           </a>
         </li>
@@ -145,10 +144,10 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina=='citav') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina=='citav') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-dollar-sign "></i>
               <i class=" fas fa-arrow-up "></i>
@@ -173,7 +172,12 @@
                 <p>Ventas</p>
               </a>
             </li>
-
+            <li class="nav-item">
+              <a href="citasventa.php" class="nav-link <?php echo ($pagina == 'citav') ? "active seleccionado" : ""; ?>  ">
+                <i class="far fa-calendar nav-icon"></i>
+                <p>Calendario Instalación</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a href="cntacxc.php" class="nav-link <?php echo ($pagina == 'cxc') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-file-invoice-dollar nav-icon"></i>

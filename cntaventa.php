@@ -63,7 +63,7 @@ $message="";
                       <th>Proyecto</th>
                       <th>Total</th>
                       <th>Saldo</th>
-                      <th>Estado</th>
+                      
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -79,31 +79,7 @@ $message="";
                         
                         <td class="text-right"><?php echo "$ ".number_format( $dat['gtotal'],2) ?></td>
                         <td class="text-right"><?php echo "$ ".number_format( $dat['saldo'],2) ?></td>
-                        <td><?php  
-                        switch ($dat['estado_vta']) {
-                          case 0:
-                            echo"<span class='bg-danger'> RECHAZADO </span>";
-                            break;
                         
-                          case 1:
-                              echo "<span class='bg-warning'> PENDIENTE </span>";
-                              break;
-                          case 2:
-                            echo "<span class='bg-primary'> ENVIADO </span>";
-                            break;
-                          case 3:
-                            echo "<span class='bg-success'> ACEPTADO </span>";
-                            break;
-                          case 4:
-                            echo "<span class='bg-purple'> EN ESPERA </span>";
-                            break;
-                            }
-
-                          
-                        
-                        ?></td>
-                       
-
                         <td></td>
                       </tr>
                     <?php

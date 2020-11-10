@@ -1,4 +1,3 @@
-
 <?php
 $pagina = "venta";
 
@@ -31,12 +30,12 @@ if ($folio != "") {
     $idclie = $dt['id_clie'];
     $concepto = $dt['concepto_vta'];
     $ubicacion = $dt['ubicacion'];
-    $subtotal=$dt['subtotal'];
-    $descuento=$dt['descuento'];
-    $gtotal=$dt['gtotal'];
-    $total=$dt['total'];
-    $iva=$dt['iva'];
-    $saldo=$dt['saldo'];
+    $subtotal = $dt['subtotal'];
+    $descuento = $dt['descuento'];
+    $gtotal = $dt['gtotal'];
+    $total = $dt['total'];
+    $iva = $dt['iva'];
+    $saldo = $dt['saldo'];
   }
 
   if ($idclie != 0) {
@@ -45,16 +44,16 @@ if ($folio != "") {
     $resultadopros = $conexion->prepare($consultapros);
     $resultadopros->execute();
     if ($resultado->rowCount() >= 1) {
-        $datapros = $resultadopros->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($datapros as $dtp) {
+      $datapros = $resultadopros->fetchAll(PDO::FETCH_ASSOC);
+      foreach ($datapros as $dtp) {
         $prospecto = $dtp['nombre'];
         $correo = $dtp['correo'];
+      }
+    } else {
+      $prospecto = "";
+      $correo = "";
     }
-    } else {
-        $prospecto = "";
-        $correo = "";
-        }
-    } else {
+  } else {
     $prospecto = "";
     $correo = "";
   }
@@ -65,35 +64,34 @@ if ($folio != "") {
 
 
 
-    $consultac = "SELECT * FROM cliente order by id_cliente";
-    $resultadoc = $conexion->prepare($consultac);
-    $resultadoc->execute();
-    $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
+  $consultac = "SELECT * FROM cliente order by id_cliente";
+  $resultadoc = $conexion->prepare($consultac);
+  $resultadoc->execute();
+  $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
-    $consultacon = "SELECT * FROM vconceptos order by id_concepto";
-    $resultadocon = $conexion->prepare($consultacon);
-    $resultadocon->execute();
-    $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
-    $consultadet = "SELECT * FROM vdetalle_vta where folio_vta='$folio' order by id_reg";
-    $resultadodet = $conexion->prepare($consultadet);
-    $resultadodet->execute();
-    $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
-}
-else{
-    $folio = "";
+  $consultacon = "SELECT * FROM vconceptos order by id_concepto";
+  $resultadocon = $conexion->prepare($consultacon);
+  $resultadocon->execute();
+  $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
+  $consultadet = "SELECT * FROM vdetalle_vta where folio_vta='$folio' order by id_reg";
+  $resultadodet = $conexion->prepare($consultadet);
+  $resultadodet->execute();
+  $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
+} else {
+  $folio = "";
 
-    $fecha = "";
-    $idclie = "";
-    $concepto = "";
-    $ubicacion = "";
-    $subtotal="";
-    $descuento="";
-    $gtotal="";
-    $total="";
-    $iva="";
-    $prospecto = "";
-    $correo = "";
-    $saldo="";
+  $fecha = "";
+  $idclie = "";
+  $concepto = "";
+  $ubicacion = "";
+  $subtotal = "";
+  $descuento = "";
+  $gtotal = "";
+  $total = "";
+  $iva = "";
+  $prospecto = "";
+  $correo = "";
+  $saldo = "";
 }
 
 
@@ -139,7 +137,7 @@ else{
 
         <div class="row">
           <div class="col-lg-12">
-          <button id="btnPagar" name="btnPagar" type="button" class="btn bg-gradient-primary btn-ms"><i class="fas fa-dollar-sign"></i> Pagar</button>
+            <button id="btnPagar" name="btnPagar" type="button" class="btn bg-gradient-primary btn-ms"><i class="fas fa-dollar-sign"></i> Pagar</button>
             <button id="btnCal" name="btnCal" type="button" class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="far fa-calendar-alt text-light"></i><span class="text-light"> Instalación</span></button>
           </div>
         </div>
@@ -151,14 +149,14 @@ else{
         <form id="formDatos" action="" method="POST">
 
 
-          <div class="content" disab>
+          <div class="content">
 
             <div class="card card-widget" style="margin-bottom:0px;">
 
               <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
                 <div class="card-tools" style="margin:0px;padding:0px;">
 
-                
+
                 </div>
                 <h1 class="card-title ">Datos de la Venta</h1>
               </div>
@@ -191,7 +189,7 @@ else{
                   <div class="col-lg-2">
                     <div class="form-group input-group-sm">
                       <label for="fecha" class="col-form-label">Fecha:</label>
-                      <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>" disabled> 
+                      <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>" disabled>
                     </div>
                   </div>
 
@@ -199,7 +197,7 @@ else{
                   <div class="col-lg-1">
                     <div class="form-group input-group-sm">
                       <label for="folior" class="col-form-label">Folio:</label>
-                      
+
                       <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>" disabled>
                     </div>
                   </div>
@@ -232,16 +230,16 @@ else{
 
             </div>
             <!-- Formulario Agrear Item -->
-          
+
             <!-- Tabla -->
             <div class="content" style="padding:5px 0px;">
 
               <div class="card card-widget">
-              <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
-                <div class="card-tools" style="margin:0px;padding:0px;">
-                    </div>
-                <h1 class="card-title ">Detalle</h1>
-              </div>
+                <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
+                  <div class="card-tools" style="margin:0px;padding:0px;">
+                  </div>
+                  <h1 class="card-title ">Detalle</h1>
+                </div>
 
                 <div class="card-body" style="margin:0px;padding:3px;">
 
@@ -262,7 +260,7 @@ else{
                               <th>U. Medida</th>
                               <th>P.U.</th>
                               <th>Monto</th>
-                           
+
                             </tr>
                           </thead>
                           <tbody>
@@ -279,7 +277,7 @@ else{
                                 <td><?php echo $datdet['precio'] ?></td>
                                 <td><?php echo $datdet['total'] ?></td>
 
-                               
+
                               </tr>
                             <?php
                             }
@@ -301,13 +299,13 @@ else{
                       <label for="subtotal" class="col-form-label ">Subtotal:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal;?>" disabled>
+                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal; ?>" disabled>
                       </div>
                     </div>
 
@@ -315,13 +313,13 @@ else{
                       <label for="iva" class="col-form-label">IVA:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;?>" disabled>
+                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva; ?>" disabled>
                       </div>
                     </div>
 
@@ -329,13 +327,13 @@ else{
                       <label for="total" class="col-form-label ">Total:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total;?>" disabled>
+                        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total; ?>" disabled>
                       </div>
 
 
@@ -345,13 +343,13 @@ else{
                       <label for="total" class="col-form-label ">Descuento:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento;?>" disabled>
+                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento; ?>" disabled>
                       </div>
 
 
@@ -361,13 +359,13 @@ else{
                       <label for="gtotal" class="col-form-label ">Gran Total:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal;?>" disabled>
+                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal; ?>" disabled>
                       </div>
 
 
@@ -376,13 +374,13 @@ else{
                       <label for="saldo" class="col-form-label ">Saldo:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="saldo" id="saldo" value="<?php echo $saldo;?>" disabled>
+                        <input type="text" class="form-control text-right" name="saldo" id="saldo" value="<?php echo $saldo; ?>" disabled>
                       </div>
 
 
@@ -427,21 +425,21 @@ else{
             <div class="modal-body row">
 
 
-            <div class="col-sm-12">
-              <div class="form-group">
-              <input type="hidden" class="form-control" name="folio" id="folio">
-                <input type="hidden" class="form-control" name="id_cliec" id="id_cliec" value="<?php echo $idclie; ?>>
-                <label for="nombre" class="col-form-label">Cliente:</label>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <input type="hidden" class="form-control" name="folio" id="folio">
+                  <input type="hidden" class="form-control" name="id_cliec" id="id_cliec" value="<?php echo $idclie; ?>">
+                  <label for="nombre" class="col-form-label">Cliente:</label>
 
-                <div class="input-group">
+                  <div class="input-group">
 
-                  <input type="text" class="form-control" name="nom_cliec" id="nom_cliec" value="<?php echo $prospecto; ?>" autocomplete="off" placeholder="Cliente" disabled>
-                  
+                    <input type="text" class="form-control" name="nom_cliec" id="nom_cliec" value="<?php echo $prospecto; ?>" autocomplete="off" placeholder="Cliente" disabled>
+
+                  </div>
                 </div>
               </div>
-            </div>
 
-     
+
 
               <div class="col-sm-8">
                 <div class="form-group">
@@ -455,7 +453,7 @@ else{
                   <label for="fechac" class="col-form-label">Fecha Y Hora:</label>
 
                   <div class="input-group date" id="datetimepicker1" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
-                    <input type="text" id="fechac" name="fechac" class="form-control datetimepicker-input " data-target="#datetimepicker1" autocomplete="off" value ="<?php echo date("Y-m-d",strtotime($fecha."+ 15 days")).' 12:00:00' ?>" placeholder="Fecha y Hora">
+                    <input type="text" id="fechac" name="fechac" class="form-control datetimepicker-input " data-target="#datetimepicker1" autocomplete="off" value="<?php echo date("Y-m-d", strtotime($fecha . "+ 15 days")) . ' 12:00:00' ?>" placeholder="Fecha y Hora">
                     <div class="input-group-append " data-target="#datetimepicker1" data-toggle="datetimepicker">
                       <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -496,22 +494,126 @@ else{
   </section>
 
 
+  <section>
+    <div class="modal fade" id="modalPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-green">
+            <h5 class="modal-title" id="exampleModalLabel">Pagos</h5>
+
+          </div>
+          <form id="formPago" action="" method="POST">
+            <div class="modal-body">
+              <div class="row justify-content-sm-between">
+
+                <div class="col-sm-3">
+                  <div class="form-group input-group-sm">
+                    <label for="foliovp" class="col-form-label">Folio Venta:</label>
+                    <input type="text" class="form-control" name="foliovp" id="foliovp" value="<?php echo $folio; ?>" disabled>
+                  </div>
+                </div>
+
+                <div class="col-sm-2">
+                  <div class="form-group input-group-sm">
+                    <label for="fechavp" class="col-form-label ">Fecha:</label>
+                    <input type="text" id="fechavp" name="fechavp" class="form-control text-right" autocomplete="off" value="<?php echo date("Y-m-d") ?>" placeholder="Fecha">
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <label for="conceptovp" class="col-form-label">Concepto Pago</label>
+                    <input type="text" class="form-control" name="conceptovp" id="conceptovp" autocomplete="off" placeholder="Concepto de Pago">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row justify-content-sm-center">
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <label for="obsvp" class="col-form-label">Observaciones:</label>
+                    <textarea class="form-control" name="obsvp" id="obsvp" rows="3" autocomplete="off" placeholder="Observaciones"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row justify-content-sm-center">
+
+                <div class="col-lg-4 ">
+                  <label for="saldovp" class="col-form-label ">Saldo:</label>
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-dollar-sign"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control text-right" name="saldovp" id="saldovp" value="<?php echo $saldo; ?>" disabled>
+                  </div>
+                </div>
+
+                <div class="col-lg-4">
+                  <label for="montopago" class="col-form-label">Pago:</label>
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-dollar-sign"></i>
+                      </span>
+
+                    </div>
+                    <input type="text" id="montopago" name="montopago" class="form-control text-right" autocomplete="off" placeholder="Monto del Pago">
+                  </div>
+                </div>
+
+                <div class="col-lg-4">
+                  <div class="input-group-sm">
+                    <label for="metodo" class="col-form-label">Metodo de Pago:</label>
+                    
+                    <select class="form-control" name="metodo" id="metodo">
+                      <option id="Efectivo" value="Efectivo">Efectivo</option>
+                      <option id="Transferencia" value="Transferencia">Transferencia</option>
+                      <option id="Cheque" value="Cheque">Cheque</option>
+                      <option id="Tarjeta de Crédito" value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                      <option id="Tarjeta de Debito" value="Tarjeta de Debito">Tarjeta de Debito</option>
+
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
 
 
 
-  
 
- 
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+              <button type="button" id="btnGuardarvp" name="btnGuardarvp" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
 
 </div>
 
 <script>
-//  window.addEventListener('beforeunload', function(event) {
-    // Cancel the event as stated by the standard.
- //   event.preventDefault();
+  //  window.addEventListener('beforeunload', function(event) {
+  // Cancel the event as stated by the standard.
+  //   event.preventDefault();
 
-    // Chrome requires returnValue to be set.
-    //event.returnValue = "";
+  // Chrome requires returnValue to be set.
+  //event.returnValue = "";
   //});
 </script>
 
