@@ -13,6 +13,11 @@ $concepto = (isset($_POST['proyecto'])) ? $_POST['proyecto'] : '';
 $ubicacion = (isset($_POST['ubicacion'])) ? $_POST['ubicacion'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
+$iva = (isset($_POST['iva'])) ? $_POST['iva'] : '0';
+$total = (isset($_POST['total'])) ? $_POST['total'] : '0';
+$descuento = (isset($_POST['descuento'])) ? $_POST['descuento'] : '0';
+$gtotal = (isset($_POST['gtotal'])) ? $_POST['gtotal'] : '0';
+
 $concepto = ucfirst(strtolower($concepto));
 $ubicacion = ucfirst(strtolower($ubicacion));
 
@@ -39,7 +44,7 @@ switch ($opcion) {
 
         break;
         case 2:
-            $consulta = "UPDATE tmp_pres SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion' WHERE folio_pres='$folio' AND tokenid='$tokenid'";
+            $consulta = "UPDATE tmp_pres SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal' WHERE folio_pres='$folio' AND tokenid='$tokenid'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
     

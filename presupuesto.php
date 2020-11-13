@@ -26,11 +26,11 @@ if ($resultado->rowCount() >= 1) {
     $idpros = $dt['id_pros'];
     $concepto = $dt['concepto_pres'];
     $ubicacion = $dt['ubicacion'];
-    $subtotal=$dt['subtotal'];
-    $descuento=$dt['descuento'];
-    $total=$dt['total'];
-    $gtotal=$dt['gtotal'];
-    $iva=$dt['iva'];
+    $subtotal = $dt['subtotal'];
+    $descuento = $dt['descuento'];
+    $total = $dt['total'];
+    $gtotal = $dt['gtotal'];
+    $iva = $dt['iva'];
   }
   if ($idpros != 0) {
     $consultapros = "SELECT nombre,correo FROM prospecto where id_pros='$idpros'";
@@ -68,11 +68,11 @@ if ($resultado->rowCount() >= 1) {
     $concepto = "";
     $ubicacion = "";
     $correo = "";
-    $subtotal="0.00";
-    $iva="0.00";
-    $total="0.00";
-    $descuento="0.00";
-    $gtotal="0.00";
+    $subtotal = "0.00";
+    $iva = "0.00";
+    $total = "0.00";
+    $descuento = "0.00";
+    $gtotal = "0.00";
   }
 }
 
@@ -121,7 +121,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
         <div class="row">
           <div class="col-lg-12">
 
-            
+
             <!--<button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
             <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
             <!--<button id="btnNuevo" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-envelope-square"></i> Enviar</button>-->
@@ -188,7 +188,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                     <div class="form-group input-group-sm">
                       <label for="folior" class="col-form-label">Folio:</label>
                       <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
-                      <input type="text" class="form-control" name="folior" id="folior" value="<?php echo  "TMP-".$folio; ?>">
+                      <input type="text" class="form-control" name="folior" id="folior" value="<?php echo  "TMP-" . $folio; ?>">
                     </div>
                   </div>
 
@@ -265,7 +265,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                       <div class="form-group">
 
                         <input type="hidden" class="form-control" name="clavemat" id="clavemat">
-                        <label for="material" class="col-form-label">Material:</label>
+                        <label for="material" class="col-form-label">Material/Producto/Servicio:</label>
 
                         <div class="input-group input-group-sm">
                           <input type="text" class="form-control" name="material" id="material" disabled>
@@ -281,7 +281,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
                     <div class="col-lg-4">
                       <input type="hidden" class="form-control" name="idprecio" id="idprecio">
-                      <label for="unidad" class="col-form-label">Formato o Servicio:</label>
+                      <label for="unidad" class="col-form-label">Formato:</label>
                       <div class="input-group input-group-sm">
 
                         <input type="text" class="form-control " name="unidad" id="unidad" disabled>
@@ -395,6 +395,23 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
                   </div>
 
+                  <div class="row justify-content-sm-center">
+                    <div class=" offset-lg-0 col-lg-2 ">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="civa" name="civa">
+                        <label class="custom-control-label" for="civa">Sin IVA</label>
+                      </div>
+                    </div>
+
+                    <div class=" offset-lg-4 col-lg-2 ">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input " id="cdescuento" name="cdescuento">
+                        <label class="custom-control-label" for="cdescuento">Aplicar Descuento</label>
+                      </div>
+                    </div>
+
+                  </div>
+
                   <div class="row justify-content-sm-end" style="padding:5px 0px;">
 
                     <div class="col-lg-2 ">
@@ -402,13 +419,13 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                       <label for="subtotal" class="col-form-label ">Subtotal:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal;?>" disabled>
+                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal; ?>" disabled>
                       </div>
                     </div>
 
@@ -416,13 +433,13 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                       <label for="iva" class="col-form-label">IVA:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;?>" disabled>
+                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;  ?> " disabled >
                       </div>
                     </div>
 
@@ -430,29 +447,29 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                       <label for="total" class="col-form-label ">Total:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total;?>" disabled>
+                        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total; ?>" disabled>
                       </div>
 
 
                     </div>
 
                     <div class="col-lg-2 ">
-                      <label for="total" class="col-form-label ">Descuento:</label>
+                      <label for="total" class="col-form-label ">Descuento <span id="pdesc" name="pdesc"></span> :</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento;?>" disabled>
+                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento; ?>" disabled>
                       </div>
 
 
@@ -462,13 +479,13 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                       <label for="total" class="col-form-label ">Gran Total:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal;?>" disabled>
+                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal; ?>" disabled>
                       </div>
 
 
@@ -700,13 +717,13 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 <script>
-//window.addEventListener('beforeunload', function(event)  {
-  
- // event.preventDefault();
+  //window.addEventListener('beforeunload', function(event)  {
 
- 
+  // event.preventDefault();
+
+
   //event.returnValue ="";
-//});
+  //});
 </script>
 
 <?php include_once 'templates/footer.php'; ?>

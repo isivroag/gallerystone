@@ -286,6 +286,10 @@ $(document).ready(function() {
         folio = $('#folio').val();
         proyecto = $('#proyecto').val();
         ubicacion = $('#ubicacion').val();
+        iva = $('#iva').val();
+        total = $('#total').val();
+        descuento = $('#descuento').val();
+        gtotal = $('#gtotal').val();
 
         opcion = 2;
 
@@ -294,9 +298,9 @@ $(document).ready(function() {
             type: "POST",
             url: "bd/tmppres.php",
             dataType: "json",
-            data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion },
+            data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion, iva: iva, total: total, descuento: descuento, gtotal: gtotal },
             success: function(res) {
-                console.log("Guardo el Head");
+
                 if (res == 0) {
                     Swal.fire({
                         title: 'Error al Guardar',
@@ -320,7 +324,7 @@ $(document).ready(function() {
                                     icon: 'error',
                                 })
                             } else {
-                                console.log("Guardo traslado a ventas");
+
                                 Swal.fire({
                                     title: 'Operación Exitosa',
                                     text: "Presupuesto Guardado",
@@ -332,7 +336,7 @@ $(document).ready(function() {
                                 nota = "Creacion";
                                 fecha = $("#fecha").val();
                                 usuario = $("#nameuser").val();
-                                console.log(folio);
+
                                 $.ajax({
                                     type: "POST",
                                     url: "bd/estadopres.php",
@@ -340,7 +344,7 @@ $(document).ready(function() {
 
                                     data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
                                     success: function() {
-                                        console.log("Guardo la nota");
+
                                         window.setTimeout(function() {
                                             window.location.href = "pres.php?folio=" + folio;
                                         }, 1000);
@@ -369,7 +373,7 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".btnBorrar", function(event) {
-        
+
 
         event.preventDefault();
         fila = $(this);
@@ -390,16 +394,17 @@ $(document).ready(function() {
 
             cancelButtonText: "Cancelar",
 
-        }).then(function (isConfirm) {
+        }).then(function(isConfirm) {
             if (isConfirm.value) {
                 $.ajax({
                     url: "bd/detalletemp.php",
                     type: "POST",
                     dataType: "json",
                     data: { id: id, total: total, folio: folio, opcion: opcion },
-                    success: function () {
-                    tablaVis.row(fila.parents('tr')).remove().draw();
-                    buscartotal();
+                    success: function() {
+                        tablaVis.row(fila.parents('tr')).remove().draw();
+                        buscarsubtotal();
+
                     }
                 });
 
@@ -550,7 +555,9 @@ $(document).ready(function() {
 
 
                     tablaVis.row.add([id_reg, nom_concepto, nom_item, formato, cantidad, nom_umedida, precio, total]).draw();
-                    buscartotal();
+                    buscarsubtotal();
+
+
 
                     $("#claveconcepto").val("");
                     $("#concepto").val("");
@@ -583,6 +590,7 @@ $(document).ready(function() {
             })
             return false;
         }
+
 
     });
 
@@ -661,11 +669,33 @@ $(document).ready(function() {
 
                 $("#subtotal").val(res[0].subtotal);
 
-
                 $("#iva").val(res[0].iva);
                 $("#total").val(res[0].total);
                 $("#descuento").val(res[0].descuento);
                 $("#gtotal").val(res[0].gtotal);
+
+            }
+        });
+    };
+
+    function buscarsubtotal() {
+        folio = $('#folio').val();
+        $.ajax({
+            type: "POST",
+            url: "bd/buscartotal.php",
+            dataType: "json",
+            data: { folio: folio },
+            success: function(res) {
+
+
+                $("#subtotal").val(res[0].subtotal);
+                calculo();
+
+                if ($('#cdescuento').prop('checked')) {
+                    buscardescuento();
+                }
+                calculodes();
+
 
             }
         });
@@ -713,5 +743,99 @@ $(document).ready(function() {
         });
 
     };
+
+
+
+    $("#descuento").on("change keyup paste click", function() {
+        calculodes();
+        $("#pdesc").text("");
+
+    });
+
+    function buscardescuento() {
+
+        monto = $("#total").val();
+
+        $.ajax({
+            type: "POST",
+            url: "bd/buscardescuento.php",
+            dataType: "json",
+            data: { monto: monto },
+
+            success: function(data) {
+
+                pordesc = data[0].descuento;
+                descuento = round((monto * (pordesc / 100)), 2);
+
+                $("#descuento").val(descuento);
+                $("#pdesc").text(round(pordesc, 0) + "%");
+                calculodes();
+
+
+
+            }
+        });
+    }
+
+    $("#cdescuento").on("click", function() {
+        if ($('#cdescuento').prop('checked')) {
+            $("#descuento").prop('disabled', false);
+            buscardescuento();
+
+        } else {
+            $("#pdesc").text("");
+            $("#descuento").val("0.00");
+            $("#descuento").prop('disabled', true);
+        }
+        calculodes();
+
+    });
+
+    $("#civa").on("click", function() {
+
+        calculo();
+    });
+
+    function calculo() {
+        subtotal = $("#subtotal").val();
+        if ($('#civa').prop('checked')) {
+            total = subtotal;
+            $("#iva").val("0.00");
+            $("#total").val(total);
+
+
+        } else {
+
+            total = round(subtotal * 1.16, 2);
+            iva = round(total - subtotal, 2);
+            $("#iva").val(iva);
+            $("#total").val(total);
+        }
+
+        descuento = $("#descuento").val();
+        gtotal = total - descuento
+        $("#gtotal").val(gtotal);
+
+
+
+
+    };
+
+    function calculodes() {
+
+        descuento = $("#descuento").val();
+        gtotal = $("#total").val();
+        gtotal = round(gtotal - descuento, 2);
+        $("#gtotal").val(gtotal);
+
+
+
+
+    };
+
+    function round(value, decimals) {
+        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    }
+
 
 })
