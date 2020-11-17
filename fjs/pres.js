@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var id, opcion;
 
 
@@ -12,15 +12,11 @@ $(document).ready(function () {
         "searching": false,
 
 
-        "columnDefs": [{
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
-        },
-        { className: "text-center", "targets": [4] },
-        { className: "text-center", "targets": [5] },
-        { className: "text-right", "targets": [6] },
-        { className: "text-right", "targets": [7] }
+        "columnDefs": [
+            { className: "text-center", "targets": [4] },
+            { className: "text-center", "targets": [5] },
+            { className: "text-right", "targets": [6] },
+            { className: "text-right", "targets": [7] }
         ],
 
 
@@ -155,7 +151,7 @@ $(document).ready(function () {
     });
 
 
-    $("#btnVta").click(function () {
+    $("#btnVta").click(function() {
 
 
         swal.fire({
@@ -169,7 +165,7 @@ $(document).ready(function () {
 
             cancelButtonText: "Cancelar",
 
-        }).then(function (isConfirm) {
+        }).then(function(isConfirm) {
             if (isConfirm.value) {
                 console.log("Aceptado");
                 folio = $('#folio').val();
@@ -198,7 +194,7 @@ $(document).ready(function () {
                             window.setTimeout(function() {
                                 window.location.href = "venta.php?folio=" + folio;
                             }, 1000);
-                            
+
 
                         }
                     }
@@ -212,7 +208,7 @@ $(document).ready(function () {
 
     });
 
-    $("#btnNuevo").click(function () {
+    $("#btnNuevo").click(function() {
 
         window.location.href = "presupuesto.php";
         //$("#formDatos").trigger("reset");
@@ -224,13 +220,12 @@ $(document).ready(function () {
         //opcion = 1; //alta
     });
 
-    $("#btnGuardar").click(function () {
-
-        guardarhead();
-        mensaje();
+    $("#btnGuardar").click(function() {
+        folio_pres = $("#tmp_pres").val();
+        window.location.href = "presupuesto.php?folio=" + folio_pres;
     });
 
-    $(document).on("click", "#btnVer", function () {
+    $(document).on("click", "#btnVer", function() {
 
         folio = $('#folio').val();
         var ancho = 1000;
@@ -244,7 +239,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#btnEnviar", function () {
+    $(document).on("click", "#btnEnviar", function() {
 
         folio = $('#folio').val();
         correo = $("#correo").val();
@@ -260,7 +255,7 @@ $(document).ready(function () {
             dataType: "json",
 
             data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
-            success: function () {
+            success: function() {
 
                 var ancho = 1000;
                 var alto = 800;
@@ -279,7 +274,7 @@ $(document).ready(function () {
 
 
     });
-    $(document).on("click", "#bcliente", function () {
+    $(document).on("click", "#bcliente", function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
@@ -288,7 +283,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#bconcepto", function () {
+    $(document).on("click", "#bconcepto", function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
@@ -312,7 +307,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#bmaterial", function () {
+    $(document).on("click", "#bmaterial", function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
@@ -333,7 +328,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#bprecio", function () {
+    $(document).on("click", "#bprecio", function() {
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
@@ -351,7 +346,7 @@ $(document).ready(function () {
     });
 
 
-    $(document).on("click", ".btnSelCliente", function () {
+    $(document).on("click", ".btnSelCliente", function() {
         fila = $(this).closest("tr");
 
         IdCliente = fila.find('td:eq(0)').text();
@@ -374,7 +369,7 @@ $(document).ready(function () {
             url: "bd/pres.php",
             dataType: "json",
             data: { IdCliente: IdCliente, tokenid: tokenid, folio: folio, opcion: opcion },
-            success: function (res) {
+            success: function(res) {
 
                 if (res == 0) {
                     Swal.fire({
@@ -390,16 +385,16 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#btnGuardarHead", function () {
+    $(document).on("click", "#btnGuardarHead", function() {
         guardarhead();
-
+        mensaje();
 
 
     });
 
-    $(document).on("click", ".btnBorrar", function (event) {
+    $(document).on("click", ".btnBorrar", function(event) {
         event.preventDefault();
-        
+
         fila = $(this);
         id = parseInt($(this).closest("tr").find('td:eq(0)').text());
         total = $(this).closest("tr").find('td:eq(7)').text();
@@ -418,16 +413,8 @@ $(document).ready(function () {
 
             cancelButtonText: "Cancelar",
 
-        }).then(function (isConfirm) {
+        }).then(function(isConfirm) {
             if (isConfirm.value) {
-
-
-
-                //agregar codigo de sweatalert2
-
-               
-
-
 
                 $.ajax({
 
@@ -436,11 +423,11 @@ $(document).ready(function () {
                     dataType: "json",
                     data: { id: id, total: total, folio: folio, opcion: opcion },
 
-                    success: function () {
+                    success: function() {
 
 
                         tablaVis.row(fila.parents('tr')).remove().draw();
-                        buscartotal();
+                        buscarsubtotal();
                     }
                 });
 
@@ -454,7 +441,7 @@ $(document).ready(function () {
     });
 
 
-    $(document).on("click", ".btnSelConcepto", function () {
+    $(document).on("click", ".btnSelConcepto", function() {
         fila = $(this).closest("tr");
 
         idConcepto = fila.find('td:eq(0)').text();
@@ -482,7 +469,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", ".btnSelMaterial", function () {
+    $(document).on("click", ".btnSelMaterial", function() {
         fila = $(this).closest("tr");
 
         idMaterial = fila.find('td:eq(0)').text();
@@ -500,7 +487,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", ".btnSelPrecio", function () {
+    $(document).on("click", ".btnSelPrecio", function() {
         fila = $(this).closest("tr");
 
         idPrecio = fila.find('td:eq(0)').text();
@@ -519,7 +506,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#btlimpiar", function () {
+    $(document).on("click", "#btlimpiar", function() {
 
 
         $("#claveconcepto").val("");
@@ -542,7 +529,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on("click", "#btnagregar", function () {
+    $(document).on("click", "#btnagregar", function() {
 
         folio = $("#folio").val();
         idconcepto = $("#claveconcepto").val();
@@ -578,7 +565,7 @@ $(document).ready(function () {
                 url: "bd/detallepres.php",
                 dataType: "json",
                 data: { folio: folio, idconcepto: idconcepto, id_item: id_item, id_precio: id_precio, precio: precio, cantidad: cantidad, total: total, opcion: opcion },
-                success: function (data) {
+                success: function(data) {
 
                     id_reg = data[0].id_reg;
                     nom_concepto = data[0].nom_concepto;
@@ -638,7 +625,7 @@ $(document).ready(function () {
             url: "bd/buscarprecio.php",
             dataType: "json",
             data: { id: id, id_umedida: id_umedida },
-            success: function (res) {
+            success: function(res) {
 
 
                 for (var i = 0; i < res.length; i++) {
@@ -654,6 +641,28 @@ $(document).ready(function () {
 
     };
 
+    function buscarsubtotal() {
+        folio = $('#folio').val();
+        $.ajax({
+            type: "POST",
+            url: "bd/buscartotal.php",
+            dataType: "json",
+            data: { folio: folio },
+            success: function(res) {
+
+
+                $("#subtotal").val(res[0].subtotal);
+                calculo();
+
+                if ($('#cdescuento').prop('checked')) {
+                    buscardescuento();
+                }
+                calculodes();
+
+
+            }
+        });
+    };
 
     function buscartotal() {
         folio = $('#folio').val();
@@ -664,7 +673,7 @@ $(document).ready(function () {
             url: "bd/buscartotalpres.php",
             dataType: "json",
             data: { folio: folio },
-            success: function (res) {
+            success: function(res) {
                 $("#subtotal").val(res[0].subtotal);
                 $("#iva").val(res[0].iva);
                 $("#total").val(res[0].total);
@@ -691,7 +700,7 @@ $(document).ready(function () {
             url: "bd/pres.php",
             dataType: "json",
             data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion },
-            success: function (res) {
+            success: function(res) {
 
                 if (res == 0) {
                     Swal.fire({
@@ -717,6 +726,7 @@ $(document).ready(function () {
 
         })
     }
+
     function listarmat() {
 
         tablaMat.clear();
@@ -730,7 +740,7 @@ $(document).ready(function () {
             dataType: "json",
             data: { tipoitem: tipoitem },
 
-            success: function (res) {
+            success: function(res) {
 
 
                 for (var i = 0; i < res.length; i++) {
@@ -744,5 +754,96 @@ $(document).ready(function () {
         });
 
     };
+
+    $("#descuento").on("change keyup paste click", function() {
+        calculodes();
+        $("#pdesc").text("");
+
+    });
+
+    function buscardescuento() {
+
+        monto = $("#total").val();
+
+        $.ajax({
+            type: "POST",
+            url: "bd/buscardescuento.php",
+            dataType: "json",
+            data: { monto: monto },
+
+            success: function(data) {
+
+                pordesc = data[0].descuento;
+                descuento = round((monto * (pordesc / 100)), 2);
+
+                $("#descuento").val(descuento);
+                $("#pdesc").text(round(pordesc, 0) + "%");
+                calculodes();
+
+
+
+            }
+        });
+    }
+
+    $("#cdescuento").on("click", function() {
+        if ($('#cdescuento').prop('checked')) {
+            $("#descuento").prop('disabled', false);
+            buscardescuento();
+
+        } else {
+            $("#pdesc").text("");
+            $("#descuento").val("0.00");
+            $("#descuento").prop('disabled', true);
+        }
+        calculodes();
+
+    });
+
+    $("#civa").on("click", function() {
+
+        calculo();
+    });
+
+    function calculo() {
+        subtotal = $("#subtotal").val();
+        if ($('#civa').prop('checked')) {
+            total = subtotal;
+            $("#iva").val("0.00");
+            $("#total").val(total);
+
+
+        } else {
+
+            total = round(subtotal * 1.16, 2);
+            iva = round(total - subtotal, 2);
+            $("#iva").val(iva);
+            $("#total").val(total);
+        }
+
+        descuento = $("#descuento").val();
+        gtotal = total - descuento
+        $("#gtotal").val(gtotal);
+
+
+
+
+    };
+
+    function calculodes() {
+
+        descuento = $("#descuento").val();
+        gtotal = $("#total").val();
+        gtotal = round(gtotal - descuento, 2);
+        $("#gtotal").val(gtotal);
+
+
+
+
+    };
+
+    function round(value, decimals) {
+        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+    }
 
 })

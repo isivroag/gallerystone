@@ -1,4 +1,3 @@
-
 <?php
 $pagina = "presupuesto";
 
@@ -26,16 +25,16 @@ if ($folio != "") {
 
   foreach ($data as $dt) {
     $folio = $dt['folio_pres'];
-
+    $tmp_pres=$dt['folio_tmp'];
     $fecha = $dt['fecha_pres'];
     $idpros = $dt['id_pros'];
     $concepto = $dt['concepto_pres'];
     $ubicacion = $dt['ubicacion'];
-    $subtotal=$dt['subtotal'];
-    $descuento=$dt['descuento'];
-    $gtotal=$dt['gtotal'];
-    $total=$dt['total'];
-    $iva=$dt['iva'];
+    $subtotal = $dt['subtotal'];
+    $descuento = $dt['descuento'];
+    $gtotal = $dt['gtotal'];
+    $total = $dt['total'];
+    $iva = $dt['iva'];
   }
 
   if ($idpros != 0) {
@@ -78,8 +77,7 @@ if ($folio != "") {
   $resultadodet = $conexion->prepare($consultadet);
   $resultadodet->execute();
   $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
-}
-else{
+} else {
   echo '<script type="text/javascript">';
   echo 'window.location.href="cntapresupuesto.php";';
   echo '</script>';
@@ -115,7 +113,7 @@ else{
 
             <button id="btnVta" name="btnVta" type="button" class="btn bg-gradient-primary btn-ms"><i class="fas fa-dollar-sign"></i> Traspaso a Venta</button>
             <button id="btnNuevo" name="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
-            <button id="btnGuardar" name="btnGuardar" type="button" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+            <button id="btnGuardar" name="btnGuardar" type="button" class="btn bg-success" value="btnGuardar"><i class="far fa-edit"></i> Editar</button>
             <button id="btnVer" name="btnVer" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-file-pdf"></i> Preview</button>
             <button id="btnEnviar" name="btnEnviar" type="button" class="btn bg-gradient-purple btn-ms"><i class="fas fa-envelope-square"></i> Enviar</button>
 
@@ -136,9 +134,7 @@ else{
               <div class="card-header bg-gradient-primary " style="margin:0px;padding:8px">
                 <div class="card-tools" style="margin:0px;padding:0px;">
 
-                  <button id="btnGuardarHead" name="btnGuardarHead" type="button" class="btn bg-gradient-orange btn-sm">
-                    <i class="far fa-save"></i>
-                  </button>
+                
                 </div>
                 <h1 class="card-title ">Datos del Presupuesto</h1>
               </div>
@@ -149,6 +145,7 @@ else{
 
                   <div class="col-lg-5">
                     <div class="form-group">
+                    <input type="hidden" class="form-control" name="tmp_pres" id="tmp_pres" value="<?php echo $tmp_pres; ?>">
                       <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
                       <input type="hidden" class="form-control" name="id_pros" id="id_pros" value="<?php echo $idpros; ?>">
                       <label for="nombre" class="col-form-label">Prospecto:</label>
@@ -157,7 +154,7 @@ else{
 
                         <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $prospecto; ?>" disabled>
                         <span class="input-group-append">
-                          <button id="bcliente" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
+                          <!--<button id="bcliente" type="button" class="btn btn-primary "><i class="fas fa-search" d></i></button>-->
                         </span>
                       </div>
                     </div>
@@ -173,7 +170,7 @@ else{
                   <div class="col-lg-2">
                     <div class="form-group input-group-sm">
                       <label for="fecha" class="col-form-label">Fecha:</label>
-                      <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
+                      <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>" disabled>
                     </div>
                   </div>
 
@@ -181,8 +178,8 @@ else{
                   <div class="col-lg-1">
                     <div class="form-group input-group-sm">
                       <label for="folior" class="col-form-label">Folio:</label>
-                      <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
-                      <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>">
+                      <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>" disabled>
+                      <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>" disabled>
                     </div>
                   </div>
 
@@ -193,7 +190,7 @@ else{
 
                     <div class="form-group">
                       <label for="proyecto" class="col-form-label">Descripcion del Proyecto:</label>
-                      <textarea rows="2" class="form-control" name="proyecto" id="proyecto"><?php echo $concepto; ?></textarea>
+                      <textarea rows="2" class="form-control" name="proyecto" id="proyecto" disabled><?php echo $concepto; ?></textarea>
                     </div>
 
                   </div>
@@ -202,7 +199,7 @@ else{
 
                     <div class="form-group">
                       <label for="ubicacion" class="col-form-label">Ubicación:</label>
-                      <textarea rows="2" class="form-control" name="ubicacion" id="ubicacion"><?php echo $ubicacion; ?></textarea>
+                      <textarea rows="2" class="form-control" name="ubicacion" id="ubicacion" disabled><?php echo $ubicacion; ?></textarea>
                     </div>
 
                   </div>
@@ -214,6 +211,7 @@ else{
 
             </div>
             <!-- Formulario Agrear Item -->
+           <!--
             <div class="content" style="padding-top:0px;">
               <div class="card card-widget " style="margin:2px;padding:5px;">
 
@@ -259,7 +257,7 @@ else{
                       <div class="form-group">
 
                         <input type="hidden" class="form-control" name="clavemat" id="clavemat">
-                        <label for="material" class="col-form-label">Material:</label>
+                        <label for="material" class="col-form-label">Material/Producto/Servicio:</label>
 
                         <div class="input-group input-group-sm">
                           <input type="text" class="form-control" name="material" id="material" disabled>
@@ -275,7 +273,7 @@ else{
 
                     <div class="col-lg-4">
                       <input type="hidden" class="form-control" name="idprecio" id="idprecio">
-                      <label for="unidad" class="col-form-label">Formato o Servicio:</label>
+                      <label for="unidad" class="col-form-label">Formato:</label>
                       <div class="input-group input-group-sm">
 
                         <input type="text" class="form-control " name="unidad" id="unidad" disabled>
@@ -333,6 +331,8 @@ else{
 
               </div>
             </div>
+-->
+
             <!-- Tabla -->
             <div class="content" style="padding:5px 0px;">
 
@@ -357,7 +357,7 @@ else{
                               <th>U. Medida</th>
                               <th>P.U.</th>
                               <th>Monto</th>
-                              <th>Acciones</th>
+                              
                             </tr>
                           </thead>
                           <tbody>
@@ -374,7 +374,7 @@ else{
                                 <td><?php echo $datdet['precio'] ?></td>
                                 <td><?php echo $datdet['total'] ?></td>
 
-                                <td></td>
+                              
                               </tr>
                             <?php
                             }
@@ -388,6 +388,24 @@ else{
                     </div>
 
                   </div>
+<!--
+                  <div class="row justify-content-sm-center">
+                    <div class=" offset-lg-0 col-lg-2 ">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="civa" name="civa">
+                        <label class="custom-control-label" for="civa">Sin IVA</label>
+                      </div>
+                    </div>
+
+                    <div class=" offset-lg-4 col-lg-2 ">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input " id="cdescuento" name="cdescuento">
+                        <label class="custom-control-label" for="cdescuento">Aplicar Descuento</label>
+                      </div>
+                    </div>
+
+                  </div>
+                          -->
 
                   <div class="row justify-content-sm-end" style="padding:5px 0px;">
 
@@ -396,13 +414,13 @@ else{
                       <label for="subtotal" class="col-form-label ">Subtotal:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal;?>" disabled>
+                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal; ?>" disabled>
                       </div>
                     </div>
 
@@ -410,13 +428,13 @@ else{
                       <label for="iva" class="col-form-label">IVA:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;?>" disabled>
+                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva; ?>" disabled>
                       </div>
                     </div>
 
@@ -424,29 +442,29 @@ else{
                       <label for="total" class="col-form-label ">Total:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total;?>" disabled>
+                        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total; ?>" disabled>
                       </div>
 
 
                     </div>
 
                     <div class="col-lg-2 ">
-                      <label for="total" class="col-form-label ">Descuento:</label>
+                    <label for="total" class="col-form-label ">Descuento <span id="pdesc" name="pdesc"></span> :</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento;?>" disabled>
+                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento; ?>" disabled>
                       </div>
 
 
@@ -456,13 +474,13 @@ else{
                       <label for="total" class="col-form-label ">Gran Total:</label>
 
                       <div class="input-group input-group-sm">
-                      <div class="input-group-prepend">
+                        <div class="input-group-prepend">
                           <span class="input-group-text">
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal;?>" disabled>
+                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal; ?>" disabled>
                       </div>
 
 
@@ -695,12 +713,12 @@ else{
 </div>
 
 <script>
-//  window.addEventListener('beforeunload', function(event) {
-    // Cancel the event as stated by the standard.
- //   event.preventDefault();
+  //  window.addEventListener('beforeunload', function(event) {
+  // Cancel the event as stated by the standard.
+  //   event.preventDefault();
 
-    // Chrome requires returnValue to be set.
-    //event.returnValue = "";
+  // Chrome requires returnValue to be set.
+  //event.returnValue = "";
   //});
 </script>
 

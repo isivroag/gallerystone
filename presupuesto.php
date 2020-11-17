@@ -11,7 +11,18 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 $tokenid = md5($_SESSION['s_usuario']);
-$consulta = "SELECT * FROM vtmppres where estado_pres='1' and tokenid='$tokenid'";
+
+if (isset($_GET['folio'])){
+  $folio=$_GET['folio'];
+  $consulta = "SELECT * FROM vtmppres where folio_pres='$folio'";
+  $presupuesto=$folio;
+}
+else{
+  $consulta = "SELECT * FROM vtmppres where estado_pres='1' and tokenid='$tokenid'";
+  $presupuesto=0;
+}
+
+
 
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
@@ -112,7 +123,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Default box -->
     <div class="card">
-      <div class="card-header">
+      <div class="card-header bg-gradient-orange text-light">
         <h1 class="card-title mx-auto">Presupuestos</h1>
       </div>
 
@@ -155,6 +166,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
                   <div class="col-lg-5">
                     <div class="form-group">
+                    <input type="hidden" class="form-control" name="presupuesto" id="presupuesto" value="<?php echo $presupuesto; ?>">
                       <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
                       <input type="hidden" class="form-control" name="id_pros" id="id_pros" value="<?php echo $idpros; ?>">
                       <label for="nombre" class="col-form-label">Prospecto:</label>

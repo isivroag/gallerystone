@@ -6,11 +6,8 @@ $conexion = $objeto->connect();
 // Recepción de los datos enviados mediante POST desde el JS   
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
-$tokenid = "";
-$id_pros = "";
-$fecha = "";
-$concepto = "";
-$ubicacion = "";
+$foliopres = (isset($_POST['presupuesto'])) ? $_POST['presupuesto'] : '';
+
 
 
 
@@ -36,17 +33,13 @@ $consulta = "UPDATE tmp_pres SET estado_pres=2 WHERE folio_pres='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
-$consulta = "INSERT INTO presupuesto (id_pros,fecha_pres,concepto_pres,ubicacion,subtotal,tokenid,estado_pres,descuento,iva,total,gtotal,folio_tmp) VALUES('$id_pros','$fecha','$concepto','$ubicacion','$subtotal','$tokenid','1','$descuento','$iva','$total','$gtotal','$folio')";
+$consulta = "UPDATE presupuesto SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',subtotal='$subtotal',tokenid='$tokenid',descuento='$descuento',iva='$iva',total='$total',gtotal='$gtotal' WHERE folio_pres='$foliopres'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
-$consulta = "SELECT * FROM presupuesto ORDER BY folio_pres DESC LIMIT 1";
+$consulta = "DELETE FROM detalle_pres WHERE folio_pres='$foliopres'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
-$data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-foreach ($data as $rw) {
-    $foliopres = $rw['folio_pres'];
-}
 
 
 

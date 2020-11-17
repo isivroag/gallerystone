@@ -290,9 +290,9 @@ $(document).ready(function() {
         total = $('#total').val();
         descuento = $('#descuento').val();
         gtotal = $('#gtotal').val();
-
+        presupuesto = $('#presupuesto').val();
         opcion = 2;
-
+        console.log(presupuesto);
         $.ajax({
 
             type: "POST",
@@ -308,54 +308,106 @@ $(document).ready(function() {
                         icon: 'error',
                     })
                 } else {
+                    /* MODIFICAR O GUARDAR NUEVO PRESUPUESTO*/
+                    if (presupuesto == 0) {
+                        $.ajax({
 
-                    $.ajax({
+                            type: "POST",
+                            url: "bd/trasladopres.php",
+                            dataType: "json",
+                            data: { folio: folio },
+                            success: function(res) {
 
-                        type: "POST",
-                        url: "bd/trasladopres.php",
-                        dataType: "json",
-                        data: { folio: folio },
-                        success: function(res) {
+                                if (res == 0) {
+                                    Swal.fire({
+                                        title: 'Error al Guardar',
+                                        text: "No se puedo guardar los datos del cliente",
+                                        icon: 'error',
+                                    })
+                                } else {
 
-                            if (res == 0) {
-                                Swal.fire({
-                                    title: 'Error al Guardar',
-                                    text: "No se puedo guardar los datos del cliente",
-                                    icon: 'error',
-                                })
-                            } else {
+                                    Swal.fire({
+                                        title: 'Operación Exitosa',
+                                        text: "Presupuesto Guardado",
+                                        icon: 'success',
+                                    })
+                                    folio = res;
 
-                                Swal.fire({
-                                    title: 'Operación Exitosa',
-                                    text: "Presupuesto Guardado",
-                                    icon: 'success',
-                                })
-                                folio = res;
+                                    estado = "1";
+                                    nota = "Creacion";
+                                    fecha = $("#fecha").val();
+                                    usuario = $("#nameuser").val();
 
-                                estado = "1";
-                                nota = "Creacion";
-                                fecha = $("#fecha").val();
-                                usuario = $("#nameuser").val();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "bd/estadopres.php",
+                                        dataType: "json",
 
-                                $.ajax({
-                                    type: "POST",
-                                    url: "bd/estadopres.php",
-                                    dataType: "json",
+                                        data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
+                                        success: function() {
 
-                                    data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
-                                    success: function() {
+                                            window.setTimeout(function() {
+                                                window.location.href = "pres.php?folio=" + folio;
+                                            }, 1000);
+                                        }
 
-                                        window.setTimeout(function() {
-                                            window.location.href = "pres.php?folio=" + folio;
-                                        }, 1000);
-                                    }
-
-                                });
+                                    });
 
 
+                                }
                             }
-                        }
-                    });
+                        });
+
+                    } else {
+                        $.ajax({
+
+                            type: "POST",
+                            url: "bd/modificarpres.php",
+                            dataType: "json",
+                            data: { folio: folio, presupuesto: presupuesto },
+                            success: function(res) {
+
+                                if (res == 0) {
+                                    Swal.fire({
+                                        title: 'Error al Guardar',
+                                        text: "No se puedo guardar los datos del cliente",
+                                        icon: 'error',
+                                    })
+                                } else {
+
+                                    Swal.fire({
+                                        title: 'Operación Exitosa',
+                                        text: "Presupuesto Guardado",
+                                        icon: 'success',
+                                    })
+                                    folio = res;
+
+                                    estado = "5";
+                                    nota = "Modificacón";
+                                    fecha = $("#fecha").val();
+                                    usuario = $("#nameuser").val();
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "bd/estadopres.php",
+                                        dataType: "json",
+
+                                        data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
+                                        success: function() {
+
+                                            window.setTimeout(function() {
+                                                window.location.href = "pres.php?folio=" + folio;
+                                            }, 1000);
+                                        }
+
+                                    });
+
+
+                                }
+                            }
+                        });
+
+                    }
 
                 }
             }

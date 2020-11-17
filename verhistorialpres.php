@@ -1,5 +1,5 @@
 <?php
-$pagina = "historial";
+$pagina = "presupuesto";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -47,7 +47,7 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
   <!-- Main content -->
   <div class="card">
-  <div class="card-header">
+  <div class="card-header bg-gradient-orange text-light">
         <h1 class="card-title mx-auto">Historial dePresupuestos</h1>
       </div>
 
@@ -127,6 +127,19 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                   echo "</div>";
                   echo "</div>";
                   break;
+
+                  case 5:
+                  
+                    echo "<div class='time-label'>";
+                    echo "<span class='bg-maroon'>" . $dt2['fecha'] . "</span>";
+                    echo "</div>";
+                    echo "<div>";
+                    echo "<i class='fas fa-edit bg-maroon'></i>";
+                    echo "<div class='timeline-item'>";
+                    echo "<h3 class='timeline-header'><a href='#'>Editado </a>" . $opcion = $dt2['nota'] . "</h3>";
+                    echo "</div>";
+                    echo "</div>";
+                    break;
               }
               
             }
