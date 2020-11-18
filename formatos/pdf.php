@@ -7,7 +7,7 @@
     
     $css=file_get_contents('../css/estilocotizacion.css');
 
-    require_once ('fcot.php');
+    require_once ('fcot2.php');
     $plantilla= getPlantilla($folio);
    
     $mpdf = new \Mpdf\Mpdf([]);

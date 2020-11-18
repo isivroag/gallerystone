@@ -115,7 +115,7 @@ if ($folio != "") {
             <button id="btnNuevo" name="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
             <button id="btnGuardar" name="btnGuardar" type="button" class="btn bg-success" value="btnGuardar"><i class="far fa-edit"></i> Editar</button>
             <button id="btnVer" name="btnVer" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-file-pdf"></i> Preview</button>
-            <button id="btnEnviar" name="btnEnviar" type="button" class="btn bg-gradient-purple btn-ms"><i class="fas fa-envelope-square"></i> Enviar</button>
+            <!--<button id="btnEnviar" name="btnEnviar" type="button" class="btn bg-gradient-purple btn-ms"><i class="fas fa-envelope-square"></i> Enviar</button>-->
 
           </div>
         </div>
