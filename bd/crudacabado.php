@@ -7,7 +7,7 @@ $conexion = $objeto->connect();
 
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 $clave = (isset($_POST['clave'])) ? $_POST['clave'] : '';
-$nombre = ucfirst(strtolower($nombre));
+$nombre = $nombre;
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 

@@ -12,7 +12,7 @@ $id_concepto = (isset($_POST['id_concepto'])) ? $_POST['id_concepto'] : '';
 $id_umedida = (isset($_POST['id_umedida'])) ? $_POST['id_umedida'] : '';
 $uso = (isset($_POST['uso'])) ? $_POST['uso'] : '';
 
-$concepto = ucfirst(strtolower($concepto));
+$concepto = $concepto;
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 

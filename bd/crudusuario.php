@@ -10,7 +10,7 @@ $username = (isset($_POST['username'])) ? $_POST['username'] : '';
 $email = (isset($_POST['email'])) ? $_POST['email'] : '';
 $password = (isset($_POST['password'])) ? $_POST['password'] : '';
 $rol_usuario = (isset($_POST['rol_usuario'])) ? $_POST['rol_usuario'] : '';
-$nombre = ucfirst(strtolower($nombre));
+$nombre = $nombre;
 
 $id_usuario = (isset($_POST['id_usuario'])) ? $_POST['id_usuario'] : '';
 

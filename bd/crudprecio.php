@@ -9,7 +9,7 @@ $iditem = (isset($_POST['iditem'])) ? $_POST['iditem'] : '';
 $unidad = (isset($_POST['unidad'])) ? $_POST['unidad'] : '';
 $precio = (isset($_POST['precio'])) ? $_POST['precio'] : '';
 $id_umedida = (isset($_POST['umedida'])) ? $_POST['umedida'] : '';
-$unidad = ucfirst(strtolower($unidad));
+$unidad = $unidad;
 
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';

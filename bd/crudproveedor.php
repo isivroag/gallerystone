@@ -17,11 +17,11 @@ $cel = (isset($_POST['cel'])) ? $_POST['cel'] : '';
 $correo = (isset($_POST['correo'])) ? $_POST['correo'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
-$nombre = ucfirst(strtolower($nombre));
-$calle = ucfirst(strtolower($calle));
-$col = ucfirst(strtolower($col));
-$cd = ucfirst(strtolower($cd));
-$edo = ucfirst(strtolower($edo));
+$nombre = $nombre;
+$calle = $calle;
+$col = $col;
+$cd = $cd;
+$edo = $edo;
 
 
 
