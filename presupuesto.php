@@ -12,14 +12,13 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 $tokenid = md5($_SESSION['s_usuario']);
 
-if (isset($_GET['folio'])){
-  $folio=$_GET['folio'];
+if (isset($_GET['folio'])) {
+  $folio = $_GET['folio'];
   $consulta = "SELECT * FROM vtmppres where folio_pres='$folio'";
-  $presupuesto=$folio;
-}
-else{
+  $presupuesto = $folio;
+} else {
   $consulta = "SELECT * FROM vtmppres where estado_pres='1' and tokenid='$tokenid'";
-  $presupuesto=0;
+  $presupuesto = 0;
 }
 
 
@@ -106,6 +105,10 @@ $resultadodet = $conexion->prepare($consultadet);
 $resultadodet->execute();
 $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
+$consultaesp = "SELECT * FROM especificacion order by id_esp";
+$resultadoesp = $conexion->prepare($consultaesp);
+$resultadoesp->execute();
+$dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -166,7 +169,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
                   <div class="col-lg-5">
                     <div class="form-group">
-                    <input type="hidden" class="form-control" name="presupuesto" id="presupuesto" value="<?php echo $presupuesto; ?>">
+                      <input type="hidden" class="form-control" name="presupuesto" id="presupuesto" value="<?php echo $presupuesto; ?>">
                       <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
                       <input type="hidden" class="form-control" name="id_pros" id="id_pros" value="<?php echo $idpros; ?>">
                       <label for="nombre" class="col-form-label">Prospecto:</label>
@@ -351,10 +354,10 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
               </div>
             </div>
-            <!-- Tabla -->
+            <!-- Tabla Y TOTALES-->
             <div class="content" style="padding:5px 0px;">
 
-              <div class="card card-widget">
+              <div class="card card-widget" style="margin-bottom:0px;">
 
                 <div class="card-body" style="margin:0px;padding:3px;">
 
@@ -451,7 +454,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                           </span>
                         </div>
 
-                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;  ?> " disabled >
+                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;  ?> " disabled>
                       </div>
                     </div>
 
@@ -505,13 +508,67 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
                   </div>
 
-
                 </div>
 
               </div>
 
             </div>
-            <!-- Formulario totales -->
+            <!-- CONDICIONES -->
+            <div class="content" style="padding-top: 0px;">
+              <div class="card card-widget " style="margin:2px;padding:5px;margin-bottom:0px;">
+
+                <div class="card-header bg-gradient-orange" style="margin:0px;padding:8px;">
+                  <h1 class="card-title" style="text-align:center;">Condiciones</h1>
+                  <div class="card-tools" style="margin:0px;padding:0px;">
+                    <button id="btncondiciones" name="btncondiciones" type="button" class="btn bg-success btn-sm">
+                      <i class="fas fa-folder-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body" style="margin:0px;padding:2px 5px;">
+                  <div class="row justify-content-sm-start">
+                    <div class="col-lg-12 mx-auto">
+
+                      <div class="table-responsive" style="padding:5px;">
+
+                        <table name="tablacond" id="tablacond" class=" table-sm table-condensed mx-auto" style="width:100%;">
+                        <thead class="text-center bg-gradient-orange" STYLE="display:none">
+                            <tr>
+                              <th>Id</th>
+                              <th>CONDICION</th>
+                              <th>ACCIONES</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $consultacond = "SELECT * from contmp where folio_pres='$folio' order by id_reg";
+                            $resultadocond = $conexion->prepare($consultacond);
+                            $resultadocond->execute();
+                            if ($resultadocond->rowCount() >= 1) {
+                              $datacond = $resultadocond->fetchAll(PDO::FETCH_ASSOC);
+                              foreach ($datacond as $dtcond) {
+                            ?>
+                                <tr>
+                                  <td><?php echo $dtcond['id_reg'] ?> </td>
+                                  <td><li><?php echo $dtcond['nom_cond'] ?></li></td>
+                                  <td></td>
+                                </tr>
+                            <?php
+                              }
+                            }
+                            ?>
+
+                          </tbody>
+                        </table>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
 
           </div>
 
@@ -709,6 +766,56 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                 <tbody>
 
 
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+
+        </div>
+        <!-- /.card-body -->
+
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalesp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-md" role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-primary">
+              <h5 class="modal-title" id="exampleModalLabel">BUSCAR TERMINOS Y CONDICIONES</h5>
+
+            </div>
+            <br>
+            <div class="table-hover responsive w-auto " style="padding:10px">
+              <table name="tablaesp" id="tablaesp" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+                <thead class="text-center">
+                  <tr>
+                    <th>Id</th>
+                    <th>Condición</th>
+                    <th>Seleccionar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  foreach ($dataesp as $dtesp) {
+                  ?>
+                    <tr>
+                      <td><?php echo $dtesp['id_esp'] ?></td>
+                      <td><?php echo $dtesp['nom_esp'] ?></td>
+                      <td></td>
+                    </tr>
+                  <?php
+                  }
+                  ?>
                 </tbody>
               </table>
             </div>

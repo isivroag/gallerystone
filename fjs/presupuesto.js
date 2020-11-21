@@ -154,6 +154,62 @@ $(document).ready(function() {
         }
     });
 
+    tablaesp = $("#tablaesp").DataTable({
+
+
+
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnselCond'><i class='fas fa-hand-pointer'></i></button></div></div>"
+        }, ],
+
+        //Para cambiar el lenguaje a español
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sSearch": "Buscar:",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "sProcessing": "Procesando...",
+        }
+    });
+
+    tablacond = $("#tablacond").DataTable({
+        "paging": false,
+        "ordering": false,
+        "info": false,
+        "searching": false,
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnborrarcond'><i class='fas fa-hand-pointer'></i></button></div></div>"
+        }, { className: "hide_column", "targets": [0] }],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No existen terminos y condiciones",
+            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sSearch": "Buscar:",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "sProcessing": "Procesando...",
+        }
+    });
+
+
     $(document).on("click", "#bcliente", function() {
 
         $(".modal-header").css("background-color", "#007bff");
@@ -162,6 +218,67 @@ $(document).ready(function() {
         $("#modalProspecto").modal("show");
 
     });
+
+
+
+    $(document).on("click", "#btncondiciones", function() {
+
+        $(".modal-header").css("background-color", "#007bff");
+        $(".modal-header").css("color", "white");
+
+        $("#modalesp").modal("show");
+
+    });
+
+    $(document).on("click", ".btnselCond", function() {
+        fila = $(this).closest("tr");
+
+        condicion = fila.find('td:eq(1)').text();
+        folio = $("#folio").val();
+        opc = 1
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "bd/condiciontmp.php",
+            dataType: "json",
+            data: { folio: folio, condicion: condicion, opc: opc },
+            success: function(data) {
+                fidreg = data[0].id_reg;
+                fcondicion = "<li>" + data[0].nom_cond + "</li>";
+                tablacond.row.add([fidreg, fcondicion]).draw();
+
+            }
+        });
+
+        $("#modalesp").modal("hide");
+
+
+    });
+    $(document).on("click", ".btnborrarcond", function() {
+        fila = $(this).closest("tr");
+
+        registro = fila.find('td:eq(0)').text();
+        folio = $("#folio").val();
+        opc = 2;
+        console.log(registro);
+
+        $.ajax({
+
+            type: "POST",
+            url: "bd/condiciontmp.php",
+            dataType: "json",
+            data: { folio: folio, registro: registro, opc: opc },
+            success: function(data) {
+                tablacond.row(fila.parents('tr')).remove().draw();
+
+            }
+        });
+
+
+    });
+
 
     $(document).on("click", "#bconcepto", function() {
 
@@ -880,8 +997,34 @@ $(document).ready(function() {
         gtotal = round(gtotal - descuento, 2);
         $("#gtotal").val(gtotal);
 
+    };
+
+    function listaresp() {
+
+        tablacond.clear();
+        tablacond.draw();
+        folio = $("#folio").val();
 
 
+
+        $.ajax({
+            type: "POST",
+            url: "bd/buscacondiciones.php",
+            dataType: "json",
+            data: { folio: folio },
+
+            success: function(res) {
+
+
+                for (var i = 0; i < res.length; i++) {
+
+                    tablacond.row.add([res[i].nom_cond]).draw();
+
+                    //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
+                }
+
+            }
+        });
 
     };
 

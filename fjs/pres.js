@@ -151,6 +151,7 @@ $(document).ready(function() {
     });
 
 
+
     $("#btnVta").click(function() {
 
 
@@ -282,6 +283,10 @@ $(document).ready(function() {
         $("#modalProspecto").modal("show");
 
     });
+
+
+
+
 
     $(document).on("click", "#bconcepto", function() {
 
