@@ -23,7 +23,7 @@ $tokenid = (isset($_POST['tokenid'])) ? $_POST['tokenid'] : '';
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
-$concepto = ucfirst(strtolower($concepto));
+$concepto = $concepto;
 
 
 

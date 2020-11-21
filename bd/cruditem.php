@@ -11,7 +11,7 @@ $clave = (isset($_POST['clave'])) ? $_POST['clave'] : '';
 $color = (isset($_POST['color'])) ? $_POST['color'] : '';
 $acabado = (isset($_POST['acabado'])) ? $_POST['acabado'] : '';
 $tipo = (isset($_POST['tipo'])) ? $_POST['tipo'] : '';
-$nombre = ucfirst(strtolower($nombre));
+$nombre = $nombre;
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 

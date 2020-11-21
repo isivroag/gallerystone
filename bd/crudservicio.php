@@ -9,7 +9,7 @@ $conexion = $objeto->connect();
 $servicio = (isset($_POST['servicio'])) ? $_POST['servicio'] : '';
 $precio = (isset($_POST['precio'])) ? $_POST['precio'] : '';
 $id_umedida = (isset($_POST['umedida'])) ? $_POST['umedida'] : '';
-$servicio = ucfirst(strtolower($servicio));
+$servicio = $servicio;
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 

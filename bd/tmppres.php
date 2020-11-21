@@ -18,8 +18,8 @@ $total = (isset($_POST['total'])) ? $_POST['total'] : '0';
 $descuento = (isset($_POST['descuento'])) ? $_POST['descuento'] : '0';
 $gtotal = (isset($_POST['gtotal'])) ? $_POST['gtotal'] : '0';
 
-$concepto = ucfirst(strtolower($concepto));
-$ubicacion = ucfirst(strtolower($ubicacion));
+$concepto = $concepto;
+$ubicacion = $ubicacion;
 
 switch ($opcion) {
     case 1: //alta
