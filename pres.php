@@ -336,7 +336,7 @@ if ($folio != "") {
             <!-- Tabla -->
             <div class="content" style="padding:5px 0px;">
 
-              <div class="card card-widget">
+              <div class="card card-widget" style="margin-bottom:0px">
 
                 <div class="card-body" style="margin:0px;padding:3px;">
 
@@ -496,6 +496,59 @@ if ($folio != "") {
 
             </div>
             <!-- Formulario totales -->
+            <div class="content" style="padding-top:0px;">
+              <div class="card card-widget " style="margin:0px;padding:5px;margin-bottom:0px;">
+
+                <div class="card-header bg-gradient-blue" style="margin:0px;padding:8px;">
+                  <h1 class="card-title" style="text-align:center;">Condiciones</h1>
+                  <div class="card-tools" style="margin:0px;padding:0px;">
+                    
+                  </div>
+                </div>
+                <div class="card-body" style="margin:0px;padding:2px 5px;">
+                  <div class="row justify-content-sm-start">
+                    <div class="col-lg-12 mx-auto">
+
+                      <div class="table-responsive" style="padding:5px;">
+
+                        <table name="tablacond" id="tablacond" class=" table-sm table-condensed mx-auto" style="width:100%;">
+                        <thead class="text-center bg-gradient-orange" STYLE="display:none">
+                            <tr>
+                              <th>Id</th>
+                              <th>CONDICION</th>
+                              <th>ACCIONES</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $consultacond = "SELECT * from contmp where folio_pres='$tmp_pres' order by id_reg";
+                            $resultadocond = $conexion->prepare($consultacond);
+                            $resultadocond->execute();
+                            if ($resultadocond->rowCount() >= 1) {
+                              $datacond = $resultadocond->fetchAll(PDO::FETCH_ASSOC);
+                              foreach ($datacond as $dtcond) {
+                            ?>
+                                <tr>
+                                  <td><?php echo $dtcond['id_reg'] ?> </td>
+                                  <td><li><?php echo $dtcond['nom_cond'] ?></li></td>
+                                  <td></td>
+                                </tr>
+                            <?php
+                              }
+                            }
+                            ?>
+
+                          </tbody>
+                        </table>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
 
           </div>
 
@@ -709,6 +762,8 @@ if ($folio != "") {
 
     </div>
   </section>
+
+
   <!-- /.content -->
 </div>
 

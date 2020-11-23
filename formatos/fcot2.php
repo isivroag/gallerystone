@@ -35,7 +35,8 @@ if ($folio != "") {
     $subtotal = $dt['subtotal'];
     $descuento = $dt['descuento'];
     $gtotal = $dt['gtotal'];
-    $condiciones=$dt['condiciones'];
+    
+    $folio_tmp=$dt['folio_tmp'];
 	}
 
 	if ($idpros != 0) {
@@ -174,8 +175,17 @@ $plantilla.=
       <div id="notices">
         <div>NOTA:</div>
         <div class="notice">
-        '.$condiciones.'
-        </div>
+        ';
+        $consultacond = "SELECT * from contmp where folio_pres='$folio_tmp' order by id_reg";
+        $resultadocond = $conexion->prepare($consultacond);
+        $resultadocond->execute();
+        if ($resultadocond->rowCount() >= 1) {
+          $datacond = $resultadocond->fetchAll(PDO::FETCH_ASSOC);
+          foreach ($datacond as $dtcond) {
+            $plantilla.=$dtcond['nom_cond'].'<br>';
+          }
+        }
+          $plantilla.=' </div>
       </div>
     </main>
     <footer>

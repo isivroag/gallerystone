@@ -190,7 +190,7 @@ $(document).ready(function() {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnborrarcond'><i class='fas fa-hand-pointer'></i></button></div></div>"
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnborrarcond'><i class='fas fa-times'></i></button></div></div>"
         }, { className: "hide_column", "targets": [0] }],
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros",
@@ -229,6 +229,46 @@ $(document).ready(function() {
         $("#modalesp").modal("show");
 
     });
+
+    $(document).on("click", "#btnotrascond", function() {
+
+        $(".modal-header").css("background-color", "#007bff");
+        $(".modal-header").css("color", "white");
+
+        $("#modalotro").modal("show");
+
+    });
+
+    btnguardaresp
+
+    $(document).on("click", "#btnguardaresp", function() {
+
+
+        condicion = $("#otraesp").val();
+        folio = $("#folio").val();
+        opc = 1
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "bd/condiciontmp.php",
+            dataType: "json",
+            data: { folio: folio, condicion: condicion, opc: opc },
+            success: function(data) {
+                fidreg = data[0].id_reg;
+                fcondicion = "<li>" + data[0].nom_cond + "</li>";
+                tablacond.row.add([fidreg, fcondicion]).draw();
+
+            }
+        });
+
+
+
+        $("#modalotro").modal("hide");
+
+    });
+
 
     $(document).on("click", ".btnselCond", function() {
         fila = $(this).closest("tr");

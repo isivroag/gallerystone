@@ -523,6 +523,9 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                     <button id="btncondiciones" name="btncondiciones" type="button" class="btn bg-success btn-sm">
                       <i class="fas fa-folder-plus"></i>
                     </button>
+                    <button id="btnotrascond" name="btnotrascond" type="button" class="btn bg-success btn-sm">
+                      <i class="fas fa-pen-square"></i>
+                    </button>
                   </div>
                 </div>
                 <div class="card-body" style="margin:0px;padding:2px 5px;">
@@ -532,7 +535,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                       <div class="table-responsive" style="padding:5px;">
 
                         <table name="tablacond" id="tablacond" class=" table-sm table-condensed mx-auto" style="width:100%;">
-                        <thead class="text-center bg-gradient-orange" STYLE="display:none">
+                          <thead class="text-center bg-gradient-orange" STYLE="display:none">
                             <tr>
                               <th>Id</th>
                               <th>CONDICION</th>
@@ -550,7 +553,9 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                             ?>
                                 <tr>
                                   <td><?php echo $dtcond['id_reg'] ?> </td>
-                                  <td><li><?php echo $dtcond['nom_cond'] ?></li></td>
+                                  <td>
+                                    <li><?php echo $dtcond['nom_cond'] ?></li>
+                                  </td>
                                   <td></td>
                                 </tr>
                             <?php
@@ -830,6 +835,51 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
       </div>
       <!-- /.card -->
 
+    </div>
+  </section>
+
+  <section>
+    <div class="modal fade" id="modalotro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog " role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-primary">
+            <h5 class="modal-title" id="exampleModalLabel">AGREGAR CONDICIÓN</h5>
+
+          </div>
+          <div class="card card-widget" style="margin: 10px;">
+            <form id="formotro" action="" method="POST">
+              <div class="modal-body row">
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <label for="otraesp" class="col-form-label">Especificiación:</label>
+                    <textarea name="otraesp" id="otraesp" class="form-control"  rows="4" placeholder="Especificacion"></textarea>
+                    
+                  </div>
+                </div>
+              </div>
+          </div>
+
+
+          <?php
+          if ($message != "") {
+          ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <span class="badge "><?php echo ($message); ?></span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+
+            </div>
+
+          <?php
+          }
+          ?>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+            <button type="button" id="btnguardaresp" name="btnguardaresp" class="btn btn-success" value="btnguardaresp"><i class="far fa-save"></i> Agregar</button>
+          </div>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
   <!-- /.content -->
