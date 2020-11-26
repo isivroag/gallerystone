@@ -143,7 +143,7 @@ $plantilla.=
         '</tbody>
         <tfoot>
         ';
-        if ($subtotal<>0) {
+        if ($subtotal<>0 && $iva<>0) {
           $plantilla.=' <tr>
           <td colspan="3"></td>
           <td colspan="3">SUBTOTAL</td>
@@ -172,7 +172,7 @@ $plantilla.=
           </tr>';
          }
         
-         if ($gtotal<>0){
+         if ($gtotal<>0 && $descuento<>0){
           $plantilla.='<tr>
           <td colspan="3"></td>
           <td colspan="3">GRAN TOTAL</td>
