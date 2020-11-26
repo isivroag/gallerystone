@@ -111,12 +111,12 @@ $plantilla.='
         <thead>
           <tr>
             
-            <th class="desc">Concepto</th>
-            <th class="desc">Descripción</th>
-            <th class="desc">Formato</th>
-            <th class="qty">Cantidad</th>
-            <th class="desc">U.M.</th>
-            <th class="qty">P.U.</th>
+            <th class="total">Concepto</th>
+            <th class="total">Descripción</th>
+            <th class="total">Formato</th>
+            <th class="total">Cantidad</th>
+            <th class="total">U.M.</th>
+            <th class="total">P.U.</th>
             <th class="total">Monto.</th>
           </tr>
         </thead>
@@ -134,7 +134,7 @@ $plantilla.='
 							<td class="qty">'. $row['cantidad'] .'</td>
 							<td class="desc">'. $row['nom_umedida'] .'</td>
 							<td class="qty">$'. number_format($row['precio'], 2).'</td>
-							<td class="total">$'. number_format($row['total'], 2) .'</td>
+							<td class="qty">$'. number_format($row['total'], 2) .'</td>
           </tr>
         ';
         $x++;
@@ -142,33 +142,44 @@ $plantilla.='
 $plantilla.=
         '</tbody>
         <tfoot>
-          <tr>
-            <td colspan="3"></td>
-            <td colspan="3">SUBTOTAL</td>
-            <td>$ '. number_format($subtotal, 2) .'</td>
-          </tr>
-          <tr>
-            <td colspan="3"></td>
-            <td colspan="3">IVA 16%</td>
-            <td>$ '. number_format($iva, 2) .'</td>
-          </tr>
-          <tr>
+        ';
+        if ($subtotal<>0) {
+          $plantilla.=' <tr>
+          <td colspan="3"></td>
+          <td colspan="3">SUBTOTAL</td>
+          <td>$ '. number_format($subtotal, 2) .'</td>
+        </tr>';
+        }
+         if ($iva <> 0 ){
+          $plantilla.='<tr>
+          <td colspan="3"></td>
+          <td colspan="3">IVA 16%</td>
+          <td>$ '. number_format($iva, 2) .'</td>
+        </tr>';
+         }
+          if ($total<>0) {
+            $plantilla.=' <tr>
             <td colspan="3"></td>
             <td colspan="3">TOTAL</td>
             <td>$ '. number_format($total, 2) .'</td>
-          </tr>
-          <tr>
+            </tr>';
+          }
+         if ($descuento<>0){
+          $plantilla.='<tr>
           <td colspan="3"></td>
           <td colspan="3">DESCUENTO</td>
           <td>$ '. number_format($descuento, 2) .'</td>
-        </tr>
-        <tr>
-        <td colspan="3"></td>
-        <td colspan="3">GRAN TOTAL</td>
-        <td>$ '. number_format($gtotal, 2) .'</td>
-      </tr>
-
-        </tfoot>
+          </tr>';
+         }
+        
+         if ($gtotal<>0){
+          $plantilla.='<tr>
+          <td colspan="3"></td>
+          <td colspan="3">GRAN TOTAL</td>
+          <td>$ '. number_format($gtotal, 2) .'</td>
+        </tr>';
+         }
+       $plantilla.=' </tfoot>
       </table>
 
       <div id="thanks">¡Gracias por su preferencia!</div>
