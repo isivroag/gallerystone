@@ -21,7 +21,7 @@ body {
     height: 27.9cm;
     margin: 0 auto;
     color: #555555;
-    background: #ffffff;
+    background: #FFFFFF;
     font-family: Arial, sans-serif;
     font-size: 13px;
     font-family: SourceSansPro;
@@ -30,7 +30,7 @@ body {
 header {
     padding: 5px 0;
     margin-bottom: 5px;
-    border-bottom: 1px solid #aaaaaa;
+    border-bottom: 1px solid #AAAAAA;
 }
 
 #logo {
@@ -64,7 +64,7 @@ header {
 }
 
 #folio .date {
-    font-size: 1em;
+    font-size: 1.0em;
     color: #777777;
 }
 
@@ -74,7 +74,7 @@ header {
 
 #client {
     padding-left: 6px;
-    border-left: 6px solid #db6719;
+    /*border-left: 6px solid #db6719;*/
     float: left;
 }
 
@@ -94,7 +94,7 @@ h2.name {
 }
 
 #invoice h1 {
-    color: #db6719;
+    /* color: #db6719;*/
     font-size: 1.2em;
     line-height: 1em;
     font-weight: normal;
@@ -102,7 +102,7 @@ h2.name {
 }
 
 #invoice .date {
-    font-size: 1em;
+    font-size: 1.0em;
     color: #777777;
 }
 
@@ -111,14 +111,15 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
     margin-bottom: 10px;
+    border: 1px solid #000000;
 }
 
 table th,
 table td {
     padding: 10px;
-    background: #eeeeee;
+    /*background: #EEEEEE;*/
     text-align: center;
-    border-bottom: 1px solid #ffffff;
+    border: 1px solid #000000;
 }
 
 table th {
@@ -128,19 +129,21 @@ table th {
 
 table td {
     text-align: right;
+    border: 1px solid #000000;
 }
 
 table td h3 {
-    color: #e46820;
+    /*color: #e46820;*/
     font-size: 1.2em;
     font-weight: normal;
     margin: 0 0 0.2em 0;
+    border: 1px solid #000000;
 }
 
 table .no {
-    color: #ffffff;
+    color: #FFFFFF;
     font-size: 1.6em;
-    background: #57b223;
+    background: #57B223;
 }
 
 table .desc {
@@ -148,43 +151,43 @@ table .desc {
 }
 
 table .unit {
-    background: #dddddd;
+    background: #DDDDDD;
 }
 
 table .qty {}
 
 table .total {
-    background: #e46820;
-    color: #ffffff;
+    /*background: #e46820;*/
+    color: #000000;
 }
 
 table td.unit,
 table td.qty,
 table td.total {
-    font-size: 1.2em;
+    font-size: 1.0em;
 }
 
 table tbody tr:last-child td {
-    border: none;
+    border: 1px solid #000000;
 }
 
 table tfoot td {
     padding: 5px 5px;
-    background: #ffffff;
+    background: #FFFFFF;
     border-bottom: none;
-    font-size: 1em;
+    font-size: 1.0em;
     white-space: nowrap;
-    border-bottom: 1px solid #aaaaaa;
+    border: none;
 }
 
 table tfoot tr:first-child td {
-    border-top: none;
+    border: none;
 }
 
 table tfoot tr:last-child td {
-    color: #57b223;
+    color: #57B223;
     font-size: 1.4em;
-    border-bottom: 1px solid #57b223;
+    border-bottom: 1px solid #57B223;
 }
 
 table tfoot tr td:first-child {
@@ -199,11 +202,11 @@ table tfoot tr td:first-child {
 
 #notices {
     padding-left: 6px;
-    border-left: 6px solid #fad42c;
+    /*border-left: 6px solid #fad42c;*/
 }
 
 #notices .notice {
-    font-size: 0.8em;
+    font-size: .8em;
 }
 
 footer {
