@@ -44,11 +44,11 @@ switch ($opcion) {
 
         break;
         case 2:
-            $consulta = "UPDATE tmp_pres SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal' WHERE folio_pres='$folio' AND tokenid='$tokenid'";
+            $consulta = "UPDATE tmp_pres SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal' WHERE folio_pres='$folio'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
     
-            $consulta = "SELECT * FROM vtmppres WHERE folio_pres='$folio' AND tokenid='$tokenid'";
+            $consulta = "SELECT * FROM vtmppres WHERE folio_pres='$folio'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

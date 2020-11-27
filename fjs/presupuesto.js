@@ -449,7 +449,7 @@ $(document).ready(function() {
         gtotal = $('#gtotal').val();
         presupuesto = $('#presupuesto').val();
         opcion = 2;
-        console.log(presupuesto);
+       
         $.ajax({
 
             type: "POST",
@@ -478,7 +478,7 @@ $(document).ready(function() {
                                 if (res == 0) {
                                     Swal.fire({
                                         title: 'Error al Guardar',
-                                        text: "No se puedo guardar los datos del cliente",
+                                        text: "No se puedo guardar los datos",
                                         icon: 'error',
                                     })
                                 } else {
@@ -516,6 +516,7 @@ $(document).ready(function() {
                         });
 
                     } else {
+                        
                         $.ajax({
 
                             type: "POST",
@@ -534,7 +535,7 @@ $(document).ready(function() {
 
                                     Swal.fire({
                                         title: 'Operación Exitosa',
-                                        text: "Presupuesto Guardado",
+                                        text: "Presupuesto Modificado",
                                         icon: 'success',
                                     })
                                     folio = res;

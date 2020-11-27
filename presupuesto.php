@@ -14,8 +14,18 @@ $tokenid = md5($_SESSION['s_usuario']);
 
 if (isset($_GET['folio'])) {
   $folio = $_GET['folio'];
-  $consulta = "SELECT * FROM vtmppres where folio_pres='$folio'";
-  $presupuesto = $folio;
+  $consulta = "SELECT * FROM presupuesto where folio_tmp='$folio'";
+  $resultadobpres = $conexion->prepare($consulta);
+  $resultadobpres->execute();
+  if ($resultadobpres->rowCount() >= 1) {
+    $databpres = $resultadobpres->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($databpres as $dtbpres){
+      $presupuesto = $dtbpres['folio_pres'];
+    }
+    
+  }
+
+  
 } else {
   $consulta = "SELECT * FROM vtmppres where estado_pres='1' and tokenid='$tokenid'";
   $presupuesto = 0;
