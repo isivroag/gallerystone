@@ -5,12 +5,12 @@
 
     require_once ('../vendor/autoload.php');
     
-    $css=file_get_contents('../css/estilocotizacion.css');
+    $css=file_get_contents('../css/estilocotizacion2.css');
 
     require_once ('fcot2.php');
     $plantilla= getPlantilla($folio);
    
-    $mpdf = new \Mpdf\Mpdf([]);
+    $mpdf = new \Mpdf\Mpdf(['format' => 'Letter']);
 
     
     
