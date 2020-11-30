@@ -21,8 +21,9 @@ if (isset($_GET['folio'])) {
     $databpres = $resultadobpres->fetchAll(PDO::FETCH_ASSOC);
     foreach ($databpres as $dtbpres){
       $presupuesto = $dtbpres['folio_pres'];
+      
     }
-    
+    $consulta = "SELECT * FROM tmp_pres where folio_pres='$folio'";
   }
 
   
@@ -125,7 +126,19 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="css/estilo.css">
+<style>
+  .punto {
+    height: 20px !important;
+    width: 20px !important;
+   
+    border-radius: 50% !important;
+    display: inline-block !important;
+    text-align: center;
+    font-size: 15px;
+}
 
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -170,7 +183,8 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                     <i class="far fa-save"></i>
                   </button>
                 </div>
-                <h1 class="card-title ">Datos del Presupuesto</h1>
+                <h1 class=" card-title punto bg-blue"> 1</h1>
+                <h1 class="card-title "> Datos del Presupuesto</h1>
               </div>
 
               <div class="card-body" style="margin:0px;padding:1px;">
@@ -249,6 +263,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
               <div class="card card-widget " style="margin:2px;padding:5px;">
 
                 <div class="card-header bg-gradient-orange" style="margin:0px;padding:8px;">
+                <h1 class=" card-title punto bg-blue">2</h1>
                   <h1 class="card-title" style="text-align:center;">Agregar Item</h1>
                   <div class="card-tools" style="margin:0px;padding:0px;">
 
@@ -421,15 +436,18 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                   </div>
 
                   <div class="row justify-content-sm-center">
+                  <h1 class=" card-title punto bg-blue">3</h1>
                     <div class=" offset-lg-0 col-lg-2 ">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="civa" name="civa">
                         <label class="custom-control-label" for="civa">Sin IVA</label>
                       </div>
                     </div>
-
+                   
                     <div class=" offset-lg-4 col-lg-2 ">
+                    
                       <div class="custom-control custom-checkbox">
+                      
                         <input type="checkbox" class="custom-control-input " id="cdescuento" name="cdescuento">
                         <label class="custom-control-label" for="cdescuento">Aplicar Descuento</label>
                       </div>
@@ -528,6 +546,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
               <div class="card card-widget " style="margin:2px;padding:5px;margin-bottom:0px;">
 
                 <div class="card-header bg-gradient-orange" style="margin:0px;padding:8px;">
+                <h1 class=" card-title punto bg-blue">4</h1>
                   <h1 class="card-title" style="text-align:center;">Condiciones</h1>
                   <div class="card-tools" style="margin:0px;padding:0px;">
                     <button id="btncondiciones" name="btncondiciones" type="button" class="btn bg-success btn-sm">
