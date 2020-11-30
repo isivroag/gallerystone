@@ -148,7 +148,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                         <td><?php echo $dat['folio_pres'] ?></td>
                         <td><?php echo $dat['fecha_pres'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
-                        <td class="text-right"><?php echo "$ ".number_format( $dat['subtotal'],2) ?></td>
+                        <td class="text-right"><?php echo "$ ".number_format( $dat['gtotal'],2) ?></td>
                         
                       </tr>
                     <?php
