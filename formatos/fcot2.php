@@ -84,7 +84,7 @@ $plantilla.='
         <h2 class="name">GALLERY STONE</h2>
         <div>Araucarias No 116, Col. Indeco Animas Xalapa, Veracruz</div>
         <div>Teléfonos: 228-1524147 228-1179998</div>
-        <div><a href="mailto:ventas@gallerystone.com.mx">Email: info@gallerystone.com.mx</a></div>
+        <div><a href="mailto:ventas@gallerystone.com.mx">Email: ventas@gallerystone.com.mx</a></div>
       </div>
       
       <div id="folio">
