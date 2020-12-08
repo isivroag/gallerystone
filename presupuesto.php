@@ -19,14 +19,11 @@ if (isset($_GET['folio'])) {
   $resultadobpres->execute();
   if ($resultadobpres->rowCount() >= 1) {
     $databpres = $resultadobpres->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($databpres as $dtbpres){
+    foreach ($databpres as $dtbpres) {
       $presupuesto = $dtbpres['folio_pres'];
-      
     }
     $consulta = "SELECT * FROM tmp_pres where folio_pres='$folio'";
   }
-
-  
 } else {
   $consulta = "SELECT * FROM vtmppres where estado_pres='1' and tokenid='$tokenid'";
   $presupuesto = 0;
@@ -131,13 +128,12 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
   .punto {
     height: 20px !important;
     width: 20px !important;
-   
+
     border-radius: 50% !important;
     display: inline-block !important;
     text-align: center;
     font-size: 15px;
-}
-
+  }
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -263,7 +259,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
               <div class="card card-widget " style="margin:2px;padding:5px;">
 
                 <div class="card-header bg-gradient-orange" style="margin:0px;padding:8px;">
-                <h1 class=" card-title punto bg-blue">2</h1>
+                  <h1 class=" card-title punto bg-blue">2</h1>
                   <h1 class="card-title" style="text-align:center;">Agregar Item</h1>
                   <div class="card-tools" style="margin:0px;padding:0px;">
 
@@ -436,482 +432,507 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                   </div>
 
                   <div class="row justify-content-sm-center">
-                  <h1 class=" card-title punto bg-blue">3</h1>
+                    <h1 class=" card-title punto bg-blue">3</h1>
                     <div class=" offset-lg-0 col-lg-2 ">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="civa" name="civa">
                         <label class="custom-control-label" for="civa">Sin IVA</label>
                       </div>
                     </div>
-                   
+
                     <div class=" offset-lg-4 col-lg-2 ">
-                    
-                      <div class="custom-control custom-checkbox">
-                      
-                        <input type="checkbox" class="custom-control-input " id="cdescuento" name="cdescuento">
-                        <label class="custom-control-label" for="cdescuento">Aplicar Descuento</label>
+                      <div class="row justify-content-around">
+
+                        <div class="col-6 col-sm-6">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input input-group-prepend " id="cdescuento" name="cdescuento">
+
+                            <label class="custom-control-label input-group-prepend" for="cdescuento">Descuento</label>
+                          </div>
+                        </div>
+
+                        <div class="col-6 col-sm-6">
+
+                          <!-- cuadro de texto de descuento -->
+
+                          <div class="input-group input-group-sm">
+
+                            <input type="text" class="form-control form-control-sm text-right" id="pdesc" name="pdesc" disabled></input>
+                            <div class="input-group-append">
+                              <span class="input-group-text " id="">%</span>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
+
+
                     </div>
+                  </div>
+
+                </div>
+
+                <div class="row justify-content-sm-end" style="padding:5px 0px;">
+
+                  <div class="col-lg-2 ">
+
+                    <label for="subtotal" class="col-form-label ">Subtotal:</label>
+
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-dollar-sign"></i>
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal; ?>" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 ">
+                    <label for="iva" class="col-form-label">IVA:</label>
+
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-dollar-sign"></i>
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;  ?> " disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 ">
+                    <label for="total" class="col-form-label ">Total:</label>
+
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-dollar-sign"></i>
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total; ?>" disabled>
+                    </div>
+
 
                   </div>
 
-                  <div class="row justify-content-sm-end" style="padding:5px 0px;">
-
-                    <div class="col-lg-2 ">
-
-                      <label for="subtotal" class="col-form-label ">Subtotal:</label>
-
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fas fa-dollar-sign"></i>
-                          </span>
-                        </div>
-
-                        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal; ?>" disabled>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-2 ">
-                      <label for="iva" class="col-form-label">IVA:</label>
-
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fas fa-dollar-sign"></i>
-                          </span>
-                        </div>
-
-                        <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva;  ?> " disabled>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-2 ">
-                      <label for="total" class="col-form-label ">Total:</label>
-
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fas fa-dollar-sign"></i>
-                          </span>
-                        </div>
-
-                        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total; ?>" disabled>
+                  <div class="col-lg-2 ">
+                    <div class="row justify-content form-group-sm">
+                      <div class="col-sm-4 input-group input-group-sm">
+                        <label for="descuento" class="col-form-label">Descuento:</label>
                       </div>
 
-
                     </div>
-
-                    <div class="col-lg-2 ">
-                      <label for="total" class="col-form-label ">Descuento <span id="pdesc" name="pdesc"></span> :</label>
-
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fas fa-dollar-sign"></i>
-                          </span>
-                        </div>
-
-                        <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento; ?>" disabled>
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-dollar-sign"></i>
+                        </span>
                       </div>
 
-
+                      <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento; ?>" disabled>
                     </div>
 
-                    <div class="col-lg-2 ">
-                      <label for="total" class="col-form-label ">Gran Total:</label>
 
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fas fa-dollar-sign"></i>
-                          </span>
-                        </div>
+                  </div>
 
-                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal; ?>" disabled>
+                  <div class="col-lg-2 ">
+                    <label for="gtotal" class="col-form-label ">Gran Total:</label>
+
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-dollar-sign"></i>
+                        </span>
                       </div>
 
-
+                      <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal; ?>" disabled>
                     </div>
+
 
                   </div>
 
                 </div>
 
-              </div>
-
-            </div>
-            <!-- CONDICIONES -->
-            <div class="content" style="padding-top: 0px;">
-              <div class="card card-widget " style="margin:2px;padding:5px;margin-bottom:0px;">
-
-                <div class="card-header bg-gradient-orange" style="margin:0px;padding:8px;">
-                <h1 class=" card-title punto bg-blue">4</h1>
-                  <h1 class="card-title" style="text-align:center;">Condiciones</h1>
-                  <div class="card-tools" style="margin:0px;padding:0px;">
-                    <button id="btncondiciones" name="btncondiciones" type="button" class="btn bg-success btn-sm">
-                      <i class="fas fa-folder-plus"></i>
-                    </button>
-                    <button id="btnotrascond" name="btnotrascond" type="button" class="btn bg-success btn-sm">
-                      <i class="fas fa-pen-square"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="card-body" style="margin:0px;padding:2px 5px;">
-                  <div class="row justify-content-sm-start">
-                    <div class="col-lg-12 mx-auto">
-
-                      <div class="table-responsive" style="padding:5px;">
-
-                        <table name="tablacond" id="tablacond" class=" table-sm table-condensed mx-auto" style="width:100%;">
-                          <thead class="text-center bg-gradient-orange" STYLE="display:none">
-                            <tr>
-                              <th>Id</th>
-                              <th>CONDICION</th>
-                              <th>ACCIONES</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            $consultacond = "SELECT * from contmp where folio_pres='$folio' order by id_reg";
-                            $resultadocond = $conexion->prepare($consultacond);
-                            $resultadocond->execute();
-                            if ($resultadocond->rowCount() >= 1) {
-                              $datacond = $resultadocond->fetchAll(PDO::FETCH_ASSOC);
-                              foreach ($datacond as $dtcond) {
-                            ?>
-                                <tr>
-                                  <td><?php echo $dtcond['id_reg'] ?> </td>
-                                  <td>
-                                    <li><?php echo $dtcond['nom_cond'] ?></li>
-                                  </td>
-                                  <td></td>
-                                </tr>
-                            <?php
-                              }
-                            }
-                            ?>
-
-                          </tbody>
-                        </table>
-
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
               </div>
 
             </div>
 
           </div>
+          <!-- CONDICIONES -->
+          <div class="content" style="padding-top: 0px;">
+            <div class="card card-widget " style="margin:2px;padding:5px;margin-bottom:0px;">
 
+              <div class="card-header bg-gradient-orange" style="margin:0px;padding:8px;">
+                <h1 class=" card-title punto bg-blue">4</h1>
+                <h1 class="card-title" style="text-align:center;">Condiciones</h1>
+                <div class="card-tools" style="margin:0px;padding:0px;">
+                  <button id="btncondiciones" name="btncondiciones" type="button" class="btn bg-success btn-sm">
+                    <i class="fas fa-folder-plus"></i>
+                  </button>
+                  <button id="btnotrascond" name="btnotrascond" type="button" class="btn bg-success btn-sm">
+                    <i class="fas fa-pen-square"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body" style="margin:0px;padding:2px 5px;">
+                <div class="row justify-content-sm-start">
+                  <div class="col-lg-12 mx-auto">
 
-        </form>
+                    <div class="table-responsive" style="padding:5px;">
 
+                      <table name="tablacond" id="tablacond" class=" table-sm table-condensed mx-auto" style="width:100%;">
+                        <thead class="text-center bg-gradient-orange" STYLE="display:none">
+                          <tr>
+                            <th>Id</th>
+                            <th>CONDICION</th>
+                            <th>ACCIONES</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $consultacond = "SELECT * from contmp where folio_pres='$folio' order by id_reg";
+                          $resultadocond = $conexion->prepare($consultacond);
+                          $resultadocond->execute();
+                          if ($resultadocond->rowCount() >= 1) {
+                            $datacond = $resultadocond->fetchAll(PDO::FETCH_ASSOC);
+                            foreach ($datacond as $dtcond) {
+                          ?>
+                              <tr>
+                                <td><?php echo $dtcond['id_reg'] ?> </td>
+                                <td>
+                                  <li><?php echo $dtcond['nom_cond'] ?></li>
+                                </td>
+                                <td></td>
+                              </tr>
+                          <?php
+                            }
+                          }
+                          ?>
 
-        <!-- /.card-body -->
+                        </tbody>
+                      </table>
 
-        <!-- /.card-footer-->
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
       </div>
 
+
+      </form>
+
+
+      <!-- /.card-body -->
+
+      <!-- /.card-footer-->
     </div>
 
+</div>
+
+<!-- /.card -->
+
+</section>
+
+
+<section>
+  <div class="container">
+    <div class="modal fade" id="modalProspecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content w-auto">
+          <div class="modal-header bg-gradient-primary">
+            <h5 class="modal-title" id="exampleModalLabel">BUSCAR PROSPECTO</h5>
+
+          </div>
+          <br>
+          <div class="table-hover table-responsive w-auto " style="padding:10px">
+            <table name="tablaC" id="tablaC" class="table table-sm table-striped text-nowrap table-bordered table-condensed " style="width:100%">
+              <thead class="text-center">
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Calle</th>
+                  <th>Num</th>
+                  <th>Colonia</th>
+                  <th>C.P.</th>
+                  <th>Ciudad</th>
+                  <th>Estado</th>
+                  <th>Telefono</th>
+                  <th>Celular</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach ($datac as $datc) {
+                ?>
+                  <tr>
+                    <td><?php echo $datc['id_pros'] ?></td>
+                    <td><?php echo $datc['nombre'] ?></td>
+                    <td><?php echo $datc['correo'] ?></td>
+                    <td><?php echo $datc['calle'] ?></td>
+                    <td><?php echo $datc['num'] ?></td>
+                    <td><?php echo $datc['col'] ?></td>
+                    <td><?php echo $datc['cp'] ?></td>
+                    <td><?php echo $datc['cd'] ?></td>
+                    <td><?php echo $datc['edo'] ?></td>
+                    <td><?php echo $datc['tel'] ?></td>
+                    <td><?php echo $datc['cel'] ?></td>
+
+                    <td></td>
+                  </tr>
+                <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section>
+  <div class="container">
+
+    <!-- Default box -->
+    <div class="modal fade" id="modalConcepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-md" role="document">
+        <div class="modal-content w-auto">
+          <div class="modal-header bg-gradient-primary">
+            <h5 class="modal-title" id="exampleModalLabel">BUSCAR CONCEPTO</h5>
+
+          </div>
+          <br>
+          <div class="table-hover table-responsive w-auto" style="padding:15px">
+            <table name="tablaCon" id="tablaCon" class="table table-sm text-nowrap table-striped table-bordered table-condensed" style="width:100%">
+              <thead class="text-center">
+                <tr>
+                  <th>Id</th>
+                  <th>Concepto</th>
+                  <th>id Umedida</th>
+                  <th>U. Medida</th>
+                  <th>Clasificación</th>
+                  <th>Seleccionar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach ($datacon as $datc) {
+                ?>
+                  <tr>
+                    <td><?php echo $datc['id_concepto'] ?></td>
+                    <td><?php echo $datc['nom_concepto'] ?></td>
+                    <td><?php echo $datc['id_umedida'] ?></td>
+                    <td><?php echo $datc['nom_umedida'] ?></td>
+                    <td><?php echo $datc['tipo'] ?></td>
+
+                    <td></td>
+                  </tr>
+                <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <!-- Default box -->
+    <div class="modal fade" id="modalMaterial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-md" role="document">
+        <div class="modal-content w-auto">
+          <div class="modal-header bg-gradient-primary">
+            <h5 class="modal-title" id="exampleModalLabel">BUSCAR ITEM</h5>
+
+          </div>
+          <br>
+          <div class="table-hover responsive w-auto " style="padding:10px">
+            <table name="tablaMat" id="tablaMat" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+              <thead class="text-center">
+                <tr>
+                  <th>Id</th>
+                  <th>Clave</th>
+                  <th>Descripcion</th>
+
+                  <th>Seleccionar</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+
+
+        </div>
+
+      </div>
+      <!-- /.card-body -->
+
+      <!-- /.card-footer-->
+    </div>
     <!-- /.card -->
 
-  </section>
+  </div>
+</section>
 
+<section>
+  <div class="container">
 
-  <section>
-    <div class="container">
-      <div class="modal fade" id="modalProspecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-          <div class="modal-content w-auto">
-            <div class="modal-header bg-gradient-primary">
-              <h5 class="modal-title" id="exampleModalLabel">BUSCAR PROSPECTO</h5>
-
-            </div>
-            <br>
-            <div class="table-hover table-responsive w-auto " style="padding:10px">
-              <table name="tablaC" id="tablaC" class="table table-sm table-striped text-nowrap table-bordered table-condensed " style="width:100%">
-                <thead class="text-center">
-                  <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Calle</th>
-                    <th>Num</th>
-                    <th>Colonia</th>
-                    <th>C.P.</th>
-                    <th>Ciudad</th>
-                    <th>Estado</th>
-                    <th>Telefono</th>
-                    <th>Celular</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  foreach ($datac as $datc) {
-                  ?>
-                    <tr>
-                      <td><?php echo $datc['id_pros'] ?></td>
-                      <td><?php echo $datc['nombre'] ?></td>
-                      <td><?php echo $datc['correo'] ?></td>
-                      <td><?php echo $datc['calle'] ?></td>
-                      <td><?php echo $datc['num'] ?></td>
-                      <td><?php echo $datc['col'] ?></td>
-                      <td><?php echo $datc['cp'] ?></td>
-                      <td><?php echo $datc['cd'] ?></td>
-                      <td><?php echo $datc['edo'] ?></td>
-                      <td><?php echo $datc['tel'] ?></td>
-                      <td><?php echo $datc['cel'] ?></td>
-
-                      <td></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <section>
-    <div class="container">
-
-      <!-- Default box -->
-      <div class="modal fade" id="modalConcepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-md" role="document">
-          <div class="modal-content w-auto">
-            <div class="modal-header bg-gradient-primary">
-              <h5 class="modal-title" id="exampleModalLabel">BUSCAR CONCEPTO</h5>
-
-            </div>
-            <br>
-            <div class="table-hover table-responsive w-auto" style="padding:15px">
-              <table name="tablaCon" id="tablaCon" class="table table-sm text-nowrap table-striped table-bordered table-condensed" style="width:100%">
-                <thead class="text-center">
-                  <tr>
-                    <th>Id</th>
-                    <th>Concepto</th>
-                    <th>id Umedida</th>
-                    <th>U. Medida</th>
-                    <th>Clasificación</th>
-                    <th>Seleccionar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  foreach ($datacon as $datc) {
-                  ?>
-                    <tr>
-                      <td><?php echo $datc['id_concepto'] ?></td>
-                      <td><?php echo $datc['nom_concepto'] ?></td>
-                      <td><?php echo $datc['id_umedida'] ?></td>
-                      <td><?php echo $datc['nom_umedida'] ?></td>
-                      <td><?php echo $datc['tipo'] ?></td>
-
-                      <td></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-
-      <!-- Default box -->
-      <div class="modal fade" id="modalMaterial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-md" role="document">
-          <div class="modal-content w-auto">
-            <div class="modal-header bg-gradient-primary">
-              <h5 class="modal-title" id="exampleModalLabel">BUSCAR ITEM</h5>
-
-            </div>
-            <br>
-            <div class="table-hover responsive w-auto " style="padding:10px">
-              <table name="tablaMat" id="tablaMat" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
-                <thead class="text-center">
-                  <tr>
-                    <th>Id</th>
-                    <th>Clave</th>
-                    <th>Descripcion</th>
-
-                    <th>Seleccionar</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-              </table>
-            </div>
-
-
-          </div>
-
-        </div>
-        <!-- /.card-body -->
-
-        <!-- /.card-footer-->
-      </div>
-      <!-- /.card -->
-
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-
-      <!-- Default box -->
-      <div class="modal fade" id="modalPrecio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-md" role="document">
-          <div class="modal-content w-auto">
-            <div class="modal-header bg-gradient-primary">
-              <h5 class="modal-title" id="exampleModalLabel">BUSCAR PRECIO</h5>
-
-            </div>
-            <br>
-            <div class="table-hover responsive w-auto " style="padding:10px">
-              <table name="tablaP" id="tablaP" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
-                <thead class="text-center">
-                  <tr>
-                    <th>Id</th>
-                    <th>Formato</th>
-                    <th>Precio</th>
-                    <th>Umedida</th>
-                    <th>Seleccionar</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-
-                </tbody>
-              </table>
-            </div>
-
-
-          </div>
-
-        </div>
-        <!-- /.card-body -->
-
-        <!-- /.card-footer-->
-      </div>
-      <!-- /.card -->
-
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-
-      <!-- Default box -->
-      <div class="modal fade" id="modalesp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-md" role="document">
-          <div class="modal-content w-auto">
-            <div class="modal-header bg-gradient-primary">
-              <h5 class="modal-title" id="exampleModalLabel">BUSCAR TERMINOS Y CONDICIONES</h5>
-
-            </div>
-            <br>
-            <div class="table-hover responsive w-auto " style="padding:10px">
-              <table name="tablaesp" id="tablaesp" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
-                <thead class="text-center">
-                  <tr>
-                    <th>Id</th>
-                    <th>Condición</th>
-                    <th>Seleccionar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  foreach ($dataesp as $dtesp) {
-                  ?>
-                    <tr>
-                      <td><?php echo $dtesp['id_esp'] ?></td>
-                      <td><?php echo $dtesp['nom_esp'] ?></td>
-                      <td></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
-                </tbody>
-              </table>
-            </div>
-
-
-          </div>
-
-        </div>
-        <!-- /.card-body -->
-
-        <!-- /.card-footer-->
-      </div>
-      <!-- /.card -->
-
-    </div>
-  </section>
-
-  <section>
-    <div class="modal fade" id="modalotro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog " role="document">
-        <div class="modal-content">
+    <!-- Default box -->
+    <div class="modal fade" id="modalPrecio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-md" role="document">
+        <div class="modal-content w-auto">
           <div class="modal-header bg-gradient-primary">
-            <h5 class="modal-title" id="exampleModalLabel">AGREGAR CONDICIÓN</h5>
+            <h5 class="modal-title" id="exampleModalLabel">BUSCAR PRECIO</h5>
 
           </div>
-          <div class="card card-widget" style="margin: 10px;">
-            <form id="formotro" action="" method="POST">
-              <div class="modal-body row">
-                <div class="col-sm-12">
-                  <div class="form-group input-group-sm">
-                    <label for="otraesp" class="col-form-label">Especificiación:</label>
-                    <textarea name="otraesp" id="otraesp" class="form-control"  rows="4" placeholder="Especificacion"></textarea>
-                    
-                  </div>
+          <br>
+          <div class="table-hover responsive w-auto " style="padding:10px">
+            <table name="tablaP" id="tablaP" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+              <thead class="text-center">
+                <tr>
+                  <th>Id</th>
+                  <th>Formato</th>
+                  <th>Precio</th>
+                  <th>Umedida</th>
+                  <th>Seleccionar</th>
+                </tr>
+              </thead>
+              <tbody>
+
+
+              </tbody>
+            </table>
+          </div>
+
+
+        </div>
+
+      </div>
+      <!-- /.card-body -->
+
+      <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <!-- Default box -->
+    <div class="modal fade" id="modalesp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-md" role="document">
+        <div class="modal-content w-auto">
+          <div class="modal-header bg-gradient-primary">
+            <h5 class="modal-title" id="exampleModalLabel">BUSCAR TERMINOS Y CONDICIONES</h5>
+
+          </div>
+          <br>
+          <div class="table-hover responsive w-auto " style="padding:10px">
+            <table name="tablaesp" id="tablaesp" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+              <thead class="text-center">
+                <tr>
+                  <th>Id</th>
+                  <th>Condición</th>
+                  <th>Seleccionar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach ($dataesp as $dtesp) {
+                ?>
+                  <tr>
+                    <td><?php echo $dtesp['id_esp'] ?></td>
+                    <td><?php echo $dtesp['nom_esp'] ?></td>
+                    <td></td>
+                  </tr>
+                <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+
+
+        </div>
+
+      </div>
+      <!-- /.card-body -->
+
+      <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+  </div>
+</section>
+
+<section>
+  <div class="modal fade" id="modalotro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-gradient-primary">
+          <h5 class="modal-title" id="exampleModalLabel">AGREGAR CONDICIÓN</h5>
+
+        </div>
+        <div class="card card-widget" style="margin: 10px;">
+          <form id="formotro" action="" method="POST">
+            <div class="modal-body row">
+              <div class="col-sm-12">
+                <div class="form-group input-group-sm">
+                  <label for="otraesp" class="col-form-label">Especificiación:</label>
+                  <textarea name="otraesp" id="otraesp" class="form-control" rows="4" placeholder="Especificacion"></textarea>
+
                 </div>
               </div>
-          </div>
-
-
-          <?php
-          if ($message != "") {
-          ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <span class="badge "><?php echo ($message); ?></span>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-
             </div>
-
-          <?php
-          }
-          ?>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-            <button type="button" id="btnguardaresp" name="btnguardaresp" class="btn btn-success" value="btnguardaresp"><i class="far fa-save"></i> Agregar</button>
-          </div>
-          </form>
         </div>
+
+
+        <?php
+        if ($message != "") {
+        ?>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span class="badge "><?php echo ($message); ?></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+
+          </div>
+
+        <?php
+        }
+        ?>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+          <button type="button" id="btnguardaresp" name="btnguardaresp" class="btn btn-success" value="btnguardaresp"><i class="far fa-save"></i> Agregar</button>
+        </div>
+        </form>
       </div>
     </div>
-  </section>
-  <!-- /.content -->
+  </div>
+</section>
+<!-- /.content -->
 </div>
 
 <script>

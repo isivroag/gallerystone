@@ -443,6 +443,7 @@ $(document).ready(function() {
         folio = $('#folio').val();
         proyecto = $('#proyecto').val();
         ubicacion = $('#ubicacion').val();
+        subtotal = $('#subtotal').val();
         iva = $('#iva').val();
         total = $('#total').val();
         descuento = $('#descuento').val();
@@ -463,7 +464,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "bd/tmppres.php",
                 dataType: "json",
-                data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion, iva: iva, total: total, descuento: descuento, gtotal: gtotal },
+                data: { IdCliente: IdCliente, fecha: fecha, proyecto: proyecto, ubicacion: ubicacion, tokenid: tokenid, folio: folio, opcion: opcion, subtotal, subtotal, iva: iva, total: total, descuento: descuento, gtotal: gtotal },
                 success: function(res) {
 
                     if (res == 0) {
@@ -914,13 +915,29 @@ $(document).ready(function() {
             success: function(res) {
 
 
-                $("#subtotal").val(res[0].subtotal);
+                $("#total").val(res[0].total);
                 calculo();
 
                 if ($('#cdescuento').prop('checked')) {
                     buscardescuento();
                 }
                 calculodes();
+                subtotal = $("#subtotal").val();
+                iva = $("#iva").val();
+                total = $("#total").val();
+                descuento = $("#descuento").val();
+                gtotal = $("#gtotal").val();
+
+                /*GUARDAR LOS VALORES FINALES DE SUBTOTAL,IVA,TOTAL,DESCUENTO Y GTOTAL */
+                $.ajax({
+                    type: "POST",
+                    url: "",
+                    dataType: "json",
+                    data: {},
+                    success: function(res) {
+
+                    }
+                });
 
 
             }
@@ -974,7 +991,20 @@ $(document).ready(function() {
 
     $("#descuento").on("change keyup paste click", function() {
         calculodes();
-        $("#pdesc").text("");
+        $("#pdesc").val("");
+
+    });
+
+    $("#pdesc").on("change keyup paste click", function() {
+        por = $("#pdesc").val();
+        total = $("#total").val();
+
+        gtotal = round(total * (1 - (por / 100)), 2)
+
+        descuento = total - gtotal;
+
+        $("#descuento").val(descuento);
+        $("#gtotal").val(gtotal);
 
     });
 
@@ -994,7 +1024,7 @@ $(document).ready(function() {
                 descuento = round((monto * (pordesc / 100)), 2);
 
                 $("#descuento").val(descuento);
-                $("#pdesc").text(round(pordesc, 0) + "%");
+                $("#pdesc").val(round(pordesc, 0));
                 calculodes();
 
 
@@ -1006,12 +1036,14 @@ $(document).ready(function() {
     $("#cdescuento").on("click", function() {
         if ($('#cdescuento').prop('checked')) {
             $("#descuento").prop('disabled', false);
+            $("#pdesc").prop('disabled', false);
             buscardescuento();
 
         } else {
             $("#pdesc").text("");
             $("#descuento").val("0.00");
             $("#descuento").prop('disabled', true);
+            $("#pdesc").prop('disabled', true);
         }
         calculodes();
 
@@ -1023,18 +1055,20 @@ $(document).ready(function() {
     });
 
     function calculo() {
-        subtotal = $("#subtotal").val();
+        total = $("#total").val();
         if ($('#civa').prop('checked')) {
-            total = subtotal;
+            subtotal = total;
             $("#iva").val("0.00");
+            $("#subtotal").val(subtotal);
             $("#total").val(total);
 
 
         } else {
 
-            total = round(subtotal * 1.16, 2);
+            subtotal = round(total / 1.16, 2);
             iva = round(total - subtotal, 2);
             $("#iva").val(iva);
+            $("#subtotal").val(subtotal);
             $("#total").val(total);
         }
 

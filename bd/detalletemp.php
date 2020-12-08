@@ -24,7 +24,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta="UPDATE tmp_pres SET subtotal=subtotal+'$total' WHERE folio_pres='$folio'";
+        $consulta="UPDATE tmp_pres SET total=total+'$total' WHERE folio_pres='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
@@ -68,7 +68,8 @@ switch ($opcion) {
             $consulta = "DELETE FROM detalle_tmp WHERE id_reg='$id' ";		
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
-            $consulta="UPDATE tmp_pres SET subtotal=subtotal-'$total' WHERE folio_pres='$folio'";
+            /*CAMBIO IVA INCLUIDO EN TODOS LOS PRECIOS */
+            $consulta="UPDATE tmp_pres SET total=total-'$total' WHERE folio_pres='$folio'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
          //buscar subtotal

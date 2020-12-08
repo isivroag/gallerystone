@@ -174,10 +174,10 @@ table tbody tr:last-child td {
 table tfoot td {
     padding: 5px 5px;
     background: #FFFFFF;
-    border-bottom: none;
     font-size: 1.0em;
     white-space: nowrap;
     border: none;
+    /* border-bottom: 1px solid #000000;*/
 }
 
 table tfoot tr:first-child td {
@@ -218,4 +218,12 @@ footer {
     /*border-top: 1px solid #AAAAAA;*/
     padding: 8px 0;
     text-align: center;
+}
+
+.sborde {
+    border: none !important;
+}
+
+.cborde {
+    border-bottom: 1px solid #000000 !important;
 }
