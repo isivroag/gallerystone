@@ -11,8 +11,13 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
+if ($_SESSION['s_rol'] == '2'){
+  $consulta = "SELECT * FROM vpres order by folio_pres";
+}
+else{
+  $consulta = "SELECT * FROM vpres where estado_pres<>0 order by folio_pres";
+}
 
-$consulta = "SELECT * FROM vpres order by folio_pres";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -96,7 +101,7 @@ $message="";
                             echo "<span class='bg-purple'> EN ESPERA </span>";
                             break;
                             case 5:
-                              echo "<span class='bg-maroon'> EDITADO </span>";
+                              echo "<span class='bg-navy'> EDITADO </span>";
                               break;
                             }
 

@@ -125,9 +125,6 @@ $plantilla.='
         foreach ($datadet as $row) {
          $plantilla.='
           <tr>
-       
-
-           
             <td class="desc">'. $row['nom_concepto'].'</td>
 							<td class="desc">'. $row['nom_item'].'</td>
 							<td class="desc">'.$row['formato'].'</td>
@@ -146,37 +143,37 @@ $plantilla.=
         if ($subtotal<>0 && $iva<>0) {
           $plantilla.=' <tr>
           <td colspan="3" ></td>
-          <td colspan="3" style="border: 1px solid #000000">SUBTOTAL</td>
-          <td style="border: 1px solid #000000">$ '. number_format($subtotal, 2) .'</td>
+          <td colspan="3" >SUBTOTAL</td>
+          <td >$ '. number_format($subtotal, 2) .'</td>
         </tr>';
         }
          if ($iva <> 0 ){
           $plantilla.='<tr>
           <td colspan="3"></td>
-          <td style="border: 1px solid #000000" colspan="3">IVA 16%</td>
-          <td style="border: 1px solid #000000">$ '. number_format($iva, 2) .'</td>
+          <td  colspan="3">IVA 16%</td>
+          <td >$ '. number_format($iva, 2) .'</td>
         </tr>';
          }
           if ($total<>0) {
             $plantilla.=' <tr>
             <td colspan="3"></td>
-            <td style="border: 1px solid #000000" colspan="3">TOTAL</td>
-            <td style="border: 1px solid #000000">$ '. number_format($total, 2) .'</td>
+            <td  colspan="3">TOTAL</td>
+            <td >$ '. number_format($total, 2) .'</td>
             </tr>';
           }
          if ($descuento<>0){
           $plantilla.='<tr>
           <td colspan="3"></td>
-          <td style="border: 1px solid #000000"  colspan="3">DESCUENTO</td>
-          <td style="border: 1px solid #000000">$ '. number_format($descuento, 2) .'</td>
+          <td   colspan="3">DESCUENTO</td>
+          <td >$ '. number_format($descuento, 2) .'</td>
           </tr>';
          }
         
          if ($gtotal<>0 && $descuento<>0){
           $plantilla.='<tr>
           <td colspan="3"></td>
-          <td style="border: 1px solid #000000" colspan="3">GRAN TOTAL</td>
-          <td style="border: 1px solid #000000">$ '. number_format($gtotal, 2) .'</td>
+          <td  colspan="3">GRAN TOTAL</td>
+          <td >$ '. number_format($gtotal, 2) .'</td>
         </tr>';
          }
        $plantilla.=' </tfoot>

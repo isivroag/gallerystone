@@ -154,7 +154,8 @@ table .unit {
     background: #DDDDDD;
 }
 
-table .qty {}
+
+/*table .qty {}*/
 
 table .total {
     /*background: #e46820;*/
@@ -176,8 +177,8 @@ table tfoot td {
     background: #FFFFFF;
     font-size: 1.0em;
     white-space: nowrap;
+    border-bottom: 1px solid #000000;
     border: none;
-    /* border-bottom: 1px solid #000000;*/
 }
 
 table tfoot tr:first-child td {
@@ -187,11 +188,13 @@ table tfoot tr:first-child td {
 table tfoot tr:last-child td {
     color: #57B223;
     font-size: 1.4em;
-    border-bottom: 1px solid #57B223;
+    border: none;
+    border-bottom: 1px solid #000000;
 }
 
 table tfoot tr td:first-child {
     border: none;
+    border-bottom: 1px solid #000000;
 }
 
 #thanks {
@@ -220,10 +223,12 @@ footer {
     text-align: center;
 }
 
+
+/*
 .sborde {
     border: none !important;
 }
 
 .cborde {
     border-bottom: 1px solid #000000 !important;
-}
+}*/

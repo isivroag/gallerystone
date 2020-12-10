@@ -48,7 +48,7 @@ $(document).ready(function() {
     $(document).on("click", ".btnEditar", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
-        
+
         window.location.href = "pres.php?folio=" + id;
 
 
@@ -67,7 +67,7 @@ $(document).ready(function() {
 
     });
 
-    
+
     $(document).on("click", ".btnhistory", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
     //botón BORRAR
     $(document).on("click", ".btnBorrar", function() {
-        fila = $(this);
+        fila = $(this).closest("tr");
 
         id = parseInt($(this).closest("tr").find('td:eq(0)').text());
         opcion = 3 //borrar
@@ -89,17 +89,25 @@ $(document).ready(function() {
         var respuesta = confirm("¿Está seguro de eliminar el registro: " + id + "?");
 
 
-
+        folio = id;
+        estado = 0;
+        nota = "CANCELACIÓN";
+        fecha = $("#fechasys").val();
+        usuario = $("#nameuser").val();
+        console.log(fila);
         if (respuesta) {
             $.ajax({
 
-                url: "",
                 type: "POST",
+                url: "bd/estadopres.php",
                 dataType: "json",
-                data: { id: id, opcion: opcion },
+
+                data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
+
+
 
                 success: function(data) {
-                    console.log(fila);
+
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
                 }
@@ -141,7 +149,7 @@ $(document).ready(function() {
 
             data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
             success: function() {
-                window.location.reload(true); 
+                window.location.reload(true);
 
 
             }
