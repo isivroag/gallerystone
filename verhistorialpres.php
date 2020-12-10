@@ -131,10 +131,10 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                   case 5:
                   
                     echo "<div class='time-label'>";
-                    echo "<span class='bg-navy'>" . $dt2['fecha'] . "</span>";
+                    echo "<span class='bg-lightblue'>" . $dt2['fecha'] . "</span>";
                     echo "</div>";
                     echo "<div>";
-                    echo "<i class='fas fa-edit bg-navy'></i>";
+                    echo "<i class='fas fa-edit bg-lightblue'></i>";
                     echo "<div class='timeline-item'>";
                     echo "<h3 class='timeline-header'><a href='#'>Editado Por: " .$dt2['usuario']." </a><br>" . $opcion = $dt2['nota'] . "</h3>";
                     echo "</div>";

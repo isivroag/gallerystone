@@ -101,7 +101,7 @@ $message="";
                             echo "<span class='bg-purple'> EN ESPERA </span>";
                             break;
                             case 5:
-                              echo "<span class='bg-navy'> EDITADO </span>";
+                              echo "<span class='bg-lightblue'> EDITADO </span>";
                               break;
                             }
 
