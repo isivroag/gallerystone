@@ -169,7 +169,7 @@
             <li class="nav-item">
               <a href="cntaventa.php" class="nav-link <?php echo ($pagina == 'venta') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-cash-register nav-icon"></i>
-                <p>Ventas</p>
+                <p>Ventas y Cobranza</p>
               </a>
             </li>
             <li class="nav-item">
@@ -179,9 +179,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="cntacxc.php" class="nav-link <?php echo ($pagina == 'cxc') ? "active seleccionado" : ""; ?>  ">
+              <a href="cntapagoscxc.php" class="nav-link <?php echo ($pagina == 'cobranza') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-file-invoice-dollar nav-icon"></i>
-                <p>Cuentas por Cobrar</p>
+                <p>Reporte de Pagos</p>
               </a>
             </li>
 

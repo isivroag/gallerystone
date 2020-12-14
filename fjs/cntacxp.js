@@ -13,6 +13,7 @@ $(document).ready(function() {
                 extend: 'excelHtml5',
                 "text": "<i class='fas fa-file-excel'> Excel</i>",
                 "titleAttr": "Exportar a Excel",
+                "title": 'Reporte de Egresos',
                 "className": 'btn bg-success ',
                 exportOptions: { columns: [1, 2, 3, 4, 5, 6] }
             },
@@ -20,6 +21,7 @@ $(document).ready(function() {
                 extend: 'pdfHtml5',
                 "text": "<i class='far fa-file-pdf'> PDF</i>",
                 "titleAttr": "Exportar a PDF",
+                "title": 'Reporte de Egresos',
                 "className": 'btn bg-danger',
                 exportOptions: { columns: [1, 2, 3, 4, 5, 6] }
             }

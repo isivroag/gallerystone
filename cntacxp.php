@@ -54,7 +54,7 @@ $message = "";
 
         <div class="row">
           <div class="col-lg-12">
-            
+
             <button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
           </div>
         </div>
@@ -151,12 +151,12 @@ $message = "";
             <div class="row justify-content-center">
               <div class="col-sm-7">
                 <canvas class="chart bg-lightblue" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                
+
               </div>
             </div>
           </div>
           <!-- /.card-body -->
-       
+
           <!-- /.card-footer -->
         </div>
 
@@ -190,19 +190,19 @@ $message = "";
 <script src="http://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>
 <script src="plugins/chart.js/Chart.min.js"></script>
 <script>
- $(function() {
+  $(function() {
 
 
-var salesGraphChartCanvas = $('#line-chart').get(0).getContext('2d');
-//$('#revenue-chart').get(0).getContext('2d');
+    var salesGraphChartCanvas = $('#line-chart').get(0).getContext('2d');
+    //$('#revenue-chart').get(0).getContext('2d');
 
 
 
-var salesGraphChartData = {
-    labels: [<?php foreach($datag as $d):?>
-        "<?php echo $d['mes']?>", 
-        <?php endforeach; ?>],
-    datasets: [{
+    var salesGraphChartData = {
+      labels: [<?php foreach ($datag as $d) : ?> "<?php echo $d['mes'] ?>",
+        <?php endforeach; ?>
+      ],
+      datasets: [{
         label: 'Egresos Totales Por Mes',
         fill: true,
         borderWidth: 2,
@@ -214,59 +214,59 @@ var salesGraphChartData = {
         pointColor: '#efefef',
         pointBackgroundColor: '#efefef',
         data: [
-        <?php foreach($datag as $d):?>
-        <?php echo $d['total'];?>, 
-        <?php endforeach; ?>
-            ]   
-           }]
-}
+          <?php foreach ($datag as $d) : ?>
+            <?php echo $d['total']; ?>,
+          <?php endforeach; ?>
+        ]
+      }]
+    }
 
-var salesGraphChartOptions = {
-    animationEnabled: true,
-    theme: "light2",
-    maintainAspectRatio: false,
-    responsive: true,
-    legend: {
+    var salesGraphChartOptions = {
+      animationEnabled: true,
+      theme: "light2",
+      maintainAspectRatio: false,
+      responsive: true,
+      legend: {
         display: true,
         position: 'bottom',
         labels: {
-                fontColor: '#efefef'
-            }
-    },
-    scales: {
+          fontColor: '#efefef'
+        }
+      },
+      scales: {
         xAxes: [{
-            ticks: {
-                fontColor: '#efefef',
-            },
-            gridLines: {
-                display: false,
-                color: '#efefef',
-                drawBorder: true,
-            }
+          ticks: {
+            fontColor: '#efefef',
+          },
+          gridLines: {
+            display: false,
+            color: '#efefef',
+            drawBorder: true,
+          }
         }],
         yAxes: [{
-            ticks: {
-                stepSize: 2500,
-                fontColor: '#efefef',
-                beginAtZero: true
-            },
-            gridLines: {
-                display: true,
-                color: '#efefef',
-                drawBorder: true,
-                zeroLineColor: '#efefef'
-            }
+          ticks: {
+            stepSize: 2500,
+            fontColor: '#efefef',
+            beginAtZero: true
+          },
+          gridLines: {
+            display: true,
+            color: '#efefef',
+            drawBorder: true,
+            zeroLineColor: '#efefef'
+          }
         }]
+      }
     }
-}
 
-// This will get the first returned node in the jQuery collection.
-var salesGraphChart = new Chart(salesGraphChartCanvas, {
+    // This will get the first returned node in the jQuery collection.
+    var salesGraphChart = new Chart(salesGraphChartCanvas, {
 
-    type: 'line',
-    data: salesGraphChartData,
-    options: salesGraphChartOptions
-})
+      type: 'line',
+      data: salesGraphChartData,
+      options: salesGraphChartOptions
+    })
 
-});
+  });
 </script>
