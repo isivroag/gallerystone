@@ -60,6 +60,12 @@ $(document).ready(function() {
     $(document).on("click", "#btnPagar", function() {
         opcion = 3;
         var folio_vta = $.trim($("#folior").val());
+        $("#conceptovp").val("");
+        $("#obsvp").val("");
+        $("#saldovp").val($("#saldo").val());
+        $("#montpago").val("");
+        $("#metodo").val("")
+        console.log("prueba");
 
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
