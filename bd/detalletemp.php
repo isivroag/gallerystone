@@ -72,6 +72,7 @@ switch ($opcion) {
             $consulta="UPDATE tmp_pres SET total=total-'$total' WHERE folio_pres='$folio'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
+            $data=1;
          //buscar subtotal
         /*    $consulta="SELECT total FROM tmp_pres WHERE folio_pres='$folio'";
             $resultado = $conexion->prepare($consulta);

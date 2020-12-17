@@ -239,7 +239,7 @@ $(document).ready(function() {
 
     });
 
-    btnguardaresp
+
 
     $(document).on("click", "#btnguardaresp", function() {
 
@@ -297,6 +297,7 @@ $(document).ready(function() {
 
     });
     $(document).on("click", ".btnborrarcond", function() {
+        event.preventDefault();
         fila = $(this).closest("tr");
 
         registro = fila.find('td:eq(0)').text();
@@ -311,7 +312,10 @@ $(document).ready(function() {
             dataType: "json",
             data: { folio: folio, registro: registro, opc: opc },
             success: function(data) {
-                tablacond.row(fila.parents('tr')).remove().draw();
+                if (data == 1) {
+                    tablacond.row(fila.parents('tr')).remove().draw();
+                }
+
 
             }
         });
@@ -628,9 +632,12 @@ $(document).ready(function() {
                     type: "POST",
                     dataType: "json",
                     data: { id: id, total: total, folio: folio, opcion: opcion },
-                    success: function() {
-                        tablaVis.row(fila.parents('tr')).remove().draw();
-                        buscarsubtotal();
+                    success: function(data) {
+                        if (data == 1) {
+                            tablaVis.row(fila.parents('tr')).remove().draw();
+                            buscarsubtotal();
+                        }
+
 
                     }
                 });
@@ -805,6 +812,7 @@ $(document).ready(function() {
 
 
 
+
                 }
             });
 
@@ -931,10 +939,16 @@ $(document).ready(function() {
                 /*GUARDAR LOS VALORES FINALES DE SUBTOTAL,IVA,TOTAL,DESCUENTO Y GTOTAL */
                 $.ajax({
                     type: "POST",
-                    url: "",
+                    url: "bd/guardartotales.php",
                     dataType: "json",
-                    data: {},
-                    success: function(res) {
+                    data: { folio: folio, subtotal: subtotal, iva: iva, total: total, descuento: descuento, gtotal: gtotal },
+                    success: function(resdata) {
+                        console.log("funcion guardartotales");
+                        $("#subtotal").val(resdata[0].subtotal);
+                        $("#iva").val(resdata[0].iva);
+                        $("#total").val(resdata[0].total);
+                        $("#descuento").val(resdata[0].descuento);
+                        $("#gtotal").val(resdata[0].gtotal);
 
                     }
                 });
@@ -1032,7 +1046,9 @@ $(document).ready(function() {
             }
         });
     }
-
+    /*funciones de calcular y descuento
+    crear una sola funciona de calculo con todas las variables
+    y descuento y posteriormente guardar los totales en la tabla */
     $("#cdescuento").on("click", function() {
         if ($('#cdescuento').prop('checked')) {
             $("#descuento").prop('disabled', false);
@@ -1055,6 +1071,7 @@ $(document).ready(function() {
     });
 
     function calculo() {
+        folio = $("#folio").val();
         total = $("#total").val();
         if ($('#civa').prop('checked')) {
             subtotal = total;
@@ -1073,8 +1090,32 @@ $(document).ready(function() {
         }
 
         descuento = $("#descuento").val();
-        gtotal = total - descuento
+        gtotal = total - descuento;
+
         $("#gtotal").val(gtotal);
+
+        subtotal = $("#subtotal").val();
+        iva = $("#iva").val();
+        total = $("#total").val();
+        descuento = $("#descuento").val();
+        gtotal = $("#gtotal").val();
+
+        /*GUARDAR LOS VALORES FINALES DE SUBTOTAL,IVA,TOTAL,DESCUENTO Y GTOTAL */
+        $.ajax({
+            type: "POST",
+            url: "bd/guardartotales.php",
+            dataType: "json",
+            data: { folio: folio, subtotal: subtotal, iva: iva, total: total, descuento: descuento, gtotal: gtotal },
+            success: function(resdata) {
+                console.log("funcion guardartotales");
+                $("#subtotal").val(resdata[0].subtotal);
+                $("#iva").val(resdata[0].iva);
+                $("#total").val(resdata[0].total);
+                $("#descuento").val(resdata[0].descuento);
+                $("#gtotal").val(resdata[0].gtotal);
+
+            }
+        });
 
 
 
