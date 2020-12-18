@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var id, opcion;
     opcion = 4;
 
@@ -30,7 +30,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#btnNuevo").click(function () {
+    $("#btnNuevo").click(function() {
 
         //window.location.href = "prospecto.php";
         $("#formDatos").trigger("reset");
@@ -45,13 +45,13 @@ $(document).ready(function () {
     var fila; //capturar la fila para editar o borrar el registro
 
     //botón EDITAR    
-    $(document).on("click", ".btnEditar", function () {
+    $(document).on("click", ".btnEditar", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
 
         //window.location.href = "actprospecto.php?id=" + id;
-        nombre = fila.find('td:eq(1)').text();
-        rfc = fila.find('td:eq(2)').text();
+        nombre = fila.find('td:eq(2)').text();
+        rfc = fila.find('td:eq(1)').text();
         correo = fila.find('td:eq(3)').text();
         calle = fila.find('td:eq(4)').text();
         num = fila.find('td:eq(5)').text();
@@ -83,7 +83,7 @@ $(document).ready(function () {
     });
 
     //botón BORRAR
-    $(document).on("click", ".btnBorrar", function () {
+    $(document).on("click", ".btnBorrar", function() {
         fila = $(this);
 
         id = parseInt($(this).closest("tr").find('td:eq(0)').text());
@@ -102,7 +102,7 @@ $(document).ready(function () {
                 dataType: "json",
                 data: { id: id, opcion: opcion },
 
-                success: function (data) {
+                success: function(data) {
                     console.log(fila);
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
@@ -113,7 +113,7 @@ $(document).ready(function () {
 
 
 
-    $("#formDatos").submit(function (e) {
+    $("#formDatos").submit(function(e) {
         e.preventDefault();
         var rfc = $.trim($("#rfc").val());
         var nombre = $.trim($("#nombre").val());
@@ -144,7 +144,7 @@ $(document).ready(function () {
                 type: "POST",
                 dataType: "json",
                 data: { nombre: nombre, rfc: rfc, correo: correo, calle: calle, num: num, col: col, cp: cp, cd: cd, edo: edo, tel: tel, cel: cel, id: id, opcion: opcion },
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     console.log(fila);
 
@@ -162,9 +162,9 @@ $(document).ready(function () {
                     tel = data[0].tel;
                     cel = data[0].cel;
                     if (opcion == 1) {
-                        tablaVis.row.add([id, nombre, rfc, correo, calle, num, col, cp, cd, edo, tel, cel]).draw();
+                        tablaVis.row.add([id, rfc, nombre, correo, calle, num, col, cp, cd, edo, tel, cel]).draw();
                     } else {
-                        tablaVis.row(fila).data([id, nombre, rfc, correo, calle, num, col, cp, cd, edo, tel, cel]).draw();
+                        tablaVis.row(fila).data([id, rfc, nombre, correo, calle, num, col, cp, cd, edo, tel, cel]).draw();
                     }
                 }
             });

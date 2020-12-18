@@ -4,7 +4,7 @@
         function connect(){
         
             define('servidor','tecniem.com');
-            define('bd_nombre','tecniemc_gstec');
+            define('bd_nombre','tecniemc_gs');
             define('usuario','tecniemc_gs');
             define('password','GS2020erptec');
 
