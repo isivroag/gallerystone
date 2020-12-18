@@ -585,7 +585,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                     <div class="table-responsive" style="padding:5px;">
 
                       <table name="tablacond" id="tablacond" class=" table-sm table-condensed mx-auto" style="width:100%;">
-                        <thead class="text-center bg-gradient-orange" STYLE="display:none">
+                        <thead class="text-center bg-gradient-orange" style="display:none">
                           <tr>
                             <th>Id</th>
                             <th>CONDICION</th>
@@ -625,7 +625,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
 
           </div>
 
-      </div>
+     
 
 
       </form>
