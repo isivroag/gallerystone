@@ -119,7 +119,6 @@ $(document).ready(function() {
         nota = "CANCELACIÓN";
         fecha = $("#fechasys").val();
         usuario = $("#nameuser").val();
-        console.log(fila);
         if (respuesta) {
             $.ajax({
 
@@ -129,12 +128,12 @@ $(document).ready(function() {
 
                 data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
 
-
-
                 success: function(data) {
-
-
-                    tablaVis.row(fila.parents('tr')).remove().draw();
+                
+                    if (data==1){
+                        window.location.reload(true);
+                    }
+                    
                 }
             });
         }

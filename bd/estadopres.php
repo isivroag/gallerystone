@@ -20,10 +20,10 @@ $resultado->execute();
 $consulta = "INSERT INTO notaspres (folio_pres,fecha,estado,nota,usuario) VALUES('$folio','$fecha','$estado','$nota','$usuario') ";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
+$resp=1;
 
 
-
-print json_encode(1, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+print json_encode($resp, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
 $conexion = NULL;
 
 

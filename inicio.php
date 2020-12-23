@@ -10,7 +10,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vpres order by folio_pres";
+$consulta = "SELECT * FROM vpres WHERE estado_pres<>'3' AND estado_pres <>'0' order by folio_pres";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
