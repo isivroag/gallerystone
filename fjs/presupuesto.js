@@ -586,7 +586,6 @@ $(document).ready(function() {
                         url: "bd/detalletemp.php",
                         type: "POST",
                         dataType: "json",
-                        async: false,
                         data: { id: id, total: total, folio: folio, opcion: opcion },
                         success: function(data) {
                             if (data == 1) {
@@ -709,7 +708,6 @@ $(document).ready(function() {
             $.ajax({
                 type: "POST",
                 url: "bd/detalletemp.php",
-                async: false,
                 dataType: "json",
                 data: {
                     folio: folio,
@@ -859,7 +857,6 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "bd/buscartotal.php",
-            async: false,
             dataType: "json",
             data: { id: id },
             success: function(res) {
@@ -880,7 +877,6 @@ $(document).ready(function() {
                 $.ajax({
                     type: "POST",
                     url: "bd/guardartotales.php",
-                    async: false,
                     dataType: "json",
                     data: {
                         id: id,
