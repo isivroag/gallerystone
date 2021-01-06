@@ -590,7 +590,7 @@ $(document).ready(function() {
                         success: function(data) {
                             if (data == 1) {
                                 tablaVis.row(fila.parents("tr")).remove().draw();
-                                buscarsubtotal();
+                                buscarsubtotal(folio);
                             }
                         },
                     });
@@ -741,7 +741,7 @@ $(document).ready(function() {
                             total,
                         ])
                         .draw();
-                    buscarsubtotal();
+                    buscarsubtotal(folio);
 
                     $("#claveconcepto").val("");
                     $("#concepto").val("");
@@ -852,13 +852,13 @@ $(document).ready(function() {
         });
     }
 
-    function buscarsubtotal() {
-        folio = $("#folio").val();
+    function buscarsubtotal(id) {
+
         $.ajax({
             type: "POST",
             url: "bd/buscartotal.php",
             dataType: "json",
-            data: { folio: folio },
+            data: { id: id },
             success: function(res) {
                 $("#total").val(res[0].total);
                 calculo();
@@ -879,7 +879,7 @@ $(document).ready(function() {
                     url: "bd/guardartotales.php",
                     dataType: "json",
                     data: {
-                        folio: folio,
+                        id: id,
                         subtotal: subtotal,
                         iva: iva,
                         total: total,

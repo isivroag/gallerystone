@@ -636,11 +636,12 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
       <!-- /.card-footer-->
     </div>
 
-</div>
+
 
 <!-- /.card -->
 
 </section>
+
 
 
 <section>

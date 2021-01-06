@@ -6,10 +6,10 @@ $conexion = $objeto->connect();
 // Recepción de los datos enviados mediante POST desde el JS   
 
 
-$folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
+$id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
 
-$consulta = "SELECT * FROM vtmppres WHERE folio_pres='$folio'";
+$consulta = "SELECT * FROM vtmppres WHERE folio_pres='$id'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
