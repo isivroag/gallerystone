@@ -388,7 +388,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
 
                       <div class="table-responsive" style="padding:5px;">
 
-                        <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                        <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed  mx-auto" style="width:100%;">
                           <thead class="text-center bg-gradient-orange">
                             <tr>
                               <th>Id</th>
@@ -447,7 +447,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                           <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input input-group-prepend " id="cdescuento" name="cdescuento">
 
-                            <label class="custom-control-label input-group-prepend" for="cdescuento">Descuento</label>
+                            <label class="custom-control-label input-group-prepend" for="cdescuento">Desc.</label>
                           </div>
                         </div>
 

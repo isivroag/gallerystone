@@ -887,7 +887,7 @@ $(document).ready(function() {
                         gtotal: gtotal,
                     },
                     success: function(resdata) {
-                        console.log("funcion guardartotales");
+
                         $("#subtotal").val(resdata[0].subtotal);
                         $("#iva").val(resdata[0].iva);
                         $("#total").val(resdata[0].total);
@@ -1017,13 +1017,15 @@ $(document).ready(function() {
         descuento = $("#descuento").val();
         gtotal = $("#gtotal").val();
 
+
+
         /*GUARDAR LOS VALORES FINALES DE SUBTOTAL,IVA,TOTAL,DESCUENTO Y GTOTAL */
         $.ajax({
             type: "POST",
             url: "bd/guardartotales.php",
             dataType: "json",
             data: {
-                folio: folio,
+                id: folio,
                 subtotal: subtotal,
                 iva: iva,
                 total: total,
@@ -1031,7 +1033,7 @@ $(document).ready(function() {
                 gtotal: gtotal,
             },
             success: function(resdata) {
-                console.log("funcion guardartotales");
+
                 $("#subtotal").val(resdata[0].subtotal);
                 $("#iva").val(resdata[0].iva);
                 $("#total").val(resdata[0].total);
