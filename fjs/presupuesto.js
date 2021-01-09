@@ -393,6 +393,25 @@ $(document).ready(function() {
         $("#modalProspecto").modal("hide");
     });
 
+    $(document).on("click", "#btnrecalcular", function() {
+        folio = $("#folio").val();
+        $.ajax({
+            type: "POST",
+            url: "bd/recalcular.php",
+            async: false,
+            dataType: "json",
+            data: {
+
+                folio: folio,
+
+            },
+            success: function(res) {
+                $("#total").val(res[0].total);
+                calculo();
+            },
+        });
+
+    });
     $(document).on("click", "#btnGuardar", function() {
         IdCliente = $("#id_pros").val();
         fecha = $("#fecha").val();
@@ -654,6 +673,8 @@ $(document).ready(function() {
         $("#cantidad").prop("disabled", false);
         $("#modalPrecio").modal("hide");
     });
+
+
 
     $(document).on("click", "#btlimpiar", function() {
         $("#claveconcepto").val("");
