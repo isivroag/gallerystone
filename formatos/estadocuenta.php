@@ -27,7 +27,7 @@ function getPlantilla($folio)
             $gtotal = $dt['gtotal'];
             $saldo = $dt['saldo'];
         }
-        $consultadet = "SELECT * FROM pagocxc WHERE folio_vta='$folio' ORDER BY folio_pagocxc,fecha";
+        $consultadet = "SELECT * FROM pagocxc WHERE folio_vta='$folio' and estado_pagocxc='1' ORDER BY folio_pagocxc,fecha";
         $resultadodet = $conexion->prepare($consultadet);
         $resultadodet->execute();
         $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);

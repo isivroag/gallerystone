@@ -1,5 +1,5 @@
 <?php
-$pagina="presupuesto";
+$pagina = "presupuesto";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -11,10 +11,9 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
-if ($_SESSION['s_rol'] == '2'){
+if ($_SESSION['s_rol'] == '2') {
   $consulta = "SELECT * FROM vpres order by folio_pres";
-}
-else{
+} else {
   $consulta = "SELECT * FROM vpres where estado_pres<>0 order by folio_pres";
 }
 
@@ -22,7 +21,7 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$message="";
+$message = "";
 
 
 
@@ -49,7 +48,7 @@ $message="";
 
         <div class="row">
           <div class="col-lg-12">
-            
+
             <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
           </div>
         </div>
@@ -80,35 +79,35 @@ $message="";
                         <td><?php echo $dat['fecha_pres'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_pres'] ?></td>
-                        
-                        <td class="text-right"><?php echo "$ ".number_format( $dat['gtotal'],2) ?></td>
-                        <td><?php  
-                        switch ($dat['estado_pres']) {
-                          case 0:
-                            echo"<span class='bg-danger'> RECHAZADO </span>";
-                            break;
-                        
-                          case 1:
-                              echo "<span class='bg-warning'> PENDIENTE </span>";
-                              break;
-                          case 2:
-                            echo "<span class='bg-primary'> ENVIADO </span>";
-                            break;
-                          case 3:
-                            echo "<span class='bg-success'> ACEPTADO </span>";
-                            break;
-                          case 4:
-                            echo "<span class='bg-purple'> EN ESPERA </span>";
-                            break;
-                            case 5:
-                              echo "<span class='bg-lightblue'> EDITADO </span>";
-                              break;
+
+                        <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
+                        <td><?php
+                            switch ($dat['estado_pres']) {
+                              case 0:
+                                echo "<span class='bg-danger'> RECHAZADO </span>";
+                                break;
+
+                              case 1:
+                                echo "<span class='bg-warning'> PENDIENTE </span>";
+                                break;
+                              case 2:
+                                echo "<span class='bg-primary'> ENVIADO </span>";
+                                break;
+                              case 3:
+                                echo "<span class='bg-success'> ACEPTADO </span>";
+                                break;
+                              case 4:
+                                echo "<span class='bg-purple'> EN ESPERA </span>";
+                                break;
+                              case 5:
+                                echo "<span class='bg-lightblue'> EDITADO </span>";
+                                break;
                             }
 
-                          
-                        
-                        ?></td>
-                       
+
+
+                            ?></td>
+
 
                         <td></td>
                       </tr>
@@ -124,7 +123,7 @@ $message="";
 
       </div>
       <!-- /.card-body -->
-     
+
       <!-- /.card-footer-->
     </div>
     <!-- /.card -->
@@ -149,14 +148,14 @@ $message="";
                     <label for="estado" class="col-form-label">Estado:</label>
 
                     <select class="form-control" name="estado" id="estado">
-                                        
+
                       <option id="3" value="3"> Aceptado</option>
                       <option id="4" value="4"> En Espera</option>
                       <option id="0" value="0"> Rechazado</option>
 
 
                     </select>
-                    
+
                   </div>
                 </div>
 
@@ -164,11 +163,11 @@ $message="";
                   <div class="form-group input-group-sm">
                     <label for="nota" class="col-form-label">Notas:</label>
                     <textarea rows="3" class="form-control" name="nota" id="nota" placeholder="Notas"></textarea>
-                    
+
                   </div>
                 </div>
 
-                
+
 
               </div>
           </div>
@@ -196,7 +195,7 @@ $message="";
       </div>
     </div>
   </section>
- 
+
   <!-- /.content -->
 </div>
 
