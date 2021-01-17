@@ -343,7 +343,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
-                        <input type="text" class="form-control text-right" name="precio" id="precio" disabled>
+                        <input type="text" class="form-control text-right" name="precio" id="precio" >
                       </div>
                     </div>
 

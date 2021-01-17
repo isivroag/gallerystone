@@ -43,6 +43,35 @@ $message = "";
 
             <div class="card-body">
 
+                <div class="card">
+                    <div class="card-header bg-gradient-green">
+                        Filtro por rango de Fecha
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-2">
+                                <div class="form-group input-group-sm">
+                                    <label for="fecha" class="col-form-label">Desde:</label>
+                                    <input type="date" class="form-control" name="inicio" id="inicio">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="form-group input-group-sm">
+                                    <label for="fecha" class="col-form-label">Hasta:</label>
+                                    <input type="date" class="form-control" name="final" id="final">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-1 align-self-end text-center">
+                                <div class="form-group input-group-sm">
+                                    <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-12">
 
@@ -120,7 +149,7 @@ $message = "";
                                     <div class="form-group input-group-sm">
                                         <label for="motivo" class="col-form-label">Motivo de Cancelacioón:</label>
                                         <textarea rows="3" class="form-control" name="motivo" id="motivo" placeholder="Motivo de Cancelación"></textarea>
-                                        <input type="hidden" id="fecha" name="fecha" value="<?php echo $fecha?>">
+                                        <input type="hidden" id="fecha" name="fecha" value="<?php echo $fecha ?>">
 
 
                                     </div>

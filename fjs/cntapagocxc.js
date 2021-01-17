@@ -50,6 +50,45 @@ $(document).ready(function() {
         },
     });
 
+    $("#btnBuscar").click(function() {
+        var inicio = $("#inicio").val();
+        var final = $("#final").val();
+
+
+        if (inicio != "" && final != "") {
+            $.ajax({
+                type: "POST",
+                url: "bd/buscarpago_cxc.php",
+                dataType: "json",
+                data: { inicio: inicio, final: final },
+                success: function(data) {
+
+                    tablaVis.clear();
+                    tablaVis.draw();
+                    for (var i = 0; i < data.length; i++) {
+                        tablaVis.row
+                            .add([
+                                data[i].folio_vta,
+                                data[i].cliente,
+                                data[i].concepto_vta,
+                                data[i].folio_pagocxc,
+                                data[i].fecha,
+                                data[i].concepto,
+                                data[i].monto,
+                                data[i].metodo,
+
+                            ])
+                            .draw();
+
+                        //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
+                    }
+                },
+            });
+        } else {
+            alert("Selecciona ambas fechas");
+        }
+    });
+
     $("#btnNuevo").click(function() {
         //window.location.href = "presupuesto.php";
         //$("#formDatos").trigger("reset");

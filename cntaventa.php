@@ -1,5 +1,5 @@
 <?php
-$pagina="venta";
+$pagina = "venta";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -17,7 +17,7 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$message="";
+$message = "";
 
 
 
@@ -42,13 +42,43 @@ $message="";
 
       <div class="card-body">
 
+        <div class="card">
+          <div class="card-header bg-gradient-green">
+            Filtro por rango de Fecha
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-lg-2">
+                <div class="form-group input-group-sm">
+                  <label for="fecha" class="col-form-label">Desde:</label>
+                  <input type="date" class="form-control" name="inicio" id="inicio">
+                </div>
+              </div>
+
+              <div class="col-lg-2">
+                <div class="form-group input-group-sm">
+                  <label for="fecha" class="col-form-label">Hasta:</label>
+                  <input type="date" class="form-control" name="final" id="final">
+                </div>
+              </div>
+
+              <div class="col-lg-1 align-self-end text-center">
+                <div class="form-group input-group-sm">
+                  <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-lg-12">
-            
+
             <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
           </div>
         </div>
         <br>
+
         <div class="container-fluid">
 
           <div class="row">
@@ -63,7 +93,7 @@ $message="";
                       <th>Proyecto</th>
                       <th>Total</th>
                       <th>Saldo</th>
-                      
+
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -76,10 +106,10 @@ $message="";
                         <td><?php echo $dat['fecha_vta'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_vta'] ?></td>
-                        
-                        <td class="text-right"><?php echo "$ ".number_format( $dat['gtotal'],2) ?></td>
-                        <td class="text-right"><?php echo "$ ".number_format( $dat['saldo'],2) ?></td>
-                        
+
+                        <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
+                        <td class="text-right"><?php echo "$ " . number_format($dat['saldo'], 2) ?></td>
+
                         <td></td>
                       </tr>
                     <?php
@@ -100,12 +130,13 @@ $message="";
 
   </section>
 
- 
+
   <!-- /.content -->
 </div>
 <!-- Resumen de Pagos -->
 <section>
   <div class="container">
+
 
     <!-- Default box -->
     <div class="modal fade" id="modalResumen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
