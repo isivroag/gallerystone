@@ -130,52 +130,54 @@ $message = "";
 
   </section>
 
+  <section>
+    <div class="container">
+
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalResumen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-md" role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-primary">
+              <h5 class="modal-title" id="exampleModalLabel">Resumen de Pagos</h5>
+
+            </div>
+            <br>
+            <div class="table-hover responsive w-auto " style="padding:10px">
+              <table name="tablaResumen" id="tablaResumen" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+                <thead class="text-center">
+                  <tr>
+                    <th>Folio</th>
+                    <th>Fecha</th>
+                    <th>Concepto</th>
+                    <th>Monto</th>
+                    <th>Metodo</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+
+        </div>
+        <!-- /.card-body -->
+
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </div>
+  </section>
+
 
   <!-- /.content -->
 </div>
 <!-- Resumen de Pagos -->
-<section>
-  <div class="container">
 
-
-    <!-- Default box -->
-    <div class="modal fade" id="modalResumen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-md" role="document">
-        <div class="modal-content w-auto">
-          <div class="modal-header bg-gradient-primary">
-            <h5 class="modal-title" id="exampleModalLabel">Resumen de Pagos</h5>
-
-          </div>
-          <br>
-          <div class="table-hover responsive w-auto " style="padding:10px">
-            <table name="tablaResumen" id="tablaResumen" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
-              <thead class="text-center">
-                <tr>
-                  <th>Folio</th>
-                  <th>Fecha</th>
-                  <th>Concepto</th>
-                  <th>Monto</th>
-                  <th>Metodo</th>
-                </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
-
-
-        </div>
-
-      </div>
-      <!-- /.card-body -->
-
-      <!-- /.card-footer-->
-    </div>
-    <!-- /.card -->
-
-  </div>
-</section>
 
 
 <?php include_once 'templates/footer.php'; ?>
