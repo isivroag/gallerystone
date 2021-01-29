@@ -101,7 +101,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
         <div class="row">
           <div class="col-lg-12">
 
-            <button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+            <!--<button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
             <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
 
           </div>
@@ -204,11 +204,12 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                       <div class="input-group input-group-sm">
 
                         <span class="input-group-prepend input-group-text">
-                          <input type="checkbox" class="" name="cfactura" id="cfactura" <?php echo($facturado='1' ?'checked': '') ?>>
+                          <input type="checkbox" class="" name="cfactura" id="cfactura" <?php echo ($facturado == 1 ? 'checked' : '') ?>>
                         </span>
 
 
                         <input type="text" class="form-control" name="referencia" id="referencia" value="<?php echo  $referencia; ?>">
+                        
                       </div>
 
                     </div>
