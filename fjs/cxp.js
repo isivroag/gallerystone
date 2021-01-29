@@ -76,18 +76,31 @@ $(document).ready(function() {
 
     });
 
-    
+
     $(document).on("click", "#bproveedorplus", function() {
 
         window.location.href = "cntaproveedor.php";
-        
+
 
     });
 
-    
+
     $(document).on("click", "#bpartidaplus", function() {
 
-        window.location.href = "cntapartida.php" ;
+        window.location.href = "cntapartida.php";
+
+    });
+
+    $("#btnAyuda").click(function() {
+        var ancho = 1000;
+        var alto = 800;
+        var x = parseInt((window.screen.width / 2) - (ancho / 2));
+        var y = parseInt((window.screen.height / 2) - (alto / 2));
+
+        url = "help/gscxp/";
+
+        window.open(url, "AYUDA", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
+
 
     });
 

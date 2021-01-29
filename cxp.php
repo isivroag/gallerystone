@@ -103,6 +103,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 
             <!--<button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
             <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+            <button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms" ><i class="fas fa-question-circle text-light" ></i><span class="text-light"> Ayuda</span></button>
 
           </div>
         </div>
