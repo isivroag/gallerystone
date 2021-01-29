@@ -129,9 +129,7 @@ $(document).ready(function() {
 
 
 
-        if (nombre.length == 0 || rfc.length == 0 || calle.length == 0 || col.length == 0 ||
-            num.length == 0 || cp.length == 0 || cd.length == 0 || edo.length == 0 ||
-            tel.length == 0 || cel.length == 0 || correo.length == 0) {
+        if (nombre.length == 0) {
             Swal.fire({
                 title: 'Datos Faltantes',
                 text: "Debe ingresar todos los datos del Proveedor",

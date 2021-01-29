@@ -15,7 +15,7 @@ $tokenid = md5($_SESSION['s_usuario']);
 
 if ($folio != "") {
 
-  $opcion=2;
+  $opcion = 2;
   $consulta = "SELECT * FROM vcxp where folio_cxp='$folio'";
 
   $resultado = $conexion->prepare($consulta);
@@ -49,7 +49,7 @@ if ($folio != "") {
   $message = "";
 } else {
   $folio = "";
-  $opcion=1;
+  $opcion = 1;
   $fecha =  date('Y-m-d');
   $fecha_limite = date('Y-m-d');
   $id_prov = "";
@@ -101,7 +101,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
         <div class="row">
           <div class="col-lg-12">
 
-          <button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+            <button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
             <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
 
           </div>
@@ -119,7 +119,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
             <div class="card card-widget" style="margin-bottom:0px;">
 
               <div class="card-header bg-gradient-purple " style="margin:0px;padding:8px">
-               
+
                 <h1 class="card-title ">Datos Cuentas Por Pagar</h1>
               </div>
 
@@ -204,7 +204,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                       <div class="input-group input-group-sm">
 
                         <span class="input-group-prepend input-group-text">
-                          <input type="checkbox" class="" name="cfactura" id="cfactura">
+                          <input type="checkbox" class="" name="cfactura" id="cfactura" <?php echo($facturado='1' ?'checked': '') ?>>
                         </span>
 
 
@@ -232,7 +232,7 @@ $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <div class="row justify-content-sm-center">
-                <div class=" offset-lg-0 col-lg-2 ">
+                  <div class=" offset-lg-0 col-lg-2 ">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" id="cmanual" name="cmanual">
                       <label class="custom-control-label" for="cmanual">Calculo Manual</label>
