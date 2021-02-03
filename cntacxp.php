@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vcxp order by folio_cxp";
+$consulta = "SELECT * FROM vcxp where estado_cxp='1' order by folio_cxp";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -21,7 +21,7 @@ $consultag = "SET lc_time_names = 'es_ES'";
 $resultadog = $conexion->prepare($consultag);
 $resultadog->execute();
 
-$consultag = "SELECT SUM(total) AS total,monthname(fecha) as mes FROM vcxp GROUP BY MONTH(fecha) order by MONTH(fecha)";
+$consultag = "SELECT SUM(total) AS total,monthname(fecha) as mes FROM vcxp where estado_cxp='1' GROUP BY MONTH(fecha) order by MONTH(fecha)";
 $resultadog = $conexion->prepare($consultag);
 $resultadog->execute();
 $datag = $resultadog->fetchAll(PDO::FETCH_ASSOC);
@@ -32,6 +32,14 @@ $message = "";
 
 
 ?>
+
+<style>
+.swal2-icon.swal2-question {
+  border-color: #EF5350 !important;
+  color: #EF5350 !important;
+}
+</style>
+
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -133,17 +141,17 @@ $message = "";
         <br>
 
         <div class="card ">
-          <div class="card-header bg-lightblue color-palette border-0">
+          <div class="card-header bg-gradient-purple color-palette border-0">
             <h3 class="card-title">
               <i class="fas fa-th mr-1"></i>
               Egresos
             </h3>
 
             <div class="card-tools">
-              <button type="button" class="btn bg-lightblue btn-sm" data-card-widget="collapse">
+              <button type="button" class="btn bg-gradient-purple btn-sm" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
               </button>
-              <button type="button" class="btn bg-lightblue btn-sm" data-card-widget="remove">
+              <button type="button" class="btn bg-gradient-purple btn-sm" data-card-widget="remove">
                 <i class="fas fa-times"></i>
               </button>
             </div>
@@ -151,7 +159,7 @@ $message = "";
           <div class="card-body">
             <div class="row justify-content-center">
               <div class="col-sm-7">
-                <canvas class="chart bg-lightblue" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <canvas class="chart bg-gradient-purple" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
 
               </div>
             </div>

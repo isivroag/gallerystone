@@ -44,6 +44,13 @@ switch ($opcion) {
         $data = 1;
 
         break;
+
+    case 3:
+        $consulta = "UPDATE cxp SET estado_cxp='0' WHERE folio_cxp='$folio'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = 1;
+        break;
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS

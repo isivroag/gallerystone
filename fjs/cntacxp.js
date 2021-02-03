@@ -141,30 +141,39 @@ $(document).ready(function() {
     $(document).on("click", ".btnBorrar", function() {
         fila = $(this);
 
-        id = parseInt($(this).closest("tr").find('td:eq(0)').text());
+        folio = parseInt($(this).closest("tr").find('td:eq(0)').text());
         opcion = 3 //borrar
 
         //agregar codigo de sweatalert2
-        var respuesta = confirm("¿Está seguro de eliminar el registro: " + id + "?");
+
+        swal.fire({
+            title: "Egresos",
+            text: "¿Desea eliminar el registro seleccionado?",
+            showCancelButton: true,
+            icon: 'question',
+            focusConfirm: true,
+            confirmButtonText: "Aceptar",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: '#28B463',
+            cancelButtonColor: '#d33',
+
+
+        }).then(function(isConfirm) {
+            if (isConfirm.value) {
+                $.ajax({
+                    url: "bd/crudcxp.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: { folio: folio, opcion: opcion },
+                    success: function(data) {
+                        tablaVis.row(fila.parents('tr')).remove().draw();
+                    }
+                });
+            } else if (isConfirm.dismiss === swal.DismissReason.cancel) {}
+        })
 
 
 
-        if (respuesta) {
-            $.ajax({
-
-                url: "",
-                type: "POST",
-                dataType: "json",
-                data: { id: id, opcion: opcion },
-
-                success: function(data) {
-                    console.log(fila);
-
-
-                    tablaVis.row(fila.parents('tr')).remove().draw();
-                }
-            });
-        }
     });
 
     function startTime() {

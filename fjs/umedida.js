@@ -75,8 +75,6 @@ $(document).ready(function() {
         var respuesta = confirm("¿Está seguro de eliminar el registro: " + id + "?");
 
 
-        console.log(id);
-        console.log(opcion);
         if (respuesta) {
             $.ajax({
 
