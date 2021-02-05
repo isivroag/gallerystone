@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var id, opcion;
     opcion = 4;
 
@@ -8,28 +8,28 @@ $(document).ready(function () {
             "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
         buttons: [{
-            extend: "excelHtml5",
-            text: "<i class='fas fa-file-excel'> Excel</i>",
-            titleAttr: "Exportar a Excel",
-            title: "Reporte de Venta",
-            className: "btn bg-success ",
-            exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
-        },
-        {
-            extend: "pdfHtml5",
-            text: "<i class='far fa-file-pdf'> PDF</i>",
-            titleAttr: "Exportar a PDF",
-            title: "Reporte de Venta",
-            className: "btn bg-danger",
-            exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
-        },
+                extend: "excelHtml5",
+                text: "<i class='fas fa-file-excel'> Excel</i>",
+                titleAttr: "Exportar a Excel",
+                title: "Reporte de Venta",
+                className: "btn bg-success ",
+                exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
+            },
+            {
+                extend: "pdfHtml5",
+                text: "<i class='far fa-file-pdf'> PDF</i>",
+                titleAttr: "Exportar a PDF",
+                title: "Reporte de Venta",
+                className: "btn bg-danger",
+                exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
+            },
         ],
 
         columnDefs: [{
             targets: -1,
             data: null,
-            defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm bg-info btnResumen'><i class='fas fa-bars'></i></button><button class='btn btn-sm bg-danger btnEdo'><i class='fas fa-file-invoice-dollar'></i></button></div></div>",
-        },],
+            defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm bg-info btnResumen'><i class='fas fa-bars'></i></button><button class='btn btn-sm bg-orange btnEdo'><i class='fas fa-file-invoice-dollar text-light'></i></button><button class='btn btn-sm bg-danger btnCancelar'><i class='fas fa-ban'></i></button></div></div>",
+        }, ],
 
         //Para cambiar el lenguaje a español
         language: {
@@ -67,8 +67,96 @@ $(document).ready(function () {
             sProcessing: "Procesando...",
         },
     });
+    $(document).on("click", ".btnCancelar", function() {
+        fila = $(this).closest("tr");
 
-    $("#btnBuscar").click(function () {
+
+        folio_venta = parseInt(fila.find("td:eq(0)").text());
+
+        saldo = fila.find("td:eq(5)").text().replace("$", "");
+        saldo = saldo.replace(",", "");
+        saldo = parseFloat(saldo);
+        total = fila.find("td:eq(4)").text().replace("$", "");
+        total = total.replace(",", "");
+        total = parseFloat(total);
+
+        if (total == saldo) {
+            $("#formcan").trigger("reset");
+            /*$(".modal-header").css("background-color", "#28a745");*/
+            $(".modal-header").css("color", "white");
+            $("#modalcan").modal("show");
+        } else {
+            swal.fire({
+                title: "¡No es posible cancelar la venta!",
+                text: "La venta tiene pagos, es necesario cancelar los pagos antes de cancelar la Venta",
+                icon: "error",
+                focusConfirm: true,
+                confirmButtonText: "Aceptar",
+            });
+        }
+
+
+    });
+
+    $(document).on("click", "#btnGuardar", function() {
+        motivo = $("#motivo").val();
+        fecha = $("#fecha").val();
+        usuario = $("#nameuser").val();
+        $("#modalcan").modal("hide");
+
+
+
+        if (motivo === "") {
+            swal.fire({
+                title: "Datos Incompletos",
+                text: "Verifique sus datos",
+                icon: "warning",
+                focusConfirm: true,
+                confirmButtonText: "Aceptar",
+            });
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "bd/cancelarventa.php",
+                async: false,
+                dataType: "json",
+                data: {
+                    folio_venta: folio_venta,
+                    motivo: motivo,
+                    fecha: fecha,
+                    usuario: usuario,
+                },
+                success: function(res) {
+                    if (res == 1) {
+                        mensaje();
+                        location.reload();
+                    } else {
+                        mensajeerror();
+                    }
+                },
+            });
+        }
+    });
+
+    function mensaje() {
+        swal.fire({
+            title: "Venta Cancelada",
+            icon: "success",
+            focusConfirm: true,
+            confirmButtonText: "Aceptar",
+        });
+    }
+
+    function mensajeerror() {
+        swal.fire({
+            title: "Error al Cancelar la venta",
+            icon: "error",
+            focusConfirm: true,
+            confirmButtonText: "Aceptar",
+        });
+    }
+
+    $("#btnBuscar").click(function() {
         var inicio = $("#inicio").val();
         var final = $("#final").val();
         console.log(inicio);
@@ -82,7 +170,7 @@ $(document).ready(function () {
                 url: "bd/buscarvta.php",
                 dataType: "json",
                 data: { inicio: inicio, final: final },
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         tablaVis.row
@@ -106,7 +194,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on("click", ".btnEdo", function () {
+    $(document).on("click", ".btnEdo", function() {
         fila = $(this).closest("tr");
 
         registro = fila.find("td:eq(0)").text();
@@ -133,12 +221,12 @@ $(document).ready(function () {
         );
     });
 
-    $(document).on("click", ".btnResumen", function () {
+    $(document).on("click", ".btnResumen", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find("td:eq(0)").text());
         buscarpagos(id);
         $("#modalResumen").modal("show");
-        
+
 
         //window.location.href = "presupuesto.php";
         //$("#formDatos").trigger("reset");
@@ -153,7 +241,7 @@ $(document).ready(function () {
     var fila; //capturar la fila para editar o borrar el registro
 
     //botón EDITAR
-    $(document).on("click", ".btnEditar", function () {
+    $(document).on("click", ".btnEditar", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find("td:eq(0)").text());
 
@@ -171,7 +259,7 @@ $(document).ready(function () {
 
             data: { folio: folio },
 
-            success: function (res) {
+            success: function(res) {
                 for (var i = 0; i < res.length; i++) {
                     tablaResumen.row
                         .add([
@@ -198,7 +286,7 @@ $(document).ready(function () {
         min = checkTime(min);
         sec = checkTime(sec);
         document.getElementById("clock").innerHTML = hr + " : " + min + " : " + sec;
-        var time = setTimeout(function () {
+        var time = setTimeout(function() {
             startTime();
         }, 500);
     }

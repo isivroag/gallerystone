@@ -11,10 +11,10 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
-if ($_SESSION['s_rol'] == '2') {
+if ($_SESSION['s_rol'] == '3') {
   $consulta = "SELECT * FROM vpres order by folio_pres";
 } else {
-  $consulta = "SELECT * FROM vpres where estado_pres<>0 order by folio_pres";
+  $consulta = "SELECT * FROM vpres where estado_pres<>0 and estado_pres<>3 order by folio_pres";
 }
 
 $resultado = $conexion->prepare($consulta);
@@ -149,7 +149,6 @@ $message = "";
 
                     <select class="form-control" name="estado" id="estado">
 
-                      <option id="3" value="3"> Aceptado</option>
                       <option id="4" value="4"> En Espera</option>
                       <option id="0" value="0"> Rechazado</option>
 
