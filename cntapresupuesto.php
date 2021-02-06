@@ -79,7 +79,6 @@ $message = "";
                         <td><?php echo $dat['fecha_pres'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_pres'] ?></td>
-
                         <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
                         <td><?php
                             switch ($dat['estado_pres']) {
