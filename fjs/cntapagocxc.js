@@ -14,7 +14,7 @@ $(document).ready(function() {
                 titleAttr: "Exportar a Excel",
                 title: "Reporte de Cobranza",
                 className: "btn bg-success ",
-                exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
+                exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] },
             },
             {
                 extend: "pdfHtml5",
@@ -22,7 +22,7 @@ $(document).ready(function() {
                 titleAttr: "Exportar a PDF",
                 title: "Reporte de Cobranza",
                 className: "btn bg-danger",
-                exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
+                exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] },
             },
         ],
 
