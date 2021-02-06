@@ -14,7 +14,7 @@ $conexion = $objeto->connect();
 $id_item = $_GET['id'];
 
 
-$consulta = "SELECT * FROM vprecio WHERE id_item='$id_item' ORDER BY id_precio";
+$consulta = "SELECT * FROM vprecio WHERE id_item='$id_item' AND estado_precio=1 ORDER BY id_precio";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -24,7 +24,7 @@ $resultadom = $conexion->prepare($consultam);
 $resultadom->execute();
 $datam = $resultadom->fetchAll(PDO::FETCH_ASSOC);
 
-$consultau = "SELECT * FROM umedida ORDER BY id_umedida";
+$consultau = "SELECT * FROM umedida WHERE estado_umedida=1 ORDER BY id_umedida";
 $resultadou = $conexion->prepare($consultau);
 $resultadou->execute();
 $datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);

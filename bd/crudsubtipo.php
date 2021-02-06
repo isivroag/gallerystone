@@ -35,7 +35,7 @@ switch ($opcion) {
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 3: //baja
-        $consulta = "DELETE FROM subtipo_concepto WHERE id_subt_concepto='$id_subtipo' ";
+        $consulta = "UPDATE subtipo_concepto SET estado_subt_concepto=0 WHERE id_subt_concepto='$id_subtipo' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = 1;

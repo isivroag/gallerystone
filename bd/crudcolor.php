@@ -35,7 +35,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;        
     case 3://baja
-        $consulta = "DELETE FROM color WHERE id_color='$id' ";		
+        $consulta = "UPDATE color SET estado_color=0 WHERE id_color='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data=1;                          

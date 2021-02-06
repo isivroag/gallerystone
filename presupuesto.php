@@ -14,7 +14,7 @@ $tokenid = md5($_SESSION['s_usuario']);
 
 if (isset($_GET['folio'])) {
   $folio = $_GET['folio'];
-  $consulta = "SELECT * FROM presupuesto where folio_tmp='$folio'";
+  $consulta = "SELECT * FROM presupuesto WHERE folio_tmp='$folio'";
   $resultadobpres = $conexion->prepare($consulta);
   $resultadobpres->execute();
   if ($resultadobpres->rowCount() >= 1) {
@@ -22,10 +22,10 @@ if (isset($_GET['folio'])) {
     foreach ($databpres as $dtbpres) {
       $presupuesto = $dtbpres['folio_pres'];
     }
-    $consulta = "SELECT * FROM tmp_pres where folio_pres='$folio'";
+    $consulta = "SELECT * FROM tmp_pres WHERE folio_pres='$folio'";
   }
 } else {
-  $consulta = "SELECT * FROM vtmppres where estado_pres='1' and tokenid='$tokenid'";
+  $consulta = "SELECT * FROM vtmppres WHERE estado_pres='1' and tokenid='$tokenid'";
   $presupuesto = 0;
 }
 
@@ -51,7 +51,7 @@ if ($resultado->rowCount() >= 1) {
     $iva = $dt['iva'];
   }
   if ($idpros != 0) {
-    $consultapros = "SELECT nombre,correo FROM prospecto where id_pros='$idpros'";
+    $consultapros = "SELECT nombre,correo FROM prospecto WHERE id_pros='$idpros'";
 
     $resultadopros = $conexion->prepare($consultapros);
     $resultadopros->execute();
@@ -75,7 +75,7 @@ if ($resultado->rowCount() >= 1) {
   $resultadotmp = $conexion->prepare($consultatmp);
   $resultadotmp->execute();
 
-  $consultatmp = "SELECT folio_pres FROM vtmppres where tokenid='$tokenid' and estado_pres='1' ORDER BY folio_pres DESC LIMIT 1";
+  $consultatmp = "SELECT folio_pres FROM vtmppres WHERE tokenid='$tokenid' and estado_pres='1' ORDER BY folio_pres DESC LIMIT 1";
   $resultadotmp = $conexion->prepare($consultatmp);
   $resultadotmp->execute();
   $datatmp = $resultadotmp->fetchAll(PDO::FETCH_ASSOC);
@@ -98,22 +98,22 @@ $message = "";
 
 
 
-$consultac = "SELECT * FROM prospecto order by id_pros";
+$consultac = "SELECT * FROM prospecto WHERE estado_pros=1 ORDER BY id_pros";
 $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
-$consultacon = "SELECT * FROM vconceptos order by id_concepto";
+$consultacon = "SELECT * FROM vconceptos WHERE estado_concepto=1 ORDER BY id_concepto";
 $resultadocon = $conexion->prepare($consultacon);
 $resultadocon->execute();
 $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 
-$consultadet = "SELECT * FROM vdetalle_tmp where folio_pres='$folio' order by id_reg";
+$consultadet = "SELECT * FROM vdetalle_tmp WHERE folio_pres='$folio' ORDER BY id_reg";
 $resultadodet = $conexion->prepare($consultadet);
 $resultadodet->execute();
 $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
-$consultaesp = "SELECT * FROM especificacion order by id_esp";
+$consultaesp = "SELECT * FROM especificacion ORDER BY id_esp";
 $resultadoesp = $conexion->prepare($consultaesp);
 $resultadoesp->execute();
 $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);

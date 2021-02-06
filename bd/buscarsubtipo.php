@@ -8,7 +8,7 @@ $conexion = $objeto->connect();
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
-$consulta = "SELECT * FROM subtipo_concepto WHERE id_t_concepto='$id' ORDER BY id_subt_concepto";
+$consulta = "SELECT * FROM subtipo_concepto WHERE id_t_concepto='$id' AND estado_subt_concepto=1 ORDER BY id_subt_concepto";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

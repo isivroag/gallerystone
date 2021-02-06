@@ -49,7 +49,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;        
     case 3://baja
-        $consulta = "DELETE FROM proveedor WHERE id_prov='$id' ";		
+        $consulta = "UPDATE proveedor SET estado_prov=0 WHERE id_prov='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data=1;                          

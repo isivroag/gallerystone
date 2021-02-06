@@ -12,17 +12,17 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vconceptos order by id_concepto";
+$consulta = "SELECT * FROM vconceptos WHERE estado_concepto = 1 ORDER BY id_concepto";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$consultat = "SELECT * FROM tipo_concepto order by id_t_concepto";
+$consultat = "SELECT * FROM tipo_concepto WHERE estado_t_concepto = 1 ORDER BY id_t_concepto";
 $resultadot = $conexion->prepare($consultat);
 $resultadot->execute();
 $datat = $resultadot->fetchAll(PDO::FETCH_ASSOC);
 
-$consultau = "SELECT * FROM umedida order by id_umedida";
+$consultau = "SELECT * FROM umedida WHERE estado_umedida =1 ORDER BY id_umedida";
 $resultadou = $conexion->prepare($consultau);
 $resultadou->execute();
 $datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);

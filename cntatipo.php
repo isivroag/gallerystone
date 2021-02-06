@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM tipo_concepto order by id_t_concepto";
+$consulta = "SELECT * FROM tipo_concepto WHERE estado_t_concepto=1 ORDER BY id_t_concepto";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

@@ -12,22 +12,22 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vitem order by id_item";
+$consulta = "SELECT * FROM vitem WHERE estado_item=1 ORDER BY id_item";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$consultai = "SELECT * FROM insumo order by id_insumo";
+$consultai = "SELECT * FROM insumo WHERE estado_insumo =1 ORDER BY id_insumo";
 $resultadoi = $conexion->prepare($consultai);
 $resultadoi->execute();
 $datai = $resultadoi->fetchAll(PDO::FETCH_ASSOC);
 
-$consultaa = "SELECT * FROM acabado order by id_acabado";
+$consultaa = "SELECT * FROM acabado WHERE estado_acabado=1 ORDER BY id_acabado";
 $resultadoa = $conexion->prepare($consultaa);
 $resultadoa->execute();
 $dataa = $resultadoa->fetchAll(PDO::FETCH_ASSOC);
 
-$consultac = "SELECT * FROM color order by id_color";
+$consultac = "SELECT * FROM color WHERE estado_color=1 ORDER BY id_color";
 $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);

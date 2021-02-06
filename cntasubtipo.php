@@ -12,12 +12,12 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vsubtipo_concepto order by id_subt_concepto";
+$consulta = "SELECT * FROM vsubtipo_concepto WHERE estado_subt_concepto=1 ORDER BY id_subt_concepto";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$consultat = "SELECT * FROM tipo_concepto order by id_t_concepto";
+$consultat = "SELECT * FROM tipo_concepto WHERE estado_t_concepto=1 ORDER BY id_t_concepto";
 $resultadot = $conexion->prepare($consultat);
 $resultadot->execute();
 $datat = $resultadot->fetchAll(PDO::FETCH_ASSOC);

@@ -65,12 +65,12 @@ if ($folio != "") {
   $saldo = 0;
 }
 
-$consultac = "SELECT * FROM proveedor order by id_prov";
+$consultac = "SELECT * FROM proveedor WHERE estado_prov=1 ORDER BY id_prov";
 $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
-$consultacon = "SELECT * FROM partida order by id_partida";
+$consultacon = "SELECT * FROM partida WHERE estado_partida=1 ORDER BY id_partida";
 $resultadocon = $conexion->prepare($consultacon);
 $resultadocon->execute();
 $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
