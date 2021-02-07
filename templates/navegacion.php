@@ -29,7 +29,7 @@
         <li class="nav-item ">
           <a href="inicio.php" class="nav-link <?php echo ($pagina == 'home') ? "active" : ""; ?> ">
             <i class="nav-icon fas fa-home "></i>
-            <p >
+            <p>
               Home
             </p>
           </a>
@@ -144,10 +144,10 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina=='citav') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina == 'citav') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina=='citav') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina == 'citav') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-dollar-sign "></i>
               <i class=" fas fa-arrow-up "></i>
@@ -194,7 +194,7 @@
 
 
           <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp') ? "active" : ""; ?>">
-          <span class="fa-stack">
+            <span class="fa-stack">
               <i class=" fas fa-dollar-sign "></i>
               <i class=" fas fa-arrow-down "></i>
             </span>
@@ -232,7 +232,29 @@
 
 
 
+        <li class="nav-item has-treeview <?php echo ($pagina == 'resultados') ? "menu-open" : ""; ?>">
 
+
+          <a href="#" class="nav-link <?php echo ($pagina == 'resultados' ) ? "active" : ""; ?>">
+            <span class="fa-stack">
+            <i class="fas fa-chart-line nav-icon"></i>
+             
+            </span>
+            <p>
+              Reportes
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+              <a href="resultados.php" class="nav-link <?php echo ($pagina == 'resultados') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-file-invoice nav-icon"></i>
+                <p>Resultados</p>
+              </a>
+            </li>
+          </ul>
+        </li>
 
         <?php if ($_SESSION['s_rol'] == '2') {
         ?>
