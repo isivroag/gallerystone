@@ -12,8 +12,10 @@ $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
 $objeto = new conn();
 $conexion = $objeto->connect();
 $tokenid = md5($_SESSION['s_usuario']);
-$mesactual = date("m");
-$yearactual = date("Y");
+
+
+$mesactual = (isset($_GET['mes'])) ? $_GET['mes'] : date("m");
+$yearactual = (isset($_GET['ejercicio'])) ? $_GET['ejercicio'] : date("Y");
 
 $consulta = "call sp_ingresos('$mesactual','$yearactual')";
 $resultado = $conexion->prepare($consulta);
@@ -22,7 +24,7 @@ if ($resultado->execute()) {
 }
 
 
-$consulta = "SELECT nom_partida,sum(total) AS total FROM vcxp WHERE estado_cxp=1 GROUP BY nom_partida";
+$consulta = "SELECT nom_partida,sum(total) AS total FROM vcxp WHERE month(fecha)='$mesactual' and year(fecha)='$yearactual' and estado_cxp=1 GROUP BY nom_partida";
 $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()) {
     $dataegresos = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -42,14 +44,15 @@ if ($resultado->execute()) {
         border-bottom: 3px dotted #000;
         display: inline-block;
     }
-    
-    .borde-purple{
-        border-left:3px solid #6f42c1 !important;
-        border-right:3px solid #6f42c1 !important;
+
+    .borde-purple {
+        border-left: 3px solid #6f42c1 !important;
+        border-right: 3px solid #6f42c1 !important;
     }
-    .borde-verde{
-        border-left:3px solid #28a745 !important;
-        border-right:3px solid #28a745 !important;
+
+    .borde-verde {
+        border-left: 3px solid #28a745 !important;
+        border-right: 3px solid #28a745 !important;
     }
 </style>
 
@@ -108,7 +111,7 @@ if ($resultado->execute()) {
 
                                 <div class="col-lg-2 align-self-end text-center">
                                     <div class="form-group input-group-sm">
-                                        <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms form-control"><i class="fas fa-search"></i> Consultar</button>
+                                        <button id="btnconsulta" name="btnconsulta" type="button" class="btn bg-gradient-success btn-ms form-control"><i class="fas fa-search"></i> Consultar</button>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +145,7 @@ if ($resultado->execute()) {
                                         ?>
                                             <div class="row justify-content-center border-left borde-verde mx-2">
                                                 <div class="col-sm-3 pl-2">
-                                                <label for="<?php echo $reging['nom_t_concepto'] ?>" class="col-form-label"><a href="detalleing.php?concepto=<?php echo $reging['nom_t_concepto'] ?>"><?php echo strtoupper($reging['nom_t_concepto']) ?>: </a></label>
+                                                    <label for="<?php echo $reging['nom_t_concepto'] ?>" class="col-form-label"><a href="detalleing.php?concepto=<?php echo $reging['nom_t_concepto'] ?>"><?php echo strtoupper($reging['nom_t_concepto']) ?>: </a></label>
                                                 </div>
 
                                                 <div class="col-sm-5 fill"></div>
@@ -154,7 +157,7 @@ if ($resultado->execute()) {
                                                                 <i class="fas fa-dollar-sign"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control text-right" name="<?php echo $reging['nom_t_concepto'] ?>" id="<?php echo $reging['nom_t_concepto'] ?>" value="<?php echo number_format($reging['pagopro'],2) ?>" disabled>
+                                                        <input type="text" class="form-control text-right" name="<?php echo $reging['nom_t_concepto'] ?>" id="<?php echo $reging['nom_t_concepto'] ?>" value="<?php echo number_format($reging['pagopro'], 2) ?>" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -176,7 +179,7 @@ if ($resultado->execute()) {
                                                                 <i class="fas fa-dollar-sign"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control text-right" name="totaling" id="totaling" value="<?php echo number_format($totalingresos,2) ?>" disabled>
+                                                        <input type="text" class="form-control text-right" name="totaling" id="totaling" value="<?php echo number_format($totalingresos, 2) ?>" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,7 +209,7 @@ if ($resultado->execute()) {
                                                                 <i class="fas fa-dollar-sign"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control text-right" name="<?php echo $registro['nom_partida'] ?>" id="<?php echo $registro['nom_partida'] ?>" value="<?php echo number_format($registro['total'],2) ?>" disabled>
+                                                        <input type="text" class="form-control text-right" name="<?php echo $registro['nom_partida'] ?>" id="<?php echo $registro['nom_partida'] ?>" value="<?php echo number_format($registro['total'], 2) ?>" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,10 +218,10 @@ if ($resultado->execute()) {
 
                                         <div class="row justify-content-between bg-purple" style="margin:0px;padding:8px">
                                             <div>
-                                                <label for="totaling" class="col-form-label">TOTAL EGRESOS: </label>
+                                                <label for="totaleg" class="col-form-label">TOTAL EGRESOS: </label>
                                             </div>
 
-                                            
+
 
                                             <div class="col-sm-4">
                                                 <div class="input-group input-group-sm">
@@ -227,7 +230,7 @@ if ($resultado->execute()) {
                                                             <i class="fas fa-dollar-sign"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control text-right" name="totaling" id="totaling" value="<?php echo number_format($totalegreso,2) ?>" disabled>
+                                                    <input type="text" class="form-control text-right" name="totaleg" id="totaleg" value="<?php echo number_format($totalegreso, 2) ?>" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -239,7 +242,7 @@ if ($resultado->execute()) {
                                         <label for="resul" class="col-form-label">RESULTADO: </label>
                                     </div>
 
-                                   
+
 
                                     <div class="col-sm-4">
                                         <div class="input-group input-group-sm">
@@ -248,7 +251,7 @@ if ($resultado->execute()) {
                                                     <i class="fas fa-dollar-sign"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control text-right" name="resul" id="resul" value="<?php echo number_format(($totalingresos - $totalegreso),2) ?>" disabled>
+                                            <input type="text" class="form-control text-right" name="resul" id="resul" value="<?php echo number_format(($totalingresos - $totalegreso), 2) ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -267,12 +270,12 @@ if ($resultado->execute()) {
             </form>
 
         </div>
-
+    </section>
 </div>
 
 <!-- /.card -->
 
-</section>
+
 
 
 
@@ -280,7 +283,7 @@ if ($resultado->execute()) {
 
 
 <!-- /.content -->
-</div>
+
 
 
 
@@ -292,3 +295,14 @@ if ($resultado->execute()) {
 <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#btnconsulta").click(function() {
+            mes = $("#mes").val();
+            ejercicio = $("#ejercicio").val();
+            window.location.href = "resultados.php?mes=" + mes + "&ejercicio="+ejercicio;
+
+        });
+    });
+</script>
