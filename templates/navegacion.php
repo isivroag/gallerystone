@@ -231,7 +231,8 @@
         </li>
 
 
-
+        <?php if ($_SESSION['s_rol'] == '3') {
+        ?>
         <li class="nav-item has-treeview <?php echo ($pagina == 'resultados') ? "menu-open" : ""; ?>">
 
 
@@ -255,8 +256,10 @@
             </li>
           </ul>
         </li>
-
-        <?php if ($_SESSION['s_rol'] == '2') {
+        <?php
+        }
+        ?>
+        <?php if ($_SESSION['s_rol'] == '3') {
         ?>
           <hr class="sidebar-divider">
           <li class="nav-item">
