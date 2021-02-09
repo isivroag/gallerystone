@@ -145,7 +145,7 @@ if ($resultado->execute()) {
                                         ?>
                                             <div class="row justify-content-center border-left borde-verde mx-2">
                                                 <div class="col-sm-3 pl-2">
-                                                    <label for="<?php echo $reging['nom_t_concepto'] ?>" class="col-form-label"><a href="detalleing.php?concepto=<?php echo $reging['nom_t_concepto'] ?>"><?php echo strtoupper($reging['nom_t_concepto']) ?>: </a></label>
+                                                    <label for="<?php echo $reging['nom_t_concepto'] ?>" class="col-form-label"><a href="detalleing.php?<?php echo 'mes='.$mesactual.'&ejercicio='.$yearactual.'&concepto='.$reging['nom_t_concepto'] ?>"><?php echo strtoupper($reging['nom_t_concepto']) ?>: </a></label>
                                                 </div>
 
                                                 <div class="col-sm-5 fill"></div>
@@ -197,7 +197,7 @@ if ($resultado->execute()) {
                                         ?>
                                             <div class="row justify-content-between border-left borde-purple mx-2">
                                                 <div class="col-sm-3 pl-2  ">
-                                                    <label for="<?php echo $registro['nom_partida'] ?>" class="col-form-label"><a href="detalleegr.php?concepto=<?php echo $registro['nom_partida'] ?>"><?php echo $registro['nom_partida'] ?>: </a></label>
+                                                    <label for="<?php echo $registro['nom_partida'] ?>" class="col-form-label"><a href="detalleegr.php?<?php echo 'mes='.$mesactual.'&ejercicio='.$yearactual.'&concepto='.$registro['nom_partida'] ?>"><?php echo $registro['nom_partida'] ?>: </a></label>
                                                 </div>
 
                                                 <div class="col-sm-5 fill"></div>
