@@ -108,9 +108,9 @@ $(document).ready(function() {
         var saldovp = parseFloat($("#saldovp").val());
         var monto = $("#montopago").val();
         var metodo = $("#metodo").val();
-        usuario = $("#nameuser").val();
+        var usuario = $("#nameuser").val();
 
-        if (folio_vta === "" || fechavp == "" || conceptovp == "" || saldovp == "" || monto == "" || metodo == "" || usuario == "") {
+        if (folio_vta.length == 0 || fechavp.length == 0 || conceptovp.length == 0 || monto.length == 0 || metodo.length == 0 || usuario.length == 0) {
             swal.fire({
                 title: "Datos Incompletos",
                 text: "Verifique sus datos",
@@ -120,8 +120,22 @@ $(document).ready(function() {
             });
         } else {
 
+            $.ajax({
+                url: "bd/buscarsaldo.php",
+                type: "POST",
+                dataType: "json",
+                async:false,
+                data: {
+                    folio_vta: folio_vta,
+                },
+                success: function(res) {
+                    saldovp=res;
 
-            if (saldovp < monto) {
+                },
+            });
+           
+
+            if (parseFloat(saldovp) < parseFloat(monto)) {
                 swal.fire({
                     title: "Pago Excede el Saldo",
                     text: "El pago no puede exceder el sado de la cuenta, Verifique el monto del Pago",
@@ -129,6 +143,8 @@ $(document).ready(function() {
                     focusConfirm: true,
                     confirmButtonText: "Aceptar",
                 });
+                $("#saldovp").val(saldovp);
+                $("#saldo").val(saldovp);
             } else {
                 saldofin = saldovp - monto;
                 opcion = 1;

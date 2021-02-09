@@ -513,10 +513,10 @@ if ($folio != "") {
                   </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                   <div class="form-group input-group-sm">
                     <label for="fechavp" class="col-form-label ">Fecha:</label>
-                    <input type="text" id="fechavp" name="fechavp" class="form-control text-right" autocomplete="off" value="<?php echo date("Y-m-d") ?>" placeholder="Fecha">
+                    <input type="date" id="fechavp" name="fechavp" class="form-control text-right" autocomplete="off" value="<?php echo date("Y-m-d") ?>" placeholder="Fecha">
                   </div>
                 </div>
 

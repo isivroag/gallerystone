@@ -75,8 +75,7 @@ $(document).ready(function() {
         var respuesta = confirm("¿Está seguro de eliminar el registro: " + id + "?");
 
 
-        console.log(id);
-        console.log(opcion);
+       
         if (respuesta) {
             $.ajax({
 
@@ -86,7 +85,7 @@ $(document).ready(function() {
                 data: { id: id, opcion: opcion },
 
                 success: function(data) {
-                    console.log(fila);
+                    
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
                 }
@@ -101,7 +100,6 @@ $(document).ready(function() {
         var nombre = $.trim($("#nombre").val());
 
 
-        console.log(nombre);
 
 
         if (nombre.length == 0) {
