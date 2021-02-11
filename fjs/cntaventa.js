@@ -24,6 +24,7 @@ $(document).ready(function() {
                 exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
             },
         ],
+        stateSave: true,
 
         columnDefs: [{
             targets: -1,
