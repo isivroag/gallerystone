@@ -25,6 +25,7 @@ if ($folio != "") {
 
   foreach ($data as $dt) {
     $folio = $dt['folio_vta'];
+    $folio_pres=$dt['folio_pres'];
 
     $fecha = $dt['fecha_vta'];
     $idclie = $dt['id_clie'];
@@ -139,6 +140,7 @@ if ($folio != "") {
           <div class="col-lg-12">
             <button id="btnPagar" name="btnPagar" type="button" class="btn bg-gradient-primary btn-ms"><i class="fas fa-dollar-sign"></i> Pagar</button>
             <button id="btnCal" name="btnCal" type="button" class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="far fa-calendar-alt text-light"></i><span class="text-light"> Instalación</span></button>
+            <button id="btnVer" name="btnVer" type="button" class="btn text-light bg-gradient-orange btn-ms"><i class=" fas fa-file-pdf"></i> PDF</button>
           </div>
         </div>
 
@@ -197,7 +199,7 @@ if ($folio != "") {
                   <div class="col-lg-1">
                     <div class="form-group input-group-sm">
                       <label for="folior" class="col-form-label">Folio:</label>
-
+                      <input type="hidden" class="form-control" name="foliopres" id="foliopres" value="<?php echo   $folio_pres; ?>" >
                       <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>" disabled>
                     </div>
                   </div>

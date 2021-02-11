@@ -412,27 +412,7 @@ $(document).ready(function() {
         });
 
     });
-
-    function recalcular() {
-        folio = $("#folio").val();
-        $.ajax({
-            type: "POST",
-            url: "bd/recalcular.php",
-            async: false,
-            dataType: "json",
-            data: {
-
-                folio: folio,
-
-            },
-            success: function(res) {
-                $("#total").val(res[0].total);
-                calculo();
-            },
-        });
-    }
     $(document).on("click", "#btnGuardar", function() {
-        recalcular();
         IdCliente = $("#id_pros").val();
         fecha = $("#fecha").val();
         tokenid = $("#tokenid").val();
@@ -463,7 +443,6 @@ $(document).ready(function() {
                 type: "POST",
                 url: "bd/tmppres.php",
                 dataType: "json",
-                async: false,
                 data: {
                     IdCliente: IdCliente,
                     fecha: fecha,
@@ -493,7 +472,6 @@ $(document).ready(function() {
                                 type: "POST",
                                 url: "bd/trasladopres.php",
                                 dataType: "json",
-                                async: false,
                                 data: { folio: folio },
                                 success: function(res) {
                                     if (res == 0) {
@@ -519,7 +497,7 @@ $(document).ready(function() {
                                             type: "POST",
                                             url: "bd/estadopres.php",
                                             dataType: "json",
-                                            async: false,
+
                                             data: {
                                                 folio: folio,
                                                 usuario: usuario,
@@ -541,7 +519,6 @@ $(document).ready(function() {
                                 type: "POST",
                                 url: "bd/modificarpres.php",
                                 dataType: "json",
-                                async: false,
                                 data: { folio: folio, presupuesto: presupuesto },
                                 success: function(res) {
                                     if (res == 0) {
@@ -567,7 +544,7 @@ $(document).ready(function() {
                                             type: "POST",
                                             url: "bd/estadopres.php",
                                             dataType: "json",
-                                            async: false,
+
                                             data: {
                                                 folio: folio,
                                                 usuario: usuario,
@@ -628,7 +605,6 @@ $(document).ready(function() {
                         url: "bd/detalletemp.php",
                         type: "POST",
                         dataType: "json",
-                        async: false,
                         data: { id: id, total: total, folio: folio, opcion: opcion },
                         success: function(data) {
                             if (data == 1) {
@@ -754,7 +730,6 @@ $(document).ready(function() {
                 type: "POST",
                 url: "bd/detalletemp.php",
                 dataType: "json",
-                async: false,
                 data: {
                     folio: folio,
                     idconcepto: idconcepto,
@@ -904,7 +879,6 @@ $(document).ready(function() {
             type: "POST",
             url: "bd/buscartotal.php",
             dataType: "json",
-            async: false,
             data: { id: id },
             success: function(res) {
                 $("#total").val(res[0].total);
@@ -925,7 +899,6 @@ $(document).ready(function() {
                     type: "POST",
                     url: "bd/guardartotales.php",
                     dataType: "json",
-                    async: false,
                     data: {
                         id: id,
                         subtotal: subtotal,

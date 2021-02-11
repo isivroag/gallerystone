@@ -31,6 +31,20 @@ $(document).ready(function() {
         },
     });
 
+    $(document).on("click", "#btnVer", function() {
+
+        folio = $('#foliopres').val();
+        var ancho = 1000;
+        var alto = 800;
+        var x = parseInt((window.screen.width / 2) - (ancho / 2));
+        var y = parseInt((window.screen.height / 2) - (alto / 2));
+
+        url = "formatos/pdf.php?folio=" + folio;
+
+        window.open(url, "Presupuesto", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
+
+    });
+
     $(document).on("click", "#btnCal", function() {
         opcion = 3;
         var folio_vta = $.trim($("#folior").val());
@@ -124,16 +138,16 @@ $(document).ready(function() {
                 url: "bd/buscarsaldo.php",
                 type: "POST",
                 dataType: "json",
-                async:false,
+                async: false,
                 data: {
                     folio_vta: folio_vta,
                 },
                 success: function(res) {
-                    saldovp=res;
+                    saldovp = res;
 
                 },
             });
-           
+
 
             if (parseFloat(saldovp) < parseFloat(monto)) {
                 swal.fire({
