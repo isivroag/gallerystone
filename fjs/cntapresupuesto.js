@@ -28,6 +28,7 @@ $(document).ready(function() {
 
 
         ],
+        stateSave: true,
 
 
 
@@ -129,11 +130,11 @@ $(document).ready(function() {
                 data: { folio: folio, usuario: usuario, estado: estado, nota: nota, fecha: fecha },
 
                 success: function(data) {
-                
-                    if (data==1){
+
+                    if (data == 1) {
                         window.location.reload(true);
                     }
-                    
+
                 }
             });
         }

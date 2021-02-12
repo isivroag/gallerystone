@@ -137,13 +137,17 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
 
   #div_carga {
     position: absolute;
-    top: 0;
-    left: 0;
+    /*top: 50%;
+    left: 50%;
+    */
+    
     width: 100%;
     height: 100%;
-    background:none;
     /*display: none;*/
-    z-index: 1;
+    display: none;
+  justify-content: center;
+  align-items: center;
+    z-index: 3;
   }
 
   #cargador {
@@ -158,24 +162,32 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: 35px;
-    margin-left: -25px;
+    margin-top: 120px;
+    margin-left: 20px;
+
+
   }
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  
+
 
   <!-- Main content -->
   <section class="content">
-  <div id="div_carga" class="hidden">
-    <img id="cargador" src="img/ajax-loader.gif" />
-    <span class="" id="textoc"><strong>Cargando...</strong></span>
-  </div>
+
 
     <!-- Default box -->
     <div class="card">
+
+   
+          <div id="div_carga">
+            
+            <img id="cargador" src="img/loader.gif" />
+          <span class=" " id="textoc"><strong>Cargando...</strong></span>
+            
+    </div>
+
       <div class="card-header bg-gradient-orange text-light">
         <h1 class="card-title mx-auto">Presupuestos</h1>
       </div>
@@ -701,7 +713,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <br>
             <div class="table-hover table-responsive w-auto" style="padding:10px">
-              <table name="tablaC" id="tablaC" class="table table-sm table-striped table-responsive text-nowrap table-bordered table-condensed " style="width:100%">
+              <table name="tablaC" id="tablaC" class="table table-sm table-striped   table-bordered table-condensed " style="width:100%">
                 <thead class="text-center">
                   <tr>
                     <th>Id</th>
@@ -978,6 +990,10 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
+  </section>
+
+  <section>
+  
   </section>
   <!-- /.content -->
 </div>
