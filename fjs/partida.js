@@ -116,8 +116,7 @@ $(document).ready(function() {
                 dataType: "json",
                 data: { nombre: nombre, id: id, opcion: opcion },
                 success: function(data) {
-                    console.log(data);
-                    console.log(fila);
+                    
 
                     //tablaPersonas.ajax.reload(null, false);
                     id = data[0].id_partida;

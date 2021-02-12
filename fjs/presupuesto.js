@@ -1,4 +1,20 @@
-$(document).ready(function() {
+$(document).ready(function () {
+
+    
+    $('#div_carga').hide();
+
+    jQuery.ajaxSetup({
+        beforeSend: function () {
+            $('#div_carga').show();
+        },
+        complete: function () {
+            $('#div_carga').hide();
+        },
+        success: function () {
+            
+         }
+    });
+
     var id, opcion;
 
     tablaVis = $("#tablaV").DataTable({
@@ -8,14 +24,14 @@ $(document).ready(function() {
         searching: false,
 
         columnDefs: [{
-                targets: -1,
-                data: null,
-                defaultContent: "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
-            },
-            { className: "text-center", targets: [4] },
-            { className: "text-center", targets: [5] },
-            { className: "text-right", targets: [6] },
-            { className: "text-right", targets: [7] },
+            targets: -1,
+            data: null,
+            defaultContent: "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
+        },
+        { className: "text-center", targets: [4] },
+        { className: "text-center", targets: [5] },
+        { className: "text-right", targets: [6] },
+        { className: "text-right", targets: [7] },
         ],
 
         language: {
@@ -40,7 +56,7 @@ $(document).ready(function() {
             targets: -1,
             data: null,
             defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelCliente'><i class='fas fa-hand-pointer'></i></button></div></div>",
-        }, ],
+        },],
 
         //Para cambiar el lenguaje a español
         language: {
@@ -62,11 +78,11 @@ $(document).ready(function() {
 
     tablaCon = $("#tablaCon").DataTable({
         columnDefs: [{
-                targets: -1,
-                data: null,
-                defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelConcepto'><i class='fas fa-hand-pointer'></i></button></div></div>",
-            },
-            { className: "hide_column", targets: [2] },
+            targets: -1,
+            data: null,
+            defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelConcepto'><i class='fas fa-hand-pointer'></i></button></div></div>",
+        },
+        { className: "hide_column", targets: [2] },
         ],
 
         //Para cambiar el lenguaje a español
@@ -92,7 +108,7 @@ $(document).ready(function() {
             targets: -1,
             data: null,
             defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelMaterial'><i class='fas fa-hand-pointer'></i></button></div></div>",
-        }, ],
+        },],
 
         //Para cambiar el lenguaje a español
         language: {
@@ -114,11 +130,11 @@ $(document).ready(function() {
 
     tablaPre = $("#tablaP").DataTable({
         columnDefs: [{
-                targets: -1,
-                data: null,
-                defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelPrecio'><i class='fas fa-hand-pointer'></i></button></div></div>",
-            },
-            { className: "text-right", targets: [2] },
+            targets: -1,
+            data: null,
+            defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelPrecio'><i class='fas fa-hand-pointer'></i></button></div></div>",
+        },
+        { className: "text-right", targets: [2] },
         ],
 
         //Para cambiar el lenguaje a español
@@ -144,7 +160,7 @@ $(document).ready(function() {
             targets: -1,
             data: null,
             defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnselCond'><i class='fas fa-hand-pointer'></i></button></div></div>",
-        }, ],
+        },],
 
         //Para cambiar el lenguaje a español
         language: {
@@ -170,11 +186,11 @@ $(document).ready(function() {
         info: false,
         searching: false,
         columnDefs: [{
-                targets: -1,
-                data: null,
-                defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm bg-danger btnborrarcond'><i class='fas fa-times'></i></button></div></div>",
-            },
-            { className: "hide_column", targets: [0] },
+            targets: -1,
+            data: null,
+            defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm bg-danger btnborrarcond'><i class='fas fa-times'></i></button></div></div>",
+        },
+        { className: "hide_column", targets: [0] },
         ],
         language: {
             lengthMenu: "Mostrar _MENU_ registros",
@@ -193,28 +209,28 @@ $(document).ready(function() {
         },
     });
 
-    $(document).on("click", "#bcliente", function() {
+    $(document).on("click", "#bcliente", function () {
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
         $("#modalProspecto").modal("show");
     });
 
-    $(document).on("click", "#btncondiciones", function() {
+    $(document).on("click", "#btncondiciones", function () {
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
         $("#modalesp").modal("show");
     });
 
-    $(document).on("click", "#btnotrascond", function() {
+    $(document).on("click", "#btnotrascond", function () {
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
         $("#modalotro").modal("show");
     });
 
-    $(document).on("click", "#btnguardaresp", function() {
+    $(document).on("click", "#btnguardaresp", function () {
         condicion = $("#otraesp").val();
         folio = $("#folio").val();
         opc = 1;
@@ -224,7 +240,7 @@ $(document).ready(function() {
             url: "bd/condiciontmp.php",
             dataType: "json",
             data: { folio: folio, condicion: condicion, opc: opc },
-            success: function(res) {
+            success: function (res) {
                 fidreg = res[0].id_reg;
                 fcondicion = "<li>" + res[0].nom_cond + "</li>";
                 tablacond.row.add([fidreg, fcondicion]).draw();
@@ -234,7 +250,7 @@ $(document).ready(function() {
         $("#modalotro").modal("hide");
     });
 
-    $(document).on("click", ".btnselCond", function() {
+    $(document).on("click", ".btnselCond", function () {
         fila = $(this).closest("tr");
 
         condicion = fila.find("td:eq(1)").text();
@@ -246,7 +262,7 @@ $(document).ready(function() {
             url: "bd/condiciontmp.php",
             dataType: "json",
             data: { folio: folio, condicion: condicion, opc: opc },
-            success: function(res) {
+            success: function (res) {
                 fidreg = res[0].id_reg;
                 fcondicion = "<li>" + res[0].nom_cond + "</li>";
                 tablacond.row.add([fidreg, fcondicion]).draw();
@@ -256,7 +272,7 @@ $(document).ready(function() {
         $("#modalesp").modal("hide");
     });
 
-    $(document).on("click", ".btnborrarcond", function(event) {
+    $(document).on("click", ".btnborrarcond", function (event) {
         event.preventDefault();
 
         fila = $(this).closest("tr");
@@ -270,7 +286,7 @@ $(document).ready(function() {
             url: "bd/condiciontmp.php",
             dataType: "json",
             data: { folio: folio, registro: registro, opc: opc },
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
 
                 listaresp();
@@ -289,7 +305,7 @@ $(document).ready(function() {
             dataType: "json",
             data: { folio: folio },
 
-            success: function(res) {
+            success: function (res) {
                 for (var i = 0; i < res.length; i++) {
                     fidreg = res[i].id_reg;
                     fcondicion = "<li>" + res[i].nom_cond + "</li>";
@@ -301,7 +317,7 @@ $(document).ready(function() {
         });
     };
 
-    $(document).on("click", "#bconcepto", function() {
+    $(document).on("click", "#bconcepto", function () {
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
@@ -324,7 +340,7 @@ $(document).ready(function() {
         $("#cantidad").prop("disabled", true);
     });
 
-    $(document).on("click", "#bmaterial", function() {
+    $(document).on("click", "#bmaterial", function () {
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
@@ -341,7 +357,7 @@ $(document).ready(function() {
         $("#cantidad").prop("disabled", true);
     });
 
-    $(document).on("click", "#bprecio", function() {
+    $(document).on("click", "#bprecio", function () {
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
@@ -355,7 +371,7 @@ $(document).ready(function() {
         $("#cantidad").prop("disabled", true);
     });
 
-    $(document).on("click", ".btnSelCliente", function() {
+    $(document).on("click", ".btnSelCliente", function () {
         fila = $(this).closest("tr");
 
         IdCliente = fila.find("td:eq(0)").text();
@@ -379,7 +395,7 @@ $(document).ready(function() {
                 folio: folio,
                 opcion: opcion,
             },
-            success: function(res) {
+            success: function (res) {
                 if (res == 0) {
                     Swal.fire({
                         title: "Error al Guardar",
@@ -393,7 +409,7 @@ $(document).ready(function() {
         $("#modalProspecto").modal("hide");
     });
 
-    $(document).on("click", "#btnrecalcular", function() {
+    $(document).on("click", "#btnrecalcular", function () {
         folio = $("#folio").val();
         $.ajax({
             type: "POST",
@@ -405,7 +421,7 @@ $(document).ready(function() {
                 folio: folio,
 
             },
-            success: function(res) {
+            success: function (res) {
                 $("#total").val(res[0].total);
                 calculo();
             },
@@ -425,13 +441,13 @@ $(document).ready(function() {
                 folio: folio,
 
             },
-            success: function(res) {
+            success: function (res) {
                 $("#total").val(res[0].total);
                 calculo();
             },
         });
     }
-    $(document).on("click", "#btnGuardar", function() {
+    $(document).on("click", "#btnGuardar", function () {
         recalcular();
         IdCliente = $("#id_pros").val();
         fecha = $("#fecha").val();
@@ -463,7 +479,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "bd/tmppres.php",
                 dataType: "json",
-                async: false,
+                //async: false,
                 data: {
                     IdCliente: IdCliente,
                     fecha: fecha,
@@ -479,7 +495,7 @@ $(document).ready(function() {
                     descuento: descuento,
                     gtotal: gtotal,
                 },
-                success: function(res) {
+                success: function (res) {
                     if (res == 0) {
                         Swal.fire({
                             title: "Error al Guardar",
@@ -493,9 +509,9 @@ $(document).ready(function() {
                                 type: "POST",
                                 url: "bd/trasladopres.php",
                                 dataType: "json",
-                                async: false,
+                               //async: false,
                                 data: { folio: folio },
-                                success: function(res) {
+                                success: function (res) {
                                     if (res == 0) {
                                         Swal.fire({
                                             title: "Error al Guardar",
@@ -519,7 +535,7 @@ $(document).ready(function() {
                                             type: "POST",
                                             url: "bd/estadopres.php",
                                             dataType: "json",
-                                            async: false,
+                                            //async: false,
                                             data: {
                                                 folio: folio,
                                                 usuario: usuario,
@@ -527,8 +543,8 @@ $(document).ready(function() {
                                                 nota: nota,
                                                 fecha: fecha,
                                             },
-                                            success: function() {
-                                                window.setTimeout(function() {
+                                            success: function () {
+                                                window.setTimeout(function () {
                                                     window.location.href = "pres.php?folio=" + folio;
                                                 }, 1000);
                                             },
@@ -541,9 +557,9 @@ $(document).ready(function() {
                                 type: "POST",
                                 url: "bd/modificarpres.php",
                                 dataType: "json",
-                                async: false,
+                                //async: false,
                                 data: { folio: folio, presupuesto: presupuesto },
-                                success: function(res) {
+                                success: function (res) {
                                     if (res == 0) {
                                         Swal.fire({
                                             title: "Error al Guardar",
@@ -567,7 +583,7 @@ $(document).ready(function() {
                                             type: "POST",
                                             url: "bd/estadopres.php",
                                             dataType: "json",
-                                            async: false,
+                                           // async: false,
                                             data: {
                                                 folio: folio,
                                                 usuario: usuario,
@@ -575,8 +591,8 @@ $(document).ready(function() {
                                                 nota: nota,
                                                 fecha: fecha,
                                             },
-                                            success: function() {
-                                                window.setTimeout(function() {
+                                            success: function () {
+                                                window.setTimeout(function () {
                                                     window.location.href = "pres.php?folio=" + folio;
                                                 }, 1000);
                                             },
@@ -597,12 +613,12 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on("click", "#btnGuardarHead", function() {
+    $(document).on("click", "#btnGuardarHead", function () {
         guardarhead();
         mensaje();
     });
 
-    $(document).on("click", ".btnBorrar", function(event) {
+    $(document).on("click", ".btnBorrar", function (event) {
         event.preventDefault();
         fila = $(this);
         id = parseInt($(this).closest("tr").find("td:eq(0)").text());
@@ -622,7 +638,7 @@ $(document).ready(function() {
 
                 cancelButtonText: "Cancelar",
             })
-            .then(function(isConfirm) {
+            .then(function (isConfirm) {
                 if (isConfirm.value) {
                     $.ajax({
                         url: "bd/detalletemp.php",
@@ -630,18 +646,18 @@ $(document).ready(function() {
                         dataType: "json",
                         async: false,
                         data: { id: id, total: total, folio: folio, opcion: opcion },
-                        success: function(data) {
+                        success: function (data) {
                             if (data == 1) {
                                 tablaVis.row(fila.parents("tr")).remove().draw();
                                 buscarsubtotal(folio);
                             }
                         },
                     });
-                } else if (isConfirm.dismiss === swal.DismissReason.cancel) {}
+                } else if (isConfirm.dismiss === swal.DismissReason.cancel) { }
             });
     });
 
-    $(document).on("click", ".btnSelConcepto", function() {
+    $(document).on("click", ".btnSelConcepto", function () {
         fila = $(this).closest("tr");
 
         idConcepto = fila.find("td:eq(0)").text();
@@ -662,7 +678,7 @@ $(document).ready(function() {
         $("#modalConcepto").modal("hide");
     });
 
-    $(document).on("click", ".btnSelMaterial", function() {
+    $(document).on("click", ".btnSelMaterial", function () {
         fila = $(this).closest("tr");
 
         idMaterial = fila.find("td:eq(0)").text();
@@ -679,7 +695,7 @@ $(document).ready(function() {
         listar();
     });
 
-    $(document).on("click", ".btnSelPrecio", function() {
+    $(document).on("click", ".btnSelPrecio", function () {
         fila = $(this).closest("tr");
 
         idPrecio = fila.find("td:eq(0)").text();
@@ -700,7 +716,7 @@ $(document).ready(function() {
 
 
 
-    $(document).on("click", "#btlimpiar", function() {
+    $(document).on("click", "#btlimpiar", function () {
         $("#claveconcepto").val("");
         $("#concepto").val("");
         $("#id_umedida").val("");
@@ -720,7 +736,10 @@ $(document).ready(function() {
         //$('#cantidad').attr('disabled', 'disabled');
     });
 
-    $(document).on("click", "#btnagregar", function() {
+    $(document).on("click", "#btnagregar", function () {
+
+
+
         folio = $("#folio").val();
         idconcepto = $("#claveconcepto").val();
         NomConcepto = $("#concepto").val();
@@ -754,7 +773,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "bd/detalletemp.php",
                 dataType: "json",
-                async: false,
+                //async: false,
                 data: {
                     folio: folio,
                     idconcepto: idconcepto,
@@ -765,7 +784,8 @@ $(document).ready(function() {
                     total: total,
                     opcion: opcion,
                 },
-                success: function(data) {
+                success: function (data) {
+
                     id_reg = data[0].id_reg;
                     nom_concepto = data[0].nom_concepto;
                     nom_item = data[0].nom_item;
@@ -839,7 +859,7 @@ $(document).ready(function() {
                 folio: folio,
                 opcion: opcion,
             },
-            success: function(res) {
+            success: function (res) {
                 if (res == 0) {
                     Swal.fire({
                         title: "Error al Guardar",
@@ -862,7 +882,7 @@ $(document).ready(function() {
             url: "bd/buscarprecio.php",
             dataType: "json",
             data: { id: id, id_umedida: id_umedida },
-            success: function(res) {
+            success: function (res) {
                 for (var i = 0; i < res.length; i++) {
                     tablaPre.row
                         .add([
@@ -887,7 +907,7 @@ $(document).ready(function() {
             url: "bd/buscartotal.php",
             dataType: "json",
             data: { folio: folio },
-            success: function(res) {
+            success: function (res) {
                 $("#subtotal").val(res[0].subtotal);
 
                 $("#iva").val(res[0].iva);
@@ -904,9 +924,9 @@ $(document).ready(function() {
             type: "POST",
             url: "bd/buscartotal.php",
             dataType: "json",
-            async: false,
+            //async: false,
             data: { id: id },
-            success: function(res) {
+            success: function (res) {
                 $("#total").val(res[0].total);
                 calculo();
 
@@ -925,7 +945,7 @@ $(document).ready(function() {
                     type: "POST",
                     url: "bd/guardartotales.php",
                     dataType: "json",
-                    async: false,
+                    //async: false,
                     data: {
                         id: id,
                         subtotal: subtotal,
@@ -934,7 +954,7 @@ $(document).ready(function() {
                         descuento: descuento,
                         gtotal: gtotal,
                     },
-                    success: function(resdata) {
+                    success: function (resdata) {
 
                         $("#subtotal").val(resdata[0].subtotal);
                         $("#iva").val(resdata[0].iva);
@@ -969,7 +989,7 @@ $(document).ready(function() {
             dataType: "json",
             data: { tipoitem: tipoitem },
 
-            success: function(res) {
+            success: function (res) {
                 for (var i = 0; i < res.length; i++) {
                     tablaMat.row
                         .add([res[i].id_item, res[i].clave_item, res[i].nom_item])
@@ -981,12 +1001,12 @@ $(document).ready(function() {
         });
     }
 
-    $("#descuento").on("change keyup paste click", function() {
+    $("#descuento").on("change keyup paste click", function () {
         calculodes();
         $("#pdesc").val("");
     });
 
-    $("#pdesc").on("change keyup paste click", function() {
+    $("#pdesc").on("change keyup paste click", function () {
         por = $("#pdesc").val();
         total = $("#total").val();
 
@@ -1007,7 +1027,7 @@ $(document).ready(function() {
             dataType: "json",
             data: { monto: monto },
 
-            success: function(data) {
+            success: function (data) {
                 pordesc = data[0].descuento;
                 descuento = round(monto * (pordesc / 100), 2);
 
@@ -1020,7 +1040,7 @@ $(document).ready(function() {
     /*funciones de calcular y descuento
       crear una sola funciona de calculo con todas las variables
       y descuento y posteriormente guardar los totales en la tabla */
-    $("#cdescuento").on("click", function() {
+    $("#cdescuento").on("click", function () {
         if ($("#cdescuento").prop("checked")) {
             $("#descuento").prop("disabled", false);
             $("#pdesc").prop("disabled", false);
@@ -1034,7 +1054,7 @@ $(document).ready(function() {
         calculodes();
     });
 
-    $("#civa").on("click", function() {
+    $("#civa").on("click", function () {
         calculo();
     });
 
@@ -1080,7 +1100,7 @@ $(document).ready(function() {
                 descuento: descuento,
                 gtotal: gtotal,
             },
-            success: function(resdata) {
+            success: function (resdata) {
 
                 $("#subtotal").val(resdata[0].subtotal);
                 $("#iva").val(resdata[0].iva);

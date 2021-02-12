@@ -134,14 +134,45 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
     text-align: center;
     font-size: 15px;
   }
+
+  #div_carga {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:none;
+    /*display: none;*/
+    z-index: 1;
+  }
+
+  #cargador {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+  }
+
+  #textoc {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: 35px;
+    margin-left: -25px;
+  }
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-
+  
 
   <!-- Main content -->
   <section class="content">
+  <div id="div_carga" class="hidden">
+    <img id="cargador" src="img/ajax-loader.gif" />
+    <span class="" id="textoc"><strong>Cargando...</strong></span>
+  </div>
 
     <!-- Default box -->
     <div class="card">
@@ -343,7 +374,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                             <i class="fas fa-dollar-sign"></i>
                           </span>
                         </div>
-                        <input type="text" class="form-control text-right" name="precio" id="precio" >
+                        <input type="text" class="form-control text-right" name="precio" id="precio">
                       </div>
                     </div>
 
@@ -479,7 +510,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row justify-content-sm-end" style="padding:5px 0px;">
 
                   <div class="col-lg-2 align-self-start  ">
-                  <label for="btnrecalcular" class="col-form-label text-center" style="font-size: 13px;">*En caso de no generar el total, presionar:</label>
+                    <label for="btnrecalcular" class="col-form-label text-center" style="font-size: 13px;">*En caso de no generar el total, presionar:</label>
                     <div class="text-center">
                       <div class="btn-group ">
 
