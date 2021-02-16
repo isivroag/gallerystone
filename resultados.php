@@ -77,7 +77,7 @@ if ($resultado->execute()) {
 
 
                         <div class="card-header bg-gradient-green">
-                            Filtro por Periodo
+                            Selector de Período
                         </div>
                         <div class="card-body p-0">
                             <div class="row justify-content-center">
@@ -195,7 +195,7 @@ if ($resultado->execute()) {
                                         foreach ($dataegresos as $registro) {
                                             $totalegreso += $registro['total'];
                                         ?>
-                                            <div class="row justify-content-between border-left borde-purple mx-2">
+                                            <div class="row justify-content-center border-left borde-purple mx-2">
                                                 <div class="col-sm-3 pl-2  ">
                                                     <label for="<?php echo $registro['nom_partida'] ?>" class="col-form-label"><a href="detalleegr.php?<?php echo 'mes='.$mesactual.'&ejercicio='.$yearactual.'&concepto='.$registro['nom_partida'] ?>"><?php echo $registro['nom_partida'] ?>: </a></label>
                                                 </div>

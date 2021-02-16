@@ -25,6 +25,9 @@ $(document).ready(function() {
                 exportOptions: { columns: [0, 1, 2, 3, 4] },
             },
         ],
+        "paging": false,
+        "info": false,
+
 
         columnDefs: [{
             targets: -1,
@@ -54,8 +57,14 @@ $(document).ready(function() {
     var fila; //capturar la fila para editar o borrar el registro
 
     //botón EDITAR
-    $(document).on("click", ".btnDetalle", function() {
 
+
+
+    $(document).on("click", ".btnDetalle", function() {
+        fila = $(this).closest("tr");
+        id = parseInt(fila.find("td:eq(0)").text());
+        console.log(id);
+        window.location.href = "venta.php?folio=" + id;
         //window.location.href = "venta.php?folio=" + id;
     });
 

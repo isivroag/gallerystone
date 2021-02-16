@@ -1,6 +1,8 @@
 $(document).ready(function() {
     var id, opcion;
 
+
+
     tablaVis = $("#tablaV").DataTable({
         paging: false,
         ordering: false,
@@ -166,6 +168,7 @@ $(document).ready(function() {
                     url: "bd/pagoventa.php",
                     type: "POST",
                     dataType: "json",
+                    async = false,
                     data: {
                         folio_vta: folio_vta,
                         fechavp: fechavp,

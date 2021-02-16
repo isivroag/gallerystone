@@ -140,13 +140,14 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
     /*top: 50%;
     left: 50%;
     */
-    
+
     width: 100%;
     height: 100%;
-    /*display: none;*/
+    background-color: rgba(60, 60, 60, 0.5);
     display: none;
-  justify-content: center;
-  align-items: center;
+    
+    justify-content: center;
+    align-items: center;
     z-index: 3;
   }
 
@@ -180,13 +181,13 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
     <!-- Default box -->
     <div class="card">
 
-   
-          <div id="div_carga">
-            
-            <img id="cargador" src="img/loader.gif" />
-          <span class=" " id="textoc"><strong>Cargando...</strong></span>
-            
-    </div>
+
+      <div id="div_carga">
+
+        <img id="cargador" src="img/loader.gif" />
+        <span class=" " id="textoc"><strong>Cargando...</strong></span>
+
+      </div>
 
       <div class="card-header bg-gradient-orange text-light">
         <h1 class="card-title mx-auto">Presupuestos</h1>
@@ -993,7 +994,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
   </section>
 
   <section>
-  
+
   </section>
   <!-- /.content -->
 </div>

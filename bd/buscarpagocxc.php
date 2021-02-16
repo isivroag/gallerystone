@@ -9,7 +9,7 @@ $conexion = $objeto->connect();
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 
 
-$consulta = "SELECT * FROM pagocxc WHERE folio_vta='$folio' and estado_pagocxc='1' ORDER BY folio_pagocxc,fecha";
+$consulta = "SELECT * FROM pagocxc WHERE folio_vta='$folio' and estado_pagocxc=1 ORDER BY folio_pagocxc,fecha";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

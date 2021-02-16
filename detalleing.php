@@ -20,6 +20,11 @@ $consulta = "CALL sp_ingresosdet('$mes', '$ejercicio', '$concepto')";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+$total = 0;
+foreach ($data as $reg) {
+    $total += $reg['pagopro'];
+}
 $message = "";
 
 
@@ -40,13 +45,21 @@ $message = "";
         <!-- Default box -->
         <div class="card ">
             <div class="card-header bg-green">
-                <h4 class="card-title text-center">DETALLE DE INGRESOS POR <b> <?php echo $concepto?></b> </h4>
+                <h4 class="card-title text-center">DETALLE DE INGRESOS</h4>
             </div>
 
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-sm-12">
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4">
+                                <h4>CONCEPTO: <b> <?php echo $concepto ?></b></h4>
 
+                            </div>
+                            <div class="col-sm-2">
+                                <h4>MONTO:<b><?php echo "$ " . number_format($total, 2) ?></b></h4>
+                            </div>
+                        </div>
                         <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
                     </div>
                 </div>
@@ -73,7 +86,7 @@ $message = "";
                                             <tr>
                                                 <td><?php echo $dat['folio_vta'] ?></td>
                                                 <td><?php echo $dat['nombre'] ?></td>
-                                                <td><?php echo $dat['concepto_vta'] ?></td> 
+                                                <td><?php echo $dat['concepto_vta'] ?></td>
                                                 <td class="text-right"><?php echo "$ " . number_format($dat['pagopro'], 2) ?></td>
                                                 <td></td>
                                             </tr>
@@ -87,6 +100,22 @@ $message = "";
                     </div>
                 </div>
 
+            </div>
+            <div class="card-footer bg-gradient-green">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4">
+                                <h4>CONCEPTO: <b> <?php echo $concepto ?></b></h4>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <h4>MONTO:<b><?php echo "$ " . number_format($total, 2) ?></b></h4>
+                            </div>
+                        </div>
+                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                    </div>
+                </div>
             </div>
             <!-- /.card-body -->
 

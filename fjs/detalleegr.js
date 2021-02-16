@@ -25,6 +25,8 @@ $(document).ready(function() {
                 exportOptions: { columns: [0, 1, 2, 3, 4] },
             },
         ],
+        "paging": false,
+        "info": false,
 
         columnDefs: [{
             targets: -1,
