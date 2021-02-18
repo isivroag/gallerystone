@@ -9,13 +9,17 @@ if ($_SESSION['s_usuario'] === null) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
 
 
-  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="expires" content="0">
   <meta http-equiv="Last-Modified" content="0">
-  <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-  <meta http-equiv="Pragma" content="no-cache">
+
+
+  <meta http-equiv='cache-control' content='no-cache'>
+  
+  <meta http-equiv='pragma' content='no-cache'>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">

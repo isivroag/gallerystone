@@ -1,5 +1,5 @@
 <?php
-$pagina="citav";
+$pagina = "citav";
 include_once "templates/header.php";
 include_once "templates/barra.php";
 include_once "templates/navegacion.php";
@@ -40,6 +40,52 @@ $message = "";
 <!--tempusdominus-bootstrap-4 -->
 <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css">
 
+<style>
+  .punto {
+    height: 20px !important;
+    width: 20px !important;
+
+    border-radius: 50% !important;
+    display: inline-block !important;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  #div_carga {
+    position: absolute;
+    /*top: 50%;
+    left: 50%;
+    */
+
+    width: 100%;
+    height: 100%;
+    background-color: rgba(60, 60, 60, 0.5);
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+  }
+
+  #cargador {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+  }
+
+  #textoc {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: 120px;
+    margin-left: 20px;
+
+
+  }
+</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -54,8 +100,8 @@ $message = "";
 
       <div class="row">
         <div class="col-lg-12">
-          
-          
+        <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+
         </div>
       </div>
       <br>
@@ -66,6 +112,13 @@ $message = "";
           <div class="card card-primary">
 
             <div class="card-body p-0">
+
+              <div id="div_carga">
+
+                <img id="cargador" src="img/loader.gif" />
+                <span class=" " id="textoc"><strong>Cargando...</strong></span>
+
+              </div>
               <!-- THE CALENDAR -->
               <div id="calendar"></div>
             </div>
@@ -95,21 +148,21 @@ $message = "";
             <div class="modal-body row">
 
 
-            <div class="col-sm-12">
-              <div class="form-group">
-              <input type="hidden" class="form-control" name="folio" id="folio">
-                <input type="hidden" class="form-control" name="id_pros" id="id_pros">
-                <label for="nombre" class="col-form-label">Cliente:</label>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <input type="hidden" class="form-control" name="folio" id="folio">
+                  <input type="hidden" class="form-control" name="id_pros" id="id_pros">
+                  <label for="nombre" class="col-form-label">Cliente:</label>
 
-                <div class="input-group">
+                  <div class="input-group">
 
-                  <input type="text" class="form-control" name="nom_pros" id="nom_pros" autocomplete="off" placeholder="Prospecto">
-                  
+                    <input type="text" class="form-control" name="nom_pros" id="nom_pros" autocomplete="off" placeholder="Prospecto">
+
+                  </div>
                 </div>
               </div>
-            </div>
 
-     
+
 
               <div class="col-sm-8">
                 <div class="form-group">
@@ -167,7 +220,7 @@ $message = "";
             ?>
             <div class="modal-footer">
               <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-              <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+              <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
             </div>
           </form>
         </div>
@@ -175,7 +228,7 @@ $message = "";
     </div>
   </section>
 
- 
+
 
 
   <!-- /.content -->
@@ -184,7 +237,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/citav.js"></script>
+<script src="fjs/citav.js?version=1"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -211,4 +264,3 @@ $message = "";
 <!--tempusdominus-bootstrap-4 -->
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js"></script>
 <script src="plugins/tempusdominus-bootstrap-4/js/locale/es.js"></script>
-

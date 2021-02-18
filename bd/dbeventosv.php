@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 include_once 'conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
-
+$data="";
 
 
 
