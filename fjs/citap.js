@@ -24,7 +24,7 @@ $(document).ready(function() {
                 })
 
             })
-        }
+        };
 
         /* $('.form_datetime').datetimepicker({
              language: 'es',
@@ -49,7 +49,7 @@ $(document).ready(function() {
         var date = new Date()
         var d = date.getDate(),
             m = date.getMonth(),
-            y = date.getFullYear()
+            y = date.getFullYear();
 
         var Calendar = FullCalendar.Calendar;
         var Draggable = FullCalendarInteraction.Draggable;
@@ -88,6 +88,7 @@ $(document).ready(function() {
 
             //Random default events
             events: 'bd/dbeventosp.php',
+            cache: false,
             eventClick: function(calEvent) {
                 var id = calEvent.event.id;
                 opcion = 2;
@@ -98,6 +99,7 @@ $(document).ready(function() {
                     url: "bd/citasp.php",
                     type: "POST",
                     dataType: "json",
+                    async:false,
                     data: { id: id, opcion: 3 },
                     success: function(data) {
                         console.log(data);

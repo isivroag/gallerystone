@@ -32,7 +32,7 @@ $message = "";
 <link rel="stylesheet" href="plugins/fullcalendar-timegrid/main.min.css">
 <link rel="stylesheet" href="plugins/fullcalendar-bootstrap/main.css">
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="plugns/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
 <!--Datetimepicker Bootstrap -->
@@ -283,7 +283,3 @@ $message = "";
 <!--tempusdominus-bootstrap-4 -->
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js"></script>
 <script src="plugins/tempusdominus-bootstrap-4/js/locale/es.js"></script>
-
-<script>
- 
-</script>

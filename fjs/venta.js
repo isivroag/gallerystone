@@ -168,7 +168,7 @@ $(document).ready(function() {
                     url: "bd/pagoventa.php",
                     type: "POST",
                     dataType: "json",
-                    async = false,
+                    async : false,
                     data: {
                         folio_vta: folio_vta,
                         fechavp: fechavp,

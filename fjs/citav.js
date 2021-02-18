@@ -88,6 +88,7 @@ $(document).ready(function() {
 
             //Random default events
             events: 'bd/dbeventosv.php',
+            cache: false,
             eventClick: function(calEvent) {
                 var id = calEvent.event.id;
                 opcion = 2;
@@ -174,8 +175,6 @@ $(document).ready(function() {
         var obs = $.trim($("#obs").val());
         var id = $.trim($("#folio").val());
 
-        console.log(opcion);
-        console.log(id);
 
 
 
@@ -183,6 +182,7 @@ $(document).ready(function() {
             url: "bd/citasv.php",
             type: "POST",
             dataType: "json",
+            async:false,
             data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, concepto: concepto, id: id, opcion: opcion },
             success: function(data) {
                 console.log(data);
