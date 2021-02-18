@@ -89,6 +89,7 @@ $(document).ready(function() {
             //Random default events
             events: 'bd/dbeventosv.php',
             cache: false,
+            
             eventClick: function(calEvent) {
                 var id = calEvent.event.id;
                 opcion = 2;
@@ -108,6 +109,7 @@ $(document).ready(function() {
                         $('#concepto').val(data[0].descripcion);
                         $('#fecha').val(data[0].start);
                         $('#obs').val(data[0].obs);
+                      
                         $("#modalCRUD").modal("show");
                     }
                 });
@@ -190,6 +192,7 @@ $(document).ready(function() {
                 $('#calendar').fullCalendar('removeEvents');
                 $('#calendar').fullCalendar('addEventSource', events);
                 $('#calendar').fullCalendar('rerenderEvents');
+                $("#calendar").fullCalendar('refetchEvents');
 
             }
         });
