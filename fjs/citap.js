@@ -1,135 +1,117 @@
 $(document).ready(function() {
+
+
+    $.ajaxSetup({
+        cache: false,
+    });
+
+    jQuery.ajaxSetup({
+        beforeSend: function() {
+            $("#div_carga").show();
+        },
+        complete: function() {
+            $("#div_carga").hide();
+        },
+        success: function() {},
+    });
+
+    $.ajax({
+        url: 'bd/dbeventosp.php',
+        type: 'POST',
+        async: false,
+
+        success: function(data) {
+            obj = JSON.stringify(data);
+        },
+        error: function(xhr, err) {
+            alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+            alert("responseText: " + xhr.responseText);
+        }
+    });
+
+    $("#datetimepicker1").datetimepicker({
+        locale: "es",
+    });
+
     var opcion;
-    $(function() {
+    var calendar;
+    var date = new Date();
+    calendario();
+    var d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
 
-        /* initialize the external events
-         -----------------------------------------------------------------*/
-        function ini_events(ele) {
-            ele.each(function() {
-
-                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-                // it doesn't need to have a start or end
-                var eventObject = {
-                    title: $.trim($(this).text()) // use the element's text as the event title
-                }
-
-                // store the Event Object in the DOM element so we can get to it later
-                $(this).data('eventObject', eventObject)
-
-                // make the event draggable using jQuery UI
-                $(this).draggable({
-                    zIndex: 1070,
-                    revert: true, // will cause the event to go back to its
-                    revertDuration: 0 //  original position after the drag
-                })
-
-            })
-        };
-
-        /* $('.form_datetime').datetimepicker({
-             language: 'es',
-             weekStart: 1,
-             todayBtn: 1,
-             autoclose: 1,
-             todayHighlight: 1,
-             startView: 2,
-             forceParse: 0,
-             showMeridian: 1
-         });*/
-
-        $(function() {
-            $('#datetimepicker1').datetimepicker({
-                locale: 'es'
-            });
-        });
-
-        /* initialize the calendar
-         -----------------------------------------------------------------*/
-        //Date for the calendar events (dummy data)
-        var date = new Date()
-        var d = date.getDate(),
-            m = date.getMonth(),
-            y = date.getFullYear();
-
+    function calendario() {
         var Calendar = FullCalendar.Calendar;
-        var Draggable = FullCalendarInteraction.Draggable;
+        var calendarEl = document.getElementById("calendar");
 
-
-        var calendarEl = document.getElementById('calendar');
-
-        // initialize the external events
-        // -----------------------------------------------------------------
-
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        };
-
-
-
-
-        var calendar = new Calendar(calendarEl, {
-
-            plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
+        calendar = new Calendar(calendarEl, {
+            plugins: ["bootstrap", "interaction", "dayGrid", "timeGrid"],
             header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
             },
 
-            'themeSystem': 'bootstrap',
-            'locale': 'es',
-
-
-
-            //Random default events
-            events: 'bd/dbeventosp.php',
+            themeSystem: "bootstrap",
+            locale: "es",
             cache: false,
+            lazyFetching: true,
+            //Random default events
+
+            events: JSON.parse(obj),
+            /*events: function(start, end, timezone, callback) {
+                jQuery.ajax({
+                    url: 'bd/dbeventosv.php',
+                    type: 'POST',
+                    dataType: 'json',
+
+                    success: function(doc) {
+                        var events = [];
+                        if (!!doc.result) {
+                            $.map(doc.result, function(r) {
+                                events.push({
+                                    id: r.id,
+                                    title: r.title,
+                                    start: r.date_start,
+                                    end: r.date_end
+                                });
+                            });
+                        }
+
+                    }
+                });
+            },*/
+
             eventClick: function(calEvent) {
                 var id = calEvent.event.id;
                 opcion = 2;
-                console.log(id);
-
 
                 $.ajax({
                     url: "bd/citasp.php",
                     type: "POST",
                     dataType: "json",
-                    async:false,
                     data: { id: id, opcion: 3 },
                     success: function(data) {
-                        console.log(data);
-                        $('#folio').val(data[0].id);
-                        $('#id_pros').val(data[0].id_pros);
-                        $('#nom_pros').val(data[0].title);
-                        $('#concepto').val(data[0].descripcion);
-                        $('#fecha').val(data[0].start);
-                        $('#obs').val(data[0].obs);
+                        $("#folio").val(data[0].id);
+                        $("#id_pros").val(data[0].id_pros);
+                        $("#nom_pros").val(data[0].title);
+                        $("#concepto").val(data[0].descripcion);
+                        $("#fecha").val(data[0].start);
+                        $("#obs").val(data[0].obs);
 
-                    }
+                        $("#modalCRUD").modal("show");
+                    },
                 });
-                $("#modalCRUD").modal("show");
-
-
             },
 
             editable: false,
-            droppable: true, // this allows things to be dropped onto the calendar !!!
-
+            droppable: false, // this allows things to be dropped onto the calendar !!!
         });
 
         calendar.render();
 
-
-        // $('#calendar').fullCalendar()
-
-
-    })
-
+    }
 
 
 
@@ -207,9 +189,6 @@ $(document).ready(function() {
         var obs = $.trim($("#obs").val());
         var id = $.trim($("#folio").val());
 
-        console.log(opcion);
-        console.log(id);
-
 
 
         $.ajax({
@@ -218,11 +197,7 @@ $(document).ready(function() {
             dataType: "json",
             data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, concepto: concepto, id: id, opcion: opcion },
             success: function(data) {
-                console.log(data);
-                console.log(fila);
-                $('#calendar').fullCalendar('removeEvents');
-                $('#calendar').fullCalendar('addEventSource', events);
-                $('#calendar').fullCalendar('rerenderEvents');
+                location.reload();
 
             }
         });

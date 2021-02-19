@@ -181,7 +181,7 @@
             <li class="nav-item">
               <a href="cntapagoscxc.php" class="nav-link <?php echo ($pagina == 'cobranza') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-file-invoice-dollar nav-icon"></i>
-                <p>Reporte de Pagos</p>
+                <p>Consulta de Pagos</p>
               </a>
             </li>
 

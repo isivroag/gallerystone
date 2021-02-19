@@ -4,7 +4,7 @@ include_once 'conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-
+$data="";
 
 
 $consulta = "SELECT * FROM vcitap ORDER BY id";

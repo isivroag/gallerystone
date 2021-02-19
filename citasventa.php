@@ -100,7 +100,7 @@ $message = "";
 
       <div class="row">
         <div class="col-lg-12">
-        <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
 
         </div>
       </div>
@@ -108,7 +108,7 @@ $message = "";
       <div class="row">
 
         <!-- /.col -->
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-8 mx-auto">
           <div class="card card-primary">
 
             <div class="card-body p-0">

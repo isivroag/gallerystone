@@ -43,6 +43,52 @@ $message = "";
 <!--tempusdominus-bootstrap-4 -->
 <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css">
 
+<style>
+  .punto {
+    height: 20px !important;
+    width: 20px !important;
+
+    border-radius: 50% !important;
+    display: inline-block !important;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  #div_carga {
+    position: absolute;
+    /*top: 50%;
+    left: 50%;
+    */
+
+    width: 100%;
+    height: 100%;
+    background-color: rgba(60, 60, 60, 0.5);
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+  }
+
+  #cargador {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+  }
+
+  #textoc {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: 120px;
+    margin-left: 20px;
+
+
+  }
+</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -65,10 +111,17 @@ $message = "";
       <div class="row">
 
         <!-- /.col -->
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-8 mx-auto">
           <div class="card card-primary">
 
             <div class="card-body p-0">
+
+            <div id="div_carga">
+
+                <img id="cargador" src="img/loader.gif" />
+                <span class=" " id="textoc"><strong>Cargando...</strong></span>
+
+              </div>
               <!-- THE CALENDAR -->
               <div id="calendar"></div>
             </div>

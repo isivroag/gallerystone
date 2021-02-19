@@ -160,19 +160,26 @@ $(document).ready(function() {
     $("#btnBuscar").click(function() {
         var inicio = $("#inicio").val();
         var final = $("#final").val();
-        console.log(inicio);
-        console.log(final);
+
+        if ($("#cventas").prop("checked")) {
+            opcion = 0;
+        } else {
+            opcion = 1;
+        }
+
         tablaVis.clear();
         tablaVis.draw();
+
+        console.log(opcion);
 
         if (inicio != "" && final != "") {
             $.ajax({
                 type: "POST",
                 url: "bd/buscarvta.php",
                 dataType: "json",
-                data: { inicio: inicio, final: final },
+                data: { inicio: inicio, final: final, opcion: opcion },
                 success: function(data) {
-                    console.log(data);
+
                     for (var i = 0; i < data.length; i++) {
                         tablaVis.row
                             .add([

@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vventa WHERE estado_vta=1 ORDER BY folio_vta";
+$consulta = "SELECT * FROM vventa WHERE estado_vta=1 and saldo>0 ORDER BY folio_vta";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -66,6 +66,12 @@ $message = "";
                 <div class="form-group input-group-sm">
                   <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
                 </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="form-check">
+                <input class="form-check-input" name="cventas" id="cventas" type="checkbox" checked="">
+                <label class="form-check-label">Incluir Ventas con Saldadas</label>
               </div>
             </div>
           </div>
@@ -173,46 +179,46 @@ $message = "";
     </div>
   </section>
 
-  
+
   <section>
-        <div class="modal fade" id="modalcan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog " role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-gradient-danger">
-                        <h5 class="modal-title" id="exampleModalLabel">CANCELAR VENTA</h5>
-                    </div>
-                    <div class="card card-widget" style="margin: 10px;">
-                        <form id="formcan" action="" method="POST">
-                            <div class="modal-body row">
-                                <div class="col-sm-12">
-                                    <div class="form-group input-group-sm">
-                                        <label for="motivo" class="col-form-label">Motivo de Cancelacioón:</label>
-                                        <textarea rows="3" class="form-control" name="motivo" id="motivo" placeholder="Motivo de Cancelación"></textarea>
-                                        <input type="hidden" id="fecha" name="fecha" value="<?php echo $fecha ?>">
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                    <?php
-                    if ($message != "") {
-                    ?>
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <span class="badge "><?php echo ($message); ?></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                        </div>
-                    <?php
-                    }
-                    ?>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
+    <div class="modal fade" id="modalcan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog " role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-danger">
+            <h5 class="modal-title" id="exampleModalLabel">CANCELAR VENTA</h5>
+          </div>
+          <div class="card card-widget" style="margin: 10px;">
+            <form id="formcan" action="" method="POST">
+              <div class="modal-body row">
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <label for="motivo" class="col-form-label">Motivo de Cancelacioón:</label>
+                    <textarea rows="3" class="form-control" name="motivo" id="motivo" placeholder="Motivo de Cancelación"></textarea>
+                    <input type="hidden" id="fecha" name="fecha" value="<?php echo $fecha ?>">
+                  </div>
                 </div>
+              </div>
+          </div>
+          <?php
+          if ($message != "") {
+          ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <span class="badge "><?php echo ($message); ?></span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
             </div>
+          <?php
+          }
+          ?>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+          </div>
+          </form>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
 
   <!-- /.content -->
