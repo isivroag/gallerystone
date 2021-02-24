@@ -233,29 +233,44 @@
 
         <?php if ($_SESSION['s_rol'] == '3') {
         ?>
-        <li class="nav-item has-treeview <?php echo ($pagina == 'resultados') ? "menu-open" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas") ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'resultados' ) ? "active" : ""; ?>">
-            <span class="fa-stack">
-            <i class="fas fa-chart-line nav-icon"></i>
-             
-            </span>
-            <p>
-              Reportes
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
+            <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas") ? "active" : ""; ?>">
+              <span class="fa-stack">
+                <i class="fas fa-chart-line nav-icon"></i>
 
-            <li class="nav-item">
-              <a href="resultados.php<?php echo '?mes='.date("m").'&ejercicio='.date("Y") ?>" class="nav-link <?php echo ($pagina == 'resultados') ? "active seleccionado" : ""; ?>  ">
-                <i class="fas fa-file-invoice nav-icon"></i>
-                <p>Resultados</p>
-              </a>
-            </li>
-          </ul>
-        </li>
+              </span>
+              <p>
+                Reportes
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                <a href="resultados.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'resultados') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-file-invoice nav-icon"></i>
+                  <p>Resultados</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="cntaprospres.php" class="nav-link <?php echo ($pagina == 'seguimientopres') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-id-badge nav-icon"></i>
+                  <p>Prospectos-Presupuestos</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="seguimientopres.php" class="nav-link <?php echo ($pagina == 'fichas') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-id-badge nav-icon"></i>
+                  <p>Fichas de Prospectos</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
         <?php
         }
         ?>
