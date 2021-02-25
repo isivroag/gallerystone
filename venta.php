@@ -577,6 +577,7 @@ if ($folio != "") {
                     <select class="form-control" name="metodo" id="metodo">
                       <option id="Efectivo" value="Efectivo">Efectivo</option>
                       <option id="Transferencia" value="Transferencia">Transferencia</option>
+                      <option id="Deposito" value="Deposito">Deposito</option>
                       <option id="Cheque" value="Cheque">Cheque</option>
                       <option id="Tarjeta de Crédito" value="Tarjeta de Crédito">Tarjeta de Crédito</option>
                       <option id="Tarjeta de Debito" value="Tarjeta de Debito">Tarjeta de Debito</option>

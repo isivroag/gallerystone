@@ -233,10 +233,10 @@
 
         <?php if ($_SESSION['s_rol'] == '3') {
         ?>
-          <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas") ? "menu-open" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa") ? "menu-open" : ""; ?>">
 
 
-            <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas") ? "active" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa") ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class="fas fa-chart-line nav-icon"></i>
 
@@ -266,6 +266,13 @@
                 <a href="seguimientopres.php" class="nav-link <?php echo ($pagina == 'fichas') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-id-badge nav-icon"></i>
                   <p>Fichas de Prospectos</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="rptfiscal.php" class="nav-link <?php echo ($pagina == 'resumenventa') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-id-badge nav-icon"></i>
+                  <p>Resumen VTA-PAGO</p>
                 </a>
               </li>
 
