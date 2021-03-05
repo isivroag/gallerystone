@@ -12,7 +12,10 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vresumenvta WHERE saldo>0 ORDER BY folio_vta";
+$mesactual = (isset($_GET['mes'])) ? $_GET['mes'] : date("m");
+$yearactual = (isset($_GET['ejercicio'])) ? $_GET['ejercicio'] : date("Y");
+
+$consulta = "CALL sp_resumenvta('$yearactual','$mesactual')";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -41,42 +44,52 @@ $message = "";
       </div>
 
       <div class="card-body">
+      <div class="row">
+        <div class="col-lg-12">
 
-        <div class="card">
+
           <div class="card-header bg-gradient-green">
-            Filtro por rango de Fecha
+            Selector de Período
           </div>
-          <div class="card-body">
+          <div class="card-body p-0">
             <div class="row justify-content-center">
               <div class="col-lg-2">
                 <div class="form-group input-group-sm">
-                  <label for="fecha" class="col-form-label">Desde:</label>
-                  <input type="date" class="form-control" name="inicio" id="inicio">
+                  <label for="mes" class="col-form-label">MES:</label>
+                  <select class="form-control" name="mes" id="mes" value="<?php echo $mesactual ?>">
+                    <option id="01" value="01" <?php echo ($mesactual == '01') ? "selected" : "" ?>>ENERO</option>
+                    <option id="02" value="02" <?php echo ($mesactual == '02') ? "selected" : "" ?>>FEBRERO</option>
+                    <option id="03" value="03" <?php echo ($mesactual == '03') ? "selected" : "" ?>>MARZO</option>
+                    <option id="04" value="04" <?php echo ($mesactual == '04') ? "selected" : "" ?>>ABRIL</option>
+                    <option id="05" value="05" <?php echo ($mesactual == '05') ? "selected" : "" ?>>MAYO</option>
+                    <option id="06" value="06" <?php echo ($mesactual == '06') ? "selected" : "" ?>>JUNIO</option>
+                    <option id="07" value="07" <?php echo ($mesactual == '07') ? "selected" : "" ?>>JULIO</option>
+                    <option id="08" value="08" <?php echo ($mesactual == '08') ? "selected" : "" ?>>AGOSTO</option>
+                    <option id="09" value="09" <?php echo ($mesactual == '09') ? "selected" : "" ?>>SEPTIEMBRE</option>
+                    <option id="10" value="10" <?php echo ($mesactual == '10') ? "selected" : "" ?>>OCTUBRE</option>
+                    <option id="11" value="11" <?php echo ($mesactual == '11') ? "selected" : "" ?>>NOVIEMBRE</option>
+                    <option id="12" value="12" <?php echo ($mesactual == '12') ? "selected" : "" ?>>DICIEMBRE</option>
+
+                  </select>
                 </div>
               </div>
 
               <div class="col-lg-2">
                 <div class="form-group input-group-sm">
-                  <label for="fecha" class="col-form-label">Hasta:</label>
-                  <input type="date" class="form-control" name="final" id="final">
+                  <label for="ejercicio" class="col-form-label">EJERCICIO:</label>
+                  <input type="text" class="form-control" name="ejercicio" id="ejercicio" value="<?php echo $yearactual ?>">
                 </div>
               </div>
 
-              <div class="col-lg-1 align-self-end text-center">
+              <div class="col-lg-2 align-self-end text-center">
                 <div class="form-group input-group-sm">
-                  <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                  <button id="btnconsulta" name="btnconsulta" type="button" class="btn bg-gradient-success btn-ms form-control"><i class="fas fa-search"></i> Consultar</button>
                 </div>
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div class="form-check">
-                <input class="form-check-input" name="cventas" id="cventas" type="checkbox" checked="">
-                <label class="form-check-label">Incluir Ventas con Saldadas</label>
               </div>
             </div>
           </div>
         </div>
-
+        </div>
         <div class="row">
           <div class="col-lg-12">
 
@@ -89,8 +102,8 @@ $message = "";
 
           <div class="row">
             <div class="col-lg-12">
-              <div class="table-responsive">
-                <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
+              <div class="">
+                <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-responsive table-bordered table-condensed w-auto mx-auto" style="width:90%">
                   <thead class="text-center bg-gradient-success">
                     <tr>
                       <th>Folio</th>
@@ -98,10 +111,11 @@ $message = "";
                       <th>Cliente</th>
                       <th>Proyecto</th>
                       <th>Total</th>
-                      <th>Saldo</th>
+                      <th>Saldo Actual</th>
+                      <th>Pgos Ant.</th>
                       <th>Efectivo</th>
-                      <th>Otros Metodo</th>
-
+                      <th>Fiscal</th>
+                      <th>Pgos Post.</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -117,9 +131,10 @@ $message = "";
 
                         <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
                         <td class="text-right"><?php echo "$ " . number_format($dat['saldo'], 2) ?></td>
+                        <td class="text-right"><?php echo "$ " . number_format($dat['pagosant'], 2) ?></td>
                         <td class="text-right"><?php echo "$ " . number_format($dat['efectivo'], 2) ?></td>
                         <td class="text-right"><?php echo "$ " . number_format($dat['facturar'], 2) ?></td>
-
+                        <td class="text-right"><?php echo "$ " . number_format($dat['pagospost'], 2) ?></td>
                         <td></td>
                       </tr>
                     <?php
@@ -244,3 +259,8 @@ $message = "";
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 <script src="http://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>
+
+
+
+
+

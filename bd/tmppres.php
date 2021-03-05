@@ -17,6 +17,7 @@ $iva = (isset($_POST['iva'])) ? $_POST['iva'] : '0';
 $total = (isset($_POST['total'])) ? $_POST['total'] : '0';
 $descuento = (isset($_POST['descuento'])) ? $_POST['descuento'] : '0';
 $gtotal = (isset($_POST['gtotal'])) ? $_POST['gtotal'] : '0';
+$notas = (isset($_POST['notas'])) ? $_POST['notas'] : '';
 
 $concepto = $concepto;
 $ubicacion = $ubicacion;
@@ -44,7 +45,7 @@ switch ($opcion) {
 
         break;
         case 2:
-            $consulta = "UPDATE tmp_pres SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal' WHERE folio_pres='$folio'";
+            $consulta = "UPDATE tmp_pres SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal',notas='$notas' WHERE folio_pres='$folio'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
     

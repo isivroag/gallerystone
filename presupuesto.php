@@ -49,6 +49,7 @@ if ($resultado->rowCount() >= 1) {
     $total = $dt['total'];
     $gtotal = $dt['gtotal'];
     $iva = $dt['iva'];
+    $notas = $dt['notas'];
   }
   if ($idpros != 0) {
     $consultapros = "SELECT nombre,correo FROM prospecto WHERE id_pros='$idpros'";
@@ -91,6 +92,7 @@ if ($resultado->rowCount() >= 1) {
     $total = "0.00";
     $descuento = "0.00";
     $gtotal = "0.00";
+    $notas="";
   }
 }
 
@@ -293,7 +295,16 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                   </div>
 
                 </div>
-
+<!-- modificacion Agregar notas a presupuesto-->
+                <div class="row justify-content-sm-center">
+                  <div class="col-sm-11">
+                  <div class="form-group">
+                      <label for="notas" class="col-form-label">Notas:</label>
+                      <textarea rows="2" class="form-control" name="notas" id="notas"><?php echo $notas; ?></textarea>
+                    </div>
+                  </div>
+                </div>
+<!--fin modificacion agregar notas a presupuesto -->
               </div>
 
 

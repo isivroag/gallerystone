@@ -190,10 +190,10 @@
         </li>
 
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina=='cuentaegr') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina=='cuentaegr' ) ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-dollar-sign "></i>
               <i class=" fas fa-arrow-down "></i>
@@ -205,6 +205,14 @@
           </a>
           <ul class="nav nav-treeview">
 
+            
+          <li class="nav-item">
+              <a href="cntacuentaegr.php" class="nav-link <?php echo ($pagina == 'cuentaegr') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-book nav-icon"></i>
+                <p>Cuentas de Egresos</p>
+              </a>
+            </li>
+            
             <li class="nav-item">
               <a href="cntapartida.php" class="nav-link <?php echo ($pagina == 'partida') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-list-alt nav-icon"></i>
@@ -270,7 +278,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="rptfiscal.php" class="nav-link <?php echo ($pagina == 'resumenventa') ? "active seleccionado" : ""; ?>  ">
+                <a href="rptfiscal.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'resumenventa') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-id-badge nav-icon"></i>
                   <p>Resumen VTA-PAGO</p>
                 </a>

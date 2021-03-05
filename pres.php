@@ -35,6 +35,7 @@ if ($folio != "") {
     $gtotal = $dt['gtotal'];
     $total = $dt['total'];
     $iva = $dt['iva'];
+    $notas = $dt['notas'];
   }
 
   if ($idpros != 0) {
@@ -205,6 +206,17 @@ if ($folio != "") {
                   </div>
 
                 </div>
+
+                <!-- modificacion Agregar notas a presupuesto-->
+                <div class="row justify-content-sm-center">
+                  <div class="col-sm-11">
+                  <div class="form-group">
+                      <label for="notas" class="col-form-label">Notas:</label>
+                      <textarea rows="2" class="form-control" name="notas" id="notas" disabled><?php echo $notas; ?></textarea>
+                    </div>
+                  </div>
+                </div>
+<!--fin modificacion agregar notas a presupuesto -->
 
               </div>
 

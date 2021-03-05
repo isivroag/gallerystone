@@ -455,6 +455,7 @@ $(document).ready(function() {
         descuento = $("#descuento").val();
         gtotal = $("#gtotal").val();
         presupuesto = $("#presupuesto").val();
+        notas = $("#notas").val();
 
         var totalitems = $("#tablaV").DataTable().page.info().recordsTotal;
 
@@ -488,6 +489,7 @@ $(document).ready(function() {
                     total: total,
                     descuento: descuento,
                     gtotal: gtotal,
+                    notas:notas,
                 },
                 success: function(res) {
                     if (res == 0) {
@@ -831,6 +833,7 @@ $(document).ready(function() {
         folio = $("#folio").val();
         proyecto = $("#proyecto").val();
         ubicacion = $("#ubicacion").val();
+        notas = $("#notas").val();
 
         opcion = 2;
 
@@ -846,6 +849,7 @@ $(document).ready(function() {
                 tokenid: tokenid,
                 folio: folio,
                 opcion: opcion,
+                notas:notas
             },
             success: function(res) {
                 if (res == 0) {

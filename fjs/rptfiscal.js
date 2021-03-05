@@ -25,12 +25,13 @@ $(document).ready(function() {
             },
         ],
         stateSave: true,
+        paging: false,
 
         columnDefs: [{
             targets: -1,
             data: null,
             defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm bg-info btnResumen'><i class='fas fa-bars'></i></button></div></div>",
-        }, ],
+        },{width: "25%",targets: 3} ],
 
         //Para cambiar el lenguaje a español
         language: {
@@ -169,7 +170,14 @@ $(document).ready(function() {
                 }
             },
         });
-    }
+    };
+
+    $("#btnconsulta").click(function() {
+        mes = $("#mes").val();
+        ejercicio = $("#ejercicio").val();
+        window.location.href = "rptfiscal.php?mes=" + mes + "&ejercicio="+ejercicio;
+
+    });
 
     function startTime() {
         var today = new Date();
