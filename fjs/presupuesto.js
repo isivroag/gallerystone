@@ -489,7 +489,7 @@ $(document).ready(function() {
                     total: total,
                     descuento: descuento,
                     gtotal: gtotal,
-                    notas:notas,
+                    notas: notas,
                 },
                 success: function(res) {
                     if (res == 0) {

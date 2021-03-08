@@ -27,13 +27,14 @@ foreach ($dt as $row) {
     $iva= $row['iva'];
     $total= $row['total'];
     $gtotal= $row['gtotal'];
+    $notas= $row['notas'];
 }
 
 $consulta = "UPDATE tmp_pres SET estado_pres=2 WHERE folio_pres='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
-$consulta = "UPDATE presupuesto SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',subtotal='$subtotal',tokenid='$tokenid',descuento='$descuento',iva='$iva',total='$total',gtotal='$gtotal' WHERE folio_pres='$foliopres'";
+$consulta = "UPDATE presupuesto SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',subtotal='$subtotal',tokenid='$tokenid',descuento='$descuento',iva='$iva',total='$total',gtotal='$gtotal',notas='$notas' WHERE folio_pres='$foliopres'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 

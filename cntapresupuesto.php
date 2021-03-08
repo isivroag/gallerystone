@@ -54,17 +54,51 @@ $message = "";
         </div>
         <br>
         <div class="container-fluid">
+        <div class="card">
+          <div class="card-header bg-gradient-orange">
+            Filtro por rango de Fecha
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-lg-2">
+                <div class="form-group input-group-sm">
+                  <label for="fecha" class="col-form-label">Desde:</label>
+                  <input type="date" class="form-control" name="inicio" id="inicio">
+                </div>
+              </div>
 
+              <div class="col-lg-2">
+                <div class="form-group input-group-sm">
+                  <label for="fecha" class="col-form-label">Hasta:</label>
+                  <input type="date" class="form-control" name="final" id="final">
+                </div>
+              </div>
+
+              <div class="col-lg-1 align-self-end text-center">
+                <div class="form-group input-group-sm">
+                  <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="form-check">
+                <input class="form-check-input" name="ctodos" id="ctodos" type="checkbox" checked="">
+                <label class="form-check-label">Incluir presupuestos rechazados</label>
+              </div>
+            </div>
+          </div>
+        </div>
           <div class="row">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
+                <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
                   <thead class="text-center bg-gradient-orange">
                     <tr>
                       <th>Folio</th>
                       <th>Fecha</th>
                       <th>Cliente</th>
                       <th>Proyecto</th>
+                      <th>Ubicación</th>
                       <th>Total</th>
                       <th>Estado</th>
                       <th>Acciones</th>
@@ -79,9 +113,13 @@ $message = "";
                         <td><?php echo $dat['fecha_pres'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_pres'] ?></td>
+                        <td><?php echo $dat['ubicacion'] ?></td>
                         <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
-                        <td><?php
-                            switch ($dat['estado_pres']) {
+                        <td><?php echo $dat['estado_pres']?>
+                        
+                        <?php
+                        /*
+                        switch ($dat['estado_pres']) {
                               case 0:
                                 echo "<span class='bg-danger'> RECHAZADO </span>";
                                 break;
@@ -101,11 +139,8 @@ $message = "";
                               case 5:
                                 echo "<span class='bg-lightblue'> EDITADO </span>";
                                 break;
-                            }
-
-
-
-                            ?></td>
+                            }*/?>
+                            </td>
 
 
                         <td></td>

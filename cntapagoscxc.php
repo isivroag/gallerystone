@@ -84,7 +84,7 @@ $message = "";
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
+                                <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px;">
                                     <thead class="text-center bg-gradient-success">
                                         <tr>
                                             <th>Folio Vta</th>
@@ -95,6 +95,11 @@ $message = "";
                                             <th>Concepto</th>
                                             <th>Monto</th>
                                             <th>Metodo</th>
+                                            <th>Sol. Fact</th>
+                                            <th>Facturar</th>
+                                            <th># Fact</th>
+                                            <th>Fecha Fact</th>
+                                            <th>Bloqueo</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -111,7 +116,11 @@ $message = "";
                                                 <td><?php echo $dat['concepto'] ?></td>
                                                 <td class="text-right"><?php echo "$ " . number_format($dat['monto'], 2) ?></td>
                                                 <td><?php echo $dat['metodo'] ?></td>
-
+                                                <td><?php echo $dat['fcliente'] ?></td>
+                                                <td><?php echo $dat['facturado'] ?></td>
+                                                <td><?php echo $dat['factura'] ?></td>
+                                                <td><?php echo $dat['fecha_fact'] ?></td>
+                                                <td><?php echo $dat['seguro_fact'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -180,6 +189,141 @@ $message = "";
                         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
                         <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
                     </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="modal fade" id="modalPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-green">
+                        <h5 class="modal-title" id="exampleModalLabel">Detalle de Pago</h5>
+
+                    </div>
+                    <form id="formPago" action="" method="POST">
+                        <div class="modal-body">
+                            <div class="row justify-content-sm-between my-auto">
+
+                                <div class="col-sm-3 my-auto">
+                                    <div class="form-group input-group-sm">
+                                        <label for="foliovp" class="col-form-label">Folio Venta:</label>
+                                        <input type="text" class="form-control" name="foliopago" id="foliopago" value="" disabled>
+                                        <input type="hidden" class="form-control" name="foliovp" id="foliovp" value="" disabled>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-sm-3 my-auto">
+                                    <div class="form-group input-group-sm">
+                                        <label for="fechavp" class="col-form-label ">Fecha de Pago:</label>
+                                        <input type="date" id="fechavp" name="fechavp" class="form-control text-right" autocomplete="off" value="" placeholder="Fecha">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 bg-gray-light rounded-lg">
+                                    <div class="row d-block">
+                                        <div class="d-flex d-flex justify-content-around">
+                                            <div class=" d-block custom-control custom-checkbox ">
+                                                <input class="custom-control-input" type="checkbox" id="ccliefact" name="ccliefact" value="">
+                                                <label for="ccliefact" class="custom-control-label">Cliente Solicito Fact.</label>
+                                            </div>
+
+                                            <div class="d-block custom-control custom-checkbox ">
+                                                <input class="custom-control-input" type="checkbox" id="facturado" name="facturado" value="">
+                                                <label for="facturado" class="custom-control-label">Facturar</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" name="divfactura" id="divfactura" disabled>
+                                        <div class="col-sm-6">
+                                            <div class="form-group input-group-sm">
+                                                <label for="factura" class="col-form-label">No. Factura:</label>
+                                                <input type="text" class="form-control" name="factura" id="factura" value="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group input-group-sm">
+                                                <label for="fechafact" class="col-form-label ">Fecha de Factura:</label>
+                                                <input type="date" id="fechafact" name="fechafact" class="form-control text-right" autocomplete="off" value="" placeholder="Fecha Factura" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="conceptovp" class="col-form-label">Concepto Pago</label>
+                                        <input type="text" class="form-control" name="conceptovp" id="conceptovp" autocomplete="off" placeholder="Concepto de Pago">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-sm-center">
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="obsvp" class="col-form-label">Observaciones:</label>
+                                        <textarea class="form-control" name="obsvp" id="obsvp" rows="3" autocomplete="off" placeholder="Observaciones"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-sm-end">
+
+                                <div class="col-lg-4 my-auto">
+                                    <div class=" custom-control custom-checkbox ">
+                                        <input class="custom-control-input" type="checkbox" id="bloqueo" name="bloqueo" value="">
+                                        <label for="bloqueo" class="custom-control-label">Bloquear Registro</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label for="montopago" class="col-form-label">Pago:</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-dollar-sign"></i>
+                                            </span>
+
+                                        </div>
+                                        <input type="text" id="montopago" name="montopago" class="form-control text-right" autocomplete="off" placeholder="Monto del Pago" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="input-group-sm">
+                                        <label for="metodo" class="col-form-label">Metodo de Pago:</label>
+
+                                        <select class="form-control" name="metodo" id="metodo">
+                                            <option id="Efectivo" value="Efectivo">Efectivo</option>
+                                            <option id="Transferencia" value="Transferencia">Transferencia</option>
+                                            <option id="Deposito" value="Deposito">Deposito</option>
+                                            <option id="Cheque" value="Cheque">Cheque</option>
+                                            <option id="Tarjeta de Crédito" value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                                            <option id="Tarjeta de Debito" value="Tarjeta de Debito">Tarjeta de Debito</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                            <button type="button" id="btnGuardarvp" name="btnGuardarvp" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                        </div>
                     </form>
                 </div>
             </div>

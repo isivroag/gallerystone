@@ -25,7 +25,7 @@ if ($folio != "") {
 
   foreach ($data as $dt) {
     $folio = $dt['folio_vta'];
-    $folio_pres=$dt['folio_pres'];
+    $folio_pres = $dt['folio_pres'];
 
     $fecha = $dt['fecha_vta'];
     $idclie = $dt['id_clie'];
@@ -109,7 +109,7 @@ if ($folio != "") {
 <link rel="stylesheet" href="plugins/fullcalendar-timegrid/main.min.css">
 <link rel="stylesheet" href="plugins/fullcalendar-bootstrap/main.css">
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="plugns/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
 <!--Datetimepicker Bootstrap -->
@@ -201,7 +201,7 @@ if ($folio != "") {
                   <div class="col-lg-1">
                     <div class="form-group input-group-sm">
                       <label for="folior" class="col-form-label">Folio:</label>
-                      <input type="hidden" class="form-control" name="foliopres" id="foliopres" value="<?php echo   $folio_pres; ?>" >
+                      <input type="hidden" class="form-control" name="foliopres" id="foliopres" value="<?php echo   $folio_pres; ?>">
                       <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>" disabled>
                     </div>
                   </div>
@@ -500,7 +500,7 @@ if ($folio != "") {
 
   <section>
     <div class="modal fade" id="modalPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header bg-gradient-green">
             <h5 class="modal-title" id="exampleModalLabel">Pagos</h5>
@@ -508,23 +508,58 @@ if ($folio != "") {
           </div>
           <form id="formPago" action="" method="POST">
             <div class="modal-body">
-              <div class="row justify-content-sm-between">
+              <div class="row justify-content-sm-between my-auto">
 
-                <div class="col-sm-3">
+                <div class="col-sm-3 my-auto">
                   <div class="form-group input-group-sm">
                     <label for="foliovp" class="col-form-label">Folio Venta:</label>
                     <input type="text" class="form-control" name="foliovp" id="foliovp" value="<?php echo $folio; ?>" disabled>
                   </div>
                 </div>
 
-                <div class="col-sm-3">
+
+
+                <div class="col-sm-3 my-auto">
                   <div class="form-group input-group-sm">
-                    <label for="fechavp" class="col-form-label ">Fecha:</label>
+                    <label for="fechavp" class="col-form-label ">Fecha de Pago:</label>
                     <input type="date" id="fechavp" name="fechavp" class="form-control text-right" autocomplete="off" value="<?php echo date("Y-m-d") ?>" placeholder="Fecha">
                   </div>
                 </div>
+                <div class="col-sm-6 bg-gray-light rounded-lg">
+                  <div class="row d-block">
+                    <div class="d-flex d-flex justify-content-around">
+                      <div class=" d-block custom-control custom-checkbox ">
+                        <input class="custom-control-input" type="checkbox" id="ccliefact" name="ccliefact" value="">
+                        <label for="ccliefact" class="custom-control-label">Cliente Solicito Fact.</label>
+                      </div>
+
+                      <div class="d-block custom-control custom-checkbox ">
+                        <input class="custom-control-input" type="checkbox" id="facturado" name="facturado" value="">
+                        <label for="facturado" class="custom-control-label">Facturar</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" name="divfactura"id="divfactura" disabled>
+                    <div class="col-sm-6">
+                      <div class="form-group input-group-sm">
+                        <label for="factura" class="col-form-label">No. Factura:</label>
+                        <input type="text" class="form-control" name="factura" id="factura" value="<?php echo '0'; ?>" disabled>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group input-group-sm">
+                        <label for="fechafact" class="col-form-label ">Fecha de Factura:</label>
+                        <input type="date" id="fechafact" name="fechafact" class="form-control text-right" autocomplete="off" value="<?php echo date("Y-m-d") ?>" placeholder="Fecha Factura" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
 
               </div>
+
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group input-group-sm">
@@ -573,7 +608,7 @@ if ($folio != "") {
                 <div class="col-lg-4">
                   <div class="input-group-sm">
                     <label for="metodo" class="col-form-label">Metodo de Pago:</label>
-                    
+
                     <select class="form-control" name="metodo" id="metodo">
                       <option id="Efectivo" value="Efectivo">Efectivo</option>
                       <option id="Transferencia" value="Transferencia">Transferencia</option>

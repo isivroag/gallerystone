@@ -288,7 +288,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                   <div class="col-sm-5">
 
                     <div class="form-group">
-                      <label for="ubicacion" class="col-form-label">Ubicación:</label>
+                      <label for="ubicacion" class="col-form-label">Ubicación(Calle,Colonia o Fracc.,Ciudad,Estado):</label>
                       <textarea rows="2" class="form-control" name="ubicacion" id="ubicacion"><?php echo $ubicacion; ?></textarea>
                     </div>
 

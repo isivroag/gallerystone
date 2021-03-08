@@ -109,13 +109,13 @@
         </li>
 
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto') ? "active" : ""; ?>">
             <i class="nav-icon fas fa-grip-horizontal "></i>
             <p>
-              Preventa
+              CRM
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
@@ -138,7 +138,12 @@
                 <p>Presupuestos</p>
               </a>
             </li>
-
+            <li class="nav-item">
+              <a href="rptpresupuestos.php" class="nav-link <?php echo ($pagina == 'rptpresupuesto') ? "active seleccionado" : ""; ?> ">
+                <i class="fas fa-search-plus nav-icon"></i>
+                <p>Consulta de Presupuestos</p>
+              </a>
+            </li>
 
 
           </ul>
