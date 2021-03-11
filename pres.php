@@ -36,6 +36,7 @@ if ($folio != "") {
     $total = $dt['total'];
     $iva = $dt['iva'];
     $notas = $dt['notas'];
+    $vendedor = $dt['vendedor'];
   }
 
   if ($idpros != 0) {
@@ -213,6 +214,16 @@ if ($folio != "") {
                   <div class="form-group">
                       <label for="notas" class="col-form-label">Notas:</label>
                       <textarea rows="2" class="form-control" name="notas" id="notas" disabled><?php echo $notas; ?></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-sm-center">
+                  <div class="col-sm-11">
+                    <div class="form-group">
+                      <label for="vendedor" class="col-form-label">Vendedor:</label>
+                      <input type="text" class="form-control" name="vendedor" id="vendedor" value="<?php echo   $vendedor; ?>" disabled>
+                      </select>
                     </div>
                   </div>
                 </div>

@@ -50,6 +50,7 @@ if ($resultado->rowCount() >= 1) {
     $gtotal = $dt['gtotal'];
     $iva = $dt['iva'];
     $notas = $dt['notas'];
+    $vendedor = $dt['vendedor'];
   }
   if ($idpros != 0) {
     $consultapros = "SELECT nombre,correo FROM prospecto WHERE id_pros='$idpros'";
@@ -92,7 +93,8 @@ if ($resultado->rowCount() >= 1) {
     $total = "0.00";
     $descuento = "0.00";
     $gtotal = "0.00";
-    $notas="";
+    $notas = "";
+    $vendedor = "";
   }
 }
 
@@ -109,6 +111,12 @@ $consultacon = "SELECT * FROM vconceptos WHERE estado_concepto=1 ORDER BY id_con
 $resultadocon = $conexion->prepare($consultacon);
 $resultadocon->execute();
 $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
+
+
+$consultacon = "SELECT * FROM vendedor WHERE estado_vend=1 ORDER BY id_vend";
+$resultadocon = $conexion->prepare($consultacon);
+$resultadocon->execute();
+$datavend = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 
 $consultadet = "SELECT * FROM vdetalle_tmp WHERE folio_pres='$folio' ORDER BY id_reg";
 $resultadodet = $conexion->prepare($consultadet);
@@ -147,7 +155,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
     height: 100%;
     background-color: rgba(60, 60, 60, 0.5);
     display: none;
-    
+
     justify-content: center;
     align-items: center;
     z-index: 3;
@@ -288,25 +296,47 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                   <div class="col-sm-5">
 
                     <div class="form-group">
-                      <label for="ubicacion" class="col-form-label">Ubicación(Calle,Colonia o Fracc.,Ciudad,Estado):</label>
+                      <label for="ubicacion" class="col-form-label">Ubicación(Calle,Num,Colonia o Fracc.,Ciudad,Estado):</label>
                       <textarea rows="2" class="form-control" name="ubicacion" id="ubicacion"><?php echo $ubicacion; ?></textarea>
                     </div>
 
                   </div>
 
                 </div>
-<!-- modificacion Agregar notas a presupuesto-->
+                <!-- modificacion Agregar notas a presupuesto-->
                 <div class="row justify-content-sm-center">
                   <div class="col-sm-11">
-                  <div class="form-group">
+                    <div class="form-group">
                       <label for="notas" class="col-form-label">Notas:</label>
                       <textarea rows="2" class="form-control" name="notas" id="notas"><?php echo $notas; ?></textarea>
                     </div>
                   </div>
                 </div>
-<!--fin modificacion agregar notas a presupuesto -->
-              </div>
 
+
+
+                <!--fin modificacion agregar notas a presupuesto -->
+
+                <!-- modificacion Agregar vendedor a presupuesto-->
+                <div class="row justify-content-sm-center">
+                  <div class="col-sm-11">
+                    <div class="form-group">
+                      <label for="vendedor" class="col-form-label">Vendedor:</label>
+                      <select class="form-control" name="vendedor" id="vendedor" autocomplete="off" placeholder="Vendedor">
+                        <?php
+                        foreach ($datavend as $dtvend) {
+                        ?>
+                          <option id="<?php echo $dtvend['nom_vend'] ?>" value="<?php echo $dtvend['nom_vend'] ?>"> <?php echo $dtvend['nom_vend'] ?></option>
+
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--fin modificacion agregar vendedor a presupuesto -->
 
             </div>
             <!-- Formulario Agrear Item -->

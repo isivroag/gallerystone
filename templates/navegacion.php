@@ -109,10 +109,10 @@
         </li>
 
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto' || $pagina=='vendedores') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto' || $pagina=='vendedores' ) ? "active" : ""; ?>">
             <i class="nav-icon fas fa-grip-horizontal "></i>
             <p>
               CRM
@@ -124,6 +124,13 @@
               <a href="cntaprospecto.php" class="nav-link <?php echo ($pagina == 'prospectos') ? "active seleccionado" : ""; ?>  ">
                 <i class="far fa-user nav-icon"></i>
                 <p>Prospectos</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntavendedor.php" class="nav-link <?php echo ($pagina == 'vendedores') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-user-tie nav-icon"></i>
+                <p>Vendedores</p>
               </a>
             </li>
             <li class="nav-item">

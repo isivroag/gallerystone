@@ -65,7 +65,7 @@ if ($folio != "") {
 
 
 
-  $consultac = "SELECT * FROM cliente order by id_cliente";
+  $consultac = "SELECT * FROM cliente order by id_clie";
   $resultadoc = $conexion->prepare($consultac);
   $resultadoc->execute();
   $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);

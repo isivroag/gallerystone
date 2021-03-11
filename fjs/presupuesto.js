@@ -456,7 +456,8 @@ $(document).ready(function() {
         gtotal = $("#gtotal").val();
         presupuesto = $("#presupuesto").val();
         notas = $("#notas").val();
-
+        vendedor = $("#vendedor").val();
+        console.log(vendedor);
         var totalitems = $("#tablaV").DataTable().page.info().recordsTotal;
 
         var totalterminos = $("#tablaesp").DataTable().page.info().recordsTotal;
@@ -490,6 +491,7 @@ $(document).ready(function() {
                     descuento: descuento,
                     gtotal: gtotal,
                     notas: notas,
+                    vendedor: vendedor
                 },
                 success: function(res) {
                     if (res == 0) {
@@ -834,6 +836,7 @@ $(document).ready(function() {
         proyecto = $("#proyecto").val();
         ubicacion = $("#ubicacion").val();
         notas = $("#notas").val();
+        vendedor=$("#vendedor").val();
 
         opcion = 2;
 
@@ -849,7 +852,8 @@ $(document).ready(function() {
                 tokenid: tokenid,
                 folio: folio,
                 opcion: opcion,
-                notas:notas
+                notas: notas,
+                vendedor: vendedor
             },
             success: function(res) {
                 if (res == 0) {
