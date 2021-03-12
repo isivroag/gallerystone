@@ -25,6 +25,7 @@ foreach ($dt as $row) {
     $total = $row['total'];
     $descuento = $row['descuento'];
     $gtotal = $row['gtotal'];
+    $vendedor = $row['vendedor'];
     
 }
 
@@ -89,7 +90,7 @@ $consulta = "UPDATE presupuesto SET estado_pres=3 WHERE folio_pres='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $fecha=date('Y-m-d');
-$consulta = "INSERT INTO venta (id_clie,fecha_vta,concepto_vta,ubicacion,subtotal,iva,total,tokenid,estado_vta,descuento,gtotal,saldo,folio_pres) VALUES('$id_cliente','$fecha','$concepto','$ubicacion','$subtotal','$iva','$total','$tokenid','1','$descuento','$gtotal','$gtotal','$folio')";
+$consulta = "INSERT INTO venta (id_clie,fecha_vta,concepto_vta,ubicacion,subtotal,iva,total,tokenid,estado_vta,descuento,gtotal,saldo,folio_pres,vendedor) VALUES('$id_cliente','$fecha','$concepto','$ubicacion','$subtotal','$iva','$total','$tokenid','1','$descuento','$gtotal','$gtotal','$folio','$vendedor')";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 

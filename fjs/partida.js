@@ -10,6 +10,9 @@ $(document).ready(function() {
             "targets": -1,
             "data": null,
             "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
+        },
+        {
+            className: "hide_column", targets: [2] 
         }],
 
         //Para cambiar el lenguaje a español
@@ -51,9 +54,11 @@ $(document).ready(function() {
 
         //window.location.href = "actprospecto.php?id=" + id;
         nombre = fila.find('td:eq(1)').text();
+        idcuenta = fila.find('td:eq(2)').text();
 
 
         $("#nombre").val(nombre);
+        $("#cuenta").val(idcuenta);
 
         opcion = 2; //editar
 
@@ -98,6 +103,7 @@ $(document).ready(function() {
     $("#formDatos").submit(function(e) {
         e.preventDefault();
         var nombre = $.trim($("#nombre").val());
+        var cuenta = $.trim($("#cuenta").val());
 
 
 
@@ -114,18 +120,20 @@ $(document).ready(function() {
                 url: "bd/crudpartida.php",
                 type: "POST",
                 dataType: "json",
-                data: { nombre: nombre, id: id, opcion: opcion },
+                data: { nombre: nombre, id: id, opcion: opcion, cuenta: cuenta },
                 success: function(data) {
                     
 
                     //tablaPersonas.ajax.reload(null, false);
                     id = data[0].id_partida;
                     nombre = data[0].nom_partida;
+                    idcuenta = data[0].id_cuentaegr;
+                    cuenta = data[0].nom_cuentaegr;
 
                     if (opcion == 1) {
-                        tablaVis.row.add([id, nombre]).draw();
+                        tablaVis.row.add([id, nombre,idcuenta,cuenta]).draw();
                     } else {
-                        tablaVis.row(fila).data([id, nombre]).draw();
+                        tablaVis.row(fila).data([id, nombre,idcuenta,cuenta]).draw();
                     }
                 }
             });

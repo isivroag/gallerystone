@@ -37,6 +37,7 @@ if ($folio != "") {
     $total = $dt['total'];
     $iva = $dt['iva'];
     $saldo = $dt['saldo'];
+    $vendedor = $dt['vendedor'];
   }
 
   if ($idclie != 0) {
@@ -93,6 +94,7 @@ if ($folio != "") {
   $prospecto = "";
   $correo = "";
   $saldo = "";
+  $vendedor = "";
 }
 
 
@@ -227,6 +229,16 @@ if ($folio != "") {
 
                   </div>
 
+                </div>
+
+                <div class="row justify-content-sm-center">
+                  <div class="col-sm-11">
+                    <div class="form-group">
+                      <label for="vendedor" class="col-form-label">Vendedor:</label>
+                      <input type="text" class="form-control" name="vendedor" id="vendedor" value="<?php echo   $vendedor; ?>" disabled>
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
               </div>

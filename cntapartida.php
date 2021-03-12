@@ -12,10 +12,16 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM partida WHERE estado_partida=1 ORDER BY id_partida";
+$consulta = "SELECT * FROM vpartida WHERE estado_partida=1 ORDER BY id_partida";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+
+$consulta = "SELECT * FROM cuentaegr WHERE estado_cuentaegr=1 ORDER BY id_cuentaegr";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+$datacuenta = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 $message = "";
 
@@ -58,6 +64,8 @@ $message = "";
                                         <tr>
                                             <th>Id</th>
                                             <th>Partida</th>
+                                            <th>Id Cuenta</th>
+                                            <th>Cuenta</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -68,7 +76,8 @@ $message = "";
                                             <tr>
                                                 <td><?php echo $dat['id_partida'] ?></td>
                                                 <td><?php echo $dat['nom_partida'] ?></td>
-
+                                                <td><?php echo $dat['id_cuentaegr'] ?></td>
+                                                <td><?php echo $dat['nom_cuentaegr'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -83,7 +92,7 @@ $message = "";
 
             </div>
             <!-- /.card-body -->
-            
+
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->
@@ -108,6 +117,24 @@ $message = "";
                                     <div class="form-group input-group-sm">
                                         <label for="nombre" class="col-form-label">Partida:</label>
                                         <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Partida">
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="cuenta" class="col-form-label">Cuenta:</label>
+                                        <select class="form-control" name="cuenta" id="cuenta" autocomplete="off" placeholder="Cuenta">
+                                            <?php
+                                            foreach ($datacuenta as $dtvend) {
+                                            ?>
+                                                <option id="<?php echo $dtvend['nom_cuentaegr'] ?>" value="<?php echo $dtvend['id_cuentaegr'] ?>"> <?php echo $dtvend['nom_cuentaegr'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
 
