@@ -91,7 +91,7 @@ $message = "";
           <div class="row">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table name="tablaV" id="tablaV" class=" display table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
+                <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px;">
                   <thead class="text-center bg-gradient-orange">
                     <tr>
                       <th>Folio</th>
@@ -99,9 +99,12 @@ $message = "";
                       <th>Cliente</th>
                       <th>Proyecto</th>
                       <th>Ubicación</th>
+                      <th>Vendedor</th>
+                      <th>Realizado</th>
                       <th>Total</th>
                       <th>Estado</th>
                       <th>Acciones</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
@@ -114,6 +117,8 @@ $message = "";
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_pres'] ?></td>
                         <td><?php echo $dat['ubicacion'] ?></td>
+                        <td><?php echo $dat['vendedor'] ?></td>
+                        <td><?php echo $dat['usuario'] ?></td>
                         <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
                         <td><?php echo $dat['estado_pres']?>
                         

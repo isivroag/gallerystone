@@ -322,11 +322,11 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                   <div class="col-sm-11">
                     <div class="form-group">
                       <label for="vendedor" class="col-form-label">Vendedor:</label>
-                      <select class="form-control" name="vendedor" id="vendedor" autocomplete="off" placeholder="Vendedor">
+                      <select class="form-control" name="vendedor" id="vendedor" autocomplete="off" placeholder="Vendedor" >
                         <?php
                         foreach ($datavend as $dtvend) {
                         ?>
-                          <option id="<?php echo $dtvend['nom_vend'] ?>" value="<?php echo $dtvend['nom_vend'] ?>"> <?php echo $dtvend['nom_vend'] ?></option>
+                          <option id="<?php echo $dtvend['nom_vend'] ?>" value="<?php echo $dtvend['nom_vend'] ?>" <?php echo ($dtvend['nom_vend']==$vendedor?'selected':'')?>> <?php echo $dtvend['nom_vend'] ?></option>
 
                         <?php
                         }

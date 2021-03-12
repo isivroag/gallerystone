@@ -1,7 +1,7 @@
 $(document).ready(function () {
-  var id, opcion;
-  opcion = 4;
-/*
+  var id, opcion
+  opcion = 4
+  /*
   $('#tablaV thead tr').clone(true).appendTo( '#tablaV thead' );
     $('#tablaV thead tr:eq(1) th').each( function (i) {
 
@@ -69,14 +69,11 @@ $(document).ready(function () {
         } );
     } );*/
 
-    
-
   tablaVis = $('#tablaV').DataTable({
     stateSave: false,
     //orderCellsTop: true,
     //fixedHeader: true,
 
-    
     dom:
       "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
       "<'row'<'col-sm-12'tr>>" +
@@ -89,13 +86,14 @@ $(document).ready(function () {
         titleAttr: 'Exportar a Excel',
         title: 'Reporte de Presupuestos',
         className: 'btn bg-success ',
+        orthogonal:'myExport',
         exportOptions: {
-          columns: [0, 1, 2, 3, 4, 5,6],
+          columns: [0, 1, 2, 3, 4, 5, 6,7, 8],
           format: {
             body: function (data, row, column, node) {
               if (column === 5) {
                 return data.replace(/[$,]/g, '')
-              } else if (column === 6) {
+              } else if (column === 8) {
                 switch (data) {
                   case '0':
                     return data.replace(0, 'RECHAZADO')
@@ -117,11 +115,17 @@ $(document).ready(function () {
                     return data.replace('5', 'EDITADO')
                     break
                 }
-              } else {
+              } else if(column === 4 || column === 3){
+                x= data.replace("<div class='text-wrap width-200'>",'');
+                x=x.replace("</div>",'')
+                return x
+              }
+              else {
                 return data
               }
             },
           },
+          
         },
       },
       {
@@ -130,40 +134,40 @@ $(document).ready(function () {
         titleAttr: 'Exportar a PDF',
         title: 'Reporte de Presupuestos',
         className: 'btn bg-danger',
-        exportOptions: { columns: [0, 1, 2, 3, 4, 5,6] },
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6,7, 8] },
+        footer: true,
+        orthogonal: 'myExport',
         format: {
-            body: function (data, row, column, node) {
-              if (column === 6) {
-                switch (data) {
-                  case '0':
-                    return data.replace(0, 'RECHAZADO')
+          body: function (data, row, column, node) {
+            if (column === 8) {
+              switch (data) {
+                case '0':
+                  return data.replace(0, 'RECHAZADO')
 
-                    break
-                  case '1':
-                    return data.replace('1', 'PENDIENTE')
-                    break
-                  case '2':
-                    return data.replace('2', 'ENVIADO')
-                    break
-                  case '3':
-                    return data.replace('3', 'ACEPTADO')
-                    break
-                  case '4':
-                    return data.replace('4', 'EN ESPERA')
-                    break
-                  case '5':
-                    return data.replace('5', 'EDITADO')
-                    break
-                }
-              } else {
-                return data
+                  break
+                case '1':
+                  return data.replace('1', 'PENDIENTE')
+                  break
+                case '2':
+                  return data.replace('2', 'ENVIADO')
+                  break
+                case '3':
+                  return data.replace('3', 'ACEPTADO')
+                  break
+                case '4':
+                  return data.replace('4', 'EN ESPERA')
+                  break
+                case '5':
+                  return data.replace('5', 'EDITADO')
+                  break
               }
-            },
+            } else {
+              return data
+            }
           },
+        },
       },
     ],
-    
-    
 
     columnDefs: [
       {
@@ -171,6 +175,20 @@ $(document).ready(function () {
         data: null,
         defaultContent:
           "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-success btnLlamar'><i class='fas fa-phone'></i></button><button class='btn btn-sm bg-orange  btnhistory'><i class='fas fa-history text-light'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>",
+      },
+      {
+        targets: 3,
+        render: function (data, type, full, meta) {
+          return "<div class='text-wrap width-200'>" + data + '</div>' 
+         //return "<div class='text-wrap width-200'>" + data + '</div>'
+        },
+      },
+      {
+        targets: 4,
+        render: function (data, type, full, meta) {
+          return "<div class='text-wrap width-200'>" + data + '</div>' 
+         //return "<div class='text-wrap width-200'>" + data + '</div>'
+        },
       },
     ],
 
@@ -191,46 +209,42 @@ $(document).ready(function () {
       },
       sProcessing: 'Procesando...',
     },
-   
 
     rowCallback: function (row, data) {
-      $($(row).find('td')['6']).css('color', 'white')
-      $($(row).find('td')['6']).addClass('text-center')
-      $($(row).find('td')['5']).addClass('text-right')
-      $($(row).find('td')['5']).addClass('currency')
+      $($(row).find('td')['8']).css('color', 'white')
+      $($(row).find('td')['8']).addClass('text-center')
+      $($(row).find('td')['7']).addClass('text-right')
+      $($(row).find('td')['7']).addClass('currency')
 
-      if (data[6] == 1) {
+      if (data[8] == 1) {
         //$($(row).find("td")[6]).css("background-color", "warning");
-        $($(row).find('td')[6]).addClass('bg-gradient-warning');
-        $($(row).find('td')['6']).text('PENDIENTE');
-        
-        
-        
-        
-      } else if (data[6] == 2) {
-        //$($(row).find("td")[6]).css("background-color", "blue");
-        $($(row).find('td')[6]).addClass('bg-gradient-primary')
-        $($(row).find('td')['6']).text('ENVIADO')
-      } else if (data[6] == 3) {
-        //$($(row).find("td")[6]).css("background-color", "success");
-        $($(row).find('td')[6]).addClass('bg-gradient-success')
-        $($(row).find('td')['6']).text('ACEPTADO')
-      } else if (data[6] == 4) {
-        //$($(row).find("td")[6]).css("background-color", "purple");
-        $($(row).find('td')[6]).addClass('bg-gradient-purple')
-        $($(row).find('td')['6']).text('EN ESPERA')
-      } else if (data[6] == 5) {
+        $($(row).find('td')[8]).addClass('bg-gradient-warning')
+        $($(row).find('td')['8']).text('PENDIENTE')
+      } else if (data[8] == 2) {
+        //$($(row).find("td")[8]).css("background-color", "blue");
+        $($(row).find('td')[8]).addClass('bg-gradient-primary')
+        $($(row).find('td')['8']).text('ENVIADO')
+      } else if (data[8] == 3) {
+        //$($(row).find("td")[8]).css("background-color", "success");
+        $($(row).find('td')[8]).addClass('bg-gradient-success')
+        $($(row).find('td')['8']).text('ACEPTADO')
+      } else if (data[8] == 4) {
+        //$($(row).find("td")[8]).css("background-color", "purple");
+        $($(row).find('td')[8]).addClass('bg-gradient-purple')
+        $($(row).find('td')['8']).text('EN ESPERA')
+      } else if (data[8] == 5) {
         //$($(row).find("td")[5]).css("background-color", "light-blue");
-        $($(row).find('td')[6]).addClass('bg-lightblue')
-        $($(row).find('td')['6']).text('EDITADO')
+        $($(row).find('td')[8]).addClass('bg-lightblue')
+        $($(row).find('td')['8']).text('EDITADO')
       } else {
         //$($(row).find("td")[5]).css("background-color", "red");
-        $($(row).find('td')[6]).addClass('bg-gradient-danger')
-        $($(row).find('td')['6']).text('RECHAZADO')
-        
+        $($(row).find('td')[8]).addClass('bg-gradient-danger')
+        $($(row).find('td')['8']).text('RECHAZADO')
       }
     },
-/*
+ 
+
+    /*
     "initComplete": function () {
       var api = this.api();
       api.$('td').dblclick( function () {
@@ -238,11 +252,7 @@ $(document).ready(function () {
           api.search( this.innerHTML ).draw();
       } );
   }*/
-
- 
   })
-
-
 
   $('#btnNuevo').click(function () {
     window.location.href = 'presupuesto.php'
