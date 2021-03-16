@@ -405,7 +405,10 @@ $(document).ready(function () {
                 data[i].nombre,
                 data[i].concepto_pres,
                 data[i].ubicacion,
+                data[i].vendedor,
+                data[i].usuario,
                 data[i].gtotal,
+
                 data[i].estado_pres,
               ])
               .draw()
