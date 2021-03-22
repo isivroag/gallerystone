@@ -14,7 +14,8 @@ $(document).ready(function () {
         $( 'input', this ).on( 'keyup change', function () {
           
           if (i==6){
-            switch(this.value){
+
+           /* switch(this.value){
               case 'rechazado':
               case 'Rechazado':
               case 'RECHAZADO':
@@ -52,9 +53,9 @@ $(document).ready(function () {
                 break; 
               default:
                 valbuscar="";
-            }
+            }*/
             
-            
+            valbuscar=this.value;
           }else{
             valbuscar=this.value;
 
@@ -91,7 +92,7 @@ $(document).ready(function () {
                 if (column === 5) {
                   return data.replace(/[$,]/g, '')
                 } else if (column === 6) {
-                  switch (data) {
+                  /*switch (data) {
                     case '0':
                       return data.replace(0, 'RECHAZADO')
   
@@ -111,7 +112,8 @@ $(document).ready(function () {
                     case '5':
                       return data.replace('5', 'EDITADO')
                       break
-                  }
+                  }*/
+                  return data
                 } else {
                   return data
                 }
@@ -129,7 +131,7 @@ $(document).ready(function () {
           format: {
               body: function (data, row, column, node) {
                 if (column === 6) {
-                  switch (data) {
+                  /*switch (data) {
                     case '0':
                       return data.replace(0, 'RECHAZADO')
   
@@ -149,7 +151,8 @@ $(document).ready(function () {
                     case '5':
                       return data.replace('5', 'EDITADO')
                       break
-                  }
+                  }*/
+                  return data
                 } else {
                   return data
                 }
@@ -189,30 +192,30 @@ $(document).ready(function () {
         $($(row).find('td')['5']).addClass('text-right')
         $($(row).find('td')['5']).addClass('currency')
   
-        if (data[6] == 1) {
+        if (data[6] == 'PENDIENTE') {
           //$($(row).find("td")[6]).css("background-color", "warning");
           $($(row).find('td')[6]).addClass('bg-gradient-warning')
-          $($(row).find('td')['6']).text('PENDIENTE')
-        } else if (data[6] == 2) {
+          //$($(row).find('td')['6']).text('PENDIENTE')
+        } else if (data[6] == 'ENVIADO') {
           //$($(row).find("td")[6]).css("background-color", "blue");
           $($(row).find('td')[6]).addClass('bg-gradient-primary')
-          $($(row).find('td')['6']).text('ENVIADO')
-        } else if (data[6] == 3) {
+          //$($(row).find('td')['6']).text('ENVIADO')
+        } else if (data[6] == 'ACEPTADO') {
           //$($(row).find("td")[6]).css("background-color", "success");
           $($(row).find('td')[6]).addClass('bg-gradient-success')
-          $($(row).find('td')['6']).text('ACEPTADO')
-        } else if (data[6] == 4) {
+          //$($(row).find('td')['6']).text('ACEPTADO')
+        } else if (data[6] == 'SEGUIMIENTO') {
           //$($(row).find("td")[6]).css("background-color", "purple");
           $($(row).find('td')[6]).addClass('bg-gradient-purple')
-          $($(row).find('td')['6']).text('EN ESPERA')
-        } else if (data[6] == 5) {
+          //$($(row).find('td')['6']).text('EN ESPERA')
+        } else if (data[6] == 'MODIFICADO') {
           //$($(row).find("td")[5]).css("background-color", "light-blue");
           $($(row).find('td')[6]).addClass('bg-lightblue')
-          $($(row).find('td')['6']).text('EDITADO')
+          //$($(row).find('td')['6']).text('EDITADO')
         } else {
           //$($(row).find("td")[5]).css("background-color", "red");
           $($(row).find('td')[6]).addClass('bg-gradient-danger')
-          $($(row).find('td')['6']).text('RECHAZADO')
+          //$($(row).find('td')['8']).text('RECHAZADO')
         }
       },
 

@@ -12,9 +12,9 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 if ($_SESSION['s_rol'] == '3') {
-  $consulta = "SELECT * FROM vpres where edo_pres=1 order by folio_pres";
+  $consulta = "SELECT * FROM vpres order by folio_pres";
 } else {
-  $consulta = "SELECT * FROM vpres where edo_pres=1 and estado_pres<>0 and estado_pres<>3 order by folio_pres";
+  $consulta = "SELECT * FROM vpres where estado_pres<>0 and estado_pres<>3 order by folio_pres";
 }
 
 $resultado = $conexion->prepare($consulta);
@@ -228,140 +228,6 @@ $message = "";
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
             <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="modal fade" id="modalseguimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog " role="document">
-      <div class="modal-content">
-          <div class="modal-header bg-lightblue">
-            <h5 class="modal-title" id="exampleModalLabel">LLAMADAS DE SEGUIMIENTO</h5>
-
-          </div>
-          <div class="card card-widget" style="margin: 10px;">
-            <form id="formSegumiento" action="" method="POST">
-              <div class="modal-body row">
-
-              <div class="col-sm-6">
-                  <div class="form-group input-group-sm">
-                    <label for="descllamada" class="col-form-label"># LLAMADA:</label>
-                    <input type="text" class="form-control" name="descllamada" id="descllamada" autocomplete="off" placeholder="Llamada" disabled>
-                    <input type="hidden" class="form-control" name="idllamada" id="idllamada" autocomplete="off" placeholder="ID">
-                    <input type="hidden" class="form-control" name="folio_pres" id="folio_pres" autocomplete="off" placeholder="ID_PRES">
-                  </div>
-                </div>
-
-                <div class="col-sm-6">
-                  <div class="form-group input-group-sm">
-                    <label for="fechallamada" class="col-form-label">FECHA SUGERIDA:</label>
-                    <input type="date" class="form-control" name="fechallamada" id="fechallamada" autocomplete="off" placeholder="Fecha Sugerida">
-                    
-                  </div>
-                </div>
-
-
-                <div class="col-sm-12">
-                  <div class="form-group input-group-sm">
-                    <label for="notallamada" class="col-form-label">Notas:</label>
-                    <textarea rows="3" class="form-control" name="notallamada" id="notallamada" placeholder="Notas"></textarea>
-
-                  </div>
-                </div>
-
-
-
-              </div>
-          </div>
-
-
-          <?php
-          if ($message != "") {
-          ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <span class="badge "><?php echo ($message); ?></span>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-
-            </div>
-
-          <?php
-          }
-          ?>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-            <button type="button" id="btnGuardarllamada" name="btnGuardarllamada" class="btn btn-success" value="btnGuardarllamada"><i class="far fa-save"></i> Guardar</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="modal fade" id="modalcierre" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog " role="document">
-      <div class="modal-content">
-          <div class="modal-header bg-purple">
-            <h5 class="modal-title" id="exampleModalLabel">CERRAR LLAMADA DE SEGUIMIENTO</h5>
-
-          </div>
-          <div class="card card-widget" style="margin: 10px;">
-            <form id="formCierre" action="" method="POST">
-              <div class="modal-body row">
-
-              <div class="col-sm-6">
-                  <div class="form-group input-group-sm">
-                    <label for="descllamadac" class="col-form-label"># LLAMADA:</label>
-                    <input type="text" class="form-control" name="descllamadac" id="descllamadac" autocomplete="off" placeholder="Llamada" disabled>
-                    <input type="hidden" class="form-control" name="idllamadac" id="idllamadac" autocomplete="off" placeholder="ID">
-                    <input type="hidden" class="form-control" name="folio_presc" id="folio_presc" autocomplete="off" placeholder="ID_PRES">
-                  </div>
-                </div>
-
-                <div class="col-sm-6">
-                  <div class="form-group input-group-sm">
-                    <label for="fechallamada" class="col-form-label">FECHA ACTUAL:</label>
-                    <input type="date" class="form-control" name="fechallamadac" id="fechallamadac" autocomplete="off" placeholder="Fecha Sugerida" disabled>
-                    
-                  </div>
-                </div>
-
-
-                <div class="col-sm-12">
-                  <div class="form-group input-group-sm">
-                    <label for="notallamadac" class="col-form-label">NOTA DE CIERRE:</label>
-                    <textarea rows="3" class="form-control" name="notallamadac" id="notallamadac" placeholder="Notas"></textarea>
-
-                  </div>
-                </div>
-
-
-
-              </div>
-          </div>
-
-
-          <?php
-          if ($message != "") {
-          ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <span class="badge "><?php echo ($message); ?></span>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-
-            </div>
-
-          <?php
-          }
-          ?>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-            <button type="button" id="btnGuardarCierre" name="btnGuardarCierre" class="btn btn-success" value="btnGuardarCierre"><i class="far fa-save"></i> Guardar</button>
           </div>
           </form>
         </div>

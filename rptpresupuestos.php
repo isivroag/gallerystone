@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 if ($_SESSION['s_rol'] == '3') {
-    $consulta = "SELECT * FROM vpres order by folio_pres";
+    $consulta = "SELECT * FROM vpres where edo_pres=1 order by folio_pres";
 }
 
 $resultado = $conexion->prepare($consulta);
