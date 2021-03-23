@@ -21,7 +21,7 @@ $finsemana = date("Y-m-d",strtotime('next Sunday', time()));
 
 
 
-$consulta = "SELECT * FROM vpres WHERE estado_pres<>'3' AND estado_pres <>'0' order by fecha_pres";
+$consulta = "SELECT * FROM vpres WHERE estado_pres<>'ACEPTADO' AND estado_pres <>'RECHAZADO' order by fecha_pres";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -167,32 +167,7 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                               <td><?php echo $dat['fecha_pres'] ?></td>
                               <td><?php echo $dat['nombre'] ?></td>
                               <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
-                              <td><?php
-                                  switch ($dat['estado_pres']) {
-                                    case 0:
-                                      echo "<span class='bg-danger'> RECHAZADO </span>";
-                                      break;
-
-                                    case 1:
-                                      echo "<span class='bg-warning'> PENDIENTE </span>";
-                                      break;
-                                    case 2:
-                                      echo "<span class='bg-primary'> ENVIADO </span>";
-                                      break;
-                                    case 3:
-                                      echo "<span class='bg-success'> ACEPTADO </span>";
-                                      break;
-                                    case 4:
-                                      echo "<span class='bg-purple'> EN ESPERA </span>";
-                                      break;
-                                    case 5:
-                                      echo "<span class='bg-lightblue'> EDITADO </span>";
-                                      break;
-                                  }
-
-
-
-                                  ?></td>
+                              <td><?php echo $dat['estado_pres']?></td>
                               <td></td>
                             </tr>
                           <?php

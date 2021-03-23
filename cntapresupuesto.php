@@ -29,7 +29,38 @@ $message = "";
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<style>
+.swal-wide{
+    width:850px !important;
+}
 
+td.details-control {
+    background: url('img/details_open.png') no-repeat center center ;
+
+    cursor: pointer;
+}
+tr.details td.details-control {
+    background: url('img/details_close.png') no-repeat center center;
+
+    
+}
+.borderless td,
+    .borderless th {
+        border: none;
+    }
+    .bg1{
+      background-color: rgba(25,151,6,.6)!important;
+      color: white;
+    }
+    .bg2{
+      background-color: rgba(52,78,253,.85)!important;
+      color: white;
+    }
+    .bg3{
+      background-color: rgba(79,3,210,.6)!important;
+      color: white;
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -91,9 +122,10 @@ $message = "";
           <div class="row">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px;">
+                <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto " style="font-size:15px;">
                   <thead class="text-center bg-gradient-orange">
                     <tr>
+                    <th></th>
                       <th>Folio</th>
                       <th>Fecha</th>
                       <th>Cliente</th>
@@ -103,6 +135,7 @@ $message = "";
                       <th>Realizado</th>
                       <th>Total</th>
                       <th>Estado</th>
+                      <th>CRM</th>
                       <th>Acciones</th>
                       
                     </tr>
@@ -111,7 +144,8 @@ $message = "";
                     <?php
                     foreach ($data as $dat) {
                     ?>
-                      <tr>
+                      <tr class="">
+                        <td></td>
                         <td><?php echo $dat['folio_pres'] ?></td>
                         <td><?php echo $dat['fecha_pres'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
@@ -149,6 +183,7 @@ $message = "";
 
 
                         <td></td>
+                        <td></td>
                       </tr>
                     <?php
                     }
@@ -174,8 +209,8 @@ $message = "";
     <div class="modal fade" id="modalcall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog " role="document">
         <div class="modal-content">
-          <div class="modal-header bg-gradient-primary">
-            <h5 class="modal-title" id="exampleModalLabel">NUEVO PROSPECTO</h5>
+          <div class="modal-header bg-gradient-danger">
+            <h5 class="modal-title" id="exampleModalLabel">PRESUÑUESTO RECHAZADO</h5>
 
           </div>
           <div class="card card-widget" style="margin: 10px;">
@@ -186,13 +221,8 @@ $message = "";
                 <div class="col-sm-12">
                   <div class="form-group input-group-sm">
                     <label for="estado" class="col-form-label">Estado:</label>
-
                     <select class="form-control" name="estado" id="estado">
-
-                      <option id="4" value="4"> En Espera</option>
                       <option id="0" value="0"> Rechazado</option>
-
-
                     </select>
 
                   </div>
@@ -294,7 +324,7 @@ $message = "";
           ?>
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-            <button type="button" id="btnGuardarllamada" name="btnGuardarllamada" class="btn btn-success" value="btnGuardarllamada"><i class="far fa-save"></i> Guardar</button>
+            <button type="button" id="btnGllamada" name="btnGllamada" class="btn btn-success" ><i class="far fa-save"></i> Guardar</button>
           </div>
           </form>
         </div>
@@ -325,7 +355,7 @@ $message = "";
 
                 <div class="col-sm-6">
                   <div class="form-group input-group-sm">
-                    <label for="fechallamada" class="col-form-label">FECHA ACTUAL:</label>
+                    <label for="fechallamadac" class="col-form-label">FECHA ACTUAL:</label>
                     <input type="date" class="form-control" name="fechallamadac" id="fechallamadac" autocomplete="off" placeholder="Fecha Sugerida" disabled>
                     
                   </div>
@@ -361,7 +391,7 @@ $message = "";
           ?>
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-            <button type="button" id="btnGuardarCierre" name="btnGuardarCierre" class="btn btn-success" value="btnGuardarCierre"><i class="far fa-save"></i> Guardar</button>
+            <button type="button" id="btnGCierre" name="btnGCierre" class="btn btn-success" ><i class="far fa-save"></i> Guardar</button>
           </div>
           </form>
         </div>

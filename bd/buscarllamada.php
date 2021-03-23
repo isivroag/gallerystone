@@ -12,7 +12,7 @@
  
  
  
- $consulta = "SELECT * FROM llamadapres where folio_pres='$folio' and estado_llamada=1";
+ $consulta = "SELECT * FROM llamadapres where folio_pres='$folio' and estado_llamada=1 order by id_llamada";
  $resultado = $conexion->prepare($consulta);
  $resultado->execute();
  $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

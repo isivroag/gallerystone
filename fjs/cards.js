@@ -3,7 +3,38 @@ $(document).ready(function() {
     opcion = 4;
 
     tablaVis = $("#tablaV").DataTable({
-
+        rowCallback: function (row, data) {
+            $($(row).find('td')['4']).css('color', 'white')
+            $($(row).find('td')['4']).addClass('text-center')
+            $($(row).find('td')['3']).addClass('text-right')
+            $($(row).find('td')['3']).addClass('currency')
+      
+            if (data[4] == 'PENDIENTE') {
+              //$($(row).find("td")[6]).css("background-color", "warning");
+              $($(row).find('td')[4]).addClass('bg-gradient-warning')
+              //$($(row).find('td')['4']).text('PENDIENTE')
+            } else if (data[4] == 'ENVIADO') {
+              //$($(row).find("td")[4]).css("background-color", "blue");
+              $($(row).find('td')[4]).addClass('bg-gradient-primary')
+              //$($(row).find('td')['4']).text('ENVIADO')
+            } else if (data[4] == 'ACEPTADO') {
+              //$($(row).find("td")[4]).css("background-color", "success");
+              $($(row).find('td')[4]).addClass('bg-gradient-success')
+              //$($(row).find('td')['4']).text('ACEPTADO')
+            } else if (data[4] == 'SEGUIMIENTO') {
+              //$($(row).find("td")[4]).css("background-color", "purple");
+              $($(row).find('td')[4]).addClass('bg-gradient-purple')
+              //$($(row).find('td')['4']).text('EN ESPERA')
+            } else if (data[4] == 'MODIFICADO') {
+              //$($(row).find("td")[5]).css("background-color", "light-blue");
+              $($(row).find('td')[4]).addClass('bg-lightblue')
+              //$($(row).find('td')['4']).text('EDITADO')
+            } else {
+              //$($(row).find("td")[5]).css("background-color", "red");
+              $($(row).find('td')[4]).addClass('bg-gradient-danger')
+              //$($(row).find('td')['8']).text('RECHAZADO')
+            }
+          },
 
 
 
@@ -32,7 +63,8 @@ $(document).ready(function() {
         stateSave: true,
         info: false,
 
-    });
+    },
+    );
 
     $(document).on("click", ".btnEditar", function() {
         fila = $(this).closest("tr");

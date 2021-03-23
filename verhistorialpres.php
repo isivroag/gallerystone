@@ -16,7 +16,7 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 
 
-$consulta = "SELECT * FROM presupuesto";
+$consulta = "SELECT * FROM vpres";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 if ($resultado->rowCount() >= 1) {
@@ -37,7 +37,16 @@ $resultado->execute();
 $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
-
+<style>
+.titulo{
+  color: white!important;
+  font-size: 15px;
+  font-weight: bold;
+}
+.bg-yellow, .bg-yellow>a {
+    color: white !important;
+}
+  </style>
 
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -48,14 +57,14 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
   <!-- Main content -->
   <div class="card">
   <div class="card-header bg-gradient-orange text-light">
-        <h1 class="card-title mx-auto">Historial dePresupuestos</h1>
+        <h1 class="card-title mx-auto">Historial de Presupuestos</h1>
       </div>
 
     <div class="card-body">
 
       <!-- Timelime example  -->
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row justify-content-center">
+        <div class="col-sm-6">
           <!-- The time line -->
           <div class="timeline">
 
@@ -72,8 +81,8 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                   echo "</div>";
                   echo "<div>";
                   echo "<i class='fas fa-times-circle bg-danger'></i>";
-                  echo "<div class='timeline-item'>";
-                  echo "<h3 class='timeline-header'><a href='#'>Rechazado Por: " .$dt2['usuario']." </a>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "<div class='timeline-item bg-danger text-light'>";
+                  echo "<h3 class='timeline-header titulo'>RECHAZADO:" .$dt2['usuario']."<br> " . $opcion = $dt2['nota'] . "</h3>";
                   echo "</div>";
                   echo "</div>";
 
@@ -82,12 +91,12 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 case 1:
                   
                   echo "<div class='time-label'>";
-                  echo "<span class='bg-warning'>" . $dt2['fecha'] . "</span>";
+                  echo "<span class='text-light bg-yellow '>" . $dt2['fecha'] . "</span>";
                   echo "</div>";
-                  echo "<div>";
-                  echo "<i class='fas fa-keyboard bg-warning'></i>";
-                  echo "<div class='timeline-item'>";
-                  echo "<h3 class='timeline-header'><a href='#'>Creado Por: " .$dt2['usuario']." </a><br>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "<div class='text-light'>";
+                  echo "<i class='fas fa-keyboard text-light bg-yellow '></i>";
+                  echo "<div class='timeline-item bg-yellow text-light'>";
+                  echo "<h3 class='timeline-header titulo'>CREADO: " .$dt2['usuario']." <br>" . $opcion = $dt2['nota'] . "</h3>";
                   echo "</div>";
                   echo "</div>";
                   break;
@@ -98,8 +107,8 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                   echo "</div>";
                   echo "<div>";
                   echo "<i class='fas fa-envelope bg-blue'></i>";
-                  echo "<div class='timeline-item'>";
-                  echo "<h3 class='timeline-header'><a href='#'>Enviado Por: " .$dt2['usuario']." </a><br>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "<div class='timeline-item bg-primary text-light'>";
+                  echo "<h3 class='timeline-header titulo'>ENVIADO: " .$dt2['usuario']." <br>" . $opcion = $dt2['nota'] . "</h3>";
                   echo "</div>";
                   echo "</div>";
                   break;
@@ -110,8 +119,8 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                   echo "</div>";
                   echo "<div>";
                   echo "<i class='fas fa-dollar-sign bg-success'></i>";
-                  echo "<div class='timeline-item'>";
-                  echo "<h3 class='timeline-header'><a href='#'>Aceptado Por: " .$dt2['usuario']." </a><br>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "<div class='timeline-item bg-success text-light'>";
+                  echo "<h3 class='timeline-header titulo'>ACEPTADO: " .$dt2['usuario']." <br>" . $opcion = $dt2['nota'] . "</h3>";
                   echo "</div>";
                   echo "</div>";
                   break;
@@ -122,8 +131,8 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                   echo "</div>";
                   echo "<div>";
                   echo "<i class='fas fa-pause-circle bg-purple'></i>";
-                  echo "<div class='timeline-item'>";
-                  echo "<h3 class='timeline-header'><a href='#'>En Espera Por: " .$dt2['usuario']." </a><br>" . $opcion = $dt2['nota'] . "</h3>";
+                  echo "<div class='timeline-item bg-purple'>";
+                  echo "<h3 class='timeline-header titulo'>SEGUIMIENTO: " .$dt2['usuario']." <br>" . $opcion = $dt2['nota'] . "</h3>";
                   echo "</div>";
                   echo "</div>";
                   break;
@@ -135,8 +144,8 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                     echo "</div>";
                     echo "<div>";
                     echo "<i class='fas fa-edit bg-lightblue'></i>";
-                    echo "<div class='timeline-item'>";
-                    echo "<h3 class='timeline-header'><a href='#'>Editado Por: " .$dt2['usuario']." </a><br>" . $opcion = $dt2['nota'] . "</h3>";
+                    echo "<div class='timeline-item bg-lightblue'>";
+                    echo "<h3 class='timeline-header titulo'>MODIFICADO: " .$dt2['usuario']." <br>" . $opcion = $dt2['nota'] . "</h3>";
                     echo "</div>";
                     echo "</div>";
                     break;

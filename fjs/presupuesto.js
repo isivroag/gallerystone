@@ -525,7 +525,7 @@ $(document).ready(function() {
                                         folio = res;
 
                                         estado = "1";
-                                        nota = "Creacion";
+                                        nota = "CREACIÓN";
                                         fecha = $("#fecha").val();
                                         usuario = $("#nameuser").val();
 
@@ -573,7 +573,7 @@ $(document).ready(function() {
                                         folio = res;
 
                                         estado = "5";
-                                        nota = "Modificacón";
+                                        nota = "MODIFICACIÓN";
                                         fecha = $("#fecha").val();
                                         usuario = $("#nameuser").val();
 

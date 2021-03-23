@@ -19,7 +19,7 @@ $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
-    case 1: //alta
+    case 1: //llamada 1
         $data=0;
         $consulta = "INSERT INTO llamadapres(folio_pres,id_llamada,desc_llamada,fecha_llamada,nota_ant) VALUES('$folio','$id_llamada','$desc_llamada','$fecha_llamada','$nota_ant') ";			
         $resultado = $conexion->prepare($consulta);
@@ -43,10 +43,64 @@ switch($opcion){
 
         
         break;
-    case 2: //modificación
+    case 2: //llamada 2
+
+        $data=0;
+        $anterior=$id_llamada-1;
+        $consulta = "UPDATE llamadapres SET estado_llamada=0 WHERE folio_pres='$folio' and id_llamada='$anterior' ";			
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $data=1;
+        };
+
+        $consulta = "INSERT INTO llamadapres(folio_pres,id_llamada,desc_llamada,fecha_llamada,nota_ant) VALUES('$folio','$id_llamada','$desc_llamada','$fecha_llamada','$nota_ant') ";			
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $data+=1;
+        };
+        
+
+        $consulta = "UPDATE presupuesto set estado_pres='4' where folio_pres='$folio'";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $data+=1;
+        };
+        $nota="SEGUIMIENTO DE PRESUPUESTO:".$desc_llamada." PROGRAMADA PARA ".$fecha_llamada;
+        $consulta = "INSERT INTO notaspres (folio_pres,fecha,estado,nota,usuario) VALUES('$folio','$fecha','4','$nota','$usuario') ";
+        $resultado = $conexion->prepare($consulta);
+        if(        $resultado->execute()){
+            $data+=1;
+        }
         
         break;        
-    case 3://baja
+    case 3: //llamada 3
+        $data=0;
+        $anterior=$id_llamada-1;
+        $consulta = "UPDATE llamadapres SET estado_llamada=0 WHERE folio_pres='$folio' and id_llamada='$anterior' ";		
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $data=1;
+        };
+        
+        $consulta = "INSERT INTO llamadapres(folio_pres,id_llamada,desc_llamada,fecha_llamada,nota_ant) VALUES('$folio','$id_llamada','$desc_llamada','$fecha_llamada','$nota_ant') ";			
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $data=1;
+        };
+        
+
+        $consulta = "UPDATE presupuesto set estado_pres='4' where folio_pres='$folio'";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $data+=1;
+        };
+        $nota="SEGUIMIENTO DE PRESUPUESTO:".$desc_llamada." PROGRAMADA PARA ".$fecha_llamada;
+        $consulta = "INSERT INTO notaspres (folio_pres,fecha,estado,nota,usuario) VALUES('$folio','$fecha','4','$nota','$usuario') ";
+        $resultado = $conexion->prepare($consulta);
+        if(        $resultado->execute()){
+            $data+=1;
+        }
+        break;
 
     }
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
