@@ -1,5 +1,10 @@
 <?php
-  include_once ('bd/cookie.php');
+$inicio=1;
+if ($inicio==0){
+  header("Location:index.html");
+  exit();
+}
+include_once ('bd/cookie.php');
 
 
 $pagina="home";
@@ -17,7 +22,7 @@ if(isset($_SESSION["s_usuario"])){
   <title>Gallery Stone | Entrar</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <link rel="shortcut icon" href="img/favicon.ico">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->

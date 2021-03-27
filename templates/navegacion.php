@@ -109,10 +109,10 @@
         </li>
 
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto' || $pagina=='vendedores') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto' || $pagina=='vendedores' || $pagina == 'seguimiento') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto' || $pagina=='vendedores' ) ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina=='rptpresupuesto' || $pagina=='vendedores' || $pagina == 'seguimiento' ) ? "active" : ""; ?>">
             <i class="nav-icon fas fa-grip-horizontal "></i>
             <p>
               CRM
@@ -149,6 +149,13 @@
               <a href="rptpresupuestos.php" class="nav-link <?php echo ($pagina == 'rptpresupuesto') ? "active seleccionado" : ""; ?> ">
                 <i class="fas fa-search-plus nav-icon"></i>
                 <p>Consulta de Presupuestos</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="seguimiento.php" class="nav-link <?php echo ($pagina == 'seguimiento') ? "active seleccionado" : ""; ?> ">
+                <i class="fas fa-phone-square nav-icon"></i>
+                <p>Seguimiento</p>
               </a>
             </li>
 
