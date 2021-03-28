@@ -31,9 +31,29 @@ $resultado1 = $conexion->prepare($consulta1);
 $resultado1->execute();
 $data2 = $resultado1->fetchAll(PDO::FETCH_ASSOC);
 
+$consulta2 = "SELECT * FROM vllamada WHERE fecha_llamada > '$finsemana' ORDER BY fecha_llamada";
+$resultado2 = $conexion->prepare($consulta2);
+$resultado2->execute();
+$data3 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
+
 
 
 ?>
+
+<style>
+  .bg1{
+      background-color: rgba(25,151,6,.6)!important;
+      color: white;
+    }
+    .bg2{
+      background-color: rgba(52,78,253,.85)!important;
+      color: white;
+    }
+    .bg3{
+      background-color: rgba(79,3,210,.6)!important;
+      color: white;
+    }
+</style>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <!-- Content Wrapper. Contains page content -->
@@ -146,12 +166,70 @@ $data2 = $resultado1->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $dat2['folio_pres'] ?></td>
                                                 <td><?php echo $dat2['fecha_pres'] ?></td>
                                                 <td><?php echo $dat2['nombre'] ?></td>
-                                                <td><?php echo $dat['cel'] ?></td>
-                                                <td><?php echo $dat['tel'] ?></td>
+                                                <td><?php echo $dat2['cel'] ?></td>
+                                                <td><?php echo $dat2['tel'] ?></td>
                                                 <td><?php echo $dat2['concepto_pres'] ?></td>
                                                 <td><?php echo $dat2['desc_llamada'] ?></td>
                                                 <td><?php echo $dat2['fecha_llamada'] ?></td>
                                                 <td><?php echo $dat2['nota_ant'] ?> </td>
+
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-body">
+                <div class="card-header bg-lightblue text-light text-center">
+                    <div class="text-center">
+                        <h4 class="card-title ">LLAMADAS PROGRAMADAS PARA FECHAS POSTERIORES AL <?php echo  $finsemana; ?></h4>
+                    </div>
+
+                </div>
+
+
+                <br>
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table name="tablaC" id="tablaC" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
+                                    <thead class="text-center bg-lightblue">
+                                        <tr>
+                                            <th>Folio</th>
+                                            <th>Fecha</th>
+                                            <th>Cliente</th>
+                                            <th>Tel. Movil</th>
+                                            <th>Tel. Fijo</th>
+                                            <th>Proyecto</th>
+                                            <th># Llamada</th>
+                                            <th>Fecha Programada</th>
+                                            <th>Nota</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($data3 as $dat3) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $dat3['folio_pres'] ?></td>
+                                                <td><?php echo $dat3['fecha_pres'] ?></td>
+                                                <td><?php echo $dat3['nombre'] ?></td>
+                                                <td><?php echo $dat3['cel'] ?></td>
+                                                <td><?php echo $dat3['tel'] ?></td>
+                                                <td><?php echo $dat3['concepto_pres'] ?></td>
+                                                <td><?php echo $dat3['desc_llamada'] ?></td>
+                                                <td><?php echo $dat3['fecha_llamada'] ?></td>
+                                                <td><?php echo $dat3['nota_ant'] ?> </td>
 
                                             </tr>
                                         <?php
