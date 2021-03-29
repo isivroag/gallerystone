@@ -1,7 +1,7 @@
 <?php
 $inicio=1;
-if ($inicio==0){
-  header("Location:index.html");
+if ($inicio==1){
+  header("Location:mantenimiento.html");
   exit();
 }
 include_once ('bd/cookie.php');

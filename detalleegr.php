@@ -21,7 +21,10 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 $message = "";
-
+$total = 0;
+foreach ($data as $reg) {
+    $total += $reg['total'];
+}
 
 
 ?>
@@ -39,14 +42,22 @@ $message = "";
 
         <!-- Default box -->
         <div class="card ">
-            <div class="card-header bg-green">
+            <div class="card-header bg-gradient-purple">
                 <h4 class="card-title text-center">DETALLE DE EGRESOS POR <b> <?php echo $concepto?></b> </h4>
             </div>
 
             <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-12">
+            <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4">
+                                <h4>CONCEPTO: <b> <?php echo $concepto ?></b></h4>
 
+                            </div>
+                            <div class="col-sm-2">
+                                <h4>MONTO:<b><?php echo "$ " . number_format($total, 2) ?></b></h4>
+                            </div>
+                        </div>
                         <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
                     </div>
                 </div>
@@ -57,7 +68,7 @@ $message = "";
                         <div class="col-lg-12">
                             <div class="table-responsive">
                                 <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
-                                    <thead class="text-center bg-gradient-success">
+                                    <thead class="text-center bg-purple">
                                         <tr>
                                             <th>Folio CXP</th>
                                             <th>Proveedor</th>
@@ -87,6 +98,23 @@ $message = "";
                     </div>
                 </div>
 
+            </div>
+
+            <div class="card-footer bg-gradient-purple">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4">
+                                <h4>CONCEPTO: <b> <?php echo $concepto ?></b></h4>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <h4>MONTO:<b><?php echo "$ " . number_format($total, 2) ?></b></h4>
+                            </div>
+                        </div>
+                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                    </div>
+                </div>
             </div>
             <!-- /.card-body -->
 

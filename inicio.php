@@ -21,32 +21,70 @@ $finsemana = date("Y-m-d",strtotime('next Sunday', time()));
 
 
 
-$consulta = "SELECT * FROM vpres WHERE estado_pres<>'ACEPTADO' AND estado_pres <>'RECHAZADO' order by fecha_pres";
+$consulta = "SELECT * FROM vpres WHERE estado_pres<>'ACEPTADO' AND estado_pres <>'RECHAZADO' AND edo_pres=1 order by fecha_pres";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+$totalpres=0;
+$montpres=0;
+foreach($data as $regd){
+  $totalpres+=1;
+  $montpres+=$regd['gtotal'];
+}
 
-$consultac = "SELECT * FROM viewcitav WHERE (DATE(fecha)between'$iniciosemana' and '$finsemana') and estado_citav='1' order by fecha";
+$consultav = "SELECT * FROM vventa WHERE estado_vta=1";
+$resultadov = $conexion->prepare($consultav);
+$resultadov->execute();
+$datav = $resultadov->fetchAll(PDO::FETCH_ASSOC);
+
+$totalvta=0;
+$montvta=0;
+foreach($datav as $regv){
+  $totalvta+=1;
+  $montvta+=$regv['gtotal'];
+}
+
+
+
+$consultac = "SELECT * FROM viewcitav WHERE (DATE(fecha)between '$iniciosemana' and '$finsemana') and estado_citav='1' order by fecha";
 
 $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
+
+date_default_timezone_set('America/Mexico_City');
+
+    $mesarreglo=array("","ENERO",
+    "FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");
+    $mesactual = $mesarreglo[date('n')];
+
+$m=date("m");
+$y=date("Y");
+$consultaing="SELECT SUM(monto) AS monto FROM vpagocxc WHERE month(fecha)='$m' AND YEAR(fecha)='$y' AND estado_pagocxc=1";
+$resultadoing = $conexion->prepare($consultaing);
+$resultadoing->execute();
+$dataing = $resultadoing->fetchAll(PDO::FETCH_ASSOC);
+
+
+$totaling=0;
+foreach($dataing as $reging){
+  $totaling+=$reging['monto'];
+  
+}
+
+
+
 ?>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
+  <section class="container-fluid card">
+  <div class="card-header bg-gradient-orange">
           <h1>ERP GALLERY STONE</h1>
         </div>
-
-      </div>
-    </div><!-- /.container-fluid -->
   </section>
 
   <!-- Main content -->
@@ -54,20 +92,20 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
     <div class="container-fluid">
       <!--CARDS ENCABEZADO -->
 
-      <!--
+    
       <div class="row">
         <div class="col-lg-3 col-6">
          
-          <div class="small-box bg-info">
+          <div class="small-box bg-gradient-orange text-white">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?php echo $totalpres?></h3>
 
-              <p>New Orders</p>
+              <p># PRESUPUESTOS ACTIVOS</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fas fa-money-check-alt "></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="cntapresupuesto.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
        
@@ -75,49 +113,49 @@ $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
          
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3><?php echo $totalvta?></h3>
 
-              <p>Bounce Rate</p>
+              <p># VENTAS DE <?php echo $mesactual ?></p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fas fa-cash-register"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="cntaventa.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
        
         <div class="col-lg-3 col-6">
        
-          <div class="small-box bg-warning">
+          <div class="small-box bg-gradient-warning text-white">
             <div class="inner">
-              <h3>44</h3>
+              <h3><?php echo "$".number_format($montpres,2)?></h3>
 
-              <p>User Registrations</p>
+              <p>MONTO DE PRESUPUESTOS ACTIVOS</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="fas fa-search-dollar"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="cntapresupuesto.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
        
         <div class="col-lg-3 col-6">
      
-          <div class="small-box bg-danger">
+          <div class="small-box bg-primary">
             <div class="inner">
-              <h3>65</h3>
+              <h3><?php echo "$".number_format($totaling,2)?></h3>
 
-              <p>Unique Visitors</p>
+              <p>INGRESOS DEL MES</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+            <i class="fas fa-dollar-sign"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="cntapagoscxc.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
        
       </div>
--->
+
       <div class="row justify-content-center">
         <!-- Left col -->
         <div class="col-lg-8">

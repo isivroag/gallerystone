@@ -258,8 +258,7 @@
         </li>
 
 
-        <?php if ($_SESSION['s_rol'] == '3') {
-        ?>
+       
           <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa") ? "menu-open" : ""; ?>">
 
 
@@ -281,7 +280,8 @@
                   <p>Resultados</p>
                 </a>
               </li>
-
+              <?php if ($_SESSION['s_rol'] == '3') {
+        ?>
               <li class="nav-item">
                 <a href="cntaprospres.php" class="nav-link <?php echo ($pagina == 'seguimientopres') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-id-badge nav-icon"></i>
@@ -302,12 +302,12 @@
                   <p>Resumen VTA-PAGO</p>
                 </a>
               </li>
-
-            </ul>
-          </li>
-        <?php
+              <?php
         }
         ?>
+            </ul>
+          </li>
+       
         <?php if ($_SESSION['s_rol'] == '3') {
         ?>
           <hr class="sidebar-divider">

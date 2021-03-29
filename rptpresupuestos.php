@@ -12,8 +12,13 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 if ($_SESSION['s_rol'] == '3') {
-    $consulta = "SELECT * FROM vpres where edo_pres=1 order by folio_pres";
+    $consulta = "SELECT * FROM vpres where edo_pres='1' order by folio_pres";
 }
+else
+{
+    $consulta = "SELECT * FROM vpres where edo_pres='1' order by folio_pres";
+}
+
 
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
@@ -148,6 +153,7 @@ $message = "";
                                     <tfoot>
                                         <tr>
                                             <th colspan="5" class="currency" style="text-align:right">Total:</th>
+                                            <th class="text-right"></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>

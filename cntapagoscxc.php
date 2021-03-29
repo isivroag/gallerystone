@@ -110,7 +110,7 @@ $message = "";
                                             <tr>
                                                 <td><?php echo $dat['folio_vta'] ?></td>
                                                 <td><?php echo $dat['cliente'] ?></td>
-                                                <td><?php echo $dat['concepto_vta'] ?></td>
+                                                <td ><?php echo $dat['concepto_vta'] ?></td>
                                                 <td><?php echo $dat['folio_pagocxc'] ?></td>
                                                 <td><?php echo $dat['fecha'] ?></td>
                                                 <td><?php echo $dat['concepto'] ?></td>
@@ -129,9 +129,11 @@ $message = "";
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="6" class="currency" style="text-align:right">Total:</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th colspan="6" class="currency text-right" style="text-align:right">Total:</th>
+                                            <th class="text-right "></th>
+                                            <th colspan="7"></th>
+                                            
+                                            
                                         </tr>
                                     </tfoot>
                                 </table>

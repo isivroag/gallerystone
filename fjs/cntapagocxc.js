@@ -25,7 +25,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a PDF',
         title: 'Reporte de Cobranza',
         className: 'btn bg-danger',
-        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] },
+        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
       },
     ],
     stateSave: true,
@@ -42,6 +42,12 @@ $(document).ready(function () {
           return "<div class='text-wrap width-200'>" + data + '</div>'
         },
         targets: 2,
+      },
+      {
+        render: function (data, type, full, meta) {
+          return "<div class='text-wrap width-200'>" + data + '</div>'
+        },
+        targets: 5,
       },
       {
         targets: 8,
@@ -72,7 +78,10 @@ $(document).ready(function () {
             return '<div class="text-center"><img src="img/unlock.png"></img></div>'
           }
         },
+        
       },
+     
+    
     ],
 
     //Para cambiar el lenguaje a español
@@ -121,7 +130,7 @@ $(document).ready(function () {
 
       // Update footer
       $( api.column( 6 ).footer() ).html(
-          '$'+ new Intl.NumberFormat('es-MX').format(Math.round((pageTotal + Number.EPSILON) * 100) / 100) 
+          '$'+ new Intl.NumberFormat('es-MX').format(Math.round((pageTotal + Number.EPSILON) * 100) / 100) +"($ "+new Intl.NumberFormat('es-MX').format(Math.round((total + Number.EPSILON) * 100) / 100)+")"
       );
       }
 

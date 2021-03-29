@@ -65,9 +65,9 @@ if ($resultado->execute()) {
     <section class="content">
 
         <!-- Default box -->
-        <div class="card">
-            <div class="card-header bg-gradient-primary text-light">
-                <h1 class="card-title mx-auto">ESTADO DE RESULTADOS</h1>
+        <div class="card ">
+            <div class="card-header bg-orange  ">
+                <h1 class="card-title text-light ">ESTADO DE RESULTADOS</h1>
             </div>
 
             <div class="card-body">
@@ -126,24 +126,24 @@ if ($resultado->execute()) {
 
                         <div class="card card-widget " style="margin-bottom:0px;">
 
-                            <div class="card-header  text-light bg-gradient-orange" style="margin:0px;padding:8px">
-
-                                <h1 class="card-title  ">ESTADO DE RESULTADOS</h1>
+                            <div class="card-header bg-primary " style="margin:0px;padding:8px">
+                                
+                                <h3 class=" ">ESTADO DE RESULTADOS</h3>
                             </div>
 
                             <div class="card-body mb-0 pb-0 " style="margin:0px;padding:1px;">
 
                                 <div class="form-group row justify-content-sm-center mb-0">
                                     <div class="col-sm-12 form-group mb-0">
-                                        <div class="card-header  bg-gradient-success" style="margin:0px;padding:8px">
-                                            <h1 class="card-title ">INGRESOS</h1>
+                                        <div class="  " style="margin:0px;padding:8px">
+                                            <h4 class=" text-bold  ">INGRESOS</h4>
                                         </div>
                                         <?php
                                         $totalingresos = 0;
                                         foreach ($dataingresos as $reging) {
                                             $totalingresos += $reging['pagopro'];
                                         ?>
-                                            <div class="row justify-content-center border-left borde-verde mx-2">
+                                            <div class="row justify-content-center  mx-2">
                                                 <div class="col-sm-3 pl-2">
                                                     <label for="<?php echo $reging['nom_t_concepto'] ?>" class="col-form-label"><a href="detalleing.php?<?php echo 'mes='.$mesactual.'&ejercicio='.$yearactual.'&concepto='.$reging['nom_t_concepto'] ?>"><?php echo strtoupper($reging['nom_t_concepto']) ?>: </a></label>
                                                 </div>
@@ -157,37 +157,37 @@ if ($resultado->execute()) {
                                                                 <i class="fas fa-dollar-sign"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control text-right" name="<?php echo $reging['nom_t_concepto'] ?>" id="<?php echo $reging['nom_t_concepto'] ?>" value="<?php echo number_format($reging['pagopro'], 2) ?>" disabled>
+                                                        <input type="text" class="form-control text-right bg-white" name="<?php echo $reging['nom_t_concepto'] ?>" id="<?php echo $reging['nom_t_concepto'] ?>" value="<?php echo number_format($reging['pagopro'], 2) ?>" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                         <?php
                                         }
                                         ?>
-                                        <div class="card-foot">
-                                            <div class="row justify-content-between bg-success" style="margin:0px;padding:8px">
+                                        <div class=" border-bootom">
+                                            <div class="row justify-content-between" style="margin:0px;padding:8px;border-bottom: 2px solid lightgrey;">
                                                 <div>
-                                                    <label for="totaling" class="col-form-label">TOTAL INGRESOS: </label>
+                                                    <h4 for="totaling" class=" text-bold">TOTAL INGRESOS: </h4>
                                                 </div>
 
 
 
                                                 <div class="col-sm-4 ">
-                                                    <div class="input-group input-group-sm">
+                                                    <div class="input-group input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
                                                                 <i class="fas fa-dollar-sign"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control text-right" name="totaling" id="totaling" value="<?php echo number_format($totalingresos, 2) ?>" disabled>
+                                                        <input type="text" class="form-control text-right bg-white text-bold text-green" name="totaling" id="totaling" value="<?php echo number_format($totalingresos, 2) ?>" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="card-header bg-gradient-purple" style="margin:0px;padding:8px">
+                                        <div class=" " style="margin:0px;padding:8px">
 
-                                            <h1 class="card-title ">EGRESOS</h1>
+                                            <h4 class="text-bold "><span class="bold">EGRESOS</span></h4>
                                         </div>
 
                                         <?php
@@ -195,7 +195,7 @@ if ($resultado->execute()) {
                                         foreach ($dataegresos as $registro) {
                                             $totalegreso += $registro['total'];
                                         ?>
-                                            <div class="row justify-content-center border-left borde-purple mx-2">
+                                            <div class="row justify-content-center  mx-2">
                                                 <div class="col-sm-3 pl-2  ">
                                                     <label for="<?php echo $registro['nom_partida'] ?>" class="col-form-label"><a href="detalleegr.php?<?php echo 'mes='.$mesactual.'&ejercicio='.$yearactual.'&concepto='.$registro['nom_partida'] ?>"><?php echo $registro['nom_partida'] ?>: </a></label>
                                                 </div>
@@ -209,28 +209,28 @@ if ($resultado->execute()) {
                                                                 <i class="fas fa-dollar-sign"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control text-right" name="<?php echo $registro['nom_partida'] ?>" id="<?php echo $registro['nom_partida'] ?>" value="<?php echo number_format($registro['total'], 2) ?>" disabled>
+                                                        <input type="text" class="form-control text-right bg-white" name="<?php echo $registro['nom_partida'] ?>" id="<?php echo $registro['nom_partida'] ?>" value="<?php echo number_format($registro['total'], 2) ?>" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                         <?php }
                                         ?>
 
-                                        <div class="row justify-content-between bg-purple" style="margin:0px;padding:8px">
+                                        <div class="row justify-content-between " style="margin:0px;padding:8px">
                                             <div>
-                                                <label for="totaleg" class="col-form-label">TOTAL EGRESOS: </label>
+                                                <h4  class="text-bold">TOTAL EGRESOS: </h4>
                                             </div>
 
 
 
                                             <div class="col-sm-4">
-                                                <div class="input-group input-group-sm">
+                                                <div class="input-group input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
                                                             <i class="fas fa-dollar-sign"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control text-right" name="totaleg" id="totaleg" value="<?php echo number_format($totalegreso, 2) ?>" disabled>
+                                                    <input type="text" class="form-control text-right bg-white text-bold" name="totaleg" id="totaleg" value="<?php echo number_format($totalegreso, 2) ?>" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -239,19 +239,19 @@ if ($resultado->execute()) {
 
                                 <div class="row justify-content-between bg-primary mt-0" style="margin:0px;padding:8px">
                                     <div>
-                                        <label for="resul" class="col-form-label">RESULTADO: </label>
+                                        <h3  class="text-bold"><?php  echo ($totalingresos - $totalegreso)>0?"UTILIDAD DEL PERIODO":"PERDIDA DEL PERIODO" ?>: </h3>
                                     </div>
 
 
 
                                     <div class="col-sm-4">
-                                        <div class="input-group input-group-sm">
+                                        <div class="input-group input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                     <i class="fas fa-dollar-sign"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control text-right" name="resul" id="resul" value="<?php echo number_format(($totalingresos - $totalegreso), 2) ?>" disabled>
+                                            <input type="text" class="form-control text-right text-bold <?php  echo ($totalingresos - $totalegreso)>0?"bg-green":"bg-red" ?> " name="resul" id="resul" value="<?php echo number_format(($totalingresos - $totalegreso), 2) ?>" disabled>
                                         </div>
                                     </div>
                                 </div>

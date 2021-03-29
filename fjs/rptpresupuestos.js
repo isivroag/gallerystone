@@ -77,7 +77,24 @@ $(document).ready(function () {
         "<'row'<'col-sm-12'tr>>" +
         "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
         
-  
+        columnDefs: [
+          
+          {
+            targets: 3,
+            render: function (data, type, full, meta) {
+              return "<div class='text-wrap width-200'>" + data + '</div>'
+              //return "<div class='text-wrap width-200'>" + data + '</div>'
+            },
+          },
+          {
+            targets: 4,
+            render: function (data, type, full, meta) {
+              return "<div class='text-wrap width-200'>" + data + '</div>'
+              //return "<div class='text-wrap width-200'>" + data + '</div>'
+            },
+          },
+        ],
+    
       buttons: [
         {
           extend: 'excelHtml5',

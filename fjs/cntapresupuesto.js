@@ -125,7 +125,7 @@ $(document).ready(function () {
         targets: -2,
         data: null,
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnLlamar'><i class='fas fa-phone'></i></button><button class='btn btn-sm bg-lightblue btnEnviar'><i class='fas fa-paper-plane text-light'></i></button><button class='btn btn-sm bg-orange  btnhistory'><i class='fas fa-history text-light'></i></button><button class='btn btn-sm btn-danger btnRechazar'><i class='fas fa-ban'></i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnLlamar'><i class='fas fa-phone'></i></button><button class='btn btn-sm bg-orange  btnhistory'><i class='fas fa-history text-light'></i></button><button class='btn btn-sm btn-danger btnRechazar'><i class='fas fa-ban'></i></button></div></div>",
       },
       {
         targets: 4,
@@ -313,10 +313,13 @@ $(document).ready(function () {
     window.location.href = 'pres.php?folio=' + id
   })
   //BOTON ENVIAR
+ 
+ 
   $(document).on('click', '.btnLlamar', function () {
     fila = $(this).closest('tr');
     folio = fila.find('td:eq(1)').text();
     estado = fila.find('td:eq(9)').text();
+    fecha_llamada = new Date();
     //CONDICION PARA PRESUPUESTOS NUEVOS Y MODIFICADOS
     if (estado.trim() === 'PENDIENTE') {
       swal.fire({
@@ -484,19 +487,19 @@ $(document).ready(function () {
                     switch (data) {
                       case 1:
                         swal.fire({
-                          title: 'Se programo la llamada',
-
+                          title: 'Llamada Programada',
+  
                           icon: 'success',
                           focusConfirm: true,
                           confirmButtonText: 'Aceptar',
                         })
                         break
-
+  
                       case 2:
                         swal.fire({
                           title:
-                            'Se programo la llamada, se actualizo el presupuesto',
-
+                            'Llamada Programada,Estado de Presupuesto Actualizado',
+  
                           icon: 'success',
                           focusConfirm: true,
                           confirmButtonText: 'Aceptar',
@@ -505,14 +508,28 @@ $(document).ready(function () {
                       case 3:
                         swal.fire({
                           title:
-                            'Se programo la llamada, se actualizo el presupuesto y se creo la nota',
-
+                            'Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
+  
                           icon: 'success',
                           focusConfirm: true,
                           confirmButtonText: 'Aceptar',
                         })
                         break
+
+                        case 4:
+                          swal.fire({
+                            title:
+                            'Llamada Cerrada,Nueva Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
+    
+                            icon: 'success',
+                            focusConfirm: true,
+                            confirmButtonText: 'Aceptar',
+                          })
+                          
+                          break
                     }
+                    
+                  window.location.reload();
                   },
                 })
               },
@@ -529,14 +546,14 @@ $(document).ready(function () {
           folio: folio,
         },
         success: function (data) {
-          fecha_llamada = new Date($('#fechasys').val());
+          
           id_llamada = 0;
           desc_llamada ='';
 
           for (var i = 0; i < data.length; i++) {
-            id_llamada = data[i].id_llamada
-            desc_llamada = data[i].desc_llamada
-            fecha_llamada = data[i].fecha_llamada
+            id_llamada = data[i].id_llamada;
+            desc_llamada = data[i].desc_llamada;
+            estado_llamada=data[i].estado_llamada;
           }
 
           console.log(id_llamada);
@@ -556,12 +573,13 @@ $(document).ready(function () {
             }).then(function (isConfirm) {
               //GENERAR DATOS DEL FORMULARIO PARA PRIMERA LLAMADA
               if (isConfirm.value) {
+                fecha = new Date()
                     switch (parseInt(id_llamada)) {
                       case 0:
                         id_llamada = 1
                         desc_llamada = 'LLAMADA 1'
                         dias = 3
-                        fecha = new Date()
+                        
                         //+3 dias
                         fecha.setDate(fecha_llamada.getDate() + dias)
     
@@ -580,9 +598,19 @@ $(document).ready(function () {
                         fecha.setDate(fecha_llamada.getDate() + dias)
                         //+5dias
                         break
-                      case 3:
-                        //aceptar o cancelar
-                        break
+                        default:
+                          //aceptar o cancelar
+                          swal.fire({
+                            title: 'No es posible programar mas llamadas',
+    
+                            icon: 'warning',
+                            focusConfirm: true,
+                            confirmButtonText: 'Aceptar',
+                          })
+                          return;
+    
+                          break
+                     
                     }
                     $('#formSegumiento').trigger('reset');
                     $('#idllamada').val(id_llamada);
@@ -607,8 +635,7 @@ $(document).ready(function () {
                     folio: folio,
                   },
                   success: function (data) {
-                    fecha_llamada = new Date($('#fechasys').val());
-    
+                    fecha = new Date();
                     id_llamada = 0;
                     desc_llamada = '';
     
@@ -623,7 +650,7 @@ $(document).ready(function () {
                         id_llamada = 1;
                         desc_llamada = 'LLAMADA 1';
                         dias = 3;
-                        fecha = new Date();
+                        
                         //+3 dias
                         fecha.setDate(fecha_llamada.getDate() + dias);
                         opcion = 1;
@@ -644,9 +671,18 @@ $(document).ready(function () {
                         opcion = 3;
                         //+5dias
                         break
-                      case 3:
-                        //aceptar o cancelar
-                        break
+                        default:
+                          //aceptar o cancelar
+                          swal.fire({
+                            title: 'No es posible programar mas llamadas',
+    
+                            icon: 'warning',
+                            focusConfirm: true,
+                            confirmButtonText: 'Aceptar',
+                          })
+                          return;
+    
+                          break
                     }
     
                     var mes = fecha.getMonth() + 1; //obteniendo mes
@@ -677,19 +713,19 @@ $(document).ready(function () {
                         switch (data) {
                           case 1:
                             swal.fire({
-                              title: 'Se programo la llamada',
-    
+                              title: 'Llamada Programada',
+      
                               icon: 'success',
                               focusConfirm: true,
                               confirmButtonText: 'Aceptar',
                             })
                             break
-    
+      
                           case 2:
                             swal.fire({
                               title:
-                                'Se programo la llamada, se actualizo el presupuesto',
-    
+                                'Llamada Programada,Estado de Presupuesto Actualizado',
+      
                               icon: 'success',
                               focusConfirm: true,
                               confirmButtonText: 'Aceptar',
@@ -698,13 +734,25 @@ $(document).ready(function () {
                           case 3:
                             swal.fire({
                               title:
-                                'Se programo la llamada, se actualizo el presupuesto y se creo la nota',
-    
+                                'Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
+      
                               icon: 'success',
                               focusConfirm: true,
                               confirmButtonText: 'Aceptar',
                             })
                             break
+  
+                            case 4:
+                              swal.fire({
+                                title:
+                                'Llamada Cerrada,Nueva Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
+        
+                                icon: 'success',
+                                focusConfirm: true,
+                                confirmButtonText: 'Aceptar',
+                              })
+                              
+                              break
                         }
                         
                       window.location.reload();
@@ -715,6 +763,7 @@ $(document).ready(function () {
               }
             })}       
           else{
+            if (estado_llamada==1){
               swal.fire({
                 title: 'El Presupuesto tiene registro de seguimiento',
                 text: 'Es necesario cerrar la llamada anterior antes de continuar',
@@ -732,6 +781,222 @@ $(document).ready(function () {
                 $('#modalcierre').modal('show');
                 }
               })
+            }else
+              if(id_llamada==3){
+                swal.fire({
+                  title: 'No es posible programar mas llamadas',
+
+                  icon: 'warning',
+                  focusConfirm: true,
+                  confirmButtonText: 'Aceptar',
+                })
+                return;
+              }
+              else{
+                swal.fire({
+                  title: '<strong>EL ESTADO DEL PRESPUESTO SERA ACTUALIZADO</strong>',
+                  html:'El presupuesto será programado para realizar el seguimiento correspondiente.<br><b>¿Desea agregar un comentario o editar la informacion para seguimiento?</b>',
+                  showCancelButton: true,
+                  customClass: 'swal-wide',
+                  icon: 'question',
+                  focusConfirm: true,
+                  confirmButtonText: 'Editar Programación',
+                  cancelButtonText: 'Programación Automatica',
+                }).then(function (isConfirm) {
+                  //GENERAR DATOS DEL FORMULARIO PARA PRIMERA LLAMADA
+                  if (isConfirm.value) {
+                    fecha = new Date()
+                        switch (parseInt(id_llamada)) {
+                          case 0:
+                            id_llamada = 1
+                            desc_llamada = 'LLAMADA 1'
+                            dias = 3
+                            
+                            //+3 dias
+                            fecha.setDate(fecha_llamada.getDate() + dias)
+        
+                            break
+                          case 1:
+                            id_llamada = 2
+                            desc_llamada = 'LLAMADA 2'
+                            dias = 7
+                            fecha.setDate(fecha_llamada.getDate() + dias)
+                            //7dias
+                            break
+                          case 2:
+                            id_llamada = 3
+                            desc_llamada = 'LLAMADA 3'
+                            dias = 5
+                            fecha.setDate(fecha_llamada.getDate() + dias)
+                            //+5dias
+                            break
+                            default:
+                              //aceptar o cancelar
+                              swal.fire({
+                                title: 'No es posible programar mas llamadas',
+        
+                                icon: 'warning',
+                                focusConfirm: true,
+                                confirmButtonText: 'Aceptar',
+                              })
+                              return;
+        
+                              break
+                         
+                        }
+                        $('#formSegumiento').trigger('reset');
+                        $('#idllamada').val(id_llamada);
+                        $('#folio_pres').val(folio);
+                        $('#descllamada').val(desc_llamada);
+                        var mes = fecha.getMonth() + 1;//obteniendo mes
+                        var dia = fecha.getDate(); //obteniendo dia
+                        var ano = fecha.getFullYear(); //obteniendo año
+                        if (dia < 10) dia = '0' + dia; //agrega cero si el menor de 10
+                        if (mes < 10) mes = '0' + mes; //agrega cero si l menor de 10
+                        document.getElementById('fechallamada').value =ano + '-' + mes + '-' + dia;
+                        $('#modalseguimiento').modal('show');
+                  } 
+                  else if (isConfirm.dismiss === swal.DismissReason.cancel) 
+                  {
+                    //REGISTRO AUTOMATICO DE PRIMERA LLAMADA
+                    $.ajax({
+                      url: 'bd/buscarllamada.php',
+                      type: 'POST',
+                      dataType: 'json',
+                      data: {
+                        folio: folio,
+                      },
+                      success: function (data) {
+                        fecha = new Date()
+                        fecha_llamada = new Date()
+        
+                        id_llamada = 0;
+                        desc_llamada = '';
+        
+                        for (var i = 0; i < data.length; i++) {
+                          id_llamada = data[i].id_llamada;
+                          desc_llamada = data[i].desc_llamada;
+                          
+                        }
+        
+                        switch (parseInt(id_llamada)) {
+                          case 0:
+                            id_llamada = 1;
+                            desc_llamada = 'LLAMADA 1';
+                            dias = 3;
+                            
+                            //+3 dias
+                            fecha.setDate(fecha_llamada.getDate() + dias);
+                            opcion = 1;
+                            break
+                          case 1:
+                            id_llamada = 2;
+                            desc_llamada = 'LLAMADA 2';
+                            dias = 7;
+                            fecha.setDate(fecha_llamada.getDate() + dias);
+                            opcion = 2;
+                            //7dias
+                            break
+                          case 2:
+                            id_llamada = 3;
+                            desc_llamada = 'LLAMADA 3';
+                            dias = 5;
+                            fecha.setDate(fecha_llamada.getDate() + dias);
+                            opcion = 3;
+                            //+5dias
+                            break
+                            default:
+                              //aceptar o cancelar
+                              swal.fire({
+                                title: 'No es posible programar mas llamadas',
+        
+                                icon: 'warning',
+                                focusConfirm: true,
+                                confirmButtonText: 'Aceptar',
+                              })
+                              return;
+        
+                              break
+                        }
+        
+                        var mes = fecha.getMonth() + 1; //obteniendo mes
+                        var dia = fecha.getDate(); //obteniendo dia
+                        var ano = fecha.getFullYear(); //obteniendo año
+                        if (dia < 10) dia = '0' + dia; //agrega cero si el menor de 10
+                        if (mes < 10) mes = '0' + mes; //agrega cero si el menor de 10
+                        fecha_llamada = ano + '-' + mes + '-' + dia;
+                        fecha = $('#fechasys').val();
+        
+                        nota_ant = 'REGISTRO GENERADO POR EL SISTEMA';
+                        usuario = $('#nameuser').val();
+                        $.ajax({
+                          url: 'bd/llamadaspres.php',
+                          type: 'POST',
+                          dataType: 'json',
+                          data: {
+                            folio: folio,
+                            id_llamada: id_llamada,
+                            desc_llamada: desc_llamada,
+                            fecha_llamada: fecha_llamada,
+                            nota_ant: nota_ant,
+                            opcion: opcion,
+                            usuario: usuario,
+                            fecha: fecha,
+                          },
+                          success: function (data) {
+                            switch (data) {
+                              case 1:
+                                swal.fire({
+                                  title: 'Llamada Programada',
+          
+                                  icon: 'success',
+                                  focusConfirm: true,
+                                  confirmButtonText: 'Aceptar',
+                                })
+                                break
+          
+                              case 2:
+                                swal.fire({
+                                  title:
+                                    'Llamada Programada,Estado de Presupuesto Actualizado',
+          
+                                  icon: 'success',
+                                  focusConfirm: true,
+                                  confirmButtonText: 'Aceptar',
+                                })
+                                break
+                              case 3:
+                                swal.fire({
+                                  title:
+                                    'Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
+          
+                                  icon: 'success',
+                                  focusConfirm: true,
+                                  confirmButtonText: 'Aceptar',
+                                })
+                                break
+      
+                                case 4:
+                                  swal.fire({
+                                    title:
+                                    'Llamada Cerrada,Nueva Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
+            
+                                    icon: 'success',
+                                    focusConfirm: true,
+                                    confirmButtonText: 'Aceptar',
+                                  })
+                                  
+                                  break
+                            }
+                            
+                          window.location.reload();
+                          }
+                        })
+                      }
+                    })
+                  }
+                })
+              }
             }
         }
       });
@@ -780,7 +1045,7 @@ $(document).ready(function () {
         switch (data) {
           case 1:
             swal.fire({
-              title: 'Se programo la llamada',
+              title: 'Llamada Programada',
 
               icon: 'success',
               focusConfirm: true,
@@ -791,7 +1056,7 @@ $(document).ready(function () {
           case 2:
             swal.fire({
               title:
-                'Se programo la llamada, se actualizo el presupuesto',
+                'Llamada Programada,Estado de Presupuesto Actualizado',
 
               icon: 'success',
               focusConfirm: true,
@@ -801,7 +1066,7 @@ $(document).ready(function () {
           case 3:
             swal.fire({
               title:
-                'Se programo la llamada, se actualizo el presupuesto y se creo la nota',
+                'Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
 
               icon: 'success',
               focusConfirm: true,
@@ -812,15 +1077,16 @@ $(document).ready(function () {
             case 4:
               swal.fire({
                 title:
-                  'Se Cerro la llamada anterio, Se programo la llamada, se actualizo el presupuesto y se creo la nota',
+                'Llamada Cerrada,Nueva Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
 
                 icon: 'success',
                 focusConfirm: true,
                 confirmButtonText: 'Aceptar',
               })
+              
               break
         }
-      
+        
       window.location.reload();
 
 
@@ -877,7 +1143,7 @@ $(document).ready(function () {
             
           }
 
-
+          $('#modalcierre').modal('hide');
           swal.fire({
             title: '<strong>EL ESTADO DEL PRESPUESTO SERA ACTUALIZADO</strong>',
             html:'El presupuesto será programado para realizar el seguimiento correspondiente.<br><b>¿Desea agregar un comentario o editar la informacion para seguimiento?</b>',
@@ -892,6 +1158,7 @@ $(document).ready(function () {
             fecha=new Date();
             console.log(id_llamada);
             if (isConfirm.value) {
+             
               fecha = new Date()
                   switch (parseInt(id_llamada)) {
                     case 0:
@@ -917,12 +1184,21 @@ $(document).ready(function () {
                       fecha.setDate(fecha_llamada.getDate() + dias)
                       //+5dias
                       break
-                    case 3:
+                    default:
                       //aceptar o cancelar
+                      swal.fire({
+                        title: 'No es posible programar mas llamadas',
+
+                        icon: 'warning',
+                        focusConfirm: true,
+                        confirmButtonText: 'Aceptar',
+                      })
+                      return;
+
                       break
                   }
                   console.log(id_llamada);
-                  $('#modalcierre').modal('hide');
+                  
                   
                   $('#formSegumiento').trigger('reset');
                   $('#idllamada').val(id_llamada);
@@ -939,7 +1215,7 @@ $(document).ready(function () {
             } 
             else if (isConfirm.dismiss === swal.DismissReason.cancel) 
             {
-              //REGISTRO AUTOMATICO DE PRIMERA LLAMADA
+              //REGISTRO AUTOMATICO 
               $.ajax({
                 url: 'bd/buscarllamada.php',
                 type: 'POST',
@@ -956,7 +1232,7 @@ $(document).ready(function () {
                   for (var i = 0; i < data.length; i++) {
                     id_llamada = data[i].id_llamada;
                     desc_llamada = data[i].desc_llamada;
-                    fecha_llamada = data[i].fecha_llamada;
+                   
                    
                   }
                   fecha= new Date();
@@ -986,7 +1262,15 @@ $(document).ready(function () {
                       opcion = 3;
                       //+5dias
                       break
-                    case 3:
+                    default:
+                      swal.fire({
+                        title: 'No es posible programar mas llamadas',
+
+                        icon: 'warning',
+                        focusConfirm: true,
+                        confirmButtonText: 'Aceptar',
+                      })
+                      return;
                       //aceptar o cancelar
                       break
                   }
@@ -1019,7 +1303,7 @@ $(document).ready(function () {
                       switch (data) {
                         case 1:
                           swal.fire({
-                            title: 'Se programo la llamada',
+                            title: 'Llamada Programada',
     
                             icon: 'success',
                             focusConfirm: true,
@@ -1030,7 +1314,7 @@ $(document).ready(function () {
                         case 2:
                           swal.fire({
                             title:
-                              'Se programo la llamada, se actualizo el presupuesto',
+                              'Llamada Programada,Estado de Presupuesto Actualizado',
     
                             icon: 'success',
                             focusConfirm: true,
@@ -1040,7 +1324,7 @@ $(document).ready(function () {
                         case 3:
                           swal.fire({
                             title:
-                              'Se programo la llamada, se actualizo el presupuesto y se creo la nota',
+                              'Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
     
                             icon: 'success',
                             focusConfirm: true,
@@ -1051,12 +1335,13 @@ $(document).ready(function () {
                           case 4:
                             swal.fire({
                               title:
-                                'Se Cerro la llamada anterio, Se programo la llamada, se actualizo el presupuesto y se creo la nota',
+                              'Llamada Cerrada,Nueva Llamada Programada,Estado de Presupuesto Actualizado, Nota Creada',
       
                               icon: 'success',
                               focusConfirm: true,
                               confirmButtonText: 'Aceptar',
                             })
+                           
                             break
                       }
                       
@@ -1100,6 +1385,7 @@ $(document).ready(function () {
     }
   });
 //BOTON ENVIAR
+/*
   $(document).on('click', '.btnEnviar', function () {
     fila = $(this).closest('tr');
     id = parseInt(fila.find('td:eq(1)').text());
@@ -1160,7 +1446,7 @@ $(document).ready(function () {
       })
     }
     
-  });
+  });*/
 
   //BOTON HISTORIAL
   $(document).on('click', '.btnhistory', function () {

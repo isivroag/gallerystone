@@ -30,8 +30,18 @@ $(document).ready(function() {
             targets: -1,
             data: null,
             defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm bg-info btnResumen'><i class='fas fa-bars'></i></button><button class='btn btn-sm bg-orange btnEdo'><i class='fas fa-file-invoice-dollar text-light'></i></button><button class='btn btn-sm bg-danger btnCancelar'><i class='fas fa-ban'></i></button></div></div>",
-        }, ],
-
+        },
+    
+    ],
+    rowCallback: function (row, data) {
+        
+        $($(row).find('td')['4']).addClass('text-right')
+        $($(row).find('td')['5']).addClass('text-right')
+        $($(row).find('td')['4']).addClass('currency')
+        $($(row).find('td')['5']).addClass('currency')
+  
+       
+      },
         //Para cambiar el lenguaje a español
         language: {
             lengthMenu: "Mostrar _MENU_ registros",
@@ -189,6 +199,7 @@ $(document).ready(function() {
                                 data[i].concepto_vta,
                                 data[i].total,
                                 data[i].saldo,
+                                data[i].vendedor,
 
                             ])
                             .draw();
