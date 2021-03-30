@@ -104,38 +104,17 @@ $(document).ready(function () {
           className: 'btn bg-success ',
           exportOptions: {
             columns: [0, 1, 2, 3, 4, 5,6],
-            format: {
+            /*format: {
               body: function (data, row, column, node) {
                 if (column === 5) {
                   return data.replace(/[$,]/g, '')
                 } else if (column === 6) {
-                  /*switch (data) {
-                    case '0':
-                      return data.replace(0, 'RECHAZADO')
-  
-                      break
-                    case '1':
-                      return data.replace('1', 'PENDIENTE')
-                      break
-                    case '2':
-                      return data.replace('2', 'ENVIADO')
-                      break
-                    case '3':
-                      return data.replace('3', 'ACEPTADO')
-                      break
-                    case '4':
-                      return data.replace('4', 'EN ESPERA')
-                      break
-                    case '5':
-                      return data.replace('5', 'EDITADO')
-                      break
-                  }*/
                   return data
                 } else {
                   return data
                 }
               },
-            },
+            },*/
           },
         },
         {
