@@ -17,7 +17,7 @@ switch ($opcion) {
         $consulta = "SELECT * FROM vpres WHERE fecha_pres BETWEEN '$inicio' AND '$final' ORDER BY folio_pres";
         break;
     case 1:
-        $consulta = "SELECT * FROM vpres WHERE fecha_pres BETWEEN '$inicio' AND '$final' and estado_pres<>0 ORDER BY folio_pres";
+        $consulta = "SELECT * FROM vpres WHERE fecha_pres BETWEEN '$inicio' AND '$final' and estado_pres<>'RECHAZADO' ORDER BY folio_pres";
         break;
 }
 

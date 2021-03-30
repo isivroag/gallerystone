@@ -1,6 +1,6 @@
 <?php
 $inicio=1;
-if ($inicio==1){
+if ($inicio==0){
   header("Location:mantenimiento.html");
   exit();
 }
