@@ -9,7 +9,14 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
+date_default_timezone_set('America/Mexico_City');
 
+    $mesarreglo=array("","ENERO",
+    "FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");
+    $mesactual = $mesarreglo[date('n')];
+
+$m=date("m");
+$y=date("Y");
 
 if (date("D")=="Mon"){
   $iniciosemana = date("Y-m-d");
@@ -33,7 +40,7 @@ foreach($data as $regd){
   $montpres+=$regd['gtotal'];
 }
 
-$consultav = "SELECT * FROM vventa WHERE estado_vta=1";
+$consultav = "SELECT * FROM vventa WHERE estado_vta=1 and month(fecha_vta)='$m' and year(fecha_vta)='$y'";
 $resultadov = $conexion->prepare($consultav);
 $resultadov->execute();
 $datav = $resultadov->fetchAll(PDO::FETCH_ASSOC);
@@ -53,14 +60,7 @@ $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
-date_default_timezone_set('America/Mexico_City');
 
-    $mesarreglo=array("","ENERO",
-    "FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");
-    $mesactual = $mesarreglo[date('n')];
-
-$m=date("m");
-$y=date("Y");
 $consultaing="SELECT SUM(monto) AS monto FROM vpagocxc WHERE month(fecha)='$m' AND YEAR(fecha)='$y' AND estado_pagocxc=1";
 $resultadoing = $conexion->prepare($consultaing);
 $resultadoing->execute();

@@ -14,10 +14,10 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch ($opcion) {
     case 0:
-        $consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' ORDER BY folio_vta";
+        $consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and estado_vta=1 ORDER BY folio_vta";
         break;
     case 1:
-        $consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and saldo>0 ORDER BY folio_vta";
+        $consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and saldo>0 and estado_vta=1 ORDER BY folio_vta";
         break;
 }
 
