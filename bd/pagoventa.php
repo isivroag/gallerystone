@@ -22,6 +22,7 @@ $fcliente = (isset($_POST['fcliente'])) ? $_POST['fcliente'] : '';
 $facturado = (isset($_POST['facturado'])) ? $_POST['facturado'] : '';
 $factura = (isset($_POST['factura'])) ? $_POST['factura'] : '';
 $fechafact = (isset($_POST['fechafact'])) ? $_POST['fechafact'] : '';
+$banco = (isset($_POST['banco'])) ? $_POST['banco'] : '';
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 switch($opcion){
@@ -29,7 +30,21 @@ case '1':
     $consulta = "INSERT INTO pagocxc (folio_vta,fecha,concepto,obs,saldoini,monto,saldofin,metodo,usuario,fcliente,facturado,factura,fecha_fact) VALUES ('$folio_vta','$fechavp','$conceptovp','$obsvp','$saldovp','$monto','$saldofin','$metodo','$usuario','$fcliente','$facturado','$factura','$fechafact')";
     $resultado = $conexion->prepare($consulta);
     if ($resultado->execute()){
-        $res=1;
+
+        $consulta="INSERT INTO mov_banco(id_banco,fecha_movb,tipo_movb,monto) values('$banco','$fechavp','Ingreso','$monto')";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $res=2;
+            $consulta="UPDATE banco SET saldo_banco=saldo_banco+'$monto' WHERE id_banco='$banco'";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            
+            
+        }
+        else{
+            $res=1;
+        }
+        
     }
     else{
         $res=0;

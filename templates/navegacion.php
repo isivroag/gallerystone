@@ -307,6 +307,34 @@
         ?>
             </ul>
           </li>
+
+
+          <li class="nav-item has-treeview <?php echo ($pagina == 'banco' ) ? "menu-open" : ""; ?>">
+
+
+          <a href="#" class="nav-link <?php echo ($pagina == 'banco'  ) ? "active" : ""; ?>">
+            <span class="fa-stack">
+              <i class=" fas fa-book "></i>
+              
+            </span>
+            <p>
+              Administración
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+          <li class="nav-item">
+                <a href="cntabanco.php" class="nav-link <?php echo ($pagina == 'banco') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-university"></i>
+                  <p>Cuentas de Banco</p>
+                </a>
+              </li>
+            
+         
+
+
+          </ul>
+        </li>
        
         <?php if ($_SESSION['s_rol'] == '3') {
         ?>

@@ -23,6 +23,14 @@ if ($folio != "") {
 
   $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+  $consultab = "SELECT * FROM banco order by id_banco";
+
+  $resultadob = $conexion->prepare($consultab);
+  $resultadob->execute();
+
+
+  $datab = $resultadob->fetchAll(PDO::FETCH_ASSOC);
+
   foreach ($data as $dt) {
     $folio = $dt['folio_vta'];
     $folio_pres = $dt['folio_pres'];
@@ -522,6 +530,25 @@ if ($folio != "") {
             <div class="modal-body">
               <div class="row justify-content-sm-between my-auto">
 
+              <div class="col-sm-8 my-auto">
+              <div class="form-group input-group-sm">
+                  
+                    <label for="banco" class="col-form-label">Banco Destino:</label>
+
+                    <select class="form-control" name="banco" id="banco">
+                      <?php
+                        foreach ($datab as $regb){
+                      ?>
+                      <option id="<?php echo $regb['id_banco']?>" value="<?php echo $regb['id_banco']?>"><?php echo $regb['nom_banco']?></option>
+                       <?php
+                      }
+                      ?>
+
+                    </select>
+                  </div>
+              </div>
+
+
                 <div class="col-sm-3 my-auto">
                   <div class="form-group input-group-sm">
                     <label for="foliovp" class="col-form-label">Folio Venta:</label>
@@ -529,6 +556,7 @@ if ($folio != "") {
                   </div>
                 </div>
 
+              
 
 
                 <div class="col-sm-3 my-auto">

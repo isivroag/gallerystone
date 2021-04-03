@@ -205,6 +205,7 @@ $(document).ready(function () {
     var monto = $('#montopago').val()
     var metodo = $('#metodo').val()
     var usuario = $('#nameuser').val()
+    var banco = $('#banco').val()
     var fcliente=0;
     var facturado=0;
     if ($('#ccliefact').prop('checked')){
@@ -222,6 +223,7 @@ $(document).ready(function () {
       conceptovp.length == 0 ||
       monto.length == 0 ||
       metodo.length == 0 ||
+      banco.length == 0 ||
       usuario.length == 0
     ) {
       swal.fire({
@@ -278,11 +280,14 @@ $(document).ready(function () {
             facturado:facturado,
             factura:factura,
             fechafact:fechafact,
+            banco:banco,
             opcion: opcion,
           },
           success: function (res) {
-            if (res == 1) {
+            if (res == 2) {
               buscartotal()
+              //Funcion para registrar el movimiento de ingreso en bancos
+
               $('#modalPago').modal('hide')
             } else {
               swal.fire({
