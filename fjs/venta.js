@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  var id, opcion;
+  var id, opcion,fpago;
   ocultarcomision();
 
   tablaVis = $('#tablaV').DataTable({
@@ -317,12 +317,14 @@ $(document).ready(function () {
             opcion: opcion,
           },
           success: function (res) {
-            if (res == 2) {
+           // if (res == 2) {
+             console.log(res);
+             fpago=res;
               buscartotal()
               //Funcion para registrar el movimiento de ingreso en bancos
 
               $('#modalPago').modal('hide')
-            } else {
+           /* } else {
               swal.fire({
                 title: 'Error',
                 text: 'La operacion no puedo completarse',
@@ -330,7 +332,7 @@ $(document).ready(function () {
                 focusConfirm: true,
                 confirmButtonText: 'Aceptar',
               })
-            }
+            }*/
           },
         })
       }
@@ -391,11 +393,36 @@ $(document).ready(function () {
       success: function (res) {
         $('#saldo').val(res[0].saldo)
         mensajepago()
+        imprimirrecibo(folio,fpago)
       },
     })
   }
 
   function round(value, decimals) {
     return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+  }
+
+  function imprimirrecibo(folio,pago){
+    
+    var ancho = 1000
+    var alto = 800
+    var x = parseInt(window.screen.width / 2 - ancho / 2)
+    var y = parseInt(window.screen.height / 2 - alto / 2)
+
+    url = 'formatos/pdfrecibo.php?folio=' + folio +'&pago='+ pago;
+
+    window.open(
+      url,
+      'Recibo',
+      'left=' +
+      x +
+      ',top=' +
+      y +
+      ',height=' +
+      alto +
+      ',width=' +
+      ancho +
+      'scrollbar=si,location=no,resizable=si,menubar=no',
+    )
   }
 })
