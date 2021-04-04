@@ -403,6 +403,7 @@ $(document).ready(function () {
                   data[i].ubicacion,
                   data[i].gtotal,
                   data[i].estado_pres,
+                  data[i].vendedor,
                 ])
                 .draw()
   

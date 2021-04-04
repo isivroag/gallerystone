@@ -1,5 +1,5 @@
 <?php
-$pagina = "rptpresupuesto";
+$pagina = "cntaventa";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -12,11 +12,11 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 if ($_SESSION['s_rol'] == '3') {
-    $consulta = "SELECT * FROM vpres where edo_pres='1' order by folio_pres";
+    $consulta = "SELECT * FROM vventa where estado_vta=1 order by folio_vta";
 }
 else
 {
-    $consulta = "SELECT * FROM vpres where edo_pres='1' order by folio_pres";
+    $consulta = "SELECT * FROM vvventa where estado_vta=1 order by folio_vta";
 }
 
 
@@ -43,8 +43,8 @@ $message = "";
 
         <!-- Default box -->
         <div class="card ">
-            <div class="card-header bg-gradient-orange text-light">
-                <h4 class="card-title text-center">Consulta de Presupuestos</h4>
+            <div class="card-header bg-gradient-success text-light">
+                <h4 class="card-title text-center">Consulta de Ventas</h4>
             </div>
 
             <div class="card-body">
@@ -58,7 +58,7 @@ $message = "";
                 <br>
                 <div class="container-fluid">
                     <div class="card">
-                        <div class="card-header bg-gradient-orange">
+                        <div class="card-header bg-gradient-success">
                             Filtro por rango de Fecha
                         </div>
                         <div class="card-body">
@@ -83,19 +83,14 @@ $message = "";
                                     </div>
                                 </div>
                             </div>
-                            <div class="row justify-content-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="ctodos" id="ctodos" type="checkbox" checked="">
-                                    <label class="form-check-label">Incluir presupuestos rechazados</label>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive">
                                 <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
-                                    <thead class="text-center bg-gradient-orange">
+                                    <thead class="text-center bg-gradient-success">
                                         <tr>
                                             <th>Folio</th>
                                             <th>Fecha</th>
@@ -103,7 +98,7 @@ $message = "";
                                             <th>Proyecto</th>
                                             <th>Ubicación</th>
                                             <th>Total</th>
-                                            <th>Estado</th>
+
                                             <th>Vendedor</th>
 
                                         </tr>
@@ -113,13 +108,13 @@ $message = "";
                                         foreach ($data as $dat) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $dat['folio_pres'] ?></td>
-                                                <td><?php echo $dat['fecha_pres'] ?></td>
+                                                <td><?php echo $dat['folio_vta'] ?></td>
+                                                <td><?php echo $dat['fecha_vta'] ?></td>
                                                 <td><?php echo $dat['nombre'] ?></td>
-                                                <td><?php echo $dat['concepto_pres'] ?></td>
+                                                <td><?php echo $dat['concepto_vta'] ?></td>
                                                 <td><?php echo $dat['ubicacion'] ?></td>
                                                 <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
-                                                <td><?php echo $dat['estado_pres'] ?></td>
+
                                                 <td><?php echo $dat['vendedor'] ?></td>
 
                                             </tr>
@@ -132,7 +127,7 @@ $message = "";
                                             <th colspan="5" class="currency" style="text-align:right">Total:</th>
                                             <th class="text-right"></th>
                                             <th></th>
-                                            <th></th>
+                                            
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -155,7 +150,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/rptpresupuestos.js"></script>
+<script src="fjs/rptventas.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

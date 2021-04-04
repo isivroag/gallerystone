@@ -24,10 +24,14 @@ $factura = (isset($_POST['factura'])) ? $_POST['factura'] : '';
 $fechafact = (isset($_POST['fechafact'])) ? $_POST['fechafact'] : '';
 $banco = (isset($_POST['banco'])) ? $_POST['banco'] : '';
 
+$porcom = (isset($_POST['porcom'])) ? $_POST['porcom'] : '';
+$comision = (isset($_POST['comision'])) ? $_POST['comision'] : '';
+$pagocom = (isset($_POST['pagocom'])) ? $_POST['pagocom'] : '';
+
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 switch($opcion){
 case '1':
-    $consulta = "INSERT INTO pagocxc (folio_vta,fecha,concepto,obs,saldoini,monto,saldofin,metodo,usuario,fcliente,facturado,factura,fecha_fact) VALUES ('$folio_vta','$fechavp','$conceptovp','$obsvp','$saldovp','$monto','$saldofin','$metodo','$usuario','$fcliente','$facturado','$factura','$fechafact')";
+    $consulta = "INSERT INTO pagocxc (folio_vta,fecha,concepto,obs,saldoini,monto,saldofin,metodo,usuario,fcliente,facturado,factura,fecha_fact,porcom,comision,pagocom) VALUES ('$folio_vta','$fechavp','$conceptovp','$obsvp','$saldovp','$monto','$saldofin','$metodo','$usuario','$fcliente','$facturado','$factura','$fechafact','$porcom','$comision','$pagocom')";
     $resultado = $conexion->prepare($consulta);
     if ($resultado->execute()){
 

@@ -163,10 +163,10 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina == 'citav') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina == 'citav' || $pagina == 'cntaventa') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina == 'citav') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cobranza' || $pagina == 'citav' || $pagina == 'cntaventa') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-dollar-sign "></i>
               <i class=" fas fa-arrow-up "></i>
@@ -189,6 +189,13 @@
               <a href="cntaventa.php" class="nav-link <?php echo ($pagina == 'venta') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-cash-register nav-icon"></i>
                 <p>Ventas y Cobranza</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="rptventa.php" class="nav-link <?php echo ($pagina == 'cntaventa') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-cash-register nav-icon"></i>
+                <p>Consulta de Ventas</p>
               </a>
             </li>
             <li class="nav-item">

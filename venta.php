@@ -530,23 +530,23 @@ if ($folio != "") {
             <div class="modal-body">
               <div class="row justify-content-sm-between my-auto">
 
-              <div class="col-sm-8 my-auto">
-              <div class="form-group input-group-sm">
-                  
+                <div class="col-sm-8 my-auto">
+                  <div class="form-group input-group-sm">
+
                     <label for="banco" class="col-form-label">Banco Destino:</label>
 
                     <select class="form-control" name="banco" id="banco">
                       <?php
-                        foreach ($datab as $regb){
+                      foreach ($datab as $regb) {
                       ?>
-                      <option id="<?php echo $regb['id_banco']?>" value="<?php echo $regb['id_banco']?>"><?php echo $regb['nom_banco']?></option>
-                       <?php
+                        <option id="<?php echo $regb['id_banco'] ?>" value="<?php echo $regb['id_banco'] ?>"><?php echo $regb['nom_banco'] ?></option>
+                      <?php
                       }
                       ?>
 
                     </select>
                   </div>
-              </div>
+                </div>
 
 
                 <div class="col-sm-3 my-auto">
@@ -556,7 +556,7 @@ if ($folio != "") {
                   </div>
                 </div>
 
-              
+
 
 
                 <div class="col-sm-3 my-auto">
@@ -579,7 +579,7 @@ if ($folio != "") {
                       </div>
                     </div>
                   </div>
-                  <div class="row" name="divfactura"id="divfactura" disabled>
+                  <div class="row" name="divfactura" id="divfactura" disabled>
                     <div class="col-sm-6">
                       <div class="form-group input-group-sm">
                         <label for="factura" class="col-form-label">No. Factura:</label>
@@ -655,7 +655,7 @@ if ($folio != "") {
                       <option id="Deposito" value="Deposito">Deposito</option>
                       <option id="Cheque" value="Cheque">Cheque</option>
                       <option id="Tarjeta de Crédito" value="Tarjeta de Crédito">Tarjeta de Crédito</option>
-                      <option id="Tarjeta de Debito" value="Tarjeta de Debito">Tarjeta de Debito</option>
+                      <option id="Tarjeta de Debito" value="Tarjeta de Débito">Tarjeta de Debito</option>
 
                     </select>
                   </div>
@@ -663,6 +663,32 @@ if ($folio != "") {
 
               </div>
 
+              <div class="row " name="divcomision" id="divcomision" >
+                <div class="col-sm-12 ">
+                  
+                  <div class="row"  >
+                    <div class="col-sm-4">
+                      <div class="form-group input-group-sm">
+                        <label for="porcom" class="col-form-label">% Comisión:</label>
+                        <input type="text" class="form-control" name="porcom" id="porcom" value=""  placeholder="% Comisión" >
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group input-group-sm">
+                        <label for="comision" class="col-form-label ">Monto Comisión:</label>
+                        <input type="text" id="comision" name="comision" class="form-control text-right" autocomplete="off" value="" placeholder="Monto Comisión" >
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="form-group input-group-sm">
+                        <label for="montopagoc" class="col-form-label ">Monto a Pagar:</label>
+                        <input type="text" id="montopagoc" name="montopagoc" class="form-control text-right" autocomplete="off" value="" placeholder="Monto a Pagar" >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
 

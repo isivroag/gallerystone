@@ -1,5 +1,6 @@
 $(document).ready(function () {
-  var id, opcion
+  var id, opcion;
+  ocultarcomision();
 
   tablaVis = $('#tablaV').DataTable({
     paging: false,
@@ -45,14 +46,14 @@ $(document).ready(function () {
       url,
       'Presupuesto',
       'left=' +
-        x +
-        ',top=' +
-        y +
-        ',height=' +
-        alto +
-        ',width=' +
-        ancho +
-        'scrollbar=si,location=no,resizable=si,menubar=no',
+      x +
+      ',top=' +
+      y +
+      ',height=' +
+      alto +
+      ',width=' +
+      ancho +
+      'scrollbar=si,location=no,resizable=si,menubar=no',
     )
   })
 
@@ -194,7 +195,31 @@ $(document).ready(function () {
         $('#fechafact').val($('#fechavp').val())
       }
     }
+    if ($('#metodo').val() == 'Tarjeta de Crédito' || $('#metodo').val() == 'Tarjeta de Débito') {
+
+      mostrarcomision();
+    }
+    else {
+      ocultarcomision();
+    }
+
   })
+
+  $("#porcom").on("change paste keyup", function () {
+    if (isNaN(parseFloat($('#montopago').val()))) {
+
+    }
+
+
+    else {
+      calcularcomision();
+    }
+  });
+
+  $("#montopago").on("change paste keyup", function () {
+    calcularcomision();
+  });
+
 
   $(document).on('click', '#btnGuardarvp', function () {
     var folio_vta = $('#foliovp').val()
@@ -206,16 +231,21 @@ $(document).ready(function () {
     var metodo = $('#metodo').val()
     var usuario = $('#nameuser').val()
     var banco = $('#banco').val()
-    var fcliente=0;
-    var facturado=0;
-    if ($('#ccliefact').prop('checked')){
-        fcliente=1
+
+    var porcom = $('#porcom').val()
+    var comision = $('#comision').val()
+    var pagocom = $('#montopagoc').val()
+
+    var fcliente = 0;
+    var facturado = 0;
+    if ($('#ccliefact').prop('checked')) {
+      fcliente = 1
     }
-    if ($('#facturado').prop('checked')){
-        facturado=1;
+    if ($('#facturado').prop('checked')) {
+      facturado = 1;
     }
-    var factura= $('#factura').val();
-    var fechafact= $('#fechafact').val();
+    var factura = $('#factura').val();
+    var fechafact = $('#fechafact').val();
 
     if (
       folio_vta.length == 0 ||
@@ -276,11 +306,14 @@ $(document).ready(function () {
             saldofin: saldofin,
             metodo: metodo,
             usuario: usuario,
-            fcliente:fcliente,
-            facturado:facturado,
-            factura:factura,
-            fechafact:fechafact,
-            banco:banco,
+            fcliente: fcliente,
+            facturado: facturado,
+            factura: factura,
+            fechafact: fechafact,
+            banco: banco,
+            porcom: porcom,
+            comision: comision,
+            pagocom: pagocom,
             opcion: opcion,
           },
           success: function (res) {
@@ -303,6 +336,31 @@ $(document).ready(function () {
       }
     }
   })
+  function calcularcomision() {
+    valor = round(parseFloat($('#porcom').val()) / 100, 4);
+    monto = parseFloat($('#montopago').val());
+
+    comision = round(valor * monto, 2);
+    console.log(comision);
+    $('#comision').val(comision);
+    $('#montopagoc').val(parseFloat($('#montopago').val()) + comision);
+  }
+
+  function ocultarcomision() {
+    $('#porcom').val('0');
+    $('#comision').val('0');
+    $('#montopagoc').val($('#montopago').val());
+    $('#divcomision').hide();
+    calcularcomision();
+  }
+
+  function mostrarcomision() {
+    $('#porcom').val('0');
+    $('#comision').val('0');
+    $('#montopagoc').val($('#montopago').val());
+    $('#divcomision').show();
+    calcularcomision();
+  }
 
   function mensaje() {
     swal.fire({
@@ -335,5 +393,9 @@ $(document).ready(function () {
         mensajepago()
       },
     })
+  }
+
+  function round(value, decimals) {
+    return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
   }
 })
