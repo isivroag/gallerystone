@@ -160,7 +160,7 @@ $(document).ready(function () {
     $('#formMov').submit(function (e) {
         e.preventDefault();
         var id = $.trim($('#idcuenta').val());
-
+        var descripcion = $('#descripcion').val();
         var tipomov = $.trim($('#tipomov').val());
         var saldo = $('#saldocuenta').val();
         var montomov = $('#montomov').val();
@@ -188,10 +188,11 @@ $(document).ready(function () {
                             tipomov: tipomov,
                             saldo: saldo,
                             saldofin: saldofin,
-                            montomov: montomov
+                            montomov: montomov,
+                            descripcion: descripcion
                         },
                         success: function (data) {
-                            if (data == 2) {
+                            if (data == 3) {
                                 Swal.fire({
                                     title: 'Operación Exitosa',
                                     text: 'Movimiento Guardado',
@@ -221,10 +222,11 @@ $(document).ready(function () {
                             tipomov: tipomov,
                             saldo: saldo,
                             saldofin: saldofin,
-                            montomov: montomov
+                            montomov: montomov,
+                            descripcion: descripcion
                         },
                         success: function (data) {
-                            if (data == 2) {
+                            if (data == 3) {
                                 Swal.fire({
                                     title: 'Operación Exitosa',
                                     text: 'Movimiento Guardado',
@@ -271,10 +273,11 @@ $(document).ready(function () {
                                         tipomov: tipomov,
                                         saldo: saldo,
                                         saldofin: saldofin,
-                                        montomov: montomov
+                                        montomov: montomov,
+                                        descripcion: descripcion
                                     },
                                     success: function (data) {
-                                        if (data == 2) {
+                                        if (data == 3) {
                                             Swal.fire({
                                                 title: 'Operación Exitosa',
                                                 text: 'Movimiento Guardado',
@@ -307,10 +310,11 @@ $(document).ready(function () {
                             tipomov: tipomov,
                             saldo: saldo,
                             saldofin: saldofin,
-                            montomov: montomov
+                            montomov: montomov,
+                            descripcion: descripcion
                         },
                         success: function (data) {
-                            if (data == 2) {
+                            if (data == 3) {
                                 Swal.fire({
                                     title: 'Operación Exitosa',
                                     text: 'Movimiento Guardado',
@@ -340,10 +344,11 @@ $(document).ready(function () {
                             tipomov: tipomov,
                             saldo: saldo,
                             saldofin: saldofin,
-                            montomov: montomov
+                            montomov: montomov,
+                            descripcion: descripcion
                         },
                         success: function (data) {
-                            if (data == 2) {
+                            if (data == 3) {
                                 Swal.fire({
                                     title: 'Operación Exitosa',
                                     text: 'Movimiento Guardado',

@@ -338,6 +338,8 @@ $(document).ready(function () {
       }
     }
   })
+
+  
   function calcularcomision() {
     valor = round(parseFloat($('#porcom').val()) / 100, 4);
     monto = parseFloat($('#montopago').val());

@@ -103,7 +103,10 @@ $message = "";
                                             <th>ID</th>
                                             <th>Fecha</th>
                                             <th>Tipo Movimiento</th>
+                                            <th>Descripción</th>
+                                            <th>Saldo Inicial</th>
                                             <th>Monto</th>
+                                            <th>Saldo Final</th>
                                             <th>Folio Ingreso</th>
                                             <th>Folio Egreso</th>
                                             

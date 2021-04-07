@@ -208,6 +208,13 @@ $message = "";
                                     </div>
                                 </div>
 
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="descripcion" class="col-form-label">Descripción del Movimiento:</label>
+                                        <textarea rows="2" class="form-control" name="descripcion" id="descripcion" placeholder="Descripción del Movimiento"></textarea>
+                                    </div>
+                                </div>
+
                                 <div class="col-sm-6">
                                     <div class="form-group input-group-sm auto">
                                         <label for="tipomov" class="col-form-label">Tipo Movimiento:</label>

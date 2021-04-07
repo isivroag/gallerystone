@@ -50,7 +50,7 @@ $(document).ready(function () {
                 title: 'Reporte de Presupuestos',
                 className: 'btn bg-success ',
                 exportOptions: {
-                    columns: [0, 1, 2, 3,4,5],
+                    columns: [0, 1, 2, 3,4,5,6,7,8],
                     /*format: {
                       body: function (data, row, column, node) {
                         if (column === 5) {
@@ -70,7 +70,7 @@ $(document).ready(function () {
                 titleAttr: 'Exportar a PDF',
                 title: 'Reporte de Presupuestos',
                 className: 'btn bg-danger',
-                exportOptions: { columns: [0, 1, 2, 3,4,5] },
+                exportOptions: { columns: [0, 1, 2, 3,4,5,6,7,8] },
                 format: {
                     body: function (data, row, column, node) {
                         if (column === 3) {
@@ -110,10 +110,14 @@ $(document).ready(function () {
         },
 
         rowCallback: function (row, data) {
-            $($(row).find('td')['4']).addClass('text-center')
-            $($(row).find('td')['5']).addClass('text-center')
-            $($(row).find('td')['3']).addClass('text-right')
-            $($(row).find('td')['3']).addClass('currency')
+            $($(row).find('td')['7']).addClass('text-center')
+            $($(row).find('td')['8']).addClass('text-center')
+            $($(row).find('td')['4']).addClass('text-right')
+            $($(row).find('td')['5']).addClass('text-right')
+            $($(row).find('td')['6']).addClass('text-right')
+            $($(row).find('td')['4']).addClass('currency')
+            $($(row).find('td')['5']).addClass('currency')
+            $($(row).find('td')['6']).addClass('currency')
 
 
         },
@@ -187,7 +191,10 @@ $(document).ready(function () {
                                 data[i].id_movb,
                                 data[i].fecha_movb,
                                 data[i].tipo_movb,
+                                data[i].descripcion,
+                                data[i].saldoini,
                                 data[i].monto,
+                                data[i].saldofin,
                                 data[i].folio_pagocxc,
                                 data[i].folio_pagocxp
                                 

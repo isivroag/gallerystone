@@ -26,6 +26,11 @@ $resultadog = $conexion->prepare($consultag);
 $resultadog->execute();
 $datag = $resultadog->fetchAll(PDO::FETCH_ASSOC);
 
+$consultab = "SELECT * FROM banco order by id_banco";
+$resultadob = $conexion->prepare($consultab);
+$resultadob->execute();
+$datab = $resultadob->fetchAll(PDO::FETCH_ASSOC);
+
 
 $message = "";
 
@@ -34,10 +39,10 @@ $message = "";
 ?>
 
 <style>
-.swal2-icon.swal2-question {
-  border-color: #EF5350 !important;
-  color: #EF5350 !important;
-}
+  .swal2-icon.swal2-question {
+    border-color: #EF5350 !important;
+    color: #EF5350 !important;
+  }
 </style>
 
 
@@ -64,7 +69,7 @@ $message = "";
           <div class="col-lg-12">
 
             <button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
-            <button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms" ><i class="fas fa-question-circle text-light" ></i><span class="text-light"> Ayuda</span></button>
+            <button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button>
           </div>
         </div>
         <br>
@@ -123,8 +128,8 @@ $message = "";
                         <td><?php echo $dat['fecha'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto'] ?></td>
-                        <td class="text-right"><?php echo  number_format($dat['total'], 2) ?></td>
-                        <td class="text-right"><?php echo  number_format($dat['saldo'], 2) ?></td>
+                        <td class="currency text-right"><?php echo  $dat['total'] ?></td>
+                        <td class="currency text-right"><?php echo  $dat['saldo'] ?></td>
                         <td><?php echo $dat['fecha_limite'] ?></td>
                         <td></td>
                       </tr>
@@ -176,6 +181,163 @@ $message = "";
     </div>
     <!-- /.card -->
 
+  </section>
+
+  <section>
+    <div class="modal fade" id="modalPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-purple">
+            <h5 class="modal-title" id="exampleModalLabel">Pago a Proveedores</h5>
+
+          </div>
+          <form id="formPago" action="" method="POST">
+            <div class="modal-body">
+              <div class="row justify-content-sm-between my-auto">
+
+                <div class="col-sm-6 my-auto">
+                  <div class="form-group input-group-sm">
+
+                    <label for="banco" class="col-form-label">Banco Origen:</label>
+
+                    <select class="form-control" name="banco" id="banco">
+                      <?php
+                      foreach ($datab as $regb) {
+                      ?>
+                        <option id="<?php echo $regb['id_banco'] ?>" value="<?php echo $regb['id_banco'] ?>"><?php echo $regb['nom_banco'] ?></option>
+                      <?php
+                      }
+                      ?>
+
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="col-sm-3 my-auto">
+                  <div class="form-group input-group-sm">
+                    <label for="foliovp" class="col-form-label">Folio CXP:</label>
+                    <input type="text" class="form-control" name="foliovp" id="foliovp" value="" disabled>
+                  </div>
+                </div>
+
+                <div class="col-sm-3 my-auto">
+                  <div class="form-group input-group-sm">
+                    <label for="fechavp" class="col-form-label ">Fecha de Pago:</label>
+                    <input type="date" id="fechavp" name="fechavp" class="form-control text-right" autocomplete="off" value="<?php echo date("Y-m-d") ?>" placeholder="Fecha">
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="row justify-content-sm-center">
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                  <input type="input" id="concepto" name="concepto" class="form-control" autocomplete="off" value=""  disabled>
+                    <label for="obsvp" class="col-form-label">Observaciones:</label>
+                    <textarea class="form-control" name="obsvp" id="obsvp" rows="3" autocomplete="off" placeholder="Observaciones"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row justify-content-sm-center">
+
+                <div class="col-lg-4 ">
+                  <label for="saldovp" class="col-form-label ">Saldo:</label>
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-dollar-sign"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control text-right" name="saldovp" id="saldovp" value="" disabled>
+                  </div>
+                </div>
+
+                <div class="col-lg-4">
+                  <label for="montopago" class="col-form-label">Pago:</label>
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-dollar-sign"></i>
+                      </span>
+
+                    </div>
+                    <input type="text" id="montopago" name="montopago" class="form-control text-right" autocomplete="off" placeholder="Monto del Pago">
+                  </div>
+                </div>
+
+                <div class="col-lg-4">
+                  <div class="input-group-sm">
+                    <label for="metodo" class="col-form-label">Metodo de Pago:</label>
+
+                    <select class="form-control" name="metodo" id="metodo">
+                      <option id="Efectivo" value="Efectivo">Efectivo</option>
+                      <option id="Transferencia" value="Transferencia">Transferencia</option>
+                      <option id="Deposito" value="Deposito">Deposito</option>
+                      <option id="Cheque" value="Cheque">Cheque</option>
+                      <option id="Tarjeta de Crédito" value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                      <option id="Tarjeta de Debito" value="Tarjeta de Débito">Tarjeta de Debito</option>
+
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+              <button type="button" id="btnGuardarvp" name="btnGuardarvp" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalResumen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-md" role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-purple">
+              <h5 class="modal-title" id="exampleModalLabel">Resumen de Pagos</h5>
+
+            </div>
+            <br>
+            <div class="table-hover responsive w-auto " style="padding:10px">
+              <table name="tablaResumen" id="tablaResumen" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+                <thead class="text-center">
+                  <tr>
+                    <th>Folio</th>
+                    <th>Fecha</th>
+                    <th>Concepto</th>
+                    <th>Monto</th>
+                    <th>Metodo</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+
+        </div>
+        <!-- /.card-body -->
+
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </div>
   </section>
 
 

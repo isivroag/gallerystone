@@ -6,7 +6,7 @@ $conexion = $objeto->connect();
 // Recepción de los datos enviados mediante POST desde el JS   
 
 
-$folio_vta = (isset($_POST['folio_vta'])) ? $_POST['folio_vta'] : '';
+$foliocxp = (isset($_POST['foliocxp'])) ? $_POST['foliocxp'] : '';
 $fechavp = (isset($_POST['fechavp'])) ? $_POST['fechavp'] : '';
 $obsvp = (isset($_POST['obsvp'])) ? $_POST['obsvp'] : '';
 $conceptovp = (isset($_POST['conceptovp'])) ? $_POST['conceptovp'] : '';
@@ -15,25 +15,16 @@ $monto = (isset($_POST['monto'])) ? $_POST['monto'] : '';
 $saldofin = (isset($_POST['saldofin'])) ? $_POST['saldofin'] : '';
 $metodo = (isset($_POST['metodo'])) ? $_POST['metodo'] : '';
 $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
-$opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
-$bloqueo = (isset($_POST['bloqueo'])) ? $_POST['bloqueo'] : '';
 
-$fcliente = (isset($_POST['fcliente'])) ? $_POST['fcliente'] : '';
-$facturado = (isset($_POST['facturado'])) ? $_POST['facturado'] : '';
-$factura = (isset($_POST['factura'])) ? $_POST['factura'] : '';
-$fechafact = (isset($_POST['fechafact'])) ? $_POST['fechafact'] : '';
 $banco = (isset($_POST['banco'])) ? $_POST['banco'] : '';
+$opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
-$porcom = (isset($_POST['porcom'])) ? $_POST['porcom'] : '';
-$comision = (isset($_POST['comision'])) ? $_POST['comision'] : '';
-$pagocom = (isset($_POST['pagocom'])) ? $_POST['pagocom'] : '';
 
-$folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $res = 0;
 switch ($opcion) {
     case '1':
         //guardar el pago
-        $consulta = "INSERT INTO pagocxc (folio_vta,fecha,concepto,obs,saldoini,monto,saldofin,metodo,usuario,fcliente,facturado,factura,fecha_fact,porcom,comision,pagocom) VALUES ('$folio_vta','$fechavp','$conceptovp','$obsvp','$saldovp','$monto','$saldofin','$metodo','$usuario','$fcliente','$facturado','$factura','$fechafact','$porcom','$comision','$pagocom')";
+        $consulta = "INSERT INTO pagocxp (folio_cxp,fecha,concepto,obs,saldoini,monto,saldofin,metodo,usuario) VALUES ('$foliocxp','$fechavp','$conceptovp','$obsvp','$saldovp','$monto','$saldofin','$metodo','$usuario')";
         $resultado = $conexion->prepare($consulta);
 
         if ($resultado->execute()) {
@@ -49,11 +40,11 @@ switch ($opcion) {
                 }
                 $res += 1;
             }
-            $saldofinb=$saldoinib+$monto;
+            $saldofinb=$saldoinib-$monto;
            
 
             //consultar el folio del pago
-            $consulta = "SELECT folio_pagocxc from pagocxc where folio_vta='$folio_vta' order by folio_pagocxc desc limit 1";
+            $consulta = "SELECT folio_pagocxp from pagocxp where folio_cxp='$foliocxp' order by folio_pagocxp desc limit 1";
             $resultado = $conexion->prepare($consulta);
             if ($resultado->execute()) {
                 $res += 1;
@@ -61,18 +52,18 @@ switch ($opcion) {
                 $fpago = 0;
 
                 foreach ($data as $regdata) {
-                    $fpago = $regdata['folio_pagocxc'];
+                    $fpago = $regdata['folio_pagocxp'];
                 }
             }
-            $leyenda="Pago de Cliente Vta: ".$folio_vta." Pago: ".$fpago;
+            
             //guardar el movimiento
-            $consulta = "INSERT INTO mov_banco(id_banco,fecha_movb,tipo_movb,monto,folio_pagocxc,saldoini,saldofin,descripcion) values('$banco','$fechavp','Ingreso','$monto','$fpago','$saldoinib','$saldofinb','$leyenda')";
+            $consulta = "INSERT INTO mov_banco(id_banco,fecha_movb,tipo_movb,monto,folio_pagocxp,saldoini,saldofin,descripcion) values('$banco','$fechavp','Egreso','$monto','$fpago','$saldoinib','$saldofinb','$conceptovp')";
             $resultado = $conexion->prepare($consulta);
 
             if ($resultado->execute()) {
                 $res += 1;
                 //consultar el id del movimiento
-                $consulta = "SELECT id_movb from mov_banco where folio_pagocxc='$fpago' order by id_movb desc limit 1";
+                $consulta = "SELECT id_movb from mov_banco where folio_pagocxp='$fpago' order by id_movb desc limit 1";
                 $resultado = $conexion->prepare($consulta);
                 if ($resultado->execute()) {
                     $datam = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -84,7 +75,7 @@ switch ($opcion) {
 
                 //actualizar el id_movb en pago
 
-                $consulta = "UPDATE pagocxc SET id_movb='$fmovb' where folio_pagocxc='$fpago'";
+                $consulta = "UPDATE pagocxp SET id_movb='$fmovb' where folio_pagocxp='$fpago'";
                 $resultado = $conexion->prepare($consulta);
                 if ($resultado->execute()) {
                     $res += 1;
@@ -92,7 +83,7 @@ switch ($opcion) {
 
 
 
-                $consulta = "UPDATE banco SET saldo_banco=saldo_banco+'$monto' WHERE id_banco='$banco'";
+                $consulta = "UPDATE banco SET saldo_banco=saldo_banco-'$monto' WHERE id_banco='$banco'";
                 $resultado = $conexion->prepare($consulta);
                 if ($resultado->execute()) {
                     $res += 1;
@@ -103,20 +94,12 @@ switch ($opcion) {
         } else {
             $res = 0;
         }
-        print json_encode($fpago, JSON_UNESCAPED_UNICODE);
+        print json_encode($res, JSON_UNESCAPED_UNICODE);
         $conexion = NULL;
         break;
 
     case '2':
 
-        $consulta = "UPDATE pagocxc SET fecha='$fechavp',concepto='$conceptovp',obs='$obsvp',metodo='$metodo',fcliente='$fcliente',facturado='$facturado',factura='$factura',fecha_fact='$fechafact',seguro_fact='$bloqueo' WHERE folio_pagocxc='$folio'";
-        $resultado = $conexion->prepare($consulta);
-        if ($resultado->execute()) {
-            $res = 1;
-        } else {
-            $res = 0;
-        }
-        print json_encode($res, JSON_UNESCAPED_UNICODE);
-        $conexion = NULL;
+       
         break;
 }
