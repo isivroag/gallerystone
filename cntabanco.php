@@ -124,9 +124,9 @@ $message = "";
                                         <label for="tipo" class="col-form-label">Tipo:</label>
                                         <select class="form-control" name="tipo" id="tipo">
 
-                                            <option id="FISCAL" value="FISCAL"> FISCAL</option>
+                                            <option id="BANCO" value="BANCO"> BANCO</option>
                                             <!--<option id="CAJA FUERTE" value="CAJA FUERTE"> CAJA FUERTE</option>-->
-                                            <option id="PERSONAL" value="PERSONAL"> PERSONAL</option>
+                                            <option id="CAJA" value="CAJA"> CAJA</option>
 
                                         </select>
                                     </div>
