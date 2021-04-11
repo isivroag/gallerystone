@@ -23,6 +23,10 @@ class ComposerStaticInit07f8603e0ed03a7debb621d4bc0000cd
         array (
             'Mpdf\\' => 5,
         ),
+        'L' => 
+        array (
+            'Luecano\\NumeroALetras\\' => 22,
+        ),
         'D' => 
         array (
             'DeepCopy\\' => 9,
@@ -42,10 +46,18 @@ class ComposerStaticInit07f8603e0ed03a7debb621d4bc0000cd
         array (
             0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
         ),
+        'Luecano\\NumeroALetras\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/luecano/numero-a-letras/src',
+        ),
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
+    );
+
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -53,6 +65,7 @@ class ComposerStaticInit07f8603e0ed03a7debb621d4bc0000cd
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit07f8603e0ed03a7debb621d4bc0000cd::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit07f8603e0ed03a7debb621d4bc0000cd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit07f8603e0ed03a7debb621d4bc0000cd::$classMap;
 
         }, null, ClassLoader::class);
     }

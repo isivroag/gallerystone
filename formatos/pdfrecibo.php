@@ -2,7 +2,7 @@
     $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
     $pago = (isset($_GET['pago'])) ? $_GET['pago'] : '';
 
-   
+    
 
     require_once ('../vendor/autoload.php');
     

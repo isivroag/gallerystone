@@ -35,7 +35,7 @@ $(document).ready(function () {
         targets: -1,
         data: null,
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm bg-purple btnFacturar'><i class='fas fa-file-invoice'></i></button><button class='btn btn-sm btn-danger btnCancelar'><i class='fas fa-ban'></i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm bg-purple btnFacturar'><i class='fas fa-file-invoice'></i></button><button class='btn btn-sm bg-gradient-orange text-white btnImprimir'><i class='fas fa-print'></i></button><button class='btn btn-sm btn-danger btnCancelar'><i class='fas fa-ban'></i></button></div></div>",
       },
       {
         render: function (data, type, full, meta) {
@@ -178,9 +178,38 @@ $(document).ready(function () {
     }
   })
 
-  $('#btnNuevo').click(function () {
+  
+    $(document).on('click', '.btnImprimir', function () {
+      fila = $(this).closest('tr');
+      vta = parseInt(fila.find('td:eq(0)').text());
+      pago=parseInt(fila.find('td:eq(3)').text());
+      imprimirrecibo(vta,pago);
 
   })
+
+  function imprimirrecibo(folio,pago){
+    
+    var ancho = 1000
+    var alto = 800
+    var x = parseInt(window.screen.width / 2 - ancho / 2)
+    var y = parseInt(window.screen.height / 2 - alto / 2)
+
+    url = 'formatos/pdfrecibo.php?folio=' + folio +'&pago='+ pago;
+
+    window.open(
+      url,
+      'Recibo',
+      'left=' +
+      x +
+      ',top=' +
+      y +
+      ',height=' +
+      alto +
+      ',width=' +
+      ancho +
+      'scrollbar=si,location=no,resizable=si,menubar=no',
+    )
+  }
 
   var fila //capturar la fila para editar o borrar el registro
 
