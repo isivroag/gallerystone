@@ -19,6 +19,7 @@ $descuento = (isset($_POST['descuento'])) ? $_POST['descuento'] : '0';
 $gtotal = (isset($_POST['gtotal'])) ? $_POST['gtotal'] : '0';
 $notas = (isset($_POST['notas'])) ? $_POST['notas'] : '';
 $vendedor = (isset($_POST['vendedor'])) ? $_POST['vendedor'] : '';
+$tipo_proy = (isset($_POST['tipo_proy'])) ? $_POST['tipo_proy'] : '';
 
 $concepto = $concepto;
 $ubicacion = $ubicacion;
@@ -46,7 +47,7 @@ switch ($opcion) {
 
         break;
         case 2:
-            $consulta = "UPDATE tmp_pres SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal',notas='$notas',vendedor='$vendedor' WHERE folio_pres='$folio'";
+            $consulta = "UPDATE tmp_pres SET id_pros='$id_pros',fecha_pres='$fecha',concepto_pres='$concepto',ubicacion='$ubicacion',subtotal='$subtotal',iva='$iva',total='$total',descuento='$descuento',gtotal='$gtotal',notas='$notas',vendedor='$vendedor',tipo_proy='$tipo_proy' WHERE folio_pres='$folio'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
     

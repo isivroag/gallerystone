@@ -1,5 +1,5 @@
 <?php
-$pagina = "presupuesto";
+$pagina = "presupuestoobra";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -12,9 +12,9 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 if ($_SESSION['s_rol'] == '3') {
-  $consulta = "SELECT * FROM vpres where edo_pres='1' and tipo_proy=1 order by folio_pres";
+  $consulta = "SELECT * FROM vpres where edo_pres='1' and tipo_proy=2 order by folio_pres";
 } else {
-  $consulta = "SELECT * FROM vpres where edo_pres='1' and estado_pres<>'RECHAZADO' and estado_pres<>'ACEPTADO' and tipo_proy=1 order by folio_pres";
+  $consulta = "SELECT * FROM vpres where edo_pres='1' and estado_pres<>'RECHAZADO' and estado_pres<>'ACEPTADO' and tipo_proy=2 order by folio_pres";
 }
 
 $resultado = $conexion->prepare($consulta);
@@ -101,14 +101,16 @@ tr.details td.details-control {
               <div class="col-lg-2">
                 <div class="form-group input-group-sm">
                   <label for="fecha" class="col-form-label">Hasta:</label>
+                  
                   <input type="date" class="form-control" name="final" id="final">
-                  <input type="hidden" class="form-control" name="tipo_proy" id="tipo_proy" value=1>
+                  <input type="hidden" class="form-control" name="tipo_proy" id="tipo_proy" value=2>
                 </div>
               </div>
 
               <div class="col-lg-1 align-self-end text-center">
                 <div class="form-group input-group-sm">
                   <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+
                 </div>
               </div>
             </div>

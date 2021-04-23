@@ -1,5 +1,5 @@
 <?php
-$pagina = "venta";
+$pagina = "ventaobra";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vventa WHERE estado_vta=1 and saldo>0 and tipo_proy=1 ORDER BY folio_vta";
+$consulta = "SELECT * FROM vventa WHERE estado_vta=1 and tipo_proy=2 and saldo>0 ORDER BY folio_vta";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -59,7 +59,7 @@ $message = "";
                 <div class="form-group input-group-sm">
                   <label for="fecha" class="col-form-label">Hasta:</label>
                   <input type="date" class="form-control" name="final" id="final">
-                  <input type="hidden" class="form-control" name="tipo_proy" id="tipo_proy" value=1>
+                  <input type="hidden" class="form-control" name="tipo_proy" id="tipo_proy" value=2>
                 </div>
               </div>
 

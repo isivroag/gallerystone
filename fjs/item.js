@@ -5,11 +5,14 @@ $(document).ready(function() {
     tablaVis = $("#tablaV").DataTable({
 
 
-
+        
         "columnDefs": [{
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-sm btn-success btnPrecio'><i class='fas fa-dollar-sign'></i></button></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
+                "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button> \
+                <button class='btn btn-sm btn-success btnPrecio'><i class='fas fa-dollar-sign'></i></button></button>\
+                <button class='btn btn-sm btn-info  btnMaterial'><i class='fas fa-dolly'></i></button>\
+                <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
             },
             { className: "hide_column", "targets": [3] },
             { className: "hide_column", "targets": [4] },
@@ -57,6 +60,18 @@ $(document).ready(function() {
         id = parseInt(fila.find('td:eq(0)').text());
 
         window.location.href = "cntaprecio.php?id=" + id;
+
+
+    });
+
+
+    
+
+    $(document).on("click", ".btnMaterial", function() {
+        fila = $(this).closest("tr");
+        id = parseInt(fila.find('td:eq(0)').text());
+
+        window.location.href = "cntamaterial.php?id=" + id;
 
 
     });

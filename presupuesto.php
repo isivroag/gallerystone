@@ -51,6 +51,7 @@ if ($resultado->rowCount() >= 1) {
     $iva = $dt['iva'];
     $notas = $dt['notas'];
     $vendedor = $dt['vendedor'];
+    $tipo_proy = $dt['tipo_proy'];
   }
   if ($idpros != 0) {
     $consultapros = "SELECT nombre,correo FROM prospecto WHERE id_pros='$idpros'";
@@ -238,6 +239,21 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
               </div>
 
               <div class="card-body" style="margin:0px;padding:1px;">
+              <div class="row justify-content-sm-center pt-2 ">
+                  <div class="col-sm-1 ">
+                    <div class="form-group input-group-sm">
+                      <label for="tipo_proy" class="col-form-label">Tipo Proyecto:</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 ">
+                    <div class="form-group input-group-sm">
+                      <select class="form-control" name="tipo_proy" id="tipo_proy" >
+                        <option id="tipo_proy1" value="1" <?php echo ($tipo_proy == 1) ? 'selected' : '' ?>> PROYECTO</option>
+                        <option id="tipo_proy2" value="2" <?php echo ($tipo_proy == 2) ? 'selected' : '' ?>> OBRA</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="row justify-content-sm-center">
 
@@ -322,11 +338,11 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                   <div class="col-sm-11">
                     <div class="form-group">
                       <label for="vendedor" class="col-form-label">Vendedor:</label>
-                      <select class="form-control" name="vendedor" id="vendedor" autocomplete="off" placeholder="Vendedor" >
+                      <select class="form-control" name="vendedor" id="vendedor" autocomplete="off" placeholder="Vendedor">
                         <?php
                         foreach ($datavend as $dtvend) {
                         ?>
-                          <option id="<?php echo $dtvend['nom_vend'] ?>" value="<?php echo $dtvend['nom_vend'] ?>" <?php echo ($dtvend['nom_vend']==$vendedor?'selected':'')?>> <?php echo $dtvend['nom_vend'] ?></option>
+                          <option id="<?php echo $dtvend['nom_vend'] ?>" value="<?php echo $dtvend['nom_vend'] ?>" <?php echo ($dtvend['nom_vend'] == $vendedor ? 'selected' : '') ?>> <?php echo $dtvend['nom_vend'] ?></option>
 
                         <?php
                         }

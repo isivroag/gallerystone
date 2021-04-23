@@ -11,13 +11,14 @@ $conexion = $objeto->connect();
 $inicio = (isset($_POST['inicio'])) ? $_POST['inicio'] : '';
 $final = (isset($_POST['final'])) ? $_POST['final'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
+$tipo_proy = (isset($_POST['tipo_proy'])) ? $_POST['tipo_proy'] : '';
 
 switch ($opcion) {
     case 0:
-        $consulta = "SELECT * FROM vpres WHERE fecha_pres BETWEEN '$inicio' AND '$final' ORDER BY folio_pres";
+        $consulta = "SELECT * FROM vpres WHERE fecha_pres BETWEEN '$inicio' AND '$final' and tipo_proy='$tipo_proy' ORDER BY folio_pres";
         break;
     case 1:
-        $consulta = "SELECT * FROM vpres WHERE fecha_pres BETWEEN '$inicio' AND '$final' and estado_pres<>'RECHAZADO' ORDER BY folio_pres";
+        $consulta = "SELECT * FROM vpres WHERE fecha_pres BETWEEN '$inicio' AND '$final' and estado_pres<>'RECHAZADO' and tipo_proy='$tipo_proy' ORDER BY folio_pres";
         break;
 }
 

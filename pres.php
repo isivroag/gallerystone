@@ -25,7 +25,7 @@ if ($folio != "") {
 
   foreach ($data as $dt) {
     $folio = $dt['folio_pres'];
-    $tmp_pres=$dt['folio_tmp'];
+    $tmp_pres = $dt['folio_tmp'];
     $fecha = $dt['fecha_pres'];
     $idpros = $dt['id_pros'];
     $concepto = $dt['concepto_pres'];
@@ -37,6 +37,7 @@ if ($folio != "") {
     $iva = $dt['iva'];
     $notas = $dt['notas'];
     $vendedor = $dt['vendedor'];
+    $tipo_proy = $dt['tipo_proy'];
   }
 
   if ($idpros != 0) {
@@ -136,18 +137,34 @@ if ($folio != "") {
               <div class="card-header bg-gradient-primary " style="margin:0px;padding:8px">
                 <div class="card-tools" style="margin:0px;padding:0px;">
 
-                
+
                 </div>
                 <h1 class="card-title ">Datos del Presupuesto</h1>
               </div>
 
               <div class="card-body" style="margin:0px;padding:1px;">
+              
+                <div class="row justify-content-sm-center pt-2 ">
+                  <div class="col-sm-1 ">
+                    <div class="form-group input-group-sm">
+                      <label for="tipo_proy" class="col-form-label">Tipo Proyecto:</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 ">
+                    <div class="form-group input-group-sm">
+                      <select class="form-control" name="tipo_proy" id="tipo_proy" disabled>
+                        <option id="tipo_proy1" value="1" <?php echo ($tipo_proy == 1) ? 'selected' : '' ?>> PROYECTO</option>
+                        <option id="tipo_proy2" value="2" <?php echo ($tipo_proy == 2) ? 'selected' : '' ?>> OBRA</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="row justify-content-sm-center">
 
                   <div class="col-lg-5">
                     <div class="form-group">
-                    <input type="hidden" class="form-control" name="tmp_pres" id="tmp_pres" value="<?php echo $tmp_pres; ?>">
+                      <input type="hidden" class="form-control" name="tmp_pres" id="tmp_pres" value="<?php echo $tmp_pres; ?>">
                       <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
                       <input type="hidden" class="form-control" name="id_pros" id="id_pros" value="<?php echo $idpros; ?>">
                       <label for="nombre" class="col-form-label">Prospecto:</label>
@@ -211,7 +228,7 @@ if ($folio != "") {
                 <!-- modificacion Agregar notas a presupuesto-->
                 <div class="row justify-content-sm-center">
                   <div class="col-sm-11">
-                  <div class="form-group">
+                    <div class="form-group">
                       <label for="notas" class="col-form-label">Notas:</label>
                       <textarea rows="2" class="form-control" name="notas" id="notas" disabled><?php echo $notas; ?></textarea>
                     </div>
@@ -227,14 +244,14 @@ if ($folio != "") {
                     </div>
                   </div>
                 </div>
-<!--fin modificacion agregar notas a presupuesto -->
+                <!--fin modificacion agregar notas a presupuesto -->
 
               </div>
 
 
             </div>
             <!-- Formulario Agrear Item -->
-           <!--
+            <!--
             <div class="content" style="padding-top:0px;">
               <div class="card card-widget " style="margin:2px;padding:5px;">
 
@@ -380,7 +397,7 @@ if ($folio != "") {
                               <th>U. Medida</th>
                               <th>P.U.</th>
                               <th>Monto</th>
-                              
+
                             </tr>
                           </thead>
                           <tbody>
@@ -397,7 +414,7 @@ if ($folio != "") {
                                 <td><?php echo $datdet['precio'] ?></td>
                                 <td><?php echo $datdet['total'] ?></td>
 
-                              
+
                               </tr>
                             <?php
                             }
@@ -411,7 +428,7 @@ if ($folio != "") {
                     </div>
 
                   </div>
-<!--
+                  <!--
                   <div class="row justify-content-sm-center">
                     <div class=" offset-lg-0 col-lg-2 ">
                       <div class="custom-control custom-checkbox">
@@ -478,7 +495,7 @@ if ($folio != "") {
                     </div>
 
                     <div class="col-lg-2 ">
-                    <label for="total" class="col-form-label ">Descuento <span id="pdesc" name="pdesc"></span> :</label>
+                      <label for="total" class="col-form-label ">Descuento <span id="pdesc" name="pdesc"></span> :</label>
 
                       <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
@@ -525,7 +542,7 @@ if ($folio != "") {
                 <div class="card-header bg-gradient-blue" style="margin:0px;padding:8px;">
                   <h1 class="card-title" style="text-align:center;">Condiciones</h1>
                   <div class="card-tools" style="margin:0px;padding:0px;">
-                    
+
                   </div>
                 </div>
                 <div class="card-body" style="margin:0px;padding:2px 5px;">
@@ -535,7 +552,7 @@ if ($folio != "") {
                       <div class="table-responsive" style="padding:5px;">
 
                         <table name="tablacond" id="tablacond" class=" table-sm table-condensed mx-auto" style="width:100%;">
-                        <thead class="text-center bg-gradient-orange" STYLE="display:none">
+                          <thead class="text-center bg-gradient-orange" STYLE="display:none">
                             <tr>
                               <th>Id</th>
                               <th>CONDICION</th>
@@ -553,7 +570,9 @@ if ($folio != "") {
                             ?>
                                 <tr>
                                   <td><?php echo $dtcond['id_reg'] ?> </td>
-                                  <td><li><?php echo $dtcond['nom_cond'] ?></li></td>
+                                  <td>
+                                    <li><?php echo $dtcond['nom_cond'] ?></li>
+                                  </td>
                                   <td></td>
                                 </tr>
                             <?php

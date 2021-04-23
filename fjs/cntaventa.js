@@ -170,6 +170,7 @@ $(document).ready(function() {
     $("#btnBuscar").click(function() {
         var inicio = $("#inicio").val();
         var final = $("#final").val();
+        var tipo_proy = $("#tipo_proy").val();
 
         if ($("#cventas").prop("checked")) {
             opcion = 0;
@@ -187,7 +188,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "bd/buscarvta.php",
                 dataType: "json",
-                data: { inicio: inicio, final: final, opcion: opcion },
+                data: { inicio: inicio, final: final,tipo_proy: tipo_proy, opcion: opcion },
                 success: function(data) {
 
                     for (var i = 0; i < data.length; i++) {

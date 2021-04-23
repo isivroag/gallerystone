@@ -457,6 +457,7 @@ $(document).ready(function() {
         presupuesto = $("#presupuesto").val();
         notas = $("#notas").val();
         vendedor = $("#vendedor").val();
+        tipo_proy = $("#tipo_proy").val();
         console.log(vendedor);
         var totalitems = $("#tablaV").DataTable().page.info().recordsTotal;
 
@@ -491,7 +492,8 @@ $(document).ready(function() {
                     descuento: descuento,
                     gtotal: gtotal,
                     notas: notas,
-                    vendedor: vendedor
+                    vendedor: vendedor,
+                    tipo_proy: tipo_proy
                 },
                 success: function(res) {
                     if (res == 0) {
