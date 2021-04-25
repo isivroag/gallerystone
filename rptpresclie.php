@@ -11,12 +11,15 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
+
+$idclie = (isset($_GET['id_clie'])) ? $_GET['id_clie'] : '';
+
 if ($_SESSION['s_rol'] == '3') {
-    $consulta = "SELECT * FROM vpres where edo_pres='1' order by folio_pres";
+    $consulta = "SELECT * FROM vpres where id_pros='$idclie' and edo_pres='1' order by folio_pres";
 }
 else
 {
-    $consulta = "SELECT * FROM vpres where edo_pres='1' order by folio_pres";
+    $consulta = "SELECT * FROM vpres where id_pros='$idclie' and edo_pres='1' order by folio_pres";
 }
 
 
@@ -99,7 +102,6 @@ $message = "";
                                         <tr>
                                             <th>Folio</th>
                                             <th>Fecha</th>
-                                            <th>Id Clie</th>
                                             <th>Cliente</th>
                                             <th>Proyecto</th>
                                             <th>Ubicación</th>
@@ -116,7 +118,6 @@ $message = "";
                                             <tr>
                                                 <td><?php echo $dat['folio_pres'] ?></td>
                                                 <td><?php echo $dat['fecha_pres'] ?></td>
-                                                <td><?php echo $dat['id_pros'] ?></td>
                                                 <td><?php echo $dat['nombre'] ?></td>
                                                 <td><?php echo $dat['concepto_pres'] ?></td>
                                                 <td><?php echo $dat['ubicacion'] ?></td>
@@ -157,7 +158,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/rptpresupuestos.js"></script>
+<script src="fjs/rptpresclie.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

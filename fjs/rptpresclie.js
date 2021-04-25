@@ -2,6 +2,7 @@ $(document).ready(function () {
     var id, opcion
     opcion = 4
 
+   
     $('#tablaV thead tr').clone(true).appendTo( '#tablaV thead' );
     $('#tablaV thead tr:eq(1) th').each( function (i) {
 
@@ -69,7 +70,6 @@ $(document).ready(function () {
             }
         } );
     } );
-
   
     tablaVis = $('#tablaV').DataTable({
       dom:
@@ -80,27 +80,19 @@ $(document).ready(function () {
         columnDefs: [
           
           {
+            targets: 3,
+            render: function (data, type, full, meta) {
+              return "<div class='text-wrap width-200'>" + data + '</div>'
+              //return "<div class='text-wrap width-200'>" + data + '</div>'
+            },
+          },
+          {
             targets: 4,
             render: function (data, type, full, meta) {
               return "<div class='text-wrap width-200'>" + data + '</div>'
               //return "<div class='text-wrap width-200'>" + data + '</div>'
             },
           },
-          {
-            targets: 5,
-            render: function (data, type, full, meta) {
-              return "<div class='text-wrap width-200'>" + data + '</div>'
-              //return "<div class='text-wrap width-200'>" + data + '</div>'
-            },
-
-            
-          },
-          {
-            "targets": 2,
-            "data": "cntamovp.php",
-            "render": function ( data, type, full, meta ) {
-              return '<a href=rptpresclie.php?id_clie='+data+'>'+data+'</a>';    }
-         }
         ],
     
       buttons: [
@@ -191,34 +183,34 @@ $(document).ready(function () {
       },
   
       rowCallback: function (row, data) {
-        $($(row).find('td')['7']).css('color', 'white')
-        $($(row).find('td')['7']).addClass('text-center')
-        $($(row).find('td')['6']).addClass('text-right')
-        $($(row).find('td')['6']).addClass('currency')
+        $($(row).find('td')['6']).css('color', 'white')
+        $($(row).find('td')['6']).addClass('text-center')
+        $($(row).find('td')['5']).addClass('text-right')
+        $($(row).find('td')['5']).addClass('currency')
   
-        if (data[7] == 'PENDIENTE') {
-          //$($(row).find("td")[7]).css("background-color", "warning");
-          $($(row).find('td')[7]).addClass('bg-gradient-warning')
-          //$($(row).find('td')['7']).text('PENDIENTE')
-        } else if (data[7] == 'ENVIADO') {
-          //$($(row).find("td")[7]).css("background-color", "blue");
-          $($(row).find('td')[7]).addClass('bg-gradient-primary')
-          //$($(row).find('td')['7']).text('ENVIADO')
-        } else if (data[7] == 'ACEPTADO') {
-          //$($(row).find("td")[7]).css("background-color", "success");
-          $($(row).find('td')[7]).addClass('bg-gradient-success')
-          //$($(row).find('td')['7']).text('ACEPTADO')
-        } else if (data[7] == 'SEGUIMIENTO') {
-          //$($(row).find("td")[7]).css("background-color", "purple");
-          $($(row).find('td')[7]).addClass('bg-gradient-purple')
-          //$($(row).find('td')['7']).text('EN ESPERA')
-        } else if (data[7] == 'MODIFICADO') {
+        if (data[6] == 'PENDIENTE') {
+          //$($(row).find("td")[6]).css("background-color", "warning");
+          $($(row).find('td')[6]).addClass('bg-gradient-warning')
+          //$($(row).find('td')['6']).text('PENDIENTE')
+        } else if (data[6] == 'ENVIADO') {
+          //$($(row).find("td")[6]).css("background-color", "blue");
+          $($(row).find('td')[6]).addClass('bg-gradient-primary')
+          //$($(row).find('td')['6']).text('ENVIADO')
+        } else if (data[6] == 'ACEPTADO') {
+          //$($(row).find("td")[6]).css("background-color", "success");
+          $($(row).find('td')[6]).addClass('bg-gradient-success')
+          //$($(row).find('td')['6']).text('ACEPTADO')
+        } else if (data[6] == 'SEGUIMIENTO') {
+          //$($(row).find("td")[6]).css("background-color", "purple");
+          $($(row).find('td')[6]).addClass('bg-gradient-purple')
+          //$($(row).find('td')['6']).text('EN ESPERA')
+        } else if (data[6] == 'MODIFICADO') {
           //$($(row).find("td")[5]).css("background-color", "light-blue");
-          $($(row).find('td')[7]).addClass('bg-lightblue')
-          //$($(row).find('td')['7']).text('EDITADO')
+          $($(row).find('td')[6]).addClass('bg-lightblue')
+          //$($(row).find('td')['6']).text('EDITADO')
         } else {
           //$($(row).find("td")[5]).css("background-color", "red");
-          $($(row).find('td')[7]).addClass('bg-gradient-danger')
+          $($(row).find('td')[6]).addClass('bg-gradient-danger')
           //$($(row).find('td')['8']).text('RECHAZADO')
         }
       },
@@ -252,81 +244,19 @@ $(document).ready(function () {
             }, 0 );
 
         // Update footer
-        $( api.column( 6 ).footer() ).html(
+        $( api.column( 5 ).footer() ).html(
             '$'+ new Intl.NumberFormat('es-MX').format(Math.round((pageTotal + Number.EPSILON) * 100) / 100) 
         );
         }
     });
   
-    $('#btnNuevo').click(function () {
-      window.location.href = 'presupuesto.php'
-      //$("#formDatos").trigger("reset");
-      //$(".modal-header").css("background-color", "#28a745");
-      //$(".modal-header").css("color", "white");
-      //$(".modal-title").text("Nuevo Prospecto");
-      //$("#modalCRUD").modal("show");
-      //id = null;
-      //opcion = 1; //alta
-    })
+
   
     var fila //capturar la fila para editar o borrar el registro
   
     //botón EDITAR
-    $(document).on('click', '.btnEditar', function () {
-      fila = $(this).closest('tr')
-      id = parseInt(fila.find('td:eq(0)').text())
-  
-      window.location.href = 'pres.php?folio=' + id
-    })
-  
-    $(document).on('click', '.btnLlamar', function () {
-      fila = $(this).closest('tr')
-      id = parseInt(fila.find('td:eq(0)').text())
-      $('#formllamada').trigger('reset')
-      $('.modal-header').css('background-color', '#28a745')
-      $('.modal-header').css('color', 'white')
-      $('.modal-title').text('Llamada de seguimiento')
-      $('#modalcall').modal('show')
-    })
-  
-    $(document).on('click', '.btnhistory', function () {
-      fila = $(this).closest('tr')
-      id = parseInt(fila.find('td:eq(0)').text())
-      window.location.href = 'verhistorialpres.php?folio=' + id
-    })
-  
-    //botón BORRAR
-    $(document).on('click', '.btnBorrar', function () {
-      fila = $(this).closest('tr')
-      id = parseInt($(this).closest('tr').find('td:eq(0)').text())
-      opcion = 3 //borrar
-      //agregar codigo de sweatalert2
-      var respuesta = confirm('¿Está seguro de eliminar el registro: ' + id + '?')
-      folio = id
-      estado = 0
-      nota = 'CANCELACIÓN'
-      fecha = $('#fechasys').val()
-      usuario = $('#nameuser').val()
-      if (respuesta) {
-        $.ajax({
-          type: 'POST',
-          url: 'bd/estadopres.php',
-          dataType: 'json',
-          data: {
-            folio: folio,
-            usuario: usuario,
-            estado: estado,
-            nota: nota,
-            fecha: fecha,
-          },
-          success: function (data) {
-            if (data == 1) {
-              window.location.reload(true)
-            }
-          },
-        })
-      }
-    })
+
+ 
   
     function startTime() {
       var today = new Date()
@@ -349,37 +279,11 @@ $(document).ready(function () {
       return i
     }
   
-    $('#formllamada').submit(function (e) {
-      e.preventDefault()
-      folio = id
-      estado = $('#estado').val()
-      nota = $('#nota').val()
-      fecha = $('#fechasys').val()
-      usuario = $('#nameuser').val()
   
-      $.ajax({
-        type: 'POST',
-        url: 'bd/estadopres.php',
-        dataType: 'json',
-  
-        data: {
-          folio: folio,
-          usuario: usuario,
-          estado: estado,
-          nota: nota,
-          fecha: fecha,
-        },
-        success: function () {
-          window.location.reload(true)
-        },
-      })
-      $('#modalcall').modal('hide')
-    })
   
     $('#btnBuscar').click(function () {
       var inicio = $('#inicio').val()
       var final = $('#final').val()
-      tipo_proy=1;
   
       if ($('#ctodos').prop('checked')) {
         opcion = 0
@@ -397,18 +301,16 @@ $(document).ready(function () {
           type: 'POST',
           url: 'bd/buscarpresupuestos.php',
           dataType: 'json',
-          data: { inicio: inicio, final: final,tipo_proy: tipo_proy, opcion: opcion },
+          data: { inicio: inicio, final: final, opcion: opcion },
           success: function (data) {
             for (var i = 0; i < data.length; i++) {
               estado = data[i].estado_pres
               total = data[i].gtotal
-              idpros='<a href=rptpresclie.php?id_clie='+data[i].id_pros+'>'+data[i].id_pros+'</a>'
-              console.log(data[i].id_pros);
+  
               tablaVis.row
                 .add([
                   data[i].folio_pres,
                   data[i].fecha_pres,
-                  idpros,
                   data[i].nombre,
                   data[i].concepto_pres,
                   data[i].ubicacion,

@@ -82,18 +82,16 @@ $(document).ready(function() {
         var respuesta = confirm("¿Está seguro de eliminar el registro: " + id + "?");
 
 
-        console.log(id);
-        console.log(opcion);
         if (respuesta) {
             $.ajax({
 
-                url: "bd/crudprecio.php",
+                url: "bd/crudmaterial.php",
                 type: "POST",
                 dataType: "json",
                 data: { id: id, opcion: opcion },
 
                 success: function(data) {
-                    console.log(fila);
+                
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
                 }
@@ -132,7 +130,7 @@ $(document).ready(function() {
                 dataType: "json",
                 data: { id_item: id_item, umedida: umedida, nom_mat: nom_mat, cantidad: cantidad,alto: alto,ancho: ancho,largo: largo, id: id, opcion: opcion },
                 success: function(data) {
-                    console.log(data);
+                 
 
 
                     //tablaPersonas.ajax.reload(null, false);
