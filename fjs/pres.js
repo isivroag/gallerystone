@@ -191,8 +191,9 @@ $(document).ready(function() {
 
         }).then(function(isConfirm) {
             if (isConfirm.value) {
-                console.log("Aceptado");
+                
                 folio = $('#folio').val();
+               
                 $.ajax({
 
                     type: "POST",
