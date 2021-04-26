@@ -10,8 +10,9 @@ $conexion = $objeto->connect();
 
 $inicio = (isset($_POST['inicio'])) ? $_POST['inicio'] : '';
 $final = (isset($_POST['final'])) ? $_POST['final'] : '';
+$tipo_proy = (isset($_POST['tipo_proy'])) ? $_POST['tipo_proy'] : '';
 
-$consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and estado_vta=1 ORDER BY folio_vta";
+$consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and estado_vta=1 and tipo_proy=$tipo_proy ORDER BY folio_vta";
 
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();

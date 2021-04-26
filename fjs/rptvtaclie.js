@@ -16,45 +16,6 @@ $(document).ready(function () {
           
           if (i==6){
 
-           /* switch(this.value){
-              case 'rechazado':
-              case 'Rechazado':
-              case 'RECHAZADO':
-                valbuscar="0";
-              break;
-              case 'pendiente':
-              case 'Pendiente':
-              case 'PENDIENTE':
-                valbuscar="1";
-              break;
-              case 'enviado':
-              case 'Enviado':
-              case 'ENVIADO':
-                  valbuscar="2";
-                break;
-              case 'aceptado':
-              case 'Aceptado':
-              case 'ACEPTADO':
-                  valbuscar="3";
-                break;
-              case 'en espera':
-              case 'En espera':
-              case 'en Espera':
-              case 'En Espera':
-              case 'EN ESPERA':
-              case 'Espera':
-              case 'espera':
-              case 'ESPERA':
-                  valbuscar="4";
-                break;
-              case 'editado':
-              case 'Editado':
-              case 'EDITADO':
-                valbuscar="5";
-                break; 
-              default:
-                valbuscar="";
-            }*/
             
             valbuscar=this.value;
           }else{
@@ -184,41 +145,18 @@ $(document).ready(function () {
       },
   
       rowCallback: function (row, data) {
-        $($(row).find('td')['7']).css('color', 'white')
-        $($(row).find('td')['7']).addClass('text-center')
+       
         $($(row).find('td')[6]).addClass('text-right')
         $($(row).find('td')[6]).addClass('currency')
+        $($(row).find('td')[7]).addClass('text-right')
+        $($(row).find('td')[7]).addClass('currency')
       /*
         if (data[6] ){
           '$'+ new Intl.NumberFormat('es-MX').format(Math.round((data + Number.EPSILON) * 100) / 100) 
 
         }*/
   
-        if (data[7] == 'PENDIENTE') {
-          //$($(row).find("td")[7]).css("background-color", "warning");
-          $($(row).find('td')[7]).addClass('bg-gradient-warning')
-          //$($(row).find('td')['7']).text('PENDIENTE')
-        } else if (data[7] == 'ENVIADO') {
-          //$($(row).find("td")[7]).css("background-color", "blue");
-          $($(row).find('td')[7]).addClass('bg-gradient-primary')
-          //$($(row).find('td')['7']).text('ENVIADO')
-        } else if (data[7] == 'ACEPTADO') {
-          //$($(row).find("td")[7]).css("background-color", "success");
-          $($(row).find('td')[7]).addClass('bg-gradient-success')
-          //$($(row).find('td')['7']).text('ACEPTADO')
-        } else if (data[7] == 'SEGUIMIENTO') {
-          //$($(row).find("td")[7]).css("background-color", "purple");
-          $($(row).find('td')[7]).addClass('bg-gradient-purple')
-          //$($(row).find('td')['7']).text('EN ESPERA')
-        } else if (data[7] == 'MODIFICADO') {
-          //$($(row).find("td")[5]).css("background-color", "light-blue");
-          $($(row).find('td')[7]).addClass('bg-lightblue')
-          //$($(row).find('td')['7']).text('EDITADO')
-        } else {
-          //$($(row).find("td")[5]).css("background-color", "red");
-          $($(row).find('td')[7]).addClass('bg-gradient-danger')
-          //$($(row).find('td')['8']).text('RECHAZADO')
-        }
+     
       },
 
 
@@ -241,6 +179,13 @@ $(document).ready(function () {
                 return intVal(a) + intVal(b);
             }, 0 );
 
+            saldo = api
+            .column( 7 )
+            .data()
+            .reduce( function (a, b) {
+                return intVal(a) + intVal(b);
+            }, 0 );
+
         // Total over this page
         pageTotal = api
             .column( 6, { page: 'current'} )
@@ -249,9 +194,19 @@ $(document).ready(function () {
                 return intVal(a) + intVal(b);
             }, 0 );
 
+            pagesaldo = api
+            .column( 7, { page: 'current'} )
+            .data()
+            .reduce( function (a, b) {
+                return intVal(a) + intVal(b);
+            }, 0 );
+
         // Update footer
         $( api.column( 6 ).footer() ).html(
             '$'+ new Intl.NumberFormat('es-MX').format(Math.round((pageTotal + Number.EPSILON) * 100) / 100) 
+        );
+        $( api.column( 7 ).footer() ).html(
+            '$'+ new Intl.NumberFormat('es-MX').format(Math.round((pagesaldo + Number.EPSILON) * 100) / 100) 
         );
         }
     });
@@ -306,7 +261,7 @@ $(document).ready(function () {
       if (inicio != '' && final != '') {
         $.ajax({
           type: 'POST',
-          url: 'bd/buscarpresupuestos.php',
+          url: 'bd/buscarvta.php',
           dataType: 'json',
           data: { inicio: inicio, final: final, opcion: opcion,idclie: idclie },
           success: function (data) {
@@ -316,14 +271,14 @@ $(document).ready(function () {
   
               tablaVis.row
                 .add([
-                  data[i].folio_pres,
+                  data[i].folio_vta,
                   data[i].tipop,
-                  data[i].fecha_pres,
+                  data[i].fecha_vta,
                   data[i].nombre,
-                  data[i].concepto_pres,
+                  data[i].concepto_vta,
                   data[i].ubicacion,
                   data[i].gtotal,
-                  data[i].estado_pres,
+                  data[i].saldo,
                   data[i].vendedor,
                 ])
                 .draw()

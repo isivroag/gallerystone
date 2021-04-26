@@ -1,15 +1,13 @@
 $(document).ready(function () {
     var id, opcion
     opcion = 4
-    
-   
+
     $('#tablaV thead tr').clone(true).appendTo( '#tablaV thead' );
     $('#tablaV thead tr:eq(1) th').each( function (i) {
 
-
+      
+      
         var title = $(this).text();
-
-
         $(this).html( '<input class="form-control form-control-sm" type="text" placeholder="'+title+'" />' );
  
         $( 'input', this ).on( 'keyup change', function () {
@@ -69,7 +67,10 @@ $(document).ready(function () {
                     .draw();
             }
         } );
+
+
     } );
+
   
     tablaVis = $('#tablaV').DataTable({
       dom:
@@ -92,8 +93,16 @@ $(document).ready(function () {
               return "<div class='text-wrap width-200'>" + data + '</div>'
               //return "<div class='text-wrap width-200'>" + data + '</div>'
             },
+
+            
           },
          
+          {
+            "targets": 3,
+            "render": function ( data, type, row, meta ) {
+              return '<a href=rptpresclie.php?id_clie='+row[2]+'>'+data+'</a>';    }
+         },
+         { "width": "50px", "targets": 2 }
         ],
     
       buttons: [
@@ -103,8 +112,9 @@ $(document).ready(function () {
           titleAttr: 'Exportar a Excel',
           title: 'Reporte de Presupuestos',
           className: 'btn bg-success ',
+          footer: true,
           exportOptions: {
-            columns: [0, 1, 2, 3, 4, 5,6],
+            columns: [0, 1, 2, 3, 4, 5,6,7],
             /*format: {
               body: function (data, row, column, node) {
                 if (column === 5) {
@@ -123,8 +133,9 @@ $(document).ready(function () {
           text: "<i class='far fa-file-pdf'> PDF</i>",
           titleAttr: 'Exportar a PDF',
           title: 'Reporte de Presupuestos',
+          footer: true,
           className: 'btn bg-danger',
-          exportOptions: { columns: [0, 1, 2, 3, 4, 5,6] },
+          exportOptions: { columns: [0, 1, 2, 3, 4, 5,6,7] },
           format: {
               body: function (data, row, column, node) {
                 if (column === 6) {
@@ -186,13 +197,8 @@ $(document).ready(function () {
       rowCallback: function (row, data) {
         $($(row).find('td')['7']).css('color', 'white')
         $($(row).find('td')['7']).addClass('text-center')
-        $($(row).find('td')[6]).addClass('text-right')
-        $($(row).find('td')[6]).addClass('currency')
-      /*
-        if (data[6] ){
-          '$'+ new Intl.NumberFormat('es-MX').format(Math.round((data + Number.EPSILON) * 100) / 100) 
-
-        }*/
+        $($(row).find('td')['6']).addClass('text-right')
+        $($(row).find('td')['6']).addClass('currency')
   
         if (data[7] == 'PENDIENTE') {
           //$($(row).find("td")[7]).css("background-color", "warning");
@@ -256,13 +262,75 @@ $(document).ready(function () {
         }
     });
   
-
+    $('#btnNuevo').click(function () {
+      window.location.href = 'presupuesto.php'
+      //$("#formDatos").trigger("reset");
+      //$(".modal-header").css("background-color", "#28a745");
+      //$(".modal-header").css("color", "white");
+      //$(".modal-title").text("Nuevo Prospecto");
+      //$("#modalCRUD").modal("show");
+      //id = null;
+      //opcion = 1; //alta
+    })
   
     var fila //capturar la fila para editar o borrar el registro
   
     //botón EDITAR
-
- 
+    $(document).on('click', '.btnEditar', function () {
+      fila = $(this).closest('tr')
+      id = parseInt(fila.find('td:eq(0)').text())
+  
+      window.location.href = 'pres.php?folio=' + id
+    })
+  
+    $(document).on('click', '.btnLlamar', function () {
+      fila = $(this).closest('tr')
+      id = parseInt(fila.find('td:eq(0)').text())
+      $('#formllamada').trigger('reset')
+      $('.modal-header').css('background-color', '#28a745')
+      $('.modal-header').css('color', 'white')
+      $('.modal-title').text('Llamada de seguimiento')
+      $('#modalcall').modal('show')
+    })
+  
+    $(document).on('click', '.btnhistory', function () {
+      fila = $(this).closest('tr')
+      id = parseInt(fila.find('td:eq(0)').text())
+      window.location.href = 'verhistorialpres.php?folio=' + id
+    })
+  
+    //botón BORRAR
+    $(document).on('click', '.btnBorrar', function () {
+      fila = $(this).closest('tr')
+      id = parseInt($(this).closest('tr').find('td:eq(0)').text())
+      opcion = 3 //borrar
+      //agregar codigo de sweatalert2
+      var respuesta = confirm('¿Está seguro de eliminar el registro: ' + id + '?')
+      folio = id
+      estado = 0
+      nota = 'CANCELACIÓN'
+      fecha = $('#fechasys').val()
+      usuario = $('#nameuser').val()
+      if (respuesta) {
+        $.ajax({
+          type: 'POST',
+          url: 'bd/estadopres.php',
+          dataType: 'json',
+          data: {
+            folio: folio,
+            usuario: usuario,
+            estado: estado,
+            nota: nota,
+            fecha: fecha,
+          },
+          success: function (data) {
+            if (data == 1) {
+              window.location.reload(true)
+            }
+          },
+        })
+      }
+    })
   
     function startTime() {
       var today = new Date()
@@ -285,40 +353,67 @@ $(document).ready(function () {
       return i
     }
   
+    $('#formllamada').submit(function (e) {
+      e.preventDefault()
+      folio = id
+      estado = $('#estado').val()
+      nota = $('#nota').val()
+      fecha = $('#fechasys').val()
+      usuario = $('#nameuser').val()
   
+      $.ajax({
+        type: 'POST',
+        url: 'bd/estadopres.php',
+        dataType: 'json',
+  
+        data: {
+          folio: folio,
+          usuario: usuario,
+          estado: estado,
+          nota: nota,
+          fecha: fecha,
+        },
+        success: function () {
+          window.location.reload(true)
+        },
+      })
+      $('#modalcall').modal('hide')
+    })
   
     $('#btnBuscar').click(function () {
       var inicio = $('#inicio').val()
       var final = $('#final').val()
-      var idclie = $('#idclie').val()
+      tipo_proy=2;
   
       if ($('#ctodos').prop('checked')) {
-        opcion = 2
+        opcion = 0
       } else {
-        opcion = 3
+        opcion = 1
       }
   
       tablaVis.clear()
       tablaVis.draw()
   
-      console.log(opcion)
+      console.log('opcion '+opcion)
   
       if (inicio != '' && final != '') {
         $.ajax({
           type: 'POST',
           url: 'bd/buscarpresupuestos.php',
           dataType: 'json',
-          data: { inicio: inicio, final: final, opcion: opcion,idclie: idclie },
+          data: { inicio: inicio, final: final,tipo_proy: tipo_proy, opcion: opcion },
           success: function (data) {
             for (var i = 0; i < data.length; i++) {
               estado = data[i].estado_pres
               total = data[i].gtotal
-  
+              idpros='<a href=rptpresclie.php?id_clie='+data[i].id_pros+'>'+data[i].id_pros+'</a>'
+              console.log('id_pros '+idpros)
+              console.log('data ' +data[i].id_pros);
               tablaVis.row
                 .add([
                   data[i].folio_pres,
-                  data[i].tipop,
                   data[i].fecha_pres,
+                  data[i].id_pros,
                   data[i].nombre,
                   data[i].concepto_pres,
                   data[i].ubicacion,

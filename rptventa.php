@@ -94,6 +94,7 @@ $message = "";
                                         <tr>
                                             <th>Folio</th>
                                             <th>Fecha</th>
+                                            <th>Id Clie</th>
                                             <th>Cliente</th>
                                             <th>Proyecto</th>
                                             <th>Ubicación</th>
@@ -110,6 +111,7 @@ $message = "";
                                             <tr>
                                                 <td><?php echo $dat['folio_vta'] ?></td>
                                                 <td><?php echo $dat['fecha_vta'] ?></td>
+                                                <td><?php echo $dat['id_clie'] ?></td>
                                                 <td><?php echo $dat['nombre'] ?></td>
                                                 <td><?php echo $dat['concepto_vta'] ?></td>
                                                 <td><?php echo $dat['ubicacion'] ?></td>
@@ -124,7 +126,12 @@ $message = "";
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="5" class="currency" style="text-align:right">Total:</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th class="currency" style="text-align:right">Total:</th>
                                             <th class="text-right"></th>
                                             <th></th>
                                             

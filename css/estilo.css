@@ -46,6 +46,35 @@
     margin-right: 10px;
 }
 
+ .nav-item .nav{
+    padding-left: 15px;
+    font-size: 14px;
+}
+/*DIV CATALOGOS
+.catalogos .nav-item .nav .nav-icon{
+    
+    color:rgb(212, 98, 22)  ;
+
+}
+
+
+ .seleccionado {
+    color: #ffffff !important;
+    background-color: #76b0e6 !important;
+    border-color: #dee2e6 #dee2e6 #ffffff !important;
+}
+*/
+/*DIV CRM
+.crm .nav-item .nav .nav-icon{
+  
+    color:rgb(212, 98, 22)  ;
+
+
+}
+*/
+
+
+
 
 /*
 .has-treeview .nav-treeview .nav-item:hover,

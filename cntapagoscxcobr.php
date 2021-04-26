@@ -1,5 +1,5 @@
 <?php
-$pagina = "cobranza";
+$pagina = "cobranzaobra";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -13,7 +13,7 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 
 
-$consulta = "SELECT * FROM vpagocxc where estado_pagocxc=1 and tipo_proy=1 order by fecha,folio_vta,folio_pagocxc";
+$consulta = "SELECT * FROM vpagocxc where estado_pagocxc=1 and tipo_proy=2 order by fecha,folio_vta,folio_pagocxc";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

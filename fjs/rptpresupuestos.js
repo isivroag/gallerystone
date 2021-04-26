@@ -5,10 +5,9 @@ $(document).ready(function () {
     $('#tablaV thead tr').clone(true).appendTo( '#tablaV thead' );
     $('#tablaV thead tr:eq(1) th').each( function (i) {
 
-
+      
+      
         var title = $(this).text();
-
-
         $(this).html( '<input class="form-control form-control-sm" type="text" placeholder="'+title+'" />' );
  
         $( 'input', this ).on( 'keyup change', function () {
@@ -68,6 +67,8 @@ $(document).ready(function () {
                     .draw();
             }
         } );
+
+
     } );
 
   
@@ -95,12 +96,13 @@ $(document).ready(function () {
 
             
           },
+         
           {
-            "targets": 2,
-            "data": "cntamovp.php",
-            "render": function ( data, type, full, meta ) {
-              return '<a href=rptpresclie.php?id_clie='+data+'>'+data+'</a>';    }
-         }
+            "targets": 3,
+            "render": function ( data, type, row, meta ) {
+              return '<a href=rptpresclie.php?id_clie='+row[2]+'>'+data+'</a>';    }
+         },
+         { "width": "50px", "targets": 2 }
         ],
     
       buttons: [
@@ -110,8 +112,9 @@ $(document).ready(function () {
           titleAttr: 'Exportar a Excel',
           title: 'Reporte de Presupuestos',
           className: 'btn bg-success ',
+          footer: true,
           exportOptions: {
-            columns: [0, 1, 2, 3, 4, 5,6],
+            columns: [0, 1, 2, 3, 4, 5,6,7],
             /*format: {
               body: function (data, row, column, node) {
                 if (column === 5) {
@@ -130,8 +133,9 @@ $(document).ready(function () {
           text: "<i class='far fa-file-pdf'> PDF</i>",
           titleAttr: 'Exportar a PDF',
           title: 'Reporte de Presupuestos',
+          footer: true,
           className: 'btn bg-danger',
-          exportOptions: { columns: [0, 1, 2, 3, 4, 5,6] },
+          exportOptions: { columns: [0, 1, 2, 3, 4, 5,6,7] },
           format: {
               body: function (data, row, column, node) {
                 if (column === 6) {
@@ -237,7 +241,7 @@ $(document).ready(function () {
 
         // Total over all pages
         total = api
-            .column( 5 )
+            .column( 6 )
             .data()
             .reduce( function (a, b) {
                 return intVal(a) + intVal(b);
@@ -245,7 +249,7 @@ $(document).ready(function () {
 
         // Total over this page
         pageTotal = api
-            .column( 5, { page: 'current'} )
+            .column( 6, { page: 'current'} )
             .data()
             .reduce( function (a, b) {
                 return intVal(a) + intVal(b);
@@ -390,7 +394,7 @@ $(document).ready(function () {
       tablaVis.clear()
       tablaVis.draw()
   
-      console.log(opcion)
+      console.log('opcion '+opcion)
   
       if (inicio != '' && final != '') {
         $.ajax({
@@ -403,12 +407,13 @@ $(document).ready(function () {
               estado = data[i].estado_pres
               total = data[i].gtotal
               idpros='<a href=rptpresclie.php?id_clie='+data[i].id_pros+'>'+data[i].id_pros+'</a>'
-              console.log(data[i].id_pros);
+              console.log('id_pros '+idpros)
+              console.log('data ' +data[i].id_pros);
               tablaVis.row
                 .add([
                   data[i].folio_pres,
                   data[i].fecha_pres,
-                  idpros,
+                  data[i].id_pros,
                   data[i].nombre,
                   data[i].concepto_pres,
                   data[i].ubicacion,

@@ -59,8 +59,9 @@ $(document).ready(function () {
                 "render": function ( data, type, row, meta ) {
                   return '<a href=rptvtaclie.php?id_clie='+row[2]+'>'+data+'</a>';    }
              },
-             { "width": "50px", "targets": 2 }
-
+           
+                { "width": "50px", "targets": 2 }
+            
         ],
 
         buttons: [
@@ -207,7 +208,7 @@ $(document).ready(function () {
     $('#btnBuscar').click(function () {
         var inicio = $('#inicio').val()
         var final = $('#final').val()
-        var tipo_proy = 1;
+        var tipo_proy = 2;
 
 
 
