@@ -16,7 +16,7 @@ if ($_SESSION['s_rol'] == '3') {
 }
 else
 {
-    $consulta = "SELECT * FROM vvventa where estado_vta=1 and tipo_proy=2 order by folio_vta";
+    $consulta = "SELECT * FROM vventa where estado_vta=1 and tipo_proy=2 order by folio_vta";
 }
 
 
