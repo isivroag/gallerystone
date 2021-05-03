@@ -98,7 +98,9 @@ $message = "";
                                             <th>Largo</th>
                                             <th>Alto</th>
                                             <th>Ancho</th>
+                                            <th>M2</th>
                                             <th>Cantidad</th>
+                                            <th>Ubicacion</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -114,7 +116,9 @@ $message = "";
                                                 <td><?php echo $dat['largo_mat'] ?></td>
                                                 <td><?php echo $dat['alto_mat'] ?></td>
                                                 <td><?php echo $dat['ancho_mat'] ?></td>
+                                                <td><?php echo $dat['m2_mat'] ?></td>
                                                 <td><?php echo $dat['cant_mat'] ?></td>
+                                                <td><?php echo $dat['ubi_mat'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -139,7 +143,7 @@ $message = "";
 
     <section>
         <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog " role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-gradient-primary">
                         <h5 class="modal-title" id="exampleModalLabel">NUEVO MATERIAL</h5>
@@ -157,9 +161,9 @@ $message = "";
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-2">
                                     <div class="form-group input-group-sm auto">
-                                        <label for="umedida" class="col-form-label">Unidad de Medida:</label>
+                                        <label for="umedida" class="col-form-label">Unidad:</label>
                                         <select class="form-control" name="umedida" id="umedida">
                                             <?php
                                             foreach ($datau as $dtu) {
@@ -171,12 +175,27 @@ $message = "";
                                             ?>
                                         </select>
                                     </div>
+                                
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="metros" class="col-form-label">M2:</label>
+                                        <input type="text" class="form-control" name="metros" id="metros" autocomplete="off" placeholder="Metros 2" >
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-5">
+                                    <div class="form-group input-group-sm">
+                                        <label for="ubicacion" class="col-form-label">Ubicación:</label>
+                                        <input type="text" class="form-control" name="ubicacion" id="ubicacion" autocomplete="off" placeholder="ubicacion" >
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
                                     <div class="form-group input-group-sm">
                                         <label for="cantidad" class="col-form-label">Cant:</label>
-                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" value=1>
+                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" >
                                     </div>
                                 </div>
 

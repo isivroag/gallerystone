@@ -31,11 +31,7 @@ if ($resultado->execute()) {
 }
 
 
-$consultap = "SELECT nom_partida,sum(total) AS total FROM vcxp WHERE month(fecha)='$mesactual' and year(fecha)='$yearactual' and estado_cxp=1 GROUP BY nom_partida";
-$resultadop = $conexion->prepare($consultap);
-if ($resultadop->execute()) {
-    $dataegresosp = $resultadop->fetchAll(PDO::FETCH_ASSOC);
-}
+
 
 
 
@@ -134,7 +130,7 @@ if ($resultadop->execute()) {
                         <div class="card card-widget " style="margin-bottom:0px;">
 
                             <div class="card-header bg-primary " style="margin:0px;padding:8px">
-                                
+
                                 <h3 class=" ">ESTADO DE RESULTADOS</h3>
                             </div>
 
@@ -152,10 +148,10 @@ if ($resultadop->execute()) {
                                         ?>
                                             <div class="row justify-content-center  mx-2">
                                                 <div class="col-sm-3 pl-2">
-                                                    <label for="<?php echo $reging['nom_t_concepto'] ?>" class="col-form-label"><a href="detalleing.php?<?php echo 'mes='.$mesactual.'&ejercicio='.$yearactual.'&concepto='.$reging['nom_t_concepto'] ?>"><?php echo strtoupper($reging['nom_t_concepto']) ?>: </a></label>
+                                                    <label for="<?php echo $reging['nom_t_concepto'] ?>" class="col-form-label"><a href="detalleing.php?<?php echo 'mes=' . $mesactual . '&ejercicio=' . $yearactual . '&concepto=' . $reging['nom_t_concepto'] ?>"><?php echo strtoupper($reging['nom_t_concepto']) ?>: </a></label>
                                                 </div>
 
-                                                <div class="col-sm-5 fill"></div>
+                                                
 
                                                 <div class="col-sm-4">
                                                     <div class="input-group input-group-sm">
@@ -172,8 +168,8 @@ if ($resultadop->execute()) {
                                         }
                                         ?>
                                         <div class=" border-bootom">
-                                            <div class="row justify-content-between" style="margin:0px;padding:8px;border-bottom: 2px solid lightgrey;">
-                                                <div>
+                                            <div class="row justify-content-center" style="margin:0px;padding:8px;border-bottom: 2px solid lightgrey;">
+                                                <div class="col-sm-3">
                                                     <h4 for="totaling" class=" text-bold">TOTAL INGRESOS: </h4>
                                                 </div>
 
@@ -199,15 +195,22 @@ if ($resultadop->execute()) {
 
                                         <?php
                                         $totalegreso = 0;
-                                        foreach ($dataegresosp as $registro) {
+                                        foreach ($datacuentas as $registro) {
                                             $totalegreso += $registro['total'];
+                                            $cuetnaegr = $registro['id_cuentaegr'];
+
+                                            $consultap = "SELECT nom_partida,sum(total) AS total FROM vcxp WHERE month(fecha)='$mesactual' and year(fecha)='$yearactual' and estado_cxp=1 and id_cuentaegr='$cuetnaegr' GROUP BY nom_partida";
+                                            $resultadop = $conexion->prepare($consultap);
+                                            if ($resultadop->execute()) {
+                                                $dataegresosp = $resultadop->fetchAll(PDO::FETCH_ASSOC);
+                                            }
                                         ?>
                                             <div class="row justify-content-center  mx-2">
                                                 <div class="col-sm-3 pl-2  ">
-                                                    <label for="<?php echo $registro['nom_partida'] ?>" class="col-form-label"><a href="detalleegr.php?<?php echo 'mes='.$mesactual.'&ejercicio='.$yearactual.'&concepto='.$registro['nom_partida'] ?>"><?php echo $registro['nom_partida'] ?>: </a></label>
+                                                    <label for="<?php echo $registro['nom_cuentaegr'] ?>" class="col-form-label"><a data-toggle="collapse" href="#<?php echo 'det' . $registro['id_cuentaegr'] ?>" role="button" aria-expanded="false" aria-controls="collapseExample"><?php echo $registro['nom_cuentaegr'] ?>: </a></label>
                                                 </div>
 
-                                                <div class="col-sm-5 fill"></div>
+                                                
 
                                                 <div class="col-sm-4">
                                                     <div class="input-group input-group-sm">
@@ -216,16 +219,53 @@ if ($resultadop->execute()) {
                                                                 <i class="fas fa-dollar-sign"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control text-right bg-white" name="<?php echo $registro['nom_partida'] ?>" id="<?php echo $registro['nom_partida'] ?>" value="<?php echo number_format($registro['total'], 2) ?>" disabled>
+                                                        <!--
+                                                        <a href="detalleegr.php?<?php echo 'mes=' . $mesactual . '&ejercicio=' . $yearactual . '&concepto=' . $registro['nom_cuentaegr'] ?>">
+                                                        -->
+                                                        <input type="text" class="form-control text-right bg-white" name="<?php echo $registro['nom_cuentaegr'] ?>" id="<?php echo $registro['nom_cuentaegr'] ?>" value="<?php echo number_format($registro['total'], 2) ?>" disabled>
                                                     </div>
                                                 </div>
+
+
+                                            </div>
+                                            
+                                            <div class="collapse" id="<?php echo 'det' . $registro['id_cuentaegr'] ?>">
+                                                <?php
+                                                foreach ($dataegresosp as $regpartida) {
+                                                ?>
+                                                    <div class="row justify-content-center m-2" >
+                                                        
+                                                        
+                                                        <div class="col-sm-2 pl-2  ">
+
+                                                            <label for="<?php echo $regpartida['nom_partida'] ?>" class="col-form-label "><a href="detalleegr.php?<?php echo 'mes=' . $mesactual . '&ejercicio=' . $yearactual . '&concepto=' . $regpartida['nom_partida'] ?>"><?php echo $regpartida['nom_partida'] ?>: </a></label>
+                                                        </div>
+
+                                                        
+
+                                                        <div class="col-sm-3">
+                                                            <div class="input-group input-group-sm">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fas fa-dollar-sign"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input type="text" class="form-control text-right bg-white" name="<?php echo $regpartida['nom_partida'] ?>" id="<?php echo $regpartida['nom_partida'] ?>" value="<?php echo number_format($regpartida['total'], 2) ?>" disabled>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+
+                                                <?php
+                                                }
+                                                ?>
                                             </div>
                                         <?php }
                                         ?>
 
-                                        <div class="row justify-content-between " style="margin:0px;padding:8px">
-                                            <div>
-                                                <h4  class="text-bold">TOTAL EGRESOS: </h4>
+                                        <div class="row justify-content-center " style="margin:0px;padding:8px">
+                                            <div class="col-sm-3">
+                                                <h4 class="text-bold">TOTAL EGRESOS: </h4>
                                             </div>
 
 
@@ -246,7 +286,7 @@ if ($resultadop->execute()) {
 
                                 <div class="row justify-content-between bg-primary mt-0" style="margin:0px;padding:8px">
                                     <div>
-                                        <h3  class="text-bold"><?php  echo ($totalingresos - $totalegreso)>0?"UTILIDAD DEL PERIODO":"PERDIDA DEL PERIODO" ?>: </h3>
+                                        <h3 class="text-bold"><?php echo ($totalingresos - $totalegreso) > 0 ? "UTILIDAD DEL PERIODO" : "PERDIDA DEL PERIODO" ?>: </h3>
                                     </div>
 
 
@@ -258,7 +298,7 @@ if ($resultadop->execute()) {
                                                     <i class="fas fa-dollar-sign"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control text-right text-bold <?php  echo ($totalingresos - $totalegreso)>0?"bg-green":"bg-red" ?> " name="resul" id="resul" value="<?php echo number_format(($totalingresos - $totalegreso), 2) ?>" disabled>
+                                            <input type="text" class="form-control text-right text-bold <?php echo ($totalingresos - $totalegreso) > 0 ? "bg-green" : "bg-red" ?> " name="resul" id="resul" value="<?php echo number_format(($totalingresos - $totalegreso), 2) ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -308,7 +348,7 @@ if ($resultadop->execute()) {
         $("#btnconsulta").click(function() {
             mes = $("#mes").val();
             ejercicio = $("#ejercicio").val();
-            window.location.href = "resultados.php?mes=" + mes + "&ejercicio="+ejercicio;
+            window.location.href = "rptres.php?mes=" + mes + "&ejercicio=" + ejercicio;
 
         });
     });

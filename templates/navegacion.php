@@ -324,7 +324,11 @@
           <ul class="nav nav-treeview">
 
             <li class="nav-item">
+              <!--
               <a href="resultados.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'resultados') ? "active seleccionado" : ""; ?>  ">
+              -->
+              <a href="rptres.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'resultados') ? "active seleccionado" : ""; ?>  ">
+                
                 <i class="fas fa-file-invoice nav-icon"></i>
                 <p>Resultados</p>
               </a>
