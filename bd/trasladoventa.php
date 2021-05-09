@@ -7,6 +7,10 @@ $conexion = $objeto->connect();
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 
+date_default_timezone_set('America/Mexico_City');
+$fechaact=date("Y-m-d");
+$mod_date = strtotime($fechaact."+ 15 days");
+$fechalim=date("Y-m-d",$mod_date);
 
 
 
@@ -27,6 +31,7 @@ foreach ($dt as $row) {
     $gtotal = $row['gtotal'];
     $vendedor = $row['vendedor'];
     $tipo_proy = $row['tipo_proy'];
+    $notas=$row['notas'];
     
 }
 
@@ -126,7 +131,12 @@ foreach ($dt as $row) {
     $resultadoin->execute();
 }
 
+//Agregar Orden y calcular fecha de instalación
 
+$consulta = "INSERT INTO orden (folio_vta,fecha_ord,fecha_limite,edo_ord) VALUES ('$foliovta','$fechaact','$fechalim','ACTIVO') ";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+$dt = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
 print json_encode($foliovta, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
