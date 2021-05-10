@@ -50,6 +50,16 @@
     padding-left: 15px;
     font-size: 14px;
 }
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
 /*DIV CATALOGOS
 .catalogos .nav-item .nav .nav-icon{
     

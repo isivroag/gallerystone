@@ -404,10 +404,10 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'orden'  ) ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen'  ) ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'orden' ) ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' ) ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-hard-hat"></i>
 
@@ -418,6 +418,12 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+          <li class="nav-item">
+              <a href="cntaalmacen.php" class="nav-link <?php echo ($pagina == 'almacen') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-warehouse nav-icon"></i>
+                <p>Almacenes</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a href="cntaorden.php" class="nav-link <?php echo ($pagina == 'orden') ? "active seleccionado" : ""; ?>  ">
               <i class="fas fa-pencil-ruler nav-ico"></i>
@@ -426,12 +432,7 @@
               </a>
             </li>
 
-            <li class="nav-item">
-              <a href="" class="nav-link <?php echo ($pagina == '') ? "active seleccionado" : ""; ?>  ">
-                <i class="fas fa-search-plus nav-icon"></i>
-                <p>Pendiente</p>
-              </a>
-            </li>
+            
 
 
 
