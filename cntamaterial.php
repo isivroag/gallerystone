@@ -1,5 +1,5 @@
 <?php
-$pagina = "material";
+$pagina = "item";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -101,6 +101,7 @@ $message = "";
                                             <th>M2</th>
                                             <th>Cantidad</th>
                                             <th>Ubicacion</th>
+                                            <th>Obs</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -119,6 +120,7 @@ $message = "";
                                                 <td><?php echo $dat['m2_mat'] ?></td>
                                                 <td><?php echo $dat['cant_mat'] ?></td>
                                                 <td><?php echo $dat['ubi_mat'] ?></td>
+                                                <td><?php echo $dat['obs_mat'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -217,6 +219,12 @@ $message = "";
                                     <div class="form-group input-group-sm">
                                         <label for="ancho" class="col-form-label">Ancho:</label>
                                         <input type="text" class="form-control" name="ancho" id="ancho" autocomplete="off" placeholder="Ancho" >
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="obs" class="col-form-label">Observaciones:</label>
+                                        <textarea rows="2" class="form-control" name="obs" id="obs" placeholder="Observaciones"></textarea>
                                     </div>
                                 </div>
 

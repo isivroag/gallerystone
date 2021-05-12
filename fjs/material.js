@@ -56,6 +56,7 @@ $(document).ready(function() {
         cantidad = fila.find('td:eq(8)').text();
         metros = fila.find('td:eq(7)').text();
         ubicacion = fila.find('td:eq(9)').text();
+        obs = fila.find('td:eq(10)').text();
 
         $("#umedida").val(id_umedida);
         $("#nom_mat").val(nom_mat);
@@ -65,6 +66,7 @@ $(document).ready(function() {
         $("#cantidad").val(cantidad);
         $("#ubicacion").val(ubicacion);
         $("#metros").val(metros);
+        $("#obs").val(obs);
 
         opcion = 2; //editar
 
@@ -116,6 +118,7 @@ $(document).ready(function() {
         var umedida = $.trim($("#umedida").val());
         var ubicacion = $.trim($("#ubicacion").val());
         var metros = $.trim($("#metros").val());
+        var obs = $.trim($("#obs").val());
        
 
       
@@ -135,7 +138,7 @@ $(document).ready(function() {
                 url: "bd/crudmaterial.php",
                 type: "POST",
                 dataType: "json",
-                data: { id_item: id_item, umedida: umedida, nom_mat: nom_mat, cantidad: cantidad,alto: alto,ancho: ancho,largo: largo, id: id, opcion: opcion,ubicacion:ubicacion,metros:metros },
+                data: { id_item: id_item, umedida: umedida, nom_mat: nom_mat, cantidad: cantidad,alto: alto,ancho: ancho,largo: largo, id: id, opcion: opcion, ubicacion: ubicacion, metros: metros,obs: obs },
                 success: function(data) {
                  
 
@@ -151,11 +154,11 @@ $(document).ready(function() {
                     cantidad= data[0].cant_mat;
                     m2_mat= data[0].m2_mat;
                     ubicacion= data[0].ubi_mat;
-
+                    obs= data[0].obs_mat;
                     if (opcion == 1) {
-                        tablaVis.row.add([id, umedida, nom_umeddia, nom_mat, largo,alto,ancho,m2_mat,cantidad,ubicacion,]).draw();
+                        tablaVis.row.add([id, umedida, nom_umeddia, nom_mat, largo,alto,ancho,m2_mat,cantidad,ubicacion,obs,]).draw();
                     } else {
-                        tablaVis.row(fila).data([id, umedida, nom_umeddia, nom_mat, largo,alto,ancho,m2_mat,cantidad,ubicacion,]).draw();
+                        tablaVis.row(fila).data([id, umedida, nom_umeddia, nom_mat, largo,alto,ancho,m2_mat,cantidad,ubicacion,obs]).draw();
                     }
                 }
             });

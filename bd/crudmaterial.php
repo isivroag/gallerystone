@@ -14,6 +14,7 @@ $alto = (isset($_POST['alto'])) ? $_POST['alto'] : '';
 $ancho = (isset($_POST['ancho'])) ? $_POST['ancho'] : '';
 $ubicacion = (isset($_POST['ubicacion'])) ? $_POST['ubicacion'] : '';
 $metros = (isset($_POST['metros'])) ? $_POST['metros'] : '';
+$obs = (isset($_POST['obs'])) ? $_POST['obs'] : '';
 
 
 
@@ -25,7 +26,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO material (id_item,nom_mat,largo_mat,ancho_mat,alto_mat,cant_mat,id_umedida,m2_mat,ubi_mat) VALUES('$iditem','$nom_mat','$largo','$ancho','$alto','$cantidad','$umedida','$metros','$ubicacion')";			
+        $consulta = "INSERT INTO material (id_item,nom_mat,largo_mat,ancho_mat,alto_mat,cant_mat,id_umedida,m2_mat,ubi_mat,obs_mat) VALUES('$iditem','$nom_mat','$largo','$ancho','$alto','$cantidad','$umedida','$metros','$ubicacion','$obs')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
@@ -35,7 +36,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE material SET nom_mat='$nom_mat',largo_mat='$largo',ancho_mat='$ancho',alto_mat='$alto',id_umedida='$umedida',m2_mat='$metros',ubi_mat='$ubicacion' WHERE id_mat='$id' ";		
+        $consulta = "UPDATE material SET nom_mat='$nom_mat',largo_mat='$largo',ancho_mat='$ancho',alto_mat='$alto',id_umedida='$umedida',m2_mat='$metros',ubi_mat='$ubicacion',obs_mat='$obs' WHERE id_mat='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         

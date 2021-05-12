@@ -404,35 +404,42 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen'  ) ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' ) ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-hard-hat"></i>
 
             </span>
             <p>
-              Operaciones 
+              Operaciones
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
-          <li class="nav-item">
+            <li class="nav-item">
               <a href="cntaalmacen.php" class="nav-link <?php echo ($pagina == 'almacen') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-warehouse nav-icon"></i>
                 <p>Almacenes</p>
               </a>
             </li>
+
+            <li class="nav-item">
+              <a href="inventario.php" class="nav-link <?php echo ($pagina == 'inventario') ? "active seleccionado" : ""; ?>  ">
+              <i class="fas fa-boxes nav-icon"></i>
+                <p>Inventario</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a href="cntaorden.php" class="nav-link <?php echo ($pagina == 'orden') ? "active seleccionado" : ""; ?>  ">
-              <i class="fas fa-pencil-ruler nav-ico"></i>
-                
+                <i class="fas fa-pencil-ruler nav-ico"></i>
+
                 <p>Ordenes de Servicio</p>
               </a>
             </li>
 
-            
+
 
 
 
