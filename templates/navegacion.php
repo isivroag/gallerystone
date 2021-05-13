@@ -404,10 +404,10 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario' || $pagina == 'insumoop') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario' || $pagina == 'insumoop') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-hard-hat"></i>
 
@@ -424,6 +424,13 @@
                 <p>Almacenes</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="cntainsumoop.php" class="nav-link <?php echo ($pagina == 'insumoop') ? "active seleccionado" : ""; ?>  ">
+              <i class="fas fa-brush nav-icon"></i>
+                <p>Insumos</p>
+              </a>
+            </li>
+            
 
             <li class="nav-item">
               <a href="inventario.php" class="nav-link <?php echo ($pagina == 'inventario') ? "active seleccionado" : ""; ?>  ">
