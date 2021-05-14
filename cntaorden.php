@@ -69,6 +69,7 @@ $message = "";
                       <th>Proyecto</th>
                       <th>Ubicacion</th>
                       <th>Fecha Instalación</th>
+                      <th>Progreso</th>
                       <th>Estado</th>
                       <th>Acciones</th>
                     </tr>
@@ -85,6 +86,7 @@ $message = "";
                         <td><?php echo $dat['concepto_vta'] ?></td>
                         <td><?php echo $dat['ubicacion'] ?></td>
                         <td><?php echo $dat['fecha_limite'] ?></td>
+                        <td><?php echo $dat['avance'] ?></td>
                         <td><?php echo $dat['edo_ord'] ?></td>
                         <td></td>
                       </tr>

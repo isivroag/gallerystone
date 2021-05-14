@@ -1,5 +1,5 @@
 <?php
-$pagina = "insumoop";
+$pagina = "herramienta";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -13,17 +13,13 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 
 
-$consulta = "SELECT * FROM vconsumible WHERE estado_cons=1 ORDER BY id_cons";
+$consulta = "SELECT * FROM herramienta WHERE estado_her=1 ORDER BY id_her";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-$consultau = "SELECT * FROM umedida WHERE estado_umedida=1 ORDER BY id_umedida";
-$resultadou = $conexion->prepare($consultau);
-$resultadou->execute();
-$datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -48,7 +44,7 @@ $message = "";
         <!-- Default box -->
         <div class="card ">
             <div class="card-header bg-gradient-secondary text-light">
-                <h1 class="card-title mx-auto">Detalle de Materiales</h1>
+                <h1 class="card-title mx-auto">Detalle de Herramientas</h1>
             </div>
 
             <div class="card-body">
@@ -71,8 +67,6 @@ $message = "";
                                         <tr>
                                             <th>Id </th>
                                             <th>Descripcion</th>
-                                            <th>U.Medida</th>
-                                            <th>Id U.Medida</th>
                                             <th>Cantidad</th>
                                             <th>Ubicacion</th>
                                             <th>Obs</th>
@@ -85,13 +79,11 @@ $message = "";
                                         ?>
                                             <tr>
                                             
-                                                <td><?php echo $dat['id_cons'] ?></td>
-                                                <td><?php echo $dat['nom_cons'] ?></td>
-                                                <td><?php echo $dat['nom_umedida'] ?></td>
-                                                <td><?php echo $dat['id_umedida'] ?></td>
-                                                <td><?php echo $dat['cant_cons'] ?></td>
-                                                <td><?php echo $dat['ubi_cons'] ?></td>
-                                                <td><?php echo $dat['obs_cons'] ?></td>
+                                                <td><?php echo $dat['id_her'] ?></td>
+                                                <td><?php echo $dat['nom_her'] ?></td>
+                                                <td><?php echo $dat['cant_her'] ?></td>
+                                                <td><?php echo $dat['ubi_her'] ?></td>
+                                                <td><?php echo $dat['obs_her'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -119,7 +111,7 @@ $message = "";
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-gradient-secondary">
-                        <h5 class="modal-title" id="exampleModalLabel">NUEVO MATERIAL</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">NUEVA HERRAMIENTA</h5>
 
                     </div>
                     <div class="card card-widget" style="margin: 10px;">
@@ -129,14 +121,10 @@ $message = "";
                                 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
-                                        <label for="nom_cons" class="col-form-label">Descripción:</label>
-                                        <input type="text" class="form-control" name="nom_cons" id="nom_cons" autocomplete="off" placeholder="Descripción">
+                                        <label for="nom_her" class="col-form-label">Descripción:</label>
+                                        <input type="text" class="form-control" name="nom_her" id="nom_her" autocomplete="off" placeholder="Descripción">
                                     </div>
                                 </div>
-
-                                
-
-                               
 
                                 <div class="col-sm-6">
                                     <div class="form-group input-group-sm">
@@ -152,24 +140,6 @@ $message = "";
                                     </div>
                                 </div>
 
-                                <div class="col-sm-2">
-                                    <div class="form-group input-group-sm auto">
-                                        <label for="umedida" class="col-form-label">Unidad:</label>
-                                        <select class="form-control" name="umedida" id="umedida">
-                                            <?php
-                                            foreach ($datau as $dtu) {
-                                            ?>
-                                                <option id="<?php echo $dtu['id_umedida'] ?>" value="<?php echo $dtu['id_umedida'] ?>"> <?php echo $dtu['nom_umedida'] ?></option>
-
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                
-                                </div>
-
-                               
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="obs" class="col-form-label">Observaciones:</label>
@@ -208,7 +178,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/insumoop.js"></script>
+<script src="fjs/herramienta.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

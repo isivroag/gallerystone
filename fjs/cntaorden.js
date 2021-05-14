@@ -11,7 +11,7 @@ $(document).ready(function() {
             "data": null,
             "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary btnVer'><i class='fas fa-search'></i></button>\
             <button class='btn btn-sm btn-success btnMedir'><i class='fas fa-ruler-combined'></i></button></div>"
-        }],
+        },{"targets": [7],"type": "num-html"}],
 
         //Para cambiar el lenguaje a español
         "language": {
@@ -35,43 +35,55 @@ $(document).ready(function() {
     paging:false,
 
     rowCallback: function (row, data) {
-        $($(row).find('td')['7']).css('color', 'white')
+        $($(row).find('td')['8']).css('color', 'white')
+        $($(row).find('td')['8']).addClass('text-center')
         $($(row).find('td')['7']).addClass('text-center')
-        $($(row).find('td')['6']).addClass('text-center')
         fecha=new Date(data[6]).getTime();;
         fechaactual=new Date().getTime();;
-        console.log(fecha);
-        console.log(fechaactual);
+        console.log(data[7]);
+     
         dias=parseInt( fecha-fechaactual)/(1000*60*60*24);
-        if (dias<5){
+        avance=data[7];
+
+        barra="<div class='progress mb-3 ' style='width:120px' > \
+              <div class='progress-bar bg-success' role='progressbar' aria-valuenow='"+avance+"' aria-valuemin='0' aria-valuemax='100' style='width:"+avance+ "%'> \
+              <span class='text-light text-center'>"+avance+ "%</span> \
+              </div> \
+              </div>"
+              
+
+        $($(row).find('td')[7]).html(barra)
+        
+        if (dias<6){
             $($(row).find('td')).addClass('bg-gradient-warning blink_me')  
             $($(row).find('td')[6]).addClass('text-danger text-bold')  
             
         }
   
-        if (data[7] == 'MEDICION') {
+        if (data[8] == 'MEDICION') {
           //$($(row).find("td")[6]).css("background-color", "warning");
-          $($(row).find('td')[7]).addClass('bg-gradient-warning')
+          $($(row).find('td')[8]).addClass('bg-gradient-warning')
           //$($(row).find('td')['9']).text('PENDIENTE')
-        } else if (data[7] == 'PROCESANDO') {
+        } else if (data[8] == 'CORTE') {
           //$($(row).find("td")[9]).css("background-color", "blue");
-          $($(row).find('td')[7]).addClass('bg-gradient-primary')
+          $($(row).find('td')[8]).addClass('bg-gradient-primary')
           //$($(row).find('td')['9']).text('ENVIADO')
-        } else if (data[7] == 'ACEPTADO') {
-          //$($(row).find("td")[7]).css("background-color", "success");
-          $($(row).find('td')[7]).addClass('bg-gradient-success')
-          //$($(row).find('td')['7']).text('ACEPTADO')
-        } else if (data[7] == 'SEGUIMIENTO') {
-          //$($(row).find("td")[7]).css("background-color", "purple");
-          $($(row).find('td')[7]).addClass('bg-gradient-purple')
-          //$($(row).find('td')['7']).text('EN ESPERA')
-        } else if (data[7] == 'MODIFICADO') {
+        } else if (data[8] == 'ENSAMBLE') {
+          //$($(row).find("td")[8]).css("background-color", "success");
+          $($(row).find('td')[8]).addClass('bg-lightblue')
+          //$($(row).find('td')['8']).text('ACEPTADO')
+        } else if (data[8] == 'PULIDO') {
+          //$($(row).find("td")[8]).css("background-color", "purple");
+          $($(row).find('td')[8]).addClass('bg-gradient-purple')
+          //$($(row).find('td')['8']).text('EN ESPERA')
+        } else if (data[8] == 'COLOCACION') {
           //$($(row).find("td")[5]).css("background-color", "light-blue");
-          $($(row).find('td')[7]).addClass('bg-lightblue')
-          //$($(row).find('td')['7']).text('EDITADO')
+          
+          $($(row).find('td')[8]).addClass('bg-gradient-success')
+          //$($(row).find('td')['8']).text('EDITADO')
         } else {
           //$($(row).find("td")[5]).css("background-color", "red");
-          $($(row).find('td')[7]).addClass('bg-gradient-danger')
+          $($(row).find('td')[8]).addClass('bg-gradient-danger')
           //$($(row).find('td')['8']).text('RECHAZADO')
         }
       }

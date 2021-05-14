@@ -404,10 +404,10 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario' || $pagina == 'insumoop') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario' || $pagina == 'insumoop') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-hard-hat"></i>
 
@@ -418,16 +418,25 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+
             <li class="nav-item">
               <a href="cntaalmacen.php" class="nav-link <?php echo ($pagina == 'almacen') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-warehouse nav-icon"></i>
                 <p>Almacenes</p>
               </a>
             </li>
+
             <li class="nav-item">
               <a href="cntainsumoop.php" class="nav-link <?php echo ($pagina == 'insumoop') ? "active seleccionado" : ""; ?>  ">
               <i class="fas fa-brush nav-icon"></i>
                 <p>Insumos</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntaherramienta.php" class="nav-link <?php echo ($pagina == 'herramienta') ? "active seleccionado" : ""; ?>  ">
+              <i class="fas fa-hammer nav-icon"></i>
+                <p>Herramientas</p>
               </a>
             </li>
             
@@ -441,7 +450,6 @@
             <li class="nav-item">
               <a href="cntaorden.php" class="nav-link <?php echo ($pagina == 'orden') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-pencil-ruler nav-ico"></i>
-
                 <p>Ordenes de Servicio</p>
               </a>
             </li>
