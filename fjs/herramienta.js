@@ -48,14 +48,13 @@ $(document).ready(function() {
     $(document).on("click", ".btnEditar", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
-        id_umedida = fila.find('td:eq(3)').text();
-        nom_cons = fila.find('td:eq(1)').text(); //window.location.href = "actprospecto.php?id=" + id;
-        cantidad = fila.find('td:eq(4)').text();
-        ubicacion = fila.find('td:eq(5)').text();
-        obs = fila.find('td:eq(6)').text();
+        hom_her = fila.find('td:eq(1)').text(); //window.location.href = "actprospecto.php?id=" + id;
+        cantidad = fila.find('td:eq(2)').text();
+        ubicacion = fila.find('td:eq(3)').text();
+        obs = fila.find('td:eq(4)').text();
 
-        $("#umedida").val(id_umedida);
-        $("#nom_cons").val(nom_cons);
+  
+        $("#nom_her").val(hom_her);
         $("#cantidad").val(cantidad);
         $("#ubicacion").val(ubicacion);
         $("#obs").val(obs);
@@ -83,7 +82,7 @@ $(document).ready(function() {
         if (respuesta) {
             $.ajax({
 
-                url: "bd/crudinsumoop.php",
+                url: "bd/crudherramienta.php",
                 type: "POST",
                 dataType: "json",
                 data: { id: id, opcion: opcion },
@@ -123,23 +122,21 @@ $(document).ready(function() {
         } else {
            
             $.ajax({
-                url: "bd/crudinsumoop.php",
+                url: "bd/crudherramienta.php",
                 type: "POST",
                 dataType: "json",
                 data: {   nom_her: nom_her, cantidad: cantidad, id: id, opcion: opcion, ubicacion: ubicacion, obs: obs },
                 success: function(data) {
                     
-                    id=data[0].id_cons
-                    umedida = data[0].id_umedida;
-                    nom_umedida = data[0].nom_umedida;
-                    nom_cons = data[0].nom_cons;
-                    cantidad= data[0].cant_cons;
-                    ubicacion= data[0].ubi_cons;
-                    obs= data[0].obs_cons;
+                    id=data[0].id_her
+                    nom_her = data[0].nom_her;
+                    cantidad= data[0].cant_her;
+                    ubicacion= data[0].ubi_her;
+                    obs= data[0].obs_her;
                     if (opcion == 1) {
-                        tablaVis.row.add([id, nom_cons,nom_umedida, umedida,  cantidad,ubicacion,obs,]).draw();
+                        tablaVis.row.add([id, nom_her,  cantidad,ubicacion,obs,]).draw();
                     } else {
-                        tablaVis.row(fila).data([id, nom_cons,nom_umedida, umedida,  cantidad,ubicacion,obs,]).draw();
+                        tablaVis.row(fila).data([id, nom_her,  cantidad,ubicacion,obs,]).draw();
                     }
                 }
             });

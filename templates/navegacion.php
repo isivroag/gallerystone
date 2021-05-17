@@ -404,16 +404,16 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-hard-hat"></i>
 
             </span>
             <p>
-              Operaciones
+              Producción
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
@@ -423,6 +423,12 @@
               <a href="cntaalmacen.php" class="nav-link <?php echo ($pagina == 'almacen') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-warehouse nav-icon"></i>
                 <p>Almacenes</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="cntamat.php" class="nav-link <?php echo ($pagina == 'mat') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-layer-group nav-icon"></i>
+                <p>Materiales</p>
               </a>
             </li>
 

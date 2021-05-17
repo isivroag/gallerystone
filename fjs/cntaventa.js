@@ -198,7 +198,7 @@ $(document).ready(function() {
                                 data[i].fecha_vta,
                                 data[i].nombre,
                                 data[i].concepto_vta,
-                                data[i].total,
+                                data[i].gtotal,
                                 data[i].saldo,
                                 data[i].vendedor,
 

@@ -140,13 +140,14 @@ $(document).ready(function () {
   $('#btnBuscar').click(function () {
     var inicio = $('#inicio').val()
     var final = $('#final').val()
+    var tipo_proy = $("#tipo_proy").val();
 
     if (inicio != '' && final != '') {
       $.ajax({
         type: 'POST',
         url: 'bd/buscarpago_cxc.php',
         dataType: 'json',
-        data: { inicio: inicio, final: final },
+        data: { inicio: inicio,tipo_proy: tipo_proy, final: final },
         success: function (data) {
           tablaVis.clear()
           tablaVis.draw()

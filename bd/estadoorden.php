@@ -8,8 +8,9 @@ $conexion = $objeto->connect();
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $estado= (isset($_POST['estado'])) ? $_POST['estado'] : '';
+$porcentaje= (isset($_POST['porcentaje'])) ? $_POST['porcentaje'] : '';
 $res=0;
-$consulta = "UPDATE orden SET edo_ord='$estado' WHERE folio_ord='$folio'";
+$consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje' WHERE folio_ord='$folio'";
 $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()){
     $res=1;
