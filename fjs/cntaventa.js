@@ -31,6 +31,13 @@ $(document).ready(function() {
             data: null,
             defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm bg-info btnResumen'><i class='fas fa-bars'></i></button><button class='btn btn-sm bg-orange btnEdo'><i class='fas fa-file-invoice-dollar text-light'></i></button><button class='btn btn-sm bg-danger btnCancelar'><i class='fas fa-ban'></i></button></div></div>",
         },
+        { targets: [7], type: 'num-html' },{
+            targets: 3,
+            render: function (data, type, full, meta) {
+              return "<div class='text-wrap width-200'>" + data + '</div>'
+              //return "<div class='text-wrap width-200'>" + data + '</div>'
+            },
+          },
     
     ],
     rowCallback: function (row, data) {

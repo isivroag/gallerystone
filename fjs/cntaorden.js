@@ -17,7 +17,13 @@ $(document).ready(function () {
             <button class='btn btn-sm bg-success btnLiberar'><i class='fas fa-check-circle'></i></button>\
             </div>",
       },
-      { targets: [7], type: 'num-html' },
+      { targets: [7], type: 'num-html' },{
+        targets: 4,
+        render: function (data, type, full, meta) {
+          return "<div class='text-wrap width-200'>" + data + '</div>'
+          //return "<div class='text-wrap width-200'>" + data + '</div>'
+        },
+      },
     ],
 
     //Para cambiar el lenguaje a español
