@@ -9,11 +9,40 @@ $conexion = $objeto->connect();
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $estado= (isset($_POST['estado'])) ? $_POST['estado'] : '';
 $porcentaje= (isset($_POST['porcentaje'])) ? $_POST['porcentaje'] : '';
+$venta= (isset($_POST['venta'])) ? $_POST['venta'] : '';
+$fecha= (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
+
+
 $res=0;
-$consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje' WHERE folio_ord='$folio'";
+if ($estado=='ACTIVO'){
+    $consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje',fecha_limite='$fecha' WHERE folio_ord='$folio'";
+}
+else{
+    $consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje' WHERE folio_ord='$folio'";
+
+}
+
 $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()){
-    $res=1;
+   
+    if ($venta!=''){
+        if ($estado=='ACTIVO'){
+            $edo_orden='PRODUCCION';
+
+        }
+        else if($estado=='LIBERADO'){
+            $edo_orden='LIBERADO'   ;     
+        }
+        $consulta = "UPDATE venta SET edo_orden='$edo_orden' WHERE folio_vta='$venta'";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $res=1;
+        }
+
+    }
+    else{
+        $res=1;
+    }
 }
 
 
@@ -22,4 +51,3 @@ if ($resultado->execute()){
 
 print json_encode($res, JSON_UNESCAPED_UNICODE);
 $conexion = NULL;
-?>

@@ -51,7 +51,15 @@ if ($folio != "") {
     $resultadodet->execute();
     $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
-  
+    $consultau = "SELECT * FROM umedida WHERE estado_umedida=1 ORDER BY id_umedida";
+    $resultadou = $conexion->prepare($consultau);
+    $resultadou->execute();
+    $datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
+
+    $consultacom = "SELECT * FROM complemento_ord WHERE id_ord='$folioorden' ORDER BY id_reg";
+    $resultadocom = $conexion->prepare($consultacom);
+    $resultadocom->execute();
+    $datacom = $resultadocom->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -99,7 +107,7 @@ if ($folio != "") {
         <!-- Default box -->
         <div class="card">
             <div class="card-header bg-gradient-secondary">
-                <h1 class="card-title mx-auto">Venta</h1>
+                <h1 class="card-title mx-auto">ORDEN</h1>
             </div>
 
             <div class="card-body">
@@ -117,7 +125,7 @@ if ($folio != "") {
 
                         <div class="card card-widget collapsed-card" style="margin-bottom:0px;">
 
-                            <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+                            <div class="card-header bg-gradient-success " style="margin:0px;padding:8px">
                                 <div class="card-tools" style="margin:0px;padding:0px;">
 
 
@@ -125,7 +133,7 @@ if ($folio != "") {
                                 <h1 class="card-title ">Datos de la Venta</h1>
                                 <div class="card-tools" style="margin:0px;padding:0px;">
 
-                                    <button type="button" class="btn bg-gradient-secondary btn-sm " href="#cuerpo" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                    <button type="button" class="btn bg-gradient-success btn-sm " href="#cuerpo" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -224,44 +232,107 @@ if ($folio != "") {
 
                             <div class="card card-widget">
                                 <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
-                                    <div class="card-tools" style="margin:0px;padding:0px;">
-                                    </div>
-                                    <h1 class="card-title ">Detalle</h1>
+
+                                    <h1 class="card-title ">Detalle de Orden</h1>
+
                                 </div>
 
                                 <div class="card-body" style="margin:0px;padding:3px;">
 
-                                    <div class="row">
+                                    <div class="card  ">
+                                        <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+                                            <h1 class="card-title ">Dellate Principal</h1>
+                                            <div class="card-tools" style="margin:0px;padding:0px;">
+                                                <button type="button" class="btn bg-gradient-secondary btn-sm " href="#principal" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
 
-                                        <div class="col-lg-12 mx-auto">
+                                            </div>
 
-                                            <div class="table-responsive" style="padding:5px;">
+                                        </div>
+                                        <div class="card-body" id="pricipal">
+                                            <div class="col-lg-12 mx-auto">
 
-                                                <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                <div class="table-responsive" style="padding:5px;">
+
+                                                    <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                        <thead class="text-center bg-gradient-secondary">
+                                                            <tr>
+                                                                <th>Id</th>
+                                                                <th>Concepto</th>
+                                                                <th>Descripcion</th>
+                                                                <th>Formato</th>
+                                                                <th>Cantidad</th>
+                                                                <th>U. Medida</th>
+
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+
+                                                            foreach ($datadet as $datdet) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $datdet['id_reg'] ?></td>
+                                                                    <td><?php echo $datdet['nom_concepto'] ?></td>
+                                                                    <td><?php echo $datdet['nom_item'] ?></td>
+                                                                    <td><?php echo $datdet['formato'] ?></td>
+                                                                    <td><?php echo $datdet['cantidad'] ?></td>
+                                                                    <td><?php echo $datdet['nom_umedida'] ?></td>
+                                                                </tr>
+                                                            <?php
+                                                            }
+                                                            ?>
+
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+
+                                            <h1 class="card-title ">Detalle Complementario</h1>
+                                            <div class="card-tools" style="margin:0px;padding:0px;">
+                                                <button type="button" id="btnAddcom" class="btn bg-gradient-secondary btn-sm">
+                                                    <i class="fas fa-folder-plus"></i>
+                                                </button>
+                                                <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body" id="extra">
+                                            <div class="col-lg-auto">
+                                                <table name="tablaD" id="tablaD" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
                                                     <thead class="text-center bg-gradient-secondary">
                                                         <tr>
                                                             <th>Id</th>
                                                             <th>Concepto</th>
-                                                            <th>Descripcion</th>
-                                                            <th>Formato</th>
                                                             <th>Cantidad</th>
                                                             <th>U. Medida</th>
+                                                            <th>Acciones</th>
 
 
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        
-                                                        foreach ($datadet as $datdet) {
+
+                                                        foreach ($datacom as $datcom) {
                                                         ?>
                                                             <tr>
-                                                                <td><?php echo $datdet['id_reg'] ?></td>
-                                                                <td><?php echo $datdet['nom_concepto'] ?></td>
-                                                                <td><?php echo $datdet['nom_item'] ?></td>
-                                                                <td><?php echo $datdet['formato'] ?></td>
-                                                                <td><?php echo $datdet['cantidad'] ?></td>
-                                                                <td><?php echo $datdet['nom_umedida'] ?></td>
+                                                                <td><?php echo $datcom['id_reg'] ?></td>
+                                                                <td><?php echo $datcom['concepto_com'] ?></td>
+                                                                <td><?php echo $datcom['cant_com'] ?></td>
+                                                                <td><?php echo $datcom['nom_umedida'] ?></td>
+                                                                <td></td>
                                                             </tr>
                                                         <?php
                                                         }
@@ -269,11 +340,8 @@ if ($folio != "") {
 
                                                     </tbody>
                                                 </table>
-
                                             </div>
-
                                         </div>
-
                                     </div>
 
 
@@ -354,13 +422,6 @@ if ($folio != "") {
                                                     <input type="text" class="form-control" name="formato" id="formato" disabled>
                                                 </div>
                                             </div>
-
-
-
-
-
-
-
 
                                             <div class="col-lg-1">
                                                 <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
@@ -469,14 +530,14 @@ if ($folio != "") {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                      $consultadeto = "SELECT * FROM vdetalle_ord where folio_ord='$folioorden' and estado_deto=1 order by id_reg";
-                                                      $resultadodeto = $conexion->prepare($consultadeto);
-                                                      $resultadodeto->execute();
-                                                      $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                    $consultadeto = "SELECT * FROM vdetalle_ord where folio_ord='$folioorden' and estado_deto=1 order by id_reg";
+                                                    $resultadodeto = $conexion->prepare($consultadeto);
+                                                    $resultadodeto->execute();
+                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
                                                     foreach ($datadeto as $rowdet) {
                                                     ?>
                                                         <tr>
-                                                        <td><?php echo $rowdet['id_reg'] ?></td>
+                                                            <td><?php echo $rowdet['id_reg'] ?></td>
                                                             <td><?php echo $rowdet['id_item'] ?></td>
                                                             <td><?php echo $rowdet['id_mat'] ?></td>
                                                             <td><?php echo $rowdet['clave_item'] ?></td>
@@ -514,6 +575,8 @@ if ($folio != "") {
                         </div>
 
                     </div>
+
+
 
 
                 </form>
@@ -596,7 +659,77 @@ if ($folio != "") {
         </div>
     </section>
 
+    <section>
+        <div class="modal fade" id="modalCom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Detalle Complementario</h5>
 
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formCom" action="" method="POST">
+                            <div class="modal-body row">
+
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="concepto" class="col-form-label">Concepto:</label>
+                                        <input type="text" class="form-control" name="concepto" id="concepto" autocomplete="off" placeholder="Concepto">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cantcom" class="col-form-label">Cantidad:</label>
+                                        <input type="text" class="form-control" name="cantcom" id="cantcom" autocomplete="off" placeholder="Cantidad">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="umedida" class="col-form-label">Unidad:</label>
+                                        <select class="form-control" name="umedida" id="umedida">
+                                            <?php
+                                            foreach ($datau as $dtu) {
+                                            ?>
+                                                <option id="<?php echo $dtu['nom_umedida'] ?>" value="<?php echo $dtu['nom_umedida'] ?>"> <?php echo $dtu['nom_umedida'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                
+
+                            </div>
+                    </div>
+
+
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnGuardarcom" name="btnGuardarcom" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
@@ -615,7 +748,7 @@ if ($folio != "") {
 </script>
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/orden.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/orden.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

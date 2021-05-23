@@ -1,5 +1,6 @@
 $(document).ready(function () {
   var id, opcion
+  val=0,
   opcion = 4
   var folio_venta, folio_pago
 
@@ -35,7 +36,10 @@ $(document).ready(function () {
         targets: -1,
         data: null,
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm bg-purple btnFacturar'><i class='fas fa-file-invoice'></i></button><button class='btn btn-sm bg-gradient-orange text-white btnImprimir'><i class='fas fa-print'></i></button><button class='btn btn-sm btn-danger btnCancelar'><i class='fas fa-ban'></i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button>\
+          <button class='btn btn-sm bg-purple btnFacturar'><i class='fas fa-file-invoice'></i></button>\
+          <button class='btn btn-sm bg-gradient-orange text-white btnImprimir'><i class='fas fa-print'></i></button>\
+          <button class='btn btn-sm btn-danger btnCancelar'><i class='fas fa-ban'></i></button></div></div>",
       },
       {
         render: function (data, type, full, meta) {
@@ -138,47 +142,51 @@ $(document).ready(function () {
   })
 
   $('#btnBuscar').click(function () {
-    var inicio = $('#inicio').val()
-    var final = $('#final').val()
-    var tipo_proy = $("#tipo_proy").val();
-
-    if (inicio != '' && final != '') {
-      $.ajax({
-        type: 'POST',
-        url: 'bd/buscarpago_cxc.php',
-        dataType: 'json',
-        data: { inicio: inicio,tipo_proy: tipo_proy, final: final },
-        success: function (data) {
-          tablaVis.clear()
-          tablaVis.draw()
-          for (var i = 0; i < data.length; i++) {
-            tablaVis.row
-              .add([
-                data[i].folio_vta,
-                data[i].cliente,
-                data[i].concepto_vta,
-                data[i].folio_pagocxc,
-                data[i].fecha,
-                data[i].concepto,
-                data[i].monto,
-                data[i].metodo,
-                data[i].fcliente,
-                data[i].facturado,
-                data[i].factura,
-                data[i].fecha_fact,
-                data[i].seguro_fact,
-              ])
-              .draw()
-
-            //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
-          }
-        },
-      })
-    } else {
-      alert('Selecciona ambas fechas')
-    }
+    buscar();
+  
   })
+function buscar(){
+  var inicio = $('#inicio').val()
+  var final = $('#final').val()
+  var tipo_proy = $("#tipo_proy").val();
+  val=1;
 
+  if (inicio != '' && final != '') {
+    $.ajax({
+      type: 'POST',
+      url: 'bd/buscarpago_cxc.php',
+      dataType: 'json',
+      data: { inicio: inicio,tipo_proy: tipo_proy, final: final },
+      success: function (data) {
+        tablaVis.clear()
+        tablaVis.draw()
+        for (var i = 0; i < data.length; i++) {
+          tablaVis.row
+            .add([
+              data[i].folio_vta,
+              data[i].cliente,
+              data[i].concepto_vta,
+              data[i].folio_pagocxc,
+              data[i].fecha,
+              data[i].concepto,
+              data[i].monto,
+              data[i].metodo,
+              data[i].fcliente,
+              data[i].facturado,
+              data[i].factura,
+              data[i].fecha_fact,
+              data[i].seguro_fact,
+            ])
+            .draw()
+
+          //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
+        }
+      },
+    })
+  } else {
+    alert('Selecciona ambas fechas')
+  }
+}
   
     $(document).on('click', '.btnImprimir', function () {
       fila = $(this).closest('tr');
@@ -346,7 +354,12 @@ $(document).ready(function () {
         success: function (res) {
           if (res == 1) {
             mensaje()
-            location.reload()
+            if(val=1){
+              buscar();
+            }else{
+              location.reload()
+            }
+            
           } else {
             mensajeerror()
           }
@@ -410,9 +423,15 @@ $(document).ready(function () {
                 focusConfirm: true,
                 confirmButtonText: 'Aceptar',
             })
-            window.setTimeout(function() {
+            if(val==1){
+              $('#modalPago').modal('hide')
+              buscar();
+            }else{
+              window.setTimeout(function() {
                 location.reload();;
             }, 1000);
+            }
+            
         } else {
             swal.fire({
               title: 'Error',

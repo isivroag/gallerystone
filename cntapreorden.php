@@ -1,5 +1,5 @@
 <?php
-$pagina = "orden";
+$pagina = "preorden";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and tipo_proy=1 and edo_ord<>'PENDIENTE' ORDER BY folio_ord";
+$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and tipo_proy=1 and edo_ord='PENDIENTE' ORDER BY folio_ord";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -38,8 +38,8 @@ $message = "";
 
     <!-- Default box -->
     <div class="card ">
-      <div class="card-header bg-secondary">
-        <h4 class="card-title text-center">ORDENES DE SERVICIO</h4>
+      <div class="card-header bg-success">
+        <h4 class="card-title text-center">PREORDENES DE SERVICIO</h4>
       </div>
 
       <div class="card-body">
@@ -60,7 +60,7 @@ $message = "";
             <div class="col-lg-12">
               <div class="table-responsive">
                 <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
-                  <thead class="text-center bg-secondary">
+                  <thead class="text-center bg-success">
                     <tr>
                       <th>Folio</th>
                       <th>Folio Vta</th>
@@ -70,7 +70,6 @@ $message = "";
                       <th>Ubicacion</th>
                       <th>Fecha Instalación</th>
                       <th>Tipo</th>
-                      <th>Progreso</th>
                       <th>Estado</th>
                       <th>Acciones</th>
                     </tr>
@@ -88,7 +87,6 @@ $message = "";
                         <td><?php echo $dat['ubicacion'] ?></td>
                         <td><?php echo $dat['fecha_limite'] ?></td>
                         <td><?php echo $dat['tipop'] ?></td>
-                        <td><?php echo $dat['avance'] ?></td>
                         <td><?php echo $dat['edo_ord'] ?></td>
                         <td></td>
                       </tr>
@@ -109,7 +107,54 @@ $message = "";
     <!-- /.card -->
 
   </section>
+  <section>
+        <div class="modal fade" id="modalOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-success">
+                        <h5 class="modal-title" id="exampleModalLabel">Fecha Limite de Instalación</h5>
 
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formOrden" action="" method="POST">
+                            <div class="modal-body row">
+
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                    <input type="hidden" class="form-control" name="folioorden" id="folioorden" autocomplete="off" placeholder="Nombre">
+                                    <input type="hidden" class="form-control" name="folioventa" id="folioventa" autocomplete="off" placeholder="Nombre">
+                                        <label for="fecha" class="col-form-label">Fecha Limite:</label>
+                                        <input type="date" class="form-control" name="fecha" id="fecha" autocomplete="off" placeholder="Nombre">
+                                    </div>
+                                </div>
+
+                            </div>
+                    </div>
+
+
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
@@ -120,7 +165,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntaorden.js"></script>
+<script src="fjs/cntapreorden.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

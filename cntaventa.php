@@ -101,6 +101,7 @@ $message = "";
                       <th>Total</th>
                       <th>Saldo</th>
                       <th>Vendedor</th>
+                      <th>Estado Prod</th>
 
                       <th>Acciones</th>
                     </tr>
@@ -118,6 +119,7 @@ $message = "";
                         <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
                         <td class="text-right"><?php echo "$ " . number_format($dat['saldo'], 2) ?></td>
                         <td><?php echo $dat['vendedor'] ?></td>
+                        <td><?php echo $dat['edo_orden'] ?></td>
                         <td></td>
                       </tr>
                     <?php

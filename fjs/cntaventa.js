@@ -46,6 +46,21 @@ $(document).ready(function() {
         $($(row).find('td')['5']).addClass('text-right')
         $($(row).find('td')['4']).addClass('currency')
         $($(row).find('td')['5']).addClass('currency')
+        $($(row).find('td')['7']).css('color', 'white')
+      $($(row).find('td')['7']).addClass('text-center')
+        if (data[7] == 'PENDIENTE') {
+            //$($(row).find("td")[6]).css("background-color", "warning");
+            $($(row).find('td')[7]).addClass('bg-gradient-warning')
+            //$($(row).find('td')['9']).text('PENDIENTE')
+          } else if (data[7] == 'PRODUCCION') {
+            //$($(row).find("td")[9]).css("background-color", "blue");
+            $($(row).find('td')[7]).addClass('bg-gradient-secondary')
+            //$($(row).find('td')['9']).text('ENVIADO')
+          } else if (data[7] == 'LIBERADO') {
+            //$($(row).find("td")[8]).css("background-color", "success");
+            $($(row).find('td')[7]).addClass('bg-success')
+            //$($(row).find('td')['8']).text('ACEPTADO')
+          }
   
        
       },
@@ -208,6 +223,7 @@ $(document).ready(function() {
                                 data[i].gtotal,
                                 data[i].saldo,
                                 data[i].vendedor,
+                                data[i].edo_orden
 
                             ])
                             .draw();

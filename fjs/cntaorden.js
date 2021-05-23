@@ -8,13 +8,13 @@ $(document).ready(function () {
         targets: -1,
         data: null,
         defaultContent:
-          "<div class='text-center'><button class='btn btn-sm btn-primary btnVer'><i class='fas fa-search'></i></button>\
-            <button class='btn btn-sm bg-warning btnMedir'><i class='fas fa-ruler text-light'></i></button>\
-            <button class='btn btn-sm btn-secondary btnCortar'><i class='fas fa-cut'></i></button>\
-            <button class='btn btn-sm bg-lightblue btnEnsamblar'><i class='fas fa-puzzle-piece'></i></button>\
-            <button class='btn btn-sm bg-purple btnPulir'><i class='fas fa-tint'></i></button>\
-            <button class='btn btn-sm bg-orange btnColocar'><i class='fas fa-truck-pickup text-light'></i></button>\
-            <button class='btn btn-sm bg-success btnLiberar'><i class='fas fa-check-circle'></i></button>\
+          "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fas fa-search'></i></button>\
+            <button class='btn btn-sm bg-warning btnMedir' data-toggle='tooltip' data-placement='top' title='Medir'><i class='fas fa-ruler text-light'></i></button>\
+            <button class='btn btn-sm btn-secondary btnCortar' data-toggle='tooltip' data-placement='top' title='Cortar'><i class='fas fa-cut'></i></button>\
+            <button class='btn btn-sm bg-lightblue btnEnsamblar' data-toggle='tooltip' data-placement='top' title='Ensamblar'><i class='fas fa-puzzle-piece'></i></button>\
+            <button class='btn btn-sm bg-purple btnPulir' data-toggle='tooltip' data-placement='top' title='Pulir'><i class='fas fa-tint'></i></button>\
+            <button class='btn btn-sm bg-orange btnColocar' data-toggle='tooltip' data-placement='top' title='Colocar'><i class='fas fa-truck-pickup text-light'></i></button>\
+            <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
             </div>",
       },
       { targets: [7], type: 'num-html' },{
@@ -49,15 +49,15 @@ $(document).ready(function () {
     paging: false,
 
     rowCallback: function (row, data) {
-      $($(row).find('td')['8']).css('color', 'white')
+      $($(row).find('td')['9']).css('color', 'white')
+      $($(row).find('td')['9']).addClass('text-center')
       $($(row).find('td')['8']).addClass('text-center')
-      $($(row).find('td')['7']).addClass('text-center')
       fecha = new Date(data[6]).getTime()
       fechaactual = new Date().getTime()
-      console.log(data[7])
+      
 
       dias = parseInt(fecha - fechaactual) / (1000 * 60 * 60 * 24)
-      avance = data[7]
+      avance = data[8]
 
       barra =
         "<div class='progress mb-3 ' style='width:120px' > \
@@ -72,41 +72,44 @@ $(document).ready(function () {
               </div> \
               </div>'
 
-      $($(row).find('td')[7]).html(barra)
+      $($(row).find('td')[8]).html(barra)
 
       if (dias < 3) {
         $($(row).find('td')).addClass('bg-gradient-warning blink_me')
         $($(row).find('td')[6]).addClass('text-danger text-bold')
       }
 
-      if (data[8] == 'MEDICION') {
+      if (data[9] == 'MEDICION') {
         //$($(row).find("td")[6]).css("background-color", "warning");
-        $($(row).find('td')[8]).addClass('bg-gradient-warning')
+        $($(row).find('td')[9]).addClass('bg-gradient-warning')
         //$($(row).find('td')['9']).text('PENDIENTE')
-      } else if (data[8] == 'CORTE') {
+      } else if (data[9] == 'CORTE') {
         //$($(row).find("td")[9]).css("background-color", "blue");
-        $($(row).find('td')[8]).addClass('bg-gradient-secondary')
+        $($(row).find('td')[9]).addClass('bg-gradient-secondary')
         //$($(row).find('td')['9']).text('ENVIADO')
-      } else if (data[8] == 'ENSAMBLE') {
-        //$($(row).find("td")[8]).css("background-color", "success");
-        $($(row).find('td')[8]).addClass('bg-lightblue')
-        //$($(row).find('td')['8']).text('ACEPTADO')
-      } else if (data[8] == 'PULIDO') {
-        //$($(row).find("td")[8]).css("background-color", "purple");
-        $($(row).find('td')[8]).addClass('bg-gradient-purple')
-        //$($(row).find('td')['8']).text('EN ESPERA')
-      } else if (data[8] == 'COLOCACION') {
+      } else if (data[9] == 'ENSAMBLE') {
+        //$($(row).find("td")[9]).css("background-color", "success");
+        $($(row).find('td')[9]).addClass('bg-lightblue')
+        //$($(row).find('td')['9']).text('ACEPTADO')
+      } else if (data[9] == 'PULIDO') {
+        //$($(row).find("td")[9]).css("background-color", "purple");
+        $($(row).find('td')[9]).addClass('bg-gradient-purple')
+        //$($(row).find('td')['9']).text('EN ESPERA')
+      } else if (data[9] == 'COLOCACION') {
         //$($(row).find("td")[5]).css("background-color", "light-blue");
 
-        $($(row).find('td')[8]).addClass('bg-gradient-orange')
-        //$($(row).find('td')['8']).text('EDITADO')
-      } else if (data[8] == 'PROCESANDO'){
+        $($(row).find('td')[9]).addClass('bg-gradient-orange')
+        //$($(row).find('td')['9']).text('EDITADO')
+      } else if (data[9] == 'PROCESANDO'){
         //$($(row).find("td")[5]).css("background-color", "red");
-        $($(row).find('td')[8]).addClass('bg-gradient-warning')
-        //$($(row).find('td')['8']).text('RECHAZADO')
+        $($(row).find('td')[9]).addClass('bg-gradient-warning')
+        //$($(row).find('td')['9']).text('RECHAZADO')
       }
-      else if(data[8]=="LIBERADO") {
-        $($(row).find('td')[8]).addClass('bg-gradient-success')
+      else if(data[9]=="LIBERADO") {
+        $($(row).find('td')[9]).addClass('bg-gradient-success')
+      }
+      else if(data[9]=="ACTIVO") {
+        $($(row).find('td')[9]).addClass('bg-gradient-primary')
       }
     },
   })
@@ -252,6 +255,7 @@ $(document).ready(function () {
   $(document).on('click', '.btnLiberar', function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
+    venta= parseInt(fila.find('td:eq(1)').text())
     estado = 'LIBERADO'
     porcentaje=100;
 
@@ -262,6 +266,7 @@ $(document).ready(function () {
       data: {
         folio: folio,
         estado: estado,
+        venta:venta,
         porcentaje: porcentaje
       },
       success: function (res) {

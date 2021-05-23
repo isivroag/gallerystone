@@ -133,7 +133,7 @@ foreach ($dt as $row) {
 
 //Agregar Orden y calcular fecha de instalación
 
-$consulta = "INSERT INTO orden (folio_vta,fecha_ord,fecha_limite,edo_ord) VALUES ('$foliovta','$fechaact','$fechalim','MEDICION') ";
+$consulta = "INSERT INTO orden (folio_vta,fecha_ord,fecha_limite,edo_ord) VALUES ('$foliovta','$fechaact','$fechalim','PENDIENTE') ";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $dt = $resultado->fetchAll(PDO::FETCH_ASSOC);
