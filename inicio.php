@@ -59,10 +59,20 @@ $resultadoml = $conexion->prepare($consultaml);
 $resultadoml->execute();
 $dataml = $resultadoml->fetchAll(PDO::FETCH_ASSOC);
 
-$consultavtav = "SELECT vendedor,SUM(gtotal) AS total FROM vventa WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' AND estado_vta=1 GROUP BY vendedor";
+$consultavtav = "SELECT vendedor,SUM(gtotal) AS total FROM vventa WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' AND estado_vta=1 AND tipo_proy=1 GROUP BY vendedor";
 $resultadvtav = $conexion->prepare($consultavtav);
 $resultadvtav->execute();
 $datavtav = $resultadvtav->fetchAll(PDO::FETCH_ASSOC);
+
+$consultaml2 = "SELECT vendedor,SUM(cantidadML+cantidadConv) AS mlvendido FROM vconversionvtaobr WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' GROUP BY vendedor";
+$resultadoml2 = $conexion->prepare($consultaml2);
+$resultadoml2->execute();
+$dataml2 = $resultadoml2->fetchAll(PDO::FETCH_ASSOC);
+
+$consultavtav2 = "SELECT vendedor,SUM(gtotal) AS total FROM vventa WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' AND estado_vta=1 AND tipo_proy=2 GROUP BY vendedor";
+$resultadvtav2 = $conexion->prepare($consultavtav2);
+$resultadvtav2->execute();
+$datavtav2 = $resultadvtav2->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -168,129 +178,257 @@ foreach ($dataing as $reging) {
         </div>
 
       </div>
-      <div class="row justify-content">
+      <!-- Graficas-->
+      <section>
+        <div class="row justify-content">
 
-        <!-- GRAFICA DE ML VENDIDOS-->
-        <div class="col-sm-6">
-          <div class="card ">
-            <div class="card-header bg-gradient-success color-palette border-0">
-              <h3 class="card-title">
-                <i class="fas fa-th mr-1"></i>
-                Metros Lineales Vendidos
-              </h3>
+          <!-- GRAFICA DE ML VENDIDOS-->
+          <div class="col-sm-6">
+            <div class="card ">
+              <div class="card-header bg-gradient-success color-palette border-0">
+                <h3 class="card-title">
+                  <i class="fas fa-th mr-1"></i>
+                  Metros Lineales Vendidos Proyectos
+                </h3>
 
-              <div class="card-tools">
-                <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
+                <div class="card-tools">
+                  <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
 
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="row justify-content">
-                <div class="col-sm-7">
-                  <canvas class="chart " id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
-                <div class="col-sm-5 my-auto">
-                  <div class="table-responsive">
-                    <table class="table table-responsive table-bordered table-hover table-sm">
-                      <thead class="text-center">
-                        <tr>
-                          <th>Vendedor</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $totalml = 0;
-                        foreach ($dataml as $rowml) {
-                          $totalml += $rowml['mlvendido'];
-                        ?>
+              </div>
+              <div class="card-body">
+                <div class="row justify-content">
+                  <div class="col-sm-7">
+                    <canvas class="chart " id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <div class="col-sm-5 my-auto">
+                    <div class="table-responsive">
+                      <table class="table table-responsive table-bordered table-hover table-sm">
+                        <thead class="text-center">
                           <tr>
-                            <td><?php echo $rowml['vendedor'] ?></td>
-                            <td class="text-right"><?php echo $rowml['mlvendido'] ?></td>
+                            <th>Vendedor</th>
+                            <th>Total</th>
                           </tr>
-                        <?php } ?>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $totalml = 0;
+                          foreach ($dataml as $rowml) {
+                            $totalml += $rowml['mlvendido'];
+                          ?>
+                            <tr>
+                              <td><?php echo $rowml['vendedor'] ?></td>
+                              <td class="text-right"><?php echo $rowml['mlvendido'] ?></td>
+                            </tr>
+                          <?php } ?>
 
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <td>ML VENDIDOS <?php echo $mesactual ?></td>
-                          <td class="text-right text-bold"><?php echo $totalml ?></td>
-                        </tr>
-                      </tfoot>
-                    </table>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td>ML VENDIDOS <?php echo $mesactual ?></td>
+                            <td class="text-right text-bold"><?php echo $totalml ?></td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- /.card-body -->
+              <!-- /.card-body -->
 
-            <!-- /.card-footer -->
+              <!-- /.card-footer -->
+            </div>
           </div>
-        </div>
-        <!-- GRAFICA DE VENTAS-->
-        <div class="col-sm-6">
-          <div class="card ">
-            <div class="card-header bg-gradient-success color-palette border-0">
-              <h3 class="card-title">
-                <i class="fas fa-th mr-1"></i>
-                Monto de Ventas
-              </h3>
+          <!-- GRAFICA DE VENTAS-->
+          <div class="col-sm-6">
+            <div class="card ">
+              <div class="card-header bg-gradient-success color-palette border-0">
+                <h3 class="card-title">
+                  <i class="fas fa-th mr-1"></i>
+                  Monto de Ventas Proyectos
+                </h3>
 
-              <div class="card-tools">
-                <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
+                <div class="card-tools">
+                  <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
 
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="row justify-content">
-                <div class="col-sm-7">
-                  <canvas class="chart " id="line-chart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
-                <div class="col-sm-5 my-auto">
-                  <div class="table-responsive">
-                    <table class="table table-responsive table-bordered table-hover table-sm">
-                      <thead class="text-center">
-                        <tr>
-                          <th>Vendedor</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $totalvtasml = 0;
-                        foreach ($datavtav as $rowml) {
-                          $totalvtasml += $rowml['total'];
-                        ?>
+              </div>
+              <div class="card-body">
+                <div class="row justify-content">
+                  <div class="col-sm-7">
+                    <canvas class="chart " id="line-chart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <div class="col-sm-5 my-auto">
+                    <div class="table-responsive">
+                      <table class="table table-responsive table-bordered table-hover table-sm">
+                        <thead class="text-center">
                           <tr>
-                            <td><?php echo $rowml['vendedor'] ?></td>
-                            <td class="text-right"><?php echo '$ '.number_format($rowml['total'],2) ?></td>
+                            <th>Vendedor</th>
+                            <th>Total</th>
                           </tr>
-                        <?php } ?>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $totalvtasml = 0;
+                          foreach ($datavtav as $rowml) {
+                            $totalvtasml += $rowml['total'];
+                          ?>
+                            <tr>
+                              <td><?php echo $rowml['vendedor'] ?></td>
+                              <td class="text-right"><?php echo '$ ' . number_format($rowml['total'], 2) ?></td>
+                            </tr>
+                          <?php } ?>
 
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <td>VENTAS <?php echo $mesactual ?></td>
-                          <td class="text-right text-bold"><?php echo '$ '.number_format($totalvtasml,2) ?></td>
-                        </tr>
-                      </tfoot>
-                    </table>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td>VENTAS <?php echo $mesactual ?></td>
+                            <td class="text-right text-bold"><?php echo '$ ' . number_format($totalvtasml, 2) ?></td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- /.card-body -->
+              <!-- /.card-body -->
 
-            <!-- /.card-footer -->
+              <!-- /.card-footer -->
+            </div>
           </div>
+
         </div>
 
-      </div>
 
+      </section>
+      <!-- GRAFICAS 2
+      <section>
+        <div class="row justify-content">
+
+
+          <div class="col-sm-6">
+            <div class="card ">
+              <div class="card-header bg-gradient-success color-palette border-0">
+                <h3 class="card-title">
+                  <i class="fas fa-th mr-1"></i>
+                  Metros Lineales Vendidos Obras
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row justify-content">
+                  <div class="col-sm-7">
+                    <canvas class="chart " id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <div class="col-sm-5 my-auto">
+                    <div class="table-responsive">
+                      <table class="table table-responsive table-bordered table-hover table-sm">
+                        <thead class="text-center">
+                          <tr>
+                            <th>Vendedor</th>
+                            <th>Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $totalml2 = 0;
+                          foreach ($dataml2 as $rowml2) {
+                            $totalml2 += $rowml2['mlvendido'];
+                          ?>
+                            <tr>
+                              <td><?php echo $rowml2['vendedor'] ?></td>
+                              <td class="text-right"><?php echo $rowml2['mlvendido'] ?></td>
+                            </tr>
+                          <?php } ?>
+
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td>ML VENDIDOS <?php echo $mesactual ?></td>
+                            <td class="text-right text-bold"><?php echo $totalml2 ?></td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="card ">
+              <div class="card-header bg-gradient-success color-palette border-0">
+                <h3 class="card-title">
+                  <i class="fas fa-th mr-1"></i>
+                  Monto de Ventas Obras
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row justify-content">
+                  <div class="col-sm-7">
+                    <canvas class="chart " id="line-chart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <div class="col-sm-5 my-auto">
+                    <div class="table-responsive">
+                      <table class="table table-responsive table-bordered table-hover table-sm">
+                        <thead class="text-center">
+                          <tr>
+                            <th>Vendedor</th>
+                            <th>Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $totalvtasml2 = 0;
+                          foreach ($datavtav2 as $rowml2) {
+                            $totalvtasml2 += $rowml2['total'];
+                          ?>
+                            <tr>
+                              <td><?php echo $rowml2['vendedor'] ?></td>
+                              <td class="text-right"><?php echo '$ ' . number_format($rowml2['total'], 2) ?></td>
+                            </tr>
+                          <?php } ?>
+
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td>VENTAS <?php echo $mesactual ?></td>
+                            <td class="text-right text-bold"><?php echo '$ ' . number_format($totalvtasml2, 2) ?></td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+-->
+
+      <!--  TABLEROS-->
       <div class="row justify-content-center">
         <!-- Left col -->
         <div class="col-lg-8">
@@ -423,9 +561,7 @@ foreach ($dataing as $reging) {
         </div>
         <!-- right col -->
       </div>
-      <!-- Default box -->
 
-      <!-- /.card -->
 
   </section>
   <!-- /.content -->
@@ -451,8 +587,8 @@ include_once 'templates/footer.php';
       ],
       datasets: [{
         label: 'ML VENDIDOS <?php echo $mesactual ?>',
-     
-    
+
+
 
         data: [
           <?php foreach ($dataml as $d) : ?>
@@ -484,13 +620,13 @@ include_once 'templates/footer.php';
       responsive: true,
       maintainAspectRatio: false,
       datasetFill: false,
-      scales:{
-        yAxes:[{
-          ticks:{
-            beginAtZero:true
+      scales: {
+        yAxes: [{
+            ticks: {
+              beginAtZero: true
 
+            }
           }
-        }
 
         ]
 
@@ -539,7 +675,7 @@ include_once 'templates/footer.php';
     }
 
 
- 
+
 
 
     var barChart2 = new Chart(barventas, {

@@ -34,8 +34,8 @@
             </p>
           </a>
         </li>
-
-
+<?php if ($_SESSION['s_rol'] != '4'){ ?>
+<!-- CATALOGOS-->
         <li class="nav-item  has-treeview <?php echo ($pagina == 'concepto' || $pagina == 'tipo' || $pagina == 'subtipo' || $pagina == 'item' || $pagina == 'formato' || $pagina == 'insumo' || $pagina == 'color' || $pagina == 'acabado' || $pagina == 'umedida' || $pagina == 'servicio') ? "menu-open" : ""; ?>">
 
 
@@ -110,7 +110,7 @@
         </li>
 
 
-
+<!-- CRM-->
         <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "menu-open" : ""; ?>">
 
 
@@ -179,7 +179,7 @@
           </ul>
         </li>
 
-
+<!-- INGRESOS-->
         <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa') ? "menu-open" : ""; ?>">
 
 
@@ -257,7 +257,7 @@
           </ul>
         </li>
 
-
+<!-- EGRESOS-->
         <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr') ? "menu-open" : ""; ?>">
 
 
@@ -307,7 +307,7 @@
         </li>
 
 
-
+<!-- REPORTES-->
         <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra") ? "menu-open" : ""; ?>">
 
 
@@ -368,7 +368,7 @@
           </ul>
         </li>
 
-
+<!-- ADMINISTRACION-->
         <li class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb') ? "menu-open" : ""; ?>">
 
 
@@ -404,9 +404,9 @@
           </ul>
         </li>
 
+        <?php } ?>
+<!-- PRODUCCION-->
         <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "menu-open" : ""; ?>">
-
-
           <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-hard-hat"></i>
