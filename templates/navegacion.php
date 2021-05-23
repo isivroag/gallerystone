@@ -455,7 +455,7 @@
             </li>
             <li class="nav-item">
               <a href="cntaorden.php" class="nav-link <?php echo ($pagina == 'orden') ? "active seleccionado" : ""; ?>  ">
-                <i class="fas fa-pencil-ruler nav-ico"></i>
+                <i class="fas fa-pencil-ruler nav-icon"></i>
                 <p>Ordenes de Servicio</p>
               </a>
             </li>
