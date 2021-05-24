@@ -11,11 +11,12 @@ $estado= (isset($_POST['estado'])) ? $_POST['estado'] : '';
 $porcentaje= (isset($_POST['porcentaje'])) ? $_POST['porcentaje'] : '';
 $venta= (isset($_POST['venta'])) ? $_POST['venta'] : '';
 $fecha= (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
+$fechaini= (isset($_POST['fechaini'])) ? $_POST['fechaini'] : '';
 
 
 $res=0;
 if ($estado=='ACTIVO'){
-    $consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje',fecha_limite='$fecha' WHERE folio_ord='$folio'";
+    $consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje',fecha_limite='$fecha',fecha_ord='$fechaini' WHERE folio_ord='$folio'";
 }
 else{
     $consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje' WHERE folio_ord='$folio'";

@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and tipo_proy=1 and edo_ord='PENDIENTE' ORDER BY folio_ord";
+$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord='PENDIENTE' ORDER BY folio_ord";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -124,6 +124,14 @@ $message = "";
                                     <div class="form-group input-group-sm">
                                     <input type="hidden" class="form-control" name="folioorden" id="folioorden" autocomplete="off" placeholder="Nombre">
                                     <input type="hidden" class="form-control" name="folioventa" id="folioventa" autocomplete="off" placeholder="Nombre">
+                                        <label for="fechai" class="col-form-label">Fecha de Inicio:</label>
+                                        <input type="date" class="form-control" name="fechai" id="fechai" autocomplete="off" placeholder="Fecha">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                   
                                         <label for="fecha" class="col-form-label">Fecha Limite:</label>
                                         <input type="date" class="form-control" name="fecha" id="fecha" autocomplete="off" placeholder="Nombre">
                                     </div>

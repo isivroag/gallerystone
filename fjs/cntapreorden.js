@@ -59,9 +59,11 @@ $(document).ready(function () {
     folio = parseInt(fila.find('td:eq(0)').text());
     venta = parseInt(fila.find('td:eq(1)').text());
     fecha = fila.find('td:eq(6)').text();
+    fechaini = fila.find('td:eq(2)').text();
     $('#formOrden').trigger('reset');
 
     $('#modalOrden').modal('show');
+    $('#fechai').val(fechaini);
     $('#fecha').val(fecha);
     $('#folioorden').val(folio);
     $('#folioventa').val(venta);
@@ -74,6 +76,7 @@ $(document).ready(function () {
     folio = $('#folioorden').val()
     venta = $('#folioventa').val()
     fecha = $('#fecha').val()
+    fechaini= $('#fechai').val()
 
     estado = 'ACTIVO'
     porcentaje = 0
@@ -93,6 +96,7 @@ $(document).ready(function () {
           folio: folio,
           estado: estado,
           fecha: fecha,
+          fechaini,fechaini,
           venta: venta,
           porcentaje: porcentaje,
         },

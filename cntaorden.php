@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and tipo_proy=1 and edo_ord<>'PENDIENTE' ORDER BY folio_ord";
+$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord<>'PENDIENTE' ORDER BY folio_ord";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -68,7 +68,7 @@ $message = "";
                       <th>Cliente</th>
                       <th>Proyecto</th>
                       <th>Ubicacion</th>
-                      <th>Fecha Instalación</th>
+                      <th>Fecha Inst.</th>
                       <th>Tipo</th>
                       <th>Progreso</th>
                       <th>Estado</th>
