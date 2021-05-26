@@ -73,8 +73,9 @@ $(document).ready(function () {
               </div>'
 
       $($(row).find('td')[8]).html(barra)
+      estadoord=data[9];
 
-      if (dias < 3) {
+      if (dias < 3 && estadoord!='LIBERADO') {
         $($(row).find('td')).addClass('bg-gradient-warning blink_me')
         $($(row).find('td')[6]).addClass('text-danger text-bold')
       }
@@ -153,7 +154,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
     estado = 'CORTE'
-    porcentaje=0;
+    porcentaje=5;
 
     $.ajax({
       url: 'bd/estadoorden.php',
@@ -178,7 +179,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
     estado = 'ENSAMBLE'
-    porcentaje=40;
+    porcentaje=45;
 
     $.ajax({
       url: 'bd/estadoorden.php',
@@ -203,7 +204,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
     estado = 'PULIDO'
-    porcentaje=70;
+    porcentaje=75;
 
     $.ajax({
       url: 'bd/estadoorden.php',
