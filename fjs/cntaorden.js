@@ -257,6 +257,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
     venta= parseInt(fila.find('td:eq(1)').text())
+    fechalib=$('#fechasys').val();
     estado = 'LIBERADO'
     porcentaje=100;
 
@@ -268,6 +269,7 @@ $(document).ready(function () {
         folio: folio,
         estado: estado,
         venta:venta,
+        fechalib: fechalib,
         porcentaje: porcentaje
       },
       success: function (res) {

@@ -411,8 +411,8 @@
 
         <?php } ?>
 <!-- PRODUCCION-->
-        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "menu-open" : ""; ?>">
-          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "active" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'rptorden') ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'rptorden') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-hard-hat"></i>
 
@@ -464,7 +464,12 @@
                 <p>Ordenes de Servicio</p>
               </a>
             </li>
-
+            <li class="nav-item">
+              <a href="rptorden.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'rptorden') ? "active seleccionado" : ""; ?>  ">
+              <i class="fas fa-tasks nav-icon"></i>
+                <p>Reporte de Producción</p>
+              </a>
+            </li>
 
 
 
