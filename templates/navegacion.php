@@ -411,8 +411,8 @@
 
         <?php } ?>
 <!-- PRODUCCION-->
-        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'rptorden') ? "menu-open" : ""; ?>">
-          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'rptorden') ? "active" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina=='cntarptorden') ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'orden' || $pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina=='cntarptorden') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fas fa-hard-hat"></i>
 
@@ -461,13 +461,26 @@
             <li class="nav-item">
               <a href="cntaorden.php" class="nav-link <?php echo ($pagina == 'orden') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-pencil-ruler nav-icon"></i>
-                <p>Ordenes de Servicio</p>
+                <p>Ordenes de Proyecto</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="cntaordenobra.php" class="nav-link <?php echo ($pagina == 'ordenobra') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-archway nav-icon"></i>
+                <p>Ordenes de Obra</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="cntarptorden.php" class="nav-link <?php echo ($pagina == 'cntarptorden') ? "active seleccionado" : ""; ?>  ">
+              <i class="fas fa-tasks nav-icon"></i>
+                <p>Consulta de Orden</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="rptorden.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'rptorden') ? "active seleccionado" : ""; ?>  ">
               <i class="fas fa-tasks nav-icon"></i>
-                <p>Reporte de Producción</p>
+                <p>Reporte de Producción ML</p>
               </a>
             </li>
 

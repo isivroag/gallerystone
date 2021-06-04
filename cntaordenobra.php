@@ -1,5 +1,5 @@
 <?php
-$pagina = "orden";
+$pagina = "ordenobra";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord<>'PENDIENTE' and edo_ord<>'LIBERADO' and tipop='PROYECTO' ORDER BY folio_ord";
+$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord<>'PENDIENTE' and edo_ord<>'LIBERADO' and tipop='OBRA' ORDER BY folio_ord";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -162,6 +162,7 @@ $message = "";
   </section>
 
 
+
   <!-- /.content -->
 </div>
 <!-- Resumen de Pagos -->
@@ -169,7 +170,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntaorden.js"></script>
+<script src="fjs/cntaordenobra.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

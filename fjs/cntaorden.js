@@ -257,7 +257,26 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
     venta= parseInt(fila.find('td:eq(1)').text())
-    fechalib=$('#fechasys').val();
+    
+    
+    folio = parseInt(fila.find('td:eq(0)').text());
+    venta = parseInt(fila.find('td:eq(1)').text());
+    
+    $('#formOrden').trigger('reset');
+
+    $('#modalOrden').modal('show');
+    
+    $('#fechal').val($('#fechasys').val());
+    $('#foliolorden').val(folio);
+    $('#foliolventa').val(venta);
+  })
+
+  $(document).on('click','#btngliberar',function(){
+    folio = $('#foliolorden').val();
+    venta= $('#foliolventa').val();
+    
+    
+    fechalib=$('#fechal').val();
     estado = 'LIBERADO'
     porcentaje=100;
 
