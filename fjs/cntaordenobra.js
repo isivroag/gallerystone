@@ -131,8 +131,10 @@ $(document).ready(function () {
       fila = $(this).closest('tr')
       id = parseInt(fila.find('td:eq(1)').text())
   
-      window.location.href = 'orden.php?folio=' + id
+      window.location.href = 'caratulaobra.php?folio=' + id
     })
+
+
   
     $(document).on('click', '.btnMedir', function () {
       fila = $(this).closest('tr')
