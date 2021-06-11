@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-ligh-primary elevation-3">
+<aside class="main-sidebar sidebar-light-primary elevation-3">
   <!-- Brand Logo -->
 
   <a href="inicio.php" class="brand-link">

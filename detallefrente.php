@@ -27,6 +27,7 @@ if ($id != "") {
 
     foreach ($data as $dt) {
         $folioorden = $dt['id_ord'];
+        $mapaurl = $dt['mapaurl'];
 
 
 
@@ -59,7 +60,11 @@ if ($id != "") {
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="css/estilo.css">
 
-
+<style>
+    .custom-file-input~.custom-file-label::after {
+        content: "Elegir";
+    }
+</style>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -216,7 +221,9 @@ if ($id != "") {
                                                             <th>#</th>
                                                             <th>Id</th>
                                                             <th>Concepto</th>
-                                                            <th>Cantidad</th>
+                                                            <th>Cantidad Presupuesto</th>
+                                                            <th>Generado</th>
+                                                            <th>Pendiente</th>
                                                             <th>Acciones</th>
 
 
@@ -239,7 +246,8 @@ if ($id != "") {
                                                                 <td><?php echo $rowd['id_concepto'] ?></td>
                                                                 <td><?php echo $rowd['nom_concepto'] ?></td>
                                                                 <td><?php echo $rowd['cantidad'] ?></td>
-                                                                
+                                                                <td><?php echo $rowd['generado'] ?></td>
+                                                                <td><?php echo $rowd['pendiente'] ?></td>
                                                                 <td></td>
                                                             </tr>
                                                         <?php
@@ -252,7 +260,49 @@ if ($id != "") {
                                         </div>
                                     </div>
 
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
+                                            <h1 class="card-title ">Plano</h1>
+                                            <div class="card-tools" style="margin:0px;padding:0px;">
+                                                <button type="button" id="btnAddplano" class="btn bg-gradient-secondary btn-sm">
+                                                    <i class="fas fa-folder-plus"></i>
+                                                </button>
+                                                <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body" id="extra">
+                                            <div class="row justify-content-center">
+                                                <div class="col-sm-8 text-center">
+                                                    <img class="img-responsive img-fluid pad" id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 500;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+
+                                            <h1 class="card-title ">Generadores</h1>
+                                            <div class="card-tools" style="margin:0px;padding:0px;">
+                                            <button type="button" id="btnAddgen" class="btn bg-gradient-secondary btn-sm">
+                                                    <i class="fas fa-folder-plus"></i>
+                                                </button>
+                                                <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body" id="extra">
+                                            <div class="row justify-content-center">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
 
 
                                 </div>
@@ -264,7 +314,7 @@ if ($id != "") {
 
                     </div>
 
-                 
+
 
 
 
@@ -282,7 +332,7 @@ if ($id != "") {
 
     </section>
 
-  
+
 
     <section>
         <div class="modal fade" id="modalCom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -296,20 +346,11 @@ if ($id != "") {
                         <form id="formCom" action="" method="POST">
                             <div class="modal-body row">
 
-<!--
+
                                 <div class="col-sm-10">
-                                    <div class="form-group input-group-sm">
+                                    <div class="form-group input-group-sm auto">
                                         <label for="concepto" class="col-form-label">Concepto:</label>
-                                        <input type="hidden" class="form-control" name="idconcepto" id="idconcepto" autocomplete="off" placeholder="idConcepto">
-                                        
-                                        <input type="text" class="form-control" name="concepto" id="concepto" autocomplete="off" placeholder="Concepto">
-                                    </div>
-                                </div>
--->
-                                <div class="col-sm-10">
-                                <div class="form-group input-group-sm auto">
-                                        <label for="concepto" class="col-form-label">Concepto:</label>
-                                        <select class="form-control" name="concepto" id="concepto" >
+                                        <select class="form-control" name="concepto" id="concepto">
                                             <?php
                                             $consultac = "SELECT * FROM conceptos_gen where estado_concepto=1 order by id_concepto";
                                             $resultadoc = $conexion->prepare($consultac);
@@ -335,8 +376,70 @@ if ($id != "") {
                                 </div>
 
 
-                             
 
+
+
+                            </div>
+
+
+
+                            <?php
+                            if ($message != "") {
+                            ?>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <span class="badge "><?php echo ($message); ?></span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="button" id="btnGuardarcom" name="btnGuardarcom" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section>
+        <div class="modal fade" id="modalMAPA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">Subir Archivo</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formMapa" action="" method="POST">
+                            <div class="modal-body row">
+
+
+                                <div class="col-sm-12">
+
+
+
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Subir Archivo</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+
+                                                <input type="file" class="custom-file-input" name="archivo" id="archivo">
+
+                                                <label class="custom-file-label" for="archivo">Elegir Archivo</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" id="upload">Subir</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
 
                             </div>
                     </div>
@@ -355,10 +458,7 @@ if ($id != "") {
                     <?php
                     }
                     ?>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="button" id="btnGuardarcom" name="btnGuardarcom" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                    </div>
+
                     </form>
                 </div>
             </div>
@@ -371,15 +471,7 @@ if ($id != "") {
 
 </div>
 
-<script>
-    //  window.addEventListener('beforeunload', function(event) {
-    // Cancel the event as stated by the standard.
-    //   event.preventDefault();
 
-    // Chrome requires returnValue to be set.
-    //event.returnValue = "";
-    //});
-</script>
 
 <?php include_once 'templates/footer.php'; ?>
 <script src="fjs/detallefrente.js?v=<?php echo (rand()); ?>"></script>
