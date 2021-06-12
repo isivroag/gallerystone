@@ -263,6 +263,66 @@ if ($id != "") {
                                     <div class="card">
                                         <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
+                                            <h1 class="card-title ">Generadores</h1>
+                                            <div class="card-tools" style="margin:0px;padding:0px;">
+                                            <button type="button" id="btnAddgen" class="btn bg-gradient-secondary btn-sm">
+                                                    <i class="fas fa-folder-plus"></i>
+                                                </button>
+                                                <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body" id="extra">
+                                            <div class="col-sm-auto">
+                                                <table name="tablaG" id="tablaG" class=" table table-sm table-striped  table-hover table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                    <thead class="text-center bg-gradient-secondary">
+                                                        <tr>
+                                                            <th>Folio Gen</th>
+                                                            <th>Fecha</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Area</th>
+                                                            <th>Inicio</th>
+                                                            <th>Fin</th>
+                                                            <th>Acciones</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $consultad = "SELECT * FROM generador where id_frente='$id' and estado_gen=1 order by folio_gen";
+
+                                                        $resultadod = $conexion->prepare($consultad);
+                                                        $resultadod->execute();
+
+
+                                                        $datad = $resultadod->fetchAll(PDO::FETCH_ASSOC);
+
+                                                        foreach ($datad as $rowd) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $rowd['folio_gen'] ?></td>
+                                                                <td><?php echo $rowd['fecha'] ?></td>
+                                                                <td><?php echo $rowd['descripcion'] ?></td>
+                                                                <td><?php echo $rowd['area'] ?></td>
+                                                                <td><?php echo $rowd['inicio'] ?></td>
+                                                                <td><?php echo $rowd['fin'] ?></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+
                                             <h1 class="card-title ">Plano</h1>
                                             <div class="card-tools" style="margin:0px;padding:0px;">
                                                 <button type="button" id="btnAddplano" class="btn bg-gradient-secondary btn-sm">
@@ -283,26 +343,7 @@ if ($id != "") {
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
-
-                                            <h1 class="card-title ">Generadores</h1>
-                                            <div class="card-tools" style="margin:0px;padding:0px;">
-                                            <button type="button" id="btnAddgen" class="btn bg-gradient-secondary btn-sm">
-                                                    <i class="fas fa-folder-plus"></i>
-                                                </button>
-                                                <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-
-                                            </div>
-                                        </div>
-                                        <div class="card-body" id="extra">
-                                            <div class="row justify-content-center">
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
 
                                 </div>

@@ -205,47 +205,42 @@ $(document).ready(function () {
 
 /*MODIFICAR PARA GUARDAR GENERADOR */
     $(document).on("click", "#btnGuardar", function() {
-        recalcular();
       
-        fecha = $("#fecha").val();
+        folio = $("#idgen").val();
+        fecha = $("#fechagen").val();
+        descripcion=$("#nombre").val();
+        area=$("#areacol").val();
+        inicio=$("#fechaini").val();
+        fin=$("#fechafin").val();
         tokenid = $("#tokenid").val();
-        folio = $("#folio").val();
-      
-        presupuesto = $("#presupuesto").val();
-      
-      
-
+       
+        generador=$("#foliogen").val();
+       
+        
         opcion = 2;
 
         if (
-            IdCliente.length != 0 &&
-            proyecto.length != 0 &&
-            ubicacion != 0 &&
-            tablaVis.data().any() &&
-            tablacond.data().any()
+            descripcion.length != 0 &&
+            area.length != 0 &&
+            inicio.length != 0 &&
+            fin.length != 0 &&
+            tablaD.data().any()
         ) {
             $.ajax({
                 type: "POST",
-                url: "bd/tmppres.php",
+                url: "bd/tmpgen.php",
                 dataType: "json",
                 //async: false,
                 data: {
-                    IdCliente: IdCliente,
-                    fecha: fecha,
-                    proyecto: proyecto,
-                    ubicacion: ubicacion,
-                    tokenid: tokenid,
                     folio: folio,
+                    fecha: fecha,
+                    descripcion: descripcion,
+                    area: area,
+                    inicio: inicio,
+                    fin: fin,
+                    tokenid: tokenid,
                     opcion: opcion,
-                    subtotal,
-                    subtotal,
-                    iva: iva,
-                    total: total,
-                    descuento: descuento,
-                    gtotal: gtotal,
-                    notas: notas,
-                    vendedor: vendedor,
-                    tipo_proy: tipo_proy
+                    
                 },
                 success: function(res) {
                     if (res == 0) {
@@ -256,10 +251,10 @@ $(document).ready(function () {
                         });
                     } else {
                         /* MODIFICAR O GUARDAR NUEVO PRESUPUESTO*/
-                        if (presupuesto == 0) {
+                        if (generador == 0) {
                             $.ajax({
                                 type: "POST",
-                                url: "bd/trasladopres.php",
+                                url: "bd/trasladogen.php",
                                 dataType: "json",
                                 //async: false,
                                 data: { folio: folio },
@@ -277,40 +272,16 @@ $(document).ready(function () {
                                             icon: "success",
                                         });
                                         folio = res;
-
-                                        estado = "1";
-                                        nota = "CREACIÓN";
-                                        fecha = $("#fecha").val();
-                                        usuario = $("#nameuser").val();
-
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "bd/estadopres.php",
-                                            dataType: "json",
-                                            //async: false,
-                                            data: {
-                                                folio: folio,
-                                                usuario: usuario,
-                                                estado: estado,
-                                                nota: nota,
-                                                fecha: fecha,
-                                            },
-                                            success: function() {
-                                                window.setTimeout(function() {
-                                                    window.location.href = "pres.php?folio=" + folio;
-                                                }, 1000);
-                                            },
-                                        });
                                     }
                                 },
                             });
                         } else {
                             $.ajax({
                                 type: "POST",
-                                url: "bd/modificarpres.php",
+                                url: "bd/modificargen.php",
                                 dataType: "json",
                                 //async: false,
-                                data: { folio: folio, presupuesto: presupuesto },
+                                data: { folio: folio, generador: generador },
                                 success: function(res) {
                                     if (res == 0) {
                                         Swal.fire({
@@ -324,31 +295,7 @@ $(document).ready(function () {
                                             text: "Presupuesto Modificado",
                                             icon: "success",
                                         });
-                                        folio = res;
-
-                                        estado = "5";
-                                        nota = "MODIFICACIÓN";
-                                        fecha = $("#fecha").val();
-                                        usuario = $("#nameuser").val();
-
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "bd/estadopres.php",
-                                            dataType: "json",
-                                            // async: false,
-                                            data: {
-                                                folio: folio,
-                                                usuario: usuario,
-                                                estado: estado,
-                                                nota: nota,
-                                                fecha: fecha,
-                                            },
-                                            success: function() {
-                                                window.setTimeout(function() {
-                                                    window.location.href = "pres.php?folio=" + folio;
-                                                }, 1000);
-                                            },
-                                        });
+                                        
                                     }
                                 },
                             });

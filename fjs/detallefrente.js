@@ -42,9 +42,56 @@ $(document).ready(function () {
       },
     })
   
-
-
+    tablaG = $('#tablaG').DataTable({
+      paging: false,
+      ordering: false,
+      info: false,
+      searching: false,
   
+      columnDefs: [
+        {
+          targets: -1,
+          data: null,
+          defaultContent:
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnVerGen'><i class='fas fa-search'></i></button>\
+            </div></div>",
+        }, 
+        { className: 'text-center', targets: [1] },
+        { className: 'text-center', targets: [4] },
+        { className: 'text-center', targets: [5] }
+        
+      ],
+  
+      //Para cambiar el lenguaje a español
+      language: {
+        lengthMenu: 'Mostrar _MENU_ registros',
+        zeroRecords: 'No se encontraron resultados',
+        info:
+          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+        infoFiltered: '(filtrado de un total de _MAX_ registros)',
+        sSearch: 'Buscar:',
+        oPaginate: {
+          sFirst: 'Primero',
+          sLast: 'Último',
+          sNext: 'Siguiente',
+          sPrevious: 'Anterior',
+        },
+        sProcessing: 'Procesando...',
+      },
+    })
+  
+
+
+    $(document).on('click', '.btnVerGen', function (event)  {
+      event.preventDefault();
+      fila = $(this)
+      id =  parseInt($(this).closest("tr").find("td:eq(0)").text());
+
+      window.location.href = "generador.php?folio="+id;
+     
+  
+  })
   
 
 
@@ -57,6 +104,8 @@ $(document).ready(function () {
       })
     }
   
+
+
   
     $(document).on('click', '.btnEliminarcom', function (event) {
      
@@ -99,7 +148,7 @@ $(document).ready(function () {
       });
     })
 
-    
+
 
     $(document).on('click', '#btnAddplano', function ()  {
       //window.location.href = "prospecto.php";
@@ -108,6 +157,7 @@ $(document).ready(function () {
       $('#modalMAPA').modal('show')
   
   })
+
   $(document).on('click', '#btnAddgen', function ()  {
     frente=$('#idfrente').val();
     window.location.href = "generador.php?idfrente="+frente;

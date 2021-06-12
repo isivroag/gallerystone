@@ -17,15 +17,16 @@ $tokenid = md5($_SESSION['s_usuario']);
 
 if (isset($_GET['folio'])) {
     $folio = $_GET['folio'];
-    $consulta = "SELECT * FROM generador WHERE folio_tmp='$folio'";
+    $consulta = "SELECT * FROM generador WHERE folio_gen='$folio'";
     $resultadobpres = $conexion->prepare($consulta);
     $resultadobpres->execute();
     if ($resultadobpres->rowCount() >= 1) {
         $databpres = $resultadobpres->fetchAll(PDO::FETCH_ASSOC);
         foreach ($databpres as $dtbpres) {
+            $foliotmp=$dtbpres['folio_tmp'];
             $generador = $dtbpres['folio_gen'];
         }
-        $consulta = "SELECT * FROM tmp_gen WHERE folio_gen='$folio'";
+        $consulta = "SELECT * FROM vtmpgen WHERE folio_gen='$foliotmp'";
     }
 } else {
     $consulta = "SELECT * FROM vtmpgen WHERE estado_gen='1' and id_frente='$idfrente' and tokenid='$tokenid'";
@@ -357,7 +358,7 @@ if ($id != "") {
                                                     <tbody>
                                                         <?php
 
-                                                        $consultad = "SELECT * FROM detalle_gen where folio_gen='$folio' and estado_detalle=1 order by id_reg";
+                                                        $consultad = "SELECT * FROM detalle_tmpgen where folio_gen='$folio' and estado_detalle=1 order by id_reg";
                                                         $resultadod = $conexion->prepare($consultad);
                                                         $resultadod->execute();
                                                         if ($resultadod->rowCount() >= 1) {
