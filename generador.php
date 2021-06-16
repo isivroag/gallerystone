@@ -11,7 +11,7 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 $message = "";
 $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
-$idfrente = (isset($_GET['idfrente'])) ? $_GET['idfrente'] : '';
+$idarea = (isset($_GET['idarea'])) ? $_GET['idarea'] : '';
 $tokenid = md5($_SESSION['s_usuario']);
 
 
@@ -29,7 +29,7 @@ if (isset($_GET['folio'])) {
         $consulta = "SELECT * FROM vtmpgen WHERE folio_gen='$foliotmp'";
     }
 } else {
-    $consulta = "SELECT * FROM vtmpgen WHERE estado_gen='1' and id_frente='$idfrente' and tokenid='$tokenid'";
+    $consulta = "SELECT * FROM vtmpgen WHERE estado_gen='1' and id_area='$idarea' and tokenid='$tokenid'";
     $generador = 0;
 }
 
@@ -43,11 +43,11 @@ if ($resultado->rowCount() >= 1) {
 
     foreach ($data as $dt) {
         $folio = $dt['folio_gen'];
-        $idfrente = $dt['id_frente'];
+        $idarea = $dt['id_area'];
         $idord = $dt['id_ord'];
         $frente = $dt['nom_frente'];
-        $supervisor = $dt['supervisor_frente'];
-        $colocador = $dt['colocador_frente'];
+        $supervisor = $dt['supervisor'];
+        $colocador = $dt['colocador'];
         $fecha = $dt['fecha'];
         $inicio = $dt['inicio'];
         $fin = $dt['fin'];
@@ -55,24 +55,24 @@ if ($resultado->rowCount() >= 1) {
         $area = $dt['area'];
     }
 } else {
-    if ($idfrente != '') {
+    if ($idarea != '') {
         $fecha = date('Y-m-d');
-        $consultatmp = "INSERT INTO tmp_gen (tokenid,id_frente,estado_gen,fecha,inicio,fin) VALUES('$tokenid','$idfrente','1','$fecha','$fecha','$fecha')";
+        $consultatmp = "INSERT INTO tmp_gen (tokenid,id_area,estado_gen,fecha,inicio,fin) VALUES('$tokenid','$idarea','1','$fecha','$fecha','$fecha')";
         $resultadotmp = $conexion->prepare($consultatmp);
         $resultadotmp->execute();
 
-        $consultatmp = "SELECT * FROM vtmpgen WHERE tokenid='$tokenid' and estado_gen='1' and id_frente='$idfrente' ORDER BY folio_gen DESC LIMIT 1";
+        $consultatmp = "SELECT * FROM vtmpgen WHERE tokenid='$tokenid' and estado_gen='1' and id_area='$idarea' ORDER BY folio_gen DESC LIMIT 1";
         $resultadotmp = $conexion->prepare($consultatmp);
         $resultadotmp->execute();
         $datatmp = $resultadotmp->fetchAll(PDO::FETCH_ASSOC);
         foreach ($datatmp as $dt) {
 
             $folio = $dt['folio_gen'];
-            $idfrente = $dt['id_frente'];
+            $idarea = $dt['id_area'];
             $idord = $dt['id_ord'];
             $frente = $dt['nom_frente'];
-            $supervisor = $dt['supervisor_frente'];
-            $colocador = $dt['colocador_frente'];
+            $supervisor = $dt['supervisor'];
+            $colocador = $dt['colocador'];
             $fecha = $dt['fecha'];
             $inicio =  $dt['inicio'];;
             $fin =  $dt['fin'];;
@@ -81,7 +81,7 @@ if ($resultado->rowCount() >= 1) {
         }
     } else {
         $folio = "";
-        $idfrente = "";
+        $idarea = "";
         $idord = "";
         $frente = "";
         $supervisor = "";
@@ -220,7 +220,7 @@ if ($id != "") {
                                         <div class="form-group input-group-sm">
                                             <label for="folioorden" class="col-form-label">Folio Orden:</label>
                                             <input type="text" class="form-control" name="folioorden" id="folioorden" value="<?php echo   $idord; ?>" disabled>
-                                            <input type="hidden" class="form-control form-control-sm" name="idfrente" id="idfrente" value="<?php echo   $idfrente; ?>" disabled>
+                                            <input type="hidden" class="form-control form-control-sm" name="idarea" id="idarea" value="<?php echo   $idarea; ?>" disabled>
 
                                         </div>
                                     </div>
@@ -285,7 +285,7 @@ if ($id != "") {
                                     <div class="col-lg-3">
                                         <div class="form-group input-group-sm">
                                             <label for="areacol" class="col-form-label">Area Colocacion:</label>
-                                            <input type="text" class="form-control form-control-sm" name="areacol" id="areacol" value="<?php echo $area; ?>">
+                                            <input type="text" class="form-control form-control-sm" name="areacol" id="areacol" value="<?php echo $area; ?>" disabled>
                                         </div>
                                     </div>
 
@@ -433,7 +433,7 @@ if ($id != "") {
                                         <label for="concepto" class="col-form-label">Concepto:</label>
                                         <select class="form-control" name="concepto" id="concepto">
                                             <?php
-                                            $consultac = "SELECT * FROM detalle_frente where id_frente='$idfrente' and estado_detalle=1 order by id_concepto";
+                                            $consultac = "SELECT * FROM detalle_area where id_area='$idarea' and estado_detalle=1 order by id_concepto";
                                             $resultadoc = $conexion->prepare($consultac);
                                             $resultadoc->execute();
                                             $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);

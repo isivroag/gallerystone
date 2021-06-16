@@ -1,5 +1,5 @@
 <?php
-$pagina = "orden";
+$pagina = "ordenobra";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -15,7 +15,7 @@ if ($id != "") {
     $conexion = $objeto->connect();
     $tokenid = md5($_SESSION['s_usuario']);
 
-    $consulta = "SELECT * FROM frente where id_frente='$id'";
+    $consulta = "SELECT * FROM vareas where id_area='$id'";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
@@ -32,10 +32,10 @@ if ($id != "") {
 
 
         $nombre = $dt['nom_frente'];
-        $area = $dt['area_frente'];
-        $supervisor = $dt['supervisor_frente'];
-        $colocador = $dt['colocador_frente'];
-        $areacol = $dt['areacol_frente'];
+        $area = $dt['area'];
+        $supervisor = $dt['supervisor'];
+        $colocador = $dt['colocador'];
+        
     }
 
     $message = "";
@@ -48,7 +48,7 @@ if ($id != "") {
     $area = '';
     $supervisor = '';
     $colocador = '';
-    $areacol = '';
+  
 }
 
 
@@ -117,7 +117,7 @@ if ($id != "") {
                                     <div class="col-lg-5">
                                         <div class="form-group">
 
-                                            <label for="nombre" class="col-form-label">Denominacion Frente:</label>
+                                            <label for="nombre" class="col-form-label">Frente:</label>
 
                                             <div class="input-group input-group-sm">
 
@@ -136,19 +136,14 @@ if ($id != "") {
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-2">
-                                        <div class="form-group input-group-sm">
-                                            <label for="areacol" class="col-form-label">Area Colocacion:</label>
-                                            <input type="text" class="form-control form-control-sm" name="areacol" id="areacol" value="<?php echo $areacol; ?>" disabled>
-                                        </div>
-                                    </div>
+                                  
 
 
                                     <div class="col-lg-1">
                                         <div class="form-group input-group-sm">
-                                            <label for="idfrente" class="col-form-label">ID Frente:</label>
+                                            <label for="idarea" class="col-form-label">ID Area:</label>
 
-                                            <input type="text" class="form-control form-control-sm" name="idfrente" id="idfrente" value="<?php echo   $id; ?>" disabled>
+                                            <input type="text" class="form-control form-control-sm" name="idarea" id="idarea" value="<?php echo   $id; ?>" disabled>
                                         </div>
                                     </div>
 
@@ -231,7 +226,7 @@ if ($id != "") {
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $consultad = "SELECT * FROM detalle_frente where id_frente='$id' and estado_detalle=1 order by id_reg";
+                                                        $consultad = "SELECT * FROM detalle_area where id_area='$id' and estado_detalle=1 order by id_reg";
 
                                                         $resultadod = $conexion->prepare($consultad);
                                                         $resultadod->execute();
@@ -292,7 +287,7 @@ if ($id != "") {
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $consultad = "SELECT * FROM generador where id_frente='$id' and estado_gen=1 order by folio_gen";
+                                                        $consultad = "SELECT * FROM generador where id_area='$id' and estado_gen=1 order by folio_gen";
 
                                                         $resultadod = $conexion->prepare($consultad);
                                                         $resultadod->execute();

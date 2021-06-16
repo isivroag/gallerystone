@@ -7,7 +7,7 @@ $conexion = $objeto->connect();
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $tokenid = "";
-$id_frente="";
+$id_area="";
 $descripcion = "";
 $fecha = "";
 $area = "";
@@ -23,7 +23,7 @@ $resultado->execute();
 $dt = $resultado->fetchAll(PDO::FETCH_ASSOC);
 foreach ($dt as $row) {
     $tokenid = $row['tokenid'];
-    $id_frente = $row['id_frente'];
+    $id_area = $row['id_area'];
     $fecha = $row['fecha'];
     $area = $row['area'];
     $descripcion = $row['descripcion'];
@@ -36,7 +36,7 @@ $consulta = "UPDATE tmp_gen SET estado_gen=2 WHERE folio_gen='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
-$consulta = "INSERT INTO generador (id_frente,fecha,inicio,fin,descripcion,area,tokenid,folio_tmp) VALUES('$id_frente','$fecha','$inicio','$fin','$descripcion','$area','$tokenid','$folio')";
+$consulta = "INSERT INTO generador (id_area,fecha,inicio,fin,descripcion,area,tokenid,folio_tmp) VALUES('$id_area','$fecha','$inicio','$fin','$descripcion','$area','$tokenid','$folio')";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 

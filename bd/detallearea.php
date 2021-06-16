@@ -5,7 +5,7 @@ $conexion = $objeto->connect();
 
 // Recepción de los datos enviados mediante POST desde el JS   
 
-$frente = (isset($_POST['frente'])) ? $_POST['frente'] : '';
+$idarea = (isset($_POST['idarea'])) ? $_POST['idarea'] : '';
 
 $idconcepto = (isset($_POST['idconcepto'])) ? $_POST['idconcepto'] : '';
 $concepto = (isset($_POST['concepto'])) ? $_POST['concepto'] : '';
@@ -21,17 +21,17 @@ $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "SELECT * from detalle_frente where id_concepto='$idconcepto' and id_frente='$frente' and estado_detalle=1";
+        $consulta = "SELECT * from detalle_area where id_concepto='$idconcepto' and id_area='$idarea' and estado_detalle=1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if ($resultado->rowCount() != 0) {
             $data = 0;
         } else {
-            $consulta = "INSERT INTO detalle_frente (id_frente,id_concepto,nom_concepto,cantidad,precio,total,generado,pendiente) values ('$frente','$idconcepto','$concepto','$cantidad',0,0,'$generado','$pendiente')";
+            $consulta = "INSERT INTO detalle_area (id_area,id_concepto,nom_concepto,cantidad,precio,total,generado,pendiente) values ('$idarea','$idconcepto','$concepto','$cantidad',0,0,'$generado','$pendiente')";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
-            $consulta = "SELECT * FROM detalle_frente WHERE id_frente='$frente' ORDER BY id_reg DESC LIMIT 1";
+            $consulta = "SELECT * FROM detalle_area WHERE id_area='$idarea' ORDER BY id_reg DESC LIMIT 1";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ switch ($opcion) {
 
         break;
     case 2:
-        $consulta = "UPDATE detalle_frente SET estado_detalle=0 WHERE id_reg='$id' ";
+        $consulta = "UPDATE detalle_area SET estado_detalle=0 WHERE id_reg='$id' ";
         $resultado = $conexion->prepare($consulta);
         if ($resultado->execute()) {
             $data = 1;

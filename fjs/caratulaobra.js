@@ -76,10 +76,16 @@ $(document).ready(function () {
         targets: -1,
         data: null,
         defaultContent:
-          "<div class='text-center'><button class='btn btn-sm btn-primary btnDetalleFrente'><i class='fas fa-hard-hat'></i></button>\
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm bg-gradient-orange btnAreas'><i class='far fa-map text-light'></i></button>\
           <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>\
-          </div>",
-      },
+          </div></div>",
+      },{
+        targets:0,
+        class: "details-control",
+        orderable: false,
+        data: null,
+        defaultContent: ""
+    }
     ],
 
     language: {
@@ -99,6 +105,95 @@ $(document).ready(function () {
       sProcessing: 'Procesando...',
     },
   })
+
+
+
+  
+
+  var detailRows = [];
+
+  $('#tablaDet tbody').on('click', 'tr td.details-control', function() {
+      var tr = $(this).closest('tr');
+      var row = tablaDet.row(tr);
+      var idx = $.inArray(tr.attr('id_frente'), detailRows);
+      folio = parseInt($(this).closest("tr").find('td:eq(1)').text());
+
+
+      if (row.child.isShown()) {
+          tr.removeClass('details');
+          row.child.hide();
+
+          // Remove from the 'open' array
+          detailRows.splice(idx, 1);
+      } else {
+          tr.addClass('details');
+          row.child(format(row.data(), folio)).show();
+
+          // Add to the 'open' array
+          if (idx === -1) {
+              detailRows.push(tr.attr('id'));
+          }
+      }
+  });
+
+  tablaDet.on('draw', function() {
+      $.each(detailRows, function(i, id) {
+          $('#' + id + ' td.details-control').trigger('click');
+      })
+  });
+
+  function format(d, folio) {
+
+      tabla = "";
+    
+      tabla = " <div class='container '><div class='row justify-content-center'>" +
+          "<div class='col-lg-8'>" +
+          "<div class='table-responsive'>" +
+          "<table class='tabladetarea table table-sm table-striped  table-hover table-bordered table-condensed text-nowrap mx-auto ' style='width:100%'>" +
+          "<thead class='text-center bg-gradient-orange '>" +
+          "<tr class=''>" +
+          "<th>Id Area</th>" +
+          "<th class='hide_column'>Id_Frente</th>" +
+          "<th>Area</th>" +
+          "<th>Supervisor</th>" +
+          "<th>Colocador</th>" +
+          "<th>Acciones</th>"+
+          "</tr>" +
+          "</thead>" +
+          "<tbody>";
+
+      $.ajax({
+
+          url: "bd/buscardetfrente.php",
+          type: "POST",
+          dataType: "json",
+          data: { folio: folio },
+          async: false,
+          success: function(res) {
+              
+           
+              for (var i = 0; i < res.length; i++) {
+                
+                
+                
+
+                  tabla += '<tr><td class="text-center">' + res[i].id_area + '</td><td class="text-center hide_column">' + res[i].id_frente + '</td><td class="text-center">' + res[i].area + '</td><td class=>' + res[i].supervisor + '</td><td class=>' + res[i].colocador + '</td><td><div class="text-center"><div class="btn-group"><button class="btn btn-sm btn-primary btnDetalleFrente"><i class="fas fa-hard-hat"></i></button>\
+                  <button class="btn btn-sm btn-danger btnBorrarA"><i class="fas fa-trash-alt"></i></button>\
+                  </div></div></td></tr>';
+              }
+
+          }
+      });
+
+      tabla += "</tbody>" +
+          "</table>" +
+          "</div>" +
+          "</div>" +
+          "</div>" +
+          "</div>";
+
+      return tabla;
+  };
 
   tablaMat = $('#tablaMat').DataTable({
     columnDefs: [
@@ -135,6 +230,21 @@ $(document).ready(function () {
     limpiar()
   })
 
+  
+  $(document).on('click', '.btnAreas', function (event) {
+    event.preventDefault()
+
+    fila = $(this)
+    id = parseInt($(this).closest('tr').find('td:eq(1)').text())
+    nomfrente = $(this).closest('tr').find('td:eq(2)').text()
+    $('#formArea').trigger('reset')
+
+    $('#idfrentea').val(id);
+    $('#nomfrentea').val(nomfrente);
+    $('#modalArea').modal('show')
+
+  })
+  
   $(document).on('click', '.btnBorrar', function (event) {
     event.preventDefault()
 
@@ -173,23 +283,61 @@ $(document).ready(function () {
       })
   })
 
-  $(document).on('click', '#btnagregar', function () {
+  
+  $(document).on('click', '#btnGuardarArea', function () {
+    idfrente = $('#idfrentea').val()
+    area=$('#area').val()
+    supervisor=$('#supervisor').val()
+    colocador=$('#colocador').val()
+    
+
+    opcion = 1
+
+    if (
+      idfrente.length != 0 &&
+      supervisor.length != 0 &&
+      colocador.length != 0 &&
+      area.length != 0 
+     
+    ) {
+      $.ajax({
+        type: 'POST',
+        url: 'bd/areasobras.php',
+        dataType: 'json',
+        //async: false,
+        data: {
+          idfrente: idfrente,
+          area: area,
+          supervisor: supervisor,
+          colocador: colocador,
+          opcion: opcion,
+        },
+        success: function (data) {
+         
+          window.location.href = "caratulaobra.php?folio="+ $('#folior').val();
+
+        },
+      })
+    } else {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos del Complemento',
+        icon: 'warning',
+      })
+      return false
+    }
+  })
+  $(document).on('click', '#btnGuardarFrente', function () {
     orden = $('#folioorden').val()
     nombre = $('#nombrefrente').val()
-    area = $('#area').val()
-    areacol = $('#areacol').val()
-    supervisor = $('#supervisor').val()
-    colocador = $('#colocador').val()
+    
 
     opcion = 1
 
     if (
       orden.length != 0 &&
-      nombre.length != 0 &&
-      area.length != 0 &&
-      areacol.length != 0 &&
-      supervisor.length != 0 &&
-      colocador.length != 0
+      nombre.length != 0 
+     
     ) {
       $.ajax({
         type: 'POST',
@@ -199,24 +347,18 @@ $(document).ready(function () {
         data: {
           orden: orden,
           nombre: nombre,
-          area: area,
-          areacol: areacol,
-          supervisor: supervisor,
-          colocador: colocador,
           opcion: opcion,
         },
         success: function (data) {
-          console.log(data)
+         
           id_frente = data[0].id_frente
           nombre = data[0].nom_frente
-          area = data[0].area_frente
-          areacol = data[0].areacol_frente
-          supervisor = data[0].supervisor_frente
-          colocador = data[0].colocador_frente
-
+      
           tablaDet.row
-            .add([id_frente, nombre, area, supervisor, colocador, areacol])
-            .draw()
+            .add([,id_frente, nombre,])
+            .draw();
+            $('#modalFrente').modal('hide');
+
         },
       })
     } else {
@@ -293,6 +435,15 @@ $(document).ready(function () {
    
 
 })
+
+
+$(document).on('click', '#btnAreas', function ()  {
+  //window.location.href = "prospecto.php";
+  $('#formFrente').trigger('reset')
+ 
+  $('#modalFrente').modal('show')
+
+})
   $(document).on('click', '#btnAddcom', function ()  {
     //window.location.href = "prospecto.php";
     $('#formCom').trigger('reset')
@@ -353,89 +504,11 @@ $(document).ready(function () {
 
 
 
-  $(document).on('click', '#btnagregar', function () {
-    folio = $('#folioorden').val()
-
-    idmat = $('#clavemat').val()
-
-    cantidad = $('#cantidad').val()
-    cantidaddis = $('#cantidaddis').val()
-    opcion = 1
-
-    if (parseFloat(cantidad) > parseFloat(cantidaddis)) {
-      nomensaje()
-      return 0
-    }
-
-    console.log(idmat)
-
-    if (folio.length != 0 && idmat.length != 0 && cantidad.length != 0) {
-      $.ajax({
-        type: 'POST',
-        url: 'bd/detalleorden.php',
-        dataType: 'json',
-        //async: false,
-        data: {
-          folio: folio,
-          idmat: idmat,
-          cantidad: cantidad,
-          opcion: opcion,
-        },
-        success: function (data) {
-          console.log(data)
-          id_reg = data[0].id_reg
-          id_mat = data[0].id_mat
-          id_item = data[0].id_item
-          clave_item = data[0].clave_item
-          nom_item = data[0].nom_item
-          formato = data[0].formato
-          largo_mat = data[0].largo_mat
-          ancho_mat = data[0].ancho_mat
-          alto_mat = data[0].alto_mat
-          id_umedida = data[0].id_umedida
-          nom_umedida = data[0].nom_umedida
-          m2_mat = data[0].m2_mat
-          ubi_mat = data[0].ubi_mat
-          cant_mat = data[0].cant_mat
-
-          tablaDet.row
-            .add([
-              id_reg,
-              id_item,
-              id_mat,
-              clave_item,
-              nom_item,
-              formato,
-              largo_mat,
-              ancho_mat,
-              alto_mat,
-              m2_mat,
-              id_umedida,
-              nom_umedida,
-              ubi_mat,
-              cant_mat,
-            ])
-            .draw()
-          limpiar()
-        },
-      })
-    } else {
-      Swal.fire({
-        title: 'Datos Faltantes',
-        text: 'Debe ingresar todos los datos del Item',
-        icon: 'warning',
-      })
-      return false
-    }
-  })
-
+ 
 
   function limpiar() {
     $('#nombre').val('')
-    $('#area').val('')
-    $('#areacol').val('')
-    $('#supervisor').val('')
-    $('#colocador').val('')
+    
   }
 
   function mensajeerror() {

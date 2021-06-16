@@ -130,7 +130,7 @@ $(document).ready(function () {
       .then(function(isConfirm) {
           if (isConfirm.value) {
               $.ajax({
-                  url: "bd/detallefrente.php",
+                  url: "bd/detallearea.php",
                   type: "POST",
                   dataType: "json",
                   async: false,
@@ -159,8 +159,8 @@ $(document).ready(function () {
   })
 
   $(document).on('click', '#btnAddgen', function ()  {
-    frente=$('#idfrente').val();
-    window.location.href = "generador.php?idfrente="+frente;
+    idarea=$('#idarea').val();
+    window.location.href = "generador.php?idarea="+idarea;
    
 
 })
@@ -175,22 +175,22 @@ $(document).ready(function () {
   
     $(document).on('click', '#btnGuardarcom', function () {
       idconcepto=$('#concepto').val();
-      frente=$('#idfrente').val();
+      idarea=$('#idarea').val();
       concepto=$('#concepto option:selected').text();
       cantidad=$('#cantcom').val();
       opcion=1;
        
-      if (frente.length != 0 && cantidad.length != 0 && frente.length != 0 && idconcepto.length!=0 && concepto.length!=0) {
+      if (idarea.length != 0 && cantidad.length != 0 &&  idconcepto.length!=0 && concepto.length!=0) {
        
        
        
         $.ajax({
           type: 'POST',
-          url: 'bd/detallefrente.php',
+          url: 'bd/detallearea.php',
           dataType: 'json',
         
           data: {
-            frente: frente,
+            idarea: idarea,
             idconcepto: idconcepto,
             concepto: concepto,
             cantidad: cantidad,
@@ -272,7 +272,7 @@ $(document).ready(function () {
   
     $(document).on('click', '#upload', function () {
       
-      frente=$('#idfrente').val();
+      idarea=$('#idarea').val();
       var formData = new FormData();
       var files = $('#archivo')[0].files[0];
       
@@ -290,7 +290,7 @@ $(document).ready(function () {
       }
       else {
         formData.append('file', files);
-        formData.append('frente',frente)
+        formData.append('frente',idarea)
         $.ajax({
           url: 'bd/upload.php',
           type: 'post',
@@ -305,7 +305,7 @@ $(document).ready(function () {
                 icon: 'success',
             })
             $("#modalMAPA").modal("hide");
-            window.location.href = "detallefrente.php?id="+ frente;
+            window.location.href = "detallefrente.php?id="+ idarea;
               //respuesta exitosa
             } else {
               //swal incorrecto
