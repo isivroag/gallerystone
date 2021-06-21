@@ -562,7 +562,7 @@ if ($folio != "") {
                                                     <tr>
                                                         <th rowspan="2">Concepto</th>
                                                         <?php
-                                                        $cntafrente = "SELECT * FROM frente where id_ord='$folioorden' and estado_frente=1 order by id_frente";
+                                                        $cntafrente = "SELECT id_frente,nom_frente FROM frente where id_ord='$folioorden' and estado_frente=1 order by id_frente";
                                                         $resfrente = $conexion->prepare($cntafrente);
                                                         $resfrente->execute();
                                                         $regfrente = $resfrente->fetchAll(PDO::FETCH_ASSOC);
@@ -587,7 +587,7 @@ if ($folio != "") {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $consultadeto = "SELECT * FROM vresumenconceptos where id_ord='$folioorden' order by id_concepto";
+                                                    $consultadeto = "SELECT id_concepto,nom_concepto FROM vresumenconceptos where id_ord='$folioorden' order by id_concepto";
                                                     $resultadodeto = $conexion->prepare($consultadeto);
                                                     $resultadodeto->execute();
                                                     $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);

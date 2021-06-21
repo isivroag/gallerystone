@@ -19,7 +19,9 @@ $(document).ready(function () {
         }, { className: 'hide_column', targets: [0] },
         { className: 'hide_column', targets: [1] },
         { className: 'text-center', targets: [2] },
-        { className: 'text-center', targets: [3] }
+        { className: 'text-center', targets: [3] },
+        { className: 'text-center', targets: [4] },
+        { className: 'text-center', targets: [5] }
         
       ],
   

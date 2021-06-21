@@ -8,6 +8,7 @@ $(document).ready(function () {
     searching: false,
 
     columnDefs: [
+      { className: 'text-center', targets: [0] },
       { className: 'text-center', targets: [3] },
       { className: 'text-center', targets: [4] },
       { className: 'text-center', targets: [5] },
@@ -43,7 +44,7 @@ $(document).ready(function () {
         data: null,
         defaultContent:
           "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnEliminarcom'><i class='fas fa-trash'></i></button></div></div>",
-      },
+      }, { className: 'text-center', targets: [0] },
     ],
 
     //Para cambiar el lenguaje a español
@@ -85,7 +86,7 @@ $(document).ready(function () {
         orderable: false,
         data: null,
         defaultContent: ""
-    }
+    }, { className: 'text-center', targets: [1] },
     ],
 
     language: {
@@ -120,6 +121,11 @@ $(document).ready(function () {
         defaultContent:
           "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnEliminarconceptos'><i class='fas fa-trash'></i></button></div></div>",
       },
+      { className: 'text-center', targets: [0] },
+        { className: 'text-center', targets: [1] },
+        { className: 'text-center', targets: [2] },
+        { className: 'text-center', targets: [3] },
+      
     ],
 
     //Para cambiar el lenguaje a español
