@@ -107,7 +107,39 @@ $(document).ready(function () {
   })
 
 
+  tablaConceptos = $('#tablaConceptos').DataTable({
+    paging: false,
+    ordering: false,
+    info: false,
+    searching: false,
 
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-danger btnEliminarconceptos'><i class='fas fa-trash'></i></button></div></div>",
+      },
+    ],
+
+    //Para cambiar el lenguaje a español
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+  })
   
 
   var detailRows = [];
@@ -283,7 +315,121 @@ $(document).ready(function () {
       })
   })
 
+  $(document).on('click', '#btnConceptos', function ()  {
+    //window.location.href = "prospecto.php";
+    $('#formConceptos').trigger('reset')
+   
+    $('#modalConceptos').modal('show')
+
+})
+
+$(document).on('click', '#btnGuardarconcepto', function () {
+  idconcepto=$('#conceptod').val();
+  idorden=$('#folioorden').val();
+  concepto=$('#conceptod option:selected').text();
+  precio=$('#preciocon').val();
+  costo=$('#costocon').val();
+  opcion=1;
+   
+  if (idorden.length != 0 && precio.length != 0 && costo.length != 0 &&  idconcepto.length!=0 && concepto.length!=0) {
+   
+   
+   
+    $.ajax({
+      type: 'POST',
+      url: 'bd/detalleobra.php',
+      dataType: 'json',
+    
+      data: {
+        idorden: idorden,
+        idconcepto: idconcepto,
+        concepto: concepto,
+        precio: precio,
+        costo: costo,
+        opcion: opcion,
+      },
+      success: function (data) {
+        console.log(data);
+
+        if (data==0){
+            mensajeduplicado();
+            return 0;
+        }
+        else{
+            id_reg = data[0].id_reg
+            idconcepto = data[0].id_concepto
+            concepto = data[0].nom_concepto
+            precio = data[0].precio_concepto
+            costo = data[0].costo_concepto
+            
+            tablaConceptos.row
+              .add([
+                id_reg,
+                concepto,
+                costo,
+                precio,
+                
+              ])
+              .draw()
+              $('#modalConceptos').modal('hide')
+        }
+       
+      },
+    })
+  } else {
+    Swal.fire({
+      title: 'Datos Faltantes',
+      text: 'Debe ingresar todos los datos del Complemento',
+      icon: 'warning',
+    })
+    return false
+  }
+})
   
+
+$(document).on('click', '.btnEliminarconceptos', function (event) {
+     
+  event.preventDefault();
+
+  fila = $(this)
+  id =  parseInt($(this).closest("tr").find("td:eq(0)").text());
+  opcion=2;
+
+  swal
+  .fire({
+      title: "Borrar",
+      text: "¿Realmente desea borrar este elemento?",
+
+      showCancelButton: true,
+      icon: "warning",
+      focusConfirm: true,
+      confirmButtonText: "Aceptar",
+
+      cancelButtonText: "Cancelar",
+  })
+  .then(function(isConfirm) {
+      if (isConfirm.value) {
+          $.ajax({
+              url: "bd/detalleobra.php",
+              type: "POST",
+              dataType: "json",
+              async: false,
+              data: { id: id, opcion: opcion },
+              success: function(data) {
+              
+                  if (data == 1) {
+                    
+                    tablaConceptos.row(fila.parents("tr")).remove().draw();
+                      
+                  }
+              },
+          });
+      } else if (isConfirm.dismiss === swal.DismissReason.cancel) {}
+  });
+})
+
+
+
   $(document).on('click', '#btnGuardarArea', function () {
     idfrente = $('#idfrentea').val()
     area=$('#area').val()
@@ -504,7 +650,14 @@ $(document).on('click', '#btnAreas', function ()  {
 
 
 
- 
+  function mensajeduplicado() {
+    swal.fire({
+      title: 'El concepto ya se encuentra en la lista',
+      icon: 'error',
+      focusConfirm: true,
+      confirmButtonText: 'Aceptar',
+    })
+  }
 
   function limpiar() {
     $('#nombre').val('')

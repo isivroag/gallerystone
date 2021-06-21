@@ -5,13 +5,13 @@ $conexion = $objeto->connect();
 
 // Recepción de los datos enviados mediante POST desde el JS   
 
-$idarea = (isset($_POST['idarea'])) ? $_POST['idarea'] : '';
+$id_orden = (isset($_POST['idorden'])) ? $_POST['idorden'] : '';
 
 $idconcepto = (isset($_POST['idconcepto'])) ? $_POST['idconcepto'] : '';
 $concepto = (isset($_POST['concepto'])) ? $_POST['concepto'] : '';
-$cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
-$generado=(isset($_POST['generado'])) ? $_POST['generado'] : '0';
-$pendiente=(isset($_POST['pendiente'])) ? $_POST['pendiente'] : '0';
+$precio = (isset($_POST['precio'])) ? $_POST['precio'] : '';
+$costo=(isset($_POST['costo'])) ? $_POST['costo'] : '0';
+
 
 
 
@@ -21,17 +21,17 @@ $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "SELECT * from detalle_area where id_concepto='$idconcepto' and id_area='$idarea' and estado_detalle=1";
+        $consulta = "SELECT * from detalle_conceptosobra where id_concepto='$idconcepto' and id_orden='$id_orden' and estado_detalle=1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if ($resultado->rowCount() != 0) {
             $data = 0;
         } else {
-            $consulta = "INSERT INTO detalle_area (id_area,id_concepto,nom_concepto,cantidad,generado,pendiente) values ('$idarea','$idconcepto','$concepto','$cantidad','$generado','$cantidad')";
+            $consulta = "INSERT INTO detalle_conceptosobra (id_orden,id_concepto,nom_concepto,precio_concepto,costo_concepto) values ('$id_orden','$idconcepto','$concepto','$precio','$costo')";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
-            $consulta = "SELECT * FROM detalle_area WHERE id_area='$idarea' ORDER BY id_reg DESC LIMIT 1";
+            $consulta = "SELECT * FROM detalle_conceptosobra WHERE id_orden='$id_orden' ORDER BY id_reg DESC LIMIT 1";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ switch ($opcion) {
 
         break;
     case 2:
-        $consulta = "UPDATE detalle_area SET estado_detalle=0 WHERE id_reg='$id' ";
+        $consulta = "UPDATE detalle_conceptosobra SET estado_detalle=0 WHERE id_reg='$id' ";
         $resultado = $conexion->prepare($consulta);
         if ($resultado->execute()) {
             $data = 1;

@@ -95,19 +95,17 @@ if ($folio != "") {
 <link rel="stylesheet" href="css/estilo.css">
 
 <style>
+    td.details-control {
+        background: url('img/details_open.png') no-repeat center center;
+
+        cursor: pointer;
+    }
+
+    tr.details td.details-control {
+        background: url('img/details_close.png') no-repeat center center;
 
 
-td.details-control {
-    background: url('img/details_open.png') no-repeat center center ;
-
-    cursor: pointer;
-}
-tr.details td.details-control {
-    background: url('img/details_close.png') no-repeat center center;
-
-    
-}
-
+    }
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -308,7 +306,7 @@ tr.details td.details-control {
                                             </div>
                                         </div>
                                     </div>
-
+                                    <!--
                                     <div class="card">
                                         <div class="card-header bg-gradient-success " style="margin:0px;padding:8px">
 
@@ -359,7 +357,7 @@ tr.details td.details-control {
                                         </div>
                                     </div>
 
-
+-->
 
 
                                 </div>
@@ -402,7 +400,7 @@ tr.details td.details-control {
                                             <table name="tablaDet" id="tablaDet" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
                                                 <thead class="text-center bg-gradient-primary">
                                                     <tr>
-                                                    <th></th>
+                                                        <th></th>
                                                         <th>Id</th>
                                                         <th>Frente</th>
 
@@ -449,6 +447,221 @@ tr.details td.details-control {
 
                     </div>
 
+                    <?php if ($_SESSION['s_rol'] == '3' || $_SESSION['s_rol'] == '2') { ?>
+                        <div class="content">
+                            <div class="card card-widget" style="margin-bottom:0px;">
+
+                                <div class="card-header bg-gradient-primary " style="margin:0px;padding:8px">
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                    </div>
+                                    <h1 class="card-title ">Costos y Precios de Conceptos</h1>
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
+                                        <button type="button" id="btnConceptos" class="btn bg-gradient-primary btn-sm">
+                                            <i class="fas fa-folder-plus"></i>
+                                        </button>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="card-body" style="margin:0px;padding:3px;">
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-lg-8 mx-auto">
+
+                                            <div class="table-responsive" style="padding:5px;">
+
+                                                <table name="tablaConceptos" id="tablaConceptos" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                    <thead class="text-center bg-gradient-primary">
+                                                        <tr>
+
+                                                            <th>Id</th>
+
+                                                            <th>Concepto</th>
+                                                            <th>Costo</th>
+                                                            <th>Precio Pub</th>
+                                                            <th>Acciones</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $consultadeto = "SELECT * FROM detalle_conceptosobra where id_orden='$folioorden' and estado_detalle=1 order by id_concepto";
+                                                        $resultadodeto = $conexion->prepare($consultadeto);
+                                                        $resultadodeto->execute();
+                                                        $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                        foreach ($datadeto as $rowdet) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $rowdet['id_reg'] ?></td>
+
+                                                                <td><?php echo $rowdet['nom_concepto'] ?></td>
+                                                                <td><?php echo $rowdet['costo_concepto'] ?></td>
+                                                                <td><?php echo $rowdet['precio_concepto'] ?></td>
+
+                                                                <td></td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    <?php } ?>
+
+                    <div class="content">
+                        <div class="card card-widget" style="margin-bottom:0px;">
+
+                            <div class="card-header bg-gradient-lightblue " style="margin:0px;padding:8px">
+                                <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                </div>
+                                <h1 class="card-title ">Resumen de Ejecución</h1>
+                                <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="card-body" style="margin:0px;padding:3px;">
+
+
+
+                                <div class="row">
+
+                                    <div class="col-lg-8 mx-auto">
+
+                                        <div class="table-responsive" style="padding:5px;">
+
+                                            <table name="tablaResumen" id="tablaResumen" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                <thead class="text-center bg-gradient-lightblue">
+                                                    <tr>
+                                                        <th rowspan="2">Concepto</th>
+                                                        <?php
+                                                        $cntafrente = "SELECT * FROM frente where id_ord='$folioorden' and estado_frente=1 order by id_frente";
+                                                        $resfrente = $conexion->prepare($cntafrente);
+                                                        $resfrente->execute();
+                                                        $regfrente = $resfrente->fetchAll(PDO::FETCH_ASSOC);
+                                                        foreach ($regfrente as $rowfrente) {
+                                                        ?>
+                                                            <th colspan="3"><?php echo $rowfrente['nom_frente'] ?></th>
+                                                        <?php } ?>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <?php
+                                                        foreach ($regfrente as $rowfrente) {
+                                                        ?>
+                                                            <th>Cantidad</th>
+                                                            <th>Ejecutado</th>
+                                                            <th>Pendiente</th>
+
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $consultadeto = "SELECT * FROM vresumenconceptos where id_ord='$folioorden' order by id_concepto";
+                                                    $resultadodeto = $conexion->prepare($consultadeto);
+                                                    $resultadodeto->execute();
+                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                    foreach ($datadeto as $rowdet) {
+                                                        $id_concepto = $rowdet['id_concepto'];
+                                                    ?>
+                                                        <tr>
+                                                            <!-- Aqui se buscan los conceptos para la primer columna-->
+                                                            <td><?php echo $rowdet['nom_concepto'] ?></td>
+                                                            <!-- Aqui se buscan las 3 columnas dependiendo del frente-->
+                                                            <?php
+                                                            foreach ($regfrente as $rowfrente) {
+                                                                $id_frente = $rowfrente['id_frente'];
+                                                                $consultadeto = "SELECT id_concepto,sum(cantidad) as cantidad,sum(generado) as generado,sum(pendiente) as pendiente FROM v_resumenconceptos where id_frente='$id_frente' and id_concepto='$id_concepto'";
+                                                                $resultadodeto = $conexion->prepare($consultadeto);
+                                                                $resultadodeto->execute();
+                                                                if ($resultadodeto->rowCount() >= 1) {
+                                                                    $datadet = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                                    foreach ($datadet as $rowreg) {
+                                                                        if(is_null($rowreg['cantidad'])){
+                                                                            $cantidad='0.00';
+                                                                        }
+                                                                        else{
+                                                                            $cantidad=$rowreg['cantidad'];
+                                                                        }
+
+                                                                        if(is_null($rowreg['generado'])){
+                                                                            $generado='0.00';
+                                                                        }
+                                                                        else{
+                                                                            $generado=$rowreg['generado'];
+                                                                        }
+
+
+                                                                        if(is_null($rowreg['pendiente'])){
+                                                                            $pendiente='0.00';
+                                                                        }
+                                                                        else{
+                                                                            $pendiente=$rowreg['pendiente'];
+                                                                        }
+                                                                        echo '<td class="text-right">' .$cantidad. '</td>';
+                                                                        echo '<td class="text-right">' .$generado. '</td>';
+                                                                        echo '<td class="text-right" >' .$pendiente. '</td>';
+                                                                    }
+                                                                } else {
+                                                                    echo '<td>0.00</td>';
+                                                                    echo '<td>0.00</td>';
+                                                                    echo '<td>0.00</td>';
+                                                                }
+                                                            } ?>
+
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
 
 
 
@@ -667,39 +880,39 @@ tr.details td.details-control {
                     <div class="card card-widget" style="margin: 10px;">
                         <form id="formArea" action="" method="POST">
                             <div class="modal-body row">
-                                
+
 
                                 <div class="col-lg-12">
                                     <label for="nomfrentea" class="col-form-label">Frente:</label>
                                     <input type="hidden" class="form-control" name="idfrentea" id="idfrentea" disabled>
-                                 
 
-                                        <input type="text" class="form-control" name="nomfrentea" id="nomfrentea" disabled>
-                                  
+
+                                    <input type="text" class="form-control" name="nomfrentea" id="nomfrentea" disabled>
+
                                 </div>
 
                                 <div class="col-lg-12">
                                     <label for="area" class="col-form-label">Area:</label>
 
-                                  
-                                        <input type="text" class="form-control" name="area" id="area">
-                                 
+
+                                    <input type="text" class="form-control" name="area" id="area">
+
                                 </div>
-                                
+
                                 <div class="col-lg-12">
                                     <label for="supervisor" class="col-form-label">Supervisor:</label>
-                                  
 
-                                        <input type="text" class="form-control" name="supervisor" id="supervisor">
-                                 
+
+                                    <input type="text" class="form-control" name="supervisor" id="supervisor">
+
                                 </div>
 
                                 <div class="col-lg-12">
 
                                     <label for="colocador" class="col-form-label">Colocador:</label>
-                                
-                                        <input type="text" class="form-control " name="colocador" id="colocador">
-                                   
+
+                                    <input type="text" class="form-control " name="colocador" id="colocador">
+
                                 </div>
 
 
@@ -728,6 +941,84 @@ tr.details td.details-control {
                 </div>
             </div>
         </div>
+    </section>
+
+
+    <section>
+        <div class="modal fade" id="modalConceptos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Concepto</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formConceptos" action="" method="POST">
+                            <div class="modal-body row">
+
+
+                                <div class="col-sm-6">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="conceptod" class="col-form-label">Concepto:</label>
+                                        <select class="form-control" name="conceptod" id="conceptod">
+                                            <?php
+                                            $consultac = "SELECT * FROM conceptos_gen where estado_concepto=1 order by id_concepto";
+                                            $resultadoc = $conexion->prepare($consultac);
+                                            $resultadoc->execute();
+                                            $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
+
+                                            foreach ($datac as $dtc) {
+                                            ?>
+                                                <option id="Con<?php echo $dtc['nom_concepto'] ?>" value="<?php echo $dtc['id_concepto'] ?>"> <?php echo $dtc['nom_concepto'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="preciocon" class="col-form-label">Precio:</label>
+                                        <input type="text" class="form-control" name="preciocon" id="preciocon" autocomplete="off" placeholder="Cantidad">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="costocon" class="col-form-label">Costo:</label>
+                                        <input type="text" class="form-control" name="costocon" id="costocon" autocomplete="off" placeholder="Cantidad">
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+                            <?php
+                            if ($message != "") {
+                            ?>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <span class="badge "><?php echo ($message); ?></span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="button" id="btnGuardarconcepto" name="btnGuardarconcepto" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
     </section>
 
 </div>

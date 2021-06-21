@@ -18,7 +18,8 @@ $resultado->execute();
 $dt = $resultado->fetchAll(PDO::FETCH_ASSOC);
 foreach ($dt as $row) {
     $tokenid = $row['tokenid'];
-    $id_frente = $row['id_frente'];
+    
+    $id_area = $row['id_area'];
     $fecha = $row['fecha'];
     $area = $row['area'];
     $descripcion = $row['descripcion'];
@@ -30,9 +31,49 @@ $consulta = "UPDATE tmp_gen SET estado_pres=2 WHERE folio_gen='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
-$consulta = "UPDATE generador SET id_frente='$id_frente',fecha='$fecha',descripcion='$descripcion',area='$area',inicio='$inicio',fin='$fin' WHERE folio_gen='$foliogen'";
+$consulta = "UPDATE generador SET id_area='$id_area',fecha='$fecha',descripcion='$descripcion',area='$area',inicio='$inicio',fin='$fin' WHERE folio_gen='$foliogen'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
+
+
+
+
+$consulta = "SELECT * FROM detalle_gen WHERE folio_gen='$foliogen'";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+
+$dt = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+
+foreach ($dt as $row) {
+
+    $id_concepto = $row['id_concepto'];
+    $nom_concepto = $row['nom_concepto'];
+    $cantidad = $row['cantidad'];
+    
+
+    $consultain = "SELECT * from detalle_area where id_concepto='$id_concepto' and id_area='$id_area'";
+    $resultadoin = $conexion->prepare($consultain);
+    $resultadoin->execute();
+    $dat = $resultadoin->fetchAll(PDO::FETCH_ASSOC);
+
+    
+    $generado = 0;
+    $pendiente = 0;
+
+    foreach ($dat as $rowd) {
+        $totalcant = $rowd['cantidad'];
+        $generado = $rowd['generado'];
+        $pendiente = $rowd['pendiente'];
+    }
+    $generado -= $cantidad;
+    $pendiente += $cantidad;
+
+    $consultain = "UPDATE detalle_area set generado='$generado',pendiente='$pendiente' WHERE id_area='$id_area' and id_concepto='$id_concepto'";
+    $resultadoin = $conexion->prepare($consultain);
+    $resultadoin->execute();
+}
+
 
 $consulta = "DELETE FROM detalle_gen WHERE folio_gen='$foliogen'";
 $resultado = $conexion->prepare($consulta);
@@ -54,6 +95,27 @@ foreach ($dt as $row) {
     
 
     $consultain = "INSERT INTO detalle_gen (folio_gen,id_concepto,nom_concepto,cantidad) VALUES ('$foliogen','$id_concepto','$nom_concepto','$cantidad')";
+    $resultadoin = $conexion->prepare($consultain);
+    $resultadoin->execute();
+
+    $consultain = "SELECT * from detalle_area where id_concepto='$id_concepto' and id_area='$id_area'";
+    $resultadoin = $conexion->prepare($consultain);
+    $resultadoin->execute();
+    $dat = $resultadoin->fetchAll(PDO::FETCH_ASSOC);
+
+    $totalcant = 0;
+    $generado = 0;
+    $pendiente = 0;
+
+    foreach ($dat as $rowd) {
+        $totalcant = $rowd['cantidad'];
+        $generado = $rowd['generado'];
+        $pendiente = $rowd['pendiente'];
+    }
+    $generado += $cantidad;
+    $pendiente -= $cantidad;
+
+    $consultain = "UPDATE detalle_area set generado='$generado',pendiente='$pendiente' WHERE id_area='$id_area' and id_concepto='$id_concepto'";
     $resultadoin = $conexion->prepare($consultain);
     $resultadoin->execute();
 }
