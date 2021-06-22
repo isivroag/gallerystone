@@ -1,6 +1,14 @@
 $(document).ready(function () {
     var id, opcion, fpago;
- 
+    jQuery.ajaxSetup({
+      beforeSend: function() {
+          $("#div_carga").show();
+      },
+      complete: function() {
+          $("#div_carga").hide();
+      },
+      success: function() {},
+  }); 
   
  
   
@@ -213,6 +221,7 @@ $(document).ready(function () {
         inicio=$("#fechaini").val();
         fin=$("#fechafin").val();
         tokenid = $("#tokenid").val();
+        idorden=$('#folioorden').val()
        
         generador=$("#foliogen").val();
        
@@ -256,8 +265,8 @@ $(document).ready(function () {
                                 type: "POST",
                                 url: "bd/trasladogen.php",
                                 dataType: "json",
-                                //async: false,
-                                data: { folio: folio },
+                               //async: false,
+                                data: { folio: folio,idorden: idorden },
                                 success: function(res) {
                                     if (res == 0) {
                                         Swal.fire({
@@ -268,10 +277,12 @@ $(document).ready(function () {
                                     } else {
                                         Swal.fire({
                                             title: "Operación Exitosa",
-                                            text: "Presupuesto Guardado",
+                                            text: "Guardado",
                                             icon: "success",
                                         });
-                                        folio = res;
+                                        window.setTimeout(function() {
+                                          window.location.href = "detallefrente.php?id=" + $('#idarea').val();
+                                      }, 1000);
                                     }
                                 },
                             });
@@ -281,7 +292,7 @@ $(document).ready(function () {
                                 url: "bd/modificargen.php",
                                 dataType: "json",
                                 //async: false,
-                                data: { folio: folio, generador: generador },
+                                data: { folio: folio, generador: generador,idorden: idorden },
                                 success: function(res) {
                                     if (res == 0) {
                                         Swal.fire({
@@ -292,9 +303,13 @@ $(document).ready(function () {
                                     } else {
                                         Swal.fire({
                                             title: "Operación Exitosa",
-                                            text: "Presupuesto Modificado",
+                                            text: "Modificado",
                                             icon: "success",
                                         });
+                                        window.setTimeout(function() {
+                                          window.location.href = "detallefrente.php?id=" + $('#idarea').val();
+                                      }, 1000);
+                                  
                                         
                                     }
                                 },

@@ -23,7 +23,7 @@ if (isset($_GET['folio'])) {
     if ($resultadobpres->rowCount() >= 1) {
         $databpres = $resultadobpres->fetchAll(PDO::FETCH_ASSOC);
         foreach ($databpres as $dtbpres) {
-            $foliotmp=$dtbpres['folio_tmp'];
+            $foliotmp = $dtbpres['folio_tmp'];
             $generador = $dtbpres['folio_gen'];
         }
         $consulta = "SELECT * FROM vtmpgen WHERE folio_gen='$foliotmp'";
@@ -167,7 +167,51 @@ if ($id != "") {
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="css/estilo.css">
+<style>
+    .punto {
+        height: 20px !important;
+        width: 20px !important;
 
+        border-radius: 50% !important;
+        display: inline-block !important;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    #div_carga {
+        position: absolute;
+        /*top: 50%;
+    left: 50%;
+    */
+
+        width: 100%;
+        height: 100%;
+        background-color: rgba(60, 60, 60, 0.5);
+        display: none;
+
+        justify-content: center;
+        align-items: center;
+        z-index: 3;
+    }
+
+    #cargador {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -25px;
+        margin-left: -25px;
+    }
+
+    #textoc {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: 120px;
+        margin-left: 20px;
+
+
+    }
+</style>
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -180,6 +224,13 @@ if ($id != "") {
 
         <!-- Default box -->
         <div class="card">
+
+            <div id="div_carga">
+
+                <img id="cargador" src="img/loader.gif" />
+                <span class=" " id="textoc"><strong>Cargando...</strong></span>
+
+            </div>
 
             <div class="card-header bg-gradient-secondary">
                 <h1 class="card-title mx-auto">GENERADOR</h1>
@@ -195,7 +246,7 @@ if ($id != "") {
                         <!--<button id="btnNuevo" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-envelope-square"></i> Enviar</button>-->
                     </div>
                 </div>
-    <br>
+                <br>
 
                 <!-- Formulario Datos de Cliente -->
                 <form id="formDatos" action="" method="POST">

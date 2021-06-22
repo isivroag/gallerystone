@@ -256,14 +256,14 @@ if ($id != "") {
                                     </div>
 
                                     <div class="card">
-                                        <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+                                        <div class="card-header bg-gradient-lightblue " style="margin:0px;padding:8px">
 
                                             <h1 class="card-title ">Generadores</h1>
                                             <div class="card-tools" style="margin:0px;padding:0px;">
-                                            <button type="button" id="btnAddgen" class="btn bg-gradient-secondary btn-sm">
+                                            <button type="button" id="btnAddgen" class="btn bg-gradient-lightblue btn-sm">
                                                     <i class="fas fa-folder-plus"></i>
                                                 </button>
-                                                <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                <button type="button" class="btn bg-gradient-lightblue btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
 
@@ -272,7 +272,7 @@ if ($id != "") {
                                         <div class="card-body" id="extra">
                                             <div class="col-sm-auto">
                                                 <table name="tablaG" id="tablaG" class=" table table-sm table-striped  table-hover table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
-                                                    <thead class="text-center bg-gradient-secondary">
+                                                    <thead class="text-center bg-gradient-lightblue">
                                                         <tr>
                                                             <th>Folio Gen</th>
                                                             <th>Fecha</th>
@@ -280,6 +280,8 @@ if ($id != "") {
                                                             <th>Area</th>
                                                             <th>Inicio</th>
                                                             <th>Fin</th>
+                                                            <th>Costo</th>
+                                                            <th>Cliente</th>
                                                             <th>Acciones</th>
 
 
@@ -304,6 +306,8 @@ if ($id != "") {
                                                                 <td><?php echo $rowd['area'] ?></td>
                                                                 <td><?php echo $rowd['inicio'] ?></td>
                                                                 <td><?php echo $rowd['fin'] ?></td>
+                                                                <td class='text-right'><?php echo '$ '.number_format($rowd['costo_gen'],2) ?></td>
+                                                                <td class='text-right'><?php echo '$ '.number_format($rowd['pp_gen'],2) ?></td>
                                                                 <td></td>
                                                             </tr>
                                                         <?php
@@ -388,7 +392,7 @@ if ($id != "") {
                                         <label for="concepto" class="col-form-label">Concepto:</label>
                                         <select class="form-control" name="concepto" id="concepto">
                                             <?php
-                                            $consultac = "SELECT * FROM conceptos_gen where estado_concepto=1 order by id_concepto";
+                                            $consultac = "SELECT id_concepto,nom_concepto FROM detalle_conceptosobra where id_orden='$folioorden' and estado_detalle=1 order by id_concepto";
                                             $resultadoc = $conexion->prepare($consultac);
                                             $resultadoc->execute();
                                             $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);

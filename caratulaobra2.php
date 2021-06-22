@@ -554,9 +554,6 @@ if ($folio != "") {
                                 <div class="row">
 
                                     <div class="col-lg-8 mx-auto">
-                                        <div class="card-title">
-                                            <h2>Volumen</h2>
-                                        </div>
 
                                         <div class="table-responsive" style="padding:5px;">
 
@@ -578,10 +575,12 @@ if ($folio != "") {
 
                                                         <?php
                                                         foreach ($regfrente as $rowfrente) {
+                                                        ?>
+                                                            <th>Cantidad</th>
+                                                            <th>Ejecutado</th>
+                                                            <th>Pendiente</th>
 
-                                                            echo '<th>Cantidad</th>';
-                                                            echo '<th>Ejecutado</th>';
-                                                            echo '<th>Pendiente</th>';
+                                                        <?php
                                                         }
                                                         ?>
                                                     </tr>
@@ -594,109 +593,54 @@ if ($folio != "") {
                                                     $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
                                                     foreach ($datadeto as $rowdet) {
                                                         $id_concepto = $rowdet['id_concepto'];
-
-                                                        echo '<tr>';
-
-                                                        echo '<td>' . $rowdet['nom_concepto'] . '</td>';
-
-
-                                                        foreach ($regfrente as $rowfrente) {
-                                                            $id_frente = $rowfrente['id_frente'];
-                                                            $consultadeto = "SELECT cantidad, generado, pendiente FROM v_resumen1 where id_frente='$id_frente' and id_concepto='$id_concepto'";
-                                                            $resultadodeto = $conexion->prepare($consultadeto);
-                                                            $resultadodeto->execute();
-
-                                                            $datadet = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                            foreach ($datadet as $rowreg) {
-
-                                                                echo '<td class="text-right">' . $rowreg['cantidad'] . '</td>';
-                                                                echo '<td class="text-right">' . $rowreg['generado'] . '</td>';
-                                                                echo '<td class="text-right">' . $rowreg['pendiente'] . '</td>';
-                                                            }
-                                                        }
-
-                                                        echo '</tr>';
-                                                    }
                                                     ?>
+                                                        <tr>
+                                                            <!-- Aqui se buscan los conceptos para la primer columna-->
+                                                            <td><?php echo $rowdet['nom_concepto'] ?></td>
+                                                            <!-- Aqui se buscan las 3 columnas dependiendo del frente-->
+                                                            <?php
+                                                            foreach ($regfrente as $rowfrente) {
+                                                                $id_frente = $rowfrente['id_frente'];
+                                                                $consultadeto = "SELECT id_concepto,sum(cantidad) as cantidad,sum(generado) as generado,sum(pendiente) as pendiente FROM v_resumenconceptos where id_frente='$id_frente' and id_concepto='$id_concepto'";
+                                                                $resultadodeto = $conexion->prepare($consultadeto);
+                                                                $resultadodeto->execute();
+                                                                if ($resultadodeto->rowCount() >= 1) {
+                                                                    $datadet = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                                    foreach ($datadet as $rowreg) {
+                                                                        if(is_null($rowreg['cantidad'])){
+                                                                            $cantidad='0.00';
+                                                                        }
+                                                                        else{
+                                                                            $cantidad=$rowreg['cantidad'];
+                                                                        }
 
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
+                                                                        if(is_null($rowreg['generado'])){
+                                                                            $generado='0.00';
+                                                                        }
+                                                                        else{
+                                                                            $generado=$rowreg['generado'];
+                                                                        }
 
 
-                                <div class="row">
+                                                                        if(is_null($rowreg['pendiente'])){
+                                                                            $pendiente='0.00';
+                                                                        }
+                                                                        else{
+                                                                            $pendiente=$rowreg['pendiente'];
+                                                                        }
+                                                                        echo '<td class="text-right">' .$cantidad. '</td>';
+                                                                        echo '<td class="text-right">' .$generado. '</td>';
+                                                                        echo '<td class="text-right" >' .$pendiente. '</td>';
+                                                                    }
+                                                                } else {
+                                                                    echo '<td>0.00</td>';
+                                                                    echo '<td>0.00</td>';
+                                                                    echo '<td>0.00</td>';
+                                                                }
+                                                            } ?>
 
-                                    <div class="col-lg-8 mx-auto">
-                                        <div class="card-title">
-                                            <h2>Costo</h2>
-                                        </div>
-
-                                        <div class="table-responsive" style="padding:5px;">
-
-                                            <table name="tablaResumenc" id="tablaResumenc" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
-                                                <thead class="text-center bg-gradient-lightblue">
-                                                    <tr>
-                                                        <th rowspan="2">Concepto</th>
-                                                        <?php
-                                                        $cntafrente = "SELECT id_frente,nom_frente FROM frente where id_ord='$folioorden' and estado_frente=1 order by id_frente";
-                                                        $resfrente = $conexion->prepare($cntafrente);
-                                                        $resfrente->execute();
-                                                        $regfrente = $resfrente->fetchAll(PDO::FETCH_ASSOC);
-                                                        foreach ($regfrente as $rowfrente) {
-                                                        ?>
-                                                            <th colspan="3"><?php echo $rowfrente['nom_frente'] ?></th>
-                                                        <?php } ?>
-                                                    </tr>
-                                                    <tr>
-
-                                                        <?php
-                                                        foreach ($regfrente as $rowfrente) {
-
-                                                            echo '<th>Cantidad</th>';
-                                                            echo '<th>Ejecutado</th>';
-                                                            echo '<th>Pendiente</th>';
-                                                        }
-                                                        ?>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                                        </tr>
                                                     <?php
-                                                    $consultadeto = "SELECT id_concepto,nom_concepto,precio_concepto,costo_concepto FROM detalle_conceptosobra where id_orden='$folioorden' order by id_concepto";
-                                                    $resultadodeto = $conexion->prepare($consultadeto);
-                                                    $resultadodeto->execute();
-                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                    foreach ($datadeto as $rowdet) {
-                                                        $id_concepto = $rowdet['id_concepto'];
-                                                        $precio = $rowdet['precio_concepto'];
-                                                        $costo = $rowdet['costo_concepto'];
-
-
-                                                        echo '<tr>';
-
-                                                        echo '<td>' . $rowdet['nom_concepto'] . '</td>';
-
-
-                                                        foreach ($regfrente as $rowfrente) {
-                                                            $id_frente = $rowfrente['id_frente'];
-                                                            $consultadeto = "SELECT cantidad, generado, pendiente FROM v_resumen1 where id_frente='$id_frente' and id_concepto='$id_concepto'";
-                                                            $resultadodeto = $conexion->prepare($consultadeto);
-                                                            $resultadodeto->execute();
-
-                                                            $datadet = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                            foreach ($datadet as $rowreg) {
-
-                                                                echo '<td class="text-right">$ ' . number_format( $rowreg['cantidad'] * $costo ,2). '</td>';
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['generado'] * $costo ,2). '</td>';
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['pendiente'] * $costo ,2). '</td>';
-                                                            }
-                                                        }
-
-                                                        echo '</tr>';
                                                     }
                                                     ?>
 
@@ -710,85 +654,8 @@ if ($folio != "") {
                                 </div>
 
 
-                                <div class="row">
-
-                                    <div class="col-lg-8 mx-auto">
-                                        <div class="card-title">
-                                            <h2>Cliente</h2>
-                                        </div>
-
-                                        <div class="table-responsive" style="padding:5px;">
-
-                                            <table name="tablaResumenc" id="tablaResumenc" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
-                                                <thead class="text-center bg-gradient-lightblue">
-                                                    <tr>
-                                                        <th rowspan="2">Concepto</th>
-                                                        <?php
-                                                        $cntafrente = "SELECT id_frente,nom_frente FROM frente where id_ord='$folioorden' and estado_frente=1 order by id_frente";
-                                                        $resfrente = $conexion->prepare($cntafrente);
-                                                        $resfrente->execute();
-                                                        $regfrente = $resfrente->fetchAll(PDO::FETCH_ASSOC);
-                                                        foreach ($regfrente as $rowfrente) {
-                                                        ?>
-                                                            <th colspan="3"><?php echo $rowfrente['nom_frente'] ?></th>
-                                                        <?php } ?>
-                                                    </tr>
-                                                    <tr>
-
-                                                        <?php
-                                                        foreach ($regfrente as $rowfrente) {
-
-                                                            echo '<th>Cantidad</th>';
-                                                            echo '<th>Ejecutado</th>';
-                                                            echo '<th>Pendiente</th>';
-                                                        }
-                                                        ?>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $consultadeto = "SELECT id_concepto,nom_concepto,precio_concepto,costo_concepto FROM detalle_conceptosobra where id_orden='$folioorden' order by id_concepto";
-                                                    $resultadodeto = $conexion->prepare($consultadeto);
-                                                    $resultadodeto->execute();
-                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                    foreach ($datadeto as $rowdet) {
-                                                        $id_concepto = $rowdet['id_concepto'];
-                                                        $precio = $rowdet['precio_concepto'];
-                                                        $costo = $rowdet['costo_concepto'];
 
 
-                                                        echo '<tr>';
-
-                                                        echo '<td>' . $rowdet['nom_concepto'] . '</td>';
-
-
-                                                        foreach ($regfrente as $rowfrente) {
-                                                            $id_frente = $rowfrente['id_frente'];
-                                                            $consultadeto = "SELECT cantidad, generado, pendiente FROM v_resumen1 where id_frente='$id_frente' and id_concepto='$id_concepto'";
-                                                            $resultadodeto = $conexion->prepare($consultadeto);
-                                                            $resultadodeto->execute();
-
-                                                            $datadet = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                            foreach ($datadet as $rowreg) {
-
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['cantidad'] * $precio,2) . '</td>';
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['generado'] * $precio,2) . '</td>';
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['pendiente'] * $precio,2) . '</td>';
-                                                            }
-                                                        }
-
-                                                        echo '</tr>';
-                                                    }
-                                                    ?>
-
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
                             </div>
 
 

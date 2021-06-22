@@ -6,6 +6,7 @@ $conexion = $objeto->connect();
 // Recepción de los datos enviados mediante POST desde el JS   
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
+$idorden = (isset($_POST['idorden'])) ? $_POST['idorden'] : '';
 $tokenid = "";
 $id_area = "";
 $descripcion = "";
@@ -54,7 +55,10 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $dt = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-
+$precio=0;
+$costo=0;
+$totalcosto=0;
+$totalpublico=0;
 foreach ($dt as $row) {
 
     $id_concepto = $row['id_concepto'];
@@ -62,11 +66,23 @@ foreach ($dt as $row) {
     $cantidad = $row['cantidad'];
 
 
+//buscar costo y precio
+    $consultapc = "SELECT * FROM detalle_conceptosobra where id_concepto='$id_concepto' and estado_detalle='1' and id_orden='$idorden'";
+    $resultadopc = $conexion->prepare($consultapc);
+    $resultadopc->execute();
+    $dtpc = $resultadopc->fetchAll(PDO::FETCH_ASSOC);
+    foreach($dtpc as $rowpc){
+        $precio=$rowpc['precio_concepto'];
+        $costo=$rowpc['costo_concepto'];
+    }
+    $totalcosto+=$cantidad*$costo;
+    $totalpublico+=$cantidad*$precio;
+
     $consultain = "INSERT INTO detalle_gen (folio_gen,id_concepto,nom_concepto,cantidad) VALUES ('$foliogen','$id_concepto','$nom_concepto','$cantidad')";
     $resultadoin = $conexion->prepare($consultain);
     $resultadoin->execute();
 
-
+//actualizacion de volumenes 
     $consultain = "SELECT * from detalle_area where id_concepto='$id_concepto' and id_area='$id_area'";
     $resultadoin = $conexion->prepare($consultain);
     $resultadoin->execute();
@@ -85,6 +101,11 @@ foreach ($dt as $row) {
     $pendiente -= $cantidad;
 
     $consultain = "UPDATE detalle_area set generado='$generado',pendiente='$pendiente' WHERE id_area='$id_area' and id_concepto='$id_concepto'";
+    $resultadoin = $conexion->prepare($consultain);
+    $resultadoin->execute();
+
+
+    $consultain = "UPDATE generador set costo_gen='$totalcosto',pp_gen='$totalpublico' WHERE folio_gen ='$foliogen'";
     $resultadoin = $conexion->prepare($consultain);
     $resultadoin->execute();
 }

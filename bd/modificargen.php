@@ -7,6 +7,7 @@ $conexion = $objeto->connect();
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $foliogen = (isset($_POST['generador'])) ? $_POST['generador'] : '';
+$idorden = (isset($_POST['idorden'])) ? $_POST['idorden'] : '';
 
 
 
@@ -85,13 +86,30 @@ $consulta = "SELECT * FROM detalle_tmpgen WHERE folio_gen='$folio' and estado_de
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $dt = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
+$precio=0;
+$costo=0;
+$totalcosto=0;
+$totalpublico=0;
 
 foreach ($dt as $row) {
 
     $id_concepto = $row['id_concepto'];
     $nom_concepto = $row['nom_concepto'];
     $cantidad = $row['cantidad'];
+
+    //buscar costo y precio
+    $consultapc = "SELECT * FROM detalle_conceptosobra where id_concepto='$id_concepto' and estado_detalle='1' and id_orden='$idorden'";
+    $resultadopc = $conexion->prepare($consultapc);
+    $resultadopc->execute();
+    $dtpc = $resultadopc->fetchAll(PDO::FETCH_ASSOC);
+    foreach($dtpc as $rowpc){
+        $precio=$rowpc['precio_concepto'];
+        $costo=$rowpc['costo_concepto'];
+    }
+    $totalcosto+=$cantidad*$costo;
+    $totalpublico+=$cantidad*$precio;
+
+
     
 
     $consultain = "INSERT INTO detalle_gen (folio_gen,id_concepto,nom_concepto,cantidad) VALUES ('$foliogen','$id_concepto','$nom_concepto','$cantidad')";
@@ -116,6 +134,10 @@ foreach ($dt as $row) {
     $pendiente -= $cantidad;
 
     $consultain = "UPDATE detalle_area set generado='$generado',pendiente='$pendiente' WHERE id_area='$id_area' and id_concepto='$id_concepto'";
+    $resultadoin = $conexion->prepare($consultain);
+    $resultadoin->execute();
+
+    $consultain = "UPDATE generador set costo_gen='$totalcosto',pp_gen='$totalpublico' WHERE folio_gen ='$foliogen'";
     $resultadoin = $conexion->prepare($consultain);
     $resultadoin->execute();
 }
