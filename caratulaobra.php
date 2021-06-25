@@ -1114,13 +1114,13 @@ if ($folio != "") {
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="preciocon" class="col-form-label">Precio:</label>
-                                        <input type="text" class="form-control" name="preciocon" id="preciocon" autocomplete="off" placeholder="Cantidad">
+                                        <input type="text" class="form-control" name="preciocon" id="preciocon" autocomplete="off" placeholder="Precio Pub">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="costocon" class="col-form-label">Costo:</label>
-                                        <input type="text" class="form-control" name="costocon" id="costocon" autocomplete="off" placeholder="Cantidad">
+                                        <input type="text" class="form-control" name="costocon" id="costocon" autocomplete="off" placeholder="Costo">
                                     </div>
                                 </div>
 

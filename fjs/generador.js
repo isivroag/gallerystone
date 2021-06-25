@@ -127,12 +127,25 @@ $(document).ready(function () {
       generador=$('#idgen').val();
       concepto=$('#concepto option:selected').text();
       cantidad=$('#cantcom').val();
+      idarea=$('#idarea').val();
       opcion=1;
        
       if (generador.length != 0 && cantidad.length != 0 &&  idconcepto.length!=0 && concepto.length!=0) {
+        $.ajax({
+          url: 'bd/buscarsaldog.php',
+          type: 'POST',
+          dataType: 'json',
+          async: false,
+          data: {
+            idconcepto: idconcepto,idarea:idarea
+          },
+          success: function (res) {
+            pendiente = res
+          },
+        })
        
-       
-       
+       if(parseFloat(pendiente)>=parseFloat(cantidad))
+        {
         $.ajax({
           type: 'POST',
           url: 'bd/detallegenerador.php',
@@ -171,6 +184,15 @@ $(document).ready(function () {
            
           },
         })
+      }else{
+        swal.fire({
+          title: 'La cantidad excede el volumen restante',
+          icon: 'warning',
+          focusConfirm: true,
+          confirmButtonText: 'Aceptar',
+        })
+      }
+      
       } else {
         Swal.fire({
           title: 'Datos Faltantes',

@@ -1,6 +1,18 @@
 $(document).ready(function () {
     var id, opcion
     opcion = 4
+
+
+    /*
+    butones de avance
+     <button class='btn btn-sm bg-warning btnMedir' data-toggle='tooltip' data-placement='top' title='Medir'><i class='fas fa-ruler text-light'></i></button>\
+              <button class='btn btn-sm btn-secondary btnCortar' data-toggle='tooltip' data-placement='top' title='Cortar'><i class='fas fa-cut'></i></button>\
+              <button class='btn btn-sm bg-lightblue btnEnsamblar' data-toggle='tooltip' data-placement='top' title='Ensamblar'><i class='fas fa-puzzle-piece'></i></button>\
+              <button class='btn btn-sm bg-purple btnPulir' data-toggle='tooltip' data-placement='top' title='Pulir'><i class='fas fa-tint'></i></button>\
+              <button class='btn btn-sm bg-orange btnColocar' data-toggle='tooltip' data-placement='top' title='Colocar'><i class='fas fa-truck-pickup text-light'></i></button>\
+              <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
+    
+    */
   
     tablaVis = $('#tablaV').DataTable({
       columnDefs: [
@@ -9,12 +21,6 @@ $(document).ready(function () {
           data: null,
           defaultContent:
             "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fas fa-search'></i></button>\
-              <button class='btn btn-sm bg-warning btnMedir' data-toggle='tooltip' data-placement='top' title='Medir'><i class='fas fa-ruler text-light'></i></button>\
-              <button class='btn btn-sm btn-secondary btnCortar' data-toggle='tooltip' data-placement='top' title='Cortar'><i class='fas fa-cut'></i></button>\
-              <button class='btn btn-sm bg-lightblue btnEnsamblar' data-toggle='tooltip' data-placement='top' title='Ensamblar'><i class='fas fa-puzzle-piece'></i></button>\
-              <button class='btn btn-sm bg-purple btnPulir' data-toggle='tooltip' data-placement='top' title='Pulir'><i class='fas fa-tint'></i></button>\
-              <button class='btn btn-sm bg-orange btnColocar' data-toggle='tooltip' data-placement='top' title='Colocar'><i class='fas fa-truck-pickup text-light'></i></button>\
-              <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
               </div>",
         },
         { targets: [7], type: 'num-html' },{

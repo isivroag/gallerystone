@@ -319,6 +319,8 @@ if ($id != "") {
                                             </div>
                                         </div>
                                     </div>
+
+                                      <!-- Cargar Plano
                                     <div class="card">
                                         <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
@@ -341,7 +343,7 @@ if ($id != "") {
                                             </div>
                                         </div>
                                     </div>
-
+ -->
                                     
 
 

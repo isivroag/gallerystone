@@ -213,7 +213,7 @@ tr.details td.details-control {
       <div class="modal-dialog " role="document">
         <div class="modal-content">
           <div class="modal-header bg-gradient-danger">
-            <h5 class="modal-title" id="exampleModalLabel">PRESUÑUESTO RECHAZADO</h5>
+            <h5 class="modal-title" id="exampleModalLabel">PRESUPUESTO RECHAZADO</h5>
 
           </div>
           <div class="card card-widget" style="margin: 10px;">

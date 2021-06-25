@@ -77,7 +77,7 @@ if ($resultado->rowCount() >= 1) {
             $inicio =  $dt['inicio'];;
             $fin =  $dt['fin'];;
             $nombre = "";
-            $area = "";
+            $area = $dt['area'];;
         }
     } else {
         $folio = "";
