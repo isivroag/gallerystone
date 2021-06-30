@@ -21,6 +21,7 @@ $(document).ready(function () {
           data: null,
           defaultContent:
             "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fas fa-search'></i></button>\
+            <button class='btn btn-sm bg-warning btnGeneradores' data-toggle='tooltip' data-placement='top' title='Ver Generadores'><i class='fas fa-book text-light'></i></button>\
               </div>",
         },
         { targets: [7], type: 'num-html' },{
@@ -142,31 +143,13 @@ $(document).ready(function () {
 
 
   
-    $(document).on('click', '.btnMedir', function () {
+    $(document).on('click', '.btnGeneradores', function () {
       fila = $(this).closest('tr')
       folio = parseInt(fila.find('td:eq(0)').text())
-      estado = 'MEDICION'
-      porcentaje=0;
-  
-      $.ajax({
-        url: 'bd/estadoorden.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          folio: folio,
-          estado: estado,
-          porcentaje: porcentaje
-        },
-        success: function (res) {
-          if (res == 1) {
-            mensaje()
-            window.location.href = 'cntaorden.php'
-          } else {
-            nomensaje()
-          }
-        },
-      })
+      window.location.href = 'cntagenerador.php?folio=' + folio
     })
+
+
     $(document).on('click', '.btnCortar', function () {
       fila = $(this).closest('tr')
       folio = parseInt(fila.find('td:eq(0)').text())
