@@ -35,7 +35,6 @@ if ($id != "") {
         $area = $dt['area'];
         $supervisor = $dt['supervisor'];
         $colocador = $dt['colocador'];
-        
     }
 
     $message = "";
@@ -48,7 +47,6 @@ if ($id != "") {
     $area = '';
     $supervisor = '';
     $colocador = '';
-  
 }
 
 
@@ -64,6 +62,10 @@ if ($id != "") {
     .custom-file-input~.custom-file-label::after {
         content: "Elegir";
     }
+    
+ 
+
+   
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -80,11 +82,17 @@ if ($id != "") {
                 <h1 class="card-title mx-auto">DETALLE FRENTE /AREA</h1>
             </div>
 
+
             <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
 
-
-
+                        <button id="btnregresar" type="button" class="btn bg-gradient-secondary btn-ms" data-toggle="modal"><i class="fas fa-angle-double-left text-light"></i><span class="text-light"> Regresar a Ordenes</span></button>
+                    </div>
+                </div>
                 <br>
+
+
 
 
                 <!-- Formulario Datos de Cliente -->
@@ -104,17 +112,17 @@ if ($id != "") {
 
                             <div class=" card-body" id="cuerpo" style="margin:0px;padding:1px;">
 
-                                <div class="row justify-content-sm-center">
+                                <div class="row justify-content-sm-center compact ">
 
-                                    <div class="col-lg-1">
+                                    <div class="col-sm-1">
                                         <div class="form-group input-group-sm">
                                             <label for="folioorden" class="col-form-label">Folio Orden:</label>
-                                            <input type="text" class="form-control" name="folioorden" id="folioorden" value="<?php echo   $folioorden; ?>" disabled>
+                                            <input type="text" class="form-control form-control-sm" name="folioorden" id="folioorden" value="<?php echo   $folioorden; ?>" disabled>
 
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-5">
+                                    <div class="col-sm-5">
                                         <div class="form-group">
 
                                             <label for="nombre" class="col-form-label">Frente:</label>
@@ -129,17 +137,17 @@ if ($id != "") {
 
 
 
-                                    <div class="col-lg-2">
+                                    <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
                                             <label for="area" class="col-form-label">Area:</label>
                                             <input type="text" class="form-control form-control-sm" name="area" id="area" value="<?php echo $area; ?>" disabled>
                                         </div>
                                     </div>
 
-                                  
 
 
-                                    <div class="col-lg-1">
+
+                                    <div class="col-sm-1">
                                         <div class="form-group input-group-sm">
                                             <label for="idarea" class="col-form-label">ID Area:</label>
 
@@ -210,7 +218,7 @@ if ($id != "") {
                                         </div>
                                         <div class="card-body" id="extra">
                                             <div class="col-sm-auto">
-                                                <table name="tablaD" id="tablaD" class=" table table-sm table-striped  table-hover table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                <table name="tablaD" id="tablaD" class=" table table-sm table-striped  table-hover table-bordered table-condensed text-nowrap compact" style="width:100%;">
                                                     <thead class="text-center bg-gradient-secondary">
                                                         <tr>
                                                             <th>#</th>
@@ -260,7 +268,7 @@ if ($id != "") {
 
                                             <h1 class="card-title ">Generadores</h1>
                                             <div class="card-tools" style="margin:0px;padding:0px;">
-                                            <button type="button" id="btnAddgen" class="btn bg-gradient-lightblue btn-sm">
+                                                <button type="button" id="btnAddgen" class="btn bg-gradient-lightblue btn-sm">
                                                     <i class="fas fa-folder-plus"></i>
                                                 </button>
                                                 <button type="button" class="btn bg-gradient-lightblue btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
@@ -271,7 +279,7 @@ if ($id != "") {
                                         </div>
                                         <div class="card-body" id="extra">
                                             <div class="col-sm-auto">
-                                                <table name="tablaG" id="tablaG" class=" table table-sm table-striped  table-hover table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                <table name="tablaG" id="tablaG" class=" table compact table-sm table-striped  table-hover table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
                                                     <thead class="text-center bg-gradient-lightblue">
                                                         <tr>
                                                             <th>Folio Gen</th>
@@ -306,8 +314,8 @@ if ($id != "") {
                                                                 <td><?php echo $rowd['area'] ?></td>
                                                                 <td><?php echo $rowd['inicio'] ?></td>
                                                                 <td><?php echo $rowd['fin'] ?></td>
-                                                                <td class='text-right'><?php echo '$ '.number_format($rowd['costo_gen'],2) ?></td>
-                                                                <td class='text-right'><?php echo '$ '.number_format($rowd['pp_gen'],2) ?></td>
+                                                                <td class='text-right'><?php echo '$ ' . number_format($rowd['costo_gen'], 2) ?></td>
+                                                                <td class='text-right'><?php echo '$ ' . number_format($rowd['pp_gen'], 2) ?></td>
                                                                 <td></td>
                                                             </tr>
                                                         <?php
@@ -320,7 +328,7 @@ if ($id != "") {
                                         </div>
                                     </div>
 
-                                      <!-- Cargar Plano
+                                    <!-- Cargar Plano
                                     <div class="card">
                                         <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
@@ -344,7 +352,7 @@ if ($id != "") {
                                         </div>
                                     </div>
  -->
-                                    
+
 
 
                                 </div>

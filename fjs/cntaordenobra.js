@@ -136,7 +136,7 @@ $(document).ready(function () {
     //botón EDITAR
     $(document).on('click', '.btnVer', function () {
       fila = $(this).closest('tr')
-      id = parseInt(fila.find('td:eq(1)').text())
+      id = parseInt(fila.find('td:eq(0)').text())
   
       window.location.href = 'caratulaobra.php?folio=' + id
     })

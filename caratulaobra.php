@@ -15,7 +15,7 @@ if ($folio != "") {
     $conexion = $objeto->connect();
     $tokenid = md5($_SESSION['s_usuario']);
 
-    $consulta = "SELECT * FROM vorden where folio_vta='$folio'";
+    $consulta = "SELECT * FROM vorden where folio_ord='$folio'";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
@@ -447,7 +447,7 @@ if ($folio != "") {
 
                     </div>
 
-                    <?php if ($_SESSION['s_rol'] == '3' || $_SESSION['s_rol'] == '2') { ?>
+                    <?php if ($_SESSION['s_rol'] == '1' || $_SESSION['s_rol'] == '2') { ?>
                         <div class="content">
                             <div class="card card-widget" style="margin-bottom:0px;">
 
@@ -747,7 +747,7 @@ if ($folio != "") {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $consultadeto = "SELECT id_concepto,nom_concepto,precio_concepto,costo_concepto FROM detalle_conceptosobra where id_orden='$folioorden' order by id_concepto";
+                                                    $consultadeto = "SELECT id_concepto,nom_concepto,precio_concepto,costo_concepto FROM detalle_conceptosobra where id_orden='$folioorden' and nom_concepto LIKE '%M2%' order by id_concepto";
                                                     $resultadodeto = $conexion->prepare($consultadeto);
                                                     $resultadodeto->execute();
                                                     $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);

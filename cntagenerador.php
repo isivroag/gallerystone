@@ -252,7 +252,11 @@ if ($folio != "") {
                             <div class="card-header bg-gradient-secondary">
                                 Generadores
                             </div>
+
                             <div class="card-body">
+                                <div class="row">
+                                    <button id="btnestimacion" name="btnestimacion" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-file-invoice"></i> Estimación</button>
+                                </div>
                                 <div class="row justify-content-center">
                                     <div class="col-lg-12">
                                         <div class="table-responsive">

@@ -257,6 +257,38 @@ $(document).ready(function () {
 
   $
 
+
+  
+
+
+  $('#btnestimacion').click(function () {
+    var inicio = $('#inicio').val()
+    var fin = $('#final').val()
+    var folio = $('#folioorden').val()
+    var ancho = 1000
+    var alto = 800
+    var x = parseInt(window.screen.width / 2 - ancho / 2)
+    var y = parseInt(window.screen.height / 2 - alto / 2)
+
+    url = 'formatos/pdfestimacion.php?folio=' + folio+'&inicio='+inicio+'&fin='+fin
+
+    window.open(
+      url,
+      'Estimación',
+      'left=' +
+      x +
+      ',top=' +
+      y +
+      ',height=' +
+      alto +
+      ',width=' +
+      ancho +
+      'scrollbar=si,location=no,resizable=si,menubar=no',
+    )
+    
+  })
+
+
   $('#btnBuscar').click(function () {
     var inicio = $('#inicio').val()
     var final = $('#final').val()

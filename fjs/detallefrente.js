@@ -150,7 +150,12 @@ $(document).ready(function () {
       });
     })
 
-
+    $(document).on('click', '#btnregresar', function ()  {
+      idorden=$('#folioorden').val();
+      window.location.href = "caratulaobra.php?folio="+idorden;
+     
+  
+  })
 
     $(document).on('click', '#btnAddplano', function ()  {
       //window.location.href = "prospecto.php";
