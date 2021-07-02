@@ -1,5 +1,5 @@
 <?php
-$pagina = "banco";
+$pagina = "ordenobra";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
