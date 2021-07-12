@@ -249,17 +249,22 @@ if ($folio != "") {
 
                     <div class="card">
 
-                            <div class="card-header bg-gradient-secondary">
-                                Generadores
-                            </div>
+                        <div class="card-header bg-gradient-secondary">
+                            Generadores
+                        </div>
 
-                            <div class="card-body">
-                                <div class="row">
-                                    <button id="btnestimacion" name="btnestimacion" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-file-invoice"></i> Estimación</button>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-12">
-                                        <div class="table-responsive">
+                        <div class="card-body">
+                            <div class="row">
+                                <button id="btnestimacion" name="btnestimacion" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-file-invoice"></i> Estimación</button>
+
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <form action="" id="formdatos">
+                                            <input type="text" id="texto">
+                                            <button type="submit" id="aceptar">Aceptar</button>
+
                                             <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto " style="font-size:15px;">
                                                 <thead class="text-center bg-gradient-secondary">
                                                     <tr>
@@ -274,6 +279,7 @@ if ($folio != "") {
                                                         <th>Fin</th>
                                                         <th>Costo</th>
                                                         <th>Precio Clie</th>
+                                                        <th><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
 
 
                                                     </tr>
@@ -294,6 +300,7 @@ if ($folio != "") {
                                                             <td><?php echo $rowg['fin'] ?></td>
                                                             <td class="text-right"><?php echo  number_format($rowg['costo_gen'], 2) ?></td>
                                                             <td class="text-right"><?php echo  number_format($rowg['pp_gen'], 2) ?></td>
+                                                            <td></td>
                                                         </tr>
                                                     <?php
                                                     }
@@ -325,11 +332,12 @@ if ($folio != "") {
                                                 </tfoot>
 
                                             </table>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
 
                 </div>

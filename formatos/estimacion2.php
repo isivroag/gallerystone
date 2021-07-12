@@ -78,6 +78,7 @@ function getPlantilla($folio,$inicio,$fin)
         <tr>
             
             <th class="total">Concepto</th>
+            <th class="total">Frente</th>
             <th class="total">Area</th>
             <th class="total">Cantidad M2</th>
             <th class="total">Precio Unitario</th>
@@ -109,6 +110,7 @@ function getPlantilla($folio,$inicio,$fin)
           
             <td class="desc">' . $row['nom_concepto'] . '</td>
             <td class="desc" style="text">' . $row['nom_frente'] . '</td>
+            <td class="desc" style="text">' . $row['area'] . '</td>
             <td class="qty">' . $row['cantidad'] . '</td>
             <td class="qty">$' . number_format($row['precio_concepto'], 2) . '</td>
             <td class="qty">$' . number_format($row['total'], 2) . '</td>

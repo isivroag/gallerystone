@@ -9,7 +9,7 @@
     
     $css=file_get_contents('../css/estilorep.css');
 
-    require_once ('estimacion.php');
+    require_once ('estimacion2.php');
     $plantilla= getPlantilla($folio,$inicio,$fin);
    
     $mpdf = new \Mpdf\Mpdf(['format' => 'Letter']);

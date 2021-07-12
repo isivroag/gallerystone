@@ -4,9 +4,9 @@
 $(document).ready(function () {
   var id, opcion
   opcion = 4
+  var rows_selected = [];
 
   tablaVis = $('#tablaV').DataTable({
-    
     paging: false,
     ordering: false,
     info: false,
@@ -92,6 +92,17 @@ $(document).ready(function () {
       { targets: 4, class: 'hide_column' },
       { targets: 9, class: 'text-right' },
       { targets: 10, class: 'text-right' },
+      {
+        targets: -1,
+        searchable: false,
+        orderable: false,
+        className: 'dt-body-center',
+        render: function (data, type, full, meta,) {
+          return (
+            '<input type="checkbox" >'
+          )
+        },
+      },
     ],
 
     //Para cambiar el lenguaje a español
@@ -111,6 +122,16 @@ $(document).ready(function () {
       },
       sProcessing: 'Procesando...',
     },
+
+    rowCallback: function(row, data, dataIndex){
+      // Get row ID
+      var rowId = data[1];
+   
+      // If row ID is in the list of selected row IDs
+      if($.inArray(rowId, rows_selected) !== -1){
+         $(row).find('input[type="checkbox"]').prop('checked', true);
+         $(row).addClass('selected');
+    }},
 
     footerCallback: function (row, data, start, end, display) {
       var api = this.api(),
@@ -177,6 +198,58 @@ $(document).ready(function () {
     },
   })
 
+  $('#tablaV tbody').on('change', 'input[type="checkbox"]', function () {
+    // If checkbox is not checked
+    if (!this.checked) {
+      var el = $('#example-select-all').get(0)
+      // If "Select all" control is checked and has 'indeterminate' property
+      if (el && el.checked && 'indeterminate' in el) {
+        // Set visual state of "Select all" control
+        // as 'indeterminate'
+        el.indeterminate = true
+      }
+    }
+  })
+
+
+  $('#formdatos').on('submit', function(e) {
+    e.preventDefault();    
+    
+                $("input[type=checkbox]:checked", $('#tablaV').dataTable().fnGetNodes()).each(function () {
+                    var selectedtds = $(this).closest("tr").find("td");
+                    var id = $(selectedtds).eq(1).text();
+                    rows_selected.push(id);
+                    $('#texto').val(id);
+                    
+                });
+
+                rows_selected.forEach(function(elemento, indice, array) {
+                  console.log(elemento, indice);
+              })
+
+
+              window.location = 'datos.php?data='+rows_selected
+
+
+             
+              
+                
+    
+  });
+
+
+
+ 
+
+  //CHECKBOX
+  $('#example-select-all').on('click', function () {
+    // Get all rows with search applied
+    var rows = tablaVis.rows({ search: 'applied' }).nodes()
+    // Check/uncheck checkboxes for all rows in the table
+    $('input[type="checkbox"]', rows).prop('checked', this.checked)
+  })
+
+  //DETALLES
   var detailRows = []
 
   $('#tablaV tbody').on('click', 'tr td.details-control', function () {
@@ -257,10 +330,6 @@ $(document).ready(function () {
 
   $
 
-
-  
-
-
   $('#btnestimacion').click(function () {
     var inicio = $('#inicio').val()
     var fin = $('#final').val()
@@ -270,24 +339,28 @@ $(document).ready(function () {
     var x = parseInt(window.screen.width / 2 - ancho / 2)
     var y = parseInt(window.screen.height / 2 - alto / 2)
 
-    url = 'formatos/pdfestimacion.php?folio=' + folio+'&inicio='+inicio+'&fin='+fin
+    url =
+      'formatos/pdfestimacion.php?folio=' +
+      folio +
+      '&inicio=' +
+      inicio +
+      '&fin=' +
+      fin
 
     window.open(
       url,
       'Estimación',
       'left=' +
-      x +
-      ',top=' +
-      y +
-      ',height=' +
-      alto +
-      ',width=' +
-      ancho +
-      'scrollbar=si,location=no,resizable=si,menubar=no',
+        x +
+        ',top=' +
+        y +
+        ',height=' +
+        alto +
+        ',width=' +
+        ancho +
+        'scrollbar=si,location=no,resizable=si,menubar=no',
     )
-    
   })
-
 
   $('#btnBuscar').click(function () {
     var inicio = $('#inicio').val()

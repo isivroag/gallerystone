@@ -9,7 +9,10 @@ $(document).ready(function() {
         "columnDefs": [{
             "targets": -1,
             "data": null,
-            "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
+            "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button>\
+            <button class='btn btn-sm bg-gradient-orange text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos'><i class='fas fa-exchange-alt'></i></button>\
+          <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
+            <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
         }, { className: "hide_column", "targets": [1] },
         { className: "hide_column", "targets": [3] }],
 
@@ -162,7 +165,7 @@ $(document).ready(function() {
     });
 
 
-
+//AGREGAR ITEM
     $("#formDatos").submit(function(e) {
         e.preventDefault();
         var id_item = $.trim($("#iditem").val());
@@ -223,5 +226,187 @@ $(document).ready(function() {
             $("#modalCRUD").modal("hide");
         }
     });
+
+
+    //MOVIMIENTOS
+
+    
+    
+      $(document).on('click', '.btnMov', function () {
+        fila = $(this).closest('tr')
+        id = parseInt(fila.find('td:eq(0)').text())
+    
+        nombre = fila.find('td:eq(2)').text()
+        saldo = fila.find('td:eq(10)').text()
+        nmaterial = fila.find('td:eq(5)').text()
+    
+        $('#id').val(id)
+        $('#nombrep').val(nombre)
+    
+        $('#extact').val(saldo)
+        $('#nmaterial').val(nmaterial)
+    
+        $('.modal-header').css('background-color', '#007bff')
+        $('.modal-header').css('color', 'white')
+        $('.modal-title').text('Movimiento de Inventario')
+        $('#modalMOV').modal('show')
+      })
+    
+      $('#formMov').submit(function (e) {
+        e.preventDefault();
+        var id = $.trim($('#id').val());
+        var descripcion = $('#descripcion').val();
+        var tipomov = $.trim($('#tipomov').val());
+        var saldo = $('#extact').val();
+        var montomov = $('#montomov').val();
+        var saldofin = 0;
+    
+    
+    
+        if (id.length == 0 || tipomov.length == 0 || montomov.length == 0) {
+          Swal.fire({
+            title: 'Datos Faltantes',
+            text: 'Debe ingresar todos los datos de la cuenta',
+            icon: 'warning',
+          })
+          return false
+        } else {
+          switch (tipomov) {
+            case 'Entrada':
+              saldofin = parseFloat(saldo) + parseFloat(montomov);
+              $.ajax({
+                url: 'bd/crudmovimientoinv.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                  id: id,
+                  tipomov: tipomov,
+                  saldo: saldo,
+                  saldofin: saldofin,
+                  montomov: montomov,
+                  descripcion: descripcion
+                },
+                success: function (data) {
+                  if (data == 3) {
+                    Swal.fire({
+                      title: 'Operación Exitosa',
+                      text: 'Movimiento Guardado',
+                      icon: 'success',
+                    })
+                    $('#modalMOV').modal('hide');
+                    window.location.reload();
+                  } else {
+                    Swal.fire({
+                      title: 'No fue posible cocluir la operacion',
+                      text: 'Movimiento No Guardado',
+                      icon: 'error',
+                    })
+                  }
+                },
+              })
+    
+              break
+            case 'Salida':
+              saldofin = parseFloat(saldo) - parseFloat(montomov);
+              $.ajax({
+                url: 'bd/crudmovimientoinv.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                  id: id,
+                  tipomov: tipomov,
+                  saldo: saldo,
+                  saldofin: saldofin,
+                  montomov: montomov,
+                  descripcion: descripcion
+                },
+                success: function (data) {
+                  if (data == 3) {
+                    Swal.fire({
+                      title: 'Operación Exitosa',
+                      text: 'Movimiento Guardado',
+                      icon: 'success',
+                    })
+                    window.location.reload()
+                    $('#modalMOV').modal('hide');
+                    window.location.reload();
+                  } else {
+                    Swal.fire({
+                      title: 'No fue posible cocluir la operacion',
+                      text: 'Movimiento No Guardado',
+                      icon: 'error',
+                    })
+                  }
+                },
+              })
+              break
+            case 'Inventario Inicial':
+              //Advertir y preguntar
+              swal
+                .fire({
+                  title: 'Inventario Inicial',
+                  text:
+                    'Este movimiento cambia las Existencias totales del Producto por la cantidad establecida sin importar los movimientos anteriores ¿Desea Continuar?',
+    
+                  showCancelButton: true,
+                  icon: 'warning',
+                  focusConfirm: true,
+                  confirmButtonText: 'Aceptar',
+    
+                  cancelButtonText: 'Cancelar',
+                })
+                .then(function (isConfirm) {
+                  if (isConfirm.value) {
+                    saldofin = montomov;
+    
+                    $.ajax({
+                      url: 'bd/crudmovimientoinv.php',
+                      type: 'POST',
+                      dataType: 'json',
+                      data: {
+                        id: id,
+                        tipomov: tipomov,
+                        saldo: saldo,
+                        saldofin: saldofin,
+                        montomov: montomov,
+                        descripcion: descripcion
+                      },
+                      success: function (data) {
+                        if (data == 3) {
+                          Swal.fire({
+                            title: 'Operación Exitosa',
+                            text: 'Movimiento Guardado',
+                            icon: 'success',
+                          })
+                          $('#modalMOV').modal('hide');
+                          window.location.reload();
+                        } else {
+                          Swal.fire({
+                            title: 'No fue posible cocluir la operacion',
+                            text: 'Movimiento No Guardado',
+                            icon: 'error',
+                          })
+                        }
+                      },
+                    })
+                  } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
+                  }
+                })
+    
+              break
+          }
+        }
+      })
+    
+      $(document).on('click', '.btnKardex', function () {
+        fila = $(this).closest('tr')
+        id = parseInt(fila.find('td:eq(0)').text())
+        window.location='cntamovp.php?id='+id;
+        
+    
+        
+    })
+
+    
 
 });
