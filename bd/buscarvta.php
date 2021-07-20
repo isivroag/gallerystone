@@ -21,12 +21,12 @@ switch ($opcion) {
     case 1:
         $consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and saldo>0 and estado_vta=1 and tipo_proy='$tipo_proy' ORDER BY folio_vta";
         break;
-        case 2:
-            $consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and estado_vta=1 and id_clie='$idclie' ORDER BY folio_vta";
-            break;
-        case 3:
-            $consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and saldo>0 and estado_vta=1 and id_clie='$idclie' ORDER BY folio_vta";
-            break;
+    case 2:
+        $consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and estado_vta=1 and id_clie='$idclie' ORDER BY folio_vta";
+        break;
+    case 3:
+        $consulta = "SELECT * FROM vventa WHERE fecha_vta BETWEEN '$inicio' AND '$final' and saldo>0 and estado_vta=1 and id_clie='$idclie' ORDER BY folio_vta";
+        break;
 }
 
 $resultado = $conexion->prepare($consulta);

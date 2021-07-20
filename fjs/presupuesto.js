@@ -447,6 +447,7 @@ $(document).ready(function() {
         fecha = $("#fecha").val();
         tokenid = $("#tokenid").val();
         folio = $("#folio").val();
+       
         proyecto = $("#proyecto").val();
         ubicacion = $("#ubicacion").val();
         subtotal = $("#subtotal").val();
@@ -455,10 +456,12 @@ $(document).ready(function() {
         descuento = $("#descuento").val();
         gtotal = $("#gtotal").val();
         presupuesto = $("#presupuesto").val();
+        venta = $("#venta").val();
         notas = $("#notas").val();
         vendedor = $("#vendedor").val();
         tipo_proy = $("#tipo_proy").val();
-        console.log(vendedor);
+        console.log(venta);
+        console.log(presupuesto);
         var totalitems = $("#tablaV").DataTable().page.info().recordsTotal;
 
         var totalterminos = $("#tablaesp").DataTable().page.info().recordsTotal;
@@ -572,8 +575,12 @@ $(document).ready(function() {
                                             text: "Presupuesto Modificado",
                                             icon: "success",
                                         });
+
+                                        //AGREGAR MODIFICAR VENTA SI VENTA ES <>0
                                         folio = res;
 
+                                        
+//TERMINA MODIFICAR VENTA
                                         estado = "5";
                                         nota = "MODIFICACIÓN";
                                         fecha = $("#fecha").val();
@@ -592,9 +599,33 @@ $(document).ready(function() {
                                                 fecha: fecha,
                                             },
                                             success: function() {
-                                                window.setTimeout(function() {
-                                                    window.location.href = "pres.php?folio=" + folio;
-                                                }, 1000);
+
+                                                if (venta==0){
+                                                   
+                                                
+                                                    window.setTimeout(function() {
+                                                        window.location.href = "pres.php?folio=" + folio;
+                                                    }, 1000);
+                                                }
+                                                else{
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "bd/modificarventa.php",
+                                                        dataType: "json",
+                                                        // async: false,
+                                                        data: {
+                                                            venta: venta,
+                                                            presupuesto,presupuesto
+                                                        },
+                                                        success: function() {
+                                                            window.setTimeout(function() {
+                                                                window.location.href = "venta.php?folio=" + venta;
+                                                            }, 1000);
+                                                        },
+                                                    });
+                                                }
+
+                                                
                                             },
                                         });
                                     }

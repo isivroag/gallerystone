@@ -15,6 +15,7 @@ $tokenid = md5($_SESSION['s_usuario']);
 
 if (isset($_GET['folio'])) {
   $folio = $_GET['folio'];
+  $venta = (isset($_GET['venta'])) ? $_GET['venta'] : '0';
   $consulta = "SELECT * FROM presupuesto WHERE folio_tmp='$folio'";
   $resultadobpres = $conexion->prepare($consulta);
   $resultadobpres->execute();
@@ -260,6 +261,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
 
                   <div class="col-lg-5">
                     <div class="form-group">
+                    <input type="text" class="form-control" name="venta" id="venta" value="<?php echo $venta; ?>">
                       <input type="hidden" class="form-control" name="presupuesto" id="presupuesto" value="<?php echo $presupuesto; ?>">
                       <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
                       <input type="hidden" class="form-control" name="id_pros" id="id_pros" value="<?php echo $idpros; ?>">
@@ -293,6 +295,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
                   <div class="col-lg-1">
                     <div class="form-group input-group-sm">
                       <label for="folior" class="col-form-label">Folio:</label>
+                      
                       <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
                       <input type="text" class="form-control" name="folior" id="folior" value="<?php echo  "TMP-" . $folio; ?>">
                     </div>

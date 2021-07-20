@@ -33,6 +33,14 @@ $(document).ready(function () {
     },
   })
 
+
+  //modificar venta
+  $("#btnModificar").click(function() {
+    folio_pres = $("#tmp_pres").val();
+    folio_vta=$("#folior").val();
+    window.location.href = "presupuesto.php?folio=" + folio_pres+'&venta='+folio_vta;
+});
+
   $(document).on('click', '#btnVer', function () {
     folio = $('#foliopres').val()
     var ancho = 1000

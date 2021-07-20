@@ -83,10 +83,32 @@ if ($folio != "") {
   $resultadocon = $conexion->prepare($consultacon);
   $resultadocon->execute();
   $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
+  
+  
   $consultadet = "SELECT * FROM vdetalle_vta where folio_vta='$folio' order by id_reg";
   $resultadodet = $conexion->prepare($consultadet);
   $resultadodet->execute();
   $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
+
+
+  
+
+  $cntapres = "SELECT folio_tmp FROM presupuesto where folio_pres='$folio_pres'";
+  $respres = $conexion->prepare($cntapres);
+  $respres->execute();
+  $dpres = $respres->fetchAll(PDO::FETCH_ASSOC);
+
+  
+
+  foreach ($dpres as $dp) {
+    $foliotmp = $dp['folio_tmp'];
+  
+  }
+
+
+
+
+
 } else {
   $folio = "";
 
@@ -153,6 +175,8 @@ if ($folio != "") {
             <button id="btnPagar" name="btnPagar" type="button" class="btn bg-gradient-primary btn-ms"><i class="fas fa-dollar-sign"></i> Pagar</button>
             <button id="btnCal" name="btnCal" type="button" class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="far fa-calendar-alt text-light"></i><span class="text-light"> Instalación</span></button>
             <button id="btnVer" name="btnVer" type="button" class="btn text-light bg-gradient-orange btn-ms"><i class=" fas fa-file-pdf"></i> PDF</button>
+            
+            <button id="btnModificar" name="btnModificar" type="button" class="btn bg-success" value="btnModificar"><i class="far fa-edit"></i> Editar</button>
           </div>
         </div>
 
@@ -211,6 +235,7 @@ if ($folio != "") {
                   <div class="col-lg-1">
                     <div class="form-group input-group-sm">
                       <label for="folior" class="col-form-label">Folio:</label>
+                      <input type="hidden" class="form-control" name="tmp_pres" id="tmp_pres" value="<?php echo   $foliotmp; ?>">
                       <input type="hidden" class="form-control" name="foliopres" id="foliopres" value="<?php echo   $folio_pres; ?>">
                       <input type="text" class="form-control" name="folior" id="folior" value="<?php echo   $folio; ?>" disabled>
                     </div>
