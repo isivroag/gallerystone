@@ -15,6 +15,10 @@ $consulta = "UPDATE venta SET estado_vta='0',fecha_can='$fecha',motivo_can='$mot
 $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()) {
 
+    $consulta = "UPDATE orden SET estado_ord=0 WHERE folio_vta='$folio_venta'";
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute();
+    
     $res = 1;
 } else {
     $res = 0;

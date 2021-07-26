@@ -77,7 +77,8 @@ $(document).ready(function () {
 
       if (dias < 3 && estadoord!='LIBERADO') {
         $($(row).find('td')).addClass('bg-gradient-warning blink_me')
-        $($(row).find('td')[6]).addClass('text-danger text-bold')
+        $($(row).find('td')[6]).addClass('text-danger text-bold btfecha')
+        
       }
 
       if (data[9] == 'MEDICION') {
@@ -116,6 +117,66 @@ $(document).ready(function () {
   })
 
   var fila //capturar la fila para editar o borrar el registro
+  
+  //Boton Cambiar Fecha
+  $(document).on('dblclick', '.btfecha', function () {
+    fila = $(this).closest('tr')
+    id = parseInt(fila.find('td:eq(0)').text())
+    fecha = fila.find('td:eq(6)').text();
+   
+   
+    $('#formFecha').trigger('reset');
+
+    $('#modalFecha').modal('show');
+ 
+    $('#fechaf').val(fecha);
+    $('#folioordenf').val(id);
+ 
+    
+  })
+
+//Modificar la Fecha de la Orden
+  $(document).on('click', '#btnGuardarf', function (event) {
+    event.preventDefault()
+
+    folio = $('#folioordenf').val()
+   
+    fecha = $('#fechaf').val()
+    
+
+    console.log(folio);
+    console.log(fecha);
+    
+    if (folio.length == 0 ||  fecha.length == 0) {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos',
+        icon: 'warning',
+      })
+      return false
+    } else {
+      $.ajax({
+        url: 'bd/cambiarfecha.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          folio: folio,    
+          fecha: fecha,
+
+        },
+        success: function (res) {
+          if (res == 1) {
+            $('#modalFecha').modal('hide')
+            mensaje()
+            window.location.href = 'cntaorden.php'
+          } else {
+            nomensaje()
+          }
+        },
+      })
+    }
+  })
+
 
   //botón EDITAR
   $(document).on('click', '.btnVer', function () {

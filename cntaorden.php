@@ -160,7 +160,58 @@ $message = "";
       </div>
     </div>
   </section>
+ 
+ 
+  <section>
+    <div class="modal fade" id="modalFecha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-secondary">
+            <h5 class="modal-title" id="exampleModalLabel">Fecha Limite de Instalación</h5>
 
+          </div>
+          <div class="card card-widget" style="margin: 10px;">
+            <form id="formFecha" action="" method="POST">
+              <div class="modal-body row">
+
+
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <input type="hidden" class="form-control" name="folioordenf" id="folioordenf" autocomplete="off" placeholder="folioordenf">
+                  
+                    <label for="fechaf" class="col-form-label">Nueva Fecha:</label>
+                    <input type="date" class="form-control" name="fechaf" id="fechaf" autocomplete="off" placeholder="Fecha">
+                  </div>
+                </div>
+
+            
+
+              </div>
+          </div>
+
+
+          <?php
+          if ($message != "") {
+          ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <span class="badge "><?php echo ($message); ?></span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+
+            </div>
+
+          <?php
+          }
+          ?>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+            <button type="button" id="btnGuardarf" name="btnGuardarf" class="btn btn-success" value="btnGuardarf"><i class="far fa-save"></i> Guardar</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- /.content -->
 </div>

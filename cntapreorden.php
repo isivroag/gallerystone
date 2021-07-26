@@ -44,7 +44,7 @@ $message = "";
 
       <div class="card-body">
 
-       
+
 
         <div class="row">
           <div class="col-lg-12">
@@ -108,61 +108,61 @@ $message = "";
 
   </section>
   <section>
-        <div class="modal fade" id="modalOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-gradient-success">
-                        <h5 class="modal-title" id="exampleModalLabel">Fecha Limite de Instalación</h5>
+    <div class="modal fade" id="modalOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-success">
+            <h5 class="modal-title" id="exampleModalLabel">Fecha Limite de Instalación</h5>
 
-                    </div>
-                    <div class="card card-widget" style="margin: 10px;">
-                        <form id="formOrden" action="" method="POST">
-                            <div class="modal-body row">
-
-
-                                <div class="col-sm-12">
-                                    <div class="form-group input-group-sm">
-                                    <input type="hidden" class="form-control" name="folioorden" id="folioorden" autocomplete="off" placeholder="Nombre">
-                                    <input type="hidden" class="form-control" name="folioventa" id="folioventa" autocomplete="off" placeholder="Nombre">
-                                        <label for="fechai" class="col-form-label">Fecha de Inicio:</label>
-                                        <input type="date" class="form-control" name="fechai" id="fechai" autocomplete="off" placeholder="Fecha">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <div class="form-group input-group-sm">
-                                   
-                                        <label for="fecha" class="col-form-label">Fecha Limite:</label>
-                                        <input type="date" class="form-control" name="fecha" id="fecha" autocomplete="off" placeholder="Nombre">
-                                    </div>
-                                </div>
-
-                            </div>
-                    </div>
+          </div>
+          <div class="card card-widget" style="margin: 10px;">
+            <form id="formOrden" action="" method="POST">
+              <div class="modal-body row">
 
 
-                    <?php
-                    if ($message != "") {
-                    ?>
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <span class="badge "><?php echo ($message); ?></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-
-                        </div>
-
-                    <?php
-                    }
-                    ?>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <input type="hidden" class="form-control" name="folioorden" id="folioorden" autocomplete="off" placeholder="Nombre">
+                    <input type="hidden" class="form-control" name="folioventa" id="folioventa" autocomplete="off" placeholder="Nombre">
+                    <label for="fechai" class="col-form-label">Fecha de Inicio:</label>
+                    <input type="date" class="form-control" name="fechai" id="fechai" autocomplete="off" placeholder="Fecha">
+                  </div>
                 </div>
+
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+
+                    <label for="fecha" class="col-form-label">Fecha Limite:</label>
+                    <input type="date" class="form-control" name="fecha" id="fecha" autocomplete="off" placeholder="Nombre">
+                  </div>
+                </div>
+
+              </div>
+          </div>
+
+
+          <?php
+          if ($message != "") {
+          ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <span class="badge "><?php echo ($message); ?></span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+
             </div>
+
+          <?php
+          }
+          ?>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+          </div>
+          </form>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
 
 

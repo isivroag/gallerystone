@@ -269,16 +269,6 @@ $(document).ready(function() {
         id = parseInt(fila.find("td:eq(0)").text());
         buscarpagos(id);
         $("#modalResumen").modal("show");
-
-
-        //window.location.href = "presupuesto.php";
-        //$("#formDatos").trigger("reset");
-        //$(".modal-header").css("background-color", "#28a745");
-        //$(".modal-header").css("color", "white");
-        //$(".modal-title").text("Nuevo Prospecto");
-
-        //id = null;
-        //opcion = 1; //alta
     });
 
     var fila; //capturar la fila para editar o borrar el registro
