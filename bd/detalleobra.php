@@ -11,6 +11,7 @@ $idconcepto = (isset($_POST['idconcepto'])) ? $_POST['idconcepto'] : '';
 $concepto = (isset($_POST['concepto'])) ? $_POST['concepto'] : '';
 $precio = (isset($_POST['precio'])) ? $_POST['precio'] : '';
 $costo=(isset($_POST['costo'])) ? $_POST['costo'] : '0';
+$estimacion=(isset($_POST['estimacion'])) ? $_POST['estimacion'] : '0';
 
 
 
@@ -27,7 +28,7 @@ switch ($opcion) {
         if ($resultado->rowCount() != 0) {
             $data = 0;
         } else {
-            $consulta = "INSERT INTO detalle_conceptosobra (id_orden,id_concepto,nom_concepto,precio_concepto,costo_concepto) values ('$id_orden','$idconcepto','$concepto','$precio','$costo')";
+            $consulta = "INSERT INTO detalle_conceptosobra (id_orden,id_concepto,nom_concepto,precio_concepto,costo_concepto,estimar) values ('$id_orden','$idconcepto','$concepto','$precio','$costo','$estimacion')";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 

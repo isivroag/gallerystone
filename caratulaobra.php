@@ -393,7 +393,7 @@ if ($folio != "") {
 
                                 <div class="row">
 
-                                    <div class="col-lg-8 mx-auto">
+                                    <div class="col-lg-10 mx-auto">
 
                                         <div class="table-responsive" style="padding:5px;">
 
@@ -447,7 +447,7 @@ if ($folio != "") {
 
                     </div>
 
-                    <?php if ($_SESSION['s_rol'] == '1' || $_SESSION['s_rol'] == '2') { ?>
+                    <?php if ($_SESSION['s_rol'] == '1' || $_SESSION['s_rol'] == '2' || $_SESSION['s_rol'] == '3') { ?>
                         <div class="content">
                             <div class="card card-widget" style="margin-bottom:0px;">
 
@@ -472,7 +472,7 @@ if ($folio != "") {
 
                                     <div class="row">
 
-                                        <div class="col-lg-8 mx-auto">
+                                        <div class="col-lg-10 mx-auto">
 
                                             <div class="table-responsive" style="padding:5px;">
 
@@ -531,6 +531,115 @@ if ($folio != "") {
                         </div>
                     <?php } ?>
 
+
+                    <div class="content">
+                        <div class="card card-widget" style="margin-bottom:0px;">
+
+                            <div class="card-header bg-gradient-primary " style="margin:0px;padding:8px">
+                                <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                </div>
+                                <h1 class="card-title ">Presupuesto Volumenes</h1>
+                                <div class="card-tools" style="margin:0px;padding:0px;">
+                                 
+
+
+                                </div>
+                            </div>
+
+                            <div class="card-body" style="margin:0px;padding:3px;">
+
+
+
+                                <div class="row">
+
+                                    <div class="col-lg-10 mx-auto">
+
+                                        <div class="table-responsive" style="padding:5px;">
+
+                                            <table name="tablaPres" id="tablaPres" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                <thead class="text-center bg-gradient-lightblue">
+                                                    <tr>
+                                                        <th rowspan="2">Volumenes</th>
+                                                        <?php
+                                                        $cntafrente = "SELECT id_frente,nom_frente FROM frente where id_ord='$folioorden' and estado_frente=1 order by id_frente";
+                                                        $resfrente = $conexion->prepare($cntafrente);
+                                                        $resfrente->execute();
+                                                        $regfrente = $resfrente->fetchAll(PDO::FETCH_ASSOC);
+                                                        foreach ($regfrente as $rowfrente) {
+                                                        ?>
+                                                            <th><?php echo $rowfrente['nom_frente'] ?></th>
+                                                        <?php } ?>
+                                                        <th>SUMA</th>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <?php
+                                                        foreach ($regfrente as $rowfrente) {
+
+                                                            echo '<th>Cantidad</th>';
+                                                        }
+                                                        ?>
+                                                        <th>TOTAL</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $consultadeto = "SELECT id_concepto,nom_concepto FROM detalle_conceptosobra where id_orden='$folioorden' and estado_detalle=1 order by id_concepto";
+                                                    $resultadodeto = $conexion->prepare($consultadeto);
+                                                    $resultadodeto->execute();
+                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                    foreach ($datadeto as $rowdet) {
+                                                        $id_concepto = $rowdet['id_concepto'];
+                                                        $sumador = 0;
+
+                                                        echo '<tr>';
+
+                                                        echo '<td>' . $rowdet['nom_concepto'] . '</td>';
+
+
+                                                        foreach ($regfrente as $rowfrente) {
+                                                            $id_frente = $rowfrente['id_frente'];
+                                                            $consultadeto = "SELECT cantidad, generado, pendiente FROM v_resumen1 where id_frente='$id_frente' and id_concepto='$id_concepto'";
+                                                            $resultadodeto = $conexion->prepare($consultadeto);
+                                                            $resultadodeto->execute();
+
+                                                            $datadet = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                            foreach ($datadet as $rowreg) {
+                                                                if ($rowreg['pendiente'] == 0) {
+                                                                    $clase = " bg-green ";
+                                                                } else {
+                                                                    $clase = " bg-warning ";
+                                                                }
+
+                                                                echo '<td class="text-right">' . $rowreg['cantidad'] . '</td>';
+                                                                $sumador += $rowreg['cantidad'];
+                                                            }
+                                                        }
+                                                        echo '<td class="text-right bg-lightblue">' . number_format($sumador, 4) . '</td>';
+                                                        echo '</tr>';
+                                                    }
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
                     <div class="content">
                         <div class="card card-widget" style="margin-bottom:0px;">
 
@@ -553,7 +662,7 @@ if ($folio != "") {
 
                                 <div class="row">
 
-                                    <div class="col-lg-8 mx-auto">
+                                    <div class="col-lg-10 mx-auto">
                                         <div class="card-title">
                                             <h2>Volumen</h2>
                                         </div>
@@ -573,6 +682,8 @@ if ($folio != "") {
                                                         ?>
                                                             <th colspan="3"><?php echo $rowfrente['nom_frente'] ?></th>
                                                         <?php } ?>
+                                                        <th colspan="3">SUMA</th>
+                                                        <th>%</th>
                                                     </tr>
                                                     <tr>
 
@@ -584,16 +695,23 @@ if ($folio != "") {
                                                             echo '<th>Pendiente</th>';
                                                         }
                                                         ?>
+                                                        <th>Cantidad</th>
+                                                        <th>Ejecutado</th>
+                                                        <th>Pendiente</th>
+                                                        <th>AVANCE</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $consultadeto = "SELECT id_concepto,nom_concepto FROM detalle_conceptosobra where id_orden='$folioorden' order by id_concepto";
+                                                    $consultadeto = "SELECT id_concepto,nom_concepto FROM detalle_conceptosobra where id_orden='$folioorden' and estado_detalle=1 order by id_concepto";
                                                     $resultadodeto = $conexion->prepare($consultadeto);
                                                     $resultadodeto->execute();
                                                     $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
                                                     foreach ($datadeto as $rowdet) {
                                                         $id_concepto = $rowdet['id_concepto'];
+                                                        $tcantidad = 0;
+                                                        $tejecutado = 0;
+                                                        $tpendiente = 0;
 
                                                         echo '<tr>';
 
@@ -608,13 +726,30 @@ if ($folio != "") {
 
                                                             $datadet = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
                                                             foreach ($datadet as $rowreg) {
+                                                                if ($rowreg['pendiente'] == 0) {
+                                                                    $clase = " bg-green ";
+                                                                } else {
+                                                                    $clase = " bg-warning ";
+                                                                }
 
                                                                 echo '<td class="text-right">' . $rowreg['cantidad'] . '</td>';
                                                                 echo '<td class="text-right">' . $rowreg['generado'] . '</td>';
-                                                                echo '<td class="text-right">' . $rowreg['pendiente'] . '</td>';
+                                                                echo '<td class="text-right' . $clase . '">' . $rowreg['pendiente'] . '</td>';
+
+                                                                $tcantidad += $rowreg['cantidad'];
+                                                                $tejecutado += $rowreg['generado'];
+                                                                $tpendiente += $rowreg['pendiente'];
                                                             }
                                                         }
-
+                                                        echo '<td class="text-right bg-secondary">' . number_format($tcantidad, 4) . '</td>';
+                                                        echo '<td class="text-right bg-success">' . number_format($tejecutado, 4) . '</td>';
+                                                        echo '<td class="text-right bg-warning">' . number_format($tpendiente, 4) . '</td>';
+                                                        if ($tejecutado !=0  && $tcantidad !=0){
+                                                            echo '<td class="text-right bg-lightblue">' . number_format(($tejecutado / $tcantidad) * 100, 2) . ' %</td>';
+                                                        }
+                                                        else{
+                                                            echo '<td class="text-right bg-lightblue">' . number_format(0, 2) . ' %</td>';
+                                                        }
                                                         echo '</tr>';
                                                     }
                                                     ?>
@@ -631,7 +766,7 @@ if ($folio != "") {
 
                                 <div class="row">
 
-                                    <div class="col-lg-8 mx-auto">
+                                    <div class="col-lg-10 mx-auto">
                                         <div class="card-title">
                                             <h2>Costo</h2>
                                         </div>
@@ -651,6 +786,7 @@ if ($folio != "") {
                                                         ?>
                                                             <th colspan="3"><?php echo $rowfrente['nom_frente'] ?></th>
                                                         <?php } ?>
+
                                                     </tr>
                                                     <tr>
 
@@ -666,7 +802,7 @@ if ($folio != "") {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $consultadeto = "SELECT id_concepto,nom_concepto,precio_concepto,costo_concepto FROM detalle_conceptosobra where id_orden='$folioorden' order by id_concepto";
+                                                    $consultadeto = "SELECT id_concepto,nom_concepto,precio_concepto,costo_concepto FROM detalle_conceptosobra where id_orden='$folioorden' and estado_detalle=1 order by id_concepto";
                                                     $resultadodeto = $conexion->prepare($consultadeto);
                                                     $resultadodeto->execute();
                                                     $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
@@ -690,9 +826,9 @@ if ($folio != "") {
                                                             $datadet = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
                                                             foreach ($datadet as $rowreg) {
 
-                                                                echo '<td class="text-right">$ ' . number_format( $rowreg['cantidad'] * $costo ,2). '</td>';
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['generado'] * $costo ,2). '</td>';
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['pendiente'] * $costo ,2). '</td>';
+                                                                echo '<td class="text-right">$ ' . number_format($rowreg['cantidad'] * $costo, 2) . '</td>';
+                                                                echo '<td class="text-right">$ ' . number_format($rowreg['generado'] * $costo, 2) . '</td>';
+                                                                echo '<td class="text-right">$ ' . number_format($rowreg['pendiente'] * $costo, 2) . '</td>';
                                                             }
                                                         }
 
@@ -712,14 +848,14 @@ if ($folio != "") {
 
                                 <div class="row">
 
-                                    <div class="col-lg-8 mx-auto">
+                                    <div class="col-lg-10 mx-auto">
                                         <div class="card-title">
                                             <h2>Cliente</h2>
                                         </div>
 
                                         <div class="table-responsive" style="padding:5px;">
 
-                                            <table name="tablaResumenc" id="tablaResumenc" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                            <table name="tablaResumenm" id="tablaResumenm" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
                                                 <thead class="text-center bg-gradient-lightblue">
                                                     <tr>
                                                         <th rowspan="2">Concepto</th>
@@ -747,7 +883,7 @@ if ($folio != "") {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $consultadeto = "SELECT id_concepto,nom_concepto,precio_concepto,costo_concepto FROM detalle_conceptosobra where id_orden='$folioorden' and nom_concepto LIKE '%M2%' order by id_concepto";
+                                                    $consultadeto = "SELECT id_concepto,nom_concepto,precio_concepto,costo_concepto FROM detalle_conceptosobra where id_orden='$folioorden' and nom_concepto LIKE '%M2%' and estado_detalle=1 order by id_concepto";
                                                     $resultadodeto = $conexion->prepare($consultadeto);
                                                     $resultadodeto->execute();
                                                     $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
@@ -771,9 +907,9 @@ if ($folio != "") {
                                                             $datadet = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
                                                             foreach ($datadet as $rowreg) {
 
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['cantidad'] * $precio,2) . '</td>';
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['generado'] * $precio,2) . '</td>';
-                                                                echo '<td class="text-right">$ ' . number_format($rowreg['pendiente'] * $precio,2) . '</td>';
+                                                                echo '<td class="text-right">$ ' . number_format($rowreg['cantidad'] * $precio, 2) . '</td>';
+                                                                echo '<td class="text-right">$ ' . number_format($rowreg['generado'] * $precio, 2) . '</td>';
+                                                                echo '<td class="text-right">$ ' . number_format($rowreg['pendiente'] * $precio, 2) . '</td>';
                                                             }
                                                         }
 
@@ -1113,7 +1249,7 @@ if ($folio != "") {
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="preciocon" class="col-form-label">Precio:</label>
+                                        <label for="preciocon" class="col-form-label">Precio a Cliente:</label>
                                         <input type="text" class="form-control" name="preciocon" id="preciocon" autocomplete="off" placeholder="Precio Pub">
                                     </div>
                                 </div>
@@ -1123,6 +1259,18 @@ if ($folio != "") {
                                         <input type="text" class="form-control" name="costocon" id="costocon" autocomplete="off" placeholder="Costo">
                                     </div>
                                 </div>
+
+                                
+                                    <div class="col-sm-8">
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" name="chestimacion" id="chestimacion">
+                                        <label class="form-check-label" for="chestimacion">
+                                            Este Concepto se usara para generar las Estimaciones
+                                        </label>
+                                        </div>
+                                    </div>
+                                
+                               
 
 
 

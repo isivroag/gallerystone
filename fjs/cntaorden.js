@@ -17,12 +17,14 @@ $(document).ready(function () {
             <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
             </div>",
       },
+      { className: "btfecha", "targets": [6] },
       { targets: [7], type: 'num-html' },{
         targets: 4,
         render: function (data, type, full, meta) {
           return "<div class='text-wrap width-200'>" + data + '</div>'
           //return "<div class='text-wrap width-200'>" + data + '</div>'
         },
+
       },
     ],
 
@@ -77,7 +79,7 @@ $(document).ready(function () {
 
       if (dias < 3 && estadoord!='LIBERADO') {
         $($(row).find('td')).addClass('bg-gradient-warning blink_me')
-        $($(row).find('td')[6]).addClass('text-danger text-bold btfecha')
+        $($(row).find('td')[6]).addClass('text-danger text-bold ')
         
       }
 

@@ -1,8 +1,32 @@
-11/10/2020
-Cambios en las tablas presupuesto y tmp_pres
+29 JULIO 2021 v3.2.6
+-FOOTER CON VERSION
+    templates/footer.php
 
-ALTER TABLE presupuesto ADD COLUMN total DECIMAL(10,2) GENERATED ALWAYS AS (ROUND((subtotal* 1.16),2)) ;
-ALTER TABLE presupuesto ADD COLUMN iva DECIMAL(10,2) GENERATED ALWAYS AS (ROUND(subtotal*1.16,2)-subtotal);
+-ELIMINAR LAS PREORDENES Y LAS ORDENES AL CANCELAR LA VENTA
+    cntaventa.php
+    cntaventaobra.php
+    bd/cancelarventa.php
 
-ALTER TABLE tmp_pres ADD COLUMN total DECIMAL(10,2) GENERATED ALWAYS AS (ROUND((subtotal* 1.16),2)) ;
-ALTER TABLE tmp_pres ADD COLUMN iva DECIMAL(10,2) GENERATED ALWAYS AS (ROUND(subtotal*1.16,2)-subtotal);
+-COLORES EN LOS MOVIMIENTOS DE BANCO 
+    cntamovb.php
+    fjs/cntamovb.js
+
+-INVENTARIO DE INSUMOS, MOVIMIENTOS Y CONSULTA DE MOVIMIENTOS 
+    cntainsumoop.php
+    fjs/insumoop.js
+    bd/crudmovimientoinvin.php
+
+    cntamovin.php
+    fjs/cntamovin.js
+
+-CAMBIAR LA FECHA DE INSTALACION DE LAS ORDENES DE PROYECTO
+    fjs/cntaorden.js
+
+-CAMBIOS EN CARATULA NUEVAS TABLAS Y ALTA DE CONCEPTOS DE OBRA CON EL CHECK DE ESTIMAR
+    caratulaobra.php
+    fjs/caratulaobra.js
+    bd/detalleobra.php
+
+-ESTIMACION TOMANDO LOS VALORES DE ESTIMAR EN 1
+    formatos/pdfestimacion.php
+    formatos/estimacion2.php

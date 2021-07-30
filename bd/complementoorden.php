@@ -29,7 +29,8 @@ switch ($opcion) {
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-
+//Agregar movimiento al inventario
+//Actualizar materiales
 
         break;
     case 2:
@@ -39,7 +40,8 @@ switch ($opcion) {
             $data = 1;
         }
 
-
+//Agregar movimiento al inventario
+//Actualizar materiales
 
 
 

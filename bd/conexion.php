@@ -8,6 +8,12 @@
             define('usuario','tecniemc_gs');
             define('password','GS2020erptec');
 
+
+            //define('servidor','localhost');
+            //define('bd_nombre','tecniemc_gs');
+            //define('usuario','root');
+            //define('password','tecniem');
+
             $opciones=array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 
             try{
