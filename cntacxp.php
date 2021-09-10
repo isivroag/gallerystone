@@ -20,8 +20,10 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 $consultag = "SET lc_time_names = 'es_ES'";
 $resultadog = $conexion->prepare($consultag);
 $resultadog->execute();
+$ejercicio=date('Y');
 
-$consultag = "SELECT SUM(total) AS total,monthname(fecha) as mes FROM vcxp where estado_cxp='1' GROUP BY MONTH(fecha) order by MONTH(fecha)";
+//$consultag = "SELECT SUM(total) AS total,monthname(fecha) as mes FROM vcxp where estado_cxp='1' GROUP BY MONTH(fecha) order by MONTH(fecha)";
+$consultag = "SELECT SUM(total) AS total,monthname(fecha) as mes FROM vcxp where estado_cxp='1' and year(fecha)='$ejercicio 'GROUP BY year(fecha),MONTH(fecha) order by MONTH(fecha)";
 $resultadog = $conexion->prepare($consultag);
 $resultadog->execute();
 $datag = $resultadog->fetchAll(PDO::FETCH_ASSOC);
@@ -164,7 +166,7 @@ $message = "";
           <div class="card-body">
             <div class="row justify-content-center">
               <div class="col-sm-7">
-                <canvas class="chart bg-gradient-purple" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <canvas class="chart " id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
 
               </div>
             </div>
@@ -376,19 +378,50 @@ $message = "";
       datasets: [{
         label: 'Egresos Totales Por Mes',
         fill: true,
-        borderWidth: 2,
+        borderWidth: 1,
         lineTension: 0,
         spanGaps: true,
-        borderColor: '#efefef',
+        borderColor: '#000000',
         pointRadius: 3,
         pointHoverRadius: 7,
-        pointColor: '#efefef',
-        pointBackgroundColor: '#efefef',
+        pointColor: '#A248FA',
+        pointBackgroundColor: '#A248FA',
         data: [
           <?php foreach ($datag as $d) : ?>
             <?php echo $d['total']; ?>,
           <?php endforeach; ?>
-        ]
+        ],  backgroundColor: [
+
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)'
+],
+borderColor: [
+
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)'
+],
+borderWidth: 1
+
       }]
     }
 
@@ -401,31 +434,31 @@ $message = "";
         display: true,
         position: 'bottom',
         labels: {
-          fontColor: '#efefef'
+          fontColor: '#000000'
         }
       },
       scales: {
         xAxes: [{
           ticks: {
-            fontColor: '#efefef',
+            fontColor: '#000000',
           },
           gridLines: {
             display: false,
-            color: '#efefef',
+            color: '#A248FA',
             drawBorder: true,
           }
         }],
         yAxes: [{
           ticks: {
-            stepSize: 2500,
-            fontColor: '#efefef',
+            stepSize: 2000,
+            fontColor: '#000000',
             beginAtZero: true
           },
           gridLines: {
             display: true,
-            color: '#efefef',
+            color: '#A248FA',
             drawBorder: true,
-            zeroLineColor: '#efefef'
+            zeroLineColor: '#000000'
           }
         }]
       }
@@ -434,7 +467,7 @@ $message = "";
     // This will get the first returned node in the jQuery collection.
     var salesGraphChart = new Chart(salesGraphChartCanvas, {
 
-      type: 'line',
+      type: 'bar',
       data: salesGraphChartData,
       options: salesGraphChartOptions
     })

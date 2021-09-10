@@ -10,7 +10,7 @@ $(document).ready(function() {
             "targets": -1,
             "data": null,
             "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
-        }, { className: "hide_column", "targets": [3] }, { className: "hide_column", "targets": [4] }],
+        }],
 
         //Para cambiar el lenguaje a español
         "language": {
@@ -34,9 +34,9 @@ $(document).ready(function() {
 
         //window.location.href = "prospecto.php";
         $("#formDatos").trigger("reset");
-     
+        $(".modal-header").css("background-color", "#28a745");
         $(".modal-header").css("color", "white");
-        $(".modal-title").text("Nueva Herramienta");
+        $(".modal-title").text("Nuevo Personal");
         $("#modalCRUD").modal("show");
         id = null;
         opcion = 1; //alta
@@ -48,26 +48,20 @@ $(document).ready(function() {
     $(document).on("click", ".btnEditar", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
-        hom_her = fila.find('td:eq(1)').text(); //window.location.href = "actprospecto.php?id=" + id;
-        cantidad = fila.find('td:eq(2)').text();
-        ubicacion = fila.find('td:eq(3)').text();
-        obs = fila.find('td:eq(6)').text();
-        id_per = fila.find('td:eq(4)').text();
-        nom_per = fila.find('td:eq(5)').text();
 
-  
-        $("#nom_her").val(hom_her);
-        $("#cantidad").val(cantidad);
-        $("#ubicacion").val(ubicacion);
-        $("#responsable").val(id_per);
-       
-        $("#obs").val(obs);
+        //window.location.href = "actprospecto.php?id=" + id;
+        nombre = fila.find('td:eq(1)').text();
+        cel = fila.find('td:eq(2)').text();
+
+
+        $("#nombre").val(nombre);
+        $("#cel").val(cel);
 
         opcion = 2; //editar
 
-       
+        $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
-        $(".modal-title").text("Editar Herramienta");
+        $(".modal-title").text("Editar Personal");
         $("#modalCRUD").modal("show");
 
     });
@@ -86,13 +80,13 @@ $(document).ready(function() {
         if (respuesta) {
             $.ajax({
 
-                url: "bd/crudherramienta.php",
+                url: "bd/crudpersonal.php",
                 type: "POST",
                 dataType: "json",
                 data: { id: id, opcion: opcion },
 
                 success: function(data) {
-                
+                    console.log(fila);
 
                     tablaVis.row(fila.parents('tr')).remove().draw();
                 }
@@ -104,20 +98,14 @@ $(document).ready(function() {
 
     $("#formDatos").submit(function(e) {
         e.preventDefault();
-      
-        var nom_her = $.trim($("#nom_her").val());
-        var cantidad = $.trim($("#cantidad").val());
-        var ubicacion = $.trim($("#ubicacion").val());
-        var responsable= $("#responsable").val();
-      
-        var obs = $.trim($("#obs").val());
+        var nombre = $.trim($("#nombre").val());
+        var cel = $.trim($("#cel").val());
+
+
        
 
-      
-        
 
-
-        if (nom_her.length == 0 || cantidad.length == 0  ) {
+        if (nombre.length == 0) {
             Swal.fire({
                 title: 'Datos Faltantes',
                 text: "Debe ingresar todos los datos del Prospecto",
@@ -125,26 +113,22 @@ $(document).ready(function() {
             })
             return false;
         } else {
-           
             $.ajax({
-                url: "bd/crudherramienta.php",
+                url: "bd/crudpersonal.php",
                 type: "POST",
                 dataType: "json",
-                data: {   nom_her: nom_her, cantidad: cantidad, responsable: responsable, id: id, opcion: opcion, ubicacion: ubicacion, obs: obs },
+                data: { nombre: nombre, cel: cel, id: id, opcion: opcion },
                 success: function(data) {
-                    
-                    id=data[0].id_her
-                    nom_her = data[0].nom_her;
-                    cantidad= data[0].cant_her;
-                    ubicacion= data[0].ubi_her;
-                    obs= data[0].obs_her;
-                    obs= data[0].obs_her;
-                    id_per= data[0].id_per;
-                    nom_per= data[0].nom_per;
+                   
+                    //tablaPersonas.ajax.reload(null, false);
+                    id = data[0].id_per;
+                    nombre = data[0].nom_per;
+                    cel = data[0].cel_per;
+
                     if (opcion == 1) {
-                        tablaVis.row.add([id,nom_her,cantidad,ubicacion,id_per,nom_per,obs,]).draw();
+                        tablaVis.row.add([id, nombre,cel]).draw();
                     } else {
-                        tablaVis.row(fila).data([id,nom_her,cantidad,ubicacion,id_per,nom_per,obs,]).draw();
+                        tablaVis.row(fila).data([id, nombre,cel ]).draw();
                     }
                 }
             });

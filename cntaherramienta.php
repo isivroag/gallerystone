@@ -13,12 +13,16 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 
 
-$consulta = "SELECT * FROM herramienta WHERE estado_her=1 ORDER BY id_her";
+$consulta = "SELECT * FROM vherramienta WHERE estado_her=1 ORDER BY id_her";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
+$consultau = "SELECT * FROM personal WHERE estado_per=1 ORDER BY id_per";
+$resultadou = $conexion->prepare($consultau);
+$resultadou->execute();
+$datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -69,6 +73,8 @@ $message = "";
                                             <th>Descripcion</th>
                                             <th>Cantidad</th>
                                             <th>Ubicacion</th>
+                                            <th>Id Per</th>
+                                            <th>Responsable</th>
                                             <th>Obs</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -83,6 +89,8 @@ $message = "";
                                                 <td><?php echo $dat['nom_her'] ?></td>
                                                 <td><?php echo $dat['cant_her'] ?></td>
                                                 <td><?php echo $dat['ubi_her'] ?></td>
+                                                <td><?php echo $dat['id_per'] ?></td>
+                                                <td><?php echo $dat['nom_per'] ?></td>
                                                 <td><?php echo $dat['obs_her'] ?></td>
                                                 <td></td>
                                             </tr>
@@ -126,7 +134,7 @@ $message = "";
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group input-group-sm">
                                         <label for="ubicacion" class="col-form-label">Ubicación:</label>
                                         <input type="text" class="form-control" name="ubicacion" id="ubicacion" autocomplete="off" placeholder="ubicacion" >
@@ -139,6 +147,25 @@ $message = "";
                                         <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" >
                                     </div>
                                 </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="responsable" class="col-form-label">Responsable:</label>
+                                        <select class="form-control" name="responsable" id="responsable">
+                                            <?php
+                                            foreach ($datau as $dtu) {
+                                            ?>
+                                                <option id="r<?php echo $dtu['id_per'] ?>" value="<?php echo $dtu['id_per'] ?>"> <?php echo $dtu['nom_per'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                
+                                </div>
+
+                               
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">

@@ -29,6 +29,21 @@ if (date("D") == "Mon") {
 $finsemana = date("Y-m-d", strtotime('next Sunday', time()));
 
 
+$cntacon = "SELECT consulta2.ejercicio,mes.id_mes, mes.nom_mes,ifnull(consulta2.ingreso,0) AS ingreso,ifnull(consulta1.egreso,0) AS egreso, (ifnull(consulta2.ingreso,0)-ifnull(consulta1.egreso,0)) AS resultado
+FROM mes
+left JOIN
+(SELECT YEAR(fecha) AS ejercicio,MONTH(fecha) AS idmes, monthname(fecha) AS mes,SUM(monto)AS ingreso FROM pagocxc WHERE estado_pagocxc=1 and year(fecha)='$y' GROUP BY YEAR(fecha),MONTH(fecha) order by year(fecha),MONTH(fecha)) AS consulta2
+ON 
+mes.id_mes=consulta2.idmes
+LEFT JOIN 
+(SELECT year(fecha) as ejercicio,MONTH(fecha) AS idmes,monthname(fecha) as mes,SUM(total) AS egreso FROM vcxp where estado_cxp=1 and year(fecha)='$y' GROUP BY year(fecha),MONTH(fecha) order by year(fecha),MONTH(fecha)) AS consulta1
+ON mes.id_mes=consulta1.idmes";
+$rescon = $conexion->prepare($cntacon);
+$rescon->execute();
+$datacon = $rescon->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 
 $consulta = "SELECT * FROM vpres WHERE estado_pres<>'ACEPTADO' AND estado_pres <>'RECHAZADO' AND edo_pres=1 order by fecha_pres";
 $resultado = $conexion->prepare($consulta);
@@ -110,204 +125,279 @@ foreach ($dataing as $reging) {
   </section>
   <!-- CIERRA HEADER -->
   <!-- ABRE EL CONTENIDO DE HOME -->
-<?php if ($_SESSION['s_rol'] != '4' && $_SESSION['s_rol'] != '5'){?>
+  <?php if ($_SESSION['s_rol'] != '4' && $_SESSION['s_rol'] != '5') { ?>
 
-  <section class="content">
-    <div class="container-fluid">
+    <section class="content">
+      <div class="container-fluid">
 
-      <!--CARDS ENCABEZADO -->
+        <!--CARDS ENCABEZADO -->
 
 
-      <div class="row">
-        <div class="col-lg-3 col-6">
+        <div class="row">
+          <div class="col-lg-3 col-6">
 
-          <div class="small-box bg-gradient-orange text-white">
-            <div class="inner">
-              <h3><?php echo $totalpres ?></h3>
+            <div class="small-box bg-gradient-orange text-white">
+              <div class="inner">
+                <h3><?php echo $totalpres ?></h3>
 
-              <p># PRESUPUESTOS ACTIVOS</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-money-check-alt "></i>
-            </div>
-            <a href="cntapresupuesto.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-6">
-
-          <div class="small-box bg-success">
-            <div class="inner">
-              <h3><?php echo $totalvta ?></h3>
-
-              <p># VENTAS DE <?php echo $mesactual ?></p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-cash-register"></i>
-            </div>
-            <a href="cntaventa.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-6">
-
-          <div class="small-box bg-gradient-warning text-white">
-            <div class="inner">
-              <h3><?php echo "$" . number_format($montpres, 2) ?></h3>
-
-              <p>MONTO DE PRESUPUESTOS ACTIVOS</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-search-dollar"></i>
-            </div>
-            <a href="cntapresupuesto.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-6">
-
-          <div class="small-box bg-primary">
-            <div class="inner">
-              <h3><?php echo "$" . number_format($totaling, 2) ?></h3>
-
-              <p>INGRESOS DEL MES</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-dollar-sign"></i>
-            </div>
-            <a href="cntapagoscxc.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-
-      </div>
-      <!-- Graficas-->
-      <section>
-        <div class="row justify-content">
-
-          <!-- GRAFICA DE ML VENDIDOS-->
-          <div class="col-sm-6">
-            <div class="card ">
-              <div class="card-header bg-gradient-success color-palette border-0">
-                <h3 class="card-title">
-                  <i class="fas fa-th mr-1"></i>
-                  Metros Lineales Vendidos Proyectos
-                </h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-
-                </div>
+                <p># PRESUPUESTOS ACTIVOS</p>
               </div>
-              <div class="card-body">
-                <div class="row justify-content">
-                  <div class="col-sm-7">
-                    <canvas class="chart " id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
-                  <div class="col-sm-5 my-auto">
-                    <div class="table-responsive">
-                      <table class="table table-responsive table-bordered table-hover table-sm">
-                        <thead class="text-center">
-                          <tr>
-                            <th>Vendedor</th>
-                            <th>Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                          $totalml = 0;
-                          foreach ($dataml as $rowml) {
-                            $totalml += $rowml['mlvendido'];
-                          ?>
-                            <tr>
-                              <td><?php echo $rowml['vendedor'] ?></td>
-                              <td class="text-right"><?php echo $rowml['mlvendido'] ?></td>
-                            </tr>
-                          <?php } ?>
+              <div class="icon">
+                <i class="fas fa-money-check-alt "></i>
+              </div>
+              <a href="cntapresupuesto.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
 
-                        </tbody>
-                        <tfoot>
-                          <tr>
-                            <td>ML VENDIDOS <?php echo $mesactual ?></td>
-                            <td class="text-right text-bold"><?php echo $totalml ?></td>
-                          </tr>
-                        </tfoot>
-                      </table>
+          <div class="col-lg-3 col-6">
+
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3><?php echo $totalvta ?></h3>
+
+                <p># VENTAS DE <?php echo $mesactual ?></p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-cash-register"></i>
+              </div>
+              <a href="cntaventa.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+
+            <div class="small-box bg-gradient-warning text-white">
+              <div class="inner">
+                <h3><?php echo "$" . number_format($montpres, 2) ?></h3>
+
+                <p>MONTO DE PRESUPUESTOS ACTIVOS</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-search-dollar"></i>
+              </div>
+              <a href="cntapresupuesto.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3><?php echo "$" . number_format($totaling, 2) ?></h3>
+
+                <p>INGRESOS DEL MES</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <a href="cntapagoscxc.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+        </div>
+        <!-- Graficas-->
+        <section>
+          <div class="row justify-content">
+
+            <!-- GRAFICA DE ML VENDIDOS-->
+            <div class="col-sm-6">
+              <div class="card ">
+                <div class="card-header bg-gradient-success color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Metros Lineales Vendidos Proyectos
+                  </h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row justify-content">
+                    <div class="col-sm-7">
+                      <canvas class="chart " id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    <div class="col-sm-5 my-auto">
+                      <div class="table-responsive">
+                        <table class="table table-responsive table-bordered table-hover table-sm">
+                          <thead class="text-center">
+                            <tr>
+                              <th>Vendedor</th>
+                              <th>Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $totalml = 0;
+                            foreach ($dataml as $rowml) {
+                              $totalml += $rowml['mlvendido'];
+                            ?>
+                              <tr>
+                                <td><?php echo $rowml['vendedor'] ?></td>
+                                <td class="text-right"><?php echo $rowml['mlvendido'] ?></td>
+                              </tr>
+                            <?php } ?>
+
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <td>ML VENDIDOS <?php echo $mesactual ?></td>
+                              <td class="text-right text-bold"><?php echo $totalml ?></td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- /.card-body -->
+                <!-- /.card-body -->
 
-              <!-- /.card-footer -->
+                <!-- /.card-footer -->
+              </div>
             </div>
-          </div>
-          <!-- GRAFICA DE VENTAS-->
-          <div class="col-sm-6">
-            <div class="card ">
-              <div class="card-header bg-gradient-success color-palette border-0">
-                <h3 class="card-title">
-                  <i class="fas fa-th mr-1"></i>
-                  Monto de Ventas Proyectos
-                </h3>
+            <!-- GRAFICA DE VENTAS-->
+            <div class="col-sm-6">
+              <div class="card ">
+                <div class="card-header bg-gradient-success color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Monto de Ventas Proyectos
+                  </h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
 
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="row justify-content">
-                  <div class="col-sm-7">
-                    <canvas class="chart " id="line-chart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
-                  <div class="col-sm-5 my-auto">
-                    <div class="table-responsive">
-                      <table class="table table-responsive table-bordered table-hover table-sm">
-                        <thead class="text-center">
-                          <tr>
-                            <th>Vendedor</th>
-                            <th>Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                          $totalvtasml = 0;
-                          foreach ($datavtav as $rowml) {
-                            $totalvtasml += $rowml['total'];
-                          ?>
+                </div>
+                <div class="card-body">
+                  <div class="row justify-content">
+                    <div class="col-sm-7">
+                      <canvas class="chart " id="line-chart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    <div class="col-sm-5 my-auto">
+                      <div class="table-responsive">
+                        <table class="table table-responsive table-bordered table-hover table-sm">
+                          <thead class="text-center">
                             <tr>
-                              <td><?php echo $rowml['vendedor'] ?></td>
-                              <td class="text-right"><?php echo '$ ' . number_format($rowml['total'], 2) ?></td>
+                              <th>Vendedor</th>
+                              <th>Total</th>
                             </tr>
-                          <?php } ?>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $totalvtasml = 0;
+                            foreach ($datavtav as $rowml) {
+                              $totalvtasml += $rowml['total'];
+                            ?>
+                              <tr>
+                                <td><?php echo $rowml['vendedor'] ?></td>
+                                <td class="text-right"><?php echo '$ ' . number_format($rowml['total'], 2) ?></td>
+                              </tr>
+                            <?php } ?>
 
-                        </tbody>
-                        <tfoot>
-                          <tr>
-                            <td>VENTAS <?php echo $mesactual ?></td>
-                            <td class="text-right text-bold"><?php echo '$ ' . number_format($totalvtasml, 2) ?></td>
-                          </tr>
-                        </tfoot>
-                      </table>
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <td>VENTAS <?php echo $mesactual ?></td>
+                              <td class="text-right text-bold"><?php echo '$ ' . number_format($totalvtasml, 2) ?></td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- /.card-body -->
+                <!-- /.card-body -->
 
-              <!-- /.card-footer -->
+                <!-- /.card-footer -->
+              </div>
             </div>
+            <?php if ($_SESSION['s_rol'] == '2' || $_SESSION['s_rol'] == '3') { ?>
+            <!-- GRAFICA INGRESOS VS EGRESOS -->
+            <div class="col-sm-12">
+              <div class="card ">
+                <div class="card-header bg-gradient-success color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Comparativo Ingresos vs Egresos
+                  </h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row justify-content-center">
+                    <div class="col-sm-12">
+                      <canvas class="chart " id="resultados-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    <div class="row justify-content-center">
+                    <div class="col-sm-12 my-auto">
+                      <div class="table-responsive">
+                        <table class="table table-responsive table-bordered table-hover table-sm table-responsive-sm">
+                          <thead class="text-center bg-gradient-success">
+                            <tr>
+                              <th>Concepto</th>
+                              <?php foreach ($datacon as $dcon) {
+                                echo '<th>' . $dcon['nom_mes'] . '</th>';
+                              } ?>
+
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Ingresos</td>
+                              <?php foreach ($datacon as $dcon) {
+                                echo '<td class="text-right">$ ' . number_format($dcon['ingreso'], 2) . '</td>';
+                              } ?>
+                            </tr>
+                            <tr>
+                              <td>Egresos</td>
+                              <?php foreach ($datacon as $dcon) {
+                                echo '<td class="text-right">$ ' . number_format($dcon['egreso'], 2) . '</td>';
+                              } ?>
+                            </tr>
+                            <tr>
+                              <td><b>Resultado</b></td>
+                              <?php foreach ($datacon as $dcon) {
+                                if ($dcon['resultado'] > 0) {
+                                  echo '<td class="text-green text-right"><b>$ ' . number_format($dcon['resultado'], 2) . '</b></td>';
+                                } else if ($dcon['resultado'] == 0) {
+                                  echo '<td class="text-center"><b>-</b></td>';
+                                } else {
+                                  echo '<td class="text-danger text-right"><b>($ ' . number_format(abs($dcon['resultado']), 2) . ')</b></td>';
+                                }
+                              } ?>
+                            </tr>
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer -->
+              </div>
+            </div>
+            <!--FIN GRAFICA INGRESOS VS EGRESOS -->
+            <?php }?>
           </div>
 
-        </div>
 
-
-      </section>
-      <!-- GRAFICAS 2
+        </section>
+        <!-- GRAFICAS 2
       <section>
         <div class="row justify-content">
 
@@ -429,146 +519,149 @@ foreach ($dataing as $reging) {
         </div>
       </section>
 -->
-    </div>
-    <!--  ABRE TABLEROS-->
-    <div class="row justify-content-center">
-      <!-- Left col -->
-      <div class="col-lg-8">
-        <!-- Custom tabs (Charts with tabs)-->
-        <div class="card ">
-          <div class="card-header bg-gradient-orange boder-0">
-            <h3 class="card-title">
-              <i class="fas fa-money-check-alt mr-1"></i>
-              Presupuestos Pendientes
-            </h3>
-            <div class="card-tools">
-              <button type="button" class="btn btn-orange btn-sm daterange text-light" data-toggle="tooltip" title="Date range">
-                <i class="fas fa-money-check-alt"></i>
-              </button>
-              <button type="button" class="btn btn-orange btn-sm text-light" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-            </div>
+      </div>
+      <!--  ABRE TABLEROS-->
+      <div class="row justify-content-center">
+        <!-- Left col -->
+        <div class="col-lg-8">
+          <!-- Custom tabs (Charts with tabs)-->
+          <div class="card ">
+            <div class="card-header bg-gradient-orange boder-0">
+              <h3 class="card-title">
+                <i class="fas fa-money-check-alt mr-1"></i>
+                Presupuestos Pendientes
+              </h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-orange btn-sm daterange text-light" data-toggle="tooltip" title="Date range">
+                  <i class="fas fa-money-check-alt"></i>
+                </button>
+                <button type="button" class="btn btn-orange btn-sm text-light" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
 
-          </div><!-- /.card-header -->
+            </div><!-- /.card-header -->
 
-          <div class="card-body">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-sm-12">
+            <div class="card-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12">
 
-                  <div class="table-responsive" style="padding: 10px;">
-                    <table name="tablaV" id="tablaV" class="table table-striped table-sm no-wraped table-bordered table-condensed mx-auto" style="width:100%">
-                      <thead class="text-center bg-gradient-orange">
-                        <tr>
-                          <th>Folio</th>
-                          <th>Fecha</th>
-                          <th>Cliente</th>
-                          <th>Total</th>
-                          <th>Estado</th>
-                          <th>Acciones</th>
-
-
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        foreach ($data as $dat) {
-                        ?>
+                    <div class="table-responsive" style="padding: 10px;">
+                      <table name="tablaV" id="tablaV" class="table table-striped table-sm no-wraped table-bordered table-condensed mx-auto" style="width:100%">
+                        <thead class="text-center bg-gradient-orange">
                           <tr>
-                            <td><?php echo $dat['folio_pres'] ?></td>
-                            <td><?php echo $dat['fecha_pres'] ?></td>
-                            <td><?php echo $dat['nombre'] ?></td>
-                            <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
-                            <td><?php echo $dat['estado_pres'] ?></td>
-                            <td></td>
-                          </tr>
-                        <?php
-                        }
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
+                            <th>Folio</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
 
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          foreach ($data as $dat) {
+                          ?>
+                            <tr>
+                              <td><?php echo $dat['folio_pres'] ?></td>
+                              <td><?php echo $dat['fecha_pres'] ?></td>
+                              <td><?php echo $dat['nombre'] ?></td>
+                              <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
+                              <td><?php echo $dat['estado_pres'] ?></td>
+                              <td></td>
+                            </tr>
+                          <?php
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-        </div><!-- /.card-body -->
-      </div>
-
-
-      <!-- /.Left col -->
-      <!-- right col (We are only adding the ID to make the widgets sortable)-->
-      <div class="col-lg-8 col-8">
-
-        <!-- Map card -->
-        <div class="card">
-          <div class="card-header  bg-gradient-success border-0">
-            <h3 class="card-title">
-              <i class="fas fa-calendar mr-1"></i>
-              Citas de instalaciones del <?php echo $iniciosemana . " al " . $finsemana ?>
-            </h3>
-            <!-- card tools -->
-            <div class="card-tools">
-              <button type="button" class="btn btn-success btn-sm daterange" data-toggle="tooltip" title="Date range">
-                <i class="far fa-calendar-alt"></i>
-              </button>
-              <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-            </div>
-            <!-- /.card-tools -->
-          </div>
-          <div class="card-body">
-            <div class="table-responsive" style="padding: 10px;">
-              <table name="tablaC" id="tablaC" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
-                <thead class="text-center bg-gradient-success">
-                  <tr>
-                    <th>Folio</th>
-                    <th>Fecha y Hora</th>
-                    <th>Cliente</th>
-                    <th>Cel</th>
-                    <th>Ubicacion Proyecto</th>
-                    <th>Concepto</th>
-
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  foreach ($datac as $datc) {
-                  ?>
-                    <tr>
-                      <td><?php echo $datc['folio_citav'] ?></td>
-                      <td><?php echo $datc['fecha'] ?></td>
-                      <td><?php echo $datc['nombre'] ?></td>
-                      <td><?php echo $datc['cel'] ?></td>
-                      <td><?php echo $datc['ubicacion'] ?></td>
-                      <td><?php echo $datc['concepto'] ?></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- /.card-body-->
-
+          </div><!-- /.card-body -->
         </div>
 
-        <!-- /.card -->
-      </div>
-      <!-- right col -->
-    </div>
-    <!-- CIERRA TABLEROS -->
 
-  </section>
+        <!-- /.Left col -->
+        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+        <div class="col-lg-8 col-8">
+
+          <!-- Map card -->
+          <div class="card">
+            <div class="card-header  bg-gradient-success border-0">
+              <h3 class="card-title">
+                <i class="fas fa-calendar mr-1"></i>
+                Citas de instalaciones del <?php echo $iniciosemana . " al " . $finsemana ?>
+              </h3>
+              <!-- card tools -->
+              <div class="card-tools">
+                <button type="button" class="btn btn-success btn-sm daterange" data-toggle="tooltip" title="Date range">
+                  <i class="far fa-calendar-alt"></i>
+                </button>
+                <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.card-tools -->
+            </div>
+            <div class="card-body">
+              <div class="table-responsive" style="padding: 10px;">
+                <table name="tablaC" id="tablaC" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                  <thead class="text-center bg-gradient-success">
+                    <tr>
+                      <th>Folio</th>
+                      <th>Fecha y Hora</th>
+                      <th>Cliente</th>
+                      <th>Cel</th>
+                      <th>Ubicacion Proyecto</th>
+                      <th>Concepto</th>
+
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($datac as $datc) {
+                    ?>
+                      <tr>
+                        <td><?php echo $datc['folio_citav'] ?></td>
+                        <td><?php echo $datc['fecha'] ?></td>
+                        <td><?php echo $datc['nombre'] ?></td>
+                        <td><?php echo $datc['cel'] ?></td>
+                        <td><?php echo $datc['ubicacion'] ?></td>
+                        <td><?php echo $datc['concepto'] ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- /.card-body-->
+
+          </div>
+
+          <!-- /.card -->
+        </div>
+        <!-- right col -->
+      </div>
+
+
+
+      <!-- CIERRA TABLEROS -->
+
+    </section>
   <?php } ?>
   <!-- CIERRA EL CONTENIDO DE HOME -->
-  
+
 </div>
 
 
@@ -689,8 +782,162 @@ include_once 'templates/footer.php';
     })
 
 
+    /*INGRESO VS EGRESOS */
 
 
+    var salesGraphChartCanvas = $('#resultados-chart').get(0).getContext('2d')
+    //$('#revenue-chart').get(0).getContext('2d');
+
+
+
+    var salesGraphChartData = {
+      labels: [<?php foreach ($datacon as $d) : ?> "<?php echo $d['nom_mes'] ?>",
+        <?php endforeach; ?>
+      ],
+      datasets: [{
+        label: 'Ingresos',
+        fill: true,
+        borderWidth: 1,
+        lineTension: 0,
+        spanGaps: true,
+        borderColor: '#000000',
+        pointRadius: 3,
+        pointHoverRadius: 7,
+        pointColor: '#A248FA',
+        pointBackgroundColor: '#A248FA',
+        data: [
+          <?php foreach ($datacon as $d) : ?>
+            <?php echo $d['ingreso']; ?>,
+          <?php endforeach; ?>
+        ],
+        backgroundColor: [
+
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)'
+        ],
+        borderColor: [
+
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)',
+          'rgba(8, 148, 52)'
+        ],
+        borderWidth: 1
+
+      }, {
+        label: 'Egresos',
+        fill: true,
+        borderWidth: 1,
+        lineTension: 0,
+        spanGaps: true,
+        borderColor: '#000000',
+        pointRadius: 3,
+        pointHoverRadius: 7,
+        pointColor: '#A248FA',
+        pointBackgroundColor: '#A248FA',
+        data: [
+          <?php foreach ($datacon as $d) : ?>
+            <?php echo $d['egreso']; ?>,
+          <?php endforeach; ?>
+        ],
+        backgroundColor: [
+
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)'
+        ],
+        borderColor: [
+
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)',
+          'rgba(153, 102, 255)'
+        ],
+        borderWidth: 1
+
+      }]
+    }
+
+    var salesGraphChartOptions = {
+      animationEnabled: true,
+      theme: "light2",
+      maintainAspectRatio: false,
+      responsive: true,
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: {
+          fontColor: '#000000'
+        }
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            fontColor: '#000000',
+          },
+          gridLines: {
+            display: false,
+            color: '#A248FA',
+            drawBorder: true,
+          }
+        }],
+        yAxes: [{
+          ticks: {
+
+            beginAtZero: true
+          },
+          gridLines: {
+            display: true,
+            color: '#A248FA',
+            drawBorder: true,
+            zeroLineColor: '#000000'
+          }
+        }]
+      }
+    }
+
+    // This will get the first returned node in the jQuery collection.
+    var salesGraphChart = new Chart(salesGraphChartCanvas, {
+
+      type: 'bar',
+      data: salesGraphChartData,
+      options: salesGraphChartOptions
+    })
 
   });
 </script>

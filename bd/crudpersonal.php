@@ -5,45 +5,37 @@ $conexion = $objeto->connect();
 
 // Recepción de los datos enviados mediante POST desde el JS   
 
-
-
-$nom_her = (isset($_POST['nom_her'])) ? $_POST['nom_her'] : '';
-$cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
-$ubicacion = (isset($_POST['ubicacion'])) ? $_POST['ubicacion'] : '';
-$id_per = (isset($_POST['responsable'])) ? $_POST['responsable'] : '';
-$obs = (isset($_POST['obs'])) ? $_POST['obs'] : '';
-
-
+$nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
+$cel = (isset($_POST['cel'])) ? $_POST['cel'] : '';
+$nombre = $nombre;
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
-
-
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO herramienta (nom_her,cant_her,ubi_her,obs_her,id_per) VALUES('$nom_her','$cantidad','$ubicacion','$obs','$id_per')";			
+        $consulta = "INSERT INTO personal (nom_per,cel_per) VALUES('$nombre','$cel') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
-        $consulta = "SELECT * FROM vherramienta ORDER BY id_her DESC LIMIT 1";
+        $consulta = "SELECT id_per,nom_per,cel_per FROM personal ORDER BY id_per DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE herramienta SET nom_her='$nom_her',ubi_her='$ubicacion',obs_her='$obs',id_per='$id_per' WHERE id_her='$id' ";		
+        $consulta = "UPDATE personal SET nom_per='$nombre',cel_per='$cel' WHERE id_per='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT * FROM vherramienta WHERE id_her='$id' ";       
+        $consulta = "SELECT id_per,nom_per,cel_per FROM personal WHERE id_per='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;        
     case 3://baja
-        $consulta = "UPDATE herramienta SET estado_her=0 WHERE id_her='$id' ";		
+        $consulta = "UPDATE personal SET estado_per=0 WHERE id_per='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data=1;                          
