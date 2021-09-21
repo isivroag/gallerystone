@@ -105,6 +105,14 @@ $resultadoing->execute();
 $dataing = $resultadoing->fetchAll(PDO::FETCH_ASSOC);
 
 
+
+
+$consultametros = "CALL sp_graficametros('$y','$m')";
+$resultadometros = $conexion->prepare($consultametros);
+$resultadometros->execute();
+$datametros = $resultadometros->fetchAll(PDO::FETCH_ASSOC);
+
+
 $totaling = 0;
 foreach ($dataing as $reging) {
   $totaling += $reging['monto'];
@@ -197,7 +205,7 @@ foreach ($dataing as $reging) {
         </div>
         <!-- Graficas-->
         <section>
-          <div class="row justify-content">
+          <div class="row justify-content-center">
 
             <!-- GRAFICA DE ML VENDIDOS-->
             <div class="col-sm-6">
@@ -393,6 +401,71 @@ foreach ($dataing as $reging) {
             </div>
             <!--FIN GRAFICA INGRESOS VS EGRESOS -->
             <?php }?>
+ <!--FIN GRAFICA COMPARATIVA ML -->
+            <div class="col-sm-12">
+              <div class="card ">
+                <div class="card-header bg-gradient-success color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Analisis de Ventas-Producción
+                  </h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row justify-content">
+                    <div class="col-sm-9">
+                      <canvas class="chart " id="metros-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    <div class="col-sm-3 my-auto">
+                      <div class="table-responsive">
+                        <table class="table table-responsive table-bordered table-hover table-sm">
+                          <thead class="text-center">
+                            <tr>
+                              <th>CONCEPTO</th>
+                              <th>ML</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            
+                            foreach ($datametros as $rowmetros) {
+                             
+                            ?>
+                              <tr>
+                                <td>ML VENDIDOS</td>
+                                <td class="text-right"><?php echo $rowmetros['mlvendidos']?></td>
+                              </tr>
+                              <tr>
+                                <td>ML VENDIDOS EJECUTADOS</td>
+                                <td class="text-right"><?php echo $rowmetros['mlvendidoseje']?></td>
+                              </tr>
+                              <tr>
+                                <td>ML EJECUTADOS </td>
+                                <td class="text-right"><?php echo $rowmetros['mldelmes']?></td>
+                              </tr>
+                            <?php } ?>
+
+                          </tbody>
+                        
+                        </table>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer -->
+              </div>
+            </div>
+ <!--FIN GRAFICA COMPARATIVA ML -->
+
           </div>
 
 
@@ -676,7 +749,7 @@ include_once 'templates/footer.php';
 
 
 
-
+/*GRAFICA 1*/
     var barChartCanvas = $('#line-chart').get(0).getContext('2d')
     var barChartData = {
       labels: [<?php foreach ($dataml as $d) : ?> "<?php echo $d['vendedor'] ?>",
@@ -735,7 +808,8 @@ include_once 'templates/footer.php';
       data: barChartData,
       options: barChartOptions
     })
-
+/*TERMINA GRAFICA 1*/
+/*GRAFICA 2*/
     var barventas = $('#line-chart2').get(0).getContext('2d')
     var barventasdata = {
       labels: [<?php foreach ($datavtav as $d) : ?> "<?php echo $d['vendedor'] ?>",
@@ -780,7 +854,164 @@ include_once 'templates/footer.php';
       data: barventasdata,
       options: barChartOptions
     })
+/*GRAFICA 2*/
 
+/*GRAFICA METROS*/
+var barmetros = $('#metros-chart').get(0).getContext('2d')
+    var barmetrosdata = {
+      labels: ["ANALISIS DE VENTAS - PRODUCCION EN ML",
+      ],
+      datasets: [{
+        label: 'ML VENDIDOS <?php echo $mesactual ?>',
+        fill: true,
+        borderWidth: 1,
+        lineTension: 0,
+        spanGaps: true,
+        borderColor: '#000000',
+        pointRadius: 3,
+        pointHoverRadius: 7,
+        pointColor: '#A248FA',
+        pointBackgroundColor: '#A248FA',
+
+        data: [
+          <?php foreach ($datametros as $d) : ?>
+            <?php echo $d['mlvendidos']; ?>
+          <?php endforeach; ?>
+        ],
+        backgroundColor: [
+
+          'rgb(35, 148, 71)',
+          'rgb(99, 121, 247)',
+          'rgb(154, 16, 235)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+
+          'rgb(35, 148, 71)',
+          'rgb(99, 121, 247)',
+          'rgb(154, 16, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      },{
+        label: 'ML VENDIDOS EJECUTADOS <?php echo $mesactual ?>',
+        fill: true,
+        borderWidth: 1,
+        lineTension: 0,
+        spanGaps: true,
+        borderColor: '#000000',
+        pointRadius: 3,
+        pointHoverRadius: 7,
+        pointColor: '#A248FA',
+        pointBackgroundColor: '#A248FA',
+
+        data: [
+          <?php foreach ($datametros as $d) : ?>
+            <?php echo $d['mlvendidoseje']; ?>
+          <?php endforeach; ?>
+        ],
+        backgroundColor: [
+
+          'rgb(34, 70, 165)',
+          'rgb(99, 121, 247)',
+          'rgb(154, 16, 235)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+
+          'rgb(34, 70, 165)',
+          'rgb(99, 121, 247)',
+          'rgb(154, 16, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      },{
+        label: 'ML EJECUTADOS DEL MES <?php echo $mesactual ?>',
+        fill: true,
+        borderWidth: 1,
+        lineTension: 0,
+        spanGaps: true,
+        borderColor: '#000000',
+        pointRadius: 3,
+        pointHoverRadius: 7,
+        pointColor: '#A248FA',
+        pointBackgroundColor: '#A248FA',
+
+        data: [
+          <?php foreach ($datametros as $d) : ?>
+            <?php echo $d['mldelmes']; ?>
+          <?php endforeach; ?>
+        ],
+        backgroundColor: [
+
+          'rgb(243, 93, 41)',
+          'rgb(99, 121, 247)',
+          'rgb(154, 16, 235)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+
+          'rgb(243, 93,41)',
+          'rgb(99, 121, 247)',
+          'rgb(154, 16, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }]
+    }
+
+    var metrosGraphChartOptions = {
+      animationEnabled: true,
+      theme: "light2",
+      maintainAspectRatio: false,
+      responsive: true,
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: {
+          fontColor: '#000000'
+        }
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            fontColor: '#000000',
+          },
+          gridLines: {
+            display: false,
+            color: '#A248FA',
+            drawBorder: true,
+          }
+        }],
+        yAxes: [{
+          ticks: {
+
+            beginAtZero: true
+          },
+          gridLines: {
+            display: true,
+            color: '#A248FA',
+            drawBorder: true,
+            zeroLineColor: '#000000'
+          }
+        }]
+      }
+    }
+
+
+
+    var barmetros = new Chart(barmetros, {
+      type: 'bar',
+      data: barmetrosdata,
+      options: metrosGraphChartOptions
+    })
+/*GRAFICA 2*/
 
     /*INGRESO VS EGRESOS */
 
