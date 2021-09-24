@@ -20,7 +20,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-$consultau = "SELECT * FROM umedida WHERE estado_umedida=1 ORDER BY id_umedida";
+$consultau = "SELECT * FROM medida WHERE estado_medida=1 ORDER BY id_medida";
 $resultadou = $conexion->prepare($consultau);
 $resultadou->execute();
 $datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
@@ -61,7 +61,7 @@ $message = "";
                 </div>
                 <br>
                 <div class="container-fluid">
-                 
+
                     <div class="row ">
                         <div class="col-lg-12 ">
                             <div class="table-responsive ">
@@ -74,6 +74,10 @@ $message = "";
                                             <th>U.Medida</th>
                                             <th>Id U.Medida</th>
                                             <th>Cantidad</th>
+                                            <th>Presentacion</th>
+                                            <th>Contenido N</th>
+                                            <th>Contenido A</th>
+                                            <th>Contenido T</th>
                                             <th>Ubicacion</th>
                                             <th>Obs</th>
                                             <th>Acciones</th>
@@ -84,12 +88,16 @@ $message = "";
                                         foreach ($data as $dat) {
                                         ?>
                                             <tr>
-                                            
+
                                                 <td><?php echo $dat['id_cons'] ?></td>
                                                 <td><?php echo $dat['nom_cons'] ?></td>
                                                 <td><?php echo $dat['nom_umedida'] ?></td>
                                                 <td><?php echo $dat['id_umedida'] ?></td>
                                                 <td><?php echo $dat['cant_cons'] ?></td>
+                                                <td><?php echo $dat['presentacion'] ?></td>
+                                                <td><?php echo $dat['contenidon'] ?></td>
+                                                <td><?php echo $dat['contenidoa'] ?></td>
+                                                <td><?php echo $dat['contenidot'] ?></td>
                                                 <td><?php echo $dat['ubi_cons'] ?></td>
                                                 <td><?php echo $dat['obs_cons'] ?></td>
                                                 <td></td>
@@ -106,7 +114,7 @@ $message = "";
 
             </div>
             <!-- /.card-body -->
-           
+
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->
@@ -119,14 +127,14 @@ $message = "";
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-gradient-secondary">
-                        <h5 class="modal-title" id="exampleModalLabel">NUEVO MATERIAL</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">NUEVO INSUMO</h5>
 
                     </div>
                     <div class="card card-widget" style="margin: 10px;">
                         <form id="formDatos" action="" method="POST">
                             <div class="modal-body row">
 
-                                
+
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="nom_cons" class="col-form-label">Descripción:</label>
@@ -134,48 +142,77 @@ $message = "";
                                     </div>
                                 </div>
 
-                                
 
-                               
 
-                                <div class="col-sm-6">
+
+
+                                <div class="col-sm-6 ">
                                     <div class="form-group input-group-sm">
                                         <label for="ubicacion" class="col-form-label">Ubicación:</label>
-                                        <input type="text" class="form-control" name="ubicacion" id="ubicacion" autocomplete="off" placeholder="ubicacion" >
+                                        <input type="text" class="form-control" name="ubicacion" id="ubicacion" autocomplete="off" placeholder="ubicacion">
                                     </div>
                                 </div>
 
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="cantidad" class="col-form-label">Cant:</label>
-                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" >
+                                        <label for="presentacion" class="col-form-label">Presentacion:</label>
+                                        <input type="text" class="form-control" name="presentacion" id="presentacion" autocomplete="off" placeholder="Presentacion" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
 
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <div class="form-group input-group-sm auto">
                                         <label for="umedida" class="col-form-label">Unidad:</label>
                                         <select class="form-control" name="umedida" id="umedida">
                                             <?php
                                             foreach ($datau as $dtu) {
                                             ?>
-                                                <option id="<?php echo $dtu['id_umedida'] ?>" value="<?php echo $dtu['id_umedida'] ?>"> <?php echo $dtu['nom_umedida'] ?></option>
+                                                <option id="<?php echo $dtu['id_medida'] ?>" value="<?php echo $dtu['id_medida'] ?>"> <?php echo $dtu['nom_medida'] ?></option>
 
                                             <?php
                                             }
                                             ?>
                                         </select>
                                     </div>
-                                
+
                                 </div>
+                                
 
                                
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cantidad" class="col-form-label">Cantidad Nuevo:</label>
+                                        <input type="text" class="form-control text-right" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="contenidon" class="col-form-label">Contenido Nuevo:</label>
+                                        <input type="text" class="form-control text-right" name="contenidon" id="contenidon" autocomplete="off" placeholder="Contenido Nuevo" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="contenidoa" class="col-form-label">Contenido Abierto:</label>
+                                        <input type="text" class="form-control text-right" name="contenidoa" id="contenidoa" autocomplete="off" placeholder="Contenido Abierto" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="contenidot" class="col-form-label">Total:</label>
+                                        <input type="text" class="form-control text-right" name="contenidot" id="contenidot" autocomplete="off" placeholder="Contanido Total" disabled>
+                                    </div>
+                                </div>
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="obs" class="col-form-label">Observaciones:</label>
                                         <textarea rows="2" class="form-control" name="obs" id="obs" placeholder="Observaciones"></textarea>
                                     </div>
                                 </div>
+                               
+                                
 
                             </div>
                     </div>
@@ -231,7 +268,7 @@ $message = "";
                                     </div>
                                 </div>
 
-                                
+
 
 
 

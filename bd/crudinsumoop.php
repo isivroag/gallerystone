@@ -12,6 +12,10 @@ $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
 $ubicacion = (isset($_POST['ubicacion'])) ? $_POST['ubicacion'] : '';
 $obs = (isset($_POST['obs'])) ? $_POST['obs'] : '';
 
+$presentacion = (isset($_POST['presentacion'])) ? $_POST['presentacion'] : '';
+$contenidon = (isset($_POST['contenidon'])) ? $_POST['contenidon'] : '';
+$contenidoa = (isset($_POST['contenidoa'])) ? $_POST['contenidoa'] : '';
+$contenidot = (isset($_POST['contenidot'])) ? $_POST['contenidot'] : '';
 
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
@@ -22,7 +26,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO consumible (nom_cons,cant_cons,id_umedida,ubi_cons,obs_cons) VALUES('$nom_cons','$cantidad','$umedida','$ubicacion','$obs')";			
+        $consulta = "INSERT INTO consumible (nom_cons,cant_cons,id_umedida,ubi_cons,obs_cons,presentacion,contenidon,contenidoa,contenidot) VALUES('$nom_cons','$cantidad','$umedida','$ubicacion','$obs','$presentacion','$contenidon','$contenidoa','$contenidot')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
@@ -32,7 +36,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE consumible SET nom_cons='$nom_cons',id_umedida='$umedida',ubi_cons='$ubicacion',obs_cons='$obs' WHERE id_cons='$id' ";		
+        $consulta = "UPDATE consumible SET nom_cons='$nom_cons',id_umedida='$umedida',ubi_cons='$ubicacion',obs_cons='$obs',cant_cons='$cantidad',presentacion='$presentacion',contenidon='$contenidon',contenidoa='$contenidoa',contenidot='$contenidot' WHERE id_cons='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         

@@ -465,8 +465,8 @@
         <?php }  ?>
         <!-- ABRE INVENTARIO-->
         <?php if ($_SESSION['s_rol'] != '1' ) { ?>
-          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta') ? "active" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 
@@ -477,6 +477,13 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+                <a href="cntamedida.php" class="nav-link <?php echo ($pagina == 'medida') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-ruler-combined nav-icon"></i>
+                  <p>Unidad de Medida</p>
+                </a>
+              </li>
 
               <li class="nav-item">
                 <a href="cntaalmacen.php" class="nav-link <?php echo ($pagina == 'almacen') ? "active seleccionado" : ""; ?>  ">
