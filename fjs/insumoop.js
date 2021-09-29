@@ -5,7 +5,7 @@ $(document).ready(function () {
   tablaVis = $('#tablaV').DataTable({
     /*
  <button class='btn btn-sm bg-gradient-orange text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos'><i class='fas fa-exchange-alt'></i></button>\
-            <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
+            
 */
 
     columnDefs: [
@@ -13,7 +13,8 @@ $(document).ready(function () {
         targets: -1,
         data: null,
         defaultContent:
-          "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button>\
+          "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-box-open'></i></button>\
+          <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
            <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
       },
       { className: 'hide_column', targets: [3] },
@@ -59,6 +60,7 @@ $(document).ready(function () {
   //botón EDITAR
   $(document).on('click', '.btnEditar', function () {
     fila = $(this).closest('tr')
+    $('#formAbrir').trigger('reset')
     id = parseInt(fila.find('td:eq(0)').text())
     id_umedida = fila.find('td:eq(3)').text()
     nom_cons = fila.find('td:eq(1)').text() //window.location.href = "actprospecto.php?id=" + id;
@@ -69,22 +71,20 @@ $(document).ready(function () {
     contenidot = fila.find('td:eq(8)').text()
     ubicacion = fila.find('td:eq(9)').text()
     obs = fila.find('td:eq(10)').text()
-
-    $('#umedida').val(id_umedida)
-    $('#nom_cons').val(nom_cons)
-    $('#cantidad').val(cantidad)
-    $('#presentacion').val(presentacion)
-    $('#contenidon').val(contenidon)
-    $('#contenidoa').val(contenidoa)
-    $('#contenidot').val(contenidot)
-    $('#ubicacion').val(ubicacion)
-    $('#obs').val(obs)
+    $('#ida').val(id)
+    $('#umedidaa').val(id_umedida)
+    $('#nom_consa').val(nom_cons)
+    $('#cantidada').val(cantidad)
+    $('#presentaciona').val(presentacion)
+    $('#contenidona').val(contenidon)
+    $('#contenidoaa').val(contenidoa)
+    $('#contenidota').val(contenidot)
 
     opcion = 2 //editar
 
     $('.modal-header').css('color', 'white')
-    $('.modal-title').text('Editar Insumo')
-    $('#modalCRUD').modal('show')
+    $('.modal-title').text('Abrir Insumo')
+    $('#modalAbrir').modal('show')
   })
 
   //botón BORRAR
@@ -378,6 +378,48 @@ $(document).ready(function () {
     }
   })
 
+  $('#formAbrir').submit(function (e) {
+    e.preventDefault()
+    var id = $.trim($('#ida').val())
+    var descripcion = 'APERTURA DE INSUMO'
+    var tipomov = 'Apertura'
+    var saldo = $('#cantidada').val()
+    var montomov = $('#contenidoabr').val()
+    var saldofin = 0
+
+    saldofin = parseFloat(saldo) - parseFloat(montomov)
+    $.ajax({
+      url: 'bd/crudmovimientoinvin.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        id: id,
+        tipomov: tipomov,
+        saldo: saldo,
+        saldofin: saldofin,
+        montomov: montomov,
+        descripcion: descripcion,
+      },
+      success: function (data) {
+        if (data == 3) {
+          Swal.fire({
+            title: 'Operación Exitosa',
+            text: 'Movimiento Guardado',
+            icon: 'success',
+          })
+          window.location.reload()
+        
+        } else {
+          Swal.fire({
+            title: 'No fue posible cocluir la operacion',
+            text: 'Movimiento No Guardado',
+            icon: 'error',
+          })
+        }
+      },
+    })
+  })
+
   $(document).on('click', '.btnKardex', function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
@@ -394,52 +436,79 @@ $(document).ready(function () {
   $('#contenidoa').on('change keyup paste click', function () {
     calculo()
   })
+
+  $('#contenidoa').on('change keyup paste click', function () {
+    valor = $('#contenidoa').val()
+    pres = $('#presentacion').val()
+    if (parseFloat(valor) > parseFloat(pres)) {
+      Swal.fire({
+        title: 'Valor no permitido',
+        text:
+          'El contenido abierto no puede ser mayor al de la presentación cerrada',
+        icon: 'warning',
+      })
+      valor = $('#contenidoa').val(pres)
+    }
+  })
+
+  $('#contenidoabr').on('change keyup paste click', function () {
+    valor = $('#contenidoabr').val()
+    pres = $('#cantidada').val()
+    if (parseFloat(valor) > parseFloat(pres)) {
+      Swal.fire({
+        title: 'Valor no permitido',
+        text: 'No es posible abrir una cantidad mayor a la existente',
+        icon: 'warning',
+      })
+      valor = $('#contenidoabr').val(pres)
+    } else {
+      presentacion = $('#presentaciona').val()
+      actual = $('#contenidoaa').val()
+      conversion = parseFloat(presentacion) * parseFloat(valor)
+
+      $('#contenidotp').val(parseFloat(actual) + parseFloat(conversion))
+    }
+  })
+
   function calculo() {
-    
-    presentacion = $('#presentacion').val();
-    console.log(presentacion);
+    presentacion = $('#presentacion').val()
+    console.log(presentacion)
 
-    cantidad =  $('#cantidad').val();
-    console.log(cantidad);
+    cantidad = $('#cantidad').val()
+    console.log(cantidad)
 
-    contenidoa = $('#contenidoa').val();
-    console.log(contenidoa);
+    contenidoa = $('#contenidoa').val()
+    console.log(contenidoa)
 
-    contenidon = parseFloat(presentacion) * parseFloat(cantidad);
-    console.log(contenidon);
+    contenidon = parseFloat(presentacion) * parseFloat(cantidad)
+    console.log(contenidon)
 
-    contenidot = parseFloat(contenidon) + parseFloat(contenidoa);
-    console.log(contenidot);
+    contenidot = parseFloat(contenidon) + parseFloat(contenidoa)
+    console.log(contenidot)
 
-    $('#contenidon').val(contenidon);
-    $('#contenidot').val(contenidot);
+    $('#contenidon').val(contenidon)
+    $('#contenidot').val(contenidot)
   }
 
   function round(value, decimals) {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
   }
-
-
-
 })
 
-
-function filterFloat(evt,input){
+function filterFloat(evt, input) {
   // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
-  var key = window.Event ? evt.which : evt.keyCode;   
-  var chark = String.fromCharCode(key);
-  var tempValue = input.value+chark;
-  var isNumber = (key >= 48 && key <= 57);
-  var isSpecial = (key == 8 || key == 13 || key == 0 ||  key == 46);
-  if(isNumber || isSpecial){
-      return filter(tempValue);
-  }        
-  
-  return false;    
-  
+  var key = window.Event ? evt.which : evt.keyCode
+  var chark = String.fromCharCode(key)
+  var tempValue = input.value + chark
+  var isNumber = key >= 48 && key <= 57
+  var isSpecial = key == 8 || key == 13 || key == 0 || key == 46
+  if (isNumber || isSpecial) {
+    return filter(tempValue)
+  }
+
+  return false
 }
-function filter(__val__){
-  var preg = /^([0-9]+\.?[0-9]{0,2})$/; 
-  return (preg.test(__val__) === true);
+function filter(__val__) {
+  var preg = /^([0-9]+\.?[0-9]{0,2})$/
+  return preg.test(__val__) === true
 }
-  

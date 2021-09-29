@@ -75,9 +75,9 @@ $message = "";
                                             <th>Id U.Medida</th>
                                             <th>Cantidad</th>
                                             <th>Presentacion</th>
-                                            <th>Contenido N</th>
-                                            <th>Contenido A</th>
-                                            <th>Contenido T</th>
+                                            <th>Contenido Cerrado</th>
+                                            <th>Contenido Abierto</th>
+                                            <th>Contenido Total</th>
                                             <th>Ubicacion</th>
                                             <th>Obs</th>
                                             <th>Acciones</th>
@@ -176,9 +176,9 @@ $message = "";
                                     </div>
 
                                 </div>
-                                
 
-                               
+
+
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="cantidad" class="col-form-label">Cantidad Nuevo:</label>
@@ -188,7 +188,7 @@ $message = "";
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="contenidon" class="col-form-label">Contenido Nuevo:</label>
+                                        <label for="contenidon" class="col-form-label">Contenido Cerrado:</label>
                                         <input type="text" class="form-control text-right" name="contenidon" id="contenidon" autocomplete="off" placeholder="Contenido Nuevo" disabled>
                                     </div>
                                 </div>
@@ -201,7 +201,7 @@ $message = "";
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="contenidot" class="col-form-label">Total:</label>
+                                        <label for="contenidot" class="col-form-label">Contenido Total:</label>
                                         <input type="text" class="form-control text-right" name="contenidot" id="contenidot" autocomplete="off" placeholder="Contanido Total" disabled>
                                     </div>
                                 </div>
@@ -211,8 +211,8 @@ $message = "";
                                         <textarea rows="2" class="form-control" name="obs" id="obs" placeholder="Observaciones"></textarea>
                                     </div>
                                 </div>
-                               
-                                
+
+
 
                             </div>
                     </div>
@@ -330,6 +330,124 @@ $message = "";
         </div>
     </section>
     <!-- /.content -->
+
+    <section>
+        <div class="modal fade" id="modalAbrir" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">ABRIR INSUMO</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formAbrir" action="" method="POST">
+                            <div class="modal-body ">
+                                <div class="row ">
+                                    <input type="text" class="form-control" name="ida" id="ida" autocomplete="off" placeholder="ID">
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="presentaciona" class="col-form-label">Presentacion:</label>
+                                            <input type="text" class="form-control" name="presentaciona" id="presentaciona" autocomplete="off" placeholder="Presentacion" onkeypress="return filterFloat(event,this);" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm auto">
+                                            <label for="umedidaa" class="col-form-label">Unidad:</label>
+                                            <select class="form-control" name="umedidaa" id="umedidaa" disabled>
+                                                <?php
+                                                foreach ($datau as $dtu) {
+                                                ?>
+                                                    <option id="<?php echo $dtu['id_medida'] ?>a" value="<?php echo $dtu['id_medida'] ?>"> <?php echo $dtu['nom_medida'] ?></option>
+
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="cantidada" class="col-form-label">Cantidad Cerrada:</label>
+                                            <input type="text" class="form-control text-right" name="cantidada" id="cantidada" autocomplete="off" placeholder="Cantidad" onkeypress="return filterFloat(event,this);" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="contenidona" class="col-form-label">Contenido Cerrado:</label>
+                                            <input type="text" class="form-control text-right" name="contenidona" id="contenidona" autocomplete="off" placeholder="Contenido Nuevo" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-sm-12">
+                                        <div class="form-group input-group-sm">
+                                            <label for="nom_consa" class="col-form-label">Descripción:</label>
+                                            <input type="text" class="form-control" name="nom_consa" id="nom_consa" autocomplete="off" placeholder="Descripción" disabled>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="row ">
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="contenidoaa" class="col-form-label">Contenido Abierto:</label>
+                                            <input type="text" class="form-control text-right" name="contenidoaa" id="contenidoaa" autocomplete="off" placeholder="Contenido Abierto" onkeypress="return filterFloat(event,this);" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="contenidota" class="col-form-label">Contenido Actual:</label>
+                                            <input type="text" class="form-control text-right" name="contenidota" id="contenidota" autocomplete="off" placeholder="Contanido Total" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="contenidoabr" class="col-form-label">Cantidad por Abrir:</label>
+                                            <input type="text" class="form-control text-right " name="contenidoabr" id="contenidoabr" autocomplete="off" placeholder="Contenido Abierto" onkeypress="return filterFloat(event,this);">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group-sm">
+                                            <label for="contenidotp" class="col-form-label">Contenido Posterior:</label>
+                                            <input type="text" class="form-control text-right" name="contenidotp" id="contenidotp" autocomplete="off" placeholder="Contanido Posterior" disabled>
+                                        </div>
+                                    </div>
+
+                                </div>
+                              
+
+                            </div>
+                            <?php
+                            if ($message != "") {
+                            ?>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <span class="badge "><?php echo ($message); ?></span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="submit" id="btnGuardarA" name="btnGuardarA" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 
