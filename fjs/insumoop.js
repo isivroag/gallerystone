@@ -387,16 +387,15 @@ $(document).ready(function () {
     var montomov = $('#contenidoabr').val()
     var saldofin = 0
 
-    saldofin = parseFloat(saldo) - parseFloat(montomov)
+    
     $.ajax({
-      url: 'bd/crudmovimientoinvin.php',
+      url: 'bd/abrirpaquete.php',
       type: 'POST',
       dataType: 'json',
       data: {
         id: id,
         tipomov: tipomov,
         saldo: saldo,
-        saldofin: saldofin,
         montomov: montomov,
         descripcion: descripcion,
       },
@@ -418,6 +417,8 @@ $(document).ready(function () {
         }
       },
     })
+
+
   })
 
   $(document).on('click', '.btnKardex', function () {
