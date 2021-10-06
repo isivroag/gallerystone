@@ -395,32 +395,49 @@ $message = "";
 
 
                                 <div class="row ">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
-                                            <label for="contenidoaa" class="col-form-label">Contenido Abierto:</label>
+                                            <label for="contenidoaa" class="col-form-label">Contenido Abierto Actual:</label>
                                             <input type="text" class="form-control text-right" name="contenidoaa" id="contenidoaa" autocomplete="off" placeholder="Contenido Abierto" onkeypress="return filterFloat(event,this);" disabled>
                                         </div>
                                     </div>
+<<<<<<< HEAD
                                     <div class="col-sm-3">
                                         <div class="form-group input-group-sm">
                                             <label for="contenidota" class="col-form-label">Contenido Actual:</label>
                                             <input type="text" class="form-control text-right" name="contenidota" id="contenidota" autocomplete="off" placeholder="Contenido Total" disabled>
                                         </div>
                                     </div>
+=======
+                                   
+>>>>>>> 6eb2add771335a903af2b6586042e5edd35e8c68
 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
                                             <label for="contenidoabr" class="col-form-label">Cantidad por Abrir:</label>
                                             <input type="text" class="form-control text-right " name="contenidoabr" id="contenidoabr" autocomplete="off" placeholder="Contenido Abierto" onkeypress="return filterFloat(event,this);">
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
+<<<<<<< HEAD
                                             <label for="contenidotp" class="col-form-label">Contenido Posterior:</label>
                                             <input type="text" class="form-control text-right" name="contenidotp" id="contenidotp" autocomplete="off" placeholder="Contenido Posterior" disabled>
+=======
+                                            <label for="contenidotp" class="col-form-label">Contenido Abierto Final:</label>
+                                            <input type="text" class="form-control text-right" name="contenidotp" id="contenidotp" autocomplete="off" placeholder="Contanido Posterior" disabled>
+>>>>>>> 6eb2add771335a903af2b6586042e5edd35e8c68
                                         </div>
                                     </div>
 
+                                </div>
+                                <div class="row justify-content-end">
+                                <div class="col-sm-4 ">
+                                        <div class="form-group input-group-sm">
+                                            <label for="contenidota" class="col-form-label">Contenido Total:</label>
+                                            <input type="text" class="form-control text-right" name="contenidota" id="contenidota" autocomplete="off" placeholder="Contanido Total" disabled>
+                                        </div>
+                                    </div>
                                 </div>
                               
 
