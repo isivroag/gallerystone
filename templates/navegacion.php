@@ -415,7 +415,7 @@
         <?php } ?>
         <!-- CIERRA ADMINISTRACION-->
         <!-- ABRE PRODUCCION-->
-        <?php if ($_SESSION['s_rol'] != '5' && $_SESSION['s_rol'] != '1') {  ?>
+        <?php if ($_SESSION['s_rol'] != '1') {  ?>
 
           <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden') ? "menu-open" : ""; ?>">
             <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden') ? "active" : ""; ?>">
@@ -437,34 +437,42 @@
                   <p>Ordenes de Proyecto</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="cntaordenobra.php" class="nav-link <?php echo ($pagina == 'ordenobra') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fas fa-archway nav-icon"></i>
-                  <p>Ordenes de Obra</p>
-                </a>
-              </li>
+<!-- empieza Produccion General-->
+              <?php if ($_SESSION['s_rol'] != '5') { ?>
+                <li class="nav-item">
+                  <a href="cntaordenobra.php" class="nav-link <?php echo ($pagina == 'ordenobra') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fas fa-archway nav-icon"></i>
+                    <p>Ordenes de Obra</p>
+                  </a>
+                </li>
 
-              <li class="nav-item">
-                <a href="cntarptorden.php" class="nav-link <?php echo ($pagina == 'cntarptorden') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fas fa-tasks nav-icon"></i>
-                  <p>Consulta de Orden</p>
-                </a>
-              </li>
+                <li class="nav-item">
+                  <a href="cntarptorden.php" class="nav-link <?php echo ($pagina == 'cntarptorden') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fas fa-tasks nav-icon"></i>
+                    <p>Consulta de Orden</p>
+                  </a>
+                </li>
 
-              <li class="nav-item">
-                <a href="rptorden.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'rptorden') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fas fa-tasks nav-icon"></i>
-                  <p>Reporte de Producción ML</p>
-                </a>
-              </li>
-
+                <li class="nav-item">
+                  <a href="rptorden.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'rptorden') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fas fa-tasks nav-icon"></i>
+                    <p>Reporte de Producción ML</p>
+                  </a>
+                </li>
+              <?php } ?>
+              <!-- Termina Produccion General-->
             </ul>
           </li>
           <!-- CIERRA PRODUCCION-->
 
         <?php }  ?>
         <!-- ABRE INVENTARIO-->
-        <?php if ($_SESSION['s_rol'] != '1' ) { ?>
+        <?php if ($_SESSION['s_rol'] != '1') { ?>
+
+
+
+
+
           <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida') ? "menu-open" : ""; ?>">
             <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida') ? "active" : ""; ?>">
               <span class="fa-stack">
@@ -478,7 +486,7 @@
             </a>
             <ul class="nav nav-treeview">
 
-            <li class="nav-item">
+              <li class="nav-item">
                 <a href="cntamedida.php" class="nav-link <?php echo ($pagina == 'medida') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-ruler-combined nav-icon"></i>
                   <p>Unidad de Medida</p>
@@ -524,7 +532,7 @@
             </ul>
           </li>
         <?php }  ?>
-        
+
         <!-- CIERRA INVENTARIO-->
 
 

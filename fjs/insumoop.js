@@ -7,6 +7,27 @@ $(document).ready(function () {
  <button class='btn btn-sm bg-gradient-orange text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos'><i class='fas fa-exchange-alt'></i></button>\
             
 */
+dom: "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
+"<'row'<'col-sm-12'tr>>" +
+"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+buttons: [{
+    extend: "excelHtml5",
+    text: "<i class='fas fa-file-excel'> Excel</i>",
+    titleAttr: "Exportar a Excel",
+    title: "Inventario de Insumos",
+    className: "btn bg-success ",
+    exportOptions: { columns: [0, 1, 2,  4, 5,6,7,8,9,10] },
+},
+{
+    extend: "pdfHtml5",
+    text: "<i class='far fa-file-pdf'> PDF</i>",
+    titleAttr: "Exportar a PDF",
+    title: "Inventario de Insumos",
+    className: "btn bg-danger",
+    exportOptions: { columns: [0, 1, 2,  4, 5,6,7,8,9,10] },
+},
+],
 
     columnDefs: [
       {

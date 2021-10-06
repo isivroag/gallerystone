@@ -23,7 +23,12 @@ $message = "";
 
 ?>
 
-
+<style>
+  td.editable {
+  
+    cursor: pointer;
+}
+  </style>
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -64,6 +69,7 @@ $message = "";
                     <tr>
                       <th>Folio</th>
                       <th>Folio Vta</th>
+                      <th>Folio Doc</th>
                       <th>Fecha</th>
                       <th>Cliente</th>
                       <th>Proyecto</th>
@@ -82,6 +88,7 @@ $message = "";
                       <tr>
                         <td><?php echo $dat['folio_ord'] ?></td>
                         <td><?php echo $dat['folio_vta'] ?></td>
+                        <td><?php echo $dat['folio_fisico'] ?></td>
                         <td><?php echo $dat['fecha_ord'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_vta'] ?></td>
@@ -206,6 +213,58 @@ $message = "";
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
             <button type="button" id="btnGuardarf" name="btnGuardarf" class="btn btn-success" value="btnGuardarf"><i class="far fa-save"></i> Guardar</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="modal fade" id="modaldocumento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-secondary">
+            <h5 class="modal-title" id="exampleModalLabel">Orden de Trabajo (Preimpresa)</h5>
+
+          </div>
+          <div class="card card-widget" style="margin: 10px;">
+            <form id="formdocumento" action="" method="POST">
+              <div class="modal-body row">
+
+
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <input type="hidden" class="form-control" name="folioordend" id="folioordend" autocomplete="off" placeholder="folioordend">
+                  
+                    <label for="foliofis" class="col-form-label">Folio de Orden de Trabajo:</label>
+                    <input type="text" class="form-control" name="foliofis" id="foliofis" autocomplete="off" placeholder="Folio de Orden de Trabajo" onkeypress="return filterFloat(event,this);">
+                  </div>
+                </div>
+
+            
+
+              </div>
+          </div>
+
+
+          <?php
+          if ($message != "") {
+          ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <span class="badge "><?php echo ($message); ?></span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+
+            </div>
+
+          <?php
+          }
+          ?>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+            <button type="button" id="btnGuardard" name="btnGuardard" class="btn btn-success" value="btnGuardard"><i class="far fa-save"></i> Guardar</button>
           </div>
           </form>
         </div>
