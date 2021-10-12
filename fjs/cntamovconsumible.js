@@ -119,6 +119,18 @@ $(document).ready(function () {
             $($(row).find('td')['5']).addClass('text-right')
             $($(row).find('td')['6']).addClass('text-right')
 
+            $($(row).find('td')['7']).addClass('text-right')
+            $($(row).find('td')['8']).addClass('text-right')
+            $($(row).find('td')['9']).addClass('text-right')
+
+            $($(row).find('td')['10']).addClass('text-right')
+            $($(row).find('td')['11']).addClass('text-right')
+            $($(row).find('td')['12']).addClass('text-right')
+
+            $($(row).find('td')['13']).addClass('text-right')
+            $($(row).find('td')['14']).addClass('text-right')
+            $($(row).find('td')['15']).addClass('text-right')
+
             
      
 

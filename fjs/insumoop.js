@@ -35,6 +35,8 @@ buttons: [{
         data: null,
         defaultContent:
           "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-box-open'></i></button>\
+          <button class='btn btn-sm bg-gradient-info text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Cerrado'><i class='fas fa-box'></i></button>\
+          <button class='btn btn-sm bg-gradient-orange text-light btnMova' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Abierto'><i class='fas fa-fill-drip'></i></button>\
           <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
            <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
       },
@@ -407,10 +409,11 @@ buttons: [{
     var saldo = $('#cantidada').val()
     var montomov = $('#contenidoabr').val()
     var saldofin = 0
+    var usuario = $('#nameuser').val()
 
     
     $.ajax({
-      url: 'bd/abrirpaquete.php',
+      url: 'bd/abrirpaqueten.php',
       type: 'POST',
       dataType: 'json',
       data: {
@@ -419,6 +422,7 @@ buttons: [{
         saldo: saldo,
         montomov: montomov,
         descripcion: descripcion,
+        usuario: usuario
       },
       success: function (data) {
         if (data == 3) {
@@ -431,7 +435,7 @@ buttons: [{
         
         } else {
           Swal.fire({
-            title: 'No fue posible cocluir la operacion',
+            title: 'No fue posible concluir la operacion',
             text: 'Movimiento No Guardado',
             icon: 'error',
           })

@@ -47,10 +47,10 @@ foreach($data as $dr){
 if (isset($_GET['fechaini']) && isset($_GET['fechafin'])){
     $fechaini=$_GET['fechaini'];
     $fechafin=$_GET['fechafin'];
-    $consulta = "SELECT * FROM mov_insumo where estado_movi=1 AND id_cons='$id' and fecha_movi between '$fechaini' and '$fechafin' order by fecha_movi desc,id_movi desc";
+    $consulta = "SELECT * FROM mov_consumible where estado_movi=1 AND id_cons='$id' and fecha_movi between '$fechaini' and '$fechafin' order by fecha_movi desc,id_movi desc";
 }
 else{
-    $consulta = "SELECT * FROM mov_insumo where estado_movi=1 AND id_cons='$id' order by fecha_movi desc,id_movi desc";
+    $consulta = "SELECT * FROM mov_consumible where estado_movi=1 AND id_cons='$id' order by fecha_movi desc,id_movi desc";
 }
 
 $resultado = $conexion->prepare($consulta);
@@ -175,9 +175,22 @@ $message = "";
                                             <th>Fecha</th>
                                             <th>Tipo Movimiento</th>
                                             <th>Descripción</th>
-                                            <th>Exitencia Inicial</th>
-                                            <th>Cantidad</th>
-                                            <th>Existencia Final</th>
+                                            <th>Cant. Inicial</th>
+                                            <th>Mov.</th>
+                                            <th>Cant. Final</th>
+
+                                        
+                                            <th>Cerrado Ini</th>
+                                            <th>Mov.</th>
+                                            <th>Cerrado Fin</th>
+
+                                            <th>Abierto Ini</th>
+                                            <th>Mov.</th>
+                                            <th>Abierto Fin</th>
+
+                                            <th>Total Ini</th>
+                                            <th>Mov.</th>
+                                            <th>Total Fin</th>
 
 
 
@@ -195,6 +208,19 @@ $message = "";
                                                 <td><?php echo $rowdata['saldoini'] ?></td>
                                                 <td><?php echo $rowdata['cantidad'] ?></td>
                                                 <td><?php echo $rowdata['saldofin'] ?></td>
+
+                                                <td><?php echo $rowdata['saldoinn'] ?></td>
+                                                <td><?php echo $rowdata['cantidadn'] ?></td>
+                                                <td><?php echo $rowdata['saldofinn'] ?></td>
+
+                                                <td><?php echo $rowdata['saldoina'] ?></td>
+                                                <td><?php echo $rowdata['cantidada'] ?></td>
+                                                <td><?php echo $rowdata['saldofina'] ?></td>
+
+                                                <td><?php echo $rowdata['saldoint'] ?></td>
+                                                <td><?php echo $rowdata['cantidadt'] ?></td>
+                                                <td><?php echo $rowdata['saldofint'] ?></td>
+                                                
                                                 
                                             </tr>
                                         <?php
@@ -225,7 +251,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntamovin.js"></script>
+<script src="fjs/cntamovconsumible.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
