@@ -64,7 +64,7 @@ $(document).ready(function () {
       sProcessing: 'Procesando...',
     },
   })
-
+//TABLA DETALLED DE MATERIAL
   tablaDet = $('#tablaDet').DataTable({
     paging: false,
     ordering: false,
@@ -101,6 +101,44 @@ $(document).ready(function () {
     },
   })
 
+  //TABLA DETALLE DE INSUMOS
+  tablaDetIn = $('#tablaDetIn').DataTable({
+    paging: false,
+    ordering: false,
+    info: false,
+    searching: false,
+
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarIn'><i class='fas fa-trash-alt'></i></button></div>",
+      },
+      { className: 'hide_column', targets: [1] },
+     
+    ],
+
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+  })
+
+
+  //TABLA MATERIAL
   tablaMat = $('#tablaMat').DataTable({
     columnDefs: [
       {
@@ -132,13 +170,52 @@ $(document).ready(function () {
     },
   })
 
+  //TABLA INSUMO
+  tablaIns = $('#tablaIns').DataTable({
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelInsumo'><i class='fas fa-hand-pointer'></i></button></div></div>",
+      },
+     
+    ],
+
+    //Para cambiar el lenguaje a español
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+  })
+
+  //BOTON BUSCAR MATERIAL
   $(document).on('click', '#btnMaterial', function () {
     $('.modal-header').css('background-color', '#007bff')
     $('.modal-header').css('color', 'white')
 
     $('#modalMat').modal('show')
   })
+//BOTON BUSCAR NSUMO
+  $(document).on('click', '#btnInsumo', function () {
+    $('.modal-header').css('background-color', '#007bff')
+    $('.modal-header').css('color', 'white')
 
+    $('#modalIns').modal('show')
+  })
+//BOTON SELECCIONAR MATERIAL
   $(document).on('click', '.btnSelMaterial', function () {
     fila = $(this).closest('tr')
     iditem = fila.find('td:eq(0)').text()
@@ -176,13 +253,40 @@ $(document).ready(function () {
 
     $('#modalMat').modal('hide')
   })
+//BOTON BUSCAR INSUMO
+  $(document).on('click', '.btnSelInsumo', function () {
+    fila = $(this).closest('tr')
+    idinsumo = fila.find('td:eq(0)').text()
+    nominsumo = fila.find('td:eq(1)').text()
+    nomumedida = fila.find('td:eq(2)').text()
+    cantidaddisin = fila.find('td:eq(3)').text()
 
+    /*
+     */
+    $('#idinsumo').val(idinsumo)
+  
+    $('#insumo').val(nominsumo)
+ 
+    
+    $('#nom_umedidain').val(nomumedida)
+ 
+    $('#cantidaddisi').val(cantidaddisin)
+    $('#cantidadi').prop('disabled', false)
+
+    $('#modalIns').modal('hide')
+  })
+
+//BOTON LIMPIAR MATERIAL
   $(document).on('click', '#btlimpiar', function () {
     limpiar()
   })
 
-  
+  //BOTON LIMPIAR INSUMO
+  $(document).on('click', '#btlimpiari', function () {
+    limpiarin()
+  })
 
+  //BOTON ELIMINAR COMPLEMENTO
   $(document).on('click', '.btnEliminarcom', function (event) {
    
     event.preventDefault();
@@ -223,6 +327,8 @@ $(document).ready(function () {
         } else if (isConfirm.dismiss === swal.DismissReason.cancel) {}
     });
   })
+
+//BOTON AGREGAR COMPLEMENTO
   $(document).on('click', '#btnAddcom', function ()  {
     //window.location.href = "prospecto.php";
     $('#formCom').trigger('reset')
@@ -230,7 +336,7 @@ $(document).ready(function () {
     $('#modalCom').modal('show')
 
 })
-
+//BOTON GUARDAR COMPLEMENTO
   $(document).on('click', '#btnGuardarcom', function () {
     orden = $('#folioorden').val()
     cantidad = $('#cantcom').val()
@@ -282,7 +388,7 @@ $(document).ready(function () {
   })
 
 
-
+// AGREGAR MATERIAL
   $(document).on('click', '#btnagregar', function () {
     folio = $('#folioorden').val()
 
@@ -359,6 +465,70 @@ $(document).ready(function () {
     }
   })
 
+  //AGREGAR INSUMO
+
+  $(document).on('click', '#btnagregari', function () {
+    folio = $('#folioorden').val()
+
+    idcons = $('#idinsumo').val()
+
+    cantidadi = $('#cantidadi').val()
+    cantidaddisi = $('#cantidaddisi').val()
+    opcion = 1
+
+    if (parseFloat(cantidadi) > parseFloat(cantidaddisi)) {
+      nomensaje()
+      return 0
+    }
+
+  
+
+    if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0) {
+      $.ajax({
+        type: 'POST',
+        url: 'bd/detalleordeninsumo.php',
+        dataType: 'json',
+        //async: false,
+        data: {
+          folio: folio,
+          idcons: idcons,
+          cantidadi: cantidadi,
+          opcion: opcion,
+        },
+        success: function (data) {
+          console.log(data)
+          id_reg = data[0].id_reg
+          
+          id_cons = data[0].id_cons
+          nom_cons = data[0].nom_cons
+         
+          nom_umedida = data[0].nom_umedida
+      
+          cantidad = data[0].cantidad
+
+          tablaDetIn.row
+            .add([
+              id_reg,
+              id_cons,
+              nom_cons,
+              nom_umedida,
+              cantidad,
+            ])
+            .draw()
+          limpiar()
+        },
+      })
+    } else {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos del Item',
+        icon: 'warning',
+      })
+      return false
+    }
+  })
+
+
   function nomensaje() {
     swal.fire({
       title: 'No existen Inventario suficiente',
@@ -391,6 +561,29 @@ $(document).ready(function () {
     })
   })
 
+  $(document).on('click', '.btnBorrarIn', function () {
+    fila = $(this).closest('tr')
+
+    id = fila.find('td:eq(0)').text()
+    console.log(id)
+    opcion = 2
+
+    $.ajax({
+      type: 'POST',
+      url: 'bd/detalleordeninsumo.php',
+      dataType: 'json',
+      data: { id: id, opcion: opcion },
+      success: function (data) {
+        console.log(data)
+        if (data == 1) {
+          tablaDetIn.row(fila.parents('tr')).remove().draw()
+        } else {
+          mensajeerror()
+        }
+      },
+    })
+  })
+
   function limpiar() {
     $('#clavemat').val('')
     $('#material').val('')
@@ -408,6 +601,16 @@ $(document).ready(function () {
     $('#cantidad').prop('disabled', true)
   }
 
+  function limpiarin() {
+    $('#idinsumo').val('')
+    $('#insumo').val('')
+    
+    $('#cantidadi').val('')
+    $('#cantidaddisi').val('')
+    
+    $('#nom_umedidain').val('')
+    $('#cantidadi').prop('disabled', true)
+  }
   function mensajeerror() {
     swal.fire({
       title: 'Operacion No exitosa',

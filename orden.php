@@ -63,10 +63,16 @@ if ($folio != "") {
 
 
 
-    $cntamat = "SELECT * FROM vmaterial order by id_mat";
+    $cntamat = "SELECT * FROM vmaterial where estado_mat=1  order by id_mat";
     $resmat = $conexion->prepare($cntamat);
     $resmat->execute();
     $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $cntains = "SELECT * FROM vconsumible where estado_cons=1 order by id_cons";
+    $resins = $conexion->prepare($cntains);
+    $resins->execute();
+    $datains = $resins->fetchAll(PDO::FETCH_ASSOC);
 } else {
     $folio = "";
 
@@ -355,7 +361,7 @@ if ($folio != "") {
                         <!-- Formulario totales -->
 
                     </div>
-
+                    <!-- MATERIALES USADOS-->
                     <div class="content">
                         <div class="card card-widget" style="margin-bottom:0px;">
 
@@ -575,8 +581,159 @@ if ($folio != "") {
                         </div>
 
                     </div>
+                    <!-- TERMINA MATERIALES USADOS -->
+                    <!-- INSUMOS USADOS-->
+                    <div class="content">
+                        <div class="card card-widget" style="margin-bottom:0px;">
+
+                            <div class="card-header bg-gradient-info " style="margin:0px;padding:8px">
+                                <div class="card-tools" style="margin:0px;padding:0px;">
 
 
+                                </div>
+                                <h1 class="card-title ">Insumos Usados</h1>
+                                <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                </div>
+                            </div>
+
+                            <div class="card-body" style="margin:0px;padding:3px;">
+
+                                <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
+
+                                    <div class="card-header bg-gradient-info" style="margin:0px;padding:8px;">
+
+                                        <h1 class="card-title" style="text-align:center;">Agregar Insumo</h1>
+                                        <div class="card-tools" style="margin:0px;padding:0px;">
+
+                                            <button type="button" class="btn bg-gradient-info btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body " style="margin:0px;padding:2px 5px;">
+                                        <div class="row justify-content-sm-center">
+
+                                            <div class="col-lg-4">
+                                                <div class="input-group input-group-sm">
+
+                                                    <input type="hidden" class="form-control" name="idinsumo" id="idinsumo">
+
+
+
+
+                                                    <label for="insumo" class="col-form-label">Insumo:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control" name="insumo" id="insumo" disabled>
+                                                        <span class="input-group-append">
+                                                            <button id="btnInsumo" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-1">
+                                                <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
+                                                <label for="nom_umedidain" class="col-form-label">U Medida:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control " name="nom_umedidain" id="nom_umedidain" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <label for="cantidadi" class="col-form-label">Cantidad:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="hidden" class="form-control" name="cantidaddisi" id="cantidaddisi">
+                                                    <input type="text" class="form-control" name="cantidadi" id="cantidadi" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-1 justify-content-center">
+                                                <label for="" class="col-form-label">Acción:</label>
+                                                <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                        <button type="button" id="btnagregari" name="btnagregari" class="btn btn-sm bg-gradient-orange" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
+                                                    </span>
+                                                    <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                        <button type="button" id="btlimpiari" name="btlimpiari" class="btn btn-sm bg-gradient-purple" value="btnlimpiari"><i class="fas fa-brush"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 mx-auto">
+
+                                        <div class="table-responsive" style="padding:5px;">
+
+                                            <table name="tablaDetIn" id="tablaDetIn" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                <thead class="text-center bg-gradient-info">
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Id Insumo</th>
+                                                        
+                                                        <th>Material</th>
+                                                        
+                                                        
+                                                        <th>U. Medida</th>
+                                                        
+                                                        <th>Cantidad</th>
+                                                        <th>Acciones</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $consultadeto = "SELECT * FROM vconsumibleord where folio_ord='$folioorden' and estado_detalle=1 order by id_reg";
+                                                    $resultadodeto = $conexion->prepare($consultadeto);
+                                                    $resultadodeto->execute();
+                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                    foreach ($datadeto as $rowdet) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $rowdet['id_reg'] ?></td>
+                                                            <td><?php echo $rowdet['id_cons'] ?></td>
+                                                            <td><?php echo $rowdet['nom_cons'] ?></td>
+                                                            
+                                                            <td><?php echo $rowdet['nom_umedida'] ?></td>
+                                                            
+                                                            <td><?php echo $rowdet['cantidad'] ?></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <!-- TERMINA INSUMOS USADOS -->
 
 
                 </form>
@@ -592,7 +749,7 @@ if ($folio != "") {
         <!-- /.card -->
 
     </section>
-
+    <!--TABLA MATERIALES-->
     <section>
         <div class="container">
 
@@ -658,6 +815,64 @@ if ($folio != "") {
             </div>
         </div>
     </section>
+    <!-- TERMINA TABLA MATERIALES -->
+
+    <!-- TABLA INSUMOS -->
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalIns" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-primary">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMO</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaIns" id="tablaIns" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center">
+                                    <tr>
+
+                                        <th>Id Insumo</th>
+                                        <th>Insumo</th>
+                                        <th>U. Medida</th>
+                                        <th>Cantidad Abierta Disp.</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datains as $datc) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datc['id_cons'] ?></td>
+                                            <td><?php echo $datc['nom_cons'] ?></td>
+
+
+                                            <td><?php echo $datc['nom_umedida'] ?></td>
+
+                                            <td><?php echo $datc['contenidoa'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TERMINA TABLA INSUMOS -->
+
+
+
 
     <section>
         <div class="modal fade" id="modalCom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -702,7 +917,7 @@ if ($folio != "") {
                                     </div>
 
                                 </div>
-                                
+
 
                             </div>
                     </div>
