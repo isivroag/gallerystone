@@ -7,27 +7,29 @@ $(document).ready(function () {
  <button class='btn btn-sm bg-gradient-orange text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos'><i class='fas fa-exchange-alt'></i></button>\
             
 */
-dom: "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
-"<'row'<'col-sm-12'tr>>" +
-"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+    dom:
+      "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
+      "<'row'<'col-sm-12'tr>>" +
+      "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
-buttons: [{
-    extend: "excelHtml5",
-    text: "<i class='fas fa-file-excel'> Excel</i>",
-    titleAttr: "Exportar a Excel",
-    title: "Inventario de Insumos",
-    className: "btn bg-success ",
-    exportOptions: { columns: [0, 1, 2,  4, 5,6,7,8,9,10] },
-},
-{
-    extend: "pdfHtml5",
-    text: "<i class='far fa-file-pdf'> PDF</i>",
-    titleAttr: "Exportar a PDF",
-    title: "Inventario de Insumos",
-    className: "btn bg-danger",
-    exportOptions: { columns: [0, 1, 2,  4, 5,6,7,8,9,10] },
-},
-],
+    buttons: [
+      {
+        extend: 'excelHtml5',
+        text: "<i class='fas fa-file-excel'> Excel</i>",
+        titleAttr: 'Exportar a Excel',
+        title: 'Inventario de Insumos',
+        className: 'btn bg-success ',
+        exportOptions: { columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10] },
+      },
+      {
+        extend: 'pdfHtml5',
+        text: "<i class='far fa-file-pdf'> PDF</i>",
+        titleAttr: 'Exportar a PDF',
+        title: 'Inventario de Insumos',
+        className: 'btn bg-danger',
+        exportOptions: { columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10] },
+      },
+    ],
 
     columnDefs: [
       {
@@ -237,7 +239,7 @@ buttons: [{
     }
   })
 
-  //MOVIMIENTOS DE INVENTARIO
+  //MOVIMIENTOS DE INVENTARIO CERRADO
 
   $(document).on('click', '.btnMov', function () {
     fila = $(this).closest('tr')
@@ -246,10 +248,15 @@ buttons: [{
     nombre = fila.find('td:eq(1)').text()
     saldo = fila.find('td:eq(4)').text()
 
+    presentacion = fila.find('td:eq(5)').text()
+    contenidoc = fila.find('td:eq(6)').text()
+
     $('#id').val(id)
     $('#nmaterial').val(nombre)
 
     $('#extact').val(saldo)
+    $('#presentacionmov').val(presentacion)
+    $('#contenidomov').val(contenidoc)
 
     $('.modal-header').css('background-color', '#007bff')
     $('.modal-header').css('color', 'white')
@@ -257,14 +264,17 @@ buttons: [{
     $('#modalMOV').modal('show')
   })
 
-  $('#formMov').submit(function (e) {
-    e.preventDefault()
+
+  $(document).on('click', '#btnGuardarM', function () {
+  
+    
     var id = $.trim($('#id').val())
     var descripcion = $('#descripcion').val()
     var tipomov = $.trim($('#tipomov').val())
     var saldo = $('#extact').val()
     var montomov = $('#montomov').val()
     var saldofin = 0
+    var usuario = $('#nameuser').val()
 
     if (id.length == 0 || tipomov.length == 0 || montomov.length == 0) {
       Swal.fire({
@@ -288,19 +298,19 @@ buttons: [{
               saldofin: saldofin,
               montomov: montomov,
               descripcion: descripcion,
+              usuario: usuario
             },
             success: function (data) {
-              if (data == 3) {
+              if (data == 1) {
                 Swal.fire({
                   title: 'Operación Exitosa',
                   text: 'Movimiento Guardado',
                   icon: 'success',
                 })
-                $('#modalMOV').modal('hide')
                 window.location.reload()
               } else {
                 Swal.fire({
-                  title: 'No fue posible cocluir la operacion',
+                  title: 'No fue posible concluir la operacion',
                   text: 'Movimiento No Guardado',
                   icon: 'error',
                 })
@@ -322,20 +332,19 @@ buttons: [{
               saldofin: saldofin,
               montomov: montomov,
               descripcion: descripcion,
+              usuario: usuario
             },
             success: function (data) {
-              if (data == 3) {
+              if (data == 1) {
                 Swal.fire({
                   title: 'Operación Exitosa',
                   text: 'Movimiento Guardado',
                   icon: 'success',
                 })
                 window.location.reload()
-                $('#modalMOV').modal('hide')
-                window.location.reload()
               } else {
                 Swal.fire({
-                  title: 'No fue posible cocluir la operacion',
+                  title: 'No fue posible concluir la operacion',
                   text: 'Movimiento No Guardado',
                   icon: 'error',
                 })
@@ -373,19 +382,19 @@ buttons: [{
                     saldofin: saldofin,
                     montomov: montomov,
                     descripcion: descripcion,
+                    usuario: usuario
                   },
                   success: function (data) {
-                    if (data == 3) {
+                    if (data == 1) {
                       Swal.fire({
                         title: 'Operación Exitosa',
                         text: 'Movimiento Guardado',
                         icon: 'success',
                       })
-                      $('#modalMOV').modal('hide')
                       window.location.reload()
                     } else {
                       Swal.fire({
-                        title: 'No fue posible cocluir la operacion',
+                        title: 'No fue posible concluir la operacion',
                         text: 'Movimiento No Guardado',
                         icon: 'error',
                       })
@@ -401,6 +410,185 @@ buttons: [{
     }
   })
 
+  //MOVIMIENTOS DE INVENTARIO ABIERTO
+  $(document).on('click', '.btnMova', function () {
+    fila = $(this).closest('tr')
+    id = parseInt(fila.find('td:eq(0)').text())
+
+    nombre = fila.find('td:eq(1)').text()
+    saldo = fila.find('td:eq(7)').text()
+
+    presentacion = fila.find('td:eq(5)').text()
+    contenidoab = fila.find('td:eq(7)').text()
+
+    $('#idma').val(id)
+    $('#nmaterialab').val(nombre)
+
+    $('#extactab').val(saldo)
+    $('#presentacionmovab').val(presentacion)
+    $('#contenidomovab').val(contenidoab)
+
+    $('.modal-header').css('background-color', '#007bff')
+    $('.modal-header').css('color', 'white')
+    $('.modal-title').text('Movimiento de Inventario')
+    $('#modalMOVAB').modal('show')
+  })
+
+
+  $(document).on('click', '#btnGuardarMab', function () {
+  
+    
+    var id = $.trim($('#idma').val())
+    var descripcion = $('#descripcionab').val()
+    var tipomov = $.trim($('#tipomovab').val())
+    var saldo = $('#extactab').val()
+    var montomov = $('#montomovab').val()
+    var saldofin = 0
+    var usuario = $('#nameuser').val()
+
+    console.log(id);
+    console.log(descripcion);
+    console.log(tipomov);
+    console.log(saldo);
+    console.log(montomov);
+    console.log(saldofin);
+    console.log(usuario);
+
+    if (id.length == 0 || tipomov.length == 0 || montomov.length == 0) {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos de la cuenta',
+        icon: 'warning',
+      })
+      return false
+    } else {
+      switch (tipomov) {
+        case 'Entrada':
+          saldofin = parseFloat(saldo) + parseFloat(montomov)
+          $.ajax({
+            url: 'bd/crudmovconsumible.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              id: id,
+              tipomov: tipomov,
+              saldo: saldo,
+              saldofin: saldofin,
+              montomov: montomov,
+              descripcion: descripcion,
+              usuario: usuario
+            },
+            success: function (data) {
+              if (data == 1) {
+                Swal.fire({
+                  title: 'Operación Exitosa',
+                  text: 'Movimiento Guardado',
+                  icon: 'success',
+                })
+                window.location.reload()
+              } else {
+                Swal.fire({
+                  title: 'No fue posible concluir la operacion',
+                  text: 'Movimiento No Guardado',
+                  icon: 'error',
+                })
+              }
+            },
+          })
+
+          break
+        case 'Salida':
+          saldofin = parseFloat(saldo) - parseFloat(montomov)
+          $.ajax({
+            url: 'bd/crudmovconsumible.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              id: id,
+              tipomov: tipomov,
+              saldo: saldo,
+              saldofin: saldofin,
+              montomov: montomov,
+              descripcion: descripcion,
+              usuario: usuario
+            },
+            success: function (data) {
+              if (data == 1) {
+                Swal.fire({
+                  title: 'Operación Exitosa',
+                  text: 'Movimiento Guardado',
+                  icon: 'success',
+                })
+                window.location.reload()
+              } else {
+                Swal.fire({
+                  title: 'No fue posible concluir la operacion',
+                  text: 'Movimiento No Guardado',
+                  icon: 'error',
+                })
+              }
+            },
+          })
+          break
+        case 'Inventario Inicial':
+          //Advertir y preguntar
+          swal
+            .fire({
+              title: 'Inventario Inicial',
+              text:
+                'Este movimiento cambia las Existencias totales del Producto por la cantidad establecida sin importar los movimientos anteriores ¿Desea Continuar?',
+
+              showCancelButton: true,
+              icon: 'warning',
+              focusConfirm: true,
+              confirmButtonText: 'Aceptar',
+
+              cancelButtonText: 'Cancelar',
+            })
+            .then(function (isConfirm) {
+              if (isConfirm.value) {
+                saldofin = montomov
+
+                $.ajax({
+                  url: 'bd/crudmovconsumible.php',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {
+                    id: id,
+                    tipomov: tipomov,
+                    saldo: saldo,
+                    saldofin: saldofin,
+                    montomov: montomov,
+                    descripcion: descripcion,
+                    usuario: usuario
+                  },
+                  success: function (data) {
+                    if (data == 1) {
+                      Swal.fire({
+                        title: 'Operación Exitosa',
+                        text: 'Movimiento Guardado',
+                        icon: 'success',
+                      })
+                      window.location.reload()
+                    } else {
+                      Swal.fire({
+                        title: 'No fue posible concluir la operacion',
+                        text: 'Movimiento No Guardado',
+                        icon: 'error',
+                      })
+                    }
+                  },
+                })
+              } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
+              }
+            })
+
+          break
+      }
+    }
+  })
+
+
   $('#formAbrir').submit(function (e) {
     e.preventDefault()
     var id = $.trim($('#ida').val())
@@ -411,7 +599,6 @@ buttons: [{
     var saldofin = 0
     var usuario = $('#nameuser').val()
 
-    
     $.ajax({
       url: 'bd/abrirpaqueten.php',
       type: 'POST',
@@ -422,7 +609,7 @@ buttons: [{
         saldo: saldo,
         montomov: montomov,
         descripcion: descripcion,
-        usuario: usuario
+        usuario: usuario,
       },
       success: function (data) {
         if (data == 3) {
@@ -432,7 +619,6 @@ buttons: [{
             icon: 'success',
           })
           window.location.reload()
-        
         } else {
           Swal.fire({
             title: 'No fue posible concluir la operacion',
@@ -442,14 +628,12 @@ buttons: [{
         }
       },
     })
-
-
   })
 
   $(document).on('click', '.btnKardex', function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
-    window.location = 'cntamovin.php?id=' + id
+    window.location = 'cntamovconsumible.php?id=' + id
   })
 
   $('#presentacion').on('change keyup paste click', function () {

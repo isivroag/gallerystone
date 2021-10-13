@@ -31,47 +31,50 @@ if ($resultado->execute()) {
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
     foreach ($data as $rowdata) {
 
-        $presentacion = $rowdata['presentacion'];
+    
 
    
-
+        $cantidad=$rowdata['cant_cons'];
         $saldoinn = $rowdata['contenidon'];
         $saldoina = $rowdata['contenidoa'];
         $saldoint = $rowdata['contenidot'];
-
         $saldo = $rowdata['cant_cons'];;
+
     }
-    $conversion = $presentacion * $montomov;
+    
 
 
     switch ($tipomov) {
 
         case "Entrada":
-            $saldofinn = $saldoinn + $conversion;
-            $saldofint = $saldoint + $conversion;
-            $saldofin = $saldo + $montomov;
+            $saldofinn = $saldoinn;
+            $saldofinab=$saldoina+$montomov;
+            $saldofint = $saldoint + $montomov;
+            $saldofin=$saldo;
             break;
 
         case "Salida":
-            $saldofinn = $saldoinn - $conversion;
-            $saldofint = $saldoint - $conversion;
-            $saldofin = $saldo - $montomov;
+            $saldofinn = $saldoinn;
+            $saldofinab=$saldoina - $montomov;
+            $saldofint = $saldoint - $montomov;
+            $saldofin=$saldo;
             break;
         case "Inventario Inicial":
-            $saldofinn = $conversion;
-            $saldofint =  $saldoina + $conversion;
-
-            $saldofin = $montomov;
+            $saldofinn = $saldoinn;
+            $saldofinab=$montomov;
+            $saldofint = $saldofinn + $montomov;
+            $saldofin=$saldo;
             break;
     }
+    $descripcion.= "  (Contenido Abierto)";
     //guardar el movimiento
     $consulta = "INSERT INTO mov_consumible(id_cons,fecha_movi,tipo_movi,cantidad,saldoini,saldofin,descripcion,usuario,saldoinn,cantidadn,saldofinn,saldoina,cantidada,saldofina,saldoint,cantidadt,saldofint) 
-    values('$id','$fechavp','$tipomov','$montomov','$saldo','$saldofin','$descripcion','$usuario','$saldoinn','$conversion','$saldofinn','$saldoina','0','$saldoina','$saldoint','$conversion','$saldofint')";
+    values('$id','$fechavp','$tipomov','0','$saldo','$saldofin','$descripcion','$usuario','$saldoinn','0','$saldofinn','$saldoina','$montomov','$saldofinab','$saldoint','$montomov','$saldofint')";
     $resultado = $conexion->prepare($consulta);
 
     if ($resultado->execute()) {
 
-        $consulta = "UPDATE consumible SET cant_cons='$saldofin',contenidon='$saldofinn',contenidot='$saldofint' WHERE id_cons='$id'";
+        $consulta = "UPDATE consumible SET contenidoa='$saldofinab',contenidot='$saldofint' WHERE id_cons='$id'";
         $resultado = $conexion->prepare($consulta);
         
         if ($resultado->execute()) {

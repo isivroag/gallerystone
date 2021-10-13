@@ -253,21 +253,61 @@ $message = "";
                     <div class="card card-widget" style="margin: 10px;">
                         <form id="formMov" action="" method="POST">
                             <div class="modal-body row">
-                                <div class="col-sm-6">
+                                <!--<div class="col-sm-1">
                                     <div class="form-group input-group-sm">
                                         <label for="id" class="col-form-label">ID:</label>
-                                        <input type="text" class="form-control" name="id" id="id" autocomplete="off" placeholder="ID" disabled>
+                                      
+                                    </div>
+                                </div>-->
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <input type="hidden" class="form-control" name="id" id="id" autocomplete="off" placeholder="ID" disabled>
+                                        <label for="presentacionmov" class="col-form-label">Presentacion:</label>
+                                        <input type="text" class="form-control" name="presentacionmov" id="presentacionmov" autocomplete="off" placeholder="Presentacion" onkeypress="return filterFloat(event,this);" disabled>
                                     </div>
                                 </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="umedidadmov" class="col-form-label">Unidad:</label>
+                                        <select class="form-control" name="umedidadmov" id="umedidadmov" disabled>
+                                            <?php
+                                            foreach ($datau as $dtu) {
+                                            ?>
+                                                <option id="<?php echo $dtu['id_medida'] ?>a" value="<?php echo $dtu['id_medida'] ?>"> <?php echo $dtu['nom_medida'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="extact" class="col-form-label">Cantidad Cerrada:</label>
+                                        <input type="text" class="form-control text-right" name="extact" id="extact" value="" placeholder="Existencia Actual" disabled>
+
+                                        <!-- <input type="text" class="form-control text-right" name="cantidadamov" id="cantidadamov" autocomplete="off" placeholder="Cantidad" onkeypress="return filterFloat(event,this);" disabled>-->
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="contenidomov" class="col-form-label">Contenido Cerrado:</label>
+                                        <input type="text" class="form-control text-right" name="contenidomov" id="contenidomov" autocomplete="off" placeholder="Contenido Nuevo" disabled>
+                                    </div>
+                                </div>
+                                <!--
                                 <div class="col-sm-6">
-
-
                                     <div class="form-group input-group-sm">
                                         <label for="extact" class="col-form-label">Existencia Actual:</label>
                                         <input type="text" class="form-control text-right" name="extact" id="extact" value="" placeholder="Existencia Actual" disabled>
                                     </div>
                                 </div>
-
+                                            -->
 
 
 
@@ -299,7 +339,7 @@ $message = "";
                                 <div class="col-sm-6">
                                     <div class="form-group input-group-sm">
                                         <label for="montomov" class="col-form-label">Cantidad Movimiento:</label>
-                                        <input type="text" class="form-control text-right" name="montomov" id="montomov" value="" placeholder="Cantidad Movimiento">
+                                        <input type="text" class="form-control text-right" name="montomov" id="montomov" value="" onkeypress="return filterFloat(event,this);" placeholder="Cantidad Movimiento">
                                     </div>
 
 
@@ -321,7 +361,7 @@ $message = "";
                             ?>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                                <button type="submit" id="btnGuardarM" name="btnGuardarM" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                                <button type="button" id="btnGuardarM" name="btnGuardarM" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -343,7 +383,7 @@ $message = "";
                         <form id="formAbrir" action="" method="POST">
                             <div class="modal-body ">
                                 <div class="row ">
-                                    <input type="text" class="form-control" name="ida" id="ida" autocomplete="off" placeholder="ID">
+                                    <input type="hidden" class="form-control" name="ida" id="ida" autocomplete="off" placeholder="ID">
                                     <div class="col-sm-3">
                                         <div class="form-group input-group-sm">
                                             <label for="presentaciona" class="col-form-label">Presentacion:</label>
@@ -401,7 +441,7 @@ $message = "";
                                             <input type="text" class="form-control text-right" name="contenidoaa" id="contenidoaa" autocomplete="off" placeholder="Contenido Abierto" onkeypress="return filterFloat(event,this);" disabled>
                                         </div>
                                     </div>
-                                   
+
 
                                     <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
@@ -418,14 +458,14 @@ $message = "";
 
                                 </div>
                                 <div class="row justify-content-end">
-                                <div class="col-sm-4 ">
+                                    <div class="col-sm-4 ">
                                         <div class="form-group input-group-sm">
                                             <label for="contenidota" class="col-form-label">Contenido Total:</label>
                                             <input type="text" class="form-control text-right" name="contenidota" id="contenidota" autocomplete="off" placeholder="Contanido Total" disabled>
                                         </div>
                                     </div>
                                 </div>
-                              
+
 
                             </div>
                             <?php
@@ -444,6 +484,136 @@ $message = "";
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
                                 <button type="submit" id="btnGuardarA" name="btnGuardarA" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section>
+        <div class="modal fade" id="modalMOVAB" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">MOVIMIENTOS DE INVENTARIO</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formMovab" action="" method="POST">
+                            <div class="modal-body row">
+                                <!--<div class="col-sm-1">
+                                    <div class="form-group input-group-sm">
+                                        <label for="id" class="col-form-label">ID:</label>
+                                      
+                                    </div>
+                                </div>-->
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <input type="hidden" class="form-control" name="idma" id="idma" autocomplete="off" placeholder="ID" disabled>
+                                        <label for="presentacionmovab" class="col-form-label">Presentacion:</label>
+                                        <input type="text" class="form-control" name="presentacionmovab" id="presentacionmovab" autocomplete="off" placeholder="Presentacion" onkeypress="return filterFloat(event,this);" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="umedidadmovab" class="col-form-label">Unidad:</label>
+                                        <select class="form-control" name="umedidadmovab" id="umedidadmovab" disabled>
+                                            <?php
+                                            foreach ($datau as $dtu) {
+                                            ?>
+                                                <option id="<?php echo $dtu['id_medida'] ?>a" value="<?php echo $dtu['id_medida'] ?>"> <?php echo $dtu['nom_medida'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="extactab" class="col-form-label">Cantidad Abierta:</label>
+                                        <input type="text" class="form-control text-right" name="extactab" id="extactab" value="" placeholder="Existencia Abierta" disabled>
+
+                                        <!-- <input type="text" class="form-control text-right" name="cantidadamov" id="cantidadamov" autocomplete="off" placeholder="Cantidad" onkeypress="return filterFloat(event,this);" disabled>-->
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="contenidomovab" class="col-form-label">Contenido Abierto:</label>
+                                        <input type="text" class="form-control text-right" name="contenidomovab" id="contenidomovab" autocomplete="off" placeholder="Contenido Nuevo" disabled>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="col-sm-6">
+                                    <div class="form-group input-group-sm">
+                                        <label for="extact" class="col-form-label">Existencia Actual:</label>
+                                        <input type="text" class="form-control text-right" name="extact" id="extact" value="" placeholder="Existencia Actual" disabled>
+                                    </div>
+                                </div>
+                                            -->
+
+
+
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="nmaterialab" class="col-form-label">Descripción:</label>
+                                        <input type="text" class="form-control" name="nmaterialab" id="nmaterialab" autocomplete="off" placeholder="Nombre/Descripción" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="descripcionab" class="col-form-label">Descripción del Movimiento:</label>
+                                        <textarea rows="2" class="form-control" name="descripcionab" id="descripcionab" placeholder="Descripción del Movimiento"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="tipomovab" class="col-form-label">Tipo Movimiento:</label>
+                                        <select class="form-control" name="tipomovab" id="tipomovab">
+                                            <option id="Inventario Inicial" value="Inventario Inicial"> Inventario Inicial</option>
+                                            <option id="Entrada" value="Entrada"> Entrada</option>
+                                            <option id="Salida" value="Salida"> Salida</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group input-group-sm">
+                                        <label for="montomovab" class="col-form-label">Cantidad Movimiento:</label>
+                                        <input type="text" class="form-control text-right" name="montomov" id="montomovab" value="" onkeypress="return filterFloat(event,this);" placeholder="Cantidad Movimiento">
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <?php
+                            if ($message != "") {
+                            ?>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <span class="badge "><?php echo ($message); ?></span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="button" id="btnGuardarMab" name="btnGuardarMab" class="btn btn-success" value="btnGuardarMab"><i class="far fa-save"></i> Guardar</button>
                             </div>
                         </form>
                     </div>

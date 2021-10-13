@@ -147,7 +147,7 @@ $message = "";
                             </div>
                             <div class="col-lg-1">
                                 <div class="form-group input-group-sm">
-                                    <label for="contenidot" class="col-form-label">Contenido Total:</label>
+                                    <label for="contenidot" class="col-form-label">Cont. Total:</label>
                                     <input type="text" class="form-control bg-white text-center" name="contenidot" id="contenidot" value="<?php echo $contenidot?>" placeholder="cantidad" disabled>
                                 </div>
                             </div>
