@@ -11,6 +11,8 @@ $idcons = (isset($_POST['idcons'])) ? $_POST['idcons'] : '';
 $cantidadi = (isset($_POST['cantidadi'])) ? $_POST['cantidadi'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
+$usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
+
 
 switch ($opcion) {
 
@@ -24,7 +26,7 @@ switch ($opcion) {
         $tipomov = "Salida";
         $descripcion = "Usado en Orden Folio:" . $folio;
         $montomov = $cantidadi;
-        $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
+
         $fechavp = date('Y-m-d');
 
 
@@ -99,7 +101,6 @@ switch ($opcion) {
             $tipomov = "Entrada";
             $descripcion = "Cancelacion en Orden Reg:" . $folio;
           
-            $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
             $fechavp = date('Y-m-d');
 
             $saldofinn = 0;

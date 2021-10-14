@@ -567,7 +567,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
 
     id = fila.find('td:eq(0)').text()
-    usuario=$('nameuser').val();
+    usuario = $('#nameuser').val()
     console.log(id)
     opcion = 2
 
