@@ -575,7 +575,7 @@ $(document).ready(function () {
       type: 'POST',
       url: 'bd/detalleordeninsumo.php',
       dataType: 'json',
-      data: { id: id, opcion: opcion,usuario: usuario },
+      data: { id: id, opcion: opcion, usuario: usuario },
       success: function (data) {
         console.log(data)
         if (data == 1) {
