@@ -474,6 +474,7 @@ $(document).ready(function () {
 
     cantidadi = $('#cantidadi').val()
     cantidaddisi = $('#cantidaddisi').val()
+    usuario = $('#nameuser').val()
     opcion = 1
 
     if (parseFloat(cantidadi) > parseFloat(cantidaddisi)) {
@@ -494,6 +495,7 @@ $(document).ready(function () {
           idcons: idcons,
           cantidadi: cantidadi,
           opcion: opcion,
+          usuario:usuario
         },
         success: function (data) {
           console.log(data)
@@ -565,6 +567,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
 
     id = fila.find('td:eq(0)').text()
+    usuario=$('nameuser').val();
     console.log(id)
     opcion = 2
 
@@ -572,7 +575,7 @@ $(document).ready(function () {
       type: 'POST',
       url: 'bd/detalleordeninsumo.php',
       dataType: 'json',
-      data: { id: id, opcion: opcion },
+      data: { id: id, opcion: opcion,usuario: usuario },
       success: function (data) {
         console.log(data)
         if (data == 1) {
