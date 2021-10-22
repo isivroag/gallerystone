@@ -148,6 +148,8 @@ $(document).ready(function () {
                 //$($(row).find('td')['6']).text('ACEPTADO')
               }else if(data[2] == 'Apertura'){
                 $($(row).find('td')[2]).addClass('bg-gradient-info')
+              }else if(data[2] == 'Entrada Can'){
+                $($(row).find('td')[2]).addClass('bg-gradient-danger')
               }
 
 

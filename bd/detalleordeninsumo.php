@@ -98,7 +98,7 @@ switch ($opcion) {
             }
     
       
-            $tipomov = "Entrada";
+            $tipomov = "Entrada Can";
             $descripcion = "Cancelacion en Orden Reg:" . $folio;
           
             $fechavp = date('Y-m-d');
