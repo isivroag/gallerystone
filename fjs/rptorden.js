@@ -2,6 +2,7 @@ $(document).ready(function () {
     var id, opcion
     opcion = 4
     
+    
    
     $('#tablaV thead tr').clone(true).appendTo( '#tablaV thead' );
     $('#tablaV thead tr:eq(1) th').each( function (i) {
@@ -38,7 +39,13 @@ $(document).ready(function () {
         "<'row'<'col-sm-12'tr>>" +
         "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
         
-        columnDefs: [
+        columnDefs: [ {
+          targets: -1,
+          data: null,
+          defaultContent:
+            "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fas fa-search'></i></button>\
+              </div>",
+        },
           
           {
             targets: 4,
@@ -140,46 +147,46 @@ $(document).ready(function () {
       },
   
       rowCallback: function (row, data) {
-        $($(row).find('td')['8']).css('color', 'white')
-        $($(row).find('td')['8']).addClass('text-center')
-        $($(row).find('td')['7']).addClass('text-right')
+        $($(row).find('td')['9']).css('color', 'white')
+        $($(row).find('td')['9']).addClass('text-center')
+        $($(row).find('td')['8']).addClass('text-right')
         
         
         
         
   
   
-        if (data[8] == 'MEDICION') {
+        if (data[9] == 'MEDICION') {
           //$($(row).find("td")[6]).css("background-color", "warning");
-          $($(row).find('td')[8]).addClass('bg-gradient-warning')
+          $($(row).find('td')[9]).addClass('bg-gradient-warning')
           //$($(row).find('td')['9']).text('PENDIENTE')
-        } else if (data[8] == 'CORTE') {
-          //$($(row).find("td")[8]).css("background-color", "blue");
-          $($(row).find('td')[8]).addClass('bg-gradient-secondary')
+        } else if (data[9] == 'CORTE') {
+          //$($(row).find("td")[9]).css("background-color", "blue");
+          $($(row).find('td')[9]).addClass('bg-gradient-secondary')
           //$($(row).find('td')['7']).text('ENVIADO')
-        } else if (data[8] == 'ENSAMBLE') {
-          //$($(row).find("td")[8]).css("background-color", "success");
-          $($(row).find('td')[8]).addClass('bg-lightblue')
+        } else if (data[9] == 'ENSAMBLE') {
+          //$($(row).find("td")[9]).css("background-color", "success");
+          $($(row).find('td')[9]).addClass('bg-lightblue')
           //$($(row).find('td')['7']).text('ACEPTADO')
-        } else if (data[8] == 'PULIDO') {
-          //$($(row).find("td")[8]).css("background-color", "purple");
-          $($(row).find('td')[8]).addClass('bg-gradient-purple')
+        } else if (data[9] == 'PULIDO') {
+          //$($(row).find("td")[9]).css("background-color", "purple");
+          $($(row).find('td')[9]).addClass('bg-gradient-purple')
           //$($(row).find('td')['7']).text('EN ESPERA')
-        } else if (data[8] == 'COLOCACION') {
+        } else if (data[9] == 'COLOCACION') {
           //$($(row).find("td")[5]).css("background-color", "light-blue");
   
-          $($(row).find('td')[8]).addClass('bg-gradient-orange')
+          $($(row).find('td')[9]).addClass('bg-gradient-orange')
           //$($(row).find('td')['7']).text('EDITADO')
-        } else if (data[8] == 'PROCESANDO'){
+        } else if (data[9] == 'PROCESANDO'){
           //$($(row).find("td")[5]).css("background-color", "red");
-          $($(row).find('td')[8]).addClass('bg-gradient-warning')
+          $($(row).find('td')[9]).addClass('bg-gradient-warning')
           //$($(row).find('td')['7']).text('RECHAZADO')
         }
-        else if(data[8]=="LIBERADO") {
-          $($(row).find('td')[8]).addClass('bg-gradient-success')
+        else if(data[9]=="LIBERADO") {
+          $($(row).find('td')[9]).addClass('bg-gradient-success')
         }
-        else if(data[8]=="ACTIVO") {
-          $($(row).find('td')[8]).addClass('bg-gradient-primary')
+        else if(data[9]=="ACTIVO") {
+          $($(row).find('td')[9]).addClass('bg-gradient-primary')
         }
       },
 
@@ -197,7 +204,7 @@ $(document).ready(function () {
 
         // Total over all pages
         total = api
-            .column( 7 )
+            .column( 8 )
             .data()
             .reduce( function (a, b) {
                 return intVal(a) + intVal(b);
@@ -210,7 +217,7 @@ $(document).ready(function () {
           
 
         // Update footer
-        $( api.column( 7 ).footer() ).html(
+        $( api.column( 8 ).footer() ).html(
              new Intl.NumberFormat('es-MX').format(Math.round((total + Number.EPSILON) * 100,2) / 100) 
         );
 
@@ -221,7 +228,13 @@ $(document).ready(function () {
   
     var fila //capturar la fila para editar o borrar el registro
   
-    //botón EDITAR
+     //botón VER
+  $(document).on('click', '.btnVer', function () {
+    fila = $(this).closest('tr')
+    id = parseInt(fila.find('td:eq(1)').text())
+
+    window.location.href = 'orden.php?folio=' + id
+  })
 
  
   

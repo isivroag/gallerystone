@@ -116,7 +116,7 @@ $message = "";
 
                             <div class="col-lg-1">
                                 <div class="form-group input-group-sm">
-                                    <label for="presentacion" class="col-form-label">Usos por Unidad:</label>
+                                    <label for="presentacion" class="col-form-label">Usos/Unidad:</label>
                                     <input type="text" class="form-control bg-white text-center" name="presentacion" id="presentacion" value="<?php echo $presentacion?>" placeholder="cantidad" disabled>
                                 </div>
                             </div>

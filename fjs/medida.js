@@ -2,14 +2,30 @@ $(document).ready(function() {
     var id, opcion;
     opcion = 4;
 
+
+    var textcolumnas = permisos()
+
+    function permisos() {
+      var tipousuario = $('#tipousuario').val()
+      var columnas = ''
+     
+      if (tipousuario == 5) {
+        columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button>\
+       </div>"
+      } else {
+        columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button>\
+        <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
+      }
+      return columnas
+    }
+
     tablaVis = $("#tablaV").DataTable({
 
-
-
         "columnDefs": [{
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
+            targets: -1,
+            data: null,
+            defaultContent: textcolumnas,
+           
         }],
 
         //Para cambiar el lenguaje a español

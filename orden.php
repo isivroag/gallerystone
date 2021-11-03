@@ -73,6 +73,13 @@ if ($folio != "") {
     $resins = $conexion->prepare($cntains);
     $resins->execute();
     $datains = $resins->fetchAll(PDO::FETCH_ASSOC);
+
+    
+
+    $cntades = "SELECT * FROM vdesechable where estado_des=1 order by id_des";
+    $resdes = $conexion->prepare($cntades);
+    $resdes->execute();
+    $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
 } else {
     $folio = "";
 
@@ -99,7 +106,47 @@ if ($folio != "") {
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="css/estilo.css">
+<style>
+    .borde-titulogris {
+        border-left: grey;
+        border-style: outset;
+        ;
+    }
 
+    .fondogris {
+        background-color: rgba(183, 185, 187, .8);
+    }
+
+    .borde-titulazul {
+        border-left: rgb(0, 123, 255);
+        border-style: outset;
+        ;
+    }
+
+    .fondoazul {
+        background-color: rgba(0, 123, 255, .8);
+    }
+
+    .borde-titulinfo {
+        border-left: rgb(23, 162, 184);
+        border-style: outset;
+        ;
+    }
+
+    .fondoinfo {
+        background-color: rgba(23, 162, 184, .8);
+    }
+
+    .borde-titulpur {
+        border-left: rgb(117, 74, 195);
+        border-style: outset;
+        ;
+    }
+
+    .fondopur {
+        background-color: rgba(117, 74, 195, .8);
+    }
+</style>
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -236,21 +283,21 @@ if ($folio != "") {
                         <!-- Tabla -->
                         <div class="content" style="padding:5px 0px;">
 
-                            <div class="card card-widget">
-                                <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+                            <div class="card  ">
+                                <div class="card-header bg-gradient-secondary" style="margin:0px;padding:8px">
 
-                                    <h1 class="card-title ">Detalle de Orden</h1>
+                                    <h1 class="card-title ">DETALLE DE ORDEN</h1>
 
                                 </div>
 
                                 <div class="card-body" style="margin:0px;padding:3px;">
 
-                                    <div class="card  ">
-                                        <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+                                    <div class="card  borde-titulogris">
+                                        <div class="card-header fondogris " style="margin:0px;padding:8px;">
                                             <h1 class="card-title ">Dellate Principal</h1>
-                                            <div class="card-tools" style="margin:0px;padding:0px;">
-                                                <button type="button" class="btn bg-gradient-secondary btn-sm " href="#principal" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
-                                                    <i class="fas fa-plus"></i>
+                                            <div class="card-tools " style="margin:0px;padding:0px;">
+                                                <button type="button" class="btn bg-secondary btn-sm " href="#principal" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                    <i class="fas fa-minus"></i>
                                                 </button>
 
                                             </div>
@@ -259,9 +306,9 @@ if ($folio != "") {
                                         <div class="card-body" id="pricipal">
                                             <div class="col-lg-12 mx-auto">
 
-                                                <div class="table-responsive" style="padding:5px;">
+                                                <div class="table-responsive" style="padding:2px;">
 
-                                                    <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                    <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%; font-size:15px">
                                                         <thead class="text-center bg-gradient-secondary">
                                                             <tr>
                                                                 <th>Id</th>
@@ -300,13 +347,13 @@ if ($folio != "") {
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+                                    <div class="card  borde-titulogris">
+                                        <div class="card-header fondogris " style="margin:0px;padding:8px">
 
                                             <h1 class="card-title ">Detalle Complementario</h1>
                                             <div class="card-tools" style="margin:0px;padding:0px;">
                                                 <button type="button" id="btnAddcom" class="btn bg-gradient-secondary btn-sm">
-                                                    <i class="fas fa-folder-plus"></i>
+                                                    <i class="fas fa-folder-minus"></i>
                                                 </button>
                                                 <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
                                                     <i class="fas fa-plus"></i>
@@ -316,7 +363,7 @@ if ($folio != "") {
                                         </div>
                                         <div class="card-body" id="extra">
                                             <div class="col-lg-auto">
-                                                <table name="tablaD" id="tablaD" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                <table name="tablaD" id="tablaD" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
                                                     <thead class="text-center bg-gradient-secondary">
                                                         <tr>
                                                             <th>Id</th>
@@ -361,380 +408,539 @@ if ($folio != "") {
                         <!-- Formulario totales -->
 
                     </div>
-                    <!-- MATERIALES USADOS-->
-                    <div class="content">
-                        <div class="card card-widget" style="margin-bottom:0px;">
 
-                            <div class="card-header bg-gradient-primary " style="margin:0px;padding:8px">
-                                <div class="card-tools" style="margin:0px;padding:0px;">
+                    <div class="card">
 
+                        <div class="card-header bg-gradient-primary m-1" style="margin:0px;padding:8px; ">
 
-                                </div>
-                                <h1 class="card-title ">Materiales Usados</h1>
-                                <div class="card-tools" style="margin:0px;padding:0px;">
+                            <h1 class="card-title ">DETALLE DE INVENTARIO</h1>
+                            <div class="card-tools" style="margin:0px;padding:0px;">
 
-
-                                </div>
-                            </div>
-
-                            <div class="card-body" style="margin:0px;padding:3px;">
-
-                                <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
-
-                                    <div class="card-header bg-gradient-primary" style="margin:0px;padding:8px;">
-
-                                        <h1 class="card-title" style="text-align:center;">Agregar Material</h1>
-                                        <div class="card-tools" style="margin:0px;padding:0px;">
-
-                                            <button type="button" class="btn bg-gradient-primary btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-body " style="margin:0px;padding:2px 5px;">
-                                        <div class="row justify-content-sm-center">
-
-                                            <div class="col-lg-4">
-                                                <div class="input-group input-group-sm">
-
-                                                    <input type="hidden" class="form-control" name="clavemat" id="clavemat">
-                                                    <input type="hidden" class="form-control" name="iditem" id="iditem">
-
-
-
-
-                                                    <label for="material" class="col-form-label">Material:</label>
-                                                    <div class="input-group input-group-sm">
-                                                        <input type="text" class="form-control" name="material" id="material" disabled>
-                                                        <span class="input-group-append">
-                                                            <button id="btnMaterial" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
-                                                        </span>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <label for="clave" class="col-form-label">Clave:</label>
-                                                <div class="input-group input-group-sm">
-
-                                                    <input type="text" class="form-control" name="clave" id="clave" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label for="formato" class="col-form-label">Formato:</label>
-                                                <div class="input-group input-group-sm">
-
-                                                    <input type="text" class="form-control" name="formato" id="formato" disabled>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-1">
-                                                <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
-                                                <label for="nom_umedida" class="col-form-label">U Medida:</label>
-                                                <div class="input-group input-group-sm">
-                                                    <input type="text" class="form-control " name="nom_umedida" id="nom_umedida" disabled>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="col-lg-1">
-                                                <label for="m2" class="col-form-label">M2:</label>
-                                                <div class="input-group input-group-sm">
-
-                                                    <input type="text" class="form-control" name="m2" id="m2" disabled>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <label for="largo" class="col-form-label">Largo:</label>
-                                                <div class="input-group input-group-sm">
-
-                                                    <input type="text" class="form-control" name="largo" id="largo" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <label for="ancho" class="col-form-label">Ancho:</label>
-                                                <div class="input-group input-group-sm">
-
-                                                    <input type="text" class="form-control" name="ancho" id="ancho" disabled>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <label for="alto" class="col-form-label">Alto:</label>
-                                                <div class="input-group input-group-sm">
-
-                                                    <input type="text" class="form-control" name="alto" id="alto" disabled>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-lg-2">
-                                                <label for="ubicacionm" class="col-form-label">Ubicacion:</label>
-                                                <div class="input-group input-group-sm">
-
-                                                    <input type="text" class="form-control" name="ubicacionm" id="ubicacionm" disabled>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <label for="cantidad" class="col-form-label">Cantidad:</label>
-                                                <div class="input-group input-group-sm">
-                                                    <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
-                                                    <input type="text" class="form-control" name="cantidad" id="cantidad" disabled>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-1 justify-content-center">
-                                                <label for="" class="col-form-label">Acción:</label>
-                                                <div class="input-group-append input-group-sm justify-content-center d-flex">
-                                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
-                                                        <button type="button" id="btnagregar" name="btnagregar" class="btn btn-sm bg-gradient-orange" value="btnGuardar"><i class="fas fa-plus-square"></i></button>
-                                                    </span>
-                                                    <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
-                                                        <button type="button" id="btlimpiar" name="btlimpiar" class="btn btn-sm bg-gradient-purple" value="btnlimpiar"><i class="fas fa-brush"></i></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-                                <div class="row">
-
-                                    <div class="col-lg-12 mx-auto">
-
-                                        <div class="table-responsive" style="padding:5px;">
-
-                                            <table name="tablaDet" id="tablaDet" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
-                                                <thead class="text-center bg-gradient-primary">
-                                                    <tr>
-                                                        <th>Id</th>
-                                                        <th>Id Item</th>
-                                                        <th>Id Material</th>
-                                                        <th>Clave</th>
-                                                        <th>Material</th>
-                                                        <th>Formato</th>
-                                                        <th>Largo</th>
-                                                        <th>Ancho</th>
-                                                        <th>Alto</th>
-                                                        <th>M2</th>
-                                                        <th>Id Umedida</th>
-                                                        <th>U. Medida</th>
-                                                        <th>Ubicación</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Acciones</th>
-
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $consultadeto = "SELECT * FROM vdetalle_ord where folio_ord='$folioorden' and estado_deto=1 order by id_reg";
-                                                    $resultadodeto = $conexion->prepare($consultadeto);
-                                                    $resultadodeto->execute();
-                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                    foreach ($datadeto as $rowdet) {
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $rowdet['id_reg'] ?></td>
-                                                            <td><?php echo $rowdet['id_item'] ?></td>
-                                                            <td><?php echo $rowdet['id_mat'] ?></td>
-                                                            <td><?php echo $rowdet['clave_item'] ?></td>
-                                                            <td><?php echo $rowdet['nom_item'] ?></td>
-                                                            <td><?php echo $rowdet['formato'] ?></td>
-                                                            <td><?php echo $rowdet['largo_mat'] ?></td>
-                                                            <td><?php echo $rowdet['ancho_mat'] ?></td>
-                                                            <td><?php echo $rowdet['alto_mat'] ?></td>
-                                                            <td><?php echo $rowdet['m2_mat'] ?></td>
-                                                            <td><?php echo $rowdet['id_umedida'] ?></td>
-                                                            <td><?php echo $rowdet['nom_umedida'] ?></td>
-                                                            <td><?php echo $rowdet['ubi_mat'] ?></td>
-                                                            <td><?php echo $rowdet['cant_mat'] ?></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    <?php
-                                                    }
-                                                    ?>
-
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-
+                                <button type="button" class="btn bg-gradient-primary btn-sm " href="#inventario" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                    <i class="fas fa-minus"></i>
+                                </button>
 
                             </div>
-
-
                         </div>
 
-                    </div>
-                    <!-- TERMINA MATERIALES USADOS -->
-                    <!-- INSUMOS USADOS-->
-                    <div class="content">
-                        <div class="card card-widget" style="margin-bottom:0px;">
+                        <div class="card-body" id="inventario" style="padding:8px">
 
-                            <div class="card-header bg-gradient-info " style="margin:0px;padding:8px">
-                                <div class="card-tools" style="margin:0px;padding:0px;">
+
+                            <!-- MATERIALES USADOS-->
+                            <div class="card borde-titulazul" style="margin-bottom:5px;">
+
+                                <div class="card-header  fondoazul " style="margin:0px;padding:8px">
+
+                                    <h1 class="card-title text-light" sytle="padding:auto">Materiales </h1>
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                    </div>
+                                </div>
+
+                                <div class="card-body" style="margin:0px;padding:3px;">
+
+                                    <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
+
+                                        <div class="card-header " style="margin:0px;padding:8px;">
+
+
+
+                                            <div class="row">
+
+                                                <div class="col-sm-2">
+                                                    <button type="button" class="btn bg-gradient-primary btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                        Agregar Material <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body " style="margin:0px;padding:2px 5px;">
+                                            <div class="row justify-content-sm-center">
+
+                                                <div class="col-lg-4">
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="hidden" class="form-control" name="clavemat" id="clavemat">
+                                                        <input type="hidden" class="form-control" name="iditem" id="iditem">
+
+
+
+
+                                                        <label for="material" class="col-form-label">Material:</label>
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="text" class="form-control" name="material" id="material" disabled>
+                                                            <span class="input-group-append">
+                                                                <button id="btnMaterial" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label for="clave" class="col-form-label">Clave:</label>
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="text" class="form-control" name="clave" id="clave" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label for="formato" class="col-form-label">Formato:</label>
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="text" class="form-control" name="formato" id="formato" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-1">
+                                                    <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
+                                                    <label for="nom_umedida" class="col-form-label">U Medida:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control " name="nom_umedida" id="nom_umedida" disabled>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-lg-1">
+                                                    <label for="m2" class="col-form-label">M2:</label>
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="text" class="form-control" name="m2" id="m2" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <label for="largo" class="col-form-label">Largo:</label>
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="text" class="form-control" name="largo" id="largo" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label for="ancho" class="col-form-label">Ancho:</label>
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="text" class="form-control" name="ancho" id="ancho" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <label for="alto" class="col-form-label">Alto:</label>
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="text" class="form-control" name="alto" id="alto" disabled>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-lg-2">
+                                                    <label for="ubicacionm" class="col-form-label">Ubicacion:</label>
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="text" class="form-control" name="ubicacionm" id="ubicacionm" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <label for="cantidad" class="col-form-label">Cantidad:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
+                                                        <input type="text" class="form-control" name="cantidad" id="cantidad" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-1 justify-content-center">
+                                                    <label for="" class="col-form-label">Acción:</label>
+                                                    <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                            <button type="button" id="btnagregar" name="btnagregar" class="btn btn-sm bg-gradient-orange" value="btnGuardar"><i class="fas fa-plus-square"></i></button>
+                                                        </span>
+                                                        <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                            <button type="button" id="btlimpiar" name="btlimpiar" class="btn btn-sm bg-gradient-purple" value="btnlimpiar"><i class="fas fa-brush"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-lg-12 mx-auto">
+
+                                            <div class="table-responsive" style="padding:5px;">
+
+                                                <table name="tablaDet" id="tablaDet" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                    <thead class="text-center bg-gradient-primary">
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>Id Item</th>
+                                                            <th>Id Material</th>
+                                                            <th>Clave</th>
+                                                            <th>Material</th>
+                                                            <th>Formato</th>
+                                                            <th>Largo</th>
+                                                            <th>Ancho</th>
+                                                            <th>Alto</th>
+                                                            <th>M2</th>
+                                                            <th>Id Umedida</th>
+                                                            <th>U. Medida</th>
+                                                            <th>Ubicación</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Acciones</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $consultadeto = "SELECT * FROM vdetalle_ord where folio_ord='$folioorden' and estado_deto=1 order by id_reg";
+                                                        $resultadodeto = $conexion->prepare($consultadeto);
+                                                        $resultadodeto->execute();
+                                                        $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                        foreach ($datadeto as $rowdet) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $rowdet['id_reg'] ?></td>
+                                                                <td><?php echo $rowdet['id_item'] ?></td>
+                                                                <td><?php echo $rowdet['id_mat'] ?></td>
+                                                                <td><?php echo $rowdet['clave_item'] ?></td>
+                                                                <td><?php echo $rowdet['nom_item'] ?></td>
+                                                                <td><?php echo $rowdet['formato'] ?></td>
+                                                                <td><?php echo $rowdet['largo_mat'] ?></td>
+                                                                <td><?php echo $rowdet['ancho_mat'] ?></td>
+                                                                <td><?php echo $rowdet['alto_mat'] ?></td>
+                                                                <td><?php echo $rowdet['m2_mat'] ?></td>
+                                                                <td><?php echo $rowdet['id_umedida'] ?></td>
+                                                                <td><?php echo $rowdet['nom_umedida'] ?></td>
+                                                                <td><?php echo $rowdet['ubi_mat'] ?></td>
+                                                                <td><?php echo $rowdet['cant_mat'] ?></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
 
 
                                 </div>
-                                <h1 class="card-title ">Insumos Usados</h1>
-                                <div class="card-tools" style="margin:0px;padding:0px;">
 
 
-                                </div>
                             </div>
+                            <!-- TERMINA MATERIALES USADOS -->
 
-                            <div class="card-body" style="margin:0px;padding:3px;">
 
-                                <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
+                            <!-- INSUMOS USADOS-->
+                            <div class="card card-widget borde-titulinfo" style="margin-bottom:5px;">
 
-                                    <div class="card-header bg-gradient-info" style="margin:0px;padding:8px;">
+                                <div class="card-header fondoinfo " style="margin:0px;padding:8px">
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
 
-                                        <h1 class="card-title" style="text-align:center;">Agregar Insumo</h1>
-                                        <div class="card-tools" style="margin:0px;padding:0px;">
+
+                                    </div>
+                                    <h1 class="card-title text-light">Insumos</h1>
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                    </div>
+                                </div>
+
+                                <div class="card-body" style="margin:0px;padding:3px;">
+
+                                    <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
+
+                                        <div class="card-header " style="margin:0px;padding:8px;">
 
                                             <button type="button" class="btn bg-gradient-info btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                                <i class="fas fa-plus"></i>
+                                                Agregar Insumo <i class="fas fa-plus"></i>
                                             </button>
+
                                         </div>
-                                    </div>
 
-                                    <div class="card-body " style="margin:0px;padding:2px 5px;">
-                                        <div class="row justify-content-sm-center">
+                                        <div class="card-body " style="margin:0px;padding:2px 5px;">
+                                            <div class="row justify-content-sm-center">
 
-                                            <div class="col-lg-4">
-                                                <div class="input-group input-group-sm">
-
-                                                    <input type="hidden" class="form-control" name="idinsumo" id="idinsumo">
-
-
-
-
-                                                    <label for="insumo" class="col-form-label">Insumo:</label>
+                                                <div class="col-lg-4">
                                                     <div class="input-group input-group-sm">
-                                                        <input type="text" class="form-control" name="insumo" id="insumo" disabled>
-                                                        <span class="input-group-append">
-                                                            <button id="btnInsumo" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+
+                                                        <input type="hidden" class="form-control" name="idinsumo" id="idinsumo">
+
+
+
+
+                                                        <label for="insumo" class="col-form-label">Insumo:</label>
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="text" class="form-control" name="insumo" id="insumo" disabled>
+                                                            <span class="input-group-append">
+                                                                <button id="btnInsumo" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-1">
+                                                    <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
+                                                    <label for="nom_umedidain" class="col-form-label">U Medida:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control " name="nom_umedidain" id="nom_umedidain" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <label for="cantidadi" class="col-form-label">Cantidad:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="hidden" class="form-control" name="cantidaddisi" id="cantidaddisi">
+                                                        <input type="text" class="form-control" name="cantidadi" id="cantidadi" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-1 justify-content-center">
+                                                    <label for="" class="col-form-label">Acción:</label>
+                                                    <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                            <button type="button" id="btnagregari" name="btnagregari" class="btn btn-sm bg-gradient-orange" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
+                                                        </span>
+                                                        <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                            <button type="button" id="btlimpiari" name="btlimpiari" class="btn btn-sm bg-gradient-purple" value="btnlimpiari"><i class="fas fa-brush"></i></button>
                                                         </span>
                                                     </div>
-
                                                 </div>
-                                            </div>
 
-                                            <div class="col-lg-1">
-                                                <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
-                                                <label for="nom_umedidain" class="col-form-label">U Medida:</label>
-                                                <div class="input-group input-group-sm">
-                                                    <input type="text" class="form-control " name="nom_umedidain" id="nom_umedidain" disabled>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2">
-                                                <label for="cantidadi" class="col-form-label">Cantidad:</label>
-                                                <div class="input-group input-group-sm">
-                                                    <input type="hidden" class="form-control" name="cantidaddisi" id="cantidaddisi">
-                                                    <input type="text" class="form-control" name="cantidadi" id="cantidadi" disabled>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-1 justify-content-center">
-                                                <label for="" class="col-form-label">Acción:</label>
-                                                <div class="input-group-append input-group-sm justify-content-center d-flex">
-                                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
-                                                        <button type="button" id="btnagregari" name="btnagregari" class="btn btn-sm bg-gradient-orange" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
-                                                    </span>
-                                                    <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
-                                                        <button type="button" id="btlimpiari" name="btlimpiari" class="btn btn-sm bg-gradient-purple" value="btnlimpiari"><i class="fas fa-brush"></i></button>
-                                                    </span>
-                                                </div>
                                             </div>
 
                                         </div>
 
                                     </div>
 
-                                </div>
 
+                                    <div class="row">
 
-                                <div class="row">
+                                        <div class="col-lg-12 mx-auto">
 
-                                    <div class="col-lg-12 mx-auto">
+                                            <div class="table-responsive" style="padding:5px;">
 
-                                        <div class="table-responsive" style="padding:5px;">
-
-                                            <table name="tablaDetIn" id="tablaDetIn" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
-                                                <thead class="text-center bg-gradient-info">
-                                                    <tr>
-                                                        <th>Id</th>
-                                                        <th>Id Insumo</th>
-                                                        
-                                                        <th>Material</th>
-                                                        
-                                                        
-                                                        <th>U. Medida</th>
-                                                        
-                                                        <th>Cantidad</th>
-                                                        <th>Acciones</th>
-
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $consultadeto = "SELECT * FROM vconsumibleord where folio_ord='$folioorden' and estado_detalle=1 order by id_reg";
-                                                    $resultadodeto = $conexion->prepare($consultadeto);
-                                                    $resultadodeto->execute();
-                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                    foreach ($datadeto as $rowdet) {
-                                                    ?>
+                                                <table name="tablaDetIn" id="tablaDetIn" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                    <thead class="text-center bg-gradient-info">
                                                         <tr>
-                                                            <td><?php echo $rowdet['id_reg'] ?></td>
-                                                            <td><?php echo $rowdet['id_cons'] ?></td>
-                                                            <td><?php echo $rowdet['nom_cons'] ?></td>
-                                                            
-                                                            <td><?php echo $rowdet['nom_umedida'] ?></td>
-                                                            
-                                                            <td><?php echo $rowdet['cantidad'] ?></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    <?php
-                                                    }
-                                                    ?>
+                                                            <th>Id</th>
+                                                            <th>Id Insumo</th>
 
-                                                </tbody>
-                                            </table>
+                                                            <th>Material</th>
+
+
+                                                            <th>U. Medida</th>
+
+                                                            <th>Cantidad</th>
+                                                            <th>Acciones</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $consultadeto = "SELECT * FROM vconsumibleord where folio_ord='$folioorden' and estado_detalle=1 order by id_reg";
+                                                        $resultadodeto = $conexion->prepare($consultadeto);
+                                                        $resultadodeto->execute();
+                                                        $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                        foreach ($datadeto as $rowdet) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $rowdet['id_reg'] ?></td>
+                                                                <td><?php echo $rowdet['id_cons'] ?></td>
+                                                                <td><?php echo $rowdet['nom_cons'] ?></td>
+
+                                                                <td><?php echo $rowdet['nom_umedida'] ?></td>
+
+                                                                <td><?php echo $rowdet['cantidad'] ?></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
 
                                         </div>
 
                                     </div>
 
+
+
+
                                 </div>
-
-
 
 
                             </div>
+                            <!-- TERMINA INSUMOS USADOS -->
+
+                            <!-- INSUMOS DESECHABLES-->
+                            <div class="card card-widget borde-titulpur" style="margin-bottom:5px;">
+
+                                <div class="card-header fondopur " style="margin:0px;padding:8px">
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
 
 
+                                    </div>
+                                    <h1 class="card-title text-light">Insumos de Desgaste</h1>
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                    </div>
+                                </div>
+
+                                <div class="card-body" style="margin:0px;padding:3px;">
+
+                                    <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
+
+                                        <div class="card-header " style="margin:0px;padding:8px;">
+
+                                            <button type="button" class="btn bg-gradient-purple btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                Agregar Insumo de Desgaste <i class="fas fa-plus"></i>
+                                            </button>
+
+                                        </div>
+
+                                        <div class="card-body " style="margin:0px;padding:2px 5px;">
+                                            <div class="row justify-content-sm-center">
+
+                                                <div class="col-lg-4">
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="hidden" class="form-control" name="idinsumodes" id="idinsumodes">
+
+
+
+
+                                                        <label for="insumodes" class="col-form-label">Insumo:</label>
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="text" class="form-control" name="insumodes" id="insumodes" disabled>
+                                                            <span class="input-group-append">
+                                                                <button id="btnInsumodes" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-1">
+                                                    <input type="hidden" class="form-control" name="id_umedidades" id="id_umedidades">
+                                                    <label for="nom_umedidaindes" class="col-form-label">U Medida:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control " name="nom_umedidaindes" id="nom_umedidaindes" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <label for="cantidadides" class="col-form-label">Cantidad:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="hidden" class="form-control" name="cantidaddisides" id="cantidaddisides">
+                                                        <input type="text" class="form-control" name="cantidadides" id="cantidadides" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-1 justify-content-center">
+                                                    <label for="" class="col-form-label">Acción:</label>
+                                                    <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                            <button type="button" id="btnagregarides" name="btnagregarides" class="btn btn-sm bg-gradient-orange" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
+                                                        </span>
+                                                        <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                            <button type="button" id="btlimpiarides" name="btlimpiarides" class="btn btn-sm bg-gradient-purple" value="btnlimpiari"><i class="fas fa-brush"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-lg-12 mx-auto">
+
+                                            <div class="table-responsive" style="padding:5px;">
+
+                                                <table name="tablaDetIndes" id="tablaDetIndes" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                    <thead class="text-center bg-gradient-purple">
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>Id Insumo</th>
+
+                                                            <th>Material</th>
+
+
+                                                            <th>U. Medida</th>
+
+                                                            <th>Cantidad</th>
+                                                            <th>Acciones</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $consultadeto = "SELECT * FROM vdesechableord where folio_ord='$folioorden' and estado_detalle=1 order by id_reg";
+                                                        $resultadodeto = $conexion->prepare($consultadeto);
+                                                        $resultadodeto->execute();
+                                                        $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                        foreach ($datadeto as $rowdet) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $rowdet['id_reg'] ?></td>
+                                                                <td><?php echo $rowdet['id_des'] ?></td>
+                                                                <td><?php echo $rowdet['nom_des'] ?></td>
+
+                                                                <td><?php echo $rowdet['nom_umedida'] ?></td>
+
+                                                                <td><?php echo $rowdet['cantidad'] ?></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+                            <!-- TERMINA INSUMOS DESECHABLES -->
                         </div>
-
                     </div>
-                    <!-- TERMINA INSUMOS USADOS -->
-
 
                 </form>
 
@@ -946,6 +1152,57 @@ if ($folio != "") {
         </div>
     </section>
 
+    <!-- TABLA DESECHABLES -->
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalDes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-primary">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMO DE DESGASTE</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaDes" id="tablaDes" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center">
+                                    <tr>
+
+                                        <th>Id Insumo</th>
+                                        <th>Insumo</th>
+                                        <th>U. Medida</th>
+                                        <th>Usos Disp.</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datades as $datd) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datd['id_des'] ?></td>
+                                            <td><?php echo $datd['nom_des'] ?></td>
+
+
+                                            <td><?php echo $datd['nom_umedida'] ?></td>
+
+                                            <td><?php echo $datd['totalusos'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 

@@ -123,17 +123,22 @@ $(document).ready(function () {
   
   //Boton Cambiar Fecha
   $(document).on('dblclick', '.btfecha', function () {
-    fila = $(this).closest('tr')
-    id = parseInt(fila.find('td:eq(0)').text())
-    fecha = fila.find('td:eq(7)').text();
+    tipousuario=$('#tipousuario').val()
+    
+    if (tipousuario!=5){
+      fila = $(this).closest('tr')
+      id = parseInt(fila.find('td:eq(0)').text())
+      fecha = fila.find('td:eq(7)').text();
+     
+     
+      $('#formFecha').trigger('reset');
+  
+      $('#modalFecha').modal('show');
    
-   
-    $('#formFecha').trigger('reset');
-
-    $('#modalFecha').modal('show');
- 
-    $('#fechaf').val(fecha);
-    $('#folioordenf').val(id);
+      $('#fechaf').val(fecha);
+      $('#folioordenf').val(id);
+    }
+    
  
     
   })

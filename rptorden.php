@@ -116,9 +116,11 @@ $message = "";
                                             <th>Cliente</th>
                                             <th>Proyecto</th>
                                             <th>Fecha Inst.</th>
+                                            <th>Fecha Liberación.</th>
                                             <th>Tipo</th>
                                             <th>ML</th>
                                             <th>Estado</th>
+                                            <th>Detalle</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -132,9 +134,11 @@ $message = "";
                                                 <td><?php echo $dat['nombre'] ?></td>
                                                 <td><?php echo $dat['concepto_vta'] ?></td>
                                                 <td><?php echo $dat['fecha_limite'] ?></td>
+                                                <td><?php echo $dat['fecha_liberacion'] ?></td>
                                                 <td><?php echo $dat['tipop'] ?></td>
                                                 <td><?php echo $dat['cantidad'] ?></td>
                                                 <td><?php echo $dat['edo_ord'] ?></td>
+                                                <td></td>
 
                                             </tr>
                                         <?php
@@ -149,9 +153,11 @@ $message = "";
                                             <th></th>
                                             <th></th>
                                             <th></th>
+                                            <th></th>
                                             <th style="text-align:right">Total:</th>
                                             
                                             <th class="text-right"></th>
+                                            <th></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -179,7 +185,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/rptorden.js"></script>
+<script src="fjs/rptorden.js?v=<?php echo(rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

@@ -2,11 +2,31 @@ $(document).ready(function () {
   var id, opcion
   opcion = 4
 
+
+  var textcolumnas = permisos()
+
+  function permisos() {
+    var tipousuario = $('#tipousuario').val()
+    var columnas = ''
+   
+    if (tipousuario == 5) {
+      columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Abrir Insumo'><i class='fas fa-box-open'></i></button>\
+      <button class='btn btn-sm bg-gradient-info text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Cerrado'><i class='fas fa-box'></i></button>\
+      <button class='btn btn-sm bg-gradient-orange text-light btnMova' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Abierto'><i class='fas fa-fill-drip'></i></button>\
+      <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
+      </div>"
+    } else {
+      columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Abrir Insumo'><i class='fas fa-box-open'></i></button>\
+      <button class='btn btn-sm bg-gradient-info text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Cerrado'><i class='fas fa-box'></i></button>\
+      <button class='btn btn-sm bg-gradient-orange text-light btnMova' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Abierto'><i class='fas fa-fill-drip'></i></button>\
+      <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
+       <button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>"
+    }
+    return columnas
+  }
+
   tablaVis = $('#tablaV').DataTable({
-    /*
- <button class='btn btn-sm bg-gradient-orange text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos'><i class='fas fa-exchange-alt'></i></button>\
-            
-*/
+
     dom:
       "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
       "<'row'<'col-sm-12'tr>>" +
@@ -35,12 +55,7 @@ $(document).ready(function () {
       {
         targets: -1,
         data: null,
-        defaultContent:
-          "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Abrir Insumo'><i class='fas fa-box-open'></i></button>\
-          <button class='btn btn-sm bg-gradient-info text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Cerrado'><i class='fas fa-box'></i></button>\
-          <button class='btn btn-sm bg-gradient-orange text-light btnMova' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Abierto'><i class='fas fa-fill-drip'></i></button>\
-          <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
-           <button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>",
+        defaultContent: textcolumnas,
       },
       { className: 'hide_column', targets: [3] },
       { className: 'text-right', targets: [4] },

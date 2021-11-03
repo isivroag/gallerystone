@@ -138,6 +138,42 @@ $(document).ready(function () {
   })
 
 
+    //TABLA DETALLE DE desechables
+    tablaDetIndes = $('#tablaDetIndes').DataTable({
+      paging: false,
+      ordering: false,
+      info: false,
+      searching: false,
+  
+      columnDefs: [
+        {
+          targets: -1,
+          data: null,
+          defaultContent:
+            "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarDes'><i class='fas fa-trash-alt'></i></button></div>",
+        },
+        { className: 'hide_column', targets: [1] },
+       
+      ],
+  
+      language: {
+        lengthMenu: 'Mostrar _MENU_ registros',
+        zeroRecords: 'No se encontraron resultados',
+        info:
+          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+        infoFiltered: '(filtrado de un total de _MAX_ registros)',
+        sSearch: 'Buscar:',
+        oPaginate: {
+          sFirst: 'Primero',
+          sLast: 'Último',
+          sNext: 'Siguiente',
+          sPrevious: 'Anterior',
+        },
+        sProcessing: 'Procesando...',
+      },
+    })
+
   //TABLA MATERIAL
   tablaMat = $('#tablaMat').DataTable({
     columnDefs: [
@@ -201,6 +237,37 @@ $(document).ready(function () {
     },
   })
 
+
+    //TABLA DESECHABLE
+    tablaDes = $('#tablaDes').DataTable({
+      columnDefs: [
+        {
+          targets: -1,
+          data: null,
+          defaultContent:
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelDesechable'><i class='fas fa-hand-pointer'></i></button></div></div>",
+        },
+       
+      ],
+  
+      //Para cambiar el lenguaje a español
+      language: {
+        lengthMenu: 'Mostrar _MENU_ registros',
+        zeroRecords: 'No se encontraron resultados',
+        info:
+          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+        infoFiltered: '(filtrado de un total de _MAX_ registros)',
+        sSearch: 'Buscar:',
+        oPaginate: {
+          sFirst: 'Primero',
+          sLast: 'Último',
+          sNext: 'Siguiente',
+          sPrevious: 'Anterior',
+        },
+        sProcessing: 'Procesando...',
+      },
+    })
   //BOTON BUSCAR MATERIAL
   $(document).on('click', '#btnMaterial', function () {
     $('.modal-header').css('background-color', '#007bff')
@@ -208,12 +275,21 @@ $(document).ready(function () {
 
     $('#modalMat').modal('show')
   })
-//BOTON BUSCAR NSUMO
+//BOTON BUSCAR INSUMO
   $(document).on('click', '#btnInsumo', function () {
     $('.modal-header').css('background-color', '#007bff')
     $('.modal-header').css('color', 'white')
 
     $('#modalIns').modal('show')
+  })
+
+
+
+  //BOTON BUSCAR DESECHABLE
+  $(document).on('click', '#btnInsumodes', function () {
+   
+
+    $('#modalDes').modal('show')
   })
 //BOTON SELECCIONAR MATERIAL
   $(document).on('click', '.btnSelMaterial', function () {
@@ -276,6 +352,30 @@ $(document).ready(function () {
     $('#modalIns').modal('hide')
   })
 
+
+  //BOTON BUSCAR DESECHABLE
+  $(document).on('click', '.btnSelDesechable', function () {
+    fila = $(this).closest('tr')
+    idinsumo = fila.find('td:eq(0)').text()
+    nominsumo = fila.find('td:eq(1)').text()
+    nomumedida = "USO"
+    cantidaddisin = fila.find('td:eq(3)').text()
+
+    /*
+     */
+    $('#idinsumodes').val(idinsumo)
+  
+    $('#insumodes').val(nominsumo)
+ 
+    
+    $('#nom_umedidaindes').val(nomumedida)
+ 
+    $('#cantidaddisides').val(cantidaddisin)
+    $('#cantidadides').prop('disabled', false)
+
+    $('#modalDes').modal('hide')
+  })
+
 //BOTON LIMPIAR MATERIAL
   $(document).on('click', '#btlimpiar', function () {
     limpiar()
@@ -285,7 +385,9 @@ $(document).ready(function () {
   $(document).on('click', '#btlimpiari', function () {
     limpiarin()
   })
-
+  $(document).on('click', '#btlimpiarides', function () {
+    limpiardes()
+  })
   //BOTON ELIMINAR COMPLEMENTO
   $(document).on('click', '.btnEliminarcom', function (event) {
    
@@ -531,6 +633,70 @@ $(document).ready(function () {
   })
 
 
+
+  $(document).on('click', '#btnagregarides', function () {
+    folio = $('#folioorden').val()
+
+    idcons = $('#idinsumodes').val()
+
+    cantidadi = $('#cantidadides').val()
+    cantidaddisi = $('#cantidaddisides').val()
+    usuario = $('#nameuser').val()
+    opcion = 1
+
+    if (parseFloat(cantidadi) > parseFloat(cantidaddisi)) {
+      nomensaje()
+      return 0
+    }
+
+  
+
+    if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0) {
+      $.ajax({
+        type: 'POST',
+        url: 'bd/detalleordendesechable.php',
+        dataType: 'json',
+        //async: false,
+        data: {
+          folio: folio,
+          idcons: idcons,
+          cantidadi: cantidadi,
+          opcion: opcion,
+          usuario:usuario
+        },
+        success: function (data) {
+          console.log(data)
+          id_reg = data[0].id_reg
+          
+          id_cons = data[0].id_des
+          nom_cons = data[0].nom_des
+         
+          nom_umedida = data[0].nom_umedida
+      
+          cantidad = data[0].cantidad
+
+          tablaDetIndes.row
+            .add([
+              id_reg,
+              id_cons,
+              nom_cons,
+              nom_umedida,
+              cantidad,
+            ])
+            .draw()
+          limpiar()
+        },
+      })
+    } else {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos del Item',
+        icon: 'warning',
+      })
+      return false
+    }
+  })
+
   function nomensaje() {
     swal.fire({
       title: 'No existen Inventario suficiente',
@@ -587,6 +753,31 @@ $(document).ready(function () {
     })
   })
 
+  $(document).on('click', '.btnBorrarDes', function () {
+    fila = $(this).closest('tr')
+
+    id = fila.find('td:eq(0)').text()
+    usuario = $('#nameuser').val()
+    console.log(id)
+    opcion = 2
+
+    $.ajax({
+      type: 'POST',
+      url: 'bd/detalleordendesechable.php',
+      dataType: 'json',
+      data: { id: id, opcion: opcion, usuario: usuario },
+      success: function (data) {
+        console.log(data)
+        if (data == 1) {
+          tablaDetIndes.row(fila.parents('tr')).remove().draw()
+        } else {
+          mensajeerror()
+        }
+      },
+    })
+  })
+
+
   function limpiar() {
     $('#clavemat').val('')
     $('#material').val('')
@@ -613,6 +804,17 @@ $(document).ready(function () {
     
     $('#nom_umedidain').val('')
     $('#cantidadi').prop('disabled', true)
+  }
+
+  function limpiardes() {
+    $('#idinsumodes').val('')
+    $('#insumodes').val('')
+    
+    $('#cantidadides').val('')
+    $('#cantidaddisides').val('')
+    
+    $('#nom_umedidaindes').val('')
+    $('#cantidadides').prop('disabled', true)
   }
   function mensajeerror() {
     swal.fire({
