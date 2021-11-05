@@ -1,4 +1,15 @@
 $(document).ready(function () {
+  jQuery.ajaxSetup({
+    beforeSend: function() {
+        $(".div_carga").show();
+    },
+    complete: function() {
+        $(".div_carga").hide();
+    },
+    success: function() {},
+});
+
+
   var id, opcion, fpago
 
   tablaVis = $('#tablaV').DataTable({
@@ -415,7 +426,7 @@ $(document).ready(function () {
                 url: "bd/complementoorden.php",
                 type: "POST",
                 dataType: "json",
-                async: false,
+                //async: false,
                 data: { id: id, opcion: opcion },
                 success: function(data) {
                 
@@ -498,6 +509,7 @@ $(document).ready(function () {
 
     cantidad = $('#cantidad').val()
     cantidaddis = $('#cantidaddis').val()
+    usuario=$('#nameuser').val();
     opcion = 1
 
     if (parseFloat(cantidad) > parseFloat(cantidaddis)) {
@@ -518,6 +530,7 @@ $(document).ready(function () {
           idmat: idmat,
           cantidad: cantidad,
           opcion: opcion,
+          usuario: usuario
         },
         success: function (data) {
           console.log(data)
@@ -597,7 +610,7 @@ $(document).ready(function () {
           idcons: idcons,
           cantidadi: cantidadi,
           opcion: opcion,
-          usuario:usuario
+          usuario: usuario
         },
         success: function (data) {
           console.log(data)
@@ -633,7 +646,7 @@ $(document).ready(function () {
   })
 
 
-
+//AGREGAR DESECHABLE
   $(document).on('click', '#btnagregarides', function () {
     folio = $('#folioorden').val()
 
@@ -662,17 +675,14 @@ $(document).ready(function () {
           idcons: idcons,
           cantidadi: cantidadi,
           opcion: opcion,
-          usuario:usuario
+          usuario: usuario
         },
         success: function (data) {
-          console.log(data)
-          id_reg = data[0].id_reg
           
+          id_reg = data[0].id_reg
           id_cons = data[0].id_des
           nom_cons = data[0].nom_des
-         
           nom_umedida = data[0].nom_umedida
-      
           cantidad = data[0].cantidad
 
           tablaDetIndes.row
@@ -710,6 +720,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
 
     id = fila.find('td:eq(0)').text()
+    usuario = $('#nameuser').val()
     console.log(id)
     opcion = 2
 
@@ -717,7 +728,7 @@ $(document).ready(function () {
       type: 'POST',
       url: 'bd/detalleorden.php',
       dataType: 'json',
-      data: { id: id, opcion: opcion },
+      data: { id: id, opcion: opcion,usuario: usuario },
       success: function (data) {
         console.log(data)
         if (data == 1) {

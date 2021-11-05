@@ -166,6 +166,7 @@ $message = "";
                                             <th>Cant. Inicial</th>
                                             <th>Mov.</th>
                                             <th>Cant. Final</th>
+                                            <th>Usos Mov</th>
                                             <th>Total Usos</th>
 
 
@@ -185,7 +186,7 @@ $message = "";
                                                 <td><?php echo $rowdata['cantidad'] ?></td>
                                                 <td><?php echo $rowdata['saldofin'] ?></td>
 
-                                                
+                                                <td><?php echo $rowdata['usos_mov'] ?></td>
                                                 <td><?php echo $rowdata['totalusos'] ?></td>
                                                 
                                                 
@@ -218,7 +219,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntamovdes.js"></script>
+<script src="fjs/cntamovdes.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

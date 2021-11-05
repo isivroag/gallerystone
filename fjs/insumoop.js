@@ -175,11 +175,14 @@ $(document).ready(function () {
     if (
       nom_cons.length == 0 ||
       umedida.length == 0 ||
-      presentacion.length == 0
+      presentacion.length == 0 ||
+      contenidoa.length == 0 ||
+      cantidad.length == 0
+
     ) {
       Swal.fire({
         title: 'Datos Faltantes',
-        text: 'Debe ingresar todos los datos del Prospecto',
+        text: 'Debe ingresar todos los datos marcados con *',
         icon: 'warning',
       })
       return false
@@ -461,13 +464,7 @@ $(document).ready(function () {
     var saldofin = 0
     var usuario = $('#nameuser').val()
 
-    console.log(id);
-    console.log(descripcion);
-    console.log(tipomov);
-    console.log(saldo);
-    console.log(montomov);
-    console.log(saldofin);
-    console.log(usuario);
+ 
 
     if (id.length == 0 || tipomov.length == 0 || montomov.length == 0) {
       Swal.fire({

@@ -10,6 +10,8 @@ $saldo = (isset($_POST['saldo'])) ? $_POST['saldo'] : '';
 $montomov = (isset($_POST['montomov'])) ? $_POST['montomov'] : '';
 $saldofin = (isset($_POST['saldofin'])) ? $_POST['saldofin'] : '';
 $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : '';
+$descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : '';
+$usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 
 $fechavp = date('Y-m-d');
 
@@ -40,7 +42,7 @@ switch ($tipomov) {
         break;
 }
 //guardar el movimiento
-$consulta = "INSERT INTO mov_prod(id_mat,fecha_movp,tipo_movp,cantidad,saldoini,saldofin,descripcion) values('$id','$fechavp','$tipomov','$montomov','$saldo','$saldofin','$descripcion')";
+$consulta = "INSERT INTO mov_prod(id_mat,fecha_movp,tipo_movp,cantidad,saldoini,saldofin,descripcion,usuario) values('$id','$fechavp','$tipomov','$montomov','$saldo','$saldofin','$descripcion','$usuario')";
 $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()) {
     $res += 1;

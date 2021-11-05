@@ -132,6 +132,8 @@ $(document).ready(function () {
                 //$($(row).find("td")[2]).css("background-color", "success");
                 $($(row).find('td')[2]).addClass('bg-gradient-primary')
                 //$($(row).find('td')['6']).text('ACEPTADO')
+              }else if(data[2] == 'Entrada Can'){
+                $($(row).find('td')[2]).addClass('bg-gradient-danger')
               }
 
 

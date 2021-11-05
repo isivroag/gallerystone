@@ -10,7 +10,7 @@ $saldo = (isset($_POST['saldo'])) ? $_POST['saldo'] : '';
 $montomov = (isset($_POST['montomov'])) ? $_POST['montomov'] : '';
 $saldofin = (isset($_POST['saldofin'])) ? $_POST['saldofin'] : '';
 $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : '';
-
+$usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 $fechavp = date('Y-m-d');
 
 
@@ -25,25 +25,31 @@ if ($resultado->execute()) {
         $totalusos = $rowdata['totalusos'];
     }
 }
+
+$usosmov= $uso* $montomov;
 switch ($tipomov) {
 
     case "Entrada":
 
         $saldofin = $saldo + $montomov;
+        $totalusos=$totalusos+$usosmov;
 
         break;
 
     case "Salida":
 
         $saldofin = $saldo - $montomov;
+        $totalusos=$totalusos-$usosmov;
         break;
     case "Inventario Inicial":
         $saldofin = $montomov;
+        $totalusos=$usosmov;
         break;
 }
+
 $totalusos = $saldofin * $uso;
 //guardar el movimiento
-$consulta = "INSERT INTO mov_des(id_des,fecha_movd,tipo_movd,cantidad,saldoini,saldofin,descripcion,totalusos) values('$id','$fechavp','$tipomov','$montomov','$saldo','$saldofin','$descripcion','$totalusos')";
+$consulta = "INSERT INTO mov_des(id_des,fecha_movd,tipo_movd,cantidad,saldoini,saldofin,descripcion,totalusos,usuario,usos_mov) values('$id','$fechavp','$tipomov','$montomov','$saldo','$saldofin','$descripcion','$totalusos','$usuario','$usosmov')";
 $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()) {
     $consulta = "UPDATE desechable SET cant_des='$saldofin',totalusos='$totalusos' WHERE id_des='$id'";

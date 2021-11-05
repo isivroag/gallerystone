@@ -22,6 +22,7 @@ switch ($opcion) {
 
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
+        
         $id = $idcons;
         $tipomov = "Salida";
         $descripcion = "Usado en Orden Folio:" . $folio;

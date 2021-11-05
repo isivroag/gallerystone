@@ -142,12 +142,12 @@ switch ($opcion) {
 
 
                 $consulta = "INSERT INTO mov_des(id_des,fecha_movd,tipo_movd,cantidad,saldoini,usos_mov,saldofin,descripcion,totalusos,usuario) 
-                values('$id','$fechavp','$tipomov','$difcantidad','$cantidadini','$cantidadi','$cantidadfin','$descripcion','$finusos','$usuario')";
+                values('$idcons','$fechavp','$tipomov','$difcantidad','$cantidadini','$cantidadi','$cantidadfin','$descripcion','$finusos','$usuario')";
                 $resultado = $conexion->prepare($consulta);
 
                 if ($resultado->execute()) {
 
-                    $consulta = "UPDATE desechable SET cant_des='$cantidadfin',totalusos='$finusos' WHERE id_des='$id'";
+                    $consulta = "UPDATE desechable SET cant_des='$cantidadfin',totalusos='$finusos' WHERE id_des='$idcons'";
                     $resultado = $conexion->prepare($consulta);
 
                     $resultado->execute();

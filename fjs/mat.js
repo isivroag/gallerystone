@@ -314,6 +314,8 @@ $(document).ready(function () {
     saldo = fila.find('td:eq(6)').text()
     nmaterial = fila.find('td:eq(5)').text()
 
+    
+
     $('#id').val(id)
     $('#nombrep').val(nombre)
 
@@ -334,6 +336,8 @@ $(document).ready(function () {
     var saldo = $('#extact').val()
     var montomov = $('#montomov').val()
     var saldofin = 0
+    
+    usuario = $('#nameuser').val()
 
     if (id.length == 0 || tipomov.length == 0 || montomov.length == 0) {
       Swal.fire({
@@ -357,6 +361,7 @@ $(document).ready(function () {
               saldofin: saldofin,
               montomov: montomov,
               descripcion: descripcion,
+              usuario: usuario
             },
             success: function (data) {
               if (data == 3) {
@@ -391,6 +396,7 @@ $(document).ready(function () {
               saldofin: saldofin,
               montomov: montomov,
               descripcion: descripcion,
+              usuario: usuario
             },
             success: function (data) {
               if (data == 3) {
@@ -442,6 +448,7 @@ $(document).ready(function () {
                     saldofin: saldofin,
                     montomov: montomov,
                     descripcion: descripcion,
+                    usuario: usuario
                   },
                   success: function (data) {
                     if (data == 3) {

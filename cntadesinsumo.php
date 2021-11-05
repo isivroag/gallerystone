@@ -134,7 +134,7 @@ $message = "";
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
-                                        <label for="nom_cons" class="col-form-label">Descripción:</label>
+                                        <label for="nom_cons" class="col-form-label">Descripción*:</label>
                                         <input type="text" class="form-control" name="nom_cons" id="nom_cons" autocomplete="off" placeholder="Descripción">
                                     </div>
                                 </div>
@@ -155,14 +155,14 @@ $message = "";
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="uso" class="col-form-label">Usos por Unidad:</label>
+                                        <label for="uso" class="col-form-label">Usos por Unidad*:</label>
                                         <input type="text" class="form-control" name="uso" id="uso" autocomplete="off" placeholder="Usos" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm auto">
-                                        <label for="umedida" class="col-form-label">Unidad:</label>
+                                        <label for="umedida" class="col-form-label">Unidad*:</label>
                                         <select class="form-control" name="umedida" id="umedida">
                                             <?php
                                             foreach ($datau as $dtu) {
@@ -181,7 +181,7 @@ $message = "";
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="cantidad" class="col-form-label">Cantidad:</label>
+                                        <label for="cantidad" class="col-form-label">Cantidad*:</label>
                                         <input type="text" class="form-control text-right" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>

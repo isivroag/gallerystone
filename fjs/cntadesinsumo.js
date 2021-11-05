@@ -167,7 +167,9 @@ $(document).ready(function () {
       if (
         nom_cons.length == 0 ||
         umedida.length == 0 ||
-        uso.length == 0
+        uso.length == 0 ||
+        cantidad.length == 0
+        
       ) {
         Swal.fire({
           title: 'Datos Faltantes',

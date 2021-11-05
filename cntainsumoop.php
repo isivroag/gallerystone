@@ -137,7 +137,7 @@ $message = "";
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
-                                        <label for="nom_cons" class="col-form-label">Descripción:</label>
+                                        <label for="nom_cons" class="col-form-label">Descripción*:</label>
                                         <input type="text" class="form-control" name="nom_cons" id="nom_cons" autocomplete="off" placeholder="Descripción">
                                     </div>
                                 </div>
@@ -155,14 +155,14 @@ $message = "";
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="presentacion" class="col-form-label">Presentacion:</label>
+                                        <label for="presentacion" class="col-form-label">Presentacion*:</label>
                                         <input type="text" class="form-control" name="presentacion" id="presentacion" autocomplete="off" placeholder="Presentacion" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm auto">
-                                        <label for="umedida" class="col-form-label">Unidad:</label>
+                                        <label for="umedida" class="col-form-label">Unidad*:</label>
                                         <select class="form-control" name="umedida" id="umedida">
                                             <?php
                                             foreach ($datau as $dtu) {
@@ -181,7 +181,7 @@ $message = "";
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="cantidad" class="col-form-label">Cantidad Nuevo:</label>
+                                        <label for="cantidad" class="col-form-label">Cantidad Nuevo*:</label>
                                         <input type="text" class="form-control text-right" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
@@ -195,7 +195,7 @@ $message = "";
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="contenidoa" class="col-form-label">Contenido Abierto:</label>
+                                        <label for="contenidoa" class="col-form-label">Contenido Abierto*:</label>
                                         <input type="text" class="form-control text-right" name="contenidoa" id="contenidoa" autocomplete="off" placeholder="Contenido Abierto" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
