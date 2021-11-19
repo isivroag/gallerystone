@@ -716,6 +716,7 @@ $(document).ready(function () {
     })
   }
 
+  // BORRAR MATERIAL
   $(document).on('click', '.btnBorrar', function () {
     fila = $(this).closest('tr')
 
@@ -739,7 +740,7 @@ $(document).ready(function () {
       },
     })
   })
-
+//BORRAR INSUMO
   $(document).on('click', '.btnBorrarIn', function () {
     fila = $(this).closest('tr')
 
@@ -764,6 +765,7 @@ $(document).ready(function () {
     })
   })
 
+  //BORRAR DESECHABLE
   $(document).on('click', '.btnBorrarDes', function () {
     fila = $(this).closest('tr')
 

@@ -7,8 +7,8 @@ $conexion = $objeto->connect();
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 
 
-$idmat = (isset($_POST['idmat'])) ? $_POST['idmat'] : '';
-$cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
+$idcons = (isset($_POST['idcons'])) ? $_POST['idcons'] : '';
+$cantidad = (isset($_POST['cantidadi'])) ? $_POST['cantidadi'] : '';
 $costo = (isset($_POST['costo'])) ? $_POST['costo'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $subtotal = (isset($_POST['subtotal'])) ? $_POST['subtotal'] : '';
@@ -17,12 +17,12 @@ $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO detallecxp_mat (folio_cxp,id_mat,cant_mat,costo_mat,subtotal,usuario) values ('$folio','$idmat','$cantidad','$costo','$subtotal','$usuario')";
+        $consulta = "INSERT INTO detallecxp_insumo (folio_cxp,id_cons,cant_cons,costo_cons,subtotal,usuario) values ('$folio','$idcons','$cantidad','$costo','$subtotal','$usuario')";
         
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta = "SELECT * from vdetallecxp_mat where folio_cxp='$folio' and id_mat='$idmat'";
+        $consulta = "SELECT * from vdetallecxp_insumo where folio_cxp='$folio' and id_cons='$idcons'";
         
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -32,7 +32,7 @@ switch ($opcion) {
 
         break;
         case 2:
-            $consulta = "DELETE FROM detallecxp_mat where id_reg='$id'";
+            $consulta = "DELETE FROM detallecxp_insumo where id_reg='$id'";
         
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();

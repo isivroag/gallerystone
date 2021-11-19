@@ -151,6 +151,9 @@ $(document).ready(function () {
               }else if(data[2] == 'Entrada Can'){
                 $($(row).find('td')[2]).addClass('bg-gradient-danger')
               }
+              else if(data[2] == 'Salida Can'){
+                $($(row).find('td')[2]).addClass('bg-gradient-danger')
+              }
 
 
         },

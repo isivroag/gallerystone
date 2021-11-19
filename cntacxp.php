@@ -70,7 +70,11 @@ $message = "";
         <div class="row">
           <div class="col-lg-12">
 
-            <button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+            <button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> General</span></button>
+            <button id="btnNuevoM" type="button" class="btn btn-ms" data-toggle="modal" style="background-color: #F49FF1;"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Material</span></button>
+            <button id="btnNuevoI" type="button" class="btn bg-gradient-success btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Insumo</span></button>
+            <button id="btnNuevoD" type="button" class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Insumo Desgaste</span></button>
+            <button id="btnNuevoH" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Herramienta</span></button>
             <button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button>
           </div>
         </div>
@@ -118,6 +122,7 @@ $message = "";
                       <th>Total</th>
                       <th>Saldo</th>
                       <th>Fecha Limite</th>
+                      <th>Tipo</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -133,6 +138,7 @@ $message = "";
                         <td class="currency text-right"><?php echo  $dat['total'] ?></td>
                         <td class="currency text-right"><?php echo  $dat['saldo'] ?></td>
                         <td><?php echo $dat['fecha_limite'] ?></td>
+                        <td><?php echo $dat['tipo'] ?></td>
                         <td></td>
                       </tr>
                     <?php
@@ -349,7 +355,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntacxp.js"></script>
+<script src="fjs/cntacxp.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

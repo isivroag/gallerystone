@@ -92,6 +92,56 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
+
+        // CONSULTA DEL DETALLE
+        $consulta = "SELECT * FROM detallecxp_mat WHERE folio_cxp='$folio'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($data as $row) {
+
+            // EMPIEZA EL INCREMENTO EN INVENTARIO
+            $id = $row['id_mat'];
+            $tipomov = 'Salida Can';
+            $saldo = 0;
+            $montomov = $row['cant_mat'];
+            $saldofin = 0;
+            $descripcion = "CANCELACION DE COMPRA DE MATERIAL CXP FOLIO: ". $folio;
+            
+            $usuario=$row['usuario'];
+            
+         
+            $consultam = "SELECT * from material where id_mat='$id'";
+            $resultadom = $conexion->prepare($consultam);
+            if ($resultadom->execute()) {
+                $datam = $resultadom->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($datam as $rowdatam) {
+                    $saldo = $rowdatam['cant_mat'];
+                }
+                $res += 1;
+            }
+
+            $saldofin = $saldo - $montomov;
+
+            //guardar el movimiento
+            $consultam = "INSERT INTO mov_prod(id_mat,fecha_movp,tipo_movp,cantidad,saldoini,saldofin,descripcion,usuario) values('$id','$fecha_actual','$tipomov','$montomov','$saldo','$saldofin','$descripcion','$usuario')";
+            $resultadom = $conexion->prepare($consultam);
+            if ($resultadom->execute()) {
+                $res += 1;
+            }
+
+            $consultam = "UPDATE material SET cant_mat='$saldofin' WHERE id_mat='$id'";
+            $resultadom = $conexion->prepare($consultam);
+            if ($resultadom->execute()) {
+                $res += 1;
+            }
+            //TERMINA EL INCREMENTO EN INVENTARIO   
+
+        }
+
+
+        
         break;
 }
 

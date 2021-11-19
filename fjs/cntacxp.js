@@ -60,6 +60,35 @@ $(document).ready(function () {
             },
             sProcessing: 'Procesando...',
         },
+
+
+        rowCallback: function (row, data) {
+            $($(row).find('td')['7']).css('color', 'white')
+            $($(row).find('td')['7']).addClass('text-center')
+            
+      
+            if (data[7] == 'CXP') {
+              //$($(row).find("td")[6]).css("background-color", "warning");
+              $($(row).find('td')[7]).addClass('bg-gradient-warning')
+              //$($(row).find('td')['7']).text('PENDIENTE')
+            } else if (data[7] == 'CXPMATERIAL') {
+              //$($(row).find("td")[7]).css("background-color", "blue");
+              $($(row).find('td')[7]).css('background-color', '#F49FF1');
+              //$($(row).find('td')['7']).text('ENVIADO')
+            } else if (data[7] == 'CXPINSUMO') {
+              //$($(row).find("td")[7]).css("background-color", "success");
+              $($(row).find('td')[7]).addClass('bg-gradient-success')
+              //$($(row).find('td')['7']).text('ACEPTADO')
+            } else if (data[7] == 'CXPINSUMODES') {
+              //$($(row).find("td")[7]).css("background-color", "purple");
+              $($(row).find('td')[7]).addClass('bg-gradient-purple')
+              //$($(row).find('td')['7']).text('EN ESPERA')
+            } else if (data[7] == 'CXPHERRAMIENTA') {
+              //$($(row).find("td")[5]).css("background-color", "light-blue");
+              $($(row).find('td')[7]).addClass('bg-lightblue')
+              //$($(row).find('td')['7']).text('EDITADO')
+            }
+          },
     })
 
     tablaResumen = $("#tablaResumen").DataTable({
@@ -151,13 +180,25 @@ $(document).ready(function () {
 
     $('#btnNuevo').click(function () {
         window.location.href = 'cxp.php'
-        //$("#formDatos").trigger("reset");
-        //$(".modal-header").css("background-color", "#28a745");
-        //$(".modal-header").css("color", "white");
-        //$(".modal-title").text("Nuevo Prospecto");
-        //$("#modalCRUD").modal("show");
-        //id = null;
-        //opcion = 1; //alta
+      
+    })
+
+    $('#btnNuevoM').click(function () {
+        window.location.href = 'compramat.php'
+    })
+
+    $('#btnNuevoI').click(function () {
+        window.location.href = 'comprainsumo.php'
+    })
+
+
+    $('#btnNuevoD').click(function () {
+        window.location.href = 'compradesgaste.php'
+    })
+
+
+    $('#btnNuevoH').click(function () {
+        window.location.href = 'compraherramienta.php'
     })
 
     var fila //capturar la fila para editar o borrar el registro
@@ -166,8 +207,27 @@ $(document).ready(function () {
     $(document).on('click', '.btnEditar', function () {
         fila = $(this).closest('tr')
         id = parseInt(fila.find('td:eq(0)').text())
-        console.log(id)
-        window.location.href = 'cxp.php?folio=' + id
+        tipo=fila.find('td:eq(7)').text()
+        console.log(tipo)
+        switch (tipo) {
+          
+              case 'CXP':
+                window.location.href = 'cxp.php?folio=' + id
+              break;
+              case 'CXPMATERIAL':
+                window.location.href = 'compramat.php?folio=' + id
+              break;
+              case 'CXPINSUMO':
+                window.location.href = 'comprainsumo.php?folio=' + id
+              break;
+              case 'CXPINSUMODES':
+         
+              break;
+              case 'CXPHERRAMIENTA':
+         
+              break;
+        }
+       
     })
 
     $(document).on('click', '.btnPagar', function () {
@@ -197,16 +257,37 @@ $(document).ready(function () {
     //botón BORRAR
     $(document).on('click', '.btnBorrar', function () {
         fila = $(this)
-
+        varurl=""
         folio = parseInt($(this).closest('tr').find('td:eq(0)').text())
+        total =$(this).closest('tr').find('td:eq(4)').text()
+        saldo =$(this).closest('tr').find('td:eq(5)').text()
+        tipooperacion =$(this).closest('tr').find('td:eq(7)').text()
         opcion = 3 //borrar
-
+        console.log(tipooperacion)
+        switch(tipooperacion){
+          
+            case 'CXP':
+                varurl='bd/crudcxp.php'
+              break;
+              case 'CXPMATERIAL':
+                varurl='bd/crudcxpmat.php'
+              break;
+              case 'CXPINSUMO':
+                varurl='bd/crudcxpinsumo.php'
+              break;
+              case 'CXPINSUMODES':
+                varurl='bd/crudcxpdes.php'
+              break;
+              case 'CXPHERRAMIENTA':
+                varurl='bd/crudcxpherramienta.php'
+              break;
+        }
         //agregar codigo de sweatalert2
-
-        swal
+        if (saldo== total){
+            swal
             .fire({
-                title: 'Egresos',
-                text: '¿Desea eliminar el registro seleccionado?',
+                title: '¿Desea eliminar el registro seleccionado?',
+                text: '',
                 showCancelButton: true,
                 icon: 'question',
                 focusConfirm: true,
@@ -218,7 +299,8 @@ $(document).ready(function () {
             .then(function (isConfirm) {
                 if (isConfirm.value) {
                     $.ajax({
-                        url: 'bd/crudcxp.php',
+                        
+                        url: varurl,
                         type: 'POST',
                         dataType: 'json',
                         data: { folio: folio, opcion: opcion },
@@ -229,7 +311,28 @@ $(document).ready(function () {
                 } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
                 }
             })
+        }else{
+            mensajeerror()
+            
+        }
+
+      
+
     })
+
+            
+    function mensajeerror() {
+        swal.fire({
+          title: 'No es posible eliminar el registro',
+          text:"EL registro ya cuenta con operaciones posteriores",
+          icon: 'error',
+          focusConfirm: true,
+          confirmButtonText: 'Aceptar',
+        })
+      }
+    
+  
+       
 
     function startTime() {
         var today = new Date()

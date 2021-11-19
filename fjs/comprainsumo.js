@@ -1,5 +1,8 @@
 $(document).ready(function() {
     var id, opcion;
+
+
+
     var operacion=$('#opcion').val();
 
     var textopermiso=permisos();
@@ -9,7 +12,7 @@ $(document).ready(function() {
      
      
       if (operacion == 1) {
-        columnas = "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
+        columnas =  "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
           
       } else {
         columnas =""
@@ -18,7 +21,6 @@ $(document).ready(function() {
       return columnas
     }
 
-   
 
 
 
@@ -79,40 +81,8 @@ $(document).ready(function() {
     });
 
 
-  //TABLA MATERIAL
-  tablaMat = $('#tablaMat').DataTable({
-    columnDefs: [
-      {
-        targets: -1,
-        data: null,
-        defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelMaterial'><i class='fas fa-hand-pointer'></i></button></div></div>",
-      },
-      { className: 'hide_column', targets: [0] },
-      { className: 'hide_column', targets: [9] },
-    ],
-
-    //Para cambiar el lenguaje a español
-    language: {
-      lengthMenu: 'Mostrar _MENU_ registros',
-      zeroRecords: 'No se encontraron resultados',
-      info:
-        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
-      infoFiltered: '(filtrado de un total de _MAX_ registros)',
-      sSearch: 'Buscar:',
-      oPaginate: {
-        sFirst: 'Primero',
-        sLast: 'Último',
-        sNext: 'Siguiente',
-        sPrevious: 'Anterior',
-      },
-      sProcessing: 'Procesando...',
-    },
-  })
-
-//TABLA DETALLED DE MATERIAL
-tablaDet = $('#tablaDet').DataTable({
+  //TABLA DETALLE DE INSUMOS
+  tablaDetIn = $('#tablaDetIn').DataTable({
     paging: false,
     ordering: false,
     info: false,
@@ -125,8 +95,11 @@ tablaDet = $('#tablaDet').DataTable({
         defaultContent:textopermiso,
       },
       { className: 'hide_column', targets: [1] },
-      { className: 'hide_column', targets: [2] },
-      { className: 'hide_column', targets: [10] },
+      { className: 'text-center', targets: [3] },
+      { className: 'text-center', targets: [5] },
+      { className: 'text-center', targets: [6] },
+      { className: 'text-center', targets: [7] },
+     
     ],
 
     language: {
@@ -146,6 +119,39 @@ tablaDet = $('#tablaDet').DataTable({
       sProcessing: 'Procesando...',
     },
   })
+
+    //TABLA INSUMO
+    tablaIns = $('#tablaIns').DataTable({
+        columnDefs: [
+          {
+            targets: -1,
+            data: null,
+            defaultContent:
+              "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelInsumo'><i class='fas fa-hand-pointer'></i></button></div></div>",
+          },
+         
+        ],
+    
+        //Para cambiar el lenguaje a español
+        language: {
+          lengthMenu: 'Mostrar _MENU_ registros',
+          zeroRecords: 'No se encontraron resultados',
+          info:
+            'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+          infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+          infoFiltered: '(filtrado de un total de _MAX_ registros)',
+          sSearch: 'Buscar:',
+          oPaginate: {
+            sFirst: 'Primero',
+            sLast: 'Último',
+            sNext: 'Siguiente',
+            sPrevious: 'Anterior',
+          },
+          sProcessing: 'Procesando...',
+        },
+      })
+    
+
     $(document).on("click", "#bproveedor", function() {
 
         $(".modal-header").css("background-color", "#007bff");
@@ -227,6 +233,8 @@ tablaDet = $('#tablaDet').DataTable({
 
     });
 
+
+
     $(document).on("click", "#btnGuardar", function() {
         folio = $("#folio").val();
         fecha = $("#fecha").val();
@@ -249,7 +257,7 @@ tablaDet = $('#tablaDet').DataTable({
             $.ajax({
 
                 type: "POST",
-                url: "bd/crudcxpmat.php",
+                url: "bd/crudcxpinsumo.php",
                 dataType: "json",
                 data: { fecha: fecha, fechal: fechal, id_prov: id_prov, id_partida: id_partida, concepto: concepto, facturado: facturado, referencia: referencia, subtotal: subtotal, iva: iva, total: total, saldo: total, tokenid: tokenid, folio: folio, opcion: opcion },
                 success: function(res) {
@@ -284,15 +292,7 @@ tablaDet = $('#tablaDet').DataTable({
         }
     });
 
-
-  //BOTON BUSCAR MATERIAL
-  $(document).on('click', '#btnMaterial', function () {
-    $('.modal-header').css('background-color', '#007bff')
-    $('.modal-header').css('color', 'white')
-
-    $('#modalMat').modal('show')
-  })
-
+//SELECCIONAR PARTIDA
     $(document).on("click", ".btnSelConcepto", function() {
         fila = $(this).closest("tr");
         idpartida = fila.find('td:eq(0)').text();
@@ -303,136 +303,99 @@ tablaDet = $('#tablaDet').DataTable({
 
     });
 
-    
 
+//BOTON BUSCAR INSUMO
+$(document).on('click', '#btnInsumo', function () {
+    $('.modal-header').css('background-color', '#007bff')
+    $('.modal-header').css('color', 'white')
 
-// SELECCIONAR MATERIAL
-    $(document).on("click", ".btnSelMaterial", function() {
-        fila = $(this).closest('tr')
-        iditem = fila.find('td:eq(0)').text()
-        idMaterial = fila.find('td:eq(1)').text()
-        ClaveMaterial = fila.find('td:eq(2)').text()
-        NomMaterial = fila.find('td:eq(3)').text()
-    
-        formato = fila.find('td:eq(4)').text()
-        idumedida = fila.find('td:eq(9)').text()
-        nomumedida = fila.find('td:eq(10)').text()
-    
-        m2 = fila.find('td:eq(8)').text()
-        alto = fila.find('td:eq(7)').text()
-        ancho = fila.find('td:eq(6)').text()
-        largo = fila.find('td:eq(5)').text()
-      
-        cantidaddis = fila.find('td:eq(12)').text()
-    
-        /*
-         */
-        $('#iditem').val(iditem)
-        $('#clavemat').val(idMaterial)
-        $('#material').val(NomMaterial)
-        $('#clave').val(ClaveMaterial)
-        $('#id_umedida').val(idumedida)
-        $('#nom_umedida').val(nomumedida)
-        $('#m2').val(m2)
-        $('#alto').val(alto)
-        $('#ancho').val(ancho)
-        $('#largo').val(largo)
-        
-        $('#formato').val(formato)
-        $('#cantidaddis').val(cantidaddis)
-        $('#cantidad').prop('disabled', false)
-        $('#costou').prop('disabled', false)
-    
-        $('#modalMat').modal('hide')
-
-    });
-
-//BOTON LIMPIAR MATERIAL
-$(document).on('click', '#btlimpiar', function () {
-    limpiarmat()
+    $('#modalIns').modal('show')
   })
 
-    $("#subtotal").on("change keyup paste click", function() {
-        if ($('#cmanual').prop('checked')) {
 
+ 
+//BOTON SELECCION INSUMO
+$(document).on('click', '.btnSelInsumo', function () {
+    fila = $(this).closest('tr')
+    idinsumo = fila.find('td:eq(0)').text()
+    nominsumo = fila.find('td:eq(1)').text()
+    nomumedida = fila.find('td:eq(3)').text()
+    cantidaddisin = fila.find('td:eq(4)').text()
+    presentacionn = fila.find('td:eq(2)').text()
 
-        } else {
-            if ($('#cinverso').prop('checked')) {
+    /*
+     */
+    $('#idinsumo').val(idinsumo)
+  
+    $('#insumo').val(nominsumo)
+ 
+    $('#presentacion').val(presentacionn)
+    $('#nom_umedidain').val(nomumedida)
+ 
+    $('#cantidaddisi').val(cantidaddisin)
+    $('#cantidadi').prop('disabled', false)
+    $('#costou').prop('disabled', false)
+    $('#modalIns').modal('hide')
+  })
 
-            } else {
-                valor = $("#subtotal").val();
-                calculo(valor);
-            }
-        }
+  //BOTON LIMPIAR INSUMO
+  $(document).on('click', '#btlimpiari', function () {
+    limpiarin()
+  })
 
+  //AGREGAR INSUMO
 
-    });
-
-    // AGREGAR MATERIAL
-  $(document).on('click', '#btnagregar', function () {
+  $(document).on('click', '#btnagregari', function () {
     folio = $('#folio').val()
-
-    idmat = $('#clavemat').val()
-
-    cantidad = $('#cantidad').val()
+    idcons = $('#idinsumo').val()
+    cantidadi = $('#cantidadi').val()
     costo = $('#costou').val()
-    subtotal=cantidad*costo
-    usuario=$('#nameuser').val();
+    subtotal=cantidadi*costo
+    usuario = $('#nameuser').val()
     opcion = 1
 
-    if (folio.length != 0 && idmat.length != 0 && cantidad.length != 0 && costo.length != 0) {
+
+  
+
+    if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0 && costo.length != 0) {
       $.ajax({
         type: 'POST',
-        url: 'bd/detallecxpmat.php',
+        url: 'bd/detallecxpinsumo.php',
         dataType: 'json',
         //async: false,
         data: {
           folio: folio,
-          idmat: idmat,
-          cantidad: cantidad,
+          idcons: idcons,
+          cantidadi: cantidadi,
+          subtotal, subtotal,
           costo: costo,
-          subtotal: subtotal,
           opcion: opcion,
           usuario: usuario
         },
         success: function (data) {
-       
+         
           id_reg = data[0].id_reg
-          id_mat = data[0].id_mat
-          id_item = data[0].id_item
-          clave_item = data[0].clave_item
-          nom_item = data[0].nom_item
-          formato = data[0].formato
-          largo_mat = data[0].largo_mat
-          ancho_mat = data[0].ancho_mat
-          alto_mat = data[0].alto_mat
-          id_umedida = data[0].id_umedida
+          id_cons = data[0].id_cons
+          nom_cons = data[0].nom_cons
+          presentacion=data[0].presentacion
           nom_umedida = data[0].nom_umedida
-          m2_mat = data[0].m2_mat
-          costo = data[0].costo_mat
-          cant_mat = data[0].cant_mat
-          subtotal= data[0].subtotal
+          cantidad = data[0].cant_cons
+          costo = data[0].costo_cons
+          subtotal = data[0].subtotal
 
-          tablaDet.row
+          tablaDetIn.row
             .add([
               id_reg,
-              id_item,
-              id_mat,
-              clave_item,
-              nom_item,
-              formato,
-              largo_mat,
-              ancho_mat,
-              alto_mat,
-              m2_mat,
-              id_umedida,
+              id_cons,
+              nom_cons,
+              presentacion,
               nom_umedida,
+              cantidad,
               costo,
-              cant_mat,
               subtotal,
             ])
             .draw()
-          limpiarmat()
+          limpiarin()
         },
       })
     } else {
@@ -444,6 +407,39 @@ $(document).on('click', '#btlimpiar', function () {
       return false
     }
   })
+
+  //LIMPIAR INSUMO
+  function limpiarin() {
+    $('#idinsumo').val('')
+    $('#insumo').val('')
+    
+    $('#cantidadi').val('')
+    $('#cantidaddisi').val('')
+    
+    $('#nom_umedidain').val('')
+    $('#cantidadi').prop('disabled', true)
+
+    $('#costou').val('')
+    $('#presentacion').val('')
+    $('#costou').prop('disabled', true)
+  }
+  
+  
+  $("#subtotal").on("change keyup paste click", function() {
+    if ($('#cmanual').prop('checked')) {
+
+
+    } else {
+        if ($('#cinverso').prop('checked')) {
+
+        } else {
+            valor = $("#subtotal").val();
+            calculo(valor);
+        }
+    }
+
+
+});
 
     $("#total").on("change keyup paste click", function() {
         if ($('#cmanual').prop('checked')) {
@@ -457,8 +453,6 @@ $(document).on('click', '#btlimpiar', function () {
         }
 
     });
-
-
 
     $("#ccredito").on("click", function() {
         if ($('#ccredito').prop('checked')) {
@@ -538,23 +532,7 @@ $(document).on('click', '#btlimpiar', function () {
         $("#cinverso").val(false);
     };
 
-  function limpiarmat() {
-    $('#clavemat').val('')
-    $('#material').val('')
-    $('#clave').val('')
-    $('#formato').val('')
-    $('#id_umedida').val('')
-    $('#m2').val('')
-    $('#largo').val('')
-    $('#ancho').val('')
-    $('#alto').val('')
-    $('#cantidad').val('')
-    $('#cantidaddis').val('')
-    $('#costou').val('')
-    $('#nom_umedida').val('')
-    $('#cantidad').prop('disabled', true)
-    $('#costou').prop('disabled', true)
-  }
+
     function calculo(subtotal) {
 
         total = round(subtotal * 1.16, 2);
@@ -581,6 +559,7 @@ $(document).on('click', '#btlimpiar', function () {
     }
 
 
+
   // BORRAR MATERIAL
   $(document).on('click', '.btnBorrar', function () {
     fila = $(this)
@@ -593,13 +572,13 @@ $(document).on('click', '#btlimpiar', function () {
 
     $.ajax({
       type: 'POST',
-      url: 'bd/detallecxpmat.php',
+      url: 'bd/detallecxpinsumo.php',
       dataType: 'json',
       data: { id: id, opcion: tipooperacion },
       success: function (data) {
      
         if (data == 1) {
-          tablaDet.row(fila.parents('tr')).remove().draw()
+            tablaDetIn.row(fila.parents('tr')).remove().draw()
         } else {
           mensajeerror()
         }
@@ -617,24 +596,25 @@ $(document).on('click', '#btlimpiar', function () {
     })
   }
 
-
 })
 
-function filterFloat(evt, input) {
-  // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
-  var key = window.Event ? evt.which : evt.keyCode
-  var chark = String.fromCharCode(key)
-  var tempValue = input.value + chark
-  var isNumber = key >= 48 && key <= 57
-  var isSpecial = key == 8 || key == 13 || key == 0 || key == 46
-  if (isNumber || isSpecial) {
-    return filter(tempValue)
-  }
 
-  return false
-}
-function filter(__val__) {
-  var preg = /^([0-9]+\.?[0-9]{0,2})$/
-  return preg.te
-  st(__val__) === true
-}
+
+function filterFloat(evt, input) {
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode
+    var chark = String.fromCharCode(key)
+    var tempValue = input.value + chark
+    var isNumber = key >= 48 && key <= 57
+    var isSpecial = key == 8 || key == 13 || key == 0 || key == 46
+    if (isNumber || isSpecial) {
+      return filter(tempValue)
+    }
+  
+    return false
+  }
+  function filter(__val__) {
+    var preg = /^([0-9]+\.?[0-9]{0,2})$/
+    return preg.te
+    st(__val__) === true
+  }

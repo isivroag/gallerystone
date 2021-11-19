@@ -53,12 +53,11 @@ if ($folio != "") {
     //BUSCAR CUENTA ABIERTA
 
 
-    $consultatmp = "SELECT * FROM cxp WHERE tokenid='$tokenid' and estado='0' ORDER BY folio_cxp DESC LIMIT 1";
+    $consultatmp = "SELECT * FROM cxp WHERE tokenid='$tokenid' and estado='0' and tipo='CXPMATERIAL' ORDER BY folio_cxp DESC LIMIT 1";
     $resultadotmp = $conexion->prepare($consultatmp);
     $resultadotmp->execute();
     if ($resultadotmp->rowCount() >= 1) {
         $datatmp = $resultadotmp->fetchAll(PDO::FETCH_ASSOC);
-      
     } else {
 
         // INSERTAR FOLIO NUEVO
@@ -69,7 +68,7 @@ if ($folio != "") {
         $resultadotmp->execute();
 
 
-        $consultatmp = "SELECT * FROM cxp WHERE folio_cxp='$folio' ORDER BY folio_cxp DESC LIMIT 1";
+        $consultatmp = "SELECT * FROM cxp WHERE tokenid='$tokenid' and estado='0' and tipo='CXPMATERIAL' ORDER BY folio_cxp DESC LIMIT 1";
         $resultadotmp = $conexion->prepare($consultatmp);
         $resultadotmp->execute();
         $datatmp = $resultadotmp->fetchAll(PDO::FETCH_ASSOC);
@@ -78,7 +77,7 @@ if ($folio != "") {
 
 
 
-   
+
     foreach ($datatmp as $dt) {
 
         $folio =  $dt['folio_cxp'];;
@@ -131,13 +130,13 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
     }
 
     .borde-titulazul {
-        border-left: rgb(117,74,195);
+        border-left: rgb(117, 74, 195);
         border-style: outset;
         ;
     }
 
     .fondoazul {
-        background-color: rgba(117,74,195,0.8);
+        background-color: rgba(117, 74, 195, 0.8);
     }
 
     .borde-titulinfo {
@@ -226,9 +225,9 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="row">
                     <div class="col-lg-12">
-
-                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-
+                        <?php if ($opcion == 1) { ?>
+                            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar" <?php echo $opcion == 2 ? 'disabled' : '' ?>><i class="far fa-save"></i> Guardar</button>
+                        <?php } ?>
 
                     </div>
                 </div>
@@ -263,10 +262,12 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="input-group input-group-sm">
 
                                                 <input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $nombre; ?>" disabled>
-                                                <span class="input-group-append">
-                                                    <button id="bproveedor" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
-                                                    <button id="bproveedorplus" type="button" class="btn btn-success "><i class="fas fa-plus-square"></i></button>
-                                                </span>
+                                                <?php if ($opcion == 1) { ?>
+                                                    <span class="input-group-append">
+                                                        <button id="bproveedor" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
+                                                        <button id="bproveedorplus" type="button" class="btn btn-success "><i class="fas fa-plus-square"></i></button>
+                                                    </span>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -298,10 +299,12 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="input-group input-group-sm">
 
                                                 <input type="text" class="form-control" name="partida" id="partida" value="<?php echo $nom_partida; ?>" disabled>
-                                                <span class="input-group-append">
-                                                    <button id="bpartida" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
-                                                    <button id="bpartidaplus" type="button" class="btn btn-success "><i class="fas fa-plus-square"></i></button>
-                                                </span>
+                                                <?php if ($opcion == 1) { ?>
+                                                    <span class="input-group-append">
+                                                        <button id="bpartida" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
+                                                        <button id="bpartidaplus" type="button" class="btn btn-success "><i class="fas fa-plus-square"></i></button>
+                                                    </span>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -388,7 +391,7 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
                                                 </span>
                                             </div>
 
-                                            <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal; ?>">
+                                            <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal; ?>" onkeypress="return filterFloat(event,this);">
                                         </div>
                                     </div>
 
@@ -402,7 +405,7 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
                                                 </span>
                                             </div>
 
-                                            <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva; ?>" disabled>
+                                            <input type="text" class="form-control text-right" name="iva" id="iva" value="<?php echo $iva; ?>" disabled onkeypress="return filterFloat(event,this);">
                                         </div>
                                     </div>
 
@@ -416,7 +419,7 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
                                                 </span>
                                             </div>
 
-                                            <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total; ?>" disabled>
+                                            <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total; ?>" onkeypress="return filterFloat(event,this);" disabled>
                                         </div>
 
                                     </div>
@@ -441,136 +444,139 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <div class="card-body">
+                        <?php if ($opcion == 1) { ?>
+                            <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
 
-                        <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
-
-                            <div class="card-header " style="margin:0px;padding:8px;">
+                                <div class="card-header " style="margin:0px;padding:8px;">
 
 
 
-                                <div class="row">
+                                    <div class="row">
 
-                                    <div class="col-sm-2">
-                                        <button type="button" class="btn bg-gradient-purple btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                            Agregar Material <i class="fas fa-plus"></i>
-                                        </button>
+                                        <div class="col-sm-2">
+
+                                            <button type="button" class="btn bg-gradient-purple btn-sm" <?php echo $opcion == 2 ? 'disabled' : '' ?> data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                Agregar Material <i class="fas fa-plus"></i>
+                                            </button>
+
+                                        </div>
                                     </div>
+
                                 </div>
-                            </div>
 
-                            <div class="card-body " style="margin:0px;padding:2px 5px;">
-                                <div class="row justify-content-sm-center">
+                                <div class="card-body " style="margin:0px;padding:2px 5px;">
+                                    <div class="row justify-content-sm-center">
 
-                                    <div class="col-lg-4">
-                                        <div class="input-group input-group-sm">
-
-                                            <input type="hidden" class="form-control" name="clavemat" id="clavemat">
-                                            <input type="hidden" class="form-control" name="iditem" id="iditem">
-
-
-
-
-                                            <label for="material" class="col-form-label">Material:</label>
+                                        <div class="col-lg-4">
                                             <div class="input-group input-group-sm">
-                                                <input type="text" class="form-control" name="material" id="material" disabled>
-                                                <span class="input-group-append">
-                                                    <button id="btnMaterial" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+
+                                                <input type="hidden" class="form-control" name="clavemat" id="clavemat">
+                                                <input type="hidden" class="form-control" name="iditem" id="iditem">
+
+
+
+
+                                                <label for="material" class="col-form-label">Material:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" name="material" id="material" disabled>
+                                                    <span class="input-group-append">
+                                                        <button id="btnMaterial" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <label for="clave" class="col-form-label">Clave:</label>
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" name="clave" id="clave" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label for="formato" class="col-form-label">Formato:</label>
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" name="formato" id="formato" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
+                                            <label for="nom_umedida" class="col-form-label">U Medida:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control " name="nom_umedida" id="nom_umedida" disabled>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-lg-1">
+                                            <label for="m2" class="col-form-label">M2:</label>
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" name="m2" id="m2" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <label for="largo" class="col-form-label">Largo:</label>
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" name="largo" id="largo" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <label for="ancho" class="col-form-label">Ancho:</label>
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" name="ancho" id="ancho" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <label for="alto" class="col-form-label">Alto:</label>
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" name="alto" id="alto" disabled>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-2">
+                                            <label for="costou" class="col-form-label">Costo Unitario:</label>
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" name="costou" id="costou" disabled onkeypress="return filterFloat(event,this);">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <label for="cantidad" class="col-form-label">Cantidad:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
+                                                <input type="text" class="form-control" name="cantidad" id="cantidad" disabled onkeypress="return filterFloat(event,this);">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1 justify-content-center">
+                                            <label for="" class="col-form-label">Acción:</label>
+                                            <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                    <button type="button" id="btnagregar" name="btnagregar" class="btn btn-sm bg-gradient-orange" value="btnGuardar"><i class="fas fa-plus-square"></i></button>
+                                                </span>
+                                                <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                    <button type="button" id="btlimpiar" name="btlimpiar" class="btn btn-sm bg-gradient-purple" value="btnlimpiar"><i class="fas fa-brush"></i></button>
                                                 </span>
                                             </div>
-
                                         </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <label for="clave" class="col-form-label">Clave:</label>
-                                        <div class="input-group input-group-sm">
 
-                                            <input type="text" class="form-control" name="clave" id="clave" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <label for="formato" class="col-form-label">Formato:</label>
-                                        <div class="input-group input-group-sm">
-
-                                            <input type="text" class="form-control" name="formato" id="formato" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-1">
-                                        <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
-                                        <label for="nom_umedida" class="col-form-label">U Medida:</label>
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control " name="nom_umedida" id="nom_umedida" disabled>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="col-lg-1">
-                                        <label for="m2" class="col-form-label">M2:</label>
-                                        <div class="input-group input-group-sm">
-
-                                            <input type="text" class="form-control" name="m2" id="m2" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2">
-                                        <label for="largo" class="col-form-label">Largo:</label>
-                                        <div class="input-group input-group-sm">
-
-                                            <input type="text" class="form-control" name="largo" id="largo" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <label for="ancho" class="col-form-label">Ancho:</label>
-                                        <div class="input-group input-group-sm">
-
-                                            <input type="text" class="form-control" name="ancho" id="ancho" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2">
-                                        <label for="alto" class="col-form-label">Alto:</label>
-                                        <div class="input-group input-group-sm">
-
-                                            <input type="text" class="form-control" name="alto" id="alto" disabled>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-lg-2">
-                                        <label for="costou" class="col-form-label">Costo Unitario:</label>
-                                        <div class="input-group input-group-sm">
-
-                                            <input type="text" class="form-control" name="costou" id="costou" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2">
-                                        <label for="cantidad" class="col-form-label">Cantidad:</label>
-                                        <div class="input-group input-group-sm">
-                                            <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
-                                            <input type="text" class="form-control" name="cantidad" id="cantidad" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-1 justify-content-center">
-                                        <label for="" class="col-form-label">Acción:</label>
-                                        <div class="input-group-append input-group-sm justify-content-center d-flex">
-                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
-                                                <button type="button" id="btnagregar" name="btnagregar" class="btn btn-sm bg-gradient-orange" value="btnGuardar"><i class="fas fa-plus-square"></i></button>
-                                            </span>
-                                            <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
-                                                <button type="button" id="btlimpiar" name="btlimpiar" class="btn btn-sm bg-gradient-purple" value="btnlimpiar"><i class="fas fa-brush"></i></button>
-                                            </span>
-                                        </div>
                                     </div>
 
                                 </div>
 
                             </div>
-
-                        </div>
-
+                        <?php } ?>
 
                         <div class="row">
 
