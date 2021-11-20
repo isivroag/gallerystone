@@ -276,7 +276,7 @@ $(document).ready(function () {
                 varurl='bd/crudcxpinsumo.php'
               break;
               case 'CXPINSUMODES':
-                varurl='bd/crudcxpdes.php'
+                varurl='bd/crudcxpdesechable.php'
               break;
               case 'CXPHERRAMIENTA':
                 varurl='bd/crudcxpherramienta.php'
