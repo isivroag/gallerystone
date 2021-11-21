@@ -96,7 +96,7 @@ $(document).ready(function() {
       { className: 'text-center', targets: [3] },
       { className: 'text-center', targets: [4] },
       { className: 'text-center', targets: [5] },
-      { className: 'text-center', targets: [6] },
+  
      
     ],
 
@@ -252,7 +252,7 @@ $(document).ready(function() {
             $.ajax({
 
                 type: "POST",
-                url: "bd/crudcxpdesechable.php",
+                url: "bd/crudcxpherramienta.php",
                 dataType: "json",
                 data: { fecha: fecha, fechal: fechal, id_prov: id_prov, id_partida: id_partida, concepto: concepto, facturado: facturado, referencia: referencia, subtotal: subtotal, iva: iva, total: total, saldo: total, tokenid: tokenid, folio: folio, opcion: opcion },
                 success: function(res) {
@@ -314,20 +314,13 @@ $(document).ready(function() {
     fila = $(this).closest('tr')
     idinsumo = fila.find('td:eq(0)').text()
     nominsumo = fila.find('td:eq(1)').text()
-    nomumedida = fila.find('td:eq(2)').text()
-    cantidaddisin = fila.find('td:eq(3)').text()
+  
 
     /*
      */
     $('#idinsumodes').val(idinsumo)
-  
-    $('#insumodes').val(nominsumo)
- 
-    
-    $('#nom_umedidaindes').val(nomumedida)
- 
-    $('#cantidaddisides').val(cantidaddisin)
-    $('#costou').prop('disabled', false)
+     $('#insumodes').val(nominsumo)
+     $('#costou').prop('disabled', false)
     $('#cantidadides').prop('disabled', false)
 
     $('#modalDes').modal('hide')
@@ -362,7 +355,7 @@ $(document).on('click', '#btnagregarides', function () {
     iddes = $('#idinsumodes').val()
 
     cantidadi = $('#cantidadides').val()
-    cantidaddisi = $('#cantidaddisides').val()
+  
     costo = $('#costou').val()
     subtotal=costo*cantidadi
     usuario = $('#nameuser').val()
@@ -372,7 +365,7 @@ $(document).on('click', '#btnagregarides', function () {
     if (folio.length != 0 && iddes.length != 0 && cantidadi.length != 0 && costo.length != 0) {
       $.ajax({
         type: 'POST',
-        url: 'bd/detallecxpdes.php',
+        url: 'bd/detallecxpherramienta.php',
         dataType: 'json',
         //async: false,
         data: {
@@ -387,11 +380,10 @@ $(document).on('click', '#btnagregarides', function () {
         success: function (data) {
           
           id_reg = data[0].id_reg
-          id_des = data[0].id_des
-          nom_des = data[0].nom_des
-          nom_umedida = data[0].nom_umedida
-          cantidad = data[0].cant_des
-          costo = data[0].costo_des
+          id_des = data[0].id_her
+          nom_des = data[0].nom_her
+          cantidad = data[0].cant_her
+          costo = data[0].costo_her
           subtotal = data[0].subtotal
 
           tablaDetIndes.row
@@ -399,7 +391,6 @@ $(document).on('click', '#btnagregarides', function () {
               id_reg,
               id_des,
               nom_des,
-              nom_umedida,
               cantidad,
               costo,
               subtotal,
@@ -517,9 +508,6 @@ $(document).on('click', '#btnagregarides', function () {
         $('#insumodes').val('')
         
         $('#cantidadides').val('')
-        $('#cantidaddisides').val('')
-        
-        $('#nom_umedidaindes').val('')
         $('#costou').val('')
         $('#costou').prop('disabled', true)
         $('#cantidadides').prop('disabled', true)
@@ -562,7 +550,7 @@ $(document).on('click', '#btnagregarides', function () {
 
     $.ajax({
       type: 'POST',
-      url: 'bd/detallecxpdes.php',
+      url: 'bd/detallecxpherramienta.php',
       dataType: 'json',
       data: { id: id, opcion: tipooperacion },
       success: function (data) {

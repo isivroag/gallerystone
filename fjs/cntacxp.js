@@ -221,10 +221,10 @@ $(document).ready(function () {
                 window.location.href = 'comprainsumo.php?folio=' + id
               break;
               case 'CXPINSUMODES':
-         
+                window.location.href = 'compradesgaste.php?folio=' + id
               break;
               case 'CXPHERRAMIENTA':
-         
+                window.location.href = 'compraherramienta.php?folio=' + id
               break;
         }
        
