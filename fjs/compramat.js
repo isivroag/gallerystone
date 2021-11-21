@@ -432,6 +432,21 @@ $(document).on('click', '#btlimpiar', function () {
               subtotal,
             ])
             .draw()
+            tipo=1;
+            $.ajax({
+              url: "bd/sumadetalle.php",
+              type: "POST",
+              dataType: "json",
+              async: false,
+              data: { folio: folio, tipo: tipo },
+              success: function(data) {
+                 total=data;
+                 console.log(total)
+                  $('#total').val(total)
+                  calculoinverso(total)
+              }
+          });
+
           limpiarmat()
         },
       })
@@ -600,6 +615,22 @@ $(document).on('click', '#btlimpiar', function () {
      
         if (data == 1) {
           tablaDet.row(fila.parents('tr')).remove().draw()
+
+          tipo=1;
+          $.ajax({
+            url: "bd/sumadetalle.php",
+            type: "POST",
+            dataType: "json",
+            async: false,
+            data: { folio: folio, tipo: tipo },
+            success: function(data) {
+               total=data;
+               console.log(total)
+                $('#total').val(total);
+                calculoinverso(total)
+            }
+        });
+
         } else {
           mensajeerror()
         }
