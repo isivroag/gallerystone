@@ -24,13 +24,38 @@ switch ($tipo) {
 
 
         break;
-    case 2:
+    case 2://INSUMO
+        $consulta = "SELECT sum(subtotal) as subtotal from detallecxp_insumo where folio_cxp='$folio' GROUP BY folio_cxp";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+        foreach ($data as $row) {
+            $total=$row['subtotal'];
+        }
 
         break;
 
-    case 3:
+    case 3:// DESGASTE
+        $consulta = "SELECT sum(subtotal) as subtotal from detallecxp_desechable where folio_cxp='$folio' GROUP BY folio_cxp";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+        foreach ($data as $row) {
+            $total=$row['subtotal'];
+        }
+        break;
+
+    case 4://HERRAMIENTA
+        $consulta = "SELECT sum(subtotal) as subtotal from detallecxp_herramienta where folio_cxp='$folio' GROUP BY folio_cxp";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($data as $row) {
+            $total=$row['subtotal'];
+        }
         break;
 }
 

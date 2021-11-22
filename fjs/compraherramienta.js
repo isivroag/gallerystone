@@ -396,6 +396,20 @@ $(document).on('click', '#btnagregarides', function () {
               subtotal,
             ])
             .draw()
+            tipo=4;
+            $.ajax({
+              url: "bd/sumadetalle.php",
+              type: "POST",
+              dataType: "json",
+              async: false,
+              data: { folio: folio, tipo: tipo },
+              success: function(data) {
+                 total=data;
+                 console.log(total)
+                  $('#total').val(total)
+                  calculoinverso(total)
+              }
+          });
           limpiardes()
         },
       })
@@ -557,6 +571,20 @@ $(document).on('click', '#btnagregarides', function () {
      
         if (data == 1) {
             tablaDetIndes.row(fila.parents('tr')).remove().draw()
+            tipo=4;
+            $.ajax({
+              url: "bd/sumadetalle.php",
+              type: "POST",
+              dataType: "json",
+              async: false,
+              data: { folio: folio, tipo: tipo },
+              success: function(data) {
+                 total=data;
+                 console.log(total)
+                  $('#total').val(total)
+                  calculoinverso(total)
+              }
+          });
         } else {
           mensajeerror()
         }
