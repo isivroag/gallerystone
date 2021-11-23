@@ -29,7 +29,7 @@ $concepto = $concepto;
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO cxp (fecha,fecha_limite,id_prov,id_partida,concepto,facturado,referencia,subtotal,iva,total,saldo,tokenid) VALUES ('$fecha','$fecha_limite','$id_prov','$id_partida','$concepto','$facturado','$referencia','$subtotal','$iva','$total','$saldo','$tokenid')";
+        $consulta = "INSERT INTO cxp (fecha,fecha_limite,id_prov,id_partida,concepto,facturado,referencia,subtotal,iva,total,saldo,tokenid,estado) VALUES ('$fecha','$fecha_limite','$id_prov','$id_partida','$concepto','$facturado','$referencia','$subtotal','$iva','$total','$saldo','$tokenid','1')";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = 1;
