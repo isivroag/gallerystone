@@ -59,11 +59,11 @@ if ($resultado->execute()) {
     $conversion = $presentacion * $montomov;
 
 // SALDO FINAL
-    $saldofinn=$saldoinn-($conversion*$montomov);
+    $saldofinn=$saldoinn-$conversion;
     $contenidon = $conversion*$montomov;
 
-    $saldofina=$saldoina+($conversion*$montomov);
-    $contenidoa = $conversion*$montomov;
+    $saldofina=$saldoina+($conversion);
+    $contenidoa = $conversion;
 
     $saldofint=$saldoint;
     $contenidot = 0;
@@ -77,7 +77,7 @@ if ($resultado->execute()) {
     $descripcion.=" ".$montomov. " ITEM(S) DE ". $presentacion ." ". $unidad;
  
     $consulta = "INSERT INTO mov_consumible(id_cons,fecha_movi,tipo_movi,cantidad,saldoini,saldofin,descripcion,usuario,saldoinn,cantidadn,saldofinn,saldoina,cantidada,saldofina,saldoint,cantidadt,saldofint) 
-                VALUES('$id','$fechavp','$tipomov','$montomov','$saldo','$saldofin','$descripcion','$usuario','$saldoinn','$contenidon','$saldofinn','$saldoina','$contenidoa','$saldofina','$saldoint','$contenidot','$saldofint')";
+                VALUES('$id','$fechavp','$tipomov','$montomov','$saldo','$saldofin','$descripcion','$usuario','$saldoinn','$conversion','$saldofinn','$saldoina','$contenidoa','$saldofina','$saldoint','$contenidot','$saldofint')";
     $resultado = $conexion->prepare($consulta);
     if ($resultado->execute()) {
         $res += 1;
