@@ -1,4 +1,16 @@
 $(document).ready(function () {
+
+
+  jQuery.ajaxSetup({
+    beforeSend: function() {
+        $(".div_carga").show();
+    },
+    complete: function() {
+        $(".div_carga").hide();
+    },
+    success: function() {},
+});
+
   var id, opcion
   opcion = 4
 

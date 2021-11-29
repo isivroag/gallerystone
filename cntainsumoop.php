@@ -36,6 +36,41 @@ $message = "";
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<style>
+    .div_carga {
+        position: absolute;
+        /*top: 50%;
+    left: 50%;
+    */
+
+        width: 100%;
+        height: 100%;
+        background-color: rgba(60, 60, 60, 0.5);
+        display: none;
+
+        justify-content: center;
+        align-items: center;
+        z-index: 3;
+    }
+
+    .cargador {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -25px;
+        margin-left: -25px;
+    }
+
+    .textoc {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: 120px;
+        margin-left: 20px;
+
+
+    }
+</style>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -52,7 +87,11 @@ $message = "";
             </div>
 
             <div class="card-body">
+                <div class="div_carga">
 
+                    <img class="cargador" src="img/loader.gif" />
+                    <span class=" textoc" id=""><strong>Cargando...</strong></span>
+                </div>
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -625,7 +664,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/insumoop.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/insumoop.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
