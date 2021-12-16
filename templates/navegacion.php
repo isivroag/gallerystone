@@ -474,8 +474,8 @@
 
 
 
-          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida') ? "active" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 
@@ -504,6 +504,13 @@
                 <a href="cntamat.php" class="nav-link <?php echo ($pagina == 'mat') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-layer-group nav-icon"></i>
                   <p>Materiales</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="rptinventariomat.php" class="nav-link <?php echo ($pagina == 'cntamaterial') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-boxes nav-icon"></i>
+                  <p>Consulta Materiales</p>
                 </a>
               </li>
 
