@@ -56,7 +56,15 @@ $(document).ready(function () {
         defaultContent: textcolumnas,
       },
       { className: 'hide_column', targets: [1] },
+      { className: 'hide_column', targets: [6] },
       { className: 'hide_column', targets: [3] },
+      { className: 'text-right', targets: [7] },
+      { className: 'text-right', targets: [8] },
+      { className: 'text-right', targets: [9] },
+      { className: 'text-right', targets: [10] },
+      
+      
+
     ],
 
     //Para cambiar el lenguaje a español
@@ -311,7 +319,8 @@ $(document).ready(function () {
     id = parseInt(fila.find('td:eq(0)').text())
 
     nombre = fila.find('td:eq(2)').text()
-    saldo = fila.find('td:eq(6)').text()
+    //cambio para usar m2 como unidad de movimientos de inventario
+    saldo = fila.find('td:eq(10)').text()
     nmaterial = fila.find('td:eq(5)').text()
 
     

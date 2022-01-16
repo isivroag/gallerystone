@@ -12,9 +12,9 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 if ($_SESSION['s_rol'] == '3') {
-  $consulta = "SELECT * FROM vpres where edo_pres='1' and tipo_proy=2 order by folio_pres";
+  $consulta = "SELECT * FROM vpres where edo_pres='1' AND estado_pres<>'SUSPENDIDO' and tipo_proy=2 order by folio_pres";
 } else {
-  $consulta = "SELECT * FROM vpres where edo_pres='1' and estado_pres<>'RECHAZADO' and estado_pres<>'ACEPTADO' and tipo_proy=2 order by folio_pres";
+  $consulta = "SELECT * FROM vpres where edo_pres='1' and estado_pres<>'RECHAZADO' AND estado_pres<>'SUSPENDIDO' and estado_pres<>'ACEPTADO' and tipo_proy=2 order by folio_pres";
 }
 
 $resultado = $conexion->prepare($consulta);

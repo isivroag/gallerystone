@@ -113,7 +113,9 @@ $(document).ready(function () {
         targets:-1,
         data: null,
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'>\
+          <button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button>\
+          <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div></div>",
       },{
         targets:0,
         class: "details-control",
@@ -125,7 +127,11 @@ $(document).ready(function () {
         targets: -2,
         data: null,
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnLlamar'><i class='fas fa-phone'></i></button><button class='btn btn-sm bg-orange  btnhistory'><i class='fas fa-history text-light'></i></button><button class='btn btn-sm btn-danger btnRechazar'><i class='fas fa-ban'></i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'>\
+          <button class='btn btn-sm btn-success btnLlamar'><i class='fas fa-phone'></i></button>\
+          <button class='btn btn-sm bg-orange  btnhistory'><i class='fas fa-history text-light'></i></button>\
+          <button class='btn btn-sm bg-warning  btnSuspender'><i class='far fa-clock text-light'></i></button>\
+          <button class='btn btn-sm btn-danger btnRechazar'><i class='fas fa-ban'></i></button></div></div>",
       },
       {
         targets: 4,
@@ -189,10 +195,13 @@ $(document).ready(function () {
         //$($(row).find("td")[5]).css("background-color", "light-blue");
         $($(row).find('td')[9]).addClass('bg-lightblue')
         //$($(row).find('td')['9']).text('EDITADO')
-      } else {
+      } else if (data[9] == 'RECHAZADO'){
         //$($(row).find("td")[5]).css("background-color", "red");
         $($(row).find('td')[9]).addClass('bg-gradient-danger')
         //$($(row).find('td')['8']).text('RECHAZADO')
+      }
+      else if (data[9] == 'SUSPENDIDO'){
+        $($(row).find('td')[9]).addClass('bg-gradient-info')
       }
     },
 
@@ -1377,13 +1386,56 @@ $(document).ready(function () {
     }
     else{
       swal.fire({
-        title: 'El Presupuesto NO peude ser marcado como RECHAZADO',
+        title: 'El Presupuesto NO puede ser marcado como RECHAZADO',
         icon: 'error',
         focusConfirm: true,
         confirmButtonText: 'Aceptar',
       })
     }
   });
+
+
+  
+    //BOTON RECHAZAR
+    $(document).on('click', '.btnSuspender', function () {
+      fila = $(this).closest('tr');
+      folio = parseInt(fila.find('td:eq(1)').text());
+      estado=fila.find('td:eq(9)').text();
+      nota = "PRESUPUESTO SUSPENDIDO"
+      fecha = $('#fechasys').val()
+      usuario = $('#nameuser').val()
+     
+      if (estado.trim() !='ACEPTADO')
+      {
+        estado=6;
+        $.ajax({
+          type: 'POST',
+          url: 'bd/estadopres.php',
+          dataType: 'json',
+    
+          data: {
+            folio: folio,
+            usuario: usuario,
+            estado: estado,
+            nota: nota,
+            fecha: fecha,
+          },
+          success: function () {
+            window.location.reload(true)
+          },
+        })
+      
+      }
+      else{
+        swal.fire({
+          title: 'El Presupuesto NO puede ser marcado como SUSPENDIDO',
+          icon: 'error',
+          focusConfirm: true,
+          confirmButtonText: 'Aceptar',
+        })
+      }
+    });
+  
 //BOTON ENVIAR
 /*
   $(document).on('click', '.btnEnviar', function () {

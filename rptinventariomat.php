@@ -13,7 +13,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT id_item,clave_item,nom_item,SUM(m2_mat) AS m2 FROM vmaterial where estado_mat='1' GROUP BY id_item";
+$consulta = "SELECT id_item,clave_item,nom_item,SUM(m2_mat) AS m2,COUNT(id_item) AS nitems FROM vmaterial where estado_mat='1' GROUP BY id_item";
 
 
 $resultado = $conexion->prepare($consulta);
@@ -91,6 +91,7 @@ tr.details td.details-control {
                       <th>Clave Material</th>
                       <th>Material</th>
                       <th>M2</th>
+                      <th># Placas</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -103,6 +104,7 @@ tr.details td.details-control {
                         <td><?php echo $dat['clave_item'] ?></td>
                         <td><?php echo $dat['nom_item'] ?></td>
                         <td><?php echo $dat['m2'] ?></td>
+                        <td class="text-right"><?php echo $dat['nitems']?></td>
                     </tr>
                     <?php
                     }

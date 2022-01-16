@@ -74,6 +74,15 @@ $(document).ready(function() {
 
 
     });
+
+    $(document).on("click", "#btnHome", function() {
+      fecha = $("#fechahome").val();
+       
+
+      window.location.href = "inicio.php?fecha=" + fecha;
+
+
+  });
     tablaC = $("#tablaC").DataTable({
 
 

@@ -22,7 +22,7 @@ $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()) {
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
     foreach ($data as $rowdata) {
-        $saldo = $rowdata['cant_mat'];
+        $saldo = $rowdata['m2_mat'];
     }
     $res += 1;
 }
@@ -48,7 +48,7 @@ if ($resultado->execute()) {
     $res += 1;
 }
 
-$consulta = "UPDATE material SET cant_mat='$saldofin' WHERE id_mat='$id'";
+$consulta = "UPDATE material SET m2_mat='$saldofin' WHERE id_mat='$id'";
 $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()) {
     $res += 1;

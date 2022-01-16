@@ -1056,7 +1056,7 @@ if ($folio != "") {
                                             <td><?php echo $datc['id_umedida'] ?></td>
                                             <td><?php echo $datc['nom_umedida'] ?></td>
                                             <td><?php echo $datc['ubi_mat'] ?></td>
-                                            <td><?php echo $datc['cant_mat'] ?></td>
+                                            <td><?php echo $datc['m2_mat'] ?></td>
                                             <td></td>
                                         </tr>
                                     <?php

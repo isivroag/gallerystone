@@ -41,7 +41,7 @@ switch ($opcion) {
             foreach ($data as $rowdata) {
 
                 
-                $saldoini = $rowdata['cant_mat'];
+                $saldoini = $rowdata['m2_mat'];
                 
             }
 
@@ -57,7 +57,7 @@ switch ($opcion) {
             if ($resultado->execute()) {
             // DESCONTAR DE INVENTARIO
        
-                $consulta = "UPDATE material SET cant_mat='$saldofin' WHERE id_mat='$idmat'";
+                $consulta = "UPDATE material SET m2_mat='$saldofin' WHERE id_mat='$idmat'";
                 $resultado = $conexion->prepare($consulta);
 
                 if ($resultado->execute() ){
@@ -109,7 +109,7 @@ switch ($opcion) {
                     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($data as $rowdata) {
     
-                        $saldoini = $rowdata['cant_mat'];
+                        $saldoini = $rowdata['m2_mat'];
                         
                     }
     
@@ -127,7 +127,7 @@ switch ($opcion) {
     
                     if ($resultado->execute()) {
     
-                        $consulta = "UPDATE material SET cant_mat='$saldofin' WHERE id_mat='$idmat'";
+                        $consulta = "UPDATE material SET m2_mat='$saldofin' WHERE id_mat='$idmat'";
                         $resultado = $conexion->prepare($consulta);
     
                         $resultado->execute();

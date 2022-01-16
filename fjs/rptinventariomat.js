@@ -22,7 +22,7 @@ $(document).ready(function () {
         extend: 'excelHtml5',
         text: "<i class='fas fa-file-excel'> Excel</i>",
         titleAttr: 'Exportar a Excel',
-        title: 'Reporte de Presupuestos',
+        title: 'RESUMEN DE INVENTARIO DE MATERIAL',
         className: 'btn bg-success ',
         customizeData: function(data) {
             for(var i = 0; i < data.body.length; i++) {
@@ -38,7 +38,7 @@ $(document).ready(function () {
         extend: 'pdfHtml5',
         text: "<i class='far fa-file-pdf'> PDF</i>",
         titleAttr: 'Exportar a PDF',
-        title: 'Reporte de Presupuestos',
+        title: 'RESUMEN DE INVENTARIO DE MATERIAL',
         className: 'btn bg-danger', 
         footer: true,
 

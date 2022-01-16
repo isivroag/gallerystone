@@ -3,8 +3,9 @@ $pagina = 'home';
 include_once "templates/header.php";
 include_once "templates/barra.php";
 include_once "templates/navegacion.php";
-
-
+$fechahome=(isset($_GET['fecha'])) ? strtotime($_GET['fecha']) : strtotime(date("Y-m-d"));
+$meshome = date("m",$fechahome);
+$yearhome = date("Y",$fechahome);
 
 include_once 'bd/conexion.php';
 $objeto = new conn();
@@ -15,18 +16,18 @@ $mesarreglo = array(
   "", "ENERO",
   "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
 );
-$mesactual = $mesarreglo[date('n')];
-
-$m = date("m");
-$y = date("Y");
+//$mesactual = $mesarreglo[date('n')];
+$mesactual = $mesarreglo[date('m',$meshome)];
+$m = $meshome;
+$y = $yearhome ;
 
 if (date("D") == "Mon") {
-  $iniciosemana = date("Y-m-d");
+  $iniciosemana = date("Y-m-d",$fechahome);
 } else {
-  $iniciosemana = date("Y-m-d", strtotime('last Monday', time()));
+  $iniciosemana = date( date("Y-m-d",$fechahome), strtotime('last Monday', time()));
 }
 
-$finsemana = date("Y-m-d", strtotime('next Sunday', time()));
+$finsemana = date( date("Y-m-d",$fechahome), strtotime('next Sunday', time()));
 
 
 $cntacon = "SELECT consulta2.ejercicio,mes.id_mes, mes.nom_mes,ifnull(consulta2.ingreso,0) AS ingreso,ifnull(consulta1.egreso,0) AS egreso, (ifnull(consulta2.ingreso,0)-ifnull(consulta1.egreso,0)) AS resultado
@@ -139,6 +140,22 @@ foreach ($dataing as $reging) {
       <div class="container-fluid">
 
         <!--CARDS ENCABEZADO -->
+        <div class="row justify-content-center">
+              <div class="col-lg-2">
+                <div class="form-group input-group-sm">
+                  <label for="fechahome" class="col-form-label">Fecha de Consulta:</label>
+                  <input type="date" class="form-control" name="fechahome" id="fechahome" value="<?php echo  date('Y-m-d', $fechahome) ?>">
+                </div>
+              </div>
+
+              
+
+              <div class="col-lg-1 align-self-end text-center">
+                <div class="form-group input-group-sm">
+                  <button id="btnHome" name="btnHome" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+              </div>
+            </div>
 
 
         <div class="row">
