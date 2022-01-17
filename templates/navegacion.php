@@ -112,10 +112,12 @@
           <!--CIERRA CATALOGOS-->
 
           <!--ABRE CRM-->
-          <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "menu-open" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina == 'supendidos' || 
+          $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "menu-open" : ""; ?>">
 
 
-            <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "active" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto'  || $pagina == 'supendidos'
+            || $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "active" : ""; ?>">
               <i class="nav-icon fas fa-grip-horizontal "></i>
               <p>
                 CRM
@@ -166,6 +168,13 @@
                 <a href="rptpresupuestoobra.php" class="nav-link <?php echo ($pagina == 'rptpresupuestoobr') ? "active seleccionado" : ""; ?> ">
                   <i class="fas fa-search-plus nav-icon"></i>
                   <p>Consulta Pres. Obra</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="rptsuspendidos.php" class="nav-link <?php echo ($pagina == 'supendidos') ? "active seleccionado" : ""; ?> ">
+                  <i class="fas fa-business-time nav-icon"></i>
+                  <p>Pres. Suspendidos</p>
                 </a>
               </li>
 
@@ -314,10 +323,10 @@
             </li>
             <!-- CIERRA EGRESOS-->
             <!-- ABRE REPORTES-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra") ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" ||  $pagina == "graficoanual") ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra") ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual") ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class="fas fa-chart-line nav-icon"></i>
 
@@ -337,6 +346,13 @@
 
                     <i class="fas fa-file-invoice nav-icon"></i>
                     <p>Resultados</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="rptgraficoanual.php" class="nav-link <?php echo ($pagina == 'graficoanual') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fas fa-chart-bar nav-icon"></i>
+                    <p>Grarfico Anual</p>
                   </a>
                 </li>
 

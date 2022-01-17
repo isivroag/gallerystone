@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+  $('[data-toggle="tooltip"]').tooltip()
+  
     var id, opcion;
     var operacion=$('#opcion').val();
 

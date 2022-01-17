@@ -1,5 +1,5 @@
 <?php
-$pagina = 'home';
+$pagina = 'graficoanual';
 include_once "templates/header.php";
 include_once "templates/barra.php";
 include_once "templates/navegacion.php";
@@ -210,7 +210,7 @@ foreach ($dataing as $reging) {
                                   $ting+=$dcon['ingreso'];
                                 echo '<td class="text-right">$ ' . number_format($dcon['ingreso'], 2) . '</td>';
                               } ?>
-                                <td class="text-right">$<?php echo  number_format($ting) ?></td>
+                                <td class="text-right">$<?php echo  number_format($ting,2) ?></td>
                             </tr>
                             <tr>
                               <td>Egresos</td>

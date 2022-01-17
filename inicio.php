@@ -3,9 +3,9 @@ $pagina = 'home';
 include_once "templates/header.php";
 include_once "templates/barra.php";
 include_once "templates/navegacion.php";
-$fechahome=(isset($_GET['fecha'])) ? strtotime($_GET['fecha']) : strtotime(date("Y-m-d"));
-$meshome = date("m",$fechahome);
-$yearhome = date("Y",$fechahome);
+$fechahome = (isset($_GET['fecha'])) ? strtotime($_GET['fecha']) : strtotime(date("Y-m-d"));
+$meshome = date("m", $fechahome);
+$yearhome = date("Y", $fechahome);
 
 include_once 'bd/conexion.php';
 $objeto = new conn();
@@ -17,17 +17,17 @@ $mesarreglo = array(
   "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
 );
 //$mesactual = $mesarreglo[date('n')];
-$mesactual = $mesarreglo[date('m',$meshome)];
+$mesactual = $mesarreglo[date('m', $meshome)];
 $m = $meshome;
-$y = $yearhome ;
+$y = $yearhome;
 
 if (date("D") == "Mon") {
-  $iniciosemana = date("Y-m-d",$fechahome);
+  $iniciosemana = date("Y-m-d", $fechahome);
 } else {
-  $iniciosemana = date( date("Y-m-d",$fechahome), strtotime('last Monday', time()));
+  $iniciosemana = date(date("Y-m-d", $fechahome), strtotime('last Monday', time()));
 }
 
-$finsemana = date( date("Y-m-d",$fechahome), strtotime('next Sunday', time()));
+$finsemana = date(date("Y-m-d", $fechahome), strtotime('next Sunday', time()));
 
 
 $cntacon = "SELECT consulta2.ejercicio,mes.id_mes, mes.nom_mes,ifnull(consulta2.ingreso,0) AS ingreso,ifnull(consulta1.egreso,0) AS egreso, (ifnull(consulta2.ingreso,0)-ifnull(consulta1.egreso,0)) AS resultado
@@ -107,11 +107,48 @@ $dataing = $resultadoing->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-
+/*
 $consultametros = "CALL sp_graficametros('$y','$m')";
 $resultadometros = $conexion->prepare($consultametros);
 $resultadometros->execute();
 $datametros = $resultadometros->fetchAll(PDO::FETCH_ASSOC);
+*/
+
+//m2vendidos
+$cons1 = "SELECT * FROM vconversionvta WHERE YEAR(fecha_vta)='$y' AND MONTH(fecha_vta)='$m'";
+$res1 = $conexion->prepare($cons1);
+$res1->execute();
+$dat1 = $res1->fetchAll(PDO::FETCH_ASSOC);
+$mvendidosn = 0;
+foreach ($dat1 as $reg1) {
+  $mvendidosn += $reg1['cantidadML'];
+}
+
+//m2vendidosejecutados
+$cons1 = "SELECT SUM(vconversionvta.cantidadML) AS mlejecutadosmes FROM  vconversionvta JOIN (
+  SELECT * FROM v_rptorden where year(fecha_liberacion)='$y' AND MONTH(fecha_liberacion)='$m' and nom_umedida='ML'
+  ) AS consulta
+  ON vconversionvta.folio_vta=consulta.folio_vta
+  WHERE year(vconversionvta.fecha_vta)='$y' AND MONTH(vconversionvta.fecha_vta)='$m'
+  GROUP BY vconversionvta.folio_vta";
+$res1 = $conexion->prepare($cons1);
+$res1->execute();
+$dat1 = $res1->fetchAll(PDO::FETCH_ASSOC);
+$mejecutadosmesn = 0;
+foreach ($dat1 as $reg1) {
+  $mejecutadosmesn += $reg1['mlejecutadosmes'];
+}
+
+
+//m2ejecutados
+$cons1 = "SELECT * FROM v_rptorden where year(fecha_liberacion)='$y' AND MONTH(fecha_liberacion)='$m' and nom_umedida='ML'";
+$res1 = $conexion->prepare($cons1);
+$res1->execute();
+$dat1 = $res1->fetchAll(PDO::FETCH_ASSOC);
+$mejecutadosn = 0;
+foreach ($dat1 as $reg1) {
+  $mejecutadosn += $reg1['cantidad'];
+}
 
 
 $totaling = 0;
@@ -129,7 +166,7 @@ foreach ($dataing as $reging) {
   <!-- ABRE HEADER -->
   <section class="container-fluid card">
     <div class="card-header bg-gradient-orange">
-      <h1>ERP GALLERY STONE</h1>
+      <h1>ERP GALLERY STONE <?php echo $mvendidosn ?></h1>
     </div>
   </section>
   <!-- CIERRA HEADER -->
@@ -141,21 +178,21 @@ foreach ($dataing as $reging) {
 
         <!--CARDS ENCABEZADO -->
         <div class="row justify-content-center">
-              <div class="col-lg-2">
-                <div class="form-group input-group-sm">
-                  <label for="fechahome" class="col-form-label">Fecha de Consulta:</label>
-                  <input type="date" class="form-control" name="fechahome" id="fechahome" value="<?php echo  date('Y-m-d', $fechahome) ?>">
-                </div>
-              </div>
-
-              
-
-              <div class="col-lg-1 align-self-end text-center">
-                <div class="form-group input-group-sm">
-                  <button id="btnHome" name="btnHome" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
-                </div>
-              </div>
+          <div class="col-lg-2">
+            <div class="form-group input-group-sm">
+              <label for="fechahome" class="col-form-label">Fecha de Consulta:</label>
+              <input type="date" class="form-control" name="fechahome" id="fechahome" value="<?php echo  date('Y-m-d', $fechahome) ?>">
             </div>
+          </div>
+
+
+
+          <div class="col-lg-1 align-self-end text-center">
+            <div class="form-group input-group-sm">
+              <button id="btnHome" name="btnHome" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+          </div>
+        </div>
 
 
         <div class="row">
@@ -343,82 +380,94 @@ foreach ($dataing as $reging) {
               </div>
             </div>
             <?php if ($_SESSION['s_rol'] == '2' || $_SESSION['s_rol'] == '3') { ?>
-            <!-- GRAFICA INGRESOS VS EGRESOS -->
-            <div class="col-sm-12">
-              <div class="card ">
-                <div class="card-header bg-gradient-success color-palette border-0">
-                  <h3 class="card-title">
-                    <i class="fas fa-th mr-1"></i>
-                    Comparativo Ingresos vs Egresos
-                  </h3>
+              <!-- GRAFICA INGRESOS VS EGRESOS -->
+              <div class="col-sm-12">
+                <div class="card ">
+                  <div class="card-header bg-gradient-success color-palette border-0">
+                    <h3 class="card-title">
+                      <i class="fas fa-th mr-1"></i>
+                      Comparativo Ingresos vs Egresos
+                    </h3>
 
-                  <div class="card-tools">
-                    <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
+                    <div class="card-tools">
+                      <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
 
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="row justify-content-center">
-                    <div class="col-sm-12">
-                      <canvas class="chart " id="resultados-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
+                  </div>
+                  <div class="card-body">
                     <div class="row justify-content-center">
-                    <div class="col-sm-12 my-auto">
-                      <div class="table-responsive">
-                        <table class="table table-responsive table-bordered table-hover table-sm table-responsive-sm">
-                          <thead class="text-center bg-gradient-success">
-                            <tr>
-                              <th>Concepto</th>
-                              <?php foreach ($datacon as $dcon) {
-                                echo '<th>' . $dcon['nom_mes'] . '</th>';
-                              } ?>
+                      <div class="col-sm-12">
+                        <canvas class="chart " id="resultados-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      </div>
+                      <div class="row justify-content-center">
+                        <div class="col-sm-12 my-auto">
+                          <div class="table-responsive">
+                            <table class="table table-responsive table-bordered table-hover table-sm table-responsive-sm">
+                              <thead class="text-center bg-gradient-success">
+                                <tr>
+                                  <th>Concepto</th>
+                                  <?php foreach ($datacon as $dcon) {
+                                    echo '<th>' . $dcon['nom_mes'] . '</th>';
+                                  } ?>
 
+                                  <th>TOTAL</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Ingresos</td>
+                                  <?php
+                                  $ting = 0;
+                                  foreach ($datacon as $dcon) {
+                                    $ting += $dcon['ingreso'];
+                                    echo '<td class="text-right">$ ' . number_format($dcon['ingreso'], 2) . '</td>';
+                                  } ?>
+                                  <td class="text-right">$<?php echo  number_format($ting,2) ?></td>
+                                </tr>
+                                <tr>
+                                  <td>Egresos</td>
+                                  <?php
+                                  $teg = 0;
+                                  foreach ($datacon as $dcon) {
+                                    $teg += $dcon['egreso'];
+                                    echo '<td class="text-right">$ ' . number_format($dcon['egreso'], 2) . '</td>';
+                                  } ?>
+                                  <td class="text-right">$<?php echo  number_format($teg, 2) ?></td>
+                                </tr>
+                                <tr>
+                                  <td><b>Resultado</b></td>
+                                  <?php
+                                  $tot = 0;
+                                  foreach ($datacon as $dcon) {
+                                    $tot += $dcon['resultado'];
+                                    if ($dcon['resultado'] > 0) {
+                                      echo '<td class="text-green text-right"><b>$ ' . number_format($dcon['resultado'], 2) . '</b></td>';
+                                    } else if ($dcon['resultado'] == 0) {
+                                      echo '<td class="text-center"><b>-</b></td>';
+                                    } else {
+                                      echo '<td class="text-danger text-right"><b>($ ' . number_format(abs($dcon['resultado']), 2) . ')</b></td>';
+                                    }
+                                  } ?>
+                                  <td class="text-right">$<?php echo  number_format($tot, 2) ?></td>
+                                </tr>
+                              </tbody>
 
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Ingresos</td>
-                              <?php foreach ($datacon as $dcon) {
-                                echo '<td class="text-right">$ ' . number_format($dcon['ingreso'], 2) . '</td>';
-                              } ?>
-                            </tr>
-                            <tr>
-                              <td>Egresos</td>
-                              <?php foreach ($datacon as $dcon) {
-                                echo '<td class="text-right">$ ' . number_format($dcon['egreso'], 2) . '</td>';
-                              } ?>
-                            </tr>
-                            <tr>
-                              <td><b>Resultado</b></td>
-                              <?php foreach ($datacon as $dcon) {
-                                if ($dcon['resultado'] > 0) {
-                                  echo '<td class="text-green text-right"><b>$ ' . number_format($dcon['resultado'], 2) . '</b></td>';
-                                } else if ($dcon['resultado'] == 0) {
-                                  echo '<td class="text-center"><b>-</b></td>';
-                                } else {
-                                  echo '<td class="text-danger text-right"><b>($ ' . number_format(abs($dcon['resultado']), 2) . ')</b></td>';
-                                }
-                              } ?>
-                            </tr>
-                          </tbody>
-
-                        </table>
+                            </table>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    </div>
                   </div>
-                </div>
-                <!-- /.card-body -->
+                  <!-- /.card-body -->
 
-                <!-- /.card-footer -->
+                  <!-- /.card-footer -->
+                </div>
               </div>
-            </div>
-            <!--FIN GRAFICA INGRESOS VS EGRESOS -->
-            <?php }?>
- <!--FIN GRAFICA COMPARATIVA ML -->
+              <!--FIN GRAFICA INGRESOS VS EGRESOS -->
+            <?php } ?>
+            <!--FIN GRAFICA COMPARATIVA ML -->
             <div class="col-sm-12">
               <div class="card ">
                 <div class="card-header bg-gradient-success color-palette border-0">
@@ -450,30 +499,44 @@ foreach ($dataing as $reging) {
                           </thead>
                           <tbody>
                             <?php
-                            
-                            foreach ($datametros as $rowmetros) {
-                             
+
+                            // foreach ($datametros as $rowmetros) {
+
                             ?>
+                            <!--
                               <tr>
                                 <td>ML VENDIDOS</td>
-                                <td class="text-right"><?php echo $rowmetros['mlvendidos']?></td>
+                                <td class="text-right"><?php echo $rowmetros['mlvendidos'] ?></td>
                               </tr>
                               <tr>
                                 <td>ML VENDIDOS EJECUTADOS</td>
-                                <td class="text-right"><?php echo $rowmetros['mlvendidoseje']?></td>
+                                <td class="text-right"><?php echo $rowmetros['mlvendidoseje'] ?></td>
                               </tr>
                               <tr>
                                 <td>ML EJECUTADOS </td>
-                                <td class="text-right"><?php echo $rowmetros['mldelmes']?></td>
-                              </tr>
-                            <?php } ?>
+                                <td class="text-right"><?php echo $rowmetros['mldelmes'] ?></td>
+                              </tr>-->
+                            <tr>
+                              <td>ML VENDIDOS</td>
+                              <td class="text-right"><?php echo $mvendidosn ?></td>
+                            </tr>
+                            <tr>
+                              <td>ML VENDIDOS EJECUTADOS</td>
+                              <td class="text-right"><?php echo $mejecutadosmesn ?></td>
+                            </tr>
+                            <tr>
+                              <td>ML EJECUTADOS </td>
+                              <td class="text-right"><?php echo $mejecutadosn ?></td>
+                            </tr>
+                            <?php // } 
+                            ?>
 
                           </tbody>
-                        
+
                         </table>
                       </div>
                     </div>
-                    
+
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -481,7 +544,7 @@ foreach ($dataing as $reging) {
                 <!-- /.card-footer -->
               </div>
             </div>
- <!--FIN GRAFICA COMPARATIVA ML -->
+            <!--FIN GRAFICA COMPARATIVA ML -->
 
           </div>
 
@@ -766,7 +829,7 @@ include_once 'templates/footer.php';
 
 
 
-/*GRAFICA 1*/
+    /*GRAFICA 1*/
     var barChartCanvas = $('#line-chart').get(0).getContext('2d')
     var barChartData = {
       labels: [<?php foreach ($dataml as $d) : ?> "<?php echo $d['vendedor'] ?>",
@@ -825,8 +888,8 @@ include_once 'templates/footer.php';
       data: barChartData,
       options: barChartOptions
     })
-/*TERMINA GRAFICA 1*/
-/*GRAFICA 2*/
+    /*TERMINA GRAFICA 1*/
+    /*GRAFICA 2*/
     var barventas = $('#line-chart2').get(0).getContext('2d')
     var barventasdata = {
       labels: [<?php foreach ($datavtav as $d) : ?> "<?php echo $d['vendedor'] ?>",
@@ -871,13 +934,12 @@ include_once 'templates/footer.php';
       data: barventasdata,
       options: barChartOptions
     })
-/*GRAFICA 2*/
+    /*GRAFICA 2*/
 
-/*GRAFICA METROS*/
-var barmetros = $('#metros-chart').get(0).getContext('2d')
+    /*GRAFICA METROS*/
+    var barmetros = $('#metros-chart').get(0).getContext('2d')
     var barmetrosdata = {
-      labels: ["ANALISIS DE VENTAS - PRODUCCION EN ML",
-      ],
+      labels: ["ANALISIS DE VENTAS - PRODUCCION EN ML", ],
       datasets: [{
         label: 'ML VENDIDOS <?php echo $mesactual ?>',
         fill: true,
@@ -891,9 +953,13 @@ var barmetros = $('#metros-chart').get(0).getContext('2d')
         pointBackgroundColor: '#A248FA',
 
         data: [
-          <?php foreach ($datametros as $d) : ?>
-            <?php echo $d['mlvendidos']; ?>
-          <?php endforeach; ?>
+          <?php //foreach ($datametros as $d) : 
+          ?>
+          <?php echo $mvendidosn; ?>
+          <?php //echo $d['mlvendidos']; 
+          ?>
+          <?php //endforeach; 
+          ?>
         ],
         backgroundColor: [
 
@@ -912,7 +978,7 @@ var barmetros = $('#metros-chart').get(0).getContext('2d')
           'rgb(201, 203, 207)'
         ],
         borderWidth: 1
-      },{
+      }, {
         label: 'ML VENDIDOS EJECUTADOS <?php echo $mesactual ?>',
         fill: true,
         borderWidth: 1,
@@ -925,9 +991,13 @@ var barmetros = $('#metros-chart').get(0).getContext('2d')
         pointBackgroundColor: '#A248FA',
 
         data: [
-          <?php foreach ($datametros as $d) : ?>
-            <?php echo $d['mlvendidoseje']; ?>
-          <?php endforeach; ?>
+          <?php //foreach ($datametros as $d) : 
+          ?>
+          <?php //echo $d['mlvendidoseje']; 
+          ?>
+          <?php echo $mejecutadosmesn; ?>
+          <?php // endforeach; 
+          ?>
         ],
         backgroundColor: [
 
@@ -946,7 +1016,7 @@ var barmetros = $('#metros-chart').get(0).getContext('2d')
           'rgb(201, 203, 207)'
         ],
         borderWidth: 1
-      },{
+      }, {
         label: 'ML EJECUTADOS DEL MES <?php echo $mesactual ?>',
         fill: true,
         borderWidth: 1,
@@ -959,9 +1029,13 @@ var barmetros = $('#metros-chart').get(0).getContext('2d')
         pointBackgroundColor: '#A248FA',
 
         data: [
-          <?php foreach ($datametros as $d) : ?>
-            <?php echo $d['mldelmes']; ?>
-          <?php endforeach; ?>
+          <?php //foreach ($datametros as $d) : 
+          ?>
+          <?php //echo $d['mldelmes']; 
+          ?>
+          <?php echo $mejecutadosn ?>
+          <?php //endforeach; 
+          ?>
         ],
         backgroundColor: [
 
@@ -1028,7 +1102,7 @@ var barmetros = $('#metros-chart').get(0).getContext('2d')
       data: barmetrosdata,
       options: metrosGraphChartOptions
     })
-/*GRAFICA 2*/
+    /*GRAFICA 2*/
 
     /*INGRESO VS EGRESOS */
 
