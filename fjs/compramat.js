@@ -340,7 +340,8 @@ tablaDet = $('#tablaDet').DataTable({
         
         $('#formato').val(formato)
         $('#cantidaddis').val(cantidaddis)
-        $('#cantidad').prop('disabled', false)
+        $('#cantidad').val(1)
+        $('#cantidad').prop('disabled', true)
         $('#costou').prop('disabled', false)
     
         $('#modalMat').modal('hide')

@@ -16,8 +16,8 @@ $mesarreglo = array(
   "", "ENERO",
   "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
 );
-//$mesactual = $mesarreglo[date('n')];
-$mesactual = $mesarreglo[date('m', $meshome)];
+$mesactual = $mesarreglo[date('n')];
+//$mesactual = $mesarreglo[date('m', $meshome)];
 $m = $meshome;
 $y = $yearhome;
 
@@ -166,7 +166,7 @@ foreach ($dataing as $reging) {
   <!-- ABRE HEADER -->
   <section class="container-fluid card">
     <div class="card-header bg-gradient-orange">
-      <h1>ERP GALLERY STONE <?php echo $mvendidosn ?></h1>
+      <h1>ERP GALLERY STONE </h1>
     </div>
   </section>
   <!-- CIERRA HEADER -->
@@ -979,7 +979,7 @@ include_once 'templates/footer.php';
         ],
         borderWidth: 1
       }, {
-        label: 'ML VENDIDOS EJECUTADOS <?php echo $mesactual ?>',
+        label: 'ML EJECUTADOS DE <?php echo $mesactual ?>',
         fill: true,
         borderWidth: 1,
         lineTension: 0,
@@ -1017,7 +1017,7 @@ include_once 'templates/footer.php';
         ],
         borderWidth: 1
       }, {
-        label: 'ML EJECUTADOS DEL MES <?php echo $mesactual ?>',
+        label: 'ML EJECUTADOS TOTALES EN <?php echo $mesactual ?>',
         fill: true,
         borderWidth: 1,
         lineTension: 0,

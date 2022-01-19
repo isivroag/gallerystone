@@ -555,7 +555,7 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
                                             <label for="cantidad" class="col-form-label">Cantidad:</label>
                                             <div class="input-group input-group-sm">
                                                 <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
-                                                <input type="text" class="form-control" name="cantidad" id="cantidad" disabled onkeypress="return filterFloat(event,this);">
+                                                <input type="text" class="form-control" name="cantidad" id="cantidad" disabled onkeypress="return filterFloat(event,this);" value=1 disabled>
                                             </div>
                                         </div>
 
