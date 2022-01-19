@@ -149,6 +149,19 @@ $data2 = $resultado->fetchAll(PDO::FETCH_ASSOC);
                     echo "</div>";
                     echo "</div>";
                     break;
+
+                    case 6:
+                  
+                      echo "<div class='time-label text-light'>";
+                      echo "<span class='bg-orange text-light'>" . $dt2['fecha'] . "</span>";
+                      echo "</div>";
+                      echo "<div>";
+                      echo "<i class='fas fa-edit bg-orange text-light'></i>";
+                      echo "<div class='timeline-item bg-orange'>";
+                      echo "<h3 class='timeline-header titulo'>SUSPENDIDO: " .$dt2['usuario']." <br>" . $opcion = $dt2['nota'] . "</h3>";
+                      echo "</div>";
+                      echo "</div>";
+                      break;
               }
               
             }
