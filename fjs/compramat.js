@@ -146,6 +146,60 @@ tablaDet = $('#tablaDet').DataTable({
       sProcessing: 'Procesando...',
     },
   })
+
+
+  //tabla item
+  tablaItem = $('#tablaitem').DataTable({
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelItem'><i class='fas fa-hand-pointer'></i></button></div></div>",
+      },
+    ],
+
+    //Para cambiar el lenguaje a español
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+  })
+
+  $(document).on('click', '#bitem', function () {
+    $('.modal-header').css('background-color', '#007bff')
+    $('.modal-header').css('color', 'white')
+
+    $('#modalitem').modal('show')
+  })
+
+  $(document).on('click', '.btnSelItem', function () {
+    fila = $(this).closest('tr')
+
+    iditem = fila.find('td:eq(0)').text()
+    nomitem = fila.find('td:eq(2)').text()
+
+    /*
+     */
+
+    $('#itemalta').val(nomitem)
+    $('#iditemalta').val(iditem)
+
+    $('#modalitem').modal('hide')
+  })
+  //termina tabla item y funciones
     $(document).on("click", "#bproveedor", function() {
 
         $(".modal-header").css("background-color", "#007bff");
@@ -368,6 +422,18 @@ $(document).on('click', '#btlimpiar', function () {
 
 
     });
+//Nuevo Agregar Material
+    $(document).on('click', '#butonagregarmat', function () {
+       //window.location.href = "prospecto.php";
+       $('#frmalta').trigger('reset')
+       $('.modal-header').css('background-color', '#28a745')
+       $('.modal-header').css('color', 'white')
+       $('.modal-title').text('Nuevo Material')
+       $('#modalalta').modal('show')
+       id = null
+       opcion = 1 //alta
+    
+    })
 
     // AGREGAR MATERIAL
   $(document).on('click', '#btnagregar', function () {
@@ -595,8 +661,122 @@ $(document).on('click', '#btlimpiar', function () {
     function round(value, decimals) {
         return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
     }
+    
+
+    //funcion de guardar desde alta de material
+
+    $(document).on('click', '#btnGuardaralta', function () {
+
+      var id_item = $.trim($('#iditemalta').val())
+      var nom_mat = $.trim($('#nom_matalta').val())
+      var cantidad = $.trim($('#cantidadalta').val())
+      var alto = $.trim($('#altoalta').val())
+      var ancho = $.trim($('#anchoalta').val())
+      var largo = $.trim($('#largoalta').val())
+      var umedida = $.trim($('#umedidaalta').val())
+      var ubicacion = $.trim($('#ubicacionalta').val())
+      var metros = $.trim($('#metrosalta').val())
+      var obs = $.trim($('#obsalta').val())
+      costo = $('#costoualta').val()
+      folio = $('#folio').val()
+      subtotal=1*costo
+      usuario=$('#nameuser').val();
+      opcion = 1
+  
+      if (nom_mat.length == 0 || umedida.length == 0 || id_item.length == 0) {
+        Swal.fire({
+          title: 'Datos Faltantes',
+          text: 'Debe ingresar todos los datos',
+          icon: 'warning',
+        })
+        return false
+      } else {
+        $.ajax({
+          url: 'bd/compramaterial.php',
+          type: 'POST',
+          dataType: 'json',
+          async:false,
+          data: {
+            id_item: id_item,
+            umedida: umedida,
+            nom_mat: nom_mat,
+            cantidad: cantidad,
+            alto: alto,
+            ancho: ancho,
+            largo: largo,
+            id: id,
+            opcion: opcion,
+            ubicacion: ubicacion,
+            metros: metros,
+            obs: obs,
+            costo: costo,
+            folio: folio,
+            subtotal: subtotal,
+            usuario: usuario
+          },
+          success: function (data) {
+            //es necesario el id del material
+            id_reg = data[0].id_reg
+          id_mat = data[0].id_mat
+          id_item = data[0].id_item
+          clave_item = data[0].clave_item
+          nom_item = data[0].nom_item
+          formato = data[0].formato
+          largo_mat = data[0].largo_mat
+          ancho_mat = data[0].ancho_mat
+          alto_mat = data[0].alto_mat
+          id_umedida = data[0].id_umedida
+          nom_umedida = data[0].nom_umedida
+          m2_mat = data[0].m2_mat
+          costo = data[0].costo_mat
+          cant_mat = data[0].cant_mat
+          subtotal= data[0].subtotal
+
+          tablaDet.row
+            .add([
+              id_reg,
+              id_item,
+              id_mat,
+              clave_item,
+              nom_item,
+              formato,
+              largo_mat,
+              ancho_mat,
+              alto_mat,
+              m2_mat,
+              id_umedida,
+              nom_umedida,
+              costo,
+              cant_mat,
+              subtotal,
+            ])
+            .draw()
+            tipo=1;
+            $.ajax({
+              url: "bd/sumadetalle.php",
+              type: "POST",
+              dataType: "json",
+              async: false,
+              data: { folio: folio, tipo: tipo },
+              success: function(data) {
+                 total=data;
+                 console.log(total)
+                  $('#total').val(total)
+                  calculoinverso(total)
+              }
+          });
+
+          limpiarmat()
+
+            
+          },
+        })
+        $('#modalalta').modal('hide')
+      }
+    })
 
 
+    
   // BORRAR MATERIAL
   $(document).on('click', '.btnBorrar', function () {
     fila = $(this)
@@ -647,6 +827,26 @@ $(document).on('click', '#btlimpiar', function () {
       focusConfirm: true,
       confirmButtonText: 'Aceptar',
     })
+  }
+
+  $('#largoalta').on('change keyup paste click', function () {
+    calculo()
+  })
+
+  $('#altoalta').on('change keyup paste click', function () {
+    calculo()
+  })
+
+  function calculo() {
+    alto = $('#altoalta').val()
+    largo = $('#largoalta').val()
+    if (parseFloat(alto) > 0 && parseFloat(largo) > 0) {
+      metros = parseFloat(alto) * parseFloat(largo)
+    } else {
+      metros = 0
+    }
+
+    $('#metrosalta').val(metros)
   }
 
 

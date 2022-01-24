@@ -7,7 +7,7 @@ include_once "templates/navegacion.php";
 
 
 include_once 'bd/conexion.php';
-
+$message="";
 $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
 $objeto = new conn();
 $conexion = $objeto->connect();
@@ -112,6 +112,17 @@ $cntamat = "SELECT * FROM vmaterial where estado_mat=1  order by id_mat";
 $resmat = $conexion->prepare($cntamat);
 $resmat->execute();
 $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
+
+$consultam = "SELECT id_item,clave_item,nom_item FROM item WHERE estado_item=1 and tipo_item='Material' ORDER BY id_item";
+$resultadom = $conexion->prepare($consultam);
+$resultadom->execute();
+$dataitem = $resultadom->fetchAll(PDO::FETCH_ASSOC);
+
+$consultau = "SELECT * FROM umedida WHERE estado_umedida=1 ORDER BY id_umedida";
+$resultadou = $conexion->prepare($consultau);
+$resultadou->execute();
+$datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
+
 
 ?>
 
@@ -455,7 +466,10 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
 
                                         <div class="col-sm-2">
 
-                                            <button type="button" class="btn bg-gradient-purple btn-sm" <?php echo $opcion == 2 ? 'disabled' : '' ?> data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+
+                                       <!-- <button type="button" class="btn bg-gradient-purple btn-sm" <?php echo $opcion == 2 ? 'disabled' : '' ?> data-card-widget="collapse" data-toggle="tooltip" title="Collapse"> -->
+
+                                            <button type="button" id="butonagregarmat" name="butonagregarmat" class="btn bg-gradient-purple btn-sm" <?php echo $opcion == 2 ? 'disabled' : '' ?> >
                                                 Agregar Material <i class="fas fa-plus"></i>
                                             </button>
 
@@ -819,6 +833,203 @@ $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
     </section>
     <!-- TERMINA TABLA MATERIALES -->
 
+
+<!--Formulario Alta de Material-->
+    <section>
+        <div class="modal fade" id="modalalta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-purple">
+                        <h5 class="modal-title" id="exampleModalLabel">NUEVA PIEZAS</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="frmalta" action="" method="POST">
+                            <div class="modal-body row mb-0 pb-0">
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="itemalta" class="col-form-label">Tipo de Material:</label>
+
+                                        <input type="hidden" class="form-control" name="iditemalta" id="iditemalta" autocomplete="off" placeholder="Material">
+
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" name="itemalta" id="itemalta" autocomplete="off" placeholder="Material">
+                                            <span class="input-group-append">
+                                                <button id="bitem" type="button" class="btn btn-sm bg-purple"><i class="fas fa-search"></i></button>
+                                            </span>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="nom_matalta" class="col-form-label">Descripción:</label>
+                                        <input type="text" class="form-control" name="nom_matalta" id="nom_matalta" autocomplete="off" placeholder="Descripción">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="umedidaalta" class="col-form-label">Unidad:</label>
+                                        <select class="form-control" name="umedidaalta" id="umedidaalta">
+                                            <?php
+                                            foreach ($datau as $dtu) {
+                                            ?>
+                                                <option id="<?php echo $dtu['id_umedida'] ?>" value="<?php echo $dtu['id_umedida'] ?>"> <?php echo $dtu['nom_umedida'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="metrosalta" class="col-form-label">M2:</label>
+                                        <input type="text" class="form-control" name="metrosalta" id="metrosalta" autocomplete="off" placeholder="Metros 2" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-5">
+                                    <div class="form-group input-group-sm">
+                                        <label for="ubicacionalta" class="col-form-label">Ubicación:</label>
+                                        <input type="text" class="form-control" name="ubicacionalta" id="ubicacionalta" autocomplete="off" placeholder="ubicacion">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cantidadalta" class="col-form-label">Cant:</label>
+                                        <input type="text" class="form-control" name="cantidadalta" id="cantidadalta" autocomplete="off" placeholder="Cantidad" value="0" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="largoalta" class="col-form-label">Largo:</label>
+                                        <input type="text" class="form-control" name="largoalta" id="largoalta" autocomplete="off" placeholder="Largo" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="altoalta" class="col-form-label">Alto:</label>
+                                        <input type="text" class="form-control" name="altoalta" id="altoalta" autocomplete="off" placeholder="Alto" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="anchoalta" class="col-form-label">Espesor:</label>
+                                        <input type="text" class="form-control" name="anchoalta" id="anchoalta" autocomplete="off" placeholder="Ancho" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="obsalta" class="col-form-label">Observaciones:</label>
+                                        <textarea rows="2" class="form-control" name="obsalta" id="obsalta" placeholder="Observaciones"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mt-0 pd-0">
+                                <div class="col-sm-8"></div>
+                                <div class="col-sm-4">
+                                <label for="costoualta" class="col-form-label">Costo Unitario:</label>
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" name="costoualta" id="costoualta"  onkeypress="return filterFloat(event,this);">
+                                            </div>
+                                </div>
+                            </div>
+                    </div>
+
+
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnGuardaralta" name="btnGuardaralta" class="btn btn-success" value="btnGuardaralta"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+<!--Fin Formulario Alta de Material-->
+
+<!--Tabla Busqueda Item-->
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-secondary">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR ITEM</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover responsive w-auto " style="padding:10px">
+                            <table name="tablaitem" id="tablaitem" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Clave</th>
+                                        <th>Descripcion</th>
+
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($dataitem as $rowm)
+                                {
+                                ?>
+                                <tr>
+                                <td><?php echo $rowm['id_item']?></td>
+                                <td><?php echo $rowm['clave_item']?></td>
+                                <td><?php echo $rowm['nom_item']?></td>
+                                <td></td>
+                                </tr>
+
+                                <?php 
+                                }
+                                ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+
+        </div>
+    </section>
+<!--Fin Tabla Busqueda Item-->
     <!-- /.content -->
 </div>
 

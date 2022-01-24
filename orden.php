@@ -63,7 +63,7 @@ if ($folio != "") {
 
 
 
-    $cntamat = "SELECT * FROM vmaterial where estado_mat=1  order by id_mat";
+    $cntamat = "SELECT * FROM vmaterial where estado_mat=1 and m2_mat>0 order by id_mat";
     $resmat = $conexion->prepare($cntamat);
     $resmat->execute();
     $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
@@ -1253,6 +1253,103 @@ if ($folio != "") {
         </div>
     </section>
 
+
+
+    <section>
+        <div class="modal fade" id="modalredimensionar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-primary">
+                        <h5 class="modal-title" id="exampleModalLabel">Material Sobrante</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formredimensionar" action="" method="POST">
+                            <div class="modal-body ">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                    <input type="hidden" class="form-control" name="idmatred" id="idmatred" autocomplete="off" placeholder="idmatred" disabled>
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="chpedaceria" >
+                                            <label for="chpedaceria" class="custom-control-label">El Material Sobrante será considerado como Pedacería</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row" id="divmedidas" name="divmedidas">
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="altoant" class="col-form-label">Alto Anterior:</label>
+                                            <input type="text" class="form-control" name="altoant" id="altoant" autocomplete="off" placeholder="altoant" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="largoant" class="col-form-label">Largo Anterior:</label>
+                                            <input type="text" class="form-control" name="largoant" id="largoant" autocomplete="off" placeholder="largoant" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="validador" class="col-form-label">M2 Restantes:</label>
+                                            <input type="text" class="form-control" name="m2restantes" id="m2restantes" autocomplete="off" placeholder="m2" disabled>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="altonuevo" class="col-form-label">Alto Anterior:</label>
+                                            <input type="text" class="form-control" name="altonuevo" id="altonuevo" autocomplete="off" placeholder="altonuevo" onkeypress="return filterFloat(event,this);">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="largonuevo" class="col-form-label">Largo Anterior:</label>
+                                            <input type="text" class="form-control" name="largonuevo" id="largonuevo" autocomplete="off" placeholder="largonuevo" onkeypress="return filterFloat(event,this);">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="validador" class="col-form-label">M2 Restantes:</label>
+                                            <input type="text" class="form-control" name="validador" id="validador" autocomplete="off" placeholder="m2">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                    </div>
+
+
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnguardarredimensionar" name="btnguardarredimensionar" class="btn btn-success" value="btnguardarredimensionar"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 

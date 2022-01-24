@@ -106,6 +106,7 @@ switch ($opcion) {
             $tipomov = 'Salida Can';
             $saldo = 0;
             $montomov = $row['cant_mat'];
+            $m2=0;
             $saldofin = 0;
             $descripcion = "CANCELACION DE COMPRA DE MATERIAL CXP FOLIO: ". $folio;
             
@@ -117,7 +118,7 @@ switch ($opcion) {
             if ($resultadom->execute()) {
                 $datam = $resultadom->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($datam as $rowdatam) {
-                    $saldo = $rowdatam['cant_mat'];
+                    $saldo = $rowdatam['m2_mat'];
                 }
                 $res += 1;
             }
@@ -131,7 +132,7 @@ switch ($opcion) {
                 $res += 1;
             }
 
-            $consultam = "UPDATE material SET cant_mat='$saldofin' WHERE id_mat='$id'";
+            $consultam = "UPDATE material SET m2_mat='$saldofin' WHERE id_mat='$id'";
             $resultadom = $conexion->prepare($consultam);
             if ($resultadom->execute()) {
                 $res += 1;

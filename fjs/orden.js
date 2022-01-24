@@ -550,24 +550,13 @@ $(document).ready(function () {
           cant_mat = data[0].cant_mat
 
           tablaDet.row
-            .add([
-              id_reg,
-              id_item,
-              id_mat,
-              clave_item,
-              nom_item,
-              formato,
-              largo_mat,
-              ancho_mat,
-              alto_mat,
-              m2_mat,
-              id_umedida,
-              nom_umedida,
-              ubi_mat,
-              cant_mat,
+            .add([id_reg,id_item, id_mat,clave_item,nom_item,formato,largo_mat,
+              ancho_mat,alto_mat,m2_mat,id_umedida,nom_umedida,ubi_mat,cant_mat,
             ])
             .draw()
           limpiar()
+          redimensionar(idmat)
+
         },
       })
     } else {
@@ -580,6 +569,48 @@ $(document).ready(function () {
     }
   })
 
+
+  function redimensionar(id){
+    $.ajax({
+      type: 'POST',
+      url: 'bd/buscarmedidasmat.php',
+      dataType: 'json',
+      //async: false,
+      data: {
+       id:id,
+        
+      },
+      success: function (data) {
+        
+        largo = data[0].largo_mat
+        alto = data[0].alto_mat
+        m2 = data[0].m2_mat
+      
+
+        $('#idmatred').val(id)
+
+        
+        $('#largoant').val(largo)
+        $('#altoant').val(alto)
+        $('#m2restantes').val(m2)
+      
+        
+        $('#largonuevo').val(0)
+        $('#altonuevo').val(0)
+        $('#validador').val(0)
+
+        $('#modalredimensionar').modal({backdrop: 'static', keyboard: false}) 
+        $('#modalredimensionar').modal('show')
+        
+        
+      },
+      error: function (error) {
+        console.log("ERROR DE FUNCION")
+    }
+    })
+  }
+
+   
   //AGREGAR INSUMO
 
   $(document).on('click', '#btnagregari', function () {
@@ -734,6 +765,7 @@ $(document).ready(function () {
         console.log(data)
         if (data == 1) {
           tablaDet.row(fila.parents('tr')).remove().draw()
+          redimensionar(id)
         } else {
           mensajeerror()
         }
@@ -791,6 +823,31 @@ $(document).ready(function () {
   })
 
 
+
+  $(document).on('click', '#btnguardarredimensionar', function () {
+  
+
+    id =  $('#idmatred').val()
+    largo = $('#nameuser').val()
+    alto= $('#nameuser').val()
+    m2= $('#validador').val()
+
+    $.ajax({
+      type: 'POST',
+      url: 'bd/redimensionar.php',
+      dataType: 'json',
+      data: { id: id, largo: largo,alto: alto, m2: m2 },
+      success: function (data) {
+        
+        if (data == 1) {
+          window.location.reload()
+        } else {
+          mensajeerror()
+        }
+      },
+    })
+  })
+
   function limpiar() {
     $('#clavemat').val('')
     $('#material').val('')
@@ -837,4 +894,57 @@ $(document).ready(function () {
       confirmButtonText: 'Aceptar',
     })
   }
+
+  document.getElementById('altonuevo').onblur = function () {
+   calcularvalidador()
+   
+  }
+
+
+  document.getElementById('largonuevo').onblur = function () {
+   calcularvalidador()
+  
+  }
+
+  function calcularvalidador(valor)
+  {
+    alto=$('#altonuevo').val().replace(/,/g, '')
+    largo=$('#largonuevo').val().replace(/,/g, '')
+    valor=alto*largo
+    m2=$('#m2restantes').val().replace(/,/g, '')
+    if(valor<=m2){
+      $('#validador').val(valor)
+      $('#validador').removeClass( "bg-warning" );
+      $('#validador').addClass( "bg-success" );
+      
+      
+
+    }
+    else{
+      $('#validador').val(valor)
+      $('#validador').removeClass( "bg-sucess" );
+      $('#validador').addClass( "bg-warning" );
+
+    }
+  }
+
+  function filterFloat(evt, input) {
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode
+    var chark = String.fromCharCode(key)
+    var tempValue = input.value + chark
+    var isNumber = key >= 48 && key <= 57
+    var isSpecial = key == 8 || key == 13 || key == 0 || key == 46
+    if (isNumber || isSpecial) {
+      return filter(tempValue)
+    }
+  
+    return false
+  }
+  function filter(__val__) {
+    var preg = /^([0-9]+\.?[0-9]{0,2})$/
+    return preg.te
+    st(__val__) === true
+  }
+
 })

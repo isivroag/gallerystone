@@ -33,7 +33,7 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 foreach($data as $dr){
     $clave=$dr['id_mat'];
     $descripcion=$dr['nom_mat'];
-    $cantidad=$dr['cant_mat'];
+    $cantidad=$dr['m2_mat'];
     $material=$dr['nom_item'];
     $claveitem=$dr['clave_item'];
 
