@@ -1,14 +1,13 @@
 $(document).ready(function () {
   jQuery.ajaxSetup({
-    beforeSend: function() {
-        $(".div_carga").show();
+    beforeSend: function () {
+      $('.div_carga').show()
     },
-    complete: function() {
-        $(".div_carga").hide();
+    complete: function () {
+      $('.div_carga').hide()
     },
-    success: function() {},
-});
-
+    success: function () {},
+  })
 
   var id, opcion, fpago
 
@@ -42,7 +41,7 @@ $(document).ready(function () {
     },
   })
 
-  tablaD=$('#tablaD').DataTable({
+  tablaD = $('#tablaD').DataTable({
     paging: false,
     ordering: false,
     info: false,
@@ -75,7 +74,7 @@ $(document).ready(function () {
       sProcessing: 'Procesando...',
     },
   })
-//TABLA DETALLED DE MATERIAL
+  //TABLA DETALLED DE MATERIAL
   tablaDet = $('#tablaDet').DataTable({
     paging: false,
     ordering: false,
@@ -89,9 +88,11 @@ $(document).ready(function () {
         defaultContent:
           "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
       },
-      { className: 'hide_column', targets: [1] },
-      { className: 'hide_column', targets: [2] },
+      // { className: 'hide_column', targets: [1] },
+      //{ className: 'hide_column', targets: [2] },
+      { className: 'hide_column', targets: [9] },
       { className: 'hide_column', targets: [10] },
+      { className: 'hide_column', targets: [12] },
     ],
 
     language: {
@@ -127,7 +128,6 @@ $(document).ready(function () {
           "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarIn'><i class='fas fa-trash-alt'></i></button></div>",
       },
       { className: 'hide_column', targets: [1] },
-     
     ],
 
     language: {
@@ -148,45 +148,44 @@ $(document).ready(function () {
     },
   })
 
+  //TABLA DETALLE DE desechables
+  tablaDetIndes = $('#tablaDetIndes').DataTable({
+    paging: false,
+    ordering: false,
+    info: false,
+    searching: false,
 
-    //TABLA DETALLE DE desechables
-    tablaDetIndes = $('#tablaDetIndes').DataTable({
-      paging: false,
-      ordering: false,
-      info: false,
-      searching: false,
-  
-      columnDefs: [
-        {
-          targets: -1,
-          data: null,
-          defaultContent:
-            "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarDes'><i class='fas fa-trash-alt'></i></button></div>",
-        },
-        { className: 'hide_column', targets: [1] },
-       
-      ],
-  
-      language: {
-        lengthMenu: 'Mostrar _MENU_ registros',
-        zeroRecords: 'No se encontraron resultados',
-        info:
-          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
-        infoFiltered: '(filtrado de un total de _MAX_ registros)',
-        sSearch: 'Buscar:',
-        oPaginate: {
-          sFirst: 'Primero',
-          sLast: 'Último',
-          sNext: 'Siguiente',
-          sPrevious: 'Anterior',
-        },
-        sProcessing: 'Procesando...',
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarDes'><i class='fas fa-trash-alt'></i></button></div>",
       },
-    })
+      { className: 'hide_column', targets: [1] },
+    ],
+
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+  })
 
   //TABLA MATERIAL
   tablaMat = $('#tablaMat').DataTable({
+    ordering: false,
     columnDefs: [
       {
         targets: -1,
@@ -194,6 +193,7 @@ $(document).ready(function () {
         defaultContent:
           "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelMaterial'><i class='fas fa-hand-pointer'></i></button></div></div>",
       },
+
       { className: 'hide_column', targets: [0] },
       { className: 'hide_column', targets: [9] },
     ],
@@ -226,7 +226,6 @@ $(document).ready(function () {
         defaultContent:
           "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelInsumo'><i class='fas fa-hand-pointer'></i></button></div></div>",
       },
-     
     ],
 
     //Para cambiar el lenguaje a español
@@ -248,37 +247,35 @@ $(document).ready(function () {
     },
   })
 
-
-    //TABLA DESECHABLE
-    tablaDes = $('#tablaDes').DataTable({
-      columnDefs: [
-        {
-          targets: -1,
-          data: null,
-          defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelDesechable'><i class='fas fa-hand-pointer'></i></button></div></div>",
-        },
-       
-      ],
-  
-      //Para cambiar el lenguaje a español
-      language: {
-        lengthMenu: 'Mostrar _MENU_ registros',
-        zeroRecords: 'No se encontraron resultados',
-        info:
-          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
-        infoFiltered: '(filtrado de un total de _MAX_ registros)',
-        sSearch: 'Buscar:',
-        oPaginate: {
-          sFirst: 'Primero',
-          sLast: 'Último',
-          sNext: 'Siguiente',
-          sPrevious: 'Anterior',
-        },
-        sProcessing: 'Procesando...',
+  //TABLA DESECHABLE
+  tablaDes = $('#tablaDes').DataTable({
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelDesechable'><i class='fas fa-hand-pointer'></i></button></div></div>",
       },
-    })
+    ],
+
+    //Para cambiar el lenguaje a español
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+  })
   //BOTON BUSCAR MATERIAL
   $(document).on('click', '#btnMaterial', function () {
     $('.modal-header').css('background-color', '#007bff')
@@ -286,7 +283,7 @@ $(document).ready(function () {
 
     $('#modalMat').modal('show')
   })
-//BOTON BUSCAR INSUMO
+  //BOTON BUSCAR INSUMO
   $(document).on('click', '#btnInsumo', function () {
     $('.modal-header').css('background-color', '#007bff')
     $('.modal-header').css('color', 'white')
@@ -294,15 +291,11 @@ $(document).ready(function () {
     $('#modalIns').modal('show')
   })
 
-
-
   //BOTON BUSCAR DESECHABLE
   $(document).on('click', '#btnInsumodes', function () {
-   
-
     $('#modalDes').modal('show')
   })
-//BOTON SELECCIONAR MATERIAL
+  //BOTON SELECCIONAR MATERIAL
   $(document).on('click', '.btnSelMaterial', function () {
     fila = $(this).closest('tr')
     iditem = fila.find('td:eq(0)').text()
@@ -340,7 +333,7 @@ $(document).ready(function () {
 
     $('#modalMat').modal('hide')
   })
-//BOTON BUSCAR INSUMO
+  //BOTON BUSCAR INSUMO
   $(document).on('click', '.btnSelInsumo', function () {
     fila = $(this).closest('tr')
     idinsumo = fila.find('td:eq(0)').text()
@@ -351,43 +344,40 @@ $(document).ready(function () {
     /*
      */
     $('#idinsumo').val(idinsumo)
-  
+
     $('#insumo').val(nominsumo)
- 
-    
+
     $('#nom_umedidain').val(nomumedida)
- 
+
     $('#cantidaddisi').val(cantidaddisin)
     $('#cantidadi').prop('disabled', false)
 
     $('#modalIns').modal('hide')
   })
 
-
   //BOTON BUSCAR DESECHABLE
   $(document).on('click', '.btnSelDesechable', function () {
     fila = $(this).closest('tr')
     idinsumo = fila.find('td:eq(0)').text()
     nominsumo = fila.find('td:eq(1)').text()
-    nomumedida = "USO"
+    nomumedida = 'USO'
     cantidaddisin = fila.find('td:eq(3)').text()
 
     /*
      */
     $('#idinsumodes').val(idinsumo)
-  
+
     $('#insumodes').val(nominsumo)
- 
-    
+
     $('#nom_umedidaindes').val(nomumedida)
- 
+
     $('#cantidaddisides').val(cantidaddisin)
     $('#cantidadides').prop('disabled', false)
 
     $('#modalDes').modal('hide')
   })
 
-//BOTON LIMPIAR MATERIAL
+  //BOTON LIMPIAR MATERIAL
   $(document).on('click', '#btlimpiar', function () {
     limpiar()
   })
@@ -401,63 +391,64 @@ $(document).ready(function () {
   })
   //BOTON ELIMINAR COMPLEMENTO
   $(document).on('click', '.btnEliminarcom', function (event) {
-   
-    event.preventDefault();
+    event.preventDefault()
 
     fila = $(this)
-    id =  parseInt($(this).closest("tr").find("td:eq(0)").text());
-    opcion=2;
+    id = parseInt($(this).closest('tr').find('td:eq(0)').text())
+    opcion = 2
 
     swal
-    .fire({
-        title: "Borrar",
-        text: "¿Realmente desea borrar este elemento?",
+      .fire({
+        title: 'Borrar',
+        text: '¿Realmente desea borrar este elemento?',
 
         showCancelButton: true,
-        icon: "warning",
+        icon: 'warning',
         focusConfirm: true,
-        confirmButtonText: "Aceptar",
+        confirmButtonText: 'Aceptar',
 
-        cancelButtonText: "Cancelar",
-    })
-    .then(function(isConfirm) {
+        cancelButtonText: 'Cancelar',
+      })
+      .then(function (isConfirm) {
         if (isConfirm.value) {
-            $.ajax({
-                url: "bd/complementoorden.php",
-                type: "POST",
-                dataType: "json",
-                //async: false,
-                data: { id: id, opcion: opcion },
-                success: function(data) {
-                
-                    if (data == 1) {
-                      
-                        tablaD.row(fila.parents("tr")).remove().draw();
-                        
-                    }
-                },
-            });
-        } else if (isConfirm.dismiss === swal.DismissReason.cancel) {}
-    });
+          $.ajax({
+            url: 'bd/complementoorden.php',
+            type: 'POST',
+            dataType: 'json',
+            //async: false,
+            data: { id: id, opcion: opcion },
+            success: function (data) {
+              if (data == 1) {
+                tablaD.row(fila.parents('tr')).remove().draw()
+              }
+            },
+          })
+        } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
+        }
+      })
   })
 
-//BOTON AGREGAR COMPLEMENTO
-  $(document).on('click', '#btnAddcom', function ()  {
+  //BOTON AGREGAR COMPLEMENTO
+  $(document).on('click', '#btnAddcom', function () {
     //window.location.href = "prospecto.php";
     $('#formCom').trigger('reset')
-   
-    $('#modalCom').modal('show')
 
-})
-//BOTON GUARDAR COMPLEMENTO
+    $('#modalCom').modal('show')
+  })
+  //BOTON GUARDAR COMPLEMENTO
   $(document).on('click', '#btnGuardarcom', function () {
     orden = $('#folioorden').val()
     cantidad = $('#cantcom').val()
     umedida = $('#umedida').val()
     concepto = $('#concepto').val()
-    opcion=1;
+    opcion = 1
 
-    if (orden.length != 0 && cantidad.length != 0 && umedida.length != 0 && concepto.length!=0) {
+    if (
+      orden.length != 0 &&
+      cantidad.length != 0 &&
+      umedida.length != 0 &&
+      concepto.length != 0
+    ) {
       $.ajax({
         type: 'POST',
         url: 'bd/complementoorden.php',
@@ -475,19 +466,10 @@ $(document).ready(function () {
           id_reg = data[0].id_reg
           concepto = data[0].concepto_com
           cantidad = data[0].cant_com
-          umedida= data[0].nom_umedida
-          
+          umedida = data[0].nom_umedida
 
-          tablaD.row
-            .add([
-              id_reg,
-              concepto,
-              cantidad,
-              umedida,
-            ])
-            .draw()
-            $('#modalCom').modal('hide')
-          
+          tablaD.row.add([id_reg, concepto, cantidad, umedida]).draw()
+          $('#modalCom').modal('hide')
         },
       })
     } else {
@@ -500,16 +482,21 @@ $(document).ready(function () {
     }
   })
 
-
-// AGREGAR MATERIAL
+  // AGREGAR MATERIAL
   $(document).on('click', '#btnagregar', function () {
     folio = $('#folioorden').val()
 
     idmat = $('#clavemat').val()
 
     cantidad = $('#cantidad').val()
+
+    //cambios agregar alto ancho y largo al detalle de orden
+    largo = $('#largo').val()
+    alto = $('#alto').val()
+    ancho = $('#ancho').val()
+
     cantidaddis = $('#cantidaddis').val()
-    usuario=$('#nameuser').val();
+    usuario = $('#nameuser').val()
     opcion = 1
 
     if (parseFloat(cantidad) > parseFloat(cantidaddis)) {
@@ -529,11 +516,13 @@ $(document).ready(function () {
           folio: folio,
           idmat: idmat,
           cantidad: cantidad,
+          largo: largo,
+          alto: alto,
+          ancho: ancho,
           opcion: opcion,
-          usuario: usuario
+          usuario: usuario,
         },
         success: function (data) {
-          console.log(data)
           id_reg = data[0].id_reg
           id_mat = data[0].id_mat
           id_item = data[0].id_item
@@ -550,13 +539,25 @@ $(document).ready(function () {
           cant_mat = data[0].cant_mat
 
           tablaDet.row
-            .add([id_reg,id_item, id_mat,clave_item,nom_item,formato,largo_mat,
-              ancho_mat,alto_mat,m2_mat,id_umedida,nom_umedida,ubi_mat,cant_mat,
+            .add([
+              id_reg,
+              id_item,
+              id_mat,
+              clave_item,
+              nom_item,
+              formato,
+              largo_mat,
+              alto_mat,
+              ancho_mat,
+              m2_mat,
+              id_umedida,
+              nom_umedida,
+              ubi_mat,
+              cant_mat,
             ])
             .draw()
           limpiar()
-          redimensionar(idmat)
-
+          redimensionar(id_mat,2)
         },
       })
     } else {
@@ -569,48 +570,45 @@ $(document).ready(function () {
     }
   })
 
-
-  function redimensionar(id){
+  function redimensionar(id,tipo) {
     $.ajax({
       type: 'POST',
       url: 'bd/buscarmedidasmat.php',
       dataType: 'json',
       //async: false,
       data: {
-       id:id,
-        
+        id: id,
       },
       success: function (data) {
-        
         largo = data[0].largo_mat
         alto = data[0].alto_mat
         m2 = data[0].m2_mat
-      
 
         $('#idmatred').val(id)
+        $('#tipored').val(tipo)
+        if (tipo==2){
+          $("input.group1").attr("disabled", false);
+        }else{
+          $("input.group1").attr("disabled", true);
+        }
 
-        
         $('#largoant').val(largo)
         $('#altoant').val(alto)
         $('#m2restantes').val(m2)
-      
-        
+
         $('#largonuevo').val(0)
         $('#altonuevo').val(0)
         $('#validador').val(0)
 
-        $('#modalredimensionar').modal({backdrop: 'static', keyboard: false}) 
+        $('#modalredimensionar').modal({ backdrop: 'static', keyboard: false })
         $('#modalredimensionar').modal('show')
-        
-        
       },
       error: function (error) {
-        console.log("ERROR DE FUNCION")
-    }
+        console.log('ERROR DE FUNCION')
+      },
     })
   }
 
-   
   //AGREGAR INSUMO
 
   $(document).on('click', '#btnagregari', function () {
@@ -628,8 +626,6 @@ $(document).ready(function () {
       return 0
     }
 
-  
-
     if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0) {
       $.ajax({
         type: 'POST',
@@ -641,27 +637,21 @@ $(document).ready(function () {
           idcons: idcons,
           cantidadi: cantidadi,
           opcion: opcion,
-          usuario: usuario
+          usuario: usuario,
         },
         success: function (data) {
           console.log(data)
           id_reg = data[0].id_reg
-          
+
           id_cons = data[0].id_cons
           nom_cons = data[0].nom_cons
-         
+
           nom_umedida = data[0].nom_umedida
-      
+
           cantidad = data[0].cantidad
 
           tablaDetIn.row
-            .add([
-              id_reg,
-              id_cons,
-              nom_cons,
-              nom_umedida,
-              cantidad,
-            ])
+            .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
             .draw()
           limpiar()
         },
@@ -676,8 +666,7 @@ $(document).ready(function () {
     }
   })
 
-
-//AGREGAR DESECHABLE
+  //AGREGAR DESECHABLE
   $(document).on('click', '#btnagregarides', function () {
     folio = $('#folioorden').val()
 
@@ -693,8 +682,6 @@ $(document).ready(function () {
       return 0
     }
 
-  
-
     if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0) {
       $.ajax({
         type: 'POST',
@@ -706,10 +693,9 @@ $(document).ready(function () {
           idcons: idcons,
           cantidadi: cantidadi,
           opcion: opcion,
-          usuario: usuario
+          usuario: usuario,
         },
         success: function (data) {
-          
           id_reg = data[0].id_reg
           id_cons = data[0].id_des
           nom_cons = data[0].nom_des
@@ -717,13 +703,7 @@ $(document).ready(function () {
           cantidad = data[0].cantidad
 
           tablaDetIndes.row
-            .add([
-              id_reg,
-              id_cons,
-              nom_cons,
-              nom_umedida,
-              cantidad,
-            ])
+            .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
             .draw()
           limpiar()
         },
@@ -748,10 +728,13 @@ $(document).ready(function () {
   }
 
   // BORRAR MATERIAL
-  $(document).on('click', '.btnBorrar', function () {
+  $(document).on('click', '.btnBorrar', function (e) {
+    e.preventDefault()
+
     fila = $(this).closest('tr')
 
     id = fila.find('td:eq(0)').text()
+    mat = fila.find('td:eq(2)').text()
     usuario = $('#nameuser').val()
     console.log(id)
     opcion = 2
@@ -760,19 +743,19 @@ $(document).ready(function () {
       type: 'POST',
       url: 'bd/detalleorden.php',
       dataType: 'json',
-      data: { id: id, opcion: opcion,usuario: usuario },
+      data: { id: id, opcion: opcion, usuario: usuario },
       success: function (data) {
         console.log(data)
         if (data == 1) {
           tablaDet.row(fila.parents('tr')).remove().draw()
-          redimensionar(id)
+          redimensionar(mat,1)
         } else {
           mensajeerror()
         }
       },
     })
   })
-//BORRAR INSUMO
+  //BORRAR INSUMO
   $(document).on('click', '.btnBorrarIn', function () {
     fila = $(this).closest('tr')
 
@@ -822,23 +805,24 @@ $(document).ready(function () {
     })
   })
 
-
-
   $(document).on('click', '#btnguardarredimensionar', function () {
-  
-
-    id =  $('#idmatred').val()
-    largo = $('#nameuser').val()
-    alto= $('#nameuser').val()
-    m2= $('#validador').val()
-
+    id = $('#idmatred').val()
+    largo = $('#largonuevo').val()
+    alto = $('#altonuevo').val()
+    m2 = $('#validador').val()
+    tipored = $('#tipored').val()
+    $usuario= $('#nameuser').val()
+    pedaceria=0
+    if ($("#chpedaceria").prop("checked")){
+      pedaceria=1
+    }
+    console.log(pedaceria)
     $.ajax({
       type: 'POST',
       url: 'bd/redimensionar.php',
       dataType: 'json',
-      data: { id: id, largo: largo,alto: alto, m2: m2 },
+      data: { id: id, largo: largo, alto: alto, m2: m2, tipored: tipored, usuario: usuario, pedaceria: pedaceria },
       success: function (data) {
-        
         if (data == 1) {
           window.location.reload()
         } else {
@@ -868,10 +852,10 @@ $(document).ready(function () {
   function limpiarin() {
     $('#idinsumo').val('')
     $('#insumo').val('')
-    
+
     $('#cantidadi').val('')
     $('#cantidaddisi').val('')
-    
+
     $('#nom_umedidain').val('')
     $('#cantidadi').prop('disabled', true)
   }
@@ -879,10 +863,10 @@ $(document).ready(function () {
   function limpiardes() {
     $('#idinsumodes').val('')
     $('#insumodes').val('')
-    
+
     $('#cantidadides').val('')
     $('#cantidaddisides').val('')
-    
+
     $('#nom_umedidaindes').val('')
     $('#cantidadides').prop('disabled', true)
   }
@@ -896,55 +880,46 @@ $(document).ready(function () {
   }
 
   document.getElementById('altonuevo').onblur = function () {
-   calcularvalidador()
-   
+    calcularvalidador()
   }
-
 
   document.getElementById('largonuevo').onblur = function () {
-   calcularvalidador()
-  
+    calcularvalidador()
   }
 
-  function calcularvalidador(valor)
-  {
-    alto=$('#altonuevo').val().replace(/,/g, '')
-    largo=$('#largonuevo').val().replace(/,/g, '')
-    valor=alto*largo
-    m2=$('#m2restantes').val().replace(/,/g, '')
-    if(valor<=m2){
+  function calcularvalidador(valor) {
+    alto = $('#altonuevo').val().replace(/,/g, '')
+    largo = $('#largonuevo').val().replace(/,/g, '')
+    valor = alto * largo
+    m2 = $('#m2restantes').val().replace(/,/g, '')
+    if (valor <= m2) {
       $('#validador').val(valor)
-      $('#validador').removeClass( "bg-warning" );
-      $('#validador').addClass( "bg-success" );
-      
-      
-
-    }
-    else{
+      $('#validador').removeClass('bg-warning')
+      $('#validador').addClass('bg-success')
+    } else {
       $('#validador').val(valor)
-      $('#validador').removeClass( "bg-sucess" );
-      $('#validador').addClass( "bg-warning" );
-
+      $('#validador').removeClass('bg-sucess')
+      $('#validador').addClass('bg-warning')
     }
-  }
-
-  function filterFloat(evt, input) {
-    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
-    var key = window.Event ? evt.which : evt.keyCode
-    var chark = String.fromCharCode(key)
-    var tempValue = input.value + chark
-    var isNumber = key >= 48 && key <= 57
-    var isSpecial = key == 8 || key == 13 || key == 0 || key == 46
-    if (isNumber || isSpecial) {
-      return filter(tempValue)
-    }
-  
-    return false
-  }
-  function filter(__val__) {
-    var preg = /^([0-9]+\.?[0-9]{0,2})$/
-    return preg.te
-    st(__val__) === true
   }
 
 })
+
+function filterFloat(evt, input) {
+  // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+  var key = window.Event ? evt.which : evt.keyCode
+  var chark = String.fromCharCode(key)
+  var tempValue = input.value + chark
+  var isNumber = key >= 48 && key <= 57
+  var isSpecial = key == 8 || key == 13 || key == 0 || key == 46
+  if (isNumber || isSpecial) {
+    return filter(tempValue)
+  }
+
+  return false
+}
+function filter(__val__) {
+  var preg = /^([0-9]+\.?[0-9]{0,2})$/
+  return preg.te
+  st(__val__) === true
+}

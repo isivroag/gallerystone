@@ -638,8 +638,8 @@ if ($folio != "") {
                                                             <th>Material</th>
                                                             <th>Formato</th>
                                                             <th>Largo</th>
-                                                            <th>Ancho</th>
                                                             <th>Alto</th>
+                                                            <th>Ancho</th>
                                                             <th>M2</th>
                                                             <th>Id Umedida</th>
                                                             <th>U. Medida</th>
@@ -652,7 +652,7 @@ if ($folio != "") {
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $consultadeto = "SELECT * FROM vdetalle_ord where folio_ord='$folioorden' and estado_deto=1 order by id_reg";
+                                                        $consultadeto = "SELECT * FROM vdetalle_ord2 where folio_ord='$folioorden' and estado_deto=1 order by id_reg";
                                                         $resultadodeto = $conexion->prepare($consultadeto);
                                                         $resultadodeto->execute();
                                                         $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
@@ -666,8 +666,8 @@ if ($folio != "") {
                                                                 <td><?php echo $rowdet['nom_item'] ?></td>
                                                                 <td><?php echo $rowdet['formato'] ?></td>
                                                                 <td><?php echo $rowdet['largo_mat'] ?></td>
-                                                                <td><?php echo $rowdet['ancho_mat'] ?></td>
                                                                 <td><?php echo $rowdet['alto_mat'] ?></td>
+                                                                <td><?php echo $rowdet['ancho_mat'] ?></td>
                                                                 <td><?php echo $rowdet['m2_mat'] ?></td>
                                                                 <td><?php echo $rowdet['id_umedida'] ?></td>
                                                                 <td><?php echo $rowdet['nom_umedida'] ?></td>
@@ -1028,8 +1028,8 @@ if ($folio != "") {
                                         <th>Material</th>
                                         <th>Formato</th>
                                         <th>Largo</th>
+                                        <th>Alto</th> 
                                         <th>Ancho</th>
-                                        <th>Alto</th>
                                         <th>M2</th>
                                         <th>Id Umedida</th>
                                         <th>U. Medida</th>
@@ -1050,8 +1050,8 @@ if ($folio != "") {
                                             <td><?php echo $datc['nom_item'] ?></td>
                                             <td><?php echo $datc['nom_mat'] ?></td>
                                             <td><?php echo $datc['largo_mat'] ?></td>
-                                            <td><?php echo $datc['ancho_mat'] ?></td>
                                             <td><?php echo $datc['alto_mat'] ?></td>
+                                            <td><?php echo $datc['ancho_mat'] ?></td>
                                             <td><?php echo $datc['m2_mat'] ?></td>
                                             <td><?php echo $datc['id_umedida'] ?></td>
                                             <td><?php echo $datc['nom_umedida'] ?></td>
@@ -1269,6 +1269,8 @@ if ($folio != "") {
                                 <div class="row">
                                     <div class="col-sm-12">
                                     <input type="hidden" class="form-control" name="idmatred" id="idmatred" autocomplete="off" placeholder="idmatred" disabled>
+                                    <input type="hidden" class="form-control" name="tipored" id="tipored" autocomplete="off" placeholder="tipored" disabled>
+                                    
                                         <div class="custom-control custom-checkbox">
                                             <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="chpedaceria" >
                                             <label for="chpedaceria" class="custom-control-label">El Material Sobrante será considerado como Pedacería</label>
@@ -1278,18 +1280,21 @@ if ($folio != "") {
                                 </div>
 
                                 <div class="row" id="divmedidas" name="divmedidas">
+
+                                <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="largoant" class="col-form-label">Largo Anterior:</label>
+                                            <input type="text" class="form-control" name="largoant" id="largoant" autocomplete="off" placeholder="largoant" disabled>
+                                        </div>
+                                    </div>
+
                                     <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
                                             <label for="altoant" class="col-form-label">Alto Anterior:</label>
                                             <input type="text" class="form-control" name="altoant" id="altoant" autocomplete="off" placeholder="altoant" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group input-group-sm">
-                                            <label for="largoant" class="col-form-label">Largo Anterior:</label>
-                                            <input type="text" class="form-control" name="largoant" id="largoant" autocomplete="off" placeholder="largoant" disabled>
-                                        </div>
-                                    </div>
+                                   
 
                                     <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
@@ -1299,6 +1304,12 @@ if ($folio != "") {
                                     </div>
 
 
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="largonuevo" class="col-form-label">Largo Anterior:</label>
+                                            <input type="text" class="form-control" name="largonuevo" id="largonuevo" autocomplete="off" placeholder="largonuevo" onkeypress="return filterFloat(event,this);">
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
@@ -1306,12 +1317,7 @@ if ($folio != "") {
                                             <input type="text" class="form-control" name="altonuevo" id="altonuevo" autocomplete="off" placeholder="altonuevo" onkeypress="return filterFloat(event,this);">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group input-group-sm">
-                                            <label for="largonuevo" class="col-form-label">Largo Anterior:</label>
-                                            <input type="text" class="form-control" name="largonuevo" id="largonuevo" autocomplete="off" placeholder="largonuevo" onkeypress="return filterFloat(event,this);">
-                                        </div>
-                                    </div>
+                                   
 
                                     <div class="col-sm-4">
                                         <div class="form-group input-group-sm">

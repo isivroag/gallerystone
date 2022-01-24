@@ -14,7 +14,7 @@ $conexion = $objeto->connect();
 
 
 
-$consulta = "SELECT * FROM vmaterial WHERE estado_mat=1 ORDER BY id_mat";
+$consulta = "SELECT * FROM vmaterial WHERE estado_mat=1 and m2_mat>0 ORDER BY id_mat";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -83,7 +83,7 @@ $message = "";
                                             <th>Cantidad</th>
                                             <th>Largo</th>
                                             <th>Alto</th>
-                                            <th>Espesor</th>
+                                            <th>Ancho</th>
                                             <th>M2</th>
                                             <th>Ubicacion</th>
                                             <th>Obs</th>

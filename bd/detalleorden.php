@@ -10,13 +10,16 @@ $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $idmat = (isset($_POST['idmat'])) ? $_POST['idmat'] : '';
 $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
+$largo= (isset($_POST['largo'])) ? $_POST['largo'] : '';
+$alto= (isset($_POST['alto'])) ? $_POST['alto'] : '';
+$ancho= (isset($_POST['ancho'])) ? $_POST['ancho'] : '';
 $id= (isset($_POST['id'])) ? $_POST['id'] : '';
 $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO detalle_ord (folio_ord,id_mat,cant_mat) values ('$folio','$idmat','$cantidad')";
-        
+        //$consulta = "INSERT INTO detalle_ord (folio_ord,id_mat,cant_mat) values ('$folio','$idmat','$cantidad')";
+        $consulta = "INSERT INTO detalle_ord (folio_ord,id_mat,cant_mat,largo,alto,ancho) values ('$folio','$idmat','$cantidad','$largo','$alto','$ancho')";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         
@@ -62,7 +65,7 @@ switch ($opcion) {
 
                 if ($resultado->execute() ){
                     //DEVUELVE LA FILA
-                    $consulta = "SELECT * FROM vdetalle_ord WHERE folio_ord='$folio' ORDER BY id_reg DESC LIMIT 1";
+                    $consulta = "SELECT * FROM vdetalle_ord2 WHERE folio_ord='$folio' ORDER BY id_reg DESC LIMIT 1";
                     $resultado = $conexion->prepare($consulta);
                     $resultado->execute();
                     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
