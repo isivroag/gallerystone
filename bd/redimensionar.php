@@ -63,7 +63,7 @@ if ($pedaceria==0){
 }
 
 
-/*
+
 
 if($tipored==1){
     $montomov=$m2-$saldo;
@@ -80,7 +80,7 @@ $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()) {
     $res = 1;
 }
-*/
+
 print json_encode($res, JSON_UNESCAPED_UNICODE);
 $conexion = NULL;
 ?>

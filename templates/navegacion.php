@@ -490,8 +490,8 @@
 
 
 
-          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial') ? "active" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 
@@ -516,6 +516,15 @@
                   <p>Almacenes</p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a href="cntaestante.php" class="nav-link <?php echo ($pagina == 'estante') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-luggage-cart nav-icon"></i>
+                  <p>Estante</p>
+                </a>
+              </li>
+
+
               <li class="nav-item">
                 <a href="cntamat.php" class="nav-link <?php echo ($pagina == 'mat') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-layer-group nav-icon"></i>

@@ -123,6 +123,12 @@ $resultadou = $conexion->prepare($consultau);
 $resultadou->execute();
 $datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
 
+$consultaest = "SELECT * FROM estante WHERE estado_estante=1 ORDER BY id_estante";
+$resultadoest = $conexion->prepare($consultaest);
+$resultadoest->execute();
+$dataest = $resultadoest->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 ?>
 
@@ -896,10 +902,20 @@ $datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
 
                                 <div class="col-sm-5">
-                                    <div class="form-group input-group-sm">
-                                        <label for="ubicacionalta" class="col-form-label">Ubicación:</label>
-                                        <input type="text" class="form-control" name="ubicacionalta" id="ubicacionalta" autocomplete="off" placeholder="ubicacion">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="ubicacion" class="col-form-label">Ubicación:</label>
+                                        <select class="form-control" name="ubicacion" id="ubicacion">
+                                            <?php
+                                            foreach ($dataest as $rowest) {
+                                            ?>
+                                                <option id="<?php echo $rowest['id_estante'] ?>" value="<?php echo $rowest['nom_estante'] ?>"> <?php echo $rowest['nom_estante'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
+
                                 </div>
 
                                 <div class="col-sm-2">
