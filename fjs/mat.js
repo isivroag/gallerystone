@@ -5,6 +5,18 @@ $(document).ready(function () {
   
   var textcolumnas = permisos()
 
+  document.getElementById('alto').onblur = function () {
+    alto=this.value
+    if (alto>.9){
+      $('#nom_mat').val("PLACA")
+    }else{
+      $('#nom_mat').val("MEDIA PLACA")
+    }
+      
+    }
+
+
+
   function permisos() {
     var tipousuario = $('#tipousuario').val()
     var columnas = ''

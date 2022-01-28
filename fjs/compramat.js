@@ -19,7 +19,15 @@ $(document).ready(function() {
     }
 
    
-
+    document.getElementById('altoalta').onblur = function () {
+    alto=this.value
+    if (alto>.9){
+      $('#nom_matalta').val("PLACA")
+    }else{
+      $('#nom_matalta').val("MEDIA PLACA")
+    }
+      
+    }
 
 
     tablaC = $("#tablaC").DataTable({
