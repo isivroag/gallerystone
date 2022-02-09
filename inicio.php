@@ -46,7 +46,7 @@ $datacon = $rescon->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-$consulta = "SELECT * FROM vpres WHERE estado_pres<>'ACEPTADO' AND estado_pres <>'RECHAZADO' AND edo_pres=1 order by fecha_pres";
+$consulta = "SELECT * FROM vpres WHERE estado_pres<>'ACEPTADO' AND estado_pres <>'RECHAZADO' AND estado_pres<>'SUSPENDIDO' AND edo_pres=1 order by fecha_pres";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
