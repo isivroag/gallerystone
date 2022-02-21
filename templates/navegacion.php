@@ -435,8 +435,8 @@
         <!-- ABRE PRODUCCION-->
         <?php if ($_SESSION['s_rol'] != '1') {  ?>
 
-          <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden') ? "active" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden' || $pagina == 'citamed') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden' || $pagina == 'citamed') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-hard-hat"></i>
 
@@ -447,7 +447,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-
+            <li class="nav-item">
+                <a href="citaorden.php" class="nav-link <?php echo ($pagina == 'citamed') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-calendar nav-icon"></i>
+                  <p>Calendario Medición</p>
+                </a>
+              </li>
 
               <li class="nav-item">
                 <a href="cntaorden.php" class="nav-link <?php echo ($pagina == 'orden') ? "active seleccionado" : ""; ?>  ">
