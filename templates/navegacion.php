@@ -435,8 +435,8 @@
         <!-- ABRE PRODUCCION-->
         <?php if ($_SESSION['s_rol'] != '1') {  ?>
 
-          <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden' || $pagina == 'citamed') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden' || $pagina == 'citamed') ? "active" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-hard-hat"></i>
 
@@ -458,6 +458,12 @@
                 <a href="cntaorden.php" class="nav-link <?php echo ($pagina == 'orden') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-pencil-ruler nav-icon"></i>
                   <p>Ordenes de Proyecto</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="cntacolocacion.php" class="nav-link <?php echo ($pagina == 'colocacion') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-pencil-ruler nav-icon"></i>
+                  <p>Colocaciones</p>
                 </a>
               </li>
 <!-- empieza Produccion General-->

@@ -29,6 +29,7 @@ if ($_SESSION['s_usuario'] === null) {
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <script src="https://kit.fontawesome.com/f1fe472df3.js" crossorigin="anonymous"></script>
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- overlayScrollbars -->

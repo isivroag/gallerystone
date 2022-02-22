@@ -1,5 +1,5 @@
 <?php
-$pagina = "orden";
+$pagina = "colocacion";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord<>'PENDIENTE' and avance<90 and edo_ord<>'LIBERADO' and tipop='PROYECTO' ORDER BY folio_ord";
+$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord<>'PENDIENTE' and avance>='90'  and edo_ord<>'LIBERADO' and tipop='PROYECTO' ORDER BY folio_ord";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -44,7 +44,7 @@ $message = "";
     <!-- Default box -->
     <div class="card ">
       <div class="card-header bg-secondary">
-        <h4 class="card-title text-center">ORDENES DE SERVICIO</h4>
+        <h4 class="card-title text-center">COLOCACIONES</h4>
       </div>
 
       <div class="card-body">
@@ -74,9 +74,9 @@ $message = "";
                       <th>Cliente</th>
                       <th>Proyecto</th>
                       <th>Ubicacion</th>
-                      <th>Fecha Inst.</th>
+                 
                       <th>Tipo</th>
-                      <th>Progreso</th>
+
                       <th>Estado</th>
                       <th>Acciones</th>
                     </tr>
@@ -93,9 +93,9 @@ $message = "";
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_vta'] ?></td>
                         <td><?php echo $dat['ubicacion'] ?></td>
-                        <td><?php echo $dat['fecha_limite'] ?></td>
+             
                         <td><?php echo $dat['tipop'] ?></td>
-                        <td><?php echo $dat['avance'] ?></td>
+     
                         <td><?php echo $dat['edo_ord'] ?></td>
                         <td></td>
                       </tr>
@@ -118,11 +118,76 @@ $message = "";
   </section>
 
   <section>
+    <div class="modal fade" id="modalEtapa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-secondary">
+            <h5 class="modal-title" id="exampleModalLabel">Estado de Colocación</h5>
+
+          </div>
+          <div class="card card-widget" style="margin: 10px;">
+            <form id="formEtapa" action="" method="POST">
+              <div class="modal-body row">
+
+
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <input type="hidden" class="form-control" name="foliolorden" id="foliolorden" autocomplete="off" placeholder="Nombre">
+                
+                    
+                    
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                <div class="form-group input-group-sm auto">
+                  <label for="etapa" class="col-form-label">Etapa de Colocación:</label>
+                  <select class="form-control" name="etapa" id="etapa">
+                    <option id="e1" value="DESCARGA"> DESCARGA</option>
+                    <option id="e2" value="PROTECCION"> PROTECCION</option>
+                    <option id="e2" value="INICIO"> INICIO</option>
+                    <option id="e2" value="PERFORACIONES"> PERFORACIONES</option>
+                    <option id="e2" value="ZOCLOS"> ZOCLOS</option>
+                    <option id="e2" value="LAMBRIN"> LAMBRIN</option>
+                    <option id="e2" value="LIMPIEZA"> LIMPIEZA</option>
+                    <option id="e2" value="ENTREGA"> ENTREGA</option>
+                  </select>
+                </div>
+                </div>
+
+               
+
+              </div>
+          </div>
+
+
+          <?php
+          if ($message != "") {
+          ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <span class="badge "><?php echo ($message); ?></span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+
+            </div>
+
+          <?php
+          }
+          ?>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+            <button type="button" id="btnguardaestapa" name="btnguardaestapa" class="btn btn-success" value="btngliberar"><i class="far fa-save"></i> Guardar</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
     <div class="modal fade" id="modalOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
           <div class="modal-header bg-gradient-success">
-            <h5 class="modal-title" id="exampleModalLabel">Fecha Limite de Instalación</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Fecha de Liberación</h5>
 
           </div>
           <div class="card card-widget" style="margin: 10px;">
@@ -168,109 +233,9 @@ $message = "";
     </div>
   </section>
  
- 
-  <section>
-    <div class="modal fade" id="modalFecha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-gradient-secondary">
-            <h5 class="modal-title" id="exampleModalLabel">Fecha Limite de Instalación</h5>
-
-          </div>
-          <div class="card card-widget" style="margin: 10px;">
-            <form id="formFecha" action="" method="POST">
-              <div class="modal-body row">
 
 
-                <div class="col-sm-12">
-                  <div class="form-group input-group-sm">
-                    <input type="hidden" class="form-control" name="folioordenf" id="folioordenf" autocomplete="off" placeholder="folioordenf">
-                  
-                    <label for="fechaf" class="col-form-label">Nueva Fecha:</label>
-                    <input type="date" class="form-control" name="fechaf" id="fechaf" autocomplete="off" placeholder="Fecha">
-                  </div>
-                </div>
 
-            
-
-              </div>
-          </div>
-
-
-          <?php
-          if ($message != "") {
-          ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <span class="badge "><?php echo ($message); ?></span>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-
-            </div>
-
-          <?php
-          }
-          ?>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-            <button type="button" id="btnGuardarf" name="btnGuardarf" class="btn btn-success" value="btnGuardarf"><i class="far fa-save"></i> Guardar</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <section>
-    <div class="modal fade" id="modaldocumento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-gradient-secondary">
-            <h5 class="modal-title" id="exampleModalLabel">Orden de Trabajo (Preimpresa)</h5>
-
-          </div>
-          <div class="card card-widget" style="margin: 10px;">
-            <form id="formdocumento" action="" method="POST">
-              <div class="modal-body row">
-
-
-                <div class="col-sm-12">
-                  <div class="form-group input-group-sm">
-                    <input type="hidden" class="form-control" name="folioordend" id="folioordend" autocomplete="off" placeholder="folioordend">
-                  
-                    <label for="foliofis" class="col-form-label">Folio de Orden de Trabajo:</label>
-                    <input type="text" class="form-control" name="foliofis" id="foliofis" autocomplete="off" placeholder="Folio de Orden de Trabajo" onkeypress="return filterFloat(event,this);">
-                  </div>
-                </div>
-
-            
-
-              </div>
-          </div>
-
-
-          <?php
-          if ($message != "") {
-          ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <span class="badge "><?php echo ($message); ?></span>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-
-            </div>
-
-          <?php
-          }
-          ?>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-            <button type="button" id="btnGuardard" name="btnGuardard" class="btn btn-success" value="btnGuardard"><i class="far fa-save"></i> Guardar</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- /.content -->
 </div>
@@ -279,7 +244,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntaorden.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/cntacolocacion.js?v=<?php echo(rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
