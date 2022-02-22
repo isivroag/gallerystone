@@ -29,8 +29,8 @@ if ($conexion != null) {
         }
         if ($recordar==1){
                 
-            setcookie("usuario", $usuario,time () + 604800,"/");
-            setcookie("pass", $pass,time () + 604800,"/");
+            setcookie("usuario", $usuario,time () + 7200,"/");
+            setcookie("pass", $pass,time () + 7200,"/");
         }
         else{
             setcookie("usuario",'',time()-100,"/");

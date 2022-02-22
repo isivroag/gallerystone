@@ -324,10 +324,10 @@
             </li>
             <!-- CIERRA EGRESOS-->
             <!-- ABRE REPORTES-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" ||  $pagina == "graficoanual") ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos") ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual") ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos") ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class="fas fa-chart-line nav-icon"></i>
 
@@ -347,6 +347,17 @@
 
                     <i class="fas fa-file-invoice nav-icon"></i>
                     <p>Resultados</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <!--
+              <a href="resultados.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'resultados') ? "active seleccionado" : ""; ?>  ">
+              -->
+                  <a href="cntapvendidos.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'pvendidos') ? "active seleccionado" : ""; ?>  ">
+
+                  <i class="fas fa-layer-group nav-icon"></i>
+                    <p>Productos Vendidos</p>
                   </a>
                 </li>
 
