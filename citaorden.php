@@ -11,7 +11,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vcitamed order by folio_cita";
+$consulta = "SELECT * FROM vcitamed order by id";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -23,7 +23,10 @@ $dataorden = $resultadoorden->fetchAll(PDO::FETCH_ASSOC);
 
 $message = "";
 
-
+$consulta = "SELECT * FROM personal where estado_per=1 order by id_per";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+$dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <!-- fullCalendar -->
@@ -204,7 +207,7 @@ $message = "";
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <input type="hidden" class="form-control" name="folioorden" id="folioorden">
-                                     
+                                        <input type="hidden" class="form-control" name="foliocita" id="foliocita">
                                     </div>
                                 </div>
 
@@ -218,41 +221,50 @@ $message = "";
                                                 <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
                                             </div>
                                         </div>
-                                        <!--
-                  <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii:00" data-link-field="dtp_input1">
-                        <input class="form-control" type="text" value="" readonly>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                    </div>
-                    <input type="hidden" id="dtp_input1" value="" /><br/>
-                    -->
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="responsable" class="col-form-label">Responsable:</label>
+                                        <select class="form-control" name="responsable" id="responsable" autocomplete="off" placeholder="responsable">
+                                            <?php
+                                            foreach ($dataper as $dtvend) {
+                                            ?>
+                                                <option id="<?php echo $dtvend['nom_per'] ?>" value="<?php echo $dtvend['nom_per'] ?>" <?php echo $dtvend['nom_per'] ?>> <?php echo $dtvend['nom_per'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
 
 
 
                             </div>
+
+
+
+                            <?php
+                            if ($message != "") {
+                            ?>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <span class="badge "><?php echo ($message); ?></span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="button" id="btnGuardarf" name="btnGuardarf" class="btn btn-success" value="btnGuardarf"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
                     </div>
-
-
-                    <?php
-                    if ($message != "") {
-                    ?>
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <span class="badge "><?php echo ($message); ?></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-
-                        </div>
-
-                    <?php
-                    }
-                    ?>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="button" id="btnGuardarf" name="btnGuardarf" class="btn btn-success" value="btnGuardarf"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
                 </div>
             </div>
         </div>

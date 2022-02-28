@@ -8,17 +8,17 @@ $conexion = $objeto->connect();
 
 $folioorden = (isset($_POST['folioorden'])) ? $_POST['folioorden'] : '';
 $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
-
+$responsable = (isset($_POST['responsable'])) ? $_POST['responsable'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
 
-
+$res=0;
 
 switch ($opcion) {
         case 1: //alta
 
-                $consulta = "INSERT INTO citamed (folio_ord,fecha) VALUES('$folioorden', '$fecha') ";
+                $consulta = "INSERT INTO citamed (folio_ord,fecha,responsable) VALUES('$folioorden', '$fecha','$responsable') ";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
 
@@ -26,15 +26,45 @@ switch ($opcion) {
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
 
-                $res=1;
+
+                $consulta="SELECT folio_cita FROM citamed ORDER BY folio_cita DESC LIMIT 1";
+                $resultado=$conexion->prepare($consulta);
+                $resultado->execute();
+                $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach($data as $datarow){
+                        $res=$datarow['folio_cita'];
+                }
+
+
+
+
+           
                 print json_encode($res, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
                 break;
         case 2:
-                $consulta = "UPDATE citamed SET fecha='$fecha' WHERE folio_cita='$id' ";
+                $consulta = "UPDATE citamed SET fecha='$fecha', responsable='$responsable' WHERE folio_cita='$id' ";
+                $resultado = $conexion->prepare($consulta);
+                if ($resultado->execute()){
+                        $res=$id;
+                }
+                
+
+                $consulta = "SELECT folio_ord FROM citamed WHERE folio_cita='$id' ";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-                print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+
+                foreach ($data as $row)
+                {
+                        $folioorden= $row['folio_ord'];
+                }
+
+
+                $consulta = "UPDATE orden SET fecha_plantilla='$fecha' WHERE folio_ord='$folioorden' ";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+                print json_encode($res, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
                 break;
 
 

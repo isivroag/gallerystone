@@ -84,7 +84,7 @@ $(document).ready(function() {
 
             eventClick: function(calEvent) {
                 var id = calEvent.event.id;
-                opcion = 2;
+            
 
                 $.ajax({
                     url: "bd/citasmedir.php",
@@ -92,14 +92,14 @@ $(document).ready(function() {
                     dataType: "json",
                     data: { id: id, opcion: 4 },
                     success: function(data) {
-                        $("#folio").val(data[0].id);
-                        $("#id_pros").val(data[0].id_clie);
-                        $("#nom_pros").val(data[0].title);
-                        $("#concepto").val(data[0].descripcion);
+                        $("#foliocita").val(data[0].id);
+                        
+                        $("#responsable").val(data[0].responsable);
+                        
                         $("#fecha").val(data[0].start);
-                        $("#obs").val(data[0].obs);
+                       
 
-                        $("#modalCRUD").modal("show");
+                        $("#modalFecha2").modal("show");
                     },
                 });
             },
@@ -144,10 +144,10 @@ $(document).ready(function() {
        
        
         $('#formFecha').trigger('reset');
-    
+        
         $('#modalFecha2').modal('show');
      
-        
+        $('#foliocita').val(0);
         $('#folioorden').val(id);
 
 
@@ -166,20 +166,46 @@ $(document).ready(function() {
 
     $(document).on("click", "#btnGuardarf", function() {
         var folioorden = $("#folioorden").val();
+        var foliocita = $("#foliocita").val();
         var fecha = $("#fecha").val();
-     
+        var responsable = $("#responsable").val();
+        if (foliocita==0){
+            opcion=1
+            id=0
+        }else{
+            opcion=2
+            id=foliocita
+        }
 
         $.ajax({
             url: "bd/citasmedir.php",
             type: "POST",
             dataType: "json",
+            async:false,
             data: {
+                id: id,
                 folioorden: folioorden,
                 fecha: fecha,
+                responsable: responsable,
                 opcion: opcion,
             },
             success: function(data) {
-                location.reload();
+                if (data!=0){
+                    folio=data
+
+                    var ancho = 600;
+                    var alto = 600;
+                    var x = parseInt((window.screen.width / 2) - (ancho / 2));
+                    var y = parseInt((window.screen.height / 2) - (alto / 2));
+    
+    
+
+                    url = "formatos/enviarevento.php?folio=" + folio;
+
+                    window.open(url, "CITA DE TOMA DE PLANTILLA", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
+                    window.location.reload()
+                    
+                }
             },
         });
         $("#modalCRUD").modal("hide");
