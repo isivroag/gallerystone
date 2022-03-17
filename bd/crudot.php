@@ -14,13 +14,14 @@ $zoclo = (isset($_POST['zoclo'])) ? $_POST['zoclo'] : '';
 $superficie = (isset($_POST['superficie'])) ? $_POST['superficie'] : '';
 $tipo = (isset($_POST['tipo'])) ? $_POST['tipo'] : '';
 $obs = (isset($_POST['obs'])) ? $_POST['obs'] : '';
+$usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $res=0;
 switch($opcion){
     case 1: //alta
-        $consulta = "UPDATE ordentrabajo SET material_ot='$material',moldura_ot='$moldura',zoclo_ot='$zoclo',superficie_ot='$superficie',tipos_ot='$tipo',obs_ot='$obs',estado_ot='1' where id_ot='$idot' ";			
+        $consulta = "UPDATE ordentrabajo SET material_ot='$material',moldura_ot='$moldura',zoclo_ot='$zoclo',superficie_ot='$superficie',tipos_ot='$tipo',obs_ot='$obs',estado_ot='1',usuario_ot='$usuario' where id_ot='$idot' ";			
         $resultado = $conexion->prepare($consulta);
         if ($resultado->execute()){
             $res=1;

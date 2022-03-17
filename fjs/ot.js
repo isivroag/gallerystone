@@ -33,13 +33,14 @@ $(document).ready(function () {
         tipo=$('#tipo').val()
         obs=$('#obs').val()
         idot=$('#idot').val()
+         usuario = $('#nameuser').val()
         opcion=1
         $.ajax({
             url: "bd/crudot.php",
             type: "POST",
             dataType: "json",
             async: false,
-            data: { orden: orden,foliofis: foliofis,material: material,moldura: moldura, zoclo: zoclo, superficie: superficie,tipo: tipo,obs: obs, idot: idot, opcion: opcion },
+            data: { orden: orden,foliofis: foliofis,material: material,moldura: moldura, zoclo: zoclo, superficie: superficie,tipo: tipo,obs: obs, idot: idot, opcion: opcion,usuario: usuario },
             success: function(data) {
             
                 if (data == 1) {
