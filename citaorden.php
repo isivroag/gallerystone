@@ -195,7 +195,7 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     <section>
         <div class="modal fade" id="modalFecha2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-gradient-secondary">
                         <h5 class="modal-title" id="exampleModalLabel">Fecha de Toma de Plantilla</h5>
@@ -260,7 +260,9 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                             }
                             ?>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="button" id="btnCancelarf" class="btn btn-danger" ><i class="fas fa-ban"></i> Cancelar</button>
+                               
+                                <button type="button" id="btnAtendido" name="btnAtendido" class="btn btn-primary" value="btnAtendido"><i class="fa-solid fa-circle-check"></i> Atendido</button>
                                 <button type="button" id="btnGuardarf" name="btnGuardarf" class="btn btn-success" value="btnGuardarf"><i class="far fa-save"></i> Guardar</button>
                             </div>
                         </form>

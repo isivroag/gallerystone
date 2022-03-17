@@ -19,7 +19,10 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 $fecha = date('Y-m-d');
 $message = "";
 
-
+$consulta = "SELECT * FROM personal where estado_per=1 order by id_per";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+$dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -32,6 +35,7 @@ $message = "";
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css">
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -272,6 +276,84 @@ $message = "";
     </div>
   </section>
 
+  <section>
+        <div class="modal fade" id="modalFecha2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">Fecha de Toma de Plantilla</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formFecha" action="" method="POST">
+                            <div class="modal-body row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" name="folioordenmed" id="folioordenmed">
+                                        <input type="hidden" class="form-control" name="foliocita" id="foliocita">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="fechamed" class="col-form-label">Fecha Y Hora:</label>
+
+                                        <div class="input-group date" id="datetimepicker1" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
+                                            <input type="text" id="fechamed" name="fechamed" class="form-control datetimepicker-input " data-target="#datetimepicker1" autocomplete="off" placeholder="Fecha y Hora">
+                                            <div class="input-group-append " data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                                <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="responsable" class="col-form-label">Responsable:</label>
+                                        <select class="form-control" name="responsable" id="responsable" autocomplete="off" placeholder="responsable">
+                                            <?php
+                                            foreach ($dataper as $dtvend) {
+                                            ?>
+                                                <option id="<?php echo $dtvend['nom_per'] ?>" value="<?php echo $dtvend['nom_per'] ?>" <?php echo $dtvend['nom_per'] ?>> <?php echo $dtvend['nom_per'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+
+                            <?php
+                            if ($message != "") {
+                            ?>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <span class="badge "><?php echo ($message); ?></span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="button" id="btnGuardarf" name="btnGuardarf" class="btn btn-success" value="btnGuardarf"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
   <!-- /.content -->
 </div>
 <!-- Resumen de Pagos -->
@@ -291,3 +373,6 @@ $message = "";
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 <script src="http://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js"></script>
+<script src="plugins/tempusdominus-bootstrap-4/js/locale/es.js"></script>

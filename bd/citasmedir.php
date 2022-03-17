@@ -82,12 +82,31 @@ switch ($opcion) {
                 
                 break;
         case 4:
-                $consulta = "SELECT * FROM vcitamed WHERE id='$id'";
+                $consulta = "SELECT * FROM citamed WHERE folio_cita='$id'";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
         break;
+        case 5:
+                
+                $consulta = "UPDATE citamed SET estado_cita='2' WHERE folio_cita='$id' ";
+                $resultado = $conexion->prepare($consulta);
+                if($resultado->execute()){
+                        $res=1;
+                }
+
+                print json_encode($res, JSON_UNESCAPED_UNICODE);
+                break;
+        case 6:
+                $consulta = "UPDATE citamed SET estado_cita='0' WHERE folio_cita='$id' ";
+                $resultado = $conexion->prepare($consulta);
+                if($resultado->execute()){
+                        $res=1;
+                }
+
+                print json_encode($res, JSON_UNESCAPED_UNICODE);
+                break;
 }
 
 

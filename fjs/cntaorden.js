@@ -248,6 +248,111 @@ $(document).ready(function () {
     window.location.href = 'orden.php?folio=' + id
   })
 
+
+  //NUEVO MEDIR
+
+  $(document).on("click", ".btnMedir", function() {
+    fila = $(this).closest('tr')
+  
+    id = parseInt(fila.find('td:eq(0)').text())
+    estado=fila.find('td:eq(10)').text()
+    if (estado=='ACTIVO'){
+
+      $.ajax({
+        url: 'bd/buscarcitam.php',
+        type: 'POST',
+        dataType: 'json',
+        async:false,
+        data: {
+          id: id,    
+         
+        },
+        success: function (res) {
+          if (res == 0) {
+            $('#formFecha2').trigger('reset');
+            $('#modalFecha2').modal('show');
+            $('#foliocita').val(0);
+            $('#folioordenmed').val(id)
+          } else {
+            swal.fire({
+              title: 'La orden ya tiene una cita Agendada',
+              icon: 'warning',
+              focusConfirm: true,
+              confirmButtonText: 'Aceptar',
+            })
+          }
+        },
+      })
+    ;
+
+
+
+    }
+   else{
+    swal.fire({
+      title: 'El estado de la Orden es superior al solicitado',
+      icon: 'error',
+      focusConfirm: true,
+      confirmButtonText: 'Aceptar',
+    })
+   }
+});
+
+
+$(document).on("click", "#btnGuardarf", function() {
+  var folioorden = $("#folioordenmed").val();
+  var foliocita = $("#foliocita").val();
+  var fecha = $("#fechamed").val();
+  var responsable = $("#responsable").val();
+  if (foliocita==0){
+      opcion=1
+      id=0
+  }else{
+      opcion=2
+      id=foliocita
+  }
+
+  $.ajax({
+      url: "bd/citasmedir.php",
+      type: "POST",
+      dataType: "json",
+      async:false,
+      data: {
+          id: id,
+          folioorden: folioorden,
+          fecha: fecha,
+          responsable: responsable,
+          opcion: opcion,
+      },
+      success: function(data) {
+          if (data!=0){
+              /*folio=data
+
+              var ancho = 600;
+              var alto = 600;
+              var x = parseInt((window.screen.width / 2) - (ancho / 2));
+              var y = parseInt((window.screen.height / 2) - (alto / 2));
+
+
+
+              url = "formatos/enviarevento.php?folio=" + folio;
+
+              window.open(url, "CITA DE TOMA DE PLANTILLA", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");*/
+              swal.fire({
+                title: 'Cita de Toma de Plantilla agendada',
+                icon: 'success',
+                focusConfirm: true,
+                confirmButtonText: 'Aceptar',
+              })
+              window.location.reload()
+              
+          }
+      },
+  });
+  $("#modalCRUD").modal("hide");
+});
+
+/*
   $(document).on('click', '.btnMedir', function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
@@ -272,7 +377,32 @@ $(document).ready(function () {
         }
       },
     })
+  })*/
+
+
+  //NUEVO CORTE
+  $(document).on('click', '.btnCortar', function () {
+    fila = $(this).closest('tr')
+    folio = parseInt(fila.find('td:eq(0)').text())
+    estado = fila.find('td:eq(10)').text()
+    if(estado=="MEDICION"){
+      window.location.href="ot.php?folio="+folio
+    }else{
+      swal.fire({
+        title: 'El estado de la Orden es superior al solicitado',
+        text:"La orden de trabajo se mostrará en modo de solo lectura",
+        icon: 'warning',
+        focusConfirm: true,
+        confirmButtonText: 'Aceptar',
+      })
+      window.setTimeout(function() {
+        window.location.href="otr.php?folio="+folio
+    }, 2000);
+     
+    }
+    
   })
+/*
   $(document).on('click', '.btnCortar', function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
@@ -298,6 +428,8 @@ $(document).ready(function () {
       },
     })
   })
+*/
+
   $(document).on('click', '.btnEnsamblar', function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())

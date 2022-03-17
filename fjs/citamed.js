@@ -92,13 +92,16 @@ $(document).ready(function() {
                     dataType: "json",
                     data: { id: id, opcion: 4 },
                     success: function(data) {
-                        $("#foliocita").val(data[0].id);
+                        $("#foliocita").val(data[0].folio_cita);
+                        $("#folioorden").val(data[0].folio_ord);
                         
                         $("#responsable").val(data[0].responsable);
                         
-                        $("#fecha").val(data[0].start);
-                       
+                        $("#fecha").val(data[0].fecha);
 
+                       
+                        document.getElementById("btnCancelarf").style.visibility="visible";
+                        document.getElementById("btnAtendido").style.visibility="visible";
                         $("#modalFecha2").modal("show");
                     },
                 });
@@ -143,7 +146,7 @@ $(document).ready(function() {
         
        
        
-        $('#formFecha').trigger('reset');
+        $('#formFecha2').trigger('reset');
         
         $('#modalFecha2').modal('show');
      
@@ -161,6 +164,8 @@ $(document).ready(function() {
       
       
         opcion = 1;
+        document.getElementById("btnCancelarf").style.visibility="hidden";
+        document.getElementById("btnAtendido").style.visibility="hidden";
         $("#modalorden").modal("show");
     });
 
@@ -191,7 +196,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 if (data!=0){
-                    folio=data
+                  /*  folio=data
 
                     var ancho = 600;
                     var alto = 600;
@@ -202,7 +207,13 @@ $(document).ready(function() {
 
                     url = "formatos/enviarevento.php?folio=" + folio;
 
-                    window.open(url, "CITA DE TOMA DE PLANTILLA", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
+                    window.open(url, "CITA DE TOMA DE PLANTILLA", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");*/
+                    swal.fire({
+                        title: 'Cita de Toma de Plantilla agendada',
+                        icon: 'success',
+                        focusConfirm: true,
+                        confirmButtonText: 'Aceptar',
+                      })
                     window.location.reload()
                     
                 }
@@ -210,4 +221,88 @@ $(document).ready(function() {
         });
         $("#modalCRUD").modal("hide");
     });
+
+
+    
+  $(document).on('click', '#btnAtendido', function () {
+   
+    folio =$("#folioorden").val();
+    foliocita =$("#foliocita").val();
+    estado = 'MEDICION'
+    porcentaje=0;
+
+    opcion=5
+    id=foliocita
+
+    $.ajax({
+      url: 'bd/estadoorden.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        folio: folio,
+        estado: estado,
+        porcentaje: porcentaje
+      },
+      success: function (res) {
+        if (res == 1) {
+        
+            $.ajax({
+                url: 'bd/citasmedir.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    opcion: opcion,
+                },
+                success: function (res) {
+                  if (res == 1) {
+
+                    window.location.href = 'cntaorden.php'
+                  } else {
+                    
+                  }
+                },
+              })
+
+
+         
+        } else {
+          
+        }
+      },
+    })
+
+
+
+  })
+  $(document).on('click', '#btnCancelarf', function () {
+   
+    folio =$("#folioorden").val();
+    foliocita =$("#foliocita").val();
+   
+    opcion=6
+    id=foliocita
+
+    $.ajax({
+        url: 'bd/citasmedir.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            id: id,
+            opcion: opcion,
+        },
+        success: function (res) {
+          if (res == 1) {
+
+            window.location.reload()
+          } else {
+            
+          }
+        },
+      })
+
+
+
+  })
+
 });

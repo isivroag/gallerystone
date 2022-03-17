@@ -75,6 +75,25 @@ $(document).ready(function() {
 
     });
 
+    $(document).on("click", "#btncalmedir", function() {
+     
+
+      window.location.href = "citaorden.php" ;
+
+
+  });
+
+
+  $(document).on("click", "#btinstalacion", function() {
+  
+
+    window.location.href = "citasventa.php" ;
+
+
+});
+    
+    
+
     $(document).on("click", "#btnHome", function() {
       fecha = $("#fechahome").val();
        
