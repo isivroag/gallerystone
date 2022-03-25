@@ -94,7 +94,8 @@ $message = "";
                 <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-success">
                     <tr>
-                      <th>Folio</th>
+                      <th>Folio Vta</th>
+                      <th>Presupuesto</th>
                       <th>Fecha</th>
                       <th>Cliente</th>
                       <th>Proyecto</th>
@@ -112,10 +113,10 @@ $message = "";
                     ?>
                       <tr>
                         <td><?php echo $dat['folio_vta'] ?></td>
+                        <td><?php echo $dat['folio_pres'] ?></td>
                         <td><?php echo $dat['fecha_vta'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_vta'] ?></td>
-
                         <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
                         <td class="text-right"><?php echo "$ " . number_format($dat['saldo'], 2) ?></td>
                         <td><?php echo $dat['vendedor'] ?></td>
@@ -232,7 +233,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntaventa.js"></script>
+<script src="fjs/cntaventa.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

@@ -14,9 +14,10 @@ $(document).ready(function () {
             <button class='btn btn-sm bg-lightblue btnEnsamblar' data-toggle='tooltip' data-placement='top' title='Ensamblar'><i class='fas fa-puzzle-piece'></i></button>\
             <button class='btn btn-sm bg-purple btnPulir' data-toggle='tooltip' data-placement='top' title='Pulir'><i class='fas fa-tint'></i></button>\
             <button class='btn btn-sm bg-orange btnColocar' data-toggle='tooltip' data-placement='top' title='Colocar'><i class='fas fa-truck-pickup text-light'></i></button>\
+            <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
             </div>",
 
-            //<button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
+            //
       },
       { className: "btfecha editable", "targets": [7] },
       { className: "btFolio editable", "targets": [2] },

@@ -349,7 +349,7 @@
                     <p>Resultados</p>
                   </a>
                 </li>
-<!--
+
                 <li class="nav-item">
              
                   <a href="cntapvendidos.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'pvendidos') ? "active seleccionado" : ""; ?>  ">
@@ -358,7 +358,7 @@
                     <p>Productos Vendidos</p>
                   </a>
                 </li>
-          -->
+        
                 <li class="nav-item">
                   <a href="rptgraficoanual.php" class="nav-link <?php echo ($pagina == 'graficoanual') ? "active seleccionado" : ""; ?>  ">
                     <i class="fas fa-chart-bar nav-icon"></i>

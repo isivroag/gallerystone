@@ -11,7 +11,7 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
-if ($_SESSION['s_rol'] == '3') {
+if ($_SESSION['s_rol'] == '3' or $_SESSION['s_rol'] == '2' ) {
   $consulta = "SELECT * FROM vpres where edo_pres='1' and  estado_pres='SUSPENDIDO' order by folio_pres";
 } else {
   $consulta = "SELECT * FROM vpres where edo_pres='1' and estado_pres='RECHAZADO'  AND estado_pres='SUSPENDIDO' order by folio_pres";

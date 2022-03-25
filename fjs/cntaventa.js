@@ -13,7 +13,7 @@ $(document).ready(function() {
                 titleAttr: "Exportar a Excel",
                 title: "Reporte de Venta",
                 className: "btn bg-success ",
-                exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
+                exportOptions: { columns: [0, 1, 2, 3, 4, 5,6,7,8] },
             },
             {
                 extend: "pdfHtml5",
@@ -21,7 +21,7 @@ $(document).ready(function() {
                 titleAttr: "Exportar a PDF",
                 title: "Reporte de Venta",
                 className: "btn bg-danger",
-                exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
+                exportOptions: { columns: [0, 1, 2, 3, 4, 5,6,7,8] },
             },
         ],
         stateSave: true,
@@ -31,8 +31,8 @@ $(document).ready(function() {
             data: null,
             defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button><button class='btn btn-sm bg-info btnResumen'><i class='fas fa-bars'></i></button><button class='btn btn-sm bg-orange btnEdo'><i class='fas fa-file-invoice-dollar text-light'></i></button><button class='btn btn-sm bg-danger btnCancelar'><i class='fas fa-ban'></i></button></div></div>",
         },
-        { targets: [7], type: 'num-html' },{
-            targets: 3,
+        { targets: [8], type: 'num-html' },{
+            targets: 4,
             render: function (data, type, full, meta) {
               return "<div class='text-wrap width-200'>" + data + '</div>'
               //return "<div class='text-wrap width-200'>" + data + '</div>'
@@ -42,23 +42,23 @@ $(document).ready(function() {
     ],
     rowCallback: function (row, data) {
         
-        $($(row).find('td')['4']).addClass('text-right')
         $($(row).find('td')['5']).addClass('text-right')
-        $($(row).find('td')['4']).addClass('currency')
+        $($(row).find('td')['6']).addClass('text-right')
         $($(row).find('td')['5']).addClass('currency')
-        $($(row).find('td')['7']).css('color', 'white')
-      $($(row).find('td')['7']).addClass('text-center')
-        if (data[7] == 'PENDIENTE') {
+        $($(row).find('td')['6']).addClass('currency')
+        $($(row).find('td')['8']).css('color', 'white')
+      $($(row).find('td')['8']).addClass('text-center')
+        if (data[8] == 'PENDIENTE') {
             //$($(row).find("td")[6]).css("background-color", "warning");
-            $($(row).find('td')[7]).addClass('bg-gradient-warning')
+            $($(row).find('td')[8]).addClass('bg-gradient-warning')
             //$($(row).find('td')['9']).text('PENDIENTE')
-          } else if (data[7] == 'PRODUCCION') {
+          } else if (data[8] == 'PRODUCCION') {
             //$($(row).find("td")[9]).css("background-color", "blue");
-            $($(row).find('td')[7]).addClass('bg-gradient-secondary')
+            $($(row).find('td')[8]).addClass('bg-gradient-secondary')
             //$($(row).find('td')['9']).text('ENVIADO')
-          } else if (data[7] == 'LIBERADO') {
+          } else if (data[8] == 'LIBERADO') {
             //$($(row).find("td")[8]).css("background-color", "success");
-            $($(row).find('td')[7]).addClass('bg-success')
+            $($(row).find('td')[8]).addClass('bg-success')
             //$($(row).find('td')['8']).text('ACEPTADO')
           }
   
@@ -106,10 +106,10 @@ $(document).ready(function() {
 
         folio_venta = parseInt(fila.find("td:eq(0)").text());
 
-        saldo = fila.find("td:eq(5)").text().replace("$", "");
+        saldo = fila.find("td:eq(6)").text().replace("$", "");
         saldo = saldo.replace(",", "");
         saldo = parseFloat(saldo);
-        total = fila.find("td:eq(4)").text().replace("$", "");
+        total = fila.find("td:eq(5)").text().replace("$", "");
         total = total.replace(",", "");
         total = parseFloat(total);
 
@@ -203,7 +203,7 @@ $(document).ready(function() {
         tablaVis.clear();
         tablaVis.draw();
 
-        console.log(opcion);
+     
 
         if (inicio != "" && final != "") {
             $.ajax({
