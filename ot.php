@@ -33,7 +33,7 @@ if ($folio != "") {
 
     $tokenid = md5($_SESSION['s_usuario']);
 
-    $consulta = "SELECT * FROM ordentrabajo JOIN vorden ON ordentrabajo.folio_orden=vorden.folio_ord where folio_orden='$folio'";
+    $consulta = "SELECT * FROM vot where folio_orden='$folio'";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();

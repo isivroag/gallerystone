@@ -25,10 +25,10 @@ $message = "";
 
 <style>
   td.editable {
-  
+
     cursor: pointer;
-}
-  </style>
+  }
+</style>
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -49,7 +49,7 @@ $message = "";
 
       <div class="card-body">
 
-       
+
 
         <div class="row">
           <div class="col-lg-12">
@@ -74,7 +74,7 @@ $message = "";
                       <th>Cliente</th>
                       <th>Proyecto</th>
                       <th>Ubicacion</th>
-                 
+
                       <th>Tipo</th>
 
                       <th>Estado</th>
@@ -93,9 +93,9 @@ $message = "";
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_vta'] ?></td>
                         <td><?php echo $dat['ubicacion'] ?></td>
-             
+
                         <td><?php echo $dat['tipop'] ?></td>
-     
+
                         <td><?php echo $dat['edo_ord'] ?></td>
                         <td></td>
                       </tr>
@@ -133,28 +133,25 @@ $message = "";
                 <div class="col-sm-12">
                   <div class="form-group input-group-sm">
                     <input type="hidden" class="form-control" name="foliolorden" id="foliolorden" autocomplete="off" placeholder="Nombre">
-                
-                    
-                    
+
+
+
                   </div>
                 </div>
                 <div class="col-sm-12">
-                <div class="form-group input-group-sm auto">
-                  <label for="etapa" class="col-form-label">Etapa de Colocación:</label>
-                  <select class="form-control" name="etapa" id="etapa">
-                    <option id="e1" value="DESCARGA"> DESCARGA</option>
-                    <option id="e2" value="PROTECCION"> PROTECCION</option>
-                    <option id="e2" value="INICIO"> INICIO</option>
-                    <option id="e2" value="PERFORACIONES"> PERFORACIONES</option>
-                    <option id="e2" value="ZOCLOS"> ZOCLOS</option>
-                    <option id="e2" value="LAMBRIN"> LAMBRIN</option>
-                    <option id="e2" value="LIMPIEZA"> LIMPIEZA</option>
-                    <option id="e2" value="ENTREGA"> ENTREGA</option>
-                  </select>
-                </div>
+                  <div class="form-group input-group-sm auto">
+                    <label for="etapa" class="col-form-label">Etapa de Colocación:</label>
+                    <select class="form-control" name="etapa" id="etapa">
+                      <option id="e1" value="DESCARGA">DESCARGA</option>
+                      <option id="e2" value="PROTECCION">PROTECCION</option>
+                      <option id="e3" value="COLOCACION">COLOCACION</option>
+                      <option id="e4" value="LIMPIEZA">LIMPIEZA</option>
+                      <option id="e5" value="ENTREGA">SUPERVISION Y ENTREGA</option>
+                    </select>
+                  </div>
                 </div>
 
-               
+
 
               </div>
           </div>
@@ -182,6 +179,8 @@ $message = "";
       </div>
     </div>
   </section>
+
+
   <section>
     <div class="modal fade" id="modalOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm" role="document">
@@ -204,7 +203,7 @@ $message = "";
                   </div>
                 </div>
 
-               
+
 
               </div>
           </div>
@@ -232,7 +231,47 @@ $message = "";
       </div>
     </div>
   </section>
- 
+
+  <section>
+    <div class="container">
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalpiezas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-md" role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-primary">
+              <h5 class="modal-title" id="exampleModalLabel">BUSCAR TERMINOS Y CONDICIONES</h5>
+
+            </div>
+            <br>
+            <div class="table-hover responsive w-auto " style="padding:10px">
+              <table name="tablapiezas" id="tablapiezas" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+                <thead class="text-center bg-gradient-primary">
+                  <tr>
+                    <th>ID</th>
+                    <th>CONCEPTO</th>
+                    <th>ESTADO</th>
+                    <th>ACCIONES</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+
+        </div>
+        <!-- /.card-body -->
+
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </div>
+  </section>
+
 
 
 
@@ -244,7 +283,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntacolocacion.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/cntacolocacion.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

@@ -49,14 +49,7 @@ $(document).ready(function () {
       rowCallback: function (row, data) {
         $($(row).find('td')['8']).css('color', 'white')
         $($(row).find('td')['8']).addClass('text-center')
-        
-     
-  
-       
-    
-  
-     
-  
+      
         if (data[8] == 'DESCARGA') {
           //$($(row).find("td")[6]).css("background-color", "warning");
           //$($(row).find('td')[8]).addClass('bg-gradient-warning')
@@ -67,27 +60,11 @@ $(document).ready(function () {
           //$($(row).find('td')[8]).addClass('bg-gradient-secondary')
           $($(row).find('td')[8]).css('background-color','#F7BEF9');
           //$($(row).find('td')['8']).text('ENVIADO')
-        } else if (data[8] == 'INICIO') {
+        } else if (data[8] == 'COLOCACION') {
           //$($(row).find("td")[8]).css("background-color", "success");
           //$($(row).find('td')[8]).addClass('bg-lightblue')
           $($(row).find('td')[8]).css('background-color','#3581FD');
           //$($(row).find('td')['8']).text('ACEPTADO')
-        } else if (data[8] == 'PERFORACIONES') {
-          //$($(row).find("td")[8]).css("background-color", "purple");
-          //$($(row).find('td')[8]).addClass('bg-gradient-purple')
-          $($(row).find('td')[8]).css('background-color','#B4B7CF');
-          //$($(row).find('td')['8']).text('EN ESPERA')
-        } else if (data[8] == 'ZOCLOS') {
-          //$($(row).find("td")[5]).css("background-color", "light-blue");
-  
-          //$($(row).find('td')[8]).addClass('bg-gradient-orange')
-          $($(row).find('td')[8]).css('background-color','#6D11D4');
-          //$($(row).find('td')['8']).text('EDITADO')
-        } else if (data[8] == 'LAMBRIN'){
-          //$($(row).find("td")[5]).css("background-color", "red");
-          //$($(row).find('td')[8]).addClass('bg-gradient-warning')
-          $($(row).find('td')[8]).css('background-color','#ffc300');
-          //$($(row).find('td')['8']).text('RECHAZADO')
         }
         else if(data[8]=="LIMPIEZA") {
           //$($(row).find('td')[8]).addClass('bg-gradient-success')
@@ -98,19 +75,135 @@ $(document).ready(function () {
           //$($(row).find('td')[8]).addClass('bg-gradient-primary')
           $($(row).find('td')[8]).css('background-color','#22AA0C');
         }
-        else if(data[8]=="COLOCACION") {
-            
-            //$($(row).find('td')[8]).addClass('bg-gradient-primary')
-            $($(row).find('td')[8]).addClass('bg-gradient-orange');
-          }
+      
+      },
+    })
+
+
+    tablapiezas = $('#tablapiezas').DataTable({
+      columnDefs: [
+        {
+          targets: -1,
+          data: null,
+          defaultContent:
+            "<div class='text-center'>\
+            <button class='btn btn-sm bg-primary btncolocado' data-toggle='tooltip' data-placement='top' title='Colocado'><i class='fas fa-check-circle'></i></button>\
+              </div>",
+        },
+
+    
+      ],
+  
+      //Para cambiar el lenguaje a español
+      language: {
+        lengthMenu: 'Mostrar _MENU_ registros',
+        zeroRecords: 'No se encontraron resultados',
+        info:
+          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+        infoFiltered: '(filtrado de un total de _MAX_ registros)',
+        sSearch: 'Buscar:',
+        oPaginate: {
+          sFirst: 'Primero',
+          sLast: 'Último',
+          sNext: 'Siguiente',
+          sPrevious: 'Anterior',
+        },
+        sProcessing: 'Procesando...',
+      },
+      stateSave: true,
+      orderCellsTop: true,
+      fixedHeader: true,
+      paging: false,
+  
+      rowCallback: function (row, data) {
+  
+        $($(row).find('td')['2']).css('color', 'white')
+        $($(row).find('td')['2']).addClass('text-center')
+      
+        if (data[2] == 'PENDIENTE') {
+          //$($(row).find("td")[6]).css("background-color", "warning");
+          $($(row).find('td')[2]).addClass('bg-gradient-warning')
+          //$($(row).find('td')[2]).css('background-color','#EEA337');
+          //$($(row).find('td')['2']).text('PENDIENTE')
+        } else if (data[2] == 'COLOCADO') {
+          //$($(row).find("td")[2]).css("background-color", "blue");
+          $($(row).find('td')[2]).addClass('bg-gradient-success')
+          //$($(row).find('td')[2]).css('background-color','#0CBC09');
+          //$($(row).find('td')['8']).text('ENVIADO')
+        }
       },
     })
   
     var fila //capturar la fila para editar o borrar el registro
     
     //Boton Cambiar Fecha
+    
+    
+    $(document).on('click','.btncolocado',function(){
+      fila = $(this).closest('tr')
+      id = parseInt(fila.find('td:eq(0)').text())
+      estado = parseInt(fila.find('td:eq(2)').text())
+      forden =$('#forden').val()
+      if (estado == "COLOCADO"){
+        Swal.fire({
+          title: 'La pieza ya ha sido colocada',
+          icon: 'warning',
+        })
+
+      }else{
+        $.ajax({
+          type: "POST",
+          url: "bd/estadopieza.php",
+          dataType: "json",
+          data: { id: id },
+
+          success: function(res) {
+              if (res == 1){
+                buscarpiezas()
+              }
+          },
+      });
+      }
+
+    })
+    $(document).on('click','#etapa',function(){
+   
+      orden=$('#foliolorden').val()
+      console.log(orden)
+      var str = "";
+      $( "select option:selected" ).each(function() {
+        str += $( this ).text() ;
+      });
+      console.log(str)
+      if (str == "COLOCACION"){
+        $('#modalEtapa').modal('hide');
+        buscarpiezas(orden)
+      }
+
+    })
   
-  
+    function buscarpiezas(folio) {
+      tablapiezas.clear();
+      tablapiezas.draw();
+      $('#modalpiezas').modal('show')
+    
+
+      $.ajax({
+          type: "POST",
+          url: "bd/buscardetalleot.php",
+          dataType: "json",
+          data: { folio: folio },
+
+          success: function(res) {
+              for (var i = 0; i < res.length; i++) {
+                tablapiezas.row.add([res[i].id_reg, res[i].concepto,res[i].estado,]).draw();
+
+             
+              }
+          },
+      });
+  }
 
   //Modificar la Fecha de la Orden
     $(document).on('click', '#btnGuardarf', function (event) {
@@ -206,7 +299,8 @@ $(document).ready(function () {
     
     })
   
-
+    
+ 
   
     $(document).on('click','#btnguardaestapa',function(){
       folio = $('#foliolorden').val();  
