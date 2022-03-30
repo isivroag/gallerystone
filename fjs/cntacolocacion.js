@@ -7,10 +7,26 @@ $(document).ready(function () {
         {
           targets: -1,
           data: null,
-          defaultContent:
-            "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-regular fa-pen-to-square'></i></button>\
-            <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
-              </div>",
+
+          
+
+          render: function (data, type, row){
+            'use strict';
+            /*dejo 2 clases: bntAgregarProducto - recuperarBoton*/
+            /*capturo el id del producto*/
+            console.log(row[8])
+            if (row[8]=='ENTREGA'){
+              return "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-regular fa-pen-to-square'></i></button>\
+              <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
+                </div>"
+            }else{
+              return "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-regular fa-pen-to-square'></i></button>\
+                </div>"
+            }
+            
+        }
+
+         
         },
   
      
@@ -60,7 +76,7 @@ $(document).ready(function () {
           //$($(row).find('td')[8]).addClass('bg-gradient-secondary')
           $($(row).find('td')[8]).css('background-color','#F7BEF9');
           //$($(row).find('td')['8']).text('ENVIADO')
-        } else if (data[8] == 'COLOCACION') {
+        } else if (data[8] == 'COLOCADO') {
           //$($(row).find("td")[8]).css("background-color", "success");
           //$($(row).find('td')[8]).addClass('bg-lightblue')
           $($(row).find('td')[8]).css('background-color','#3581FD');
@@ -74,9 +90,15 @@ $(document).ready(function () {
             
           //$($(row).find('td')[8]).addClass('bg-gradient-primary')
           $($(row).find('td')[8]).css('background-color','#22AA0C');
+          
         }
-      
+        else{
+           $($(row).find('td')[8]).addClass('bg-gradient-orange')
+           $($(row).find('td')[8]).text("INICIO")
+        }
+        
       },
+ 
     })
 
 
@@ -90,6 +112,8 @@ $(document).ready(function () {
             <button class='btn btn-sm bg-primary btncolocado' data-toggle='tooltip' data-placement='top' title='Colocado'><i class='fas fa-check-circle'></i></button>\
               </div>",
         },
+        { className: "hide_column", targets: [0] },
+        { className: "hide_column", targets: [1] },
 
     
       ],
@@ -118,17 +142,17 @@ $(document).ready(function () {
   
       rowCallback: function (row, data) {
   
-        $($(row).find('td')['2']).css('color', 'white')
-        $($(row).find('td')['2']).addClass('text-center')
+        $($(row).find('td')['3']).css('color', 'white')
+        $($(row).find('td')['3']).addClass('text-center')
       
-        if (data[2] == 'PENDIENTE') {
+        if (data[3] == 'PENDIENTE') {
           //$($(row).find("td")[6]).css("background-color", "warning");
-          $($(row).find('td')[2]).addClass('bg-gradient-warning')
-          //$($(row).find('td')[2]).css('background-color','#EEA337');
-          //$($(row).find('td')['2']).text('PENDIENTE')
-        } else if (data[2] == 'COLOCADO') {
-          //$($(row).find("td")[2]).css("background-color", "blue");
-          $($(row).find('td')[2]).addClass('bg-gradient-success')
+          $($(row).find('td')[3]).addClass('bg-gradient-warning')
+          //$($(row).find('td')[3]).css('background-color','#EEA337');
+          //$($(row).find('td')['3']).text('PENDIENTE')
+        } else if (data[3] == 'COLOCADO') {
+          //$($(row).find("td")[3]).css("background-color", "blue");
+          $($(row).find('td')[3]).addClass('bg-gradient-success')
           //$($(row).find('td')[2]).css('background-color','#0CBC09');
           //$($(row).find('td')['8']).text('ENVIADO')
         }
@@ -143,8 +167,11 @@ $(document).ready(function () {
     $(document).on('click','.btncolocado',function(){
       fila = $(this).closest('tr')
       id = parseInt(fila.find('td:eq(0)').text())
-      estado = parseInt(fila.find('td:eq(2)').text())
-      forden =$('#forden').val()
+      console.log(id)
+      estado = fila.find('td:eq(3)').text()
+      console.log(estado)
+      forden =fila.find('td:eq(1)').text()
+      console.log(forden)
       if (estado == "COLOCADO"){
         Swal.fire({
           title: 'La pieza ya ha sido colocada',
@@ -156,11 +183,16 @@ $(document).ready(function () {
           type: "POST",
           url: "bd/estadopieza.php",
           dataType: "json",
-          data: { id: id },
+          async:false,
+          data: { id: id, forden: forden },
 
           success: function(res) {
               if (res == 1){
-                buscarpiezas()
+                buscarpiezas(forden)
+              }
+              else if(res==2)
+              {
+                window.location.reload()
               }
           },
       });
@@ -197,7 +229,7 @@ $(document).ready(function () {
 
           success: function(res) {
               for (var i = 0; i < res.length; i++) {
-                tablapiezas.row.add([res[i].id_reg, res[i].concepto,res[i].estado,]).draw();
+                tablapiezas.row.add([res[i].id_reg,res[i].id_ot, res[i].concepto,res[i].estado,]).draw();
 
              
               }

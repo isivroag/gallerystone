@@ -240,7 +240,7 @@ $message = "";
         <div class="modal-dialog modal-lg modal-md" role="document">
           <div class="modal-content w-auto">
             <div class="modal-header bg-gradient-primary">
-              <h5 class="modal-title" id="exampleModalLabel">BUSCAR TERMINOS Y CONDICIONES</h5>
+              <h5 class="modal-title" id="exampleModalLabel">PIEZAS ORDEN DE TRABAJO</h5>
 
             </div>
             <br>
@@ -249,6 +249,7 @@ $message = "";
                 <thead class="text-center bg-gradient-primary">
                   <tr>
                     <th>ID</th>
+                    <th>ORDEN</th>
                     <th>CONCEPTO</th>
                     <th>ESTADO</th>
                     <th>ACCIONES</th>
