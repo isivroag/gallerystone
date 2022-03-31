@@ -472,7 +472,7 @@
                 </a>
               </li>
 
-<!--
+
               <li class="nav-item">
                 <a href="cntacolocacion.php" class="nav-link <?php echo ($pagina == 'colocacion') ? "active seleccionado" : ""; ?>  ">
                   <i class="fa-solid fa-sink nav-icon"></i>
@@ -480,7 +480,7 @@
                 </a>
               </li>
 
-        -->
+
               <!-- empieza Produccion General-->
               <?php if ($_SESSION['s_rol'] != '5') { ?>
                 <li class="nav-item">

@@ -59,17 +59,7 @@ function getPlantilla($folio)
     }
 
     $plantilla .= '
-<!DOCTYPE html>
-<html>
-<head>
- <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Gallery Stone | ERP </title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../css/estiloorden.css">
-  <link rel="shortcut icon" href="img/favicon.ico">
-</head>
 
 
   <body>
@@ -97,7 +87,7 @@ function getPlantilla($folio)
             <td style="border:0"><strong style="text-align:right">' . $fecha . '</strong></td>
             </tr>
             <tr style="border:0">
-            <td class="desc" style="border:0">Fecha Prog. Col.</td>
+            <td class="desc" style="border:0">Fecha Col.</td>
             <td style="border:0"><strong style="text-align:right">' . $fechalim . '</strong></td>
             </tr>
             </tbody>

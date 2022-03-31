@@ -251,6 +251,7 @@ $message = "";
                     <th>ID</th>
                     <th>ORDEN</th>
                     <th>CONCEPTO</th>
+                    <th>MEDIDAS</th>
                     <th>ESTADO</th>
                     <th>ACCIONES</th>
                   </tr>

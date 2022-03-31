@@ -248,8 +248,8 @@ footer {
 }
 
 .imagen{
-    max-width: 800px;
-    
+    max-width: 780px;
+    max-height: 1500px;
     display: block !important;
     margin: 0px auto !important;
 }

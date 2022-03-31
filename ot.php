@@ -125,6 +125,7 @@ if ($folio != "") {
 
                         <!--<button id="btnNuevo" type="button" class="btn bg-gradient-secondary btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
                         <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                        <button id="btnVer" name="btnVer" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-file-pdf" aria-hidden="true"></i> Preview</button>
 
 
                     </div>
@@ -148,21 +149,21 @@ if ($folio != "") {
 
                             <div class="card-body " style="margin:0px;padding:10px;">
                                 <div class="row justify-content-sm-center">
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
                                             <label for="folioorden" class="col-form-label">Folio Orden:</label>
                                             <input type="hidden" class="form-control" name="idot" id="idot" value="<?php echo   $idot; ?>" disabled>
                                             <input type="text" class="form-control" name="folioorden" id="folioorden" value="<?php echo   $folioorden; ?>" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
                                             <label for="foliof" class="col-form-label">Folio Fisico:</label>
 
                                             <input type="text" class="form-control" name="foliof" id="foliof" value="<?php echo   $foliofis; ?>">
                                         </div>
                                     </div>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
                                             <label for="foliov" class="col-form-label">Folio Venta:</label>
 
@@ -180,7 +181,7 @@ if ($folio != "") {
 
                                     <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
-                                            <label for="fechacol" class="col-form-label">Fecha Programada de Colocacion:</label>
+                                            <label for="fechacol" class="col-form-label">Fecha Prog. de Col.:</label>
 
                                             <input type="date" class="form-control" name="fechacol" id="fechacol" value="<?php echo   $fechalim; ?>">
                                         </div>
@@ -191,7 +192,7 @@ if ($folio != "") {
 
                                 <div class="row justify-content-sm-center">
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-10">
                                         <div class="form-group">
 
                                             <label for="concepto" class="col-form-label">Concepto:</label>
@@ -203,7 +204,7 @@ if ($folio != "") {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-10">
                                         <div class="form-group">
 
                                             <label for="ubicacion" class="col-form-label">Ubicación:</label>
@@ -216,7 +217,7 @@ if ($folio != "") {
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-10">
                                         <table name="tablaD" id="tablaD" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
                                             <thead class="text-center bg-gradient-secondary">
                                                 <tr>
@@ -245,7 +246,7 @@ if ($folio != "") {
 
                                 <div class="row justify-content-sm-center">
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-10">
                                         <div class="card">
                                             <div class="card-header bg-gradient-secondary" style="margin:0px;padding:8px">
                                                 <h1 class="card-title">Detalle OT</h1>
@@ -320,7 +321,7 @@ if ($folio != "") {
                                 </div>
                                 <div class="row justify-content-center">
                                     <!-- Cargar Plano -->
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-10">
                                         <div class="card">
                                             <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
@@ -337,8 +338,8 @@ if ($folio != "") {
                                             </div>
                                             <div class="card-body" id="extra">
                                                 <div class="row justify-content-center">
-                                                    <div class="col-sm-8 text-center">
-                                                        <img class="img-responsive img-fluid pad" id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 500;">
+                                                    <div class="col-sm-12 text-center">
+                                                        <img class="img-responsive img-fluid pad" id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 780;">
                                                     </div>
                                                 </div>
                                             </div>
@@ -361,7 +362,7 @@ if ($folio != "") {
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-4"></div>
 
                                     <div class="col-sm-3">
                                         <div class="form-group input-group-sm">
@@ -383,7 +384,7 @@ if ($folio != "") {
 
 
                                 <div class=" row justify-content-sm-center">
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-10">
 
                                         <div class="form-group">
                                             <label for="obs" class="col-form-label">Observaciones:</label>
