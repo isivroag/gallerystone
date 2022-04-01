@@ -351,14 +351,14 @@
                 </li>
 
                 <li class="nav-item">
-             
+
                   <a href="cntapvendidos.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'pvendidos') ? "active seleccionado" : ""; ?>  ">
 
                     <i class="fas fa-layer-group nav-icon"></i>
                     <p>Productos Vendidos</p>
                   </a>
                 </li>
-        
+
                 <li class="nav-item">
                   <a href="rptgraficoanual.php" class="nav-link <?php echo ($pagina == 'graficoanual') ? "active seleccionado" : ""; ?>  ">
                     <i class="fas fa-chart-bar nav-icon"></i>
@@ -444,20 +444,20 @@
         <!-- ABRE PRODUCCION-->
         <?php if ($_SESSION['s_rol'] != '1') {  ?>
 
-          <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion' ) ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' || $pagina == 'ordenobra' || $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion' ) ? "active" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' ||  $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' ||  $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-hard-hat"></i>
 
               </span>
               <p>
-                Producción
+                Producción Proyectos
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
 
-              
+
               <li class="nav-item">
                 <a href="citaorden.php" class="nav-link <?php echo ($pagina == 'citamed') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-calendar nav-icon"></i>
@@ -482,13 +482,8 @@
 
 
               <!-- empieza Produccion General-->
-              <?php if ($_SESSION['s_rol'] != '5') { ?>
-                <li class="nav-item">
-                  <a href="cntaordenobra.php" class="nav-link <?php echo ($pagina == 'ordenobra') ? "active seleccionado" : ""; ?>  ">
-                    <i class="fas fa-archway nav-icon"></i>
-                    <p>Ordenes de Obra</p>
-                  </a>
-                </li>
+        
+               
 
                 <li class="nav-item">
                   <a href="cntarptorden.php" class="nav-link <?php echo ($pagina == 'cntarptorden') ? "active seleccionado" : ""; ?>  ">
@@ -503,13 +498,54 @@
                     <p>Reporte de Producción ML</p>
                   </a>
                 </li>
-              <?php } ?>
+            
               <!-- Termina Produccion General-->
             </ul>
           </li>
           <!-- CIERRA PRODUCCION-->
 
         <?php }  ?>
+       
+
+          <li class="nav-item has-treeview <?php echo ( $pagina == 'ordenobra' ) ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ( $pagina == 'ordenobra' ) ? "active" : ""; ?>">
+              <span class="fa-stack">
+                <i class=" fa-solid fa-building "></i>
+              </span>
+              <p>Producción Obras
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+
+            
+
+             
+
+             
+
+              <!-- empieza Produccion General-->
+           
+                <li class="nav-item">
+                  <a href="cntaordenobra.php" class="nav-link <?php echo ($pagina == 'ordenobra') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fas fa-archway nav-icon"></i>
+                    <p>Ordenes de Obra</p>
+                  </a>
+                </li>
+
+                
+
+             
+             
+              <!-- Termina Produccion General-->
+            </ul>
+          </li>
+          <!-- CIERRA PRODUCCION-->
+
+      
+
+
         <!-- ABRE INVENTARIO-->
         <?php if ($_SESSION['s_rol'] != '1') { ?>
 

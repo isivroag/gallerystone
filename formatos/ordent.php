@@ -42,7 +42,7 @@ function getPlantilla($folio)
             $obs = $dt['obs_ot'];
         }
 
-        $consultadet = "SELECT * FROM vdetalle_vta where folio_vta='$foliovta' order by id_reg";
+        $consultadet = "SELECT * FROM vdetalle_vta where folio_vta='$foliovta' GROUP BY id_item order by id_reg";
         $resultadodet = $conexion->prepare($consultadet);
         $resultadodet->execute();
         $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);

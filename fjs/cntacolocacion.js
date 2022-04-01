@@ -139,6 +139,8 @@ $(document).ready(function () {
       orderCellsTop: true,
       fixedHeader: true,
       paging: false,
+      scrollY:        "400px",
+      scrollCollapse: true,
   
       rowCallback: function (row, data) {
   

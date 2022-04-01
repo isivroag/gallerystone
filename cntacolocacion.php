@@ -27,6 +27,17 @@ $message = "";
   td.editable {
 
     cursor: pointer;
+
+    
+  }
+  .tablapiezas{
+   
+  height: 100px;
+  width: 100%;
+  overflow-y: auto;
+
+    
+
   }
 </style>
 
@@ -236,8 +247,8 @@ $message = "";
     <div class="container">
 
       <!-- Default box -->
-      <div class="modal fade" id="modalpiezas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-md" role="document">
+      <div class="modal fade" id="modalpiezas"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-md " role="document">
           <div class="modal-content w-auto">
             <div class="modal-header bg-gradient-primary">
               <h5 class="modal-title" id="exampleModalLabel">PIEZAS ORDEN DE TRABAJO</h5>
