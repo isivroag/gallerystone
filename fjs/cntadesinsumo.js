@@ -55,12 +55,12 @@ $(document).ready(function () {
           data: null,
           defaultContent: textcolumnas,
         },
-        { className: 'hide_column', targets: [3] },
-        { className: 'text-right', targets: [4] },
+        { className: 'hide_column', targets: [4] },
         { className: 'text-right', targets: [5] },
         { className: 'text-right', targets: [6] },
         { className: 'text-right', targets: [7] },
         { className: 'text-right', targets: [8] },
+        { className: 'text-right', targets: [9] },
       ],
   
       //Para cambiar el lenguaje a español
@@ -100,14 +100,16 @@ $(document).ready(function () {
       fila = $(this).closest('tr')
       $('#formDatos').trigger('reset')
       id = parseInt(fila.find('td:eq(0)').text())
-      id_umedida = fila.find('td:eq(3)').text()
-      nom_cons = fila.find('td:eq(1)').text() //window.location.href = "actprospecto.php?id=" + id;
-      cantidad = fila.find('td:eq(4)').text()
-      usos = fila.find('td:eq(5)').text()
-      totalusos = fila.find('td:eq(6)').text()
-      ubicacion = fila.find('td:eq(7)').text()
-      obs = fila.find('td:eq(8)').text()
+      clave = fila.find('td:eq(1)').text()
+      id_umedida = fila.find('td:eq(4)').text()
+      nom_cons = fila.find('td:eq(2)').text() //window.location.href = "actprospecto.php?id=" + id;
+      cantidad = fila.find('td:eq(5)').text()
+      usos = fila.find('td:eq(6)').text()
+      totalusos = fila.find('td:eq(7)').text()
+      ubicacion = fila.find('td:eq(8)').text()
+      obs = fila.find('td:eq(9)').text()
       $('#iddes').val(id)
+      $('#clave_des').val(clave)
       $('#umedida').val(id_umedida)
       $('#nom_cons').val(nom_cons)
       $('#cantidad').val(cantidad)
@@ -150,6 +152,8 @@ $(document).ready(function () {
     $('#formDatos').submit(function (e) {
       e.preventDefault()
        
+
+      var clave = $.trim($('#clave_des').val())
       var nom_cons = $.trim($('#nom_cons').val())
       var cantidad = $.trim($('#cantidad').val())
   
@@ -168,6 +172,7 @@ $(document).ready(function () {
         nom_cons.length == 0 ||
         umedida.length == 0 ||
         uso.length == 0 ||
+        clave.length == 0 ||
         cantidad.length == 0
         
       ) {
@@ -184,6 +189,7 @@ $(document).ready(function () {
           dataType: 'json',
           data: {
             umedida: umedida,
+            clave: clave,
             nom_cons: nom_cons,
             cantidad: cantidad,
             id: id,
@@ -196,6 +202,7 @@ $(document).ready(function () {
           },
           success: function (data) {
             id = data[0].id_des
+            clave = data[0].clave_des
             umedida = data[0].id_umedida
             nom_umedida = data[0].nom_umedida
             nom_cons = data[0].nom_des
@@ -210,6 +217,7 @@ $(document).ready(function () {
               tablaVis.row
                 .add([
                   id,
+                  clave,
                   nom_cons,
                   nom_umedida,
                   umedida,
@@ -225,6 +233,7 @@ $(document).ready(function () {
                 .row(fila)
                 .data([
                   id,
+                  clave,
                   nom_cons,
                   nom_umedida,
                   umedida,
@@ -248,11 +257,11 @@ $(document).ready(function () {
       fila = $(this).closest('tr')
       id = parseInt(fila.find('td:eq(0)').text())
   
-      nombre = fila.find('td:eq(1)').text()
-      saldo = fila.find('td:eq(4)').text()
+      nombre = fila.find('td:eq(2)').text()
+      saldo = fila.find('td:eq(5)').text()
   
-      presentacion = fila.find('td:eq(5)').text()
-      totalusomov = fila.find('td:eq(6)').text()
+      presentacion = fila.find('td:eq(6)').text()
+      totalusomov = fila.find('td:eq(7)').text()
   
       $('#id').val(id)
       $('#nmaterial').val(nombre)

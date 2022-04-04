@@ -70,6 +70,7 @@ $message = "";
                                     <thead class="text-center bg-gradient-secondary">
                                         <tr>
                                             <th>Id </th>
+                                            <th>Clave </th>
                                             <th>Descripcion</th>
                                             <th>U.Medida</th>
                                             <th>Id U.Medida</th>
@@ -88,6 +89,7 @@ $message = "";
                                             <tr>
 
                                                 <td><?php echo $dat['id_des'] ?></td>
+                                                <td><?php echo $dat['clave_des'] ?></td>
                                                 <td><?php echo $dat['nom_des'] ?></td>
                                                 <td><?php echo $dat['nom_umedida'] ?></td>
                                                 <td><?php echo $dat['id_umedida'] ?></td>
@@ -132,14 +134,19 @@ $message = "";
 
                             <input type="hidden" class="form-control" name="iddes" id="iddes" autocomplete="off" placeholder="ID" disabled>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
                                         <label for="nom_cons" class="col-form-label">Descripción*:</label>
                                         <input type="text" class="form-control" name="nom_cons" id="nom_cons" autocomplete="off" placeholder="Descripción">
                                     </div>
                                 </div>
 
-
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="clave_des" class="col-form-label">Clave*:</label>
+                                        <input type="text" class="form-control" name="clave_des" id="clave_des" autocomplete="off" placeholder="Clave">
+                                    </div>
+                                </div>
 
 
 

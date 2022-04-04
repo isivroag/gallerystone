@@ -12,6 +12,8 @@ $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
 $ubicacion = (isset($_POST['ubicacion'])) ? $_POST['ubicacion'] : '';
 $obs = (isset($_POST['obs'])) ? $_POST['obs'] : '';
 
+$clave = (isset($_POST['clave'])) ? $_POST['clave'] : '';
+
 $uso = (isset($_POST['uso'])) ? $_POST['uso'] : '';
 $totalusos = (isset($_POST['totalusos'])) ? $_POST['totalusos'] : '';
 
@@ -24,7 +26,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO desechable (nom_des,cant_des,id_umedida,ubi_des,obs_des,usos,totalusos) VALUES('$nom_cons','$cantidad','$umedida','$ubicacion','$obs','$uso','$totalusos')";			
+        $consulta = "INSERT INTO desechable (nom_des,cant_des,id_umedida,ubi_des,obs_des,usos,totalusos,clave_des) VALUES('$nom_cons','$cantidad','$umedida','$ubicacion','$obs','$uso','$totalusos','$clave')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
@@ -34,7 +36,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE desechable SET nom_des='$nom_cons',id_umedida='$umedida',ubi_des='$ubicacion',obs_des='$obs' WHERE id_des='$id' ";		
+        $consulta = "UPDATE desechable SET nom_des='$nom_cons',id_umedida='$umedida',ubi_des='$ubicacion',obs_des='$obs',clave_des='$clave' WHERE id_des='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         

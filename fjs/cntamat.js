@@ -67,13 +67,13 @@ $(document).ready(function () {
         data: null,
         defaultContent: textcolumnas,
       },
-      { className: 'hide_column', targets: [1] },
-      { className: 'hide_column', targets: [6] },
-      { className: 'hide_column', targets: [3] },
-      { className: 'text-right', targets: [7] },
+      { className: 'hide_column', targets: [2] },
+      { className: 'hide_column', targets: [7] },
+      { className: 'hide_column', targets: [4] },
       { className: 'text-right', targets: [8] },
       { className: 'text-right', targets: [9] },
       { className: 'text-right', targets: [10] },
+      { className: 'text-right', targets: [11] },
       
       
 
@@ -149,7 +149,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
 
     iditem = fila.find('td:eq(0)').text()
-    nomitem = fila.find('td:eq(2)').text()
+    nomitem = fila.find('td:eq(3)').text()
 
     /*
      */
@@ -166,22 +166,24 @@ $(document).ready(function () {
   $(document).on('click', '.btnEditar', function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
-    iditem = fila.find('td:eq(1)').text()
-    nom_item = fila.find('td:eq(2)').text()
-    id_umedida = fila.find('td:eq(3)').text()
+    clave = fila.find('td:eq(1)').text()
+    iditem = fila.find('td:eq(2)').text()
+    nom_item = fila.find('td:eq(3)').text()
+    id_umedida = fila.find('td:eq(4)').text()
 
-    nom_mat = fila.find('td:eq(5)').text() //window.location.href = "actprospecto.php?id=" + id;
+    nom_mat = fila.find('td:eq(6)').text() //window.location.href = "actprospecto.php?id=" + id;
     
-    cantidad = fila.find('td:eq(6)').text()
-    largo = fila.find('td:eq(7)').text()
-    alto = fila.find('td:eq(8)').text()
-    ancho = fila.find('td:eq(9)').text()
-    metros = fila.find('td:eq(10)').text()
+    cantidad = fila.find('td:eq(7)').text()
+    largo = fila.find('td:eq(8)').text()
+    alto = fila.find('td:eq(9)').text()
+    ancho = fila.find('td:eq(10)').text()
+    metros = fila.find('td:eq(11)').text()
    
-    ubicacion = fila.find('td:eq(11)').text()
-    obs = fila.find('td:eq(12)').text()
+    ubicacion = fila.find('td:eq(12)').text()
+    obs = fila.find('td:eq(13)').text()
 
     $('#item').val(nom_item)
+    $('#clavemat').val(clave)
     $('#iditem').val(iditem)
     $('#umedida').val(id_umedida)
     $('#nom_mat').val(nom_mat)
@@ -229,6 +231,7 @@ $(document).ready(function () {
   $('#formDatos').submit(function (e) {
     e.preventDefault()
     var id_item = $.trim($('#iditem').val())
+    var clave_mat = $.trim($('#clavemat').val())
     var nom_mat = $.trim($('#nom_mat').val())
     var cantidad = $.trim($('#cantidad').val())
     var alto = $.trim($('#alto').val())
@@ -239,7 +242,7 @@ $(document).ready(function () {
     var metros = $.trim($('#metros').val())
     var obs = $.trim($('#obs').val())
 
-    if (nom_mat.length == 0 || umedida.length == 0 || id_item.length == 0) {
+    if (nom_mat.length == 0 || umedida.length == 0 || id_item.length == 0 || clave_mat.length == 0) {
       Swal.fire({
         title: 'Datos Faltantes',
         text: 'Debe ingresar todos los datos del Prospecto',
@@ -256,6 +259,7 @@ $(document).ready(function () {
           umedida: umedida,
           nom_mat: nom_mat,
           cantidad: cantidad,
+          clave_mat: clave_mat,
           alto: alto,
           ancho: ancho,
           largo: largo,
@@ -269,6 +273,7 @@ $(document).ready(function () {
           //tablaPersonas.ajax.reload(null, false);
           id = data[0].id_mat
           iditem = data[0].id_item
+          clave = data[0].clave_mat
           item = data[0].nom_item
           umedida = data[0].id_umedida
           nom_umeddia = data[0].nom_umedida
@@ -284,6 +289,7 @@ $(document).ready(function () {
             tablaVis.row
               .add([
                 id,
+                clave,
                 iditem,
                 item,
                 umedida,
@@ -303,6 +309,7 @@ $(document).ready(function () {
               .row(fila)
               .data([
                 id,
+                clave,
                 iditem,
                 item,
                 umedida,
@@ -330,10 +337,10 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
 
-    nombre = fila.find('td:eq(2)').text()
+    nombre = fila.find('td:eq(3)').text()
     //cambio para usar m2 como unidad de movimientos de inventario
-    saldo = fila.find('td:eq(10)').text()
-    nmaterial = fila.find('td:eq(5)').text()
+    saldo = fila.find('td:eq(11)').text()
+    nmaterial = fila.find('td:eq(6)').text()
 
     
 

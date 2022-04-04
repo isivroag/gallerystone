@@ -69,12 +69,12 @@ $(document).ready(function () {
         data: null,
         defaultContent: textcolumnas,
       },
-      { className: 'hide_column', targets: [3] },
-      { className: 'text-right', targets: [4] },
+      { className: 'hide_column', targets: [4] },
       { className: 'text-right', targets: [5] },
       { className: 'text-right', targets: [6] },
       { className: 'text-right', targets: [7] },
       { className: 'text-right', targets: [8] },
+      { className: 'text-right', targets: [9] },
     ],
 
     //Para cambiar el lenguaje a español
@@ -114,15 +114,16 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     $('#formAbrir').trigger('reset')
     id = parseInt(fila.find('td:eq(0)').text())
-    id_umedida = fila.find('td:eq(3)').text()
-    nom_cons = fila.find('td:eq(1)').text() //window.location.href = "actprospecto.php?id=" + id;
-    cantidad = fila.find('td:eq(4)').text()
-    presentacion = fila.find('td:eq(5)').text()
-    contenidon = fila.find('td:eq(6)').text()
-    contenidoa = fila.find('td:eq(7)').text()
-    contenidot = fila.find('td:eq(8)').text()
-    ubicacion = fila.find('td:eq(9)').text()
-    obs = fila.find('td:eq(10)').text()
+    clave =fila.find('td:eq(1)').text()
+    id_umedida = fila.find('td:eq(4)').text()
+    nom_cons = fila.find('td:eq(2)').text() //window.location.href = "actprospecto.php?id=" + id;
+    cantidad = fila.find('td:eq(5)').text()
+    presentacion = fila.find('td:eq(6)').text()
+    contenidon = fila.find('td:eq(7)').text()
+    contenidoa = fila.find('td:eq(8)').text()
+    contenidot = fila.find('td:eq(9)').text()
+    ubicacion = fila.find('td:eq(10)').text()
+    obs = fila.find('td:eq(11)').text()
     $('#ida').val(id)
     $('#umedidaa').val(id_umedida)
     $('#nom_consa').val(nom_cons)
@@ -131,6 +132,7 @@ $(document).ready(function () {
     $('#contenidona').val(contenidon)
     $('#contenidoaa').val(contenidoa)
     $('#contenidota').val(contenidot)
+    $('#clave_cons').val(clave)
 
     opcion = 2 //editar
 
@@ -168,6 +170,7 @@ $(document).ready(function () {
 
     var nom_cons = $.trim($('#nom_cons').val())
     var cantidad = $.trim($('#cantidad').val())
+    var clave = $.trim($('#clave_cons').val())
 
     var umedida = $.trim($('#umedida').val())
     var ubicacion = $.trim($('#ubicacion').val())
@@ -179,13 +182,11 @@ $(document).ready(function () {
     var contenidot = $('#contenidot').val()
     var presentacion = $('#presentacion').val()
 
-    console.log(presentacion)
-    console.log(contenidon)
-    console.log(contenidoa)
-    console.log(contenidot)
+
 
     if (
       nom_cons.length == 0 ||
+      clave.length == 0 ||
       umedida.length == 0 ||
       presentacion.length == 0 ||
       contenidoa.length == 0 ||
@@ -205,6 +206,7 @@ $(document).ready(function () {
         dataType: 'json',
         data: {
           umedida: umedida,
+          clave: clave,
           nom_cons: nom_cons,
           cantidad: cantidad,
           id: id,
@@ -220,6 +222,7 @@ $(document).ready(function () {
           id = data[0].id_cons
           umedida = data[0].id_umedida
           nom_umedida = data[0].nom_umedida
+          clave=data[0].clave_cons
           nom_cons = data[0].nom_cons
           cantidad = data[0].cant_cons
           ubicacion = data[0].ubi_cons
@@ -233,6 +236,7 @@ $(document).ready(function () {
             tablaVis.row
               .add([
                 id,
+                clave,
                 nom_cons,
                 nom_umedida,
                 umedida,
@@ -250,6 +254,7 @@ $(document).ready(function () {
               .row(fila)
               .data([
                 id,
+                clave,
                 nom_cons,
                 nom_umedida,
                 umedida,
@@ -275,11 +280,11 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
 
-    nombre = fila.find('td:eq(1)').text()
-    saldo = fila.find('td:eq(4)').text()
+    nombre = fila.find('td:eq(2)').text()
+    saldo = fila.find('td:eq(5)').text()
 
-    presentacion = fila.find('td:eq(5)').text()
-    contenidoc = fila.find('td:eq(6)').text()
+    presentacion = fila.find('td:eq(6)').text()
+    contenidoc = fila.find('td:eq(7)').text()
 
     $('#id').val(id)
     $('#nmaterial').val(nombre)
@@ -445,11 +450,11 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
 
-    nombre = fila.find('td:eq(1)').text()
-    saldo = fila.find('td:eq(7)').text()
+    nombre = fila.find('td:eq(2)').text()
+    saldo = fila.find('td:eq(8)').text()
 
-    presentacion = fila.find('td:eq(5)').text()
-    contenidoab = fila.find('td:eq(7)').text()
+    presentacion = fila.find('td:eq(6)').text()
+    contenidoab = fila.find('td:eq(8)').text()
 
     $('#idma').val(id)
     $('#nmaterialab').val(nombre)

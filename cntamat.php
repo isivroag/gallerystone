@@ -78,6 +78,7 @@ $message = "";
                                     <thead class="text-center bg-gradient-secondary">
                                         <tr>
                                             <th>Id </th>
+                                            <th>Clave </th>
                                             <th>Id Mat </th>
                                             <th>Material</th>
                                             <th>Id U.Medida</th>
@@ -99,6 +100,7 @@ $message = "";
                                         ?>
                                             <tr>
                                                 <td><?php echo $dat['id_mat'] ?></td>
+                                                <td><?php echo $dat['clave_mat'] ?></td>
                                                 <td><?php echo $dat['id_item'] ?></td>
                                                 <td><?php echo $dat['nom_item'] ?></td>
                                                 <td><?php echo $dat['id_umedida'] ?></td>
@@ -146,7 +148,7 @@ $message = "";
                         <form id="formDatos" action="" method="POST">
                             <div class="modal-body row">
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
                                         <label for="item" class="col-form-label">Tipo de Material:</label>
 
@@ -158,9 +160,12 @@ $message = "";
                                                 <button id="bitem" type="button" class="btn btn-sm btn-secondary"><i class="fas fa-search"></i></button>
                                             </span>
                                         </div>
-
-
-
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="clavemat" class="col-form-label">Clave:</label>
+                                        <input type="text" class="form-control" name="clavemat" id="clavemat" autocomplete="off" placeholder="Clave">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -432,7 +437,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/mat.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/cntamat.js?v=<?php echo(rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

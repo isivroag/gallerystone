@@ -109,6 +109,7 @@ $message = "";
                                     <thead class="text-center bg-gradient-secondary">
                                         <tr>
                                             <th>Id </th>
+                                            <th>Clave</th>
                                             <th>Descripcion</th>
                                             <th>U.Medida</th>
                                             <th>Id U.Medida</th>
@@ -129,6 +130,7 @@ $message = "";
                                             <tr>
 
                                                 <td><?php echo $dat['id_cons'] ?></td>
+                                                <td><?php echo $dat['clave_cons'] ?></td>
                                                 <td><?php echo $dat['nom_cons'] ?></td>
                                                 <td><?php echo $dat['nom_umedida'] ?></td>
                                                 <td><?php echo $dat['id_umedida'] ?></td>
@@ -174,14 +176,19 @@ $message = "";
                             <div class="modal-body row">
 
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
                                         <label for="nom_cons" class="col-form-label">Descripción*:</label>
                                         <input type="text" class="form-control" name="nom_cons" id="nom_cons" autocomplete="off" placeholder="Descripción">
                                     </div>
                                 </div>
 
-
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="clave_cons" class="col-form-label">Clave*:</label>
+                                        <input type="text" class="form-control" name="clave_cons" id="clave_cons" autocomplete="off" placeholder="Clave">
+                                    </div>
+                                </div>
 
 
 
@@ -664,7 +671,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/insumoop.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/cntainsumoop.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
