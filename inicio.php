@@ -12,6 +12,23 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 date_default_timezone_set('America/Mexico_City');
 
+
+/*FECHA INICIO DE SEMANA */
+$diaInicio = "Monday";
+$diaFin = "Sunday";
+$fechafun = date('Y-M-d');
+$strFecha = strtotime($fechafun);
+
+$fechaInicio = date('Y-m-d', strtotime('last ' . $diaInicio, $strFecha));
+$fechaFin = date('Y-m-d', strtotime('next ' . $diaFin, $strFecha));
+
+if (date("l", $strFecha) == $diaInicio) {
+  $fechaInicio = date("Y-m-d", $strFecha);
+}
+if (date("l", $strFecha) == $diaFin) {
+  $fechaFin = date("Y-m-d", $strFecha);
+}
+/*FIN FECHA INICIO DE SEMANA */
 $mesarreglo = array(
   "", "ENERO",
   "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
@@ -104,6 +121,7 @@ $consultaing = "SELECT SUM(monto) AS monto FROM vpagocxc WHERE month(fecha)='$m'
 $resultadoing = $conexion->prepare($consultaing);
 $resultadoing->execute();
 $dataing = $resultadoing->fetchAll(PDO::FETCH_ASSOC);
+
 
 
 
@@ -754,7 +772,109 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
       <!-- CIERRA TABLEROS -->
 
     </section>
+
+
+
+
+    <section>
+      <div class="row justify-content-center">
+
+
+        <!-- LIBERACIONES -->
+        <div class="col-lg-8 col-8">
+
+
+          <div class="card">
+            <div class="card-header  bg-gradient-warning border-0">
+              <h3 class="card-title">
+                <i class="fas fa-calendar mr-1"></i>
+                Liberaciones Anteriores al <?php echo $fechaInicio . ' ' . $fechaFin ?>
+              </h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-warning btn-sm daterange" id="btncalmedir" data-toggle="tooltip" title="Date range">
+                  <i class="far fa-calendar-alt"></i>
+                </button>
+                <button type="button" class="btn btn-warning btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+
+            </div>
+            <div class="card-body">
+              <div class="table-responsive" style="padding: 10px;">
+                <table name="tablalibproyantes" id="tablalibproyantes" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                  <thead class="text-center bg-gradient-warning">
+                    <tr>
+                      <th>Folio Vta</th>
+                      <th>Folio Pres</th>
+                      <th>Folio Orden</th>
+                      <th>Cliente</th>
+                      <th>Concepto</th>
+                      <th>Fecha Lib</th>
+                      <th>Total</th>
+                      <th>Saldo</th>
+
+
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+
+                    //CONSULTA LIBERACIONES CON SALDO
+                    //ANTERIORES A ESTA SEMANA
+                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO''";
+                    $reslib = $conexion->prepare($cntalib);
+                    $reslib->execute();
+                    $datalibproyantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+
+                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO''";
+                    $reslib = $conexion->prepare($cntalib);
+                    $reslib->execute();
+                    $datalibproyactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO''";
+                    $reslib = $conexion->prepare($cntalib);
+                    $reslib->execute();
+                    $datalibobraantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO''";
+                    $reslib = $conexion->prepare($cntalib);
+                    $reslib->execute();
+                    $datalibobraactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
+                    
+                    foreach ($datalibproyantes as $datal) {
+                    ?>
+                      <tr>
+                        <td><?php echo $datal['folio_vta'] ?></td>
+                        <td><?php echo $datal['folio_pres'] ?></td>
+                        <td><?php echo $datal['folio_ord'] ?></td>
+                        <td><?php echo $datal['nombre'] ?></td>
+                        <td><?php echo $datal['concepto_vta'] ?></td>
+                        <td><?php echo $datal['fecha_liberacion'] ?></td>
+                        <td><?php echo $datal['gtotal'] ?></td>
+                        <td><?php echo $datal['saldo'] ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- /.card-body-->
+
+          </div>
+
+          <!-- /.card -->
+        </div>
+      </div>
+    </section>
   <?php } ?>
+
+
   <section>
     <div class="row justify-content-center">
       <!-- CITAS DE INSTALACION-->
