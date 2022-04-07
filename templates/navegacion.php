@@ -553,8 +553,8 @@
 
 
 
-          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante') ? "active" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 
@@ -627,10 +627,16 @@
               <li class="nav-item">
                 <a href="inventario.php" class="nav-link <?php echo ($pagina == 'inventario') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-boxes nav-icon"></i>
-                  <p>Rpt Inventario</p>
+                  <p>Rpt Inventario Material</p>
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a href="inventariogral.php" class="nav-link <?php echo ($pagina == 'inventariogral') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-box nav-icon"></i>
+                  <p>Inventario General</p>
+                </a>
+              </li>
 
             </ul>
           </li>
