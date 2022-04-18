@@ -809,7 +809,7 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
               </div>
               
               <div class="table-responsive" style="padding: 10px;">
-                <table name="tablalibproyantes" id="tablalibproyantes" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-info">
                     <tr>
                       <th>Folio Vta</th>
@@ -878,7 +878,7 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
               </div>
               
               <div class="table-responsive" style="padding: 10px;">
-                <table name="tablalibproyantes" id="tablalibproyantes" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-info">
                     <tr>
                       <th>Folio Vta</th>
@@ -947,7 +947,7 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
               </div>
               
               <div class="table-responsive" style="padding: 10px;">
-                <table name="tablalibproyantes" id="tablalibproyantes" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-info">
                     <tr>
                       <th>Folio Vta</th>
@@ -1018,7 +1018,7 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
               </div>
               
               <div class="table-responsive" style="padding: 10px;">
-                <table name="tablalibproyantes" id="tablalibproyantes" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-info">
                     <tr>
                       <th>Folio Vta</th>

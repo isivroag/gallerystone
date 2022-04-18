@@ -46,7 +46,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;        
     case 3://baja
-        $consulta = "UPDATE desechable SET estado_cons=0 WHERE id_des='$id' ";		
+        $consulta = "UPDATE desechable SET estado_des='0' WHERE id_des='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data=1;                          

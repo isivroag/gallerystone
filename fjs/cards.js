@@ -67,10 +67,12 @@ $(document).ready(function() {
     );
 
 
-    tablalibproyantes = $('#tablalibproyantes').DataTable({
+    tablalibproyantes = $('.tablasdetalles').DataTable({
       "columnDefs": [
         { "width": "10%", "targets":5 },
         { "width": "20%", "targets":3 },
+        { "width": "10%", "targets":6 },
+        { "width": "10%", "targets":7 },
       ],
         
       searching:false,

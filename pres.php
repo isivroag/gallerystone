@@ -143,7 +143,7 @@ if ($folio != "") {
               </div>
 
               <div class="card-body" style="margin:0px;padding:1px;">
-              
+
                 <div class="row justify-content-sm-center pt-2 ">
                   <div class="col-sm-1 ">
                     <div class="form-group input-group-sm">
@@ -820,7 +820,7 @@ if ($folio != "") {
 </script>
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/pres.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/pres.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
