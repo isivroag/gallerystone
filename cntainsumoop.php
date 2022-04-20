@@ -178,6 +178,7 @@ $message = "";
 
                                 <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
+                                    <input type="hidden" class="form-control" name="id_cons" id="id_cons" autocomplete="off" >
                                         <label for="nom_cons" class="col-form-label">Descripción*:</label>
                                         <input type="text" class="form-control" name="nom_cons" id="nom_cons" autocomplete="off" placeholder="Descripción">
                                     </div>

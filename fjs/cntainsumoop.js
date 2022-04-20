@@ -22,13 +22,15 @@ $(document).ready(function () {
     var columnas = ''
    
     if (tipousuario == 5) {
-      columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Abrir Insumo'><i class='fas fa-box-open'></i></button>\
+      columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEdit' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
+      <button class='btn btn-sm btn-success  btnEditar' data-toggle='tooltip' data-placement='top' title='Abrir Insumo'><i class='fas fa-box-open'></i></button>\
       <button class='btn btn-sm bg-gradient-info text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Cerrado'><i class='fas fa-box'></i></button>\
       <button class='btn btn-sm bg-gradient-orange text-light btnMova' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Abierto'><i class='fas fa-fill-drip'></i></button>\
       <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
       </div>"
     } else {
-      columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Abrir Insumo'><i class='fas fa-box-open'></i></button>\
+      columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEdit' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
+      <button class='btn btn-sm btn-success  btnEditar' data-toggle='tooltip' data-placement='top' title='Abrir Insumo'><i class='fas fa-box-open'></i></button>\
       <button class='btn btn-sm bg-gradient-info text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Cerrado'><i class='fas fa-box'></i></button>\
       <button class='btn btn-sm bg-gradient-orange text-light btnMova' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Abierto'><i class='fas fa-fill-drip'></i></button>\
       <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
@@ -51,7 +53,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a Excel',
         title: 'Inventario de Insumos',
         className: 'btn bg-success ',
-        exportOptions: { columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10] },
+        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10,11] },
       },
       {
         extend: 'pdfHtml5',
@@ -59,7 +61,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a PDF',
         title: 'Inventario de Insumos',
         className: 'btn bg-danger',
-        exportOptions: { columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10] },
+        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10,11] },
       },
     ],
 
@@ -108,6 +110,46 @@ $(document).ready(function () {
   })
 
   var fila //capturar la fila para editar o borrar el registro
+
+  $(document).on('click', '.btnEdit', function () {
+    fila = $(this).closest('tr')
+    id = parseInt(fila.find('td:eq(0)').text())
+    clave = fila.find('td:eq(1)').text()
+    nombre = fila.find('td:eq(2)').text()
+    id_umedida = fila.find('td:eq(4)').text()
+    medida = fila.find('td:eq(4)').text()
+    cantidad = fila.find('td:eq(5)').text() //window.location.href = "actprospecto.php?id=" + id;
+    
+    presentacion = fila.find('td:eq(6)').text()
+    cerrado = fila.find('td:eq(7)').text()
+    abierto = fila.find('td:eq(8)').text()
+    total = fila.find('td:eq(9)').text()
+    ubicacion = fila.find('td:eq(10)').text()
+   
+    obs = fila.find('td:eq(11)').text()
+    
+
+    $('#id_cons').val(id)
+    $('#clave_cons').val(clave)
+    $('#nom_cons').val(nombre)
+    $('#ubicacion').val(ubicacion)
+    
+    $('#presentacion').val(presentacion)
+    $('#umedida').val(id_umedida)
+    $('#cantidad').val(cantidad)
+    $('#contenidon').val(cerrado)
+    $('#contenidoa').val(abierto)
+    $('#contenidot').val(total)
+ 
+    $('#obs').val(obs)
+
+    opcion = 2 //editar
+
+    $('.modal-header').css('background-color', '#007bff')
+    $('.modal-header').css('color', 'white')
+    $('.modal-title').text('Editar Insumo')
+    $('#modalCRUD').modal('show')
+  })
 
   //botón EDITAR
   $(document).on('click', '.btnEditar', function () {
@@ -167,7 +209,7 @@ $(document).ready(function () {
 
   $('#formDatos').submit(function (e) {
     e.preventDefault()
-
+    var id = $.trim($('#id_cons').val())
     var nom_cons = $.trim($('#nom_cons').val())
     var cantidad = $.trim($('#cantidad').val())
     var clave = $.trim($('#clave_cons').val())

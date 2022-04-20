@@ -37,7 +37,7 @@ $(document).ready(function () {
           titleAttr: 'Exportar a Excel',
           title: 'Inventario de Insumos',
           className: 'btn bg-success ',
-          exportOptions: { columns: [0, 1, 2, 4, 5, 6, 7, 8, ] },
+          exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8,9 ] },
         },
         {
           extend: 'pdfHtml5',
@@ -45,7 +45,7 @@ $(document).ready(function () {
           titleAttr: 'Exportar a PDF',
           title: 'Inventario de Insumos',
           className: 'btn bg-danger',
-          exportOptions: { columns: [0, 1, 2, 4, 5, 6, 7, 8,] },
+          exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8,9] },
         },
       ],
   

@@ -49,7 +49,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a Excel',
         title: 'Inventario de Material',
         className: 'btn bg-success ',
-        exportOptions: { columns: [0, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+        exportOptions: { columns: [0, 1,3 , 5, 6,  8, 9, 10, 11, 12,13] },
       },
       {
         extend: 'pdfHtml5',
@@ -57,7 +57,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a PDF',
         title: 'Inventario de Material',
         className: 'btn bg-danger',
-        exportOptions: { columns: [0, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+        exportOptions: { columns: [0, 1,3 , 5, 6,  8, 9, 10, 11, 12,13] },
       },
     ],
 

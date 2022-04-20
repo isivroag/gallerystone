@@ -38,7 +38,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE consumible SET nom_cons='$nom_cons',id_umedida='$umedida',ubi_cons='$ubicacion',obs_cons='$obs',cant_cons='$cantidad',presentacion='$presentacion',contenidon='$contenidon',contenidoa='$contenidoa',contenidot='$contenidot',clave_cons='$clave' WHERE id_cons='$id' ";		
+        $consulta = "UPDATE consumible SET nom_cons='$nom_cons',id_umedida='$umedida',ubi_cons='$ubicacion',obs_cons='$obs',clave_cons='$clave' WHERE id_cons='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
