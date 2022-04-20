@@ -61,7 +61,7 @@ $message = "";
                 </div>
                 <br>
                 <div class="container-fluid">
-                 
+
                     <div class="row ">
                         <div class="col-lg-12 ">
                             <div class="table-responsive ">
@@ -70,6 +70,7 @@ $message = "";
                                     <thead class="text-center bg-gradient-secondary">
                                         <tr>
                                             <th>Id </th>
+                                            <th>Clave </th>
                                             <th>Descripcion</th>
                                             <th>Cantidad</th>
                                             <th>Ubicacion</th>
@@ -84,8 +85,9 @@ $message = "";
                                         foreach ($data as $dat) {
                                         ?>
                                             <tr>
-                                            
+
                                                 <td><?php echo $dat['id_her'] ?></td>
+                                                <td><?php echo $dat['clave_her'] ?></td>
                                                 <td><?php echo $dat['nom_her'] ?></td>
                                                 <td><?php echo $dat['cant_her'] ?></td>
                                                 <td><?php echo $dat['ubi_her'] ?></td>
@@ -106,7 +108,7 @@ $message = "";
 
             </div>
             <!-- /.card-body -->
-           
+
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->
@@ -125,9 +127,14 @@ $message = "";
                     <div class="card card-widget" style="margin: 10px;">
                         <form id="formDatos" action="" method="POST">
                             <div class="modal-body row">
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="clave_her" class="col-form-label">Clave:</label>
+                                        <input type="text" class="form-control" name="clave_her" id="clave_her" autocomplete="off" placeholder="Clave">
+                                    </div>
+                                </div>
 
-                                
-                                <div class="col-sm-12">
+                                <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
                                         <label for="nom_her" class="col-form-label">Descripción:</label>
                                         <input type="text" class="form-control" name="nom_her" id="nom_her" autocomplete="off" placeholder="Descripción">
@@ -137,14 +144,14 @@ $message = "";
                                 <div class="col-sm-4">
                                     <div class="form-group input-group-sm">
                                         <label for="ubicacion" class="col-form-label">Ubicación:</label>
-                                        <input type="text" class="form-control" name="ubicacion" id="ubicacion" autocomplete="off" placeholder="ubicacion" >
+                                        <input type="text" class="form-control" name="ubicacion" id="ubicacion" autocomplete="off" placeholder="ubicacion">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-2">
                                     <div class="form-group input-group-sm">
                                         <label for="cantidad" class="col-form-label">Cant:</label>
-                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" >
+                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad">
                                     </div>
                                 </div>
 
@@ -162,7 +169,7 @@ $message = "";
                                             ?>
                                         </select>
                                     </div>
-                                
+
                                 </div>
 
 
@@ -226,7 +233,7 @@ $message = "";
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
@@ -235,7 +242,7 @@ $message = "";
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
@@ -292,7 +299,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/herramienta.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/herramienta.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

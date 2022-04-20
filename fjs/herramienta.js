@@ -28,7 +28,7 @@ $(document).ready(function() {
             targets: -1,
             data: null,
             defaultContent: textcolumnas,
-        }, { className: "hide_column", "targets": [3] }, { className: "hide_column", "targets": [4] }],
+        }, { className: "hide_column", "targets": [4] }, { className: "hide_column", "targets":[5] }],
 
         //Para cambiar el lenguaje a español
         "language": {
@@ -66,14 +66,16 @@ $(document).ready(function() {
     $(document).on("click", ".btnEditar", function() {
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
-        hom_her = fila.find('td:eq(1)').text(); //window.location.href = "actprospecto.php?id=" + id;
-        cantidad = fila.find('td:eq(2)').text();
-        ubicacion = fila.find('td:eq(3)').text();
-        obs = fila.find('td:eq(6)').text();
-        id_per = fila.find('td:eq(4)').text();
-        nom_per = fila.find('td:eq(5)').text();
+        clave_her = fila.find('td:eq(1)').text(); //window.location.href = "actprospecto.php?id=" + id;
+        hom_her = fila.find('td:eq(2)').text(); //window.location.href = "actprospecto.php?id=" + id;
+        cantidad = fila.find('td:eq(3)').text();
+        ubicacion = fila.find('td:eq(4)').text();
+        obs = fila.find('td:eq(7)').text();
+        id_per = fila.find('td:eq(5)').text();
+        nom_per = fila.find('td:eq(6)').text();
 
   
+        $("#clave_her").val(clave_her);
         $("#nom_her").val(hom_her);
         $("#cantidad").val(cantidad);
         $("#ubicacion").val(ubicacion);
@@ -122,7 +124,7 @@ $(document).ready(function() {
 
     $("#formDatos").submit(function(e) {
         e.preventDefault();
-      
+        var clave_her = $.trim($("#clave_her").val());
         var nom_her = $.trim($("#nom_her").val());
         var cantidad = $.trim($("#cantidad").val());
         var ubicacion = $.trim($("#ubicacion").val());
@@ -135,7 +137,7 @@ $(document).ready(function() {
         
 
 
-        if (nom_her.length == 0 || cantidad.length == 0  ) {
+        if (nom_her.length == 0 || cantidad.length == 0  || clave_her.length == 0 ) {
             Swal.fire({
                 title: 'Datos Faltantes',
                 text: "Debe ingresar todos los datos del Prospecto",
@@ -148,10 +150,11 @@ $(document).ready(function() {
                 url: "bd/crudherramienta.php",
                 type: "POST",
                 dataType: "json",
-                data: {   nom_her: nom_her, cantidad: cantidad, responsable: responsable, id: id, opcion: opcion, ubicacion: ubicacion, obs: obs },
+                data: {   nom_her: nom_her, cantidad: cantidad, responsable: responsable, id: id, opcion: opcion, ubicacion: ubicacion, obs: obs, clave_her: clave_her },
                 success: function(data) {
                     
                     id=data[0].id_her
+                    clave_her = data[0].clave_her;
                     nom_her = data[0].nom_her;
                     cantidad= data[0].cant_her;
                     ubicacion= data[0].ubi_her;
@@ -160,9 +163,9 @@ $(document).ready(function() {
                     id_per= data[0].id_per;
                     nom_per= data[0].nom_per;
                     if (opcion == 1) {
-                        tablaVis.row.add([id,nom_her,cantidad,ubicacion,id_per,nom_per,obs,]).draw();
+                        tablaVis.row.add([id,clave_her,nom_her,cantidad,ubicacion,id_per,nom_per,obs,]).draw();
                     } else {
-                        tablaVis.row(fila).data([id,nom_her,cantidad,ubicacion,id_per,nom_per,obs,]).draw();
+                        tablaVis.row(fila).data([id,clave_her,nom_her,cantidad,ubicacion,id_per,nom_per,obs,]).draw();
                     }
                 }
             });

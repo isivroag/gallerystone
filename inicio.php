@@ -180,6 +180,28 @@ $res2 = $conexion->prepare($consultamed);
 $res2->execute();
 $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
 
+
+
+if (date("D") == "Mon") {
+  $isemana = date("Y-m-d");
+} else {
+  $isemana = date("Y-m-d", strtotime('last Monday', time()));
+}
+
+$fsemana = date("Y-m-d", strtotime('next Sunday', time()));
+
+
+
+$consultais = "SELECT * FROM vllamada WHERE fecha_llamada BETWEEN '$isemana' and '$fsemana' ORDER BY fecha_llamada";
+$resultadois = $conexion->prepare($consultais);
+$resultadois->execute();
+$datais = $resultadois->fetchAll(PDO::FETCH_ASSOC);
+
+$consultafs = "SELECT * FROM vllamada WHERE fecha_llamada > '$fsemana' ORDER BY fecha_llamada";
+$resultadofs = $conexion->prepare($consultafs);
+$resultadofs->execute();
+$datafs = $resultadofs->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -804,10 +826,10 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
             <div class="card-body">
               <div class="row justify-content-center">
                 <div class="col-sm-12 text-center">
-                <h5>LIBERACIONES PROYECTOS ANTERIORES AL <?php echo $fechaInicio ?></h5>
+                  <h5>LIBERACIONES PROYECTOS ANTERIORES AL <?php echo $fechaInicio ?></h5>
                 </div>
               </div>
-              
+
               <div class="table-responsive" style="padding: 10px;">
                 <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-info">
@@ -826,33 +848,33 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
                     </tr>
                   </thead>
                   <tbody>
-                
-                  <?php
 
-                  //CONSULTA LIBERACIONES CON SALDO
-                  //ANTERIORES A ESTA SEMANA
-                  $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO' and saldo>'0'";
-                  $reslib = $conexion->prepare($cntalib);
-                  $reslib->execute();
-                  $datalibproyantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
+                    <?php
+
+                    //CONSULTA LIBERACIONES CON SALDO
+                    //ANTERIORES A ESTA SEMANA
+                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO' and saldo>'0'";
+                    $reslib = $conexion->prepare($cntalib);
+                    $reslib->execute();
+                    $datalibproyantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
 
 
-                
-                  foreach ($datalibproyantes as $datal) {
-                  ?>
-                    <tr>
-                      <td><?php echo $datal['folio_vta'] ?></td>
-                      <td><?php echo $datal['folio_pres'] ?></td>
-                      <td><?php echo $datal['folio_ord'] ?></td>
-                      <td><?php echo $datal['nombre'] ?></td>
-                      <td><?php echo $datal['concepto_vta'] ?></td>
-                      <td><?php echo $datal['fecha_liberacion'] ?></td>
-                      <td class="text-right"><?php echo '$ '.number_format($datal['gtotal'],2) ?></td>
-                      <td class="text-right"><?php echo '$ '.number_format($datal['saldo'] ,2)?></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
+
+                    foreach ($datalibproyantes as $datal) {
+                    ?>
+                      <tr>
+                        <td><?php echo $datal['folio_vta'] ?></td>
+                        <td><?php echo $datal['folio_pres'] ?></td>
+                        <td><?php echo $datal['folio_ord'] ?></td>
+                        <td><?php echo $datal['nombre'] ?></td>
+                        <td><?php echo $datal['concepto_vta'] ?></td>
+                        <td><?php echo $datal['fecha_liberacion'] ?></td>
+                        <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
+                        <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
                   </tbody>
                   <tfoot>
                     <tr>
@@ -861,10 +883,10 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
                       <th></th>
                       <th></th>
                       <th></th>
-                      <th  style="text-align:right">Total:</th>
+                      <th style="text-align:right">Total:</th>
                       <th class="text-right"></th>
                       <th class="text-right"></th>
-                      
+
                     </tr>
                   </tfoot>
                 </table>
@@ -873,10 +895,10 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
 
               <div class="row justify-content-center">
                 <div class="col-sm-12 text-center">
-                <h5>LIBERACIONES PROYECTOS DE LA SEMANA DEL <?php echo $fechaInicio. ' AL ' .$fechaFin ?></h5>
+                  <h5>LIBERACIONES PROYECTOS DE LA SEMANA DEL <?php echo $fechaInicio . ' AL ' . $fechaFin ?></h5>
                 </div>
               </div>
-              
+
               <div class="table-responsive" style="padding: 10px;">
                 <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-info">
@@ -895,34 +917,34 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
                     </tr>
                   </thead>
                   <tbody>
-                
-                  <?php
 
-              
+                    <?php
 
 
-                  $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO' and saldo>'0'";
-                  $reslib = $conexion->prepare($cntalib);
-                  $reslib->execute();
-                  $datalibproyactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
 
-               
 
-                  foreach ($datalibproyactual as $datal) {
-                  ?>
-                    <tr>
-                      <td><?php echo $datal['folio_vta'] ?></td>
-                      <td><?php echo $datal['folio_pres'] ?></td>
-                      <td><?php echo $datal['folio_ord'] ?></td>
-                      <td><?php echo $datal['nombre'] ?></td>
-                      <td><?php echo $datal['concepto_vta'] ?></td>
-                      <td><?php echo $datal['fecha_liberacion'] ?></td>
-                      <td class="text-right"><?php echo '$ '.number_format($datal['gtotal'],2) ?></td>
-                      <td class="text-right"><?php echo '$ '.number_format($datal['saldo'] ,2)?></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
+                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO' and saldo>'0'";
+                    $reslib = $conexion->prepare($cntalib);
+                    $reslib->execute();
+                    $datalibproyactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+                    foreach ($datalibproyactual as $datal) {
+                    ?>
+                      <tr>
+                        <td><?php echo $datal['folio_vta'] ?></td>
+                        <td><?php echo $datal['folio_pres'] ?></td>
+                        <td><?php echo $datal['folio_ord'] ?></td>
+                        <td><?php echo $datal['nombre'] ?></td>
+                        <td><?php echo $datal['concepto_vta'] ?></td>
+                        <td><?php echo $datal['fecha_liberacion'] ?></td>
+                        <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
+                        <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
                   </tbody>
                   <tfoot>
                     <tr>
@@ -931,10 +953,10 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
                       <th></th>
                       <th></th>
                       <th></th>
-                      <th  style="text-align:right">Total:</th>
+                      <th style="text-align:right">Total:</th>
                       <th class="text-right"></th>
                       <th class="text-right"></th>
-                      
+
                     </tr>
                   </tfoot>
                 </table>
@@ -942,10 +964,10 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
 
               <div class="row justify-content-center">
                 <div class="col-sm-12 text-center">
-                <h5>LIBERACIONES OBRA ANTES DEL <?php echo $fechaInicio?></h5>
+                  <h5>LIBERACIONES OBRA ANTES DEL <?php echo $fechaInicio ?></h5>
                 </div>
               </div>
-              
+
               <div class="table-responsive" style="padding: 10px;">
                 <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-info">
@@ -964,36 +986,36 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
                     </tr>
                   </thead>
                   <tbody>
-                
-                  <?php
 
-              
+                    <?php
 
 
-   
 
-                  $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO' and saldo>'0'";
-                  $reslib = $conexion->prepare($cntalib);
-                  $reslib->execute();
-                  $datalibobraantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
 
-               
 
-                  foreach ($datalibobraantes as $datal) {
-                  ?>
-                    <tr>
-                      <td><?php echo $datal['folio_vta'] ?></td>
-                      <td><?php echo $datal['folio_pres'] ?></td>
-                      <td><?php echo $datal['folio_ord'] ?></td>
-                      <td><?php echo $datal['nombre'] ?></td>
-                      <td><?php echo $datal['concepto_vta'] ?></td>
-                      <td><?php echo $datal['fecha_liberacion'] ?></td>
-                      <td class="text-right"><?php echo '$ '.number_format($datal['gtotal'],2) ?></td>
-                      <td class="text-right"><?php echo '$ '.number_format($datal['saldo'] ,2)?></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
+
+                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO' and saldo>'0'";
+                    $reslib = $conexion->prepare($cntalib);
+                    $reslib->execute();
+                    $datalibobraantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+                    foreach ($datalibobraantes as $datal) {
+                    ?>
+                      <tr>
+                        <td><?php echo $datal['folio_vta'] ?></td>
+                        <td><?php echo $datal['folio_pres'] ?></td>
+                        <td><?php echo $datal['folio_ord'] ?></td>
+                        <td><?php echo $datal['nombre'] ?></td>
+                        <td><?php echo $datal['concepto_vta'] ?></td>
+                        <td><?php echo $datal['fecha_liberacion'] ?></td>
+                        <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
+                        <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
                   </tbody>
                   <tfoot>
                     <tr>
@@ -1002,10 +1024,10 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
                       <th></th>
                       <th></th>
                       <th></th>
-                      <th  style="text-align:right">Total:</th>
+                      <th style="text-align:right">Total:</th>
                       <th class="text-right"></th>
                       <th class="text-right"></th>
-                      
+
                     </tr>
                   </tfoot>
                 </table>
@@ -1013,10 +1035,10 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
 
               <div class="row justify-content-center">
                 <div class="col-sm-12 text-center">
-                <h5>LIBERACIONES OBRA DE LA SEMANA DEL <?php echo $fechaInicio. ' AL ' .$fechaFin ?></h5>
+                  <h5>LIBERACIONES OBRA DE LA SEMANA DEL <?php echo $fechaInicio . ' AL ' . $fechaFin ?></h5>
                 </div>
               </div>
-              
+
               <div class="table-responsive" style="padding: 10px;">
                 <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
                   <thead class="text-center bg-gradient-info">
@@ -1035,33 +1057,33 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
                     </tr>
                   </thead>
                   <tbody>
-                
-                  <?php
 
-              
+                    <?php
 
 
 
-                  $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO' and saldo>'0'";
-                  $reslib = $conexion->prepare($cntalib);
-                  $reslib->execute();
-                  $datalibobraactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
 
-                  foreach ($datalibobraactual as $datal) {
-                  ?>
-                    <tr>
-                      <td><?php echo $datal['folio_vta'] ?></td>
-                      <td><?php echo $datal['folio_pres'] ?></td>
-                      <td><?php echo $datal['folio_ord'] ?></td>
-                      <td><?php echo $datal['nombre'] ?></td>
-                      <td><?php echo $datal['concepto_vta'] ?></td>
-                      <td><?php echo $datal['fecha_liberacion'] ?></td>
-                      <td class="text-right"><?php echo '$ '.number_format($datal['gtotal'],2) ?></td>
-                      <td class="text-right"><?php echo '$ '.number_format($datal['saldo'] ,2)?></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
+
+                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO' and saldo>'0'";
+                    $reslib = $conexion->prepare($cntalib);
+                    $reslib->execute();
+                    $datalibobraactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($datalibobraactual as $datal) {
+                    ?>
+                      <tr>
+                        <td><?php echo $datal['folio_vta'] ?></td>
+                        <td><?php echo $datal['folio_pres'] ?></td>
+                        <td><?php echo $datal['folio_ord'] ?></td>
+                        <td><?php echo $datal['nombre'] ?></td>
+                        <td><?php echo $datal['concepto_vta'] ?></td>
+                        <td><?php echo $datal['fecha_liberacion'] ?></td>
+                        <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
+                        <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
                   </tbody>
                   <tfoot>
                     <tr>
@@ -1070,10 +1092,10 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
                       <th></th>
                       <th></th>
                       <th></th>
-                      <th  style="text-align:right">Total:</th>
+                      <th style="text-align:right">Total:</th>
                       <th class="text-right"></th>
                       <th class="text-right"></th>
-                      
+
                     </tr>
                   </tfoot>
                 </table>
@@ -1087,7 +1109,133 @@ $datacitam = $res2->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
     </section>
+
+
   <?php } ?>
+
+
+  <section>
+
+
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-10">
+        <div class="card">
+          <div class="card-header bg-gradient-purple text-light text-center">
+            <div class="text-center">
+              <h4 class="card-title ">LLAMADAS DE SEGUMIENTO PROGRAMADAS ESTA SEMANA (<?php echo "DEL " . $isemana . " AL " . $fsemana; ?>)</h4>
+            </div>
+
+          </div>
+          <div class="card-body">
+
+
+
+           
+            <div class="table-responsive"  style="padding: 10px;">
+                    <table name="tablalls" id="tablalls" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
+                      <thead class="text-center bg-gradient-purple">
+                        <tr>
+                          <th>Folio</th>
+                          <th>Fecha</th>
+                          <th>Cliente</th>
+                          <th>Tel. Movil</th>
+                          <th>Tel. Fijo</th>
+                          <th>Proyecto</th>
+                          <th># Llamada</th>
+                          <th>Fecha Programada</th>
+                          <th>Nota</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        foreach ($datais as $dat2) {
+                        ?>
+                          <tr>
+                            <td><?php echo $dat2['folio_pres'] ?></td>
+                            <td><?php echo $dat2['fecha_pres'] ?></td>
+                            <td><?php echo $dat2['nombre'] ?></td>
+                            <td><?php echo $dat2['cel'] ?></td>
+                            <td><?php echo $dat2['tel'] ?></td>
+                            <td><?php echo $dat2['concepto_pres'] ?></td>
+                            <td><?php echo $dat2['desc_llamada'] ?></td>
+                            <td><?php echo $dat2['fecha_llamada'] ?></td>
+                            <td><?php echo $dat2['nota_ant'] ?> </td>
+
+                          </tr>
+                        <?php
+                        }
+                        ?>
+                      </tbody>
+
+                    </table>
+                  </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-10">
+        <div class="card">
+          <div class="card-header bg-lightblue text-light text-center">
+            <div class="text-center">
+              <h4 class="card-title ">LLAMADAS PROGRAMADAS PARA FECHAS POSTERIORES AL <?php echo  $finsemana; ?></h4>
+            </div>
+
+          </div>
+          <div class="card-body">
+
+
+
+            <br>
+            <div class="container-fluid">
+
+              <div class="table-responsive">
+                <table name="tablallps" id="tablallps" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
+                  <thead class="text-center bg-lightblue">
+                    <tr>
+                      <th>Folio</th>
+                      <th>Fecha</th>
+                      <th>Cliente</th>
+                      <th>Tel. Movil</th>
+                      <th>Tel. Fijo</th>
+                      <th>Proyecto</th>
+                      <th># Llamada</th>
+                      <th>Fecha Programada</th>
+                      <th>Nota</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($datafs as $dat3) {
+                    ?>
+                      <tr>
+                        <td><?php echo $dat3['folio_pres'] ?></td>
+                        <td><?php echo $dat3['fecha_pres'] ?></td>
+                        <td><?php echo $dat3['nombre'] ?></td>
+                        <td><?php echo $dat3['cel'] ?></td>
+                        <td><?php echo $dat3['tel'] ?></td>
+                        <td><?php echo $dat3['concepto_pres'] ?></td>
+                        <td><?php echo $dat3['desc_llamada'] ?></td>
+                        <td><?php echo $dat3['fecha_llamada'] ?></td>
+                        <td><?php echo $dat3['nota_ant'] ?> </td>
+
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <section>

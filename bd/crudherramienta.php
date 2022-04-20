@@ -6,7 +6,7 @@ $conexion = $objeto->connect();
 // Recepción de los datos enviados mediante POST desde el JS   
 
 
-
+$clave_her = (isset($_POST['clave_her'])) ? $_POST['clave_her'] : '';
 $nom_her = (isset($_POST['nom_her'])) ? $_POST['nom_her'] : '';
 $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
 $ubicacion = (isset($_POST['ubicacion'])) ? $_POST['ubicacion'] : '';
@@ -23,7 +23,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO herramienta (nom_her,cant_her,ubi_her,obs_her,id_per) VALUES('$nom_her','$cantidad','$ubicacion','$obs','$id_per')";			
+        $consulta = "INSERT INTO herramienta (nom_her,cant_her,ubi_her,obs_her,id_per,clave_her) VALUES('$nom_her','$cantidad','$ubicacion','$obs','$id_per','$clave_her')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
@@ -33,7 +33,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE herramienta SET nom_her='$nom_her',ubi_her='$ubicacion',obs_her='$obs',id_per='$id_per' WHERE id_her='$id' ";		
+        $consulta = "UPDATE herramienta SET nom_her='$nom_her',ubi_her='$ubicacion',obs_her='$obs',id_per='$id_per',clave_her='$clave_her' WHERE id_her='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
