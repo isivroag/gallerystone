@@ -41,6 +41,45 @@ $(document).ready(function () {
     },
   })
 
+  tablatarin = $('#tablatarin').DataTable({
+    paging: false,
+    ordering: false,
+    info: false,
+    searching: false,
+
+    columnDefs: [
+      { className: 'text-center', targets: [0] },
+      { className: 'text-right', targets: [2] },
+      { className: 'text-right', targets: [5] },
+      { className: 'hide_column', targets: [3] },
+      { className: 'text-center', targets: [4] },
+      { className: 'text-right', targets: [6] },
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm bg-green btnElegir'><i class='fa-solid fa-circle-check'></i></button></div></div>",
+      },
+    ],
+
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+  })
+
   tablaD = $('#tablaD').DataTable({
     paging: false,
     ordering: false,
@@ -277,6 +316,125 @@ $(document).ready(function () {
     },
   })
   //BOTON BUSCAR MATERIAL
+
+  btncalculartar
+
+  $(document).on('click', '#btncalculartar', function () {
+    valor = $('#mlbase1').val()
+    if (valor.length > 0) {
+      calculartarjeta()
+    }
+  })
+
+  function calculartarjeta() {
+    tablatarin.clear()
+    tablatarin.draw()
+    valor = $('#mlbase1').val()
+    tipo = 1
+    $.ajax({
+      type: 'POST',
+      url: 'bd/calculartarjeta.php',
+      dataType: 'json',
+      data: { tipo: tipo },
+
+      success: function (res) {
+        for (var i = 0; i < res.length; i++) {
+          idcons = res[i].id_cons
+          nomcons = res[i].nom_cons
+          valortar = res[i].valortarjeta
+          idumedida = res[i].id_umedida
+          umedida = res[i].nom_umedida
+          valorcal = round(res[i].valortarjeta * valor, 2)
+          disponible = res[i].contenidoa
+          tablatarin.row
+            .add([idcons, nomcons, valortar, idumedida, umedida, valorcal,disponible,])
+            .draw()
+
+          //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
+        }
+      },
+    })
+  }
+
+  $(document).on('click', '.btnElegir', function (e) {
+    e.preventDefault()
+    $('#formconfirmar').trigger('reset')
+
+    fila = $(this).closest('tr')
+    idtar = fila.find('td:eq(0)').text()
+    constar = fila.find('td:eq(1)').text()
+    cantidadtar = fila.find('td:eq(5)').text()
+    idumedidatar = fila.find('td:eq(3)').text()
+    umedidatar = fila.find('td:eq(4)').text()
+    existencias = fila.find('td:eq(6)').text()
+    tipo = 1
+
+    $('#idconstar').val(idtar)
+    $('#tipoconstar').val(tipo)
+    $('#conceptotar').val(constar)
+    $('#cantidadtar').val(cantidadtar)
+    $('#idunidadtar').val(idumedidatar)
+    $('#unidadtar').val(umedidatar)
+    $('#existenciastar').val(existencias)
+    $('#modalconfirmar').modal('show')
+  })
+
+  $(document).on('click', '#btnguardarconfirmacion', function () {
+    folio = $('#folioorden').val()
+
+    idcons = $('#idconstar').val()
+
+    cantidadi = $('#cantidadtar').val()
+    cantidaddisi = $('#existenciastar').val()
+    usuario = $('#nameuser').val()
+    opcion = 1
+
+    if (parseFloat(cantidadi) > parseFloat(cantidaddisi)) {
+      nomensaje()
+      return 0
+    }
+
+    if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0) {
+      $.ajax({
+        type: 'POST',
+        url: 'bd/detalleordeninsumo.php',
+        dataType: 'json',
+        //async: false,
+        data: {
+          folio: folio,
+          idcons: idcons,
+          cantidadi: cantidadi,
+          opcion: opcion,
+          usuario: usuario,
+        },
+        success: function (data) {
+          console.log(data)
+          id_reg = data[0].id_reg
+
+          id_cons = data[0].id_cons
+          nom_cons = data[0].nom_cons
+
+          nom_umedida = data[0].nom_umedida
+
+          cantidad = data[0].cantidad
+
+          tablaDetIn.row
+            .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
+            .draw()
+            $('#modalconfirmar').modal('hide')
+
+        },
+      })
+    } else {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos del Item',
+        icon: 'warning',
+      })
+      return false
+    }
+  })
+
   $(document).on('click', '#btnMaterial', function () {
     $('.modal-header').css('background-color', '#007bff')
     $('.modal-header').css('color', 'white')
@@ -557,7 +715,7 @@ $(document).ready(function () {
             ])
             .draw()
           limpiar()
-          redimensionar(id_mat,2)
+          redimensionar(id_mat, 2)
         },
       })
     } else {
@@ -570,7 +728,7 @@ $(document).ready(function () {
     }
   })
 
-  function redimensionar(id,tipo) {
+  function redimensionar(id, tipo) {
     $.ajax({
       type: 'POST',
       url: 'bd/buscarmedidasmat.php',
@@ -586,10 +744,10 @@ $(document).ready(function () {
 
         $('#idmatred').val(id)
         $('#tipored').val(tipo)
-        if (tipo==2){
-          $("input.group1").attr("disabled", false);
-        }else{
-          $("input.group1").attr("disabled", true);
+        if (tipo == 2) {
+          $('input.group1').attr('disabled', false)
+        } else {
+          $('input.group1').attr('disabled', true)
         }
 
         $('#largoant').val(largo)
@@ -748,7 +906,7 @@ $(document).ready(function () {
         console.log(data)
         if (data == 1) {
           tablaDet.row(fila.parents('tr')).remove().draw()
-          redimensionar(mat,1)
+          redimensionar(mat, 1)
         } else {
           mensajeerror()
         }
@@ -811,17 +969,25 @@ $(document).ready(function () {
     alto = $('#altonuevo').val()
     m2 = $('#validador').val()
     tipored = $('#tipored').val()
-    $usuario= $('#nameuser').val()
-    pedaceria=0
-    if ($("#chpedaceria").prop("checked")){
-      pedaceria=1
+    $usuario = $('#nameuser').val()
+    pedaceria = 0
+    if ($('#chpedaceria').prop('checked')) {
+      pedaceria = 1
     }
     console.log(pedaceria)
     $.ajax({
       type: 'POST',
       url: 'bd/redimensionar.php',
       dataType: 'json',
-      data: { id: id, largo: largo, alto: alto, m2: m2, tipored: tipored, usuario: usuario, pedaceria: pedaceria },
+      data: {
+        id: id,
+        largo: largo,
+        alto: alto,
+        m2: m2,
+        tipored: tipored,
+        usuario: usuario,
+        pedaceria: pedaceria,
+      },
       success: function (data) {
         if (data == 1) {
           window.location.reload()
@@ -902,7 +1068,6 @@ $(document).ready(function () {
       $('#validador').addClass('bg-warning')
     }
   }
-
 })
 
 function filterFloat(evt, input) {
@@ -922,4 +1087,8 @@ function filter(__val__) {
   var preg = /^([0-9]+\.?[0-9]{0,2})$/
   return preg.te
   st(__val__) === true
+}
+
+function round(value, decimals) {
+  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
 }

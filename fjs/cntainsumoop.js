@@ -1,35 +1,34 @@
 $(document).ready(function () {
-
-
   jQuery.ajaxSetup({
-    beforeSend: function() {
-        $(".div_carga").show();
+    beforeSend: function () {
+      $('.div_carga').show()
     },
-    complete: function() {
-        $(".div_carga").hide();
+    complete: function () {
+      $('.div_carga').hide()
     },
-    success: function() {},
-});
+    success: function () {},
+  })
 
   var id, opcion
   opcion = 4
-
 
   var textcolumnas = permisos()
 
   function permisos() {
     var tipousuario = $('#tipousuario').val()
     var columnas = ''
-   
+
     if (tipousuario == 5) {
-      columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEdit' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
+      columnas =
+        "<div class='text-center'><button class='btn btn-sm btn-primary  btnEdit' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
       <button class='btn btn-sm btn-success  btnEditar' data-toggle='tooltip' data-placement='top' title='Abrir Insumo'><i class='fas fa-box-open'></i></button>\
       <button class='btn btn-sm bg-gradient-info text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Cerrado'><i class='fas fa-box'></i></button>\
       <button class='btn btn-sm bg-gradient-orange text-light btnMova' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Abierto'><i class='fas fa-fill-drip'></i></button>\
       <button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button>\
       </div>"
     } else {
-      columnas = "<div class='text-center'><button class='btn btn-sm btn-primary  btnEdit' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
+      columnas =
+        "<div class='text-center'><button class='btn btn-sm btn-primary  btnEdit' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button>\
       <button class='btn btn-sm btn-success  btnEditar' data-toggle='tooltip' data-placement='top' title='Abrir Insumo'><i class='fas fa-box-open'></i></button>\
       <button class='btn btn-sm bg-gradient-info text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Cerrado'><i class='fas fa-box'></i></button>\
       <button class='btn btn-sm bg-gradient-orange text-light btnMova' data-toggle='tooltip' data-placement='top' title='Movimientos Insumo Abierto'><i class='fas fa-fill-drip'></i></button>\
@@ -40,7 +39,6 @@ $(document).ready(function () {
   }
 
   tablaVis = $('#tablaV').DataTable({
-
     dom:
       "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
       "<'row'<'col-sm-12'tr>>" +
@@ -53,7 +51,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a Excel',
         title: 'Inventario de Insumos',
         className: 'btn bg-success ',
-        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10,11] },
+        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11] },
       },
       {
         extend: 'pdfHtml5',
@@ -61,7 +59,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a PDF',
         title: 'Inventario de Insumos',
         className: 'btn bg-danger',
-        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10,11] },
+        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11] },
       },
     ],
 
@@ -77,6 +75,9 @@ $(document).ready(function () {
       { className: 'text-right', targets: [7] },
       { className: 'text-right', targets: [8] },
       { className: 'text-right', targets: [9] },
+      { className: 'hide_column', targets: [12] },
+      { className: 'hide_column', targets: [13] },
+     
     ],
 
     //Para cambiar el lenguaje a español
@@ -105,6 +106,7 @@ $(document).ready(function () {
     $('.modal-header').css('color', 'white')
     $('.modal-title').text('Nuevo Insumo')
     $('#modalCRUD').modal('show')
+    $('#valortarjeta').prop('disabled', true)
     id = null
     opcion = 1 //alta
   })
@@ -119,28 +121,39 @@ $(document).ready(function () {
     id_umedida = fila.find('td:eq(4)').text()
     medida = fila.find('td:eq(4)').text()
     cantidad = fila.find('td:eq(5)').text() //window.location.href = "actprospecto.php?id=" + id;
-    
+
     presentacion = fila.find('td:eq(6)').text()
     cerrado = fila.find('td:eq(7)').text()
     abierto = fila.find('td:eq(8)').text()
     total = fila.find('td:eq(9)').text()
     ubicacion = fila.find('td:eq(10)').text()
-   
+
     obs = fila.find('td:eq(11)').text()
-    
+    tarjeta=fila.find('td:eq(12)').text()
+    valortarjeta=fila.find('td:eq(13)').text()
 
     $('#id_cons').val(id)
     $('#clave_cons').val(clave)
     $('#nom_cons').val(nombre)
     $('#ubicacion').val(ubicacion)
-    
+
     $('#presentacion').val(presentacion)
     $('#umedida').val(id_umedida)
     $('#cantidad').val(cantidad)
     $('#contenidon').val(cerrado)
     $('#contenidoa').val(abierto)
     $('#contenidot').val(total)
- 
+    if (tarjeta==0){
+      $("#tarjeta").prop('checked', false);
+      $("#valortarjeta").val(0)
+      $('#valortarjeta').prop('disabled', true)
+    }
+    else{
+      $("#tarjeta").prop('checked', true);
+      $("#valortarjeta").val(valortarjeta)
+      $('#valortarjeta').prop('disabled', false)
+    }
+
     $('#obs').val(obs)
 
     opcion = 2 //editar
@@ -156,7 +169,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     $('#formAbrir').trigger('reset')
     id = parseInt(fila.find('td:eq(0)').text())
-    clave =fila.find('td:eq(1)').text()
+    clave = fila.find('td:eq(1)').text()
     id_umedida = fila.find('td:eq(4)').text()
     nom_cons = fila.find('td:eq(2)').text() //window.location.href = "actprospecto.php?id=" + id;
     cantidad = fila.find('td:eq(5)').text()
@@ -223,8 +236,14 @@ $(document).ready(function () {
     var contenidon = $('#contenidon').val()
     var contenidot = $('#contenidot').val()
     var presentacion = $('#presentacion').val()
-
-
+    if ($("#tarjeta").prop("checked")) {
+      var tarjeta =1
+    }
+    else{
+      var tarjeta =0
+    }
+   
+    var valortarjeta = $('#valortarjeta').val()
 
     if (
       nom_cons.length == 0 ||
@@ -233,7 +252,6 @@ $(document).ready(function () {
       presentacion.length == 0 ||
       contenidoa.length == 0 ||
       cantidad.length == 0
-
     ) {
       Swal.fire({
         title: 'Datos Faltantes',
@@ -259,21 +277,27 @@ $(document).ready(function () {
           contenidon: contenidon,
           contenidoa: contenidoa,
           contenidot: contenidot,
+          tarjeta: tarjeta,
+          valortarjeta: valortarjeta
         },
         success: function (data) {
           id = data[0].id_cons
           umedida = data[0].id_umedida
           nom_umedida = data[0].nom_umedida
-          clave=data[0].clave_cons
+          clave = data[0].clave_cons
           nom_cons = data[0].nom_cons
           cantidad = data[0].cant_cons
           ubicacion = data[0].ubi_cons
           obs = data[0].obs_cons
+        
 
           presentacion = data[0].presentacion
           contenidon = data[0].contenidon
           contenidoa = data[0].contenidoa
           contenidot = data[0].contenidot
+
+          tarjeta = data[0].tarjeta
+          valortarjeta = data[0].valortarjeta
           if (opcion == 1) {
             tablaVis.row
               .add([
@@ -289,6 +313,7 @@ $(document).ready(function () {
                 contenidot,
                 ubicacion,
                 obs,
+                tarjeta,valortarjeta,
               ])
               .draw()
           } else {
@@ -307,6 +332,7 @@ $(document).ready(function () {
                 contenidot,
                 ubicacion,
                 obs,
+                tarjeta,valortarjeta,
               ])
               .draw()
           }
@@ -341,10 +367,7 @@ $(document).ready(function () {
     $('#modalMOV').modal('show')
   })
 
-
   $(document).on('click', '#btnGuardarM', function () {
-  
-    
     var id = $.trim($('#id').val())
     var descripcion = $('#descripcion').val()
     var tipomov = $.trim($('#tipomov').val())
@@ -375,7 +398,7 @@ $(document).ready(function () {
               saldofin: saldofin,
               montomov: montomov,
               descripcion: descripcion,
-              usuario: usuario
+              usuario: usuario,
             },
             success: function (data) {
               if (data == 1) {
@@ -409,7 +432,7 @@ $(document).ready(function () {
               saldofin: saldofin,
               montomov: montomov,
               descripcion: descripcion,
-              usuario: usuario
+              usuario: usuario,
             },
             success: function (data) {
               if (data == 1) {
@@ -459,7 +482,7 @@ $(document).ready(function () {
                     saldofin: saldofin,
                     montomov: montomov,
                     descripcion: descripcion,
-                    usuario: usuario
+                    usuario: usuario,
                   },
                   success: function (data) {
                     if (data == 1) {
@@ -511,10 +534,7 @@ $(document).ready(function () {
     $('#modalMOVAB').modal('show')
   })
 
-
   $(document).on('click', '#btnGuardarMab', function () {
-  
-    
     var id = $.trim($('#idma').val())
     var descripcion = $('#descripcionab').val()
     var tipomov = $.trim($('#tipomovab').val())
@@ -522,8 +542,6 @@ $(document).ready(function () {
     var montomov = $('#montomovab').val()
     var saldofin = 0
     var usuario = $('#nameuser').val()
-
- 
 
     if (id.length == 0 || tipomov.length == 0 || montomov.length == 0) {
       Swal.fire({
@@ -547,7 +565,7 @@ $(document).ready(function () {
               saldofin: saldofin,
               montomov: montomov,
               descripcion: descripcion,
-              usuario: usuario
+              usuario: usuario,
             },
             success: function (data) {
               if (data == 1) {
@@ -581,7 +599,7 @@ $(document).ready(function () {
               saldofin: saldofin,
               montomov: montomov,
               descripcion: descripcion,
-              usuario: usuario
+              usuario: usuario,
             },
             success: function (data) {
               if (data == 1) {
@@ -631,7 +649,7 @@ $(document).ready(function () {
                     saldofin: saldofin,
                     montomov: montomov,
                     descripcion: descripcion,
-                    usuario: usuario
+                    usuario: usuario,
                   },
                   success: function (data) {
                     if (data == 1) {
@@ -658,7 +676,6 @@ $(document).ready(function () {
       }
     }
   })
-
 
   $('#formAbrir').submit(function (e) {
     e.preventDefault()
@@ -774,6 +791,17 @@ $(document).ready(function () {
   function round(value, decimals) {
     return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
   }
+
+  $('#tarjeta').on('click', function () {
+    if ($('#tarjeta').prop('checked')) {
+      $('#valortarjeta').prop('disabled', false)
+    } else {
+      $('#valortarjeta').prop('disabled', true)
+    }
+    $('#valortarjeta').val('0')
+  })
+
+
 })
 
 function filterFloat(evt, input) {

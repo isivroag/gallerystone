@@ -202,6 +202,37 @@ $resultadofs = $conexion->prepare($consultafs);
 $resultadofs->execute();
 $datafs = $resultadofs->fetchAll(PDO::FETCH_ASSOC);
 
+
+
+if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
+  $cntastat = "SELECT vendedor,ejercicio,mes,
+                presaceptados,ROUND((presaceptados/npres)*100,2) AS porpresaceptados,aceptados,ROUND((aceptados/totalpres)*100,2) AS portotalaceptados,
+                presrechazados,ROUND((presrechazados/npres)*100,2) AS porpresrechazados,rechazados,ROUND((rechazados/totalpres)*100,2) AS portotalrechazados,
+                presotros,ROUND((presotros/npres)*100,2) AS porotros,otros,ROUND((otros/totalpres)*100,2) AS portotalotros,
+                npres,totalpres
+                FROM vestadisticas2 WHERE ejercicio='$y' and mes='$m' ";
+  $resstat = $conexion->prepare($cntastat);
+  $resstat->execute();
+  $datastat = $resstat->fetchAll(PDO::FETCH_ASSOC);
+} else if ($_SESSION['s_rol'] != '1') {
+  $cntastat = "SELECT vendedor,ejercicio,mes,
+                presaceptados,ROUND((presaceptados/npres)*100,2) AS porpresaceptados,aceptados,ROUND((aceptados/totalpres)*100,2) AS portotalaceptados,
+                presrechazados,ROUND((presrechazados/npres)*100,2) AS porpresrechazados,rechazados,ROUND((rechazados/totalpres)*100,2) AS portotalrechazados,
+                presotros,ROUND((presotros/npres)*100,2) AS porotros,otros,ROUND((otros/totalpres)*100,2) AS portotalotros,
+                npres,totalpres
+                FROM vestadisticas2 WHERE ejercicio='$y' and mes='$m' ";
+  $resstat = $conexion->prepare($cntastat);
+  $resstat->execute();
+  $datastat = $resstat->fetchAll(PDO::FETCH_ASSOC);
+} else {
+  $datastat = null;
+}
+
+
+
+
+
+
 ?>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -529,10 +560,10 @@ $datafs = $resultadofs->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="card-body">
                   <div class="row justify-content">
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                       <canvas class="chart " id="metros-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
-                    <div class="col-sm-3 my-auto">
+                    <div class="col-sm-4 my-auto">
                       <div class="table-responsive">
                         <table class="table table-responsive table-bordered table-hover table-sm">
                           <thead class="text-center">
@@ -573,6 +604,90 @@ $datafs = $resultadofs->fetchAll(PDO::FETCH_ASSOC);
                               <td class="text-right"><?php echo $mejecutadosn ?></td>
                             </tr>
                             <?php // } 
+                            ?>
+
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer -->
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <div class="card ">
+                <div class="card-header bg-gradient-primary color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Estadisticas de <?php echo $mesactual ?>
+                  </h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-primary btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row justify-content">
+
+                    <div class="col-sm-12 my-auto">
+                      <div class="table-responsive">
+                        <table class="table table-responsive table-bordered table-hover table-sm">
+                          <thead class="text-center ">
+                            <tr>
+                              <th>VENDEDOR</th>
+                              <th class="bg-primary"># PRES</th>
+                              <th class="bg-primary">$ PRES</th>
+                              <th class="bg-success">#PRES. AC</th>
+                              <th class="bg-success">% #PRES. AC</th>
+                              <th class="bg-success">$PRES. AC</th>
+                              <th class="bg-success">% $PRES. AC</th>
+                              <th class="bg-gradient-warning text-light">#PRES. RCH</th>
+                              <th class="bg-gradient-warning text-light">% #PRES. RCH</th>
+                              <th class="bg-gradient-warning text-light">$PRES. RCH</th>
+                              <th class="bg-gradient-warning text-light">% $PRES. RCH</th>
+                              <th class="bg-info">#PRES. OTROS</th>
+                              <th class="bg-info">% #PRES. OTROS</th>
+                              <th class="bg-info">$PRES. OTROS</th>
+                              <th class="bg-info">% $PRES. OTROS</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+
+                            foreach ($datastat as $rowstat) {
+                            ?>
+
+                              <tr>
+                                <td><?php echo $rowstat['vendedor']?> </td>
+                                <td class="bg-primary text-center"><?php echo $rowstat['npres']?> </td>
+                                <td class="bg-primary text-right"><?php echo "$ " .number_format($rowstat['totalpres'],2)?>  </td>
+
+                                <td class="bg-success text-center"><?php echo $rowstat['presaceptados']?>  </td>
+                                <td class="bg-success text-center"><?php echo $rowstat['porpresaceptados']." %"?>  </td>
+                                <td class="bg-success text-right"><?php echo  "$ " .number_format($rowstat['aceptados'],2)?>  </td>
+                                <td class="bg-success text-center"><?php echo $rowstat['portotalaceptados']." %"?>  </td>
+
+                                <td class="bg-gradient-warning text-light text-center"><?php echo $rowstat['presrechazados']?>  </td>
+                                <td class="bg-gradient-warning text-light text-center"><?php echo $rowstat['porpresrechazados']." %"?>  </td>
+                                <td class="bg-gradient-warning text-light text-right"><?php echo "$ " .number_format($rowstat['rechazados'],2)?>  </td>
+                                <td class="bg-gradient-warning text-light text-center"><?php echo $rowstat['portotalrechazados']." %"?>  </td>
+
+                                <td class="bg-info text-center"><?php echo $rowstat['presotros']?>  </td>
+                                <td class="bg-info text-center"><?php echo $rowstat['porotros']." %"?>  </td>
+                                <td class="bg-info text-right "><?php echo "$ " .number_format($rowstat['otros'],2)?>  </td>
+                                <td class="bg-info text-center"><?php echo $rowstat['portotalotros']." %"?>  </td>
+                              </tr>
+                            <?php
+                            }
                             ?>
 
                           </tbody>
@@ -1131,46 +1246,46 @@ $datafs = $resultadofs->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-           
-            <div class="table-responsive"  style="padding: 10px;">
-                    <table name="tablalls" id="tablalls" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
-                      <thead class="text-center bg-gradient-purple">
-                        <tr>
-                          <th>Folio</th>
-                          <th>Fecha</th>
-                          <th>Cliente</th>
-                          <th>Tel. Movil</th>
-                          <th>Tel. Fijo</th>
-                          <th>Proyecto</th>
-                          <th># Llamada</th>
-                          <th>Fecha Programada</th>
-                          <th>Nota</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        foreach ($datais as $dat2) {
-                        ?>
-                          <tr>
-                            <td><?php echo $dat2['folio_pres'] ?></td>
-                            <td><?php echo $dat2['fecha_pres'] ?></td>
-                            <td><?php echo $dat2['nombre'] ?></td>
-                            <td><?php echo $dat2['cel'] ?></td>
-                            <td><?php echo $dat2['tel'] ?></td>
-                            <td><?php echo $dat2['concepto_pres'] ?></td>
-                            <td><?php echo $dat2['desc_llamada'] ?></td>
-                            <td><?php echo $dat2['fecha_llamada'] ?></td>
-                            <td><?php echo $dat2['nota_ant'] ?> </td>
 
-                          </tr>
-                        <?php
-                        }
-                        ?>
-                      </tbody>
+            <div class="table-responsive" style="padding: 10px;">
+              <table name="tablalls" id="tablalls" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
+                <thead class="text-center bg-gradient-purple">
+                  <tr>
+                    <th>Folio</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Tel. Movil</th>
+                    <th>Tel. Fijo</th>
+                    <th>Proyecto</th>
+                    <th># Llamada</th>
+                    <th>Fecha Programada</th>
+                    <th>Nota</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  foreach ($datais as $dat2) {
+                  ?>
+                    <tr>
+                      <td><?php echo $dat2['folio_pres'] ?></td>
+                      <td><?php echo $dat2['fecha_pres'] ?></td>
+                      <td><?php echo $dat2['nombre'] ?></td>
+                      <td><?php echo $dat2['cel'] ?></td>
+                      <td><?php echo $dat2['tel'] ?></td>
+                      <td><?php echo $dat2['concepto_pres'] ?></td>
+                      <td><?php echo $dat2['desc_llamada'] ?></td>
+                      <td><?php echo $dat2['fecha_llamada'] ?></td>
+                      <td><?php echo $dat2['nota_ant'] ?> </td>
 
-                    </table>
-                  </div>
+                    </tr>
+                  <?php
+                  }
+                  ?>
+                </tbody>
+
+              </table>
             </div>
+          </div>
         </div>
       </div>
     </div>

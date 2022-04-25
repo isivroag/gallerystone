@@ -17,6 +17,9 @@ $contenidon = (isset($_POST['contenidon'])) ? $_POST['contenidon'] : '';
 $contenidoa = (isset($_POST['contenidoa'])) ? $_POST['contenidoa'] : '';
 $contenidot = (isset($_POST['contenidot'])) ? $_POST['contenidot'] : '';
 
+$tarjeta = (isset($_POST['tarjeta'])) ? $_POST['tarjeta'] : '';
+$valortarjeta = (isset($_POST['valortarjeta'])) ? $_POST['valortarjeta'] : '';
+
 $clave = (isset($_POST['clave'])) ? $_POST['clave'] : '';
 
 
@@ -28,7 +31,8 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO consumible (nom_cons,cant_cons,id_umedida,ubi_cons,obs_cons,presentacion,contenidon,contenidoa,contenidot,clave_cons) VALUES('$nom_cons','$cantidad','$umedida','$ubicacion','$obs','$presentacion','$contenidon','$contenidoa','$contenidot','$clave')";			
+        $consulta = "INSERT INTO consumible (nom_cons,cant_cons,id_umedida,ubi_cons,obs_cons,presentacion,contenidon,contenidoa,contenidot,clave_cons,tarjeta,valortarjeta) 
+        VALUES('$nom_cons','$cantidad','$umedida','$ubicacion','$obs','$presentacion','$contenidon','$contenidoa','$contenidot','$clave','$tarjeta','$valortarjeta')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
@@ -38,7 +42,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE consumible SET nom_cons='$nom_cons',id_umedida='$umedida',ubi_cons='$ubicacion',obs_cons='$obs',clave_cons='$clave' WHERE id_cons='$id' ";		
+        $consulta = "UPDATE consumible SET nom_cons='$nom_cons',id_umedida='$umedida',ubi_cons='$ubicacion',obs_cons='$obs',clave_cons='$clave',tarjeta='$tarjeta',valortarjeta='$valortarjeta' WHERE id_cons='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         

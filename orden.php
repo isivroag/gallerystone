@@ -69,11 +69,15 @@ if ($folio != "") {
     $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
 
 
-    $cntains = "SELECT * FROM vconsumible where estado_cons=1 order by id_cons";
+    $cntains = "SELECT * FROM vconsumible where estado_cons=1 and tarjeta=0 order by id_cons";
     $resins = $conexion->prepare($cntains);
     $resins->execute();
     $datains = $resins->fetchAll(PDO::FETCH_ASSOC);
 
+    $cntainstar = "SELECT * FROM vconsumible where estado_cons=1 and tarjeta=1 order by id_cons";
+    $resinstar = $conexion->prepare($cntainstar);
+    $resinstar->execute();
+    $datainstar = $resinstar->fetchAll(PDO::FETCH_ASSOC);
 
 
     $cntades = "SELECT * FROM vdesechable where estado_des=1 order by id_des";
@@ -707,99 +711,139 @@ if ($folio != "") {
 
                                     </div>
                                     <h1 class="card-title text-light">Insumos</h1>
-                                    <div class="card-tools" style="margin:0px;padding:0px;">
 
-
-                                    </div>
                                 </div>
 
-                                <div class="card-body" style="margin:0px;padding:3px;">
+                                <div class="card-body accordion" id="addinsumo" style="margin:0px;padding:3px;">
 
-                                    <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
+                                    <div class="row justify-content-between " style="margin:2px;padding:5px;">
 
-                                        <div class="card-header " style="margin:0px;padding:8px;">
 
-                                            <button type="button" class="btn bg-gradient-info btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                        <div class="col-sm-2">
+                                            <button type="button" id="btnaddinsumoi" class="btn bg-gradient-info btn-sm" data-toggle="collapse" aria-expanded="false" aria-controls="addinsumoin" href='#addinsumoin'>
                                                 Agregar Insumo <i class="fas fa-plus"></i>
                                             </button>
-
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" id="btnaddinsumotar" class="btn bg-gradient-primary btn-sm" data-toggle="collapse" aria-expanded="false" aria-controls="addinsumotar" href='#addinsumotar'>
+                                                Agregar Tarjeta de Costo <i class="fas fa-plus"></i>
+                                            </button>
                                         </div>
 
-                                        <div class="card-body " style="margin:0px;padding:2px 5px;">
-                                            <div class="row justify-content-sm-center">
-
-                                                <div class="col-lg-4">
-                                                    <div class="input-group input-group-sm">
-
-                                                        <input type="hidden" class="form-control" name="idinsumo" id="idinsumo">
+                                    </div>
 
 
+                                    <div class="row justify-content-sm-center collapse" id="addinsumoin" data-parent="#addinsumo">
+
+                                        <div class="col-lg-4">
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="hidden" class="form-control" name="idinsumo" id="idinsumo">
 
 
-                                                        <label for="insumo" class="col-form-label">Insumo:</label>
-                                                        <div class="input-group input-group-sm">
-                                                            <input type="text" class="form-control" name="insumo" id="insumo" disabled>
-                                                            <span class="input-group-append">
-                                                                <button id="btnInsumo" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
-                                                            </span>
-                                                        </div>
 
-                                                    </div>
-                                                </div>
 
-                                                <div class="col-lg-1">
-                                                    <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
-                                                    <label for="nom_umedidain" class="col-form-label">U Medida:</label>
-                                                    <div class="input-group input-group-sm">
-                                                        <input type="text" class="form-control " name="nom_umedidain" id="nom_umedidain" disabled>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-2">
-                                                    <label for="cantidadi" class="col-form-label">Cantidad:</label>
-                                                    <div class="input-group input-group-sm">
-                                                        <input type="hidden" class="form-control" name="cantidaddisi" id="cantidaddisi">
-                                                        <input type="text" class="form-control" name="cantidadi" id="cantidadi" disabled>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-1 justify-content-center">
-                                                    <label for="" class="col-form-label">Acción:</label>
-                                                    <div class="input-group-append input-group-sm justify-content-center d-flex">
-                                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
-                                                            <button type="button" id="btnagregari" name="btnagregari" class="btn btn-sm bg-gradient-orange" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
-                                                        </span>
-                                                        <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
-                                                            <button type="button" id="btlimpiari" name="btlimpiari" class="btn btn-sm bg-gradient-purple" value="btnlimpiari"><i class="fas fa-brush"></i></button>
-                                                        </span>
-                                                    </div>
+                                                <label for="insumo" class="col-form-label">Insumo:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" name="insumo" id="insumo" disabled>
+                                                    <span class="input-group-append">
+                                                        <button id="btnInsumo" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                    </span>
                                                 </div>
 
                                             </div>
+                                        </div>
 
+                                        <div class="col-lg-1">
+                                            <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
+                                            <label for="nom_umedidain" class="col-form-label">U Medida:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control " name="nom_umedidain" id="nom_umedidain" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <label for="cantidadi" class="col-form-label">Cantidad:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="hidden" class="form-control" name="cantidaddisi" id="cantidaddisi">
+                                                <input type="text" class="form-control" name="cantidadi" id="cantidadi" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1 justify-content-center">
+                                            <label for="" class="col-form-label">Acción:</label>
+                                            <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                    <button type="button" id="btnagregari" name="btnagregari" class="btn btn-sm bg-gradient-orange" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
+                                                </span>
+                                                <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                    <button type="button" id="btlimpiari" name="btlimpiari" class="btn btn-sm bg-gradient-purple" value="btnlimpiari"><i class="fas fa-brush"></i></button>
+                                                </span>
+                                            </div>
                                         </div>
 
                                     </div>
+                                    <div class="row justify-content-sm-center collapse" id="addinsumotar" data-parent="#addinsumo">
+                                        <div class="col-sm-5">
 
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label for="mlbase1" class="col-form-label">ML Base de Calculo:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control " name="mlbase1" id="mlbase1">
+                                                <span class="input-group-append">
+                                                <button type="button" id="btncalculartar" name="btncalculartar" class="btn btn-sm bg-gradient-success" value="btncalculartar"><i class="fa-solid fa-calculator"></i></button>
+                                                </span>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-sm-5">
 
-                                    <div class="row">
+                                        </div>
 
-                                        <div class="col-lg-12 mx-auto">
+                                        <!-- primera tarjeta con cuadros de texto
+                                        <?php
+                                        foreach ($datainstar as $rowinstar) {
+                                        ?>
+                                            <div class="col-sm-4">
 
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label for="in<?php echo $rowinstar['id_cons'] ?>" class="col-form-label"><?php echo $rowinstar['nom_cons'] ?></label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control " name="in<?php echo $rowinstar['id_cons'] ?>" id="in<?php echo $rowinstar['id_cons'] ?>" disabled value="<?php echo $rowinstar['valortarjeta'] ?>">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label for="valorin<?php echo $rowinstar['id_cons'] ?>" class="col-form-label">VALOR CALCULADO <?php echo $rowinstar['nom_cons'] ?></label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control " name="valorin<?php echo $rowinstar['id_cons'] ?>" id="valorin<?php echo $rowinstar['id_cons'] ?>">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4">
+
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+-->
+
+                                        <!-- SEGUNDA TARJETA CON TABLA-->
+                                        <div class="col-sm-6">
                                             <div class="table-responsive" style="padding:5px;">
 
-                                                <table name="tablaDetIn" id="tablaDetIn" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
-                                                    <thead class="text-center bg-gradient-info">
+                                                <table name="tablatarin" id="tablatarin" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                    <thead class="text-center bg-gradient-primary">
                                                         <tr>
                                                             <th>Id</th>
-                                                            <th>Id Insumo</th>
-
-                                                            <th>Material</th>
-
-
-                                                            <th>U. Medida</th>
-
-                                                            <th>Cantidad</th>
+                                                            <th>Insumo</th>
+                                                            <th>Valor *ML</th>
+                                                            <th>id Unidad</th>
+                                                            <th>UMedida</th>
+                                                            <th>Valor Calculado</th>
+                                                            <th>Disponible</th>
                                                             <th>Acciones</th>
 
 
@@ -807,20 +851,17 @@ if ($folio != "") {
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $consultadeto = "SELECT * FROM vconsumibleord where folio_ord='$folioorden' and estado_detalle=1 order by id_reg";
-                                                        $resultadodeto = $conexion->prepare($consultadeto);
-                                                        $resultadodeto->execute();
-                                                        $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                        foreach ($datadeto as $rowdet) {
+                                                     
+                                                        foreach ($datainstar as $rowdet) {
                                                         ?>
                                                             <tr>
-                                                                <td><?php echo $rowdet['id_reg'] ?></td>
                                                                 <td><?php echo $rowdet['id_cons'] ?></td>
                                                                 <td><?php echo $rowdet['nom_cons'] ?></td>
-
+                                                                <td><?php echo $rowdet['valortarjeta'] ?></td>
+                                                                <td><?php echo $rowdet['id_umedida'] ?></td>
                                                                 <td><?php echo $rowdet['nom_umedida'] ?></td>
-
-                                                                <td><?php echo $rowdet['cantidad'] ?></td>
+                                                                <td>0</td>
+                                                                <td><?php echo $rowdet['contenidoa'] ?></td>
                                                                 <td></td>
                                                             </tr>
                                                         <?php
@@ -831,7 +872,6 @@ if ($folio != "") {
                                                 </table>
 
                                             </div>
-
                                         </div>
 
                                     </div>
@@ -840,6 +880,65 @@ if ($folio != "") {
 
 
                                 </div>
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 mx-auto">
+
+                                        <div class="table-responsive" style="padding:5px;">
+
+                                            <table name="tablaDetIn" id="tablaDetIn" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                <thead class="text-center bg-gradient-info">
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Id Insumo</th>
+
+                                                        <th>Material</th>
+
+
+                                                        <th>U. Medida</th>
+
+                                                        <th>Cantidad</th>
+                                                        <th>Acciones</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $consultadeto = "SELECT * FROM vconsumibleord where folio_ord='$folioorden' and estado_detalle=1 order by id_reg";
+                                                    $resultadodeto = $conexion->prepare($consultadeto);
+                                                    $resultadodeto->execute();
+                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                    foreach ($datadeto as $rowdet) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $rowdet['id_reg'] ?></td>
+                                                            <td><?php echo $rowdet['id_cons'] ?></td>
+                                                            <td><?php echo $rowdet['nom_cons'] ?></td>
+
+                                                            <td><?php echo $rowdet['nom_umedida'] ?></td>
+
+                                                            <td><?php echo $rowdet['cantidad'] ?></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
 
 
                             </div>
@@ -1028,7 +1127,7 @@ if ($folio != "") {
                                         <th>Material</th>
                                         <th>Formato</th>
                                         <th>Largo</th>
-                                        <th>Alto</th> 
+                                        <th>Alto</th>
                                         <th>Ancho</th>
                                         <th>M2</th>
                                         <th>Id Umedida</th>
@@ -1268,11 +1367,11 @@ if ($folio != "") {
                             <div class="modal-body ">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                    <input type="hidden" class="form-control" name="idmatred" id="idmatred" autocomplete="off" placeholder="idmatred" disabled>
-                                    <input type="hidden" class="form-control" name="tipored" id="tipored" autocomplete="off" placeholder="tipored" disabled>
-                                    
+                                        <input type="hidden" class="form-control" name="idmatred" id="idmatred" autocomplete="off" placeholder="idmatred" disabled>
+                                        <input type="hidden" class="form-control" name="tipored" id="tipored" autocomplete="off" placeholder="tipored" disabled>
+
                                         <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="chpedaceria" >
+                                            <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="chpedaceria">
                                             <label for="chpedaceria" class="custom-control-label">El Material Sobrante será considerado como Pedacería</label>
                                         </div>
 
@@ -1281,7 +1380,7 @@ if ($folio != "") {
 
                                 <div class="row" id="divmedidas" name="divmedidas">
 
-                                <div class="col-sm-4">
+                                    <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
                                             <label for="largoant" class="col-form-label">Largo Anterior:</label>
                                             <input type="text" class="form-control" name="largoant" id="largoant" autocomplete="off" placeholder="largoant" disabled>
@@ -1294,7 +1393,7 @@ if ($folio != "") {
                                             <input type="text" class="form-control" name="altoant" id="altoant" autocomplete="off" placeholder="altoant" disabled>
                                         </div>
                                     </div>
-                                   
+
 
                                     <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
@@ -1317,7 +1416,7 @@ if ($folio != "") {
                                             <input type="text" class="form-control" name="altonuevo" id="altonuevo" autocomplete="off" placeholder="altonuevo" onkeypress="return filterFloat(event,this);">
                                         </div>
                                     </div>
-                                   
+
 
                                     <div class="col-sm-4">
                                         <div class="form-group input-group-sm">
@@ -1357,6 +1456,77 @@ if ($folio != "") {
         </div>
     </section>
 
+    <section>
+        <div class="modal fade" id="modalconfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-info">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Agregar Insumo</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formconfirmar" action="" method="POST">
+                            <div class="modal-body row">
+
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                    <input type="hidden" class="form-control" name="idconstar" id="idconstar" autocomplete="off" placeholder="Concepto">
+                                    <input type="hidden" class="form-control" name="tipoconstar" id="tipoconstar" autocomplete="off" placeholder="Concepto">
+                                        <label for="conceptotar" class="col-form-label">Concepto:</label>
+                                        <input type="text" class="form-control" name="conceptotar" id="conceptotar" autocomplete="off" placeholder="Concepto" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="existenciastar" class="col-form-label">Disponible:</label>
+                                        <input type="text" class="form-control" name="existenciastar" id="existenciastar" autocomplete="off" placeholder="Cantidad" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cantidadtar" class="col-form-label">Cantidad:</label>
+                                        <input type="text" class="form-control" name="cantidadtar" id="cantidadtar" autocomplete="off" placeholder="Cantidad">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="unidadtar" class="col-form-label">U Medida:</label>
+                                        <input type="hidden" class="form-control" name="idunidadtar" id="idunidadtar" autocomplete="off" placeholder="Cantidad" >
+                                        <input type="text" class="form-control" name="unidadtar" id="unidadtar" autocomplete="off" placeholder="Cantidad" disabled>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                    </div>
+
+
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnguardarconfirmacion" name="btnguardarconfirmacion" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 
 
 </div>

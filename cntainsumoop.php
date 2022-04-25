@@ -120,6 +120,8 @@ $message = "";
                                             <th>Contenido Total</th>
                                             <th>Ubicacion</th>
                                             <th>Obs</th>
+                                            <th>tarjeta</th>
+                                            <th>valortarjeta</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -141,6 +143,8 @@ $message = "";
                                                 <td><?php echo $dat['contenidot'] ?></td>
                                                 <td><?php echo $dat['ubi_cons'] ?></td>
                                                 <td><?php echo $dat['obs_cons'] ?></td>
+                                                <td><?php echo $dat['tarjeta'] ?></td>
+                                                <td><?php echo $dat['valortarjeta'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -178,7 +182,7 @@ $message = "";
 
                                 <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
-                                    <input type="hidden" class="form-control" name="id_cons" id="id_cons" autocomplete="off" >
+                                        <input type="hidden" class="form-control" name="id_cons" id="id_cons" autocomplete="off">
                                         <label for="nom_cons" class="col-form-label">Descripción*:</label>
                                         <input type="text" class="form-control" name="nom_cons" id="nom_cons" autocomplete="off" placeholder="Descripción">
                                     </div>
@@ -258,6 +262,19 @@ $message = "";
                                         <textarea rows="2" class="form-control" name="obs" id="obs" placeholder="Observaciones"></textarea>
                                     </div>
                                 </div>
+
+                                <div class="col-sm-4">
+                                        <label for="valortarjeta" class="col-form-label">Valor Por Metro Lineal:</label>
+                                        <div class="form-group input-group">
+                                        
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <input type="checkbox" id="tarjeta" name="tarjeta">
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control text-right" name="valortarjeta" id="valortarjeta" autocomplete="off" placeholder="Valor por ML" value="0.00"  disabled onkeypress="return filterFloat(event,this);">
+                                        </div>
+                                    </div>
 
 
 
