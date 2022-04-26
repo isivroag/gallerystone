@@ -85,7 +85,7 @@ $(document).ready(function() {
             "sProcessing": "Procesando...",
         },
         "ordering": false,
-        "order": [[ 5, 'asc' ], [ 0, 'asc' ]],
+        "order": [[ 3, 'asc' ]],
         paging:false,
         info:false,
         "searching": false
@@ -267,6 +267,8 @@ $(document).ready(function() {
 
 
   });
+
+
     tablaC = $("#tablaC").DataTable({
 
 
@@ -290,8 +292,37 @@ $(document).ready(function() {
         },
         stateSave: true,
         info: false,
+          
     });
 
+    tablaIN = $("#tablaIN").DataTable({
 
+
+
+
+        //Para cambiar el lenguaje a español
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sSearch": "Buscar:",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "sProcessing": "Procesando...",
+        },
+        searching:false,
+        stateSave: true,
+        orderCellsTop: true,
+      fixedHeader: true,
+      paging:false,
+      info:false,
+        "order": [[ 1, "desc" ]]
+    });
 
 });

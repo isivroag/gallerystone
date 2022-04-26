@@ -253,7 +253,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
         <!--CARDS ENCABEZADO -->
         <div class="row justify-content-center">
-          <div class="col-lg-2">
+          <div class="col-sm-2">
             <div class="form-group input-group-sm">
               <label for="fechahome" class="col-form-label">Fecha de Consulta:</label>
               <input type="date" class="form-control" name="fechahome" id="fechahome" value="<?php echo  date('Y-m-d', $fechahome) ?>">
@@ -262,7 +262,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
 
 
-          <div class="col-lg-1 align-self-end text-center">
+          <div class="col-sm-1 align-self-end text-center">
             <div class="form-group input-group-sm">
               <button id="btnHome" name="btnHome" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
             </div>
@@ -271,7 +271,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
 
         <div class="row">
-          <div class="col-lg-3 col-6">
+          <div class="col-sm-3 col-6">
 
             <div class="small-box bg-gradient-orange text-white">
               <div class="inner">
@@ -286,7 +286,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
             </div>
           </div>
 
-          <div class="col-lg-3 col-6">
+          <div class="col-sm-3 col-6">
 
             <div class="small-box bg-success">
               <div class="inner">
@@ -301,7 +301,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
             </div>
           </div>
 
-          <div class="col-lg-3 col-6">
+          <div class="col-sm-3 col-6">
 
             <div class="small-box bg-gradient-warning text-white">
               <div class="inner">
@@ -316,7 +316,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
             </div>
           </div>
 
-          <div class="col-lg-3 col-6">
+          <div class="col-sm-3 col-6">
 
             <div class="small-box bg-primary">
               <div class="inner">
@@ -332,8 +332,12 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
           </div>
 
         </div>
+
+
         <!-- Graficas-->
+
         <section>
+
           <div class="row justify-content-center">
 
             <!-- GRAFICA DE ML VENDIDOS-->
@@ -667,24 +671,24 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                             ?>
 
                               <tr>
-                                <td><?php echo $rowstat['vendedor']?> </td>
-                                <td class="bg-primary text-center"><?php echo $rowstat['npres']?> </td>
-                                <td class="bg-primary text-right"><?php echo "$ " .number_format($rowstat['totalpres'],2)?>  </td>
+                                <td><?php echo $rowstat['vendedor'] ?> </td>
+                                <td class="bg-primary text-center"><?php echo $rowstat['npres'] ?> </td>
+                                <td class="bg-primary text-right"><?php echo "$ " . number_format($rowstat['totalpres'], 2) ?> </td>
 
-                                <td class="bg-success text-center"><?php echo $rowstat['presaceptados']?>  </td>
-                                <td class="bg-success text-center"><?php echo $rowstat['porpresaceptados']." %"?>  </td>
-                                <td class="bg-success text-right"><?php echo  "$ " .number_format($rowstat['aceptados'],2)?>  </td>
-                                <td class="bg-success text-center"><?php echo $rowstat['portotalaceptados']." %"?>  </td>
+                                <td class="bg-success text-center"><?php echo $rowstat['presaceptados'] ?> </td>
+                                <td class="bg-success text-center"><?php echo $rowstat['porpresaceptados'] . " %" ?> </td>
+                                <td class="bg-success text-right"><?php echo  "$ " . number_format($rowstat['aceptados'], 2) ?> </td>
+                                <td class="bg-success text-center"><?php echo $rowstat['portotalaceptados'] . " %" ?> </td>
 
-                                <td class="bg-gradient-warning text-light text-center"><?php echo $rowstat['presrechazados']?>  </td>
-                                <td class="bg-gradient-warning text-light text-center"><?php echo $rowstat['porpresrechazados']." %"?>  </td>
-                                <td class="bg-gradient-warning text-light text-right"><?php echo "$ " .number_format($rowstat['rechazados'],2)?>  </td>
-                                <td class="bg-gradient-warning text-light text-center"><?php echo $rowstat['portotalrechazados']." %"?>  </td>
+                                <td class="bg-gradient-warning text-light text-center"><?php echo $rowstat['presrechazados'] ?> </td>
+                                <td class="bg-gradient-warning text-light text-center"><?php echo $rowstat['porpresrechazados'] . " %" ?> </td>
+                                <td class="bg-gradient-warning text-light text-right"><?php echo "$ " . number_format($rowstat['rechazados'], 2) ?> </td>
+                                <td class="bg-gradient-warning text-light text-center"><?php echo $rowstat['portotalrechazados'] . " %" ?> </td>
 
-                                <td class="bg-info text-center"><?php echo $rowstat['presotros']?>  </td>
-                                <td class="bg-info text-center"><?php echo $rowstat['porotros']." %"?>  </td>
-                                <td class="bg-info text-right "><?php echo "$ " .number_format($rowstat['otros'],2)?>  </td>
-                                <td class="bg-info text-center"><?php echo $rowstat['portotalotros']." %"?>  </td>
+                                <td class="bg-info text-center"><?php echo $rowstat['presotros'] ?> </td>
+                                <td class="bg-info text-center"><?php echo $rowstat['porotros'] . " %" ?> </td>
+                                <td class="bg-info text-right "><?php echo "$ " . number_format($rowstat['otros'], 2) ?> </td>
+                                <td class="bg-info text-center"><?php echo $rowstat['portotalotros'] . " %" ?> </td>
                               </tr>
                             <?php
                             }
@@ -706,7 +710,6 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
             <!--FIN GRAFICA COMPARATIVA ML -->
 
           </div>
-
 
         </section>
         <!-- GRAFICAS 2
@@ -833,75 +836,77 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 -->
       </div>
       <!--  ABRE TABLEROS-->
-      <div class="row justify-content-center">
-        <!-- Left col -->
-        <div class="col-lg-10">
-          <!-- Custom tabs (Charts with tabs)-->
-          <div class="card ">
-            <div class="card-header bg-gradient-orange boder-0">
-              <h3 class="card-title">
-                <i class="fas fa-money-check-alt mr-1"></i>
-                Presupuestos Pendientes
-              </h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-orange btn-sm daterange text-light" data-toggle="tooltip" title="Date range">
-                  <i class="fas fa-money-check-alt"></i>
-                </button>
-                <button type="button" class="btn btn-orange btn-sm text-light" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <!-- Left col -->
+          <div class="col-sm-12">
+            <!-- Custom tabs (Charts with tabs)-->
+            <div class="card ">
+              <div class="card-header bg-gradient-orange boder-0">
+                <h3 class="card-title">
+                  <i class="fas fa-money-check-alt mr-1"></i>
+                  Presupuestos Pendientes
+                </h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-orange btn-sm daterange text-light" data-toggle="tooltip" title="Date range">
+                    <i class="fas fa-money-check-alt"></i>
+                  </button>
+                  <button type="button" class="btn btn-orange btn-sm text-light" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
 
-            </div><!-- /.card-header -->
+              </div><!-- /.card-header -->
 
-            <div class="card-body">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-12">
+              <div class="card-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-sm-12">
 
-                    <div class="table-responsive" style="padding: 10px;">
-                      <table name="tablaV" id="tablaV" class="table table-striped table-sm no-wraped table-bordered table-condensed mx-auto" style="width:100%">
-                        <thead class="text-center bg-gradient-orange">
-                          <tr>
-                            <th>Folio</th>
-                            <th>Fecha</th>
-                            <th>Cliente</th>
-                            <th>Total</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-
-
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                          foreach ($data as $dat) {
-                          ?>
+                      <div class="table-responsive" style="padding: 10px;">
+                        <table name="tablaV" id="tablaV" class="table table-striped table-sm no-wraped table-bordered table-condensed mx-auto" style="width:100%">
+                          <thead class="text-center bg-gradient-orange">
                             <tr>
-                              <td><?php echo $dat['folio_pres'] ?></td>
-                              <td><?php echo $dat['fecha_pres'] ?></td>
-                              <td><?php echo $dat['nombre'] ?></td>
-                              <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
-                              <td><?php echo $dat['estado_pres'] ?></td>
-                              <td></td>
-                            </tr>
-                          <?php
-                          }
-                          ?>
-                        </tbody>
-                      </table>
-                    </div>
+                              <th>Folio</th>
+                              <th>Fecha</th>
+                              <th>Cliente</th>
+                              <th>Total</th>
+                              <th>Estado</th>
+                              <th>Acciones</th>
 
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            foreach ($data as $dat) {
+                            ?>
+                              <tr>
+                                <td><?php echo $dat['folio_pres'] ?></td>
+                                <td><?php echo $dat['fecha_pres'] ?></td>
+                                <td><?php echo $dat['nombre'] ?></td>
+                                <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
+                                <td><?php echo $dat['estado_pres'] ?></td>
+                                <td></td>
+                              </tr>
+                            <?php
+                            }
+                            ?>
+                          </tbody>
+                        </table>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-          </div><!-- /.card-body -->
+            </div><!-- /.card-body -->
+          </div>
+
+
+
         </div>
-
-
-
       </div>
 
 
@@ -913,314 +918,316 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
 
 
-    <section>
-      <div class="row justify-content-center">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
 
 
-        <!-- LIBERACIONES -->
-        <div class="col-lg-10 col-10">
+          <!-- LIBERACIONES -->
+          <div class="col-sm-12 col-12">
 
 
-          <div class="card">
-            <div class="card-header  bg-gradient-info border-0">
-              <h3 class="card-title">
-                <i class="fas fa-calendar mr-1"></i>
-                Liberaciones
-              </h3>
+            <div class="card">
+              <div class="card-header  bg-gradient-info border-0">
+                <h3 class="card-title">
+                  <i class="fas fa-calendar mr-1"></i>
+                  Liberaciones
+                </h3>
 
-              <div class="card-tools">
-                <button type="button" class="btn btn-info btn-sm daterange" id="btncalmedir" data-toggle="tooltip" title="Date range">
-                  <i class="far fa-calendar-alt"></i>
-                </button>
-                <button type="button" class="btn btn-info btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-info btn-sm daterange" id="btncalmedir" data-toggle="tooltip" title="Date range">
+                    <i class="far fa-calendar-alt"></i>
+                  </button>
+                  <button type="button" class="btn btn-info btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+
               </div>
+              <div class="card-body">
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 text-center">
+                    <h5>LIBERACIONES PROYECTOS ANTERIORES AL <?php echo $fechaInicio ?></h5>
+                  </div>
+                </div>
+
+                <div class="table-responsive" style="padding: 10px;">
+                  <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                    <thead class="text-center bg-gradient-info">
+                      <tr>
+                        <th>Folio Vta</th>
+                        <th>Folio Pres</th>
+                        <th>Folio Orden</th>
+                        <th>Cliente</th>
+                        <th>Concepto</th>
+                        <th>Fecha Lib</th>
+                        <th>Total</th>
+                        <th>Saldo</th>
+
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <?php
+
+                      //CONSULTA LIBERACIONES CON SALDO
+                      //ANTERIORES A ESTA SEMANA
+                      $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO' and saldo>'0'";
+                      $reslib = $conexion->prepare($cntalib);
+                      $reslib->execute();
+                      $datalibproyantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+                      foreach ($datalibproyantes as $datal) {
+                      ?>
+                        <tr>
+                          <td><?php echo $datal['folio_vta'] ?></td>
+                          <td><?php echo $datal['folio_pres'] ?></td>
+                          <td><?php echo $datal['folio_ord'] ?></td>
+                          <td><?php echo $datal['nombre'] ?></td>
+                          <td><?php echo $datal['concepto_vta'] ?></td>
+                          <td><?php echo $datal['fecha_liberacion'] ?></td>
+                          <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
+                          <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
+                        </tr>
+                      <?php
+                      }
+                      ?>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align:right">Total:</th>
+                        <th class="text-right"></th>
+                        <th class="text-right"></th>
+
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+
+
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 text-center">
+                    <h5>LIBERACIONES PROYECTOS DE LA SEMANA DEL <?php echo $fechaInicio . ' AL ' . $fechaFin ?></h5>
+                  </div>
+                </div>
+
+                <div class="table-responsive" style="padding: 10px;">
+                  <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                    <thead class="text-center bg-gradient-info">
+                      <tr>
+                        <th>Folio Vta</th>
+                        <th>Folio Pres</th>
+                        <th>Folio Orden</th>
+                        <th>Cliente</th>
+                        <th>Concepto</th>
+                        <th>Fecha Lib</th>
+                        <th>Total</th>
+                        <th>Saldo</th>
+
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <?php
+
+
+
+
+                      $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO' and saldo>'0'";
+                      $reslib = $conexion->prepare($cntalib);
+                      $reslib->execute();
+                      $datalibproyactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+                      foreach ($datalibproyactual as $datal) {
+                      ?>
+                        <tr>
+                          <td><?php echo $datal['folio_vta'] ?></td>
+                          <td><?php echo $datal['folio_pres'] ?></td>
+                          <td><?php echo $datal['folio_ord'] ?></td>
+                          <td><?php echo $datal['nombre'] ?></td>
+                          <td><?php echo $datal['concepto_vta'] ?></td>
+                          <td><?php echo $datal['fecha_liberacion'] ?></td>
+                          <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
+                          <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
+                        </tr>
+                      <?php
+                      }
+                      ?>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align:right">Total:</th>
+                        <th class="text-right"></th>
+                        <th class="text-right"></th>
+
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 text-center">
+                    <h5>LIBERACIONES OBRA ANTES DEL <?php echo $fechaInicio ?></h5>
+                  </div>
+                </div>
+
+                <div class="table-responsive" style="padding: 10px;">
+                  <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                    <thead class="text-center bg-gradient-info">
+                      <tr>
+                        <th>Folio Vta</th>
+                        <th>Folio Pres</th>
+                        <th>Folio Orden</th>
+                        <th>Cliente</th>
+                        <th>Concepto</th>
+                        <th>Fecha Lib</th>
+                        <th>Total</th>
+                        <th>Saldo</th>
+
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <?php
+
+
+
+
+
+
+                      $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO' and saldo>'0'";
+                      $reslib = $conexion->prepare($cntalib);
+                      $reslib->execute();
+                      $datalibobraantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+                      foreach ($datalibobraantes as $datal) {
+                      ?>
+                        <tr>
+                          <td><?php echo $datal['folio_vta'] ?></td>
+                          <td><?php echo $datal['folio_pres'] ?></td>
+                          <td><?php echo $datal['folio_ord'] ?></td>
+                          <td><?php echo $datal['nombre'] ?></td>
+                          <td><?php echo $datal['concepto_vta'] ?></td>
+                          <td><?php echo $datal['fecha_liberacion'] ?></td>
+                          <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
+                          <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
+                        </tr>
+                      <?php
+                      }
+                      ?>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align:right">Total:</th>
+                        <th class="text-right"></th>
+                        <th class="text-right"></th>
+
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+
+                <div class="row justify-content-center">
+                  <div class="col-sm-12 text-center">
+                    <h5>LIBERACIONES OBRA DE LA SEMANA DEL <?php echo $fechaInicio . ' AL ' . $fechaFin ?></h5>
+                  </div>
+                </div>
+
+                <div class="table-responsive" style="padding: 10px;">
+                  <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                    <thead class="text-center bg-gradient-info">
+                      <tr>
+                        <th>Folio Vta</th>
+                        <th>Folio Pres</th>
+                        <th>Folio Orden</th>
+                        <th>Cliente</th>
+                        <th>Concepto</th>
+                        <th>Fecha Lib</th>
+                        <th>Total</th>
+                        <th>Saldo</th>
+
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <?php
+
+
+
+
+
+                      $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO' and saldo>'0'";
+                      $reslib = $conexion->prepare($cntalib);
+                      $reslib->execute();
+                      $datalibobraactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
+
+                      foreach ($datalibobraactual as $datal) {
+                      ?>
+                        <tr>
+                          <td><?php echo $datal['folio_vta'] ?></td>
+                          <td><?php echo $datal['folio_pres'] ?></td>
+                          <td><?php echo $datal['folio_ord'] ?></td>
+                          <td><?php echo $datal['nombre'] ?></td>
+                          <td><?php echo $datal['concepto_vta'] ?></td>
+                          <td><?php echo $datal['fecha_liberacion'] ?></td>
+                          <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
+                          <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
+                        </tr>
+                      <?php
+                      }
+                      ?>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align:right">Total:</th>
+                        <th class="text-right"></th>
+                        <th class="text-right"></th>
+
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+              <!-- /.card-body-->
 
             </div>
-            <div class="card-body">
-              <div class="row justify-content-center">
-                <div class="col-sm-12 text-center">
-                  <h5>LIBERACIONES PROYECTOS ANTERIORES AL <?php echo $fechaInicio ?></h5>
-                </div>
-              </div>
 
-              <div class="table-responsive" style="padding: 10px;">
-                <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
-                  <thead class="text-center bg-gradient-info">
-                    <tr>
-                      <th>Folio Vta</th>
-                      <th>Folio Pres</th>
-                      <th>Folio Orden</th>
-                      <th>Cliente</th>
-                      <th>Concepto</th>
-                      <th>Fecha Lib</th>
-                      <th>Total</th>
-                      <th>Saldo</th>
-
-
-
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    <?php
-
-                    //CONSULTA LIBERACIONES CON SALDO
-                    //ANTERIORES A ESTA SEMANA
-                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO' and saldo>'0'";
-                    $reslib = $conexion->prepare($cntalib);
-                    $reslib->execute();
-                    $datalibproyantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-                    foreach ($datalibproyantes as $datal) {
-                    ?>
-                      <tr>
-                        <td><?php echo $datal['folio_vta'] ?></td>
-                        <td><?php echo $datal['folio_pres'] ?></td>
-                        <td><?php echo $datal['folio_ord'] ?></td>
-                        <td><?php echo $datal['nombre'] ?></td>
-                        <td><?php echo $datal['concepto_vta'] ?></td>
-                        <td><?php echo $datal['fecha_liberacion'] ?></td>
-                        <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
-                        <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
-                      </tr>
-                    <?php
-                    }
-                    ?>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th style="text-align:right">Total:</th>
-                      <th class="text-right"></th>
-                      <th class="text-right"></th>
-
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-
-
-              <div class="row justify-content-center">
-                <div class="col-sm-12 text-center">
-                  <h5>LIBERACIONES PROYECTOS DE LA SEMANA DEL <?php echo $fechaInicio . ' AL ' . $fechaFin ?></h5>
-                </div>
-              </div>
-
-              <div class="table-responsive" style="padding: 10px;">
-                <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
-                  <thead class="text-center bg-gradient-info">
-                    <tr>
-                      <th>Folio Vta</th>
-                      <th>Folio Pres</th>
-                      <th>Folio Orden</th>
-                      <th>Cliente</th>
-                      <th>Concepto</th>
-                      <th>Fecha Lib</th>
-                      <th>Total</th>
-                      <th>Saldo</th>
-
-
-
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    <?php
-
-
-
-
-                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO' and saldo>'0'";
-                    $reslib = $conexion->prepare($cntalib);
-                    $reslib->execute();
-                    $datalibproyactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-                    foreach ($datalibproyactual as $datal) {
-                    ?>
-                      <tr>
-                        <td><?php echo $datal['folio_vta'] ?></td>
-                        <td><?php echo $datal['folio_pres'] ?></td>
-                        <td><?php echo $datal['folio_ord'] ?></td>
-                        <td><?php echo $datal['nombre'] ?></td>
-                        <td><?php echo $datal['concepto_vta'] ?></td>
-                        <td><?php echo $datal['fecha_liberacion'] ?></td>
-                        <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
-                        <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
-                      </tr>
-                    <?php
-                    }
-                    ?>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th style="text-align:right">Total:</th>
-                      <th class="text-right"></th>
-                      <th class="text-right"></th>
-
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-
-              <div class="row justify-content-center">
-                <div class="col-sm-12 text-center">
-                  <h5>LIBERACIONES OBRA ANTES DEL <?php echo $fechaInicio ?></h5>
-                </div>
-              </div>
-
-              <div class="table-responsive" style="padding: 10px;">
-                <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
-                  <thead class="text-center bg-gradient-info">
-                    <tr>
-                      <th>Folio Vta</th>
-                      <th>Folio Pres</th>
-                      <th>Folio Orden</th>
-                      <th>Cliente</th>
-                      <th>Concepto</th>
-                      <th>Fecha Lib</th>
-                      <th>Total</th>
-                      <th>Saldo</th>
-
-
-
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    <?php
-
-
-
-
-
-
-                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO' and saldo>'0'";
-                    $reslib = $conexion->prepare($cntalib);
-                    $reslib->execute();
-                    $datalibobraantes = $reslib->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-                    foreach ($datalibobraantes as $datal) {
-                    ?>
-                      <tr>
-                        <td><?php echo $datal['folio_vta'] ?></td>
-                        <td><?php echo $datal['folio_pres'] ?></td>
-                        <td><?php echo $datal['folio_ord'] ?></td>
-                        <td><?php echo $datal['nombre'] ?></td>
-                        <td><?php echo $datal['concepto_vta'] ?></td>
-                        <td><?php echo $datal['fecha_liberacion'] ?></td>
-                        <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
-                        <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
-                      </tr>
-                    <?php
-                    }
-                    ?>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th style="text-align:right">Total:</th>
-                      <th class="text-right"></th>
-                      <th class="text-right"></th>
-
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-
-              <div class="row justify-content-center">
-                <div class="col-sm-12 text-center">
-                  <h5>LIBERACIONES OBRA DE LA SEMANA DEL <?php echo $fechaInicio . ' AL ' . $fechaFin ?></h5>
-                </div>
-              </div>
-
-              <div class="table-responsive" style="padding: 10px;">
-                <table name="tablalibproyantes" id="tablalibproyantes" class="tablasdetalles table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
-                  <thead class="text-center bg-gradient-info">
-                    <tr>
-                      <th>Folio Vta</th>
-                      <th>Folio Pres</th>
-                      <th>Folio Orden</th>
-                      <th>Cliente</th>
-                      <th>Concepto</th>
-                      <th>Fecha Lib</th>
-                      <th>Total</th>
-                      <th>Saldo</th>
-
-
-
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    <?php
-
-
-
-
-
-                    $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion > '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='2' and edo_ord='LIBERADO' and saldo>'0'";
-                    $reslib = $conexion->prepare($cntalib);
-                    $reslib->execute();
-                    $datalibobraactual = $reslib->fetchAll(PDO::FETCH_ASSOC);
-
-                    foreach ($datalibobraactual as $datal) {
-                    ?>
-                      <tr>
-                        <td><?php echo $datal['folio_vta'] ?></td>
-                        <td><?php echo $datal['folio_pres'] ?></td>
-                        <td><?php echo $datal['folio_ord'] ?></td>
-                        <td><?php echo $datal['nombre'] ?></td>
-                        <td><?php echo $datal['concepto_vta'] ?></td>
-                        <td><?php echo $datal['fecha_liberacion'] ?></td>
-                        <td class="text-right"><?php echo '$ ' . number_format($datal['gtotal'], 2) ?></td>
-                        <td class="text-right"><?php echo '$ ' . number_format($datal['saldo'], 2) ?></td>
-                      </tr>
-                    <?php
-                    }
-                    ?>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th style="text-align:right">Total:</th>
-                      <th class="text-right"></th>
-                      <th class="text-right"></th>
-
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-            </div>
-            <!-- /.card-body-->
-
+            <!-- /.card -->
           </div>
-
-          <!-- /.card -->
         </div>
       </div>
     </section>
@@ -1229,86 +1236,27 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
   <?php } ?>
 
 
-  <section>
+  <section class="content">
 
 
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-sm-12 col-12">
+          <div class="card">
+            <div class="card-header bg-gradient-purple text-light text-center">
+              <div class="text-center">
+                <h4 class="card-title ">LLAMADAS DE SEGUMIENTO PROGRAMADAS ESTA SEMANA (<?php echo "DEL " . $isemana . " AL " . $fsemana; ?>)</h4>
+              </div>
 
-    <div class="row justify-content-center">
-      <div class="col-lg-10 col-10">
-        <div class="card">
-          <div class="card-header bg-gradient-purple text-light text-center">
-            <div class="text-center">
-              <h4 class="card-title ">LLAMADAS DE SEGUMIENTO PROGRAMADAS ESTA SEMANA (<?php echo "DEL " . $isemana . " AL " . $fsemana; ?>)</h4>
             </div>
-
-          </div>
-          <div class="card-body">
+            <div class="card-body">
 
 
 
 
-            <div class="table-responsive" style="padding: 10px;">
-              <table name="tablalls" id="tablalls" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
-                <thead class="text-center bg-gradient-purple">
-                  <tr>
-                    <th>Folio</th>
-                    <th>Fecha</th>
-                    <th>Cliente</th>
-                    <th>Tel. Movil</th>
-                    <th>Tel. Fijo</th>
-                    <th>Proyecto</th>
-                    <th># Llamada</th>
-                    <th>Fecha Programada</th>
-                    <th>Nota</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  foreach ($datais as $dat2) {
-                  ?>
-                    <tr>
-                      <td><?php echo $dat2['folio_pres'] ?></td>
-                      <td><?php echo $dat2['fecha_pres'] ?></td>
-                      <td><?php echo $dat2['nombre'] ?></td>
-                      <td><?php echo $dat2['cel'] ?></td>
-                      <td><?php echo $dat2['tel'] ?></td>
-                      <td><?php echo $dat2['concepto_pres'] ?></td>
-                      <td><?php echo $dat2['desc_llamada'] ?></td>
-                      <td><?php echo $dat2['fecha_llamada'] ?></td>
-                      <td><?php echo $dat2['nota_ant'] ?> </td>
-
-                    </tr>
-                  <?php
-                  }
-                  ?>
-                </tbody>
-
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row justify-content-center">
-      <div class="col-lg-10 col-10">
-        <div class="card">
-          <div class="card-header bg-lightblue text-light text-center">
-            <div class="text-center">
-              <h4 class="card-title ">LLAMADAS PROGRAMADAS PARA FECHAS POSTERIORES AL <?php echo  $finsemana; ?></h4>
-            </div>
-
-          </div>
-          <div class="card-body">
-
-
-
-            <br>
-            <div class="container-fluid">
-
-              <div class="table-responsive">
-                <table name="tablallps" id="tablallps" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
-                  <thead class="text-center bg-lightblue">
+              <div class="table-responsive" style="padding: 10px;">
+                <table name="tablalls" id="tablalls" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
+                  <thead class="text-center bg-gradient-purple">
                     <tr>
                       <th>Folio</th>
                       <th>Fecha</th>
@@ -1323,18 +1271,18 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                   </thead>
                   <tbody>
                     <?php
-                    foreach ($datafs as $dat3) {
+                    foreach ($datais as $dat2) {
                     ?>
                       <tr>
-                        <td><?php echo $dat3['folio_pres'] ?></td>
-                        <td><?php echo $dat3['fecha_pres'] ?></td>
-                        <td><?php echo $dat3['nombre'] ?></td>
-                        <td><?php echo $dat3['cel'] ?></td>
-                        <td><?php echo $dat3['tel'] ?></td>
-                        <td><?php echo $dat3['concepto_pres'] ?></td>
-                        <td><?php echo $dat3['desc_llamada'] ?></td>
-                        <td><?php echo $dat3['fecha_llamada'] ?></td>
-                        <td><?php echo $dat3['nota_ant'] ?> </td>
+                        <td><?php echo $dat2['folio_pres'] ?></td>
+                        <td><?php echo $dat2['fecha_pres'] ?></td>
+                        <td><?php echo $dat2['nombre'] ?></td>
+                        <td><?php echo $dat2['cel'] ?></td>
+                        <td><?php echo $dat2['tel'] ?></td>
+                        <td><?php echo $dat2['concepto_pres'] ?></td>
+                        <td><?php echo $dat2['desc_llamada'] ?></td>
+                        <td><?php echo $dat2['fecha_llamada'] ?></td>
+                        <td><?php echo $dat2['nota_ant'] ?> </td>
 
                       </tr>
                     <?php
@@ -1345,7 +1293,67 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                 </table>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="row justify-content-center">
+        <div class="col-sm-12 col-12">
+          <div class="card">
+            <div class="card-header bg-lightblue text-light text-center">
+              <div class="text-center">
+                <h4 class="card-title ">LLAMADAS PROGRAMADAS PARA FECHAS POSTERIORES AL <?php echo  $finsemana; ?></h4>
+              </div>
+
+            </div>
+            <div class="card-body">
+
+
+
+              <br>
+              <div class="container-fluid">
+
+                <div class="table-responsive">
+                  <table name="tablallps" id="tablallps" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
+                    <thead class="text-center bg-lightblue">
+                      <tr>
+                        <th>Folio</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Tel. Movil</th>
+                        <th>Tel. Fijo</th>
+                        <th>Proyecto</th>
+                        <th># Llamada</th>
+                        <th>Fecha Programada</th>
+                        <th>Nota</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      foreach ($datafs as $dat3) {
+                      ?>
+                        <tr>
+                          <td><?php echo $dat3['folio_pres'] ?></td>
+                          <td><?php echo $dat3['fecha_pres'] ?></td>
+                          <td><?php echo $dat3['nombre'] ?></td>
+                          <td><?php echo $dat3['cel'] ?></td>
+                          <td><?php echo $dat3['tel'] ?></td>
+                          <td><?php echo $dat3['concepto_pres'] ?></td>
+                          <td><?php echo $dat3['desc_llamada'] ?></td>
+                          <td><?php echo $dat3['fecha_llamada'] ?></td>
+                          <td><?php echo $dat3['nota_ant'] ?> </td>
+
+                        </tr>
+                      <?php
+                      }
+                      ?>
+                    </tbody>
+
+                  </table>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -1353,133 +1361,135 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
   </section>
 
 
-  <section>
-    <div class="row justify-content-center">
-      <!-- CITAS DE INSTALACION-->
-      <div class="col-lg-10 col-10">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <!-- CITAS DE INSTALACION-->
+        <div class="col-sm-12 col-12">
 
-        <!-- Map card -->
-        <div class="card">
-          <div class="card-header  bg-gradient-success border-0">
-            <h3 class="card-title">
-              <i class="fas fa-calendar mr-1"></i>
-              Citas de instalaciones de <?php echo $mesactual ?>
-            </h3>
-            <!-- card tools -->
-            <div class="card-tools">
-              <button type="button" class="btn btn-success btn-sm daterange" id='btinstalacion' data-toggle="tooltip" title="Date range">
-                <i class="far fa-calendar-alt"></i>
-              </button>
-              <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fas fa-minus"></i>
-              </button>
+          <!-- Map card -->
+          <div class="card">
+            <div class="card-header  bg-gradient-success border-0">
+              <h3 class="card-title">
+                <i class="fas fa-calendar mr-1"></i>
+                Citas de instalaciones de <?php echo $mesactual ?>
+              </h3>
+              <!-- card tools -->
+              <div class="card-tools">
+                <button type="button" class="btn btn-success btn-sm daterange" id='btinstalacion' data-toggle="tooltip" title="Date range">
+                  <i class="far fa-calendar-alt"></i>
+                </button>
+                <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.card-tools -->
             </div>
-            <!-- /.card-tools -->
-          </div>
-          <div class="card-body">
-            <div class="table-responsive" style="padding: 10px;">
-              <table name="tablaC" id="tablaC" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
-                <thead class="text-center bg-gradient-success">
-                  <tr>
-                    <th>Folio</th>
-                    <th>Fecha y Hora</th>
-                    <th>Cliente</th>
-                    <th>Cel</th>
-                    <th>Ubicacion Proyecto</th>
-                    <th>Concepto</th>
-
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  foreach ($datac as $datc) {
-                  ?>
+            <div class="card-body">
+              <div class="table-responsive" style="padding: 10px;">
+                <table name="tablaIN" id="tablaIN" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                  <thead class="text-center bg-gradient-success">
                     <tr>
-                      <td><?php echo $datc['folio_citav'] ?></td>
-                      <td><?php echo $datc['fecha'] ?></td>
-                      <td><?php echo $datc['nombre'] ?></td>
-                      <td><?php echo $datc['cel'] ?></td>
-                      <td><?php echo $datc['ubicacion'] ?></td>
-                      <td><?php echo $datc['concepto'] ?></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- /.card-body-->
+                      <th>Folio</th>
+                      <th>Fecha y Hora</th>
+                      <th>Cliente</th>
+                      <th>Cel</th>
+                      <th>Ubicacion Proyecto</th>
+                      <th>Concepto</th>
 
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($datac as $datc) {
+                    ?>
+                      <tr>
+                        <td><?php echo $datc['folio_citav'] ?></td>
+                        <td><?php echo $datc['fecha'] ?></td>
+                        <td><?php echo $datc['nombre'] ?></td>
+                        <td><?php echo $datc['cel'] ?></td>
+                        <td><?php echo $datc['ubicacion'] ?></td>
+                        <td><?php echo $datc['concepto'] ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- /.card-body-->
+
+          </div>
+
+          <!-- /.card -->
         </div>
 
-        <!-- /.card -->
-      </div>
-
-      <!-- CALENDARIO DE TOMA DE PLANTILLAS-->
-      <div class="col-lg-10 col-10">
+        <!-- CALENDARIO DE TOMA DE PLANTILLAS-->
+        <div class="col-sm-12 col-12">
 
 
-        <div class="card">
-          <div class="card-header  bg-gradient-primary border-0">
-            <h3 class="card-title">
-              <i class="fas fa-calendar mr-1"></i>
-              Citas para toma de Plantillas Pendientes de <?php echo $mesactual ?>
-            </h3>
+          <div class="card">
+            <div class="card-header  bg-gradient-primary border-0">
+              <h3 class="card-title">
+                <i class="fas fa-calendar mr-1"></i>
+                Citas para toma de Plantillas Pendientes de <?php echo $mesactual ?>
+              </h3>
 
-            <div class="card-tools">
-              <button type="button" class="btn btn-primary btn-sm daterange" id="btncalmedir" data-toggle="tooltip" title="Date range">
-                <i class="far fa-calendar-alt"></i>
-              </button>
-              <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fas fa-minus"></i>
-              </button>
+              <div class="card-tools">
+                <button type="button" class="btn btn-primary btn-sm daterange" id="btncalmedir" data-toggle="tooltip" title="Date range">
+                  <i class="far fa-calendar-alt"></i>
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+
             </div>
-
-          </div>
-          <div class="card-body">
-            <div class="table-responsive" style="padding: 10px;">
-              <table name="tablaC" id="tablaC" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
-                <thead class="text-center bg-gradient-primary">
-                  <tr>
-                    <th>Id</th>
-                    <th>Orden</th>
-                    <th>Fecha y Hora</th>
-                    <th>Cliente</th>
-                    <th>Concepto</th>
-                    <th>Ubicación</th>
-                    <th>Responsable</th>
-
-
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  foreach ($datacitam as $datcitam) {
-                  ?>
+            <div class="card-body">
+              <div class="table-responsive" style="padding: 10px;">
+                <table name="tablaC" id="tablaC" class="table table-striped table-sm table-bordered no-wraped table-condensed mx-auto" style="width:100%">
+                  <thead class="text-center bg-gradient-primary">
                     <tr>
-                      <td><?php echo $datcitam['id'] ?></td>
-                      <td><?php echo $datcitam['folio_ord'] ?></td>
-                      <td><?php echo $datcitam['start'] ?></td>
-                      <td><?php echo $datcitam['title'] ?></td>
-                      <td><?php echo $datcitam['descripcion'] ?></td>
-                      <td><?php echo $datcitam['obs'] ?></td>
-                      <td><?php echo $datcitam['responsable'] ?></td>
+                      <th>Id</th>
+                      <th>Orden</th>
+                      <th>Fecha y Hora</th>
+                      <th>Cliente</th>
+                      <th>Concepto</th>
+                      <th>Ubicación</th>
+                      <th>Responsable</th>
+
+
+
                     </tr>
-                  <?php
-                  }
-                  ?>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($datacitam as $datcitam) {
+                    ?>
+                      <tr>
+                        <td><?php echo $datcitam['id'] ?></td>
+                        <td><?php echo $datcitam['folio_ord'] ?></td>
+                        <td><?php echo $datcitam['start'] ?></td>
+                        <td><?php echo $datcitam['title'] ?></td>
+                        <td><?php echo $datcitam['descripcion'] ?></td>
+                        <td><?php echo $datcitam['obs'] ?></td>
+                        <td><?php echo $datcitam['responsable'] ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
+            <!-- /.card-body-->
+
           </div>
-          <!-- /.card-body-->
 
+          <!-- /.card -->
         </div>
-
-        <!-- /.card -->
       </div>
     </div>
   </section>
@@ -1492,7 +1502,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 <?php
 include_once 'templates/footer.php';
 ?>
-<script src="fjs/cards.js"></script>
+<script src="fjs/cards.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/chart.js/Chart.min.js"></script>
 
 <script>
