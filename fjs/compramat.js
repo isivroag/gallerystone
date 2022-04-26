@@ -685,13 +685,14 @@ $(document).on('click', '#btlimpiar', function () {
       var ubicacion = $.trim($('#ubicacionalta').val())
       var metros = $.trim($('#metrosalta').val())
       var obs = $.trim($('#obsalta').val())
+      var clave = $.trim($('#clave_alta').val())
       costo = $('#costoualta').val()
       folio = $('#folio').val()
       subtotal=1*costo
       usuario=$('#nameuser').val();
       opcion = 1
   
-      if (nom_mat.length == 0 || umedida.length == 0 || id_item.length == 0) {
+      if (nom_mat.length == 0 || umedida.length == 0 || id_item.length == 0 || clave.length == 0) {
         Swal.fire({
           title: 'Datos Faltantes',
           text: 'Debe ingresar todos los datos',
@@ -720,6 +721,7 @@ $(document).on('click', '#btlimpiar', function () {
             costo: costo,
             folio: folio,
             subtotal: subtotal,
+            clave: clave,
             usuario: usuario
           },
           success: function (data) {

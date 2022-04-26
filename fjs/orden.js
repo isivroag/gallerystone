@@ -58,7 +58,9 @@ $(document).ready(function () {
         targets: -1,
         data: null,
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm bg-green btnElegir'><i class='fa-solid fa-circle-check'></i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm bg-primary btnElegir'><i class='fa-solid fa-check'></i></button>\
+          <button class='btn btn-sm bg-green btndirecto'><i class='fa-solid fa-check-double'></i></button>\
+          </div></div>",
       },
     ],
 
@@ -317,8 +319,6 @@ $(document).ready(function () {
   })
   //BOTON BUSCAR MATERIAL
 
-  btncalculartar
-
   $(document).on('click', '#btncalculartar', function () {
     valor = $('#mlbase1').val()
     if (valor.length > 0) {
@@ -347,7 +347,15 @@ $(document).ready(function () {
           valorcal = round(res[i].valortarjeta * valor, 2)
           disponible = res[i].contenidoa
           tablatarin.row
-            .add([idcons, nomcons, valortar, idumedida, umedida, valorcal,disponible,])
+            .add([
+              idcons,
+              nomcons,
+              valortar,
+              idumedida,
+              umedida,
+              valorcal,
+              disponible,
+            ])
             .draw()
 
           //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
@@ -355,6 +363,70 @@ $(document).ready(function () {
       },
     })
   }
+
+  $(document).on('click', '.btndirecto', function (e) {
+    e.preventDefault()
+
+    fila = $(this).closest('tr')
+
+    folio = $('#folioorden').val()
+
+    tipo = 1
+    idcons = fila.find('td:eq(0)').text()
+    cantidadi = fila.find('td:eq(5)').text()
+    cantidaddisi = fila.find('td:eq(6)').text()
+    usuario = $('#nameuser').val()
+    opcion = 1
+
+    if (parseFloat(cantidadi) > parseFloat(cantidaddisi)) {
+      nomensaje()
+      return 0
+    }
+
+    if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0) {
+      $.ajax({
+        type: 'POST',
+        url: 'bd/detalleordeninsumo.php',
+        dataType: 'json',
+        //async: false,
+        data: {
+          folio: folio,
+          idcons: idcons,
+          cantidadi: cantidadi,
+          opcion: opcion,
+          usuario: usuario,
+        },
+        success: function (data) {
+          if (data != 0) {
+            id_reg = data[0].id_reg
+            id_cons = data[0].id_cons
+            nom_cons = data[0].nom_cons
+            nom_umedida = data[0].nom_umedida
+            cantidad = data[0].cantidad
+
+            tablaDetIn.row
+              .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
+              .draw()
+            $('#modalconfirmar').modal('hide')
+          } else {
+            Swal.fire({
+              title: 'Item Duplicado',
+              text: 'El Item ya se encuentra en la lista',
+              icon: 'warning',
+            })
+            return false
+          }
+        },
+      })
+    } else {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos del Item',
+        icon: 'warning',
+      })
+      return false
+    }
+  })
 
   $(document).on('click', '.btnElegir', function (e) {
     e.preventDefault()
@@ -408,21 +480,25 @@ $(document).ready(function () {
           usuario: usuario,
         },
         success: function (data) {
-          console.log(data)
-          id_reg = data[0].id_reg
+          if (data != 0) {
+            id_reg = data[0].id_reg
+            id_cons = data[0].id_cons
+            nom_cons = data[0].nom_cons
+            nom_umedida = data[0].nom_umedida
+            cantidad = data[0].cantidad
 
-          id_cons = data[0].id_cons
-          nom_cons = data[0].nom_cons
-
-          nom_umedida = data[0].nom_umedida
-
-          cantidad = data[0].cantidad
-
-          tablaDetIn.row
-            .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
-            .draw()
+            tablaDetIn.row
+              .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
+              .draw()
             $('#modalconfirmar').modal('hide')
-
+          } else {
+            Swal.fire({
+              title: 'Item Duplicado',
+              text: 'El Item ya se encuentra en la lista',
+              icon: 'warning',
+            })
+            return false
+          }
         },
       })
     } else {
@@ -798,20 +874,26 @@ $(document).ready(function () {
           usuario: usuario,
         },
         success: function (data) {
-          console.log(data)
-          id_reg = data[0].id_reg
+          if (data != 0) {
+            id_reg = data[0].id_reg
+            id_cons = data[0].id_cons
+            nom_cons = data[0].nom_cons
+            nom_umedida = data[0].nom_umedida
+            cantidad = data[0].cantidad
 
-          id_cons = data[0].id_cons
-          nom_cons = data[0].nom_cons
-
-          nom_umedida = data[0].nom_umedida
-
-          cantidad = data[0].cantidad
-
-          tablaDetIn.row
-            .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
-            .draw()
-          limpiar()
+            tablaDetIn.row
+              .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
+              .draw()
+            $('#modalconfirmar').modal('hide')
+          } else {
+              Swal.fire({
+            title: 'Item Duplicado',
+            text: 'El Item ya se encuentra en la lista',
+            icon: 'warning',
+          })
+          return false
+          }
+        
         },
       })
     } else {
