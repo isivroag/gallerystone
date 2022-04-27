@@ -644,7 +644,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
                     <div class="col-sm-12 my-auto">
                       <div class="table-responsive">
-                        <table class="table table-responsive table-bordered table-hover table-sm">
+                        <table class="table table-responsive table-bordered table-hover table-sm" style="font-size:15px">
                           <thead class="text-center ">
                             <tr>
                               <th>VENDEDOR</th>
