@@ -18,70 +18,77 @@ switch ($opcion) {
 
         //AGREAR
     case 1:
-        $consulta = "INSERT INTO desechable_ord (folio_ord,id_des,cantidad) values ('$folio','$idcons','$cantidadi')";
-
-        $resultado = $conexion->prepare($consulta);
+/*
+        $consultapre = "SELECT * from desechable_ord where folio_ord='$folio' and id_des='$idcons' and estado_detalle=1";
+        $resultado = $conexion->prepare($consultapre);
         $resultado->execute();
-        $id = $idcons;
-        $tipomov = "Salida";
-        $descripcion = "Usado en Orden Folio:" . $folio;
-        $montomov = $cantidadi;
+        if ($resultado->rowCount() > 0) {
+            $data = 0;
+        } else {*/
+            $consulta = "INSERT INTO desechable_ord (folio_ord,id_des,cantidad) values ('$folio','$idcons','$cantidadi')";
 
-        $fechavp = date('Y-m-d');
-
-
-        $cantidad = 0;
-        $usos = 0;
-        $totalusos = 0;
-        $finusos = 0;
-        $cantidadfin = 0;
-        $cantidadini = 0;
-        $difcantidad = 0;
-
-        $consulta = "SELECT * from desechable where id_des='$id'";
-        $resultado = $conexion->prepare($consulta);
-        if ($resultado->execute()) {
-            $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($data as $rowdata) {
-
-                $cantidadini = $rowdata['cant_des'];
-                $usos = $rowdata['usos'];
-                $totalusos = $rowdata['totalusos'];
-            }
-
-            $finusos = $totalusos - $cantidadi;
-
-            if (($finusos % $usos) == 0) {
-                $cantidadfin = $finusos / $usos;
-            } else {
-                $cantidadfin = intdiv($finusos, $usos) + 1;
-            }
-            $difcantidad = $cantidadini - $cantidadfin;
-
-
-
-
-
-            $consulta = "INSERT INTO mov_des(id_des,fecha_movd,tipo_movd,cantidad,saldoini,usos_mov,saldofin,descripcion,totalusos,usuario) 
-                                    values('$id','$fechavp','$tipomov','$difcantidad','$cantidadini','$cantidadi','$cantidadfin','$descripcion','$finusos','$usuario')";
             $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $id = $idcons;
+            $tipomov = "Salida";
+            $descripcion = "Usado en Orden Folio:" . $folio;
+            $montomov = $cantidadi;
 
+            $fechavp = date('Y-m-d');
+
+
+            $cantidad = 0;
+            $usos = 0;
+            $totalusos = 0;
+            $finusos = 0;
+            $cantidadfin = 0;
+            $cantidadini = 0;
+            $difcantidad = 0;
+
+            $consulta = "SELECT * from desechable where id_des='$id'";
+            $resultado = $conexion->prepare($consulta);
             if ($resultado->execute()) {
+                $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($data as $rowdata) {
 
-                $consulta = "UPDATE desechable SET cant_des='$cantidadfin',totalusos='$finusos' WHERE id_des='$id'";
+                    $cantidadini = $rowdata['cant_des'];
+                    $usos = $rowdata['usos'];
+                    $totalusos = $rowdata['totalusos'];
+                }
+
+                $finusos = $totalusos - $cantidadi;
+
+                if (($finusos % $usos) == 0) {
+                    $cantidadfin = $finusos / $usos;
+                } else {
+                    $cantidadfin = intdiv($finusos, $usos) + 1;
+                }
+                $difcantidad = $cantidadini - $cantidadfin;
+
+
+
+
+
+                $consulta = "INSERT INTO mov_des(id_des,fecha_movd,tipo_movd,cantidad,saldoini,usos_mov,saldofin,descripcion,totalusos,usuario) 
+                                    values('$id','$fechavp','$tipomov','$difcantidad','$cantidadini','$cantidadi','$cantidadfin','$descripcion','$finusos','$usuario')";
                 $resultado = $conexion->prepare($consulta);
 
-                $resultado->execute();
+                if ($resultado->execute()) {
+
+                    $consulta = "UPDATE desechable SET cant_des='$cantidadfin',totalusos='$finusos' WHERE id_des='$id'";
+                    $resultado = $conexion->prepare($consulta);
+
+                    $resultado->execute();
+                }
             }
-        }
 
 
 
-        $consulta = "SELECT * FROM vdesechableord WHERE folio_ord='$folio' ORDER BY id_reg DESC LIMIT 1";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
+            $consulta = "SELECT * FROM vdesechableord WHERE folio_ord='$folio' ORDER BY id_reg DESC LIMIT 1";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+       /* }*/
         break;
         //CANCELAR
     case 2:
@@ -151,7 +158,7 @@ switch ($opcion) {
                     $resultado = $conexion->prepare($consulta);
 
                     $resultado->execute();
-                    $data=1;
+                    $data = 1;
                 }
             }
         } else {

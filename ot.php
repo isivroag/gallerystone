@@ -319,34 +319,7 @@ if ($folio != "") {
                                     </div>-->
 
                                 </div>
-                                <div class="row justify-content-center">
-                                    <!-- Cargar Plano -->
-                                    <div class="col-sm-10">
-                                        <div class="card">
-                                            <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
-                                                <h1 class="card-title ">Despiece</h1>
-                                                <div class="card-tools" style="margin:0px;padding:0px;">
-                                                    <button type="button" id="btnAddplano" class="btn bg-gradient-secondary btn-sm">
-                                                        <i class="fas fa-folder-plus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-
-                                                </div>
-                                            </div>
-                                            <div class="card-body" id="extra">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-sm-12 text-center">
-                                                        <img class="img-responsive img-fluid pad" id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 780;">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
 
                                 <div class=" row justify-content-sm-center">
                                     <div class="col-sm-3">
@@ -377,12 +350,6 @@ if ($folio != "") {
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-
-
                                 <div class=" row justify-content-sm-center">
                                     <div class="col-sm-10">
 
@@ -396,6 +363,40 @@ if ($folio != "") {
 
 
                                 </div>
+
+                                <div class="row justify-content-center">
+                                    <!-- Cargar Plano -->
+                                    <div class="col-sm-10">
+                                        <div class="card">
+                                            <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
+
+                                                <h1 class="card-title ">Despiece</h1>
+                                                <div class="card-tools" style="margin:0px;padding:0px;">
+                                                    <button type="button" id="btnAddplano" class="btn bg-gradient-secondary btn-sm">
+                                                        <i class="fas fa-folder-plus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                            <div class="card-body" id="extra">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-sm-12 text-center">
+                                                        <img class="img-responsive img-fluid pad" id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 780;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+                               
 
 
 

@@ -319,34 +319,7 @@ if ($folio != "") {
                                     </div>-->
 
                                 </div>
-                                <div class="row justify-content-center">
-                                    <!-- Cargar Plano -->
-                                    <div class="col-sm-10">
-                                        <div class="card">
-                                            <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
-
-                                                <h1 class="card-title ">Despiece</h1>
-                                                <div class="card-tools" style="margin:0px;padding:0px;">
-                                                    <button type="button" id="btnAddplano" class="btn bg-gradient-secondary btn-sm">
-                                                        <i class="fas fa-folder-plus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-
-                                                </div>
-                                            </div>
-                                            <div class="card-body" id="extra">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-sm-12 text-center">
-                                                        <img class="img-responsive img-fluid pad" id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 780;">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
+                                
 
                                 <div class=" row justify-content-sm-center">
                                     <div class="col-sm-3">
@@ -397,7 +370,34 @@ if ($folio != "") {
 
                                 </div>
 
+                                <div class="row justify-content-center">
+                                    <!-- Cargar Plano -->
+                                    <div class="col-sm-10">
+                                        <div class="card">
+                                            <div class="card-header bg-gradient-secondary " style="margin:0px;padding:8px">
 
+                                                <h1 class="card-title ">Despiece</h1>
+                                                <div class="card-tools" style="margin:0px;padding:0px;">
+                                                    <button type="button" id="btnAddplano" class="btn bg-gradient-secondary btn-sm">
+                                                        <i class="fas fa-folder-plus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                            <div class="card-body" id="extra">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-sm-12 text-center">
+                                                        <img class="img-responsive img-fluid pad" id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 780;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
 
 
                             </div>
@@ -605,7 +605,7 @@ if ($folio != "") {
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/otr.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/ot.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

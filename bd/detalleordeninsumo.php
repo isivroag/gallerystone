@@ -18,13 +18,13 @@ switch ($opcion) {
 
         //AGREAR
     case 1:
-
+/*
         $consultapre = "SELECT * from consumible_ord where folio_ord='$folio' and id_cons='$idcons' and estado_detalle=1";
         $resultado = $conexion->prepare($consultapre);
         $resultado->execute();
         if ($resultado->rowCount() > 0){
           $data=0;
-        }else{
+        }else{*/
             $consulta = "INSERT INTO consumible_ord (folio_ord,id_cons,cantidad) values ('$folio','$idcons','$cantidadi')";
 
             $resultado = $conexion->prepare($consulta);
@@ -85,7 +85,7 @@ switch ($opcion) {
             $resultado->execute();
             
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-        }
+     /*   }*/
      
 
 

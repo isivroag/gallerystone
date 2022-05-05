@@ -32,12 +32,25 @@ switch ($opcion) {
 
         break;
     case 2:
-        $consulta = "UPDATE frente SET estado_frente=0 WHERE id_frente='$id' ";
+
+        $consulta = "SELECT * FROM areas  WHERE id_frente='$id' ";
         $resultado = $conexion->prepare($consulta);
-        if ($resultado->execute()) {
-            $data = 1;
+        $resultado->execute();
+        if ($resultado->rowCount() > 0){
+            $data=0;
+        }else{
+            $consulta = "UPDATE frente SET estado_frente=0 WHERE id_frente='$id' ";
+            $resultado = $conexion->prepare($consulta);
+            if ($resultado->execute()) {
+                $data = 1;
+            }
+    
         }
 
+       
+
+
+       
 
 
 

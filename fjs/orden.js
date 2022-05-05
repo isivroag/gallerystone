@@ -82,6 +82,46 @@ $(document).ready(function () {
     },
   })
 
+  tablatardes = $('#tablatardes').DataTable({
+    paging: false,
+    ordering: false,
+    info: false,
+    searching: false,
+
+    columnDefs: [
+      { className: 'text-center', targets: [0] },
+      { className: 'text-right', targets: [2] },
+      { className: 'text-right', targets: [3] },
+      { className: 'text-center', targets: [4] },
+
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm bg-primary btnElegirdes'><i class='fa-solid fa-check'></i></button>\
+          <button class='btn btn-sm bg-green btndirectodes'><i class='fa-solid fa-check-double'></i></button>\
+          </div></div>",
+      },
+    ],
+
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+  })
+
   tablaD = $('#tablaD').DataTable({
     paging: false,
     ordering: false,
@@ -364,6 +404,41 @@ $(document).ready(function () {
     })
   }
 
+  $(document).on('click', '#btncalculartar2', function () {
+    valor = $('#mlbase2').val()
+    if (valor.length > 0) {
+      calculartarjeta2()
+    }
+  })
+
+  function calculartarjeta2() {
+    tablatardes.clear()
+    tablatardes.draw()
+    valor = $('#mlbase2').val()
+    tipo = 2
+    $.ajax({
+      type: 'POST',
+      url: 'bd/calculartarjeta.php',
+      dataType: 'json',
+      data: { tipo: tipo },
+
+      success: function (res) {
+        for (var i = 0; i < res.length; i++) {
+          idcons = res[i].id_des
+          nomcons = res[i].nom_des
+          valortar = res[i].valortarjeta
+          valorcal = round(res[i].valortarjeta * valor, 2)
+          disponible = res[i].totalusos
+          tablatardes.row
+            .add([idcons, nomcons, valortar, valorcal, disponible])
+            .draw()
+
+          //tabla += '<tr><td>' + res[i].id_objetivo + '</td><td>' + res[i].desc_objetivo + '</td><td class="text-center">' + icono + '</td><td class="text-center"></td></tr>';
+        }
+      },
+    })
+  }
+
   $(document).on('click', '.btndirecto', function (e) {
     e.preventDefault()
 
@@ -451,6 +526,29 @@ $(document).ready(function () {
     $('#modalconfirmar').modal('show')
   })
 
+  $(document).on('click', '.btnElegirdes', function (e) {
+    e.preventDefault()
+    $('#formconfirmar2').trigger('reset')
+
+    fila = $(this).closest('tr')
+    idtar = fila.find('td:eq(0)').text()
+    constar = fila.find('td:eq(1)').text()
+    cantidadtar = fila.find('td:eq(3)').text()
+    idumedidatar = 0
+    umedidatar = 'USOS'
+    existencias = fila.find('td:eq(4)').text()
+    tipo = 2
+
+    $('#idconstar2').val(idtar)
+    $('#tipoconstar2').val(tipo)
+    $('#conceptotar2').val(constar)
+    $('#cantidadtar2').val(cantidadtar)
+    $('#idunidadtar2').val(idumedidatar)
+    $('#unidadtar2').val(umedidatar)
+    $('#existenciastar2').val(existencias)
+    $('#modalconfirmar2').modal('show')
+  })
+
   $(document).on('click', '#btnguardarconfirmacion', function () {
     folio = $('#folioorden').val()
 
@@ -491,6 +589,131 @@ $(document).ready(function () {
               .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
               .draw()
             $('#modalconfirmar').modal('hide')
+          } else {
+            Swal.fire({
+              title: 'Item Duplicado',
+              text: 'El Item ya se encuentra en la lista',
+              icon: 'warning',
+            })
+            return false
+          }
+        },
+      })
+    } else {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos del Item',
+        icon: 'warning',
+      })
+      return false
+    }
+  })
+
+  $(document).on('click', '#btnguardarconfirmacion2', function () {
+    folio = $('#folioorden').val()
+
+    idcons = $('#idconstar2').val()
+
+    cantidadi = $('#cantidadtar2').val()
+    cantidaddisi = $('#existenciastar2').val()
+    usuario = $('#nameuser').val()
+    opcion = 1
+
+    if (parseFloat(cantidadi) > parseFloat(cantidaddisi)) {
+      nomensaje()
+      return 0
+    }
+
+    if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0) {
+      $.ajax({
+        type: 'POST',
+        url: 'bd/detalleordendesechable.php',
+        dataType: 'json',
+        //async: false,
+        data: {
+          folio: folio,
+          idcons: idcons,
+          cantidadi: cantidadi,
+          opcion: opcion,
+          usuario: usuario,
+        },
+        success: function (data) {
+          if (data != 0) {
+            id_reg = data[0].id_reg
+            id_cons = data[0].id_des
+            nom_cons = data[0].nom_des
+            nom_umedida = data[0].nom_umedida
+            cantidad = data[0].cantidad
+
+            tablaDetIndes.row
+              .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
+              .draw()
+              $('#modalconfirmar2').modal('hide')
+          } else {
+            Swal.fire({
+              title: 'Item Duplicado',
+              text: 'El Item ya se encuentra en la lista',
+              icon: 'warning',
+            })
+            return false
+          }
+        },
+      })
+    } else {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos del Item',
+        icon: 'warning',
+      })
+      return false
+    }
+  })
+
+
+  $(document).on('click', '.btndirectodes', function (e) {
+    e.preventDefault()
+
+    fila = $(this).closest('tr')
+
+    folio = $('#folioorden').val()
+
+    tipo = 1
+    idcons = fila.find('td:eq(0)').text()
+    cantidadi = fila.find('td:eq(3)').text()
+    cantidaddisi = fila.find('td:eq(4)').text()
+    usuario = $('#nameuser').val()
+    opcion = 1
+
+    if (parseFloat(cantidadi) > parseFloat(cantidaddisi)) {
+      nomensaje()
+      return 0
+    }
+
+    if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0) {
+      $.ajax({
+        type: 'POST',
+        url: 'bd/detalleordendesechable.php',
+        dataType: 'json',
+        //async: false,
+        data: {
+          folio: folio,
+          idcons: idcons,
+          cantidadi: cantidadi,
+          opcion: opcion,
+          usuario: usuario,
+        },
+        success: function (data) {
+          if (data != 0) {
+            id_reg = data[0].id_reg
+            id_cons = data[0].id_des
+            nom_cons = data[0].nom_des
+            nom_umedida = data[0].nom_umedida
+            cantidad = data[0].cantidad
+
+            tablaDetIndes.row
+              .add([id_reg, id_cons, nom_cons, nom_umedida, cantidad])
+              .draw()
+            limpiar()
           } else {
             Swal.fire({
               title: 'Item Duplicado',
@@ -886,14 +1109,13 @@ $(document).ready(function () {
               .draw()
             $('#modalconfirmar').modal('hide')
           } else {
-              Swal.fire({
-            title: 'Item Duplicado',
-            text: 'El Item ya se encuentra en la lista',
-            icon: 'warning',
-          })
-          return false
+            Swal.fire({
+              title: 'Item Duplicado',
+              text: 'El Item ya se encuentra en la lista',
+              icon: 'warning',
+            })
+            return false
           }
-        
         },
       })
     } else {

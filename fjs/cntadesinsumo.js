@@ -61,6 +61,9 @@ $(document).ready(function () {
         { className: 'text-right', targets: [7] },
         { className: 'text-right', targets: [8] },
         { className: 'text-right', targets: [9] },
+        { className: 'hide_column', targets: [10] },
+        { className: 'hide_column', targets: [11] },
+       
       ],
   
       //Para cambiar el lenguaje a español
@@ -108,6 +111,23 @@ $(document).ready(function () {
       totalusos = fila.find('td:eq(7)').text()
       ubicacion = fila.find('td:eq(8)').text()
       obs = fila.find('td:eq(9)').text()
+
+      tarjeta=fila.find('td:eq(10)').text()
+      valortarjeta=fila.find('td:eq(11)').text()
+
+
+      if (tarjeta==0){
+        $("#tarjeta").prop('checked', false);
+        $("#valortarjeta").val(0)
+        $('#valortarjeta').prop('disabled', true)
+      }
+      else{
+        $("#tarjeta").prop('checked', true);
+        $("#valortarjeta").val(valortarjeta)
+        $('#valortarjeta').prop('disabled', true)
+      }
+
+      
       $('#iddes').val(id)
       $('#clave_des').val(clave)
       $('#umedida').val(id_umedida)
@@ -121,7 +141,7 @@ $(document).ready(function () {
       opcion = 2 //editar
   
       $('.modal-header').css('color', 'white')
-      $('.modal-title').text('Abrir Insumo')
+      $('.modal-title').text('Editar Insumo')
       $('#modalCRUD').modal('show')
     })
   
@@ -165,7 +185,14 @@ $(document).ready(function () {
       var totalusos = $('#totalusos').val()
 
       var uso = $('#uso').val()
-  
+      if ($("#tarjeta").prop("checked")) {
+        var tarjeta =1
+      }
+      else{
+        var tarjeta =0
+      }
+     
+      var valortarjeta = $('#valortarjeta').val()
   
   
       if (
@@ -197,6 +224,8 @@ $(document).ready(function () {
             ubicacion: ubicacion,
             obs: obs,
             uso: uso,
+            tarjeta: tarjeta,
+            valortarjeta: valortarjeta,
             totalusos: totalusos,
          
           },
@@ -212,6 +241,9 @@ $(document).ready(function () {
   
             uso = data[0].usos
             totalusos = data[0].totalusos
+
+            tarjeta = data[0].tarjeta
+            valortarjeta = data[0].valortarjeta
             
             if (opcion == 1) {
               tablaVis.row
@@ -226,6 +258,8 @@ $(document).ready(function () {
                   totalusos,
                   ubicacion,
                   obs,
+                  tarjeta,
+                  valortarjeta,
                 ])
                 .draw()
             } else {
@@ -242,6 +276,8 @@ $(document).ready(function () {
                   totalusos,
                   ubicacion,
                   obs,
+                  tarjeta,
+                  valortarjeta,
                 ])
                 .draw()
             }
@@ -443,7 +479,16 @@ $(document).ready(function () {
 
   
 
-  
+    $('#tarjeta').on('click', function () {
+      if ($('#tarjeta').prop('checked')) {
+        $('#valortarjeta').prop('disabled', true)
+        $('#valortarjeta').val('1')
+      } else {
+        $('#valortarjeta').prop('disabled', true)
+        $('#valortarjeta').val('0')
+      }
+      
+    })
 
     function calculo() {
       uso = $('#uso').val()

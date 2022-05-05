@@ -23,11 +23,11 @@ switch ($opcion) {
         $consulta = "INSERT INTO areas (id_frente,area,supervisor,colocador) values ('$idfrente','$area','$supervisor','$colocador')";
 
         $resultado = $conexion->prepare($consulta);
-    if(        $resultado->execute()){
-        $data=1;
-    }else{
-        $data=2;
-    }
+        if ($resultado->execute()) {
+            $data = 1;
+        } else {
+            $data = 2;
+        }
 
 
 
@@ -36,12 +36,26 @@ switch ($opcion) {
 
         break;
     case 2:
-        $consulta = "UPDATE areas SET estado_area=0 WHERE id_area='$id' ";
-        $resultado = $conexion->prepare($consulta);
-        if ($resultado->execute()) {
-            $data = 1;
-        }
 
+        $consulta = "SELECT * FROM geneador WHERE id_area='$id' ";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        if ($resultado->rowCount() > 0) {
+            $data = 0;
+        } else {
+            $consulta = "SELECT * FROM detalle_area WHERE id_area='$id' ";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            if ($resultado->rowCount() > 0) {
+                $data = 0;
+            } else {
+                $consulta = "UPDATE areas SET estado_area=0 WHERE id_area='$id' ";
+                $resultado = $conexion->prepare($consulta);
+                if ($resultado->execute()) {
+                    $data = 1;
+                }
+            }
+        }
 
 
 

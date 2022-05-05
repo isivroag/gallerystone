@@ -79,6 +79,8 @@ $message = "";
                                             <th>Total Usos</th>
                                             <th>Ubicacion</th>
                                             <th>Obs</th>
+                                            <th>tarjeta</th>
+                                            <th>valortarjeta</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -98,6 +100,8 @@ $message = "";
                                                 <td><?php echo $dat['totalusos'] ?></td>
                                                 <td><?php echo $dat['ubi_des'] ?></td>
                                                 <td><?php echo $dat['obs_des'] ?></td>
+                                                <td><?php echo $dat['tarjeta'] ?></td>
+                                                <td><?php echo $dat['valortarjeta'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -206,7 +210,19 @@ $message = "";
                                         <textarea rows="2" class="form-control" name="obs" id="obs" placeholder="Observaciones"></textarea>
                                     </div>
                                 </div>
+                                
+                                <div class="col-sm-4">
+                                    <label for="valortarjeta" class="col-form-label">Valor Por Metro Lineal:</label>
+                                    <div class="form-group input-group">
 
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <input type="checkbox" id="tarjeta" name="tarjeta">
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control text-right" name="valortarjeta" id="valortarjeta" autocomplete="off" placeholder="Valor por ML" value="0.00" disabled onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
 
 
                             </div>

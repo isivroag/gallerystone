@@ -11,13 +11,13 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
-
+$foliovta = 0;
 
 $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
 if ($folio != null) {
 
 
-   
+
 
 
     //BUSCAR PRESUPUESTO
@@ -86,16 +86,56 @@ if ($folio != null) {
     $resultadocon->execute();
     $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
 
-    $consultadet = "SELECT * FROM vdetalle_pres where folio_pres='$folio' order by id_reg";
+   
+
+
+    $consulta = "SELECT * FROM vventa where folio_pres='$folio'";
+
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute();
+
+
+    $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($data as $dt) {
+
+        $foliovta = $dt['folio_vta'];
+
+        $fechavta = $dt['fecha_vta'];
+        $idclie = $dt['id_clie'];
+        $cliente = $dt['nombre'];
+        $totalvta = $dt['gtotal'];
+        $saldovta = $dt['saldo'];
+        $estado_vta = $dt['estado_vta'];
+    }
+
+
+    $consulta = "SELECT * FROM pagocxc where folio_vta='$foliovta' and estado_pagocxc=1";
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute();
+    $datap = $resultado->fetchAll(PDO::FETCH_ASSOC);
+    $totalpagos = 0;
+    foreach ($datap as $rowpagos) {
+        $totalpagos += $rowpagos['monto'];
+    }
+
+    $consultadet = "SELECT * FROM vorden where folio_vta='$foliovta'";
     $resultadodet = $conexion->prepare($consultadet);
     $resultadodet->execute();
     $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
+    foreach ($datadet as $rowpagos) {
+        $folioorden = $rowpagos['folio_ord'];
+        $edoorden=$rowpagos['edo_ord'];
+        $fechaini=$rowpagos['fecha_ord'];
+        $fechafin=$rowpagos['fecha_limite'];
+        $fechalib=$rowpagos['fecha_liberacion'];
+    }
 
-    $consulta = "SELECT * FROM llamadapres where folio_pres='$folio' order by id_llamada ";
-    $resultado = $conexion->prepare($consulta);
-    $resultado->execute();
-    $datall = $resultado->fetchAll(PDO::FETCH_ASSOC);
+    $consultadet = "SELECT * FROM vdetalle_pres where folio_pres='$folio' order by id_reg";
+    $resultadodet = $conexion->prepare($consultadet);
+    $resultadodet->execute();
+    $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
     //BUSCAR LLAMADAS
     //BUSCAR VENTA
     //BUSCAR PAGOS
@@ -172,7 +212,7 @@ $message = "";
 
                         <?php
 
-                        //      if ($folio != null) { 
+                             if ($folio != null) { 
                         ?>
 
 
@@ -200,7 +240,7 @@ $message = "";
                                                 <div class="col-sm-1 ">
                                                     <div class="form-group input-group-sm">
                                                         <label for="tipo_proy" class="col-form-label">Tipo Proyecto:</label>
-                                                        <input type="text" class="form-control" name="tipo_proy" id="tipo_proy" value="<?php echo $tipo_proy; ?>">
+                                                        <input type="text" class="form-control" name="tipo_proy" id="tipo_proy" value="<?php echo $tipo_proy; ?>" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
@@ -315,7 +355,7 @@ $message = "";
                                                             </span>
                                                         </div>
 
-                                                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo $gtotal; ?>" disabled>
+                                                        <input type="text" class="form-control text-right" name="gtotal" id="gtotal" value="<?php echo number_format($gtotal, 2); ?>" disabled>
                                                     </div>
 
 
@@ -387,9 +427,174 @@ $message = "";
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-header bg-gradient-orange">
-                                            SEGUIMIENTO CRM
+
+                                    <?php
+                                    if ($foliovta != 0) {
+                                    ?>
+
+                                        <div class="card">
+                                            <div class="card-header bg-gradient-success">
+                                                INFORMACION GENERAL VENTA
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row justify-content-sm-center  pb-0">
+
+                                                    <div class="col-sm-1">
+                                                        <div class="form-group input-group-sm">
+                                                            <label for="foliovta" class="col-form-label">Folio Vta:</label>
+                                                            <input type="text" class="form-control" name="foliovta" id="foliovta" value="<?php echo   $foliovta; ?>" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3">
+
+                                                    </div>
+
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group-sm">
+                                                            <label for="fechavta" class="col-form-label">Fecha:</label>
+                                                            <input type="date" class="form-control" name="fechavta" id="fechavta" value="<?php echo $fechavta; ?>" disabled>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group-sm">
+                                                            <label for="estadovta" class="col-form-label">Estado:</label>
+                                                            <input type="text" class="form-control" name="estadovta" id="estadovta" value="<?php echo ($estado_vta == 1) ? "ACTIVO" : "CANCELADO"; ?>" disabled>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="row justify-content-sm-center">
+                                                    <div class="col-sm-1">
+                                                        <div class="form-group input-group-sm">
+                                                            <label for="folioorden" class="col-form-label">Folio Orden:</label>
+                                                            <input type="text" class="form-control" name="folioorden" id="folioorden" value="<?php echo   $folioorden; ?>" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                    <div class="form-group input-group-sm">
+                                                        <label for="fecha" class="col-form-label">Fecha Orden:</label>
+                                                        <input type="date" class="form-control" name="fechaord" id="fechaord" value="<?php echo $fechaini; ?>" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group input-group-sm">
+                                                        <label for="fecha" class="col-form-label">Fecha Limite:</label>
+                                                        <input type="date" class="form-control" name="fechalim" id="fechalim" value="<?php echo $fechafin; ?>" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group input-group-sm">
+                                                        <label for="fecha" class="col-form-label">Fecha Liberación:</label>
+                                                        <input type="date" class="form-control" name="fechalib" id="fechalib" value="<?php echo $fechalib; ?>" disabled>
+                                                    </div>
+                                                </div>
+
+                                                    <div class="col-sm-1">
+                                                        <div class="form-group input-group-sm">
+                                                            <label for="edoorden" class="col-form-label">Estado Orden:</label>
+                                                            <input type="text" class="form-control" name="edoorden" id="edoorden" value="<?php echo   $edoorden; ?>" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row justify-content-sm-center">
+
+                                                    <div class="col-lg-8">
+                                                        <div class="form-group">
+
+
+                                                            <label for="nombrecliente" class="col-form-label">Cliente:</label>
+
+                                                            <div class="input-group input-group-sm">
+
+                                                                <input type="text" class="form-control" name="nombrecliente" id="nombrecliente" value="<?php echo $cliente; ?>" disabled>
+                                                                <span class="input-group-append">
+                                                                    <!--<button id="bcliente" type="button" class="btn btn-primary "><i class="fas fa-search" d></i></button>-->
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+                                                </div>
+
+
+
+
+
+                                                <div class="row justify-content-sm-center" style="padding:5px 0px;">
+
+                                                <div class="col-sm-2"></div>
+
+
+                                                    <div class="col-sm-2 ">
+                                                        <label for="gtotalvta" class="col-form-label ">Total:</label>
+
+                                                        <div class="input-group input-group-sm">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="fas fa-dollar-sign"></i>
+                                                                </span>
+                                                            </div>
+
+                                                            <input type="text" class="form-control text-right" name="gtotalvta" id="gtotalvta" value="<?php echo number_format($totalvta, 2); ?>" disabled>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="col-sm-2 ">
+                                                        <label for="pagos" class="col-form-label ">Pagos:</label>
+
+                                                        <div class="input-group input-group-sm">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="fas fa-dollar-sign"></i>
+                                                                </span>
+                                                            </div>
+
+                                                            <input type="text" class="form-control text-right" name="pagos" id="pagos" value="<?php echo number_format($totalpagos, 2); ?>" disabled>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="col-sm-2 ">
+                                                        <label for="saldo" class="col-form-label ">Saldo:</label>
+
+                                                        <div class="input-group input-group-sm">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <i class="fas fa-dollar-sign"></i>
+                                                                </span>
+                                                            </div>
+
+                                                            <input type="text" class="form-control text-right" name="saldo" id="saldo" value="<?php echo number_format($saldovta, 2); ?>" disabled>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="card">
+                                        <div class="card-header bg-gradient-success">
+                                            DETALLE DE PAGOS
                                         </div>
                                         <div class="card-body">
 
@@ -398,29 +603,30 @@ $message = "";
 
                                                     <div class="table-responsive" style="padding:5px;">
 
+                                                        <table name="tablaP" id="tablaP" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;">
+                                                            <thead class="text-center bg-gradient-success">
+                                                                <tr>
+                                                                    <th>Folio</th>
+                                                                    <th>Fecha</th>
+                                                                    <th>Concepto</th>
+                                                                    <th>Monto</th>
+                                                                    <th>Metodo</th>
+                                                                   
 
-                                                        <table class='table table-sm table-striped  table-bordered table-condensed text-nowrap mx-auto ' style='width:100%'>
-                                                            <thead class='text-center  '>
-                                                                <tr class='bg-gradient-orange'>
-                                                                    <th>Id</th>
-                                                                    <th>Descripcion</th>
-                                                                    <th>Programada</th>
-                                                                    <th>Nota</th>
-                                                                    <th>Realizada</th>
-                                                                    <th>Respuesta</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <?php
-                                                                foreach ($datall as $datdet) {
+                                                                foreach ($datap as $datdet) {
                                                                 ?>
                                                                     <tr>
-                                                                        <td><?php echo $datdet['id_llamada'] ?></td>
-                                                                        <td><?php echo $datdet['desc_llamada'] ?></td>
-                                                                        <td><?php echo $datdet['fecha_llamada'] ?></td>
-                                                                        <td><?php echo $datdet['nota_ant'] ?></td>
-                                                                        <td><?php echo $datdet['fecha_rea'] ?></td>
-                                                                        <td><?php echo $datdet['nota_rea'] ?></td>
+                                                                        <td><?php echo $datdet['folio_pagocxc'] ?></td>
+                                                                        <td><?php echo $datdet['fecha'] ?></td>
+                                                                        <td><?php echo $datdet['concepto'] ?></td>
+                                                                        <td class="text-right"><?php echo number_format($datdet['monto']) ?></td>
+                                                                        <td><?php echo $datdet['metodo'] ?></td>
+
+
                                                                     </tr>
                                                                 <?php
                                                                 }
@@ -439,134 +645,7 @@ $message = "";
                                         </div>
                                     </div>
 
-
-                                    <div class="card">
-                                        <div class="card-header bg-gradient-success">
-                                            INFORMACION GENERAL VENTA
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row justify-content-sm-center  pb-0">
-
-
-
-                                               
-                                                <div class="col-sm-2">
-                                                    <div class="form-group input-group-sm">
-                                                        <label for="fechavta" class="col-form-label">Fecha:</label>
-                                                        <input type="date" class="form-control" name="fechavta" id="fechavta" value="<?php echo $fecha; ?>" disabled>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-sm-1">
-                                                    <div class="form-group input-group-sm">
-                                                        <label for="foliovta" class="col-form-label">Folio Vta:</label>
-                                                        <input type="text" class="form-control" name="foliovta" id="foliovta" value="<?php echo   $folio; ?>" disabled>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-1">
-                                                    <div class="form-group input-group-sm">
-                                                        <label for="folioorden" class="col-form-label">Folio Orden:</label>
-                                                        <input type="text" class="form-control" name="folioorden" id="folioorden" value="<?php echo   $folio; ?>" disabled>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="form-group input-group-sm">
-                                                        <label for="estadovta" class="col-form-label">Estado:</label>
-                                                        <input type="text" class="form-control" name="estadovta" id="estadovta" value="<?php echo   $estado_pres; ?>" disabled>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-
-                                            <div class="row justify-content-sm-center">
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-
-
-                                                        <label for="nombrecliente" class="col-form-label">Cliente:</label>
-
-                                                        <div class="input-group input-group-sm">
-
-                                                            <input type="text" class="form-control" name="nombrecliente" id="nombrecliente" value="<?php echo $prospecto; ?>" disabled>
-                                                            <span class="input-group-append">
-                                                                <!--<button id="bcliente" type="button" class="btn btn-primary "><i class="fas fa-search" d></i></button>-->
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-
-
-
-                                            </div>
-
-                                    
-
-
-
-                                            <div class="row justify-content-sm-center" style="padding:5px 0px;">
-
-                                              
-
-
-                                                <div class="col-sm-2 ">
-                                                    <label for="gtotalvta" class="col-form-label ">Total:</label>
-
-                                                    <div class="input-group input-group-sm">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-dollar-sign"></i>
-                                                            </span>
-                                                        </div>
-
-                                                        <input type="text" class="form-control text-right" name="gtotalvta" id="gtotalvta" value="<?php echo $gtotal; ?>" disabled>
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="col-sm-2 ">
-                                                    <label for="pagos" class="col-form-label ">Pagos:</label>
-
-                                                    <div class="input-group input-group-sm">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-dollar-sign"></i>
-                                                            </span>
-                                                        </div>
-
-                                                        <input type="text" class="form-control text-right" name="pagos" id="pagos" value="<?php echo $gtotal; ?>" disabled>
-                                                    </div>
-
-
-                                                </div>
-
-                                                <div class="col-sm-2 ">
-                                                    <label for="saldo" class="col-form-label ">Saldo:</label>
-
-                                                    <div class="input-group input-group-sm">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-dollar-sign"></i>
-                                                            </span>
-                                                        </div>
-
-                                                        <input type="text" class="form-control text-right" name="saldo" id="saldo" value="<?php echo $gtotal; ?>" disabled>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-
-
-
-                                        </div>
-                                    </div>
-
+                                    <?php } ?>
                                 </div>
                                 <!-- /.card-body -->
 
@@ -579,7 +658,7 @@ $message = "";
 
 
 
-                        <?php //} 
+                        <?php } 
                         ?>
                     </div>
                 </div>
@@ -601,7 +680,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntaotrosgastos.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/buscadorpres.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -614,28 +693,3 @@ $message = "";
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 <script src="http://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>
-<?php
-
-if ($id_obra != null) {
-    $consultacaja = "SELECT * FROM w_caja WHERE estado_caja=1 and id_obra='$id_obra'";
-    $resultadocaja = $conexion->prepare($consultacaja);
-    $resultadocaja->execute();
-    if ($resultadocaja->rowCount() > 0) {
-    } else {
-        echo "<script>";
-        echo "swal.fire({";
-        echo "title: 'NO EXISTE REGISTRO DE CAJA',";
-        echo "text: 'No es posible realizar operaciones',";
-        echo "icon: 'error',";
-        echo "focusConfirm: true,";
-        echo "confirmButtonText: 'Aceptar',";
-        echo "});";
-        echo "window.setTimeout(function () {
-           window.location.href = 'inicio.php'
-         }, 1500);";
-        echo "</script>";
-    }
-}
-
-
-?>

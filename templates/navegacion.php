@@ -114,11 +114,13 @@
 
           <!--ABRE CRM-->
           <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina == 'supendidos' ||
-                                              $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "menu-open" : ""; ?>">
+                                              $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' 
+                                              || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "menu-open" : ""; ?>">
 
 
             <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto'  || $pagina == 'supendidos'
-                                          || $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "active" : ""; ?>">
+                                          || $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' 
+                                          || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "active" : ""; ?>">
               <i class="nav-icon fas fa-grip-horizontal "></i>
               <p>
                 CRM
@@ -192,10 +194,12 @@
           <!--CIERRA CRM-->
           <?php if ($_SESSION['s_rol'] != '1') { ?>
             <!--ABRE INGRESOS-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina=="buscadorpres"
+            || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina=="buscadorpres"
+              || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-dollar-sign "></i>
                   <i class=" fas fa-arrow-up "></i>
@@ -206,6 +210,13 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                  <a href="buscadorpres.php" class="nav-link <?php echo ($pagina == 'buscadorpres') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-magnifying-glass nav-icon"></i>
+                    <p>Buscador Presupuestos</p>
+                  </a>
+                </li>
 
                 <li class="nav-item">
                   <a href="cntacliente.php" class="nav-link <?php echo ($pagina == 'cliente') ? "active seleccionado" : ""; ?>  ">

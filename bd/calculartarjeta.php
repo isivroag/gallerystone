@@ -17,6 +17,12 @@ switch ($tipo) {
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
     break;
+    case 2:
+        $consulta = "SELECT * FROM vdesechable WHERE tarjeta=1 and estado_des=1 ORDER BY id_des";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        break;
 }
 print json_encode($data, JSON_UNESCAPED_UNICODE);
 $conexion = NULL;

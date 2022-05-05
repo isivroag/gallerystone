@@ -282,7 +282,7 @@ $(document).ready(function () {
     event.preventDefault()
 
     fila = $(this)
-    id = parseInt($(this).closest('tr').find('td:eq(0)').text())
+    id = parseInt($(this).closest('tr').find('td:eq(1)').text())
     opcion = 2
 
     swal
@@ -309,12 +309,65 @@ $(document).ready(function () {
               if (data == 1) {
                 tablaDet.row(fila.parents('tr')).remove().draw()
               }
+              else{
+                Swal.fire({
+                  title: 'Operacion NO Permitida',
+                  text: 'Es posible que exitan Areas dependientes de este Frente, Verifique sus datos',
+                  icon: 'warning',
+                })
+              }
             },
           })
         } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
         }
       })
   })
+
+  $(document).on('click', '.btnBorrarA', function (event) {
+    event.preventDefault()
+
+    fila = $(this)
+    id = parseInt($(this).closest('tr').find('td:eq(0)').text())
+    opcion = 2
+
+    swal
+      .fire({
+        title: 'Borrar',
+        text: '¿Realmente desea borrar este elemento?',
+
+        showCancelButton: true,
+        icon: 'warning',
+        focusConfirm: true,
+        confirmButtonText: 'Aceptar',
+
+        cancelButtonText: 'Cancelar',
+      })
+      .then(function (isConfirm) {
+        if (isConfirm.value) {
+          $.ajax({
+            url: 'bd/areasobras.php',
+            type: 'POST',
+            dataType: 'json',
+            async: false,
+            data: { id: id, opcion: opcion },
+            success: function (data) {
+              if (data == 1) {
+                window.location.reload()
+              }
+              else{
+                Swal.fire({
+                  title: 'Operacion NO Permitida',
+                  text: 'Es posible que exitan Generadores o Registros dependientes de esta Area, Verifique sus datos',
+                  icon: 'warning',
+                })
+              }
+            },
+          })
+        } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
+        }
+      })
+  })
+
 
   $(document).on('click', '#btnConceptos', function () {
     //window.location.href = "prospecto.php";
@@ -453,7 +506,7 @@ $(document).ready(function () {
           opcion: opcion,
         },
         success: function (data) {
-          window.location.href = 'caratulaobra.php?folio=' + $('#folior').val()
+          window.location.reload()
         },
       })
     } else {
