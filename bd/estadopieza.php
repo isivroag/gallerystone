@@ -7,28 +7,97 @@ $conexion = $objeto->connect();
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $forden = (isset($_POST['forden'])) ? $_POST['forden'] : '';
-
+$opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 $idesp = 0;
-$consulta = "UPDATE det_ot SET estado='COLOCADO' WHERE id_reg='$id' ";
-$resultado = $conexion->prepare($consulta);
-if ($resultado->execute()) {
-    $resp = 1;
 
-   
 
-    $consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='PENDIENTE' ";
-    $resultado = $conexion->prepare($consulta);
-    $resultado->execute();
-    if ($resultado->rowCount() == 0) {
-        $consulta =  "UPDATE orden SET edo_ord='COLOCADO' WHERE folio_ord='$forden'";
+switch ($opcion) {
+    case 1:
+
+        $consulta = "UPDATE det_ot SET estado='COLOCADO' WHERE id_reg='$id' ";
         $resultado = $conexion->prepare($consulta);
-        if ($resultado->execute()){
-            $resp=2;
+        if ($resultado->execute()) {
+            $resp = 1;
+
+
+
+            //$consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='PENDIENTE' ";
+            $consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='PULIDO' ";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            if ($resultado->rowCount() == 0) {
+                $consulta =  "UPDATE orden SET edo_ord='COLOCADO' WHERE folio_ord='$forden'";
+                $resultado = $conexion->prepare($consulta);
+                if ($resultado->execute()) {
+                    $resp = 2;
+                }
+            }
         }
+        break;
+    case 2:
+        $consulta = "UPDATE det_ot SET estado='CORTADO' WHERE id_reg='$id' ";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()) {
+            $resp = 1;
+
+
+
+            $consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='PENDIENTE' ";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            if ($resultado->rowCount() == 0) {
+                $consulta =  "UPDATE orden SET edo_ord='ENSAMBLE',avance='45' WHERE folio_ord='$forden'";
+                $resultado = $conexion->prepare($consulta);
+                if ($resultado->execute()) {
+                    $resp = 2;
+                }
+            }
+        }
+        break;
+        case 3:
+            $consulta = "UPDATE det_ot SET estado='ENSAMBLADO' WHERE id_reg='$id' ";
+            $resultado = $conexion->prepare($consulta);
+            if ($resultado->execute()) {
+                $resp = 1;
+    
+    
+    
+                $consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='CORTADO' ";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+                if ($resultado->rowCount() == 0) {
+                    $consulta =  "UPDATE orden SET edo_ord='PULIDO',avance='75' WHERE folio_ord='$forden'";
+                    $resultado = $conexion->prepare($consulta);
+                    if ($resultado->execute()) {
+                        $resp = 2;
+                    }
+                }
+            }
+            break;
+
+            case 4:
+                $consulta = "UPDATE det_ot SET estado='PULIDO' WHERE id_reg='$id' ";
+                $resultado = $conexion->prepare($consulta);
+                if ($resultado->execute()) {
+                    $resp = 1;
         
-    }
+        
+        
+                    $consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='ENSAMBLADO' ";
+                    $resultado = $conexion->prepare($consulta);
+                    $resultado->execute();
+                    if ($resultado->rowCount() == 0) {
+                        $consulta =  "UPDATE orden SET edo_ord='COLOCACION',avance='90' WHERE folio_ord='$forden'";
+                        $resultado = $conexion->prepare($consulta);
+                        if ($resultado->execute()) {
+                            $resp = 2;
+                        }
+                    }
+                }
+                break;
 }
+
 
 
 

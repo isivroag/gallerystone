@@ -1,5 +1,5 @@
 <?php
-$pagina = "colocacion";
+$pagina = "ensamble";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord<>'PENDIENTE' and avance>='90'  and edo_ord<>'LIBERADO' and tipop='PROYECTO' ORDER BY folio_ord";
+$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord='ENSAMBLE' and  edo_ord<>'LIBERADO' and tipop='PROYECTO' ORDER BY folio_ord";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -296,7 +296,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntacolocacion.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/cntaensamble.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

@@ -455,8 +455,10 @@
         <!-- ABRE PRODUCCION-->
         <?php if ($_SESSION['s_rol'] != '1') {  ?>
 
-          <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' ||  $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' ||  $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion') ? "active" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' ||  $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion' 
+          || $pagina == 'corte' || $pagina == 'ensamble' || $pagina == 'pulido') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' ||  $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion' 
+            || $pagina == 'corte' || $pagina == 'ensamble' || $pagina == 'pulido') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-hard-hat"></i>
 
@@ -483,11 +485,33 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a href="cntacorte.php" class="nav-link <?php echo ($pagina == 'corte') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-scissors nav-icon"></i>
+                  <p>Corte</p>
+                </a>
+              </li>
+
+
+              <li class="nav-item">
+                <a href="cntaensamble.php" class="nav-link <?php echo ($pagina == 'ensamble') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-puzzle-piece nav-icon"></i>
+                  <p>Ensamble</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="cntapulido.php" class="nav-link <?php echo ($pagina == 'pulido') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-sheet-plastic nav-icon"></i>
+                  <p>Pulido</p>
+                </a>
+              </li>
+
 
               <li class="nav-item">
                 <a href="cntacolocacion.php" class="nav-link <?php echo ($pagina == 'colocacion') ? "active seleccionado" : ""; ?>  ">
                   <i class="fa-solid fa-sink nav-icon"></i>
-                  <p>Colocaciones</p>
+                  <p>Colocación</p>
                 </a>
               </li>
 

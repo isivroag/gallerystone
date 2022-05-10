@@ -12,22 +12,15 @@ $(document).ready(function () {
 
           render: function (data, type, row){
             'use strict';
-            /*dejo 2 clases: bntAgregarProducto - recuperarBoton*/
-            /*capturo el id del producto*/
-            console.log(row[8])
-            if (row[8]=='ENTREGA'){
-              return "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-regular fa-pen-to-square'></i></button>\
-              <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
-                </div>"
-            }else{
+         
               return "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-regular fa-pen-to-square'></i></button>\
                 </div>"
-            }
+         
             
         }
 
-         
         },
+      
   
      
       {
@@ -61,7 +54,7 @@ $(document).ready(function () {
       orderCellsTop: true,
       fixedHeader: true,
       paging: false,
-  
+  /*
       rowCallback: function (row, data) {
         $($(row).find('td')['8']).css('color', 'white')
         $($(row).find('td')['8']).addClass('text-center')
@@ -97,7 +90,7 @@ $(document).ready(function () {
            $($(row).find('td')[8]).text("INICIO")
         }
         
-      },
+      },*/
  
     })
 
@@ -152,7 +145,7 @@ $(document).ready(function () {
           $($(row).find('td')[4]).addClass('bg-gradient-warning')
           //$($(row).find('td')[4]).css('background-color','#EEA447');
           //$($(row).find('td')['4']).text('PENDIENTE')
-        } else if (data[4] == 'COLOCADO') {
+        } else if (data[4] == 'CORTADO') {
           //$($(row).find("td")[4]).css("background-color", "blue");
           $($(row).find('td')[4]).addClass('bg-gradient-success')
           //$($(row).find('td')[2]).css('background-color','#0CBC09');
@@ -173,11 +166,11 @@ $(document).ready(function () {
       estado = fila.find('td:eq(4)').text()
       console.log(estado)
       forden =fila.find('td:eq(1)').text()
+      opcion=2
       console.log(forden)
-      opcion=1;
-      if (estado == "COLOCADO"){
+      if (estado == "CORTADO"){
         Swal.fire({
-          title: 'La pieza ya ha sido colocada',
+          title: 'La pieza ya ha sido Cortada',
           icon: 'warning',
         })
 
@@ -323,12 +316,7 @@ $(document).ready(function () {
     $(document).on('click', '.btnVer', function () {
       fila = $(this).closest('tr')
       folio = parseInt(fila.find('td:eq(0)').text())
-      $('#formEtapa').trigger('reset');
-  
-      $('#modalEtapa').modal('show');
-      
-     // $('#fechal').val($('#fechasys').val());
-      $('#foliolorden').val(folio);
+      buscarpiezas(folio)
      
   
     
