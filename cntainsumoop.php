@@ -272,7 +272,7 @@ $message = "";
                                                 <input type="checkbox" id="tarjeta" name="tarjeta">
                                             </span>
                                         </div>
-                                        <input type="hidden" class="form-control text-right" name="valortarjeta" id="valortarjeta" autocomplete="off" placeholder="Valor por ML" value="0.00" disabled onkeypress="return filterFloat(event,this);" >
+                                        <input type="text" class="form-control text-right" name="valortarjeta" id="valortarjeta" autocomplete="off" placeholder="Valor por ML" value="0.00" disabled onkeypress="return filterFloat(event,this);" >
                                     </div>
                                 </div>
 
