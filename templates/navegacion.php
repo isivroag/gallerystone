@@ -194,11 +194,11 @@
           <!--CIERRA CRM-->
           <?php if ($_SESSION['s_rol'] != '1') { ?>
             <!--ABRE INGRESOS-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina=="buscadorpres"
+            <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina=="buscadorpres" || $pagina=="cntaliberaciones" 
             || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina=="buscadorpres"
+              <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina=="buscadorpres" || $pagina=="cntaliberaciones"
               || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-dollar-sign "></i>
@@ -279,6 +279,13 @@
                   <a href="cntapreorden.php" class="nav-link <?php echo ($pagina == 'preorden') ? "active seleccionado" : ""; ?>  ">
                     <i class="fas fa-pencil-ruler nav-icon"></i>
                     <p>Preordenes de Servicio</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="cntaliberaciones.php" class="nav-link <?php echo ($pagina == 'liberaciones') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-clipboard-check nav-icon"></i>
+                    <p>Liberaciones</p>
                   </a>
                 </li>
 

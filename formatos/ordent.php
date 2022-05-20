@@ -156,6 +156,15 @@ function getPlantilla($folio)
   
     </tbody>
 </table>
+<div id="details" class="clearfix">
+<div id="client">
+  <p style="text-align:justify">Superficie de Colocación: <strong>' . $tipo . '</strong></p>
+  <p style="text-align:justify">Tipo de Servicio: <strong>' . $superficie . '</strong></p>
+  <p style="text-align:justify">Observaciones: <strong>' . $obs . '</strong></p>
+  
+</div>
+
+</div>
 <div class="">
 <table>
 <thead>
@@ -173,15 +182,7 @@ function getPlantilla($folio)
 </table>
 
 </div>
-<div id="details" class="clearfix">
-<div id="client">
-  <p style="text-align:justify">Superficie de Colocación: <strong>' . $tipo . '</strong></p>
-  <p style="text-align:justify">Tipo de Servicio: <strong>' . $superficie . '</strong></p>
-  <p style="text-align:justify">Observaciones: <strong>' . $obs . '</strong></p>
-  
-</div>
 
-</div>
     </main>
     <footer>
     </footer>
