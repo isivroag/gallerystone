@@ -595,8 +595,10 @@
 
 
 
-          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante') ? "active" : ""; ?>">
+          <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' 
+          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale') ? "menu-open" : ""; ?>">
+            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' 
+            || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 
@@ -677,6 +679,13 @@
                 <a href="inventariogral.php" class="nav-link <?php echo ($pagina == 'inventariogral') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-box nav-icon"></i>
                   <p>Inventario General</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="cntavale.php" class="nav-link <?php echo ($pagina == 'vale') ? "active seleccionado" : ""; ?>  ">
+                <i class="fa-solid fa-screwdriver-wrench nav-icon"></i>
+                  <p>Entrega/Recepción</p>
                 </a>
               </li>
 

@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord='PULIDO' and  edo_ord<>'LIBERADO' and tipop='PROYECTO' ORDER BY folio_ord";
+$consulta = "SELECT * FROM vale WHERE estado_vale='1' ORDER BY folio_vale";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -55,7 +55,7 @@ $message = "";
     <!-- Default box -->
     <div class="card ">
       <div class="card-header bg-secondary">
-        <h4 class="card-title text-center">CORTE</h4>
+        <h4 class="card-title text-center">VALES DE ENTREGA/RECEPCION</h4>
       </div>
 
       <div class="card-body">
@@ -64,8 +64,7 @@ $message = "";
 
         <div class="row">
           <div class="col-lg-12">
-
-            <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+            <button id="btnNuevo" type="button" class="btn bg-gradient-success btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
           </div>
         </div>
         <br>
@@ -79,16 +78,13 @@ $message = "";
                   <thead class="text-center bg-secondary">
                     <tr>
                       <th>Folio</th>
-                      <th>Folio Vta</th>
-                      <th>Folio Doc</th>
                       <th>Fecha</th>
-                      <th>Cliente</th>
-                      <th>Proyecto</th>
-                      <th>Ubicacion</th>
-
-                      <th>Tipo</th>
-
+                      <th>Usuario Inventario</th>
+                      <th>Usuario Producción</th>
+                      <th>Entregado</th>
+                      <th>Devuelto</th>
                       <th>Estado</th>
+                      <th>Fecha Cierre</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -97,17 +93,16 @@ $message = "";
                     foreach ($data as $dat) {
                     ?>
                       <tr>
-                        <td><?php echo $dat['folio_ord'] ?></td>
-                        <td><?php echo $dat['folio_vta'] ?></td>
-                        <td><?php echo $dat['folio_fisico'] ?></td>
-                        <td><?php echo $dat['fecha_ord'] ?></td>
-                        <td><?php echo $dat['nombre'] ?></td>
-                        <td><?php echo $dat['concepto_vta'] ?></td>
-                        <td><?php echo $dat['ubicacion'] ?></td>
+                        <td><?php echo $dat['folio_vale'] ?></td>
+                        <td><?php echo $dat['fecha_vale'] ?></td>
+                        <td><?php echo $dat['usuario_entrega'] ?></td>
+                        <td><?php echo $dat['usuario_recibe'] ?></td>
+                        <td><?php echo $dat['firma_entregado'] ?></td>
+                        <td><?php echo $dat['firma_recibido'] ?></td>
+                        <td><?php echo $dat['estado'] ?></td>
+                        <td><?php echo $dat['fecha_cierre'] ?></td>
 
-                        <td><?php echo $dat['tipop'] ?></td>
-
-                        <td><?php echo $dat['edo_ord'] ?></td>
+                        
                         <td></td>
                       </tr>
                     <?php
