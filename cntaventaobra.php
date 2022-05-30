@@ -95,6 +95,7 @@ $message = "";
                   <thead class="text-center bg-gradient-success">
                     <tr>
                       <th>Folio</th>
+                      <th>Presupuesto</th>
                       <th>Fecha</th>
                       <th>Cliente</th>
                       <th>Proyecto</th>
@@ -112,6 +113,7 @@ $message = "";
                     ?>
                       <tr>
                         <td><?php echo $dat['folio_vta'] ?></td>
+                        <td><?php echo $dat['folio_pres'] ?></td>
                         <td><?php echo $dat['fecha_vta'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_vta'] ?></td>
