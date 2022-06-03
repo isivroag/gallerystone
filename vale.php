@@ -12,7 +12,7 @@ $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
 $objeto = new conn();
 $conexion = $objeto->connect();
 $tokenid = md5($_SESSION['s_usuario']);
-$usuario=$_SESSION['s_nombre'];
+$usuario = $_SESSION['s_nombre'];
 
 if ($folio != "") {
 
@@ -34,7 +34,7 @@ if ($folio != "") {
         $fecha_cierre = $dt['fecha_cierre'];
         $firma_entregado = $dt['firma_entregado'];
         $firma_recibido = $dt['firma_recibido'];
-        $obs=$dt['obs'];
+        $obs = $dt['obs'];
     }
 
 
@@ -44,7 +44,7 @@ if ($folio != "") {
     $message = "";
 } else {
 
-    $opcion=1;
+    $opcion = 1;
 
     $consultatmp = "SELECT * FROM vale WHERE estado_vale='0' ORDER BY folio_vale DESC LIMIT 1";
     $resultadotmp = $conexion->prepare($consultatmp);
@@ -80,9 +80,8 @@ if ($folio != "") {
         $fecha_cierre = $dt['fecha_cierre'];
         $firma_entregado = $dt['firma_entregado'];
         $firma_recibido = $dt['firma_recibido'];
-        $obs=$dt['obs'];
+        $obs = $dt['obs'];
     }
-
 }
 
 $cntades = "SELECT * FROM herramienta where estado_her=1 order by id_her";
@@ -122,11 +121,11 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="row">
                     <div class="col-lg-12">
+                        <?php if ($opcion == 1) { ?>
+                            <!--<button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
 
-                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
-                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-
-
+                        <?php } ?>
                     </div>
                 </div>
 
@@ -151,47 +150,38 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="row justify-content-sm-center">
                                     <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
-                                        <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
+                                            <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo $opcion; ?>">
                                             <label for="folio" class="col-form-label">Folio:</label>
 
                                             <input type="text" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
                                             <label for="fecha" class="col-form-label">Fecha:</label>
                                             <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
+                                            <input type="hidden" class="form-control" name="entregado" id="entregado" value="<?php echo $firma_entregado; ?>" disabled>
+                                            <input type="hidden" class="form-control" name="recibido" id="recibido" value="<?php echo $firma_recibido; ?>" disabled>
+
                                         </div>
                                     </div>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
-                                            <label for="fecha" class="col-form-label">Fecha Cierre:</label>
-                                            <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo "2000-01-01"; ?>" disabled>
+                                            <label for="fechac" class="col-form-label">Fecha Cierre:</label>
+                                            <input type="date" class="form-control" name="fechac" id="fechac" value="<?php echo $fecha_cierre; ?>" disabled>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-1">
-                                        <div class="form-group input-group-sm">
-                                            <label for="fecha" class="col-form-label">Entregado:</label>
-                                            <input type="text" class="form-control" name="fecha" id="fecha" value="<?php echo $firma_entregado; ?>" disabled>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-sm-1">
-                                        <div class="form-group input-group-sm">
-                                            <label for="fecha" class="col-form-label">Recibido:</label>
-                                            <input type="text" class="form-control" name="fecha" id="fecha" value="<?php echo $firma_recibido; ?>" disabled>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row justify-content-sm-center">
 
 
                                     <div class="col-lg-3">
                                         <div class="form-group input-group-sm auto">
-                                            <label for="umedida" class="col-form-label">Creado Por (ENTREGA):</label>
-                                            <select class="form-control" name="umedida" id="umedida">
+                                            <label for="creador" class="col-form-label">Creado Por (ENTREGA):</label>
+                                            <select class="form-control" name="creador" id="creador">
                                                 <?php
                                                 foreach ($datau as $dtu) {
                                                 ?>
@@ -205,8 +195,8 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group input-group-sm auto">
-                                            <label for="umedida" class="col-form-label">Recibido Por:</label>
-                                            <select class="form-control" name="umedida" id="umedida">
+                                            <label for="receptor" class="col-form-label">Recibido Por:</label>
+                                            <select class="form-control" name="receptor" id="receptor">
                                                 <?php
                                                 foreach ($datau as $dtu) {
                                                 ?>
@@ -227,8 +217,8 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="col-sm-6">
 
                                         <div class="form-group">
-                                            <label for="concepto" class="col-form-label">Observaciones:</label>
-                                            <textarea rows="2" class="form-control" name="concepto" id="concepto"><?php echo $obs; ?></textarea>
+                                            <label for="obs" class="col-form-label">Observaciones:</label>
+                                            <textarea rows="2" class="form-control" name="obs" id="obs"><?php echo $obs; ?></textarea>
                                         </div>
 
                                     </div>
@@ -241,12 +231,12 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="col-sm-12">
                                         <div class="card borde-titulazul">
 
-                                            <div class="card-header fondopur " style="margin:0px;padding:8px">
+                                            <div class="card-header bg-purple " style="margin:0px;padding:8px">
                                                 <div class="card-tools" style="margin:0px;padding:0px;">
 
 
                                                 </div>
-                                                <h1 class="card-title text-light">Herramienta</h1>
+                                                <h1 class="card-title  text-light">Herramienta</h1>
                                                 <div class="card-tools" style="margin:0px;padding:0px;">
 
 
@@ -254,74 +244,74 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
 
                                             <div class="card-body" style="margin:0px;padding:3px;">
+                                                <?php if ($opcion == 1) { ?>
+                                                    <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
 
-                                                <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
+                                                        <div class="card-header " style="margin:0px;padding:8px;">
 
-                                                    <div class="card-header " style="margin:0px;padding:8px;">
+                                                            <button type="button" class="btn bg-gradient-purple btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                                Agregar Herramienta <i class="fas fa-plus"></i>
+                                                            </button>
 
-                                                        <button type="button" class="btn bg-gradient-purple btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                                            Agregar Herramienta <i class="fas fa-plus"></i>
-                                                        </button>
+                                                        </div>
 
-                                                    </div>
+                                                        <div class="card-body " style="margin:0px;padding:2px 5px;">
+                                                            <div class="row justify-content-sm-center">
 
-                                                    <div class="card-body " style="margin:0px;padding:2px 5px;">
-                                                        <div class="row justify-content-sm-center">
-
-                                                            <div class="col-lg-4">
-                                                                <div class="input-group input-group-sm">
-
-                                                                    <input type="hidden" class="form-control" name="idinsumodes" id="idinsumodes">
-
-
-
-
-                                                                    <label for="insumodes" class="col-form-label">Herramienta:</label>
+                                                                <div class="col-lg-4">
                                                                     <div class="input-group input-group-sm">
-                                                                        <input type="text" class="form-control" name="insumodes" id="insumodes" disabled>
-                                                                        <span class="input-group-append">
-                                                                            <button id="btnInsumodes" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+
+                                                                        <input type="hidden" class="form-control" name="idinsumodes" id="idinsumodes">
+
+
+
+
+                                                                        <label for="insumodes" class="col-form-label">Herramienta:</label>
+                                                                        <div class="input-group input-group-sm">
+                                                                            <input type="text" class="form-control" name="insumodes" id="insumodes" disabled>
+                                                                            <span class="input-group-append">
+                                                                                <button id="btnInsumodes" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                                            </span>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-2">
+                                                                    <label for="clavedes" class="col-form-label">Clave:</label>
+                                                                    <div class="input-group input-group-sm">
+                                                                        <input type="text" class="form-control" name="clavedes" id="clavedes" disabled>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="col-lg-2">
+                                                                    <label for="cantidadides" class="col-form-label">Cantidad:</label>
+                                                                    <div class="input-group input-group-sm">
+                                                                        <input type="hidden" class="form-control" name="cantidaddisponible" id="cantidaddisponible" disabled>
+                                                                        <input type="text" class="form-control" name="cantidadides" id="cantidadides" disabled>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-1 justify-content-center">
+                                                                    <label for="" class="col-form-label">Acción:</label>
+                                                                    <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                                            <button type="button" id="btnagregarides" name="btnagregarides" class="btn btn-sm bg-gradient-orange" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
+                                                                        </span>
+                                                                        <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                                            <button type="button" id="btlimpiarides" name="btlimpiarides" class="btn btn-sm bg-gradient-purple" value="btnlimpiari"><i class="fas fa-brush"></i></button>
                                                                         </span>
                                                                     </div>
-
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="col-lg-2">
-                                                                <label for="clavedes" class="col-form-label">Clave:</label>
-                                                                <div class="input-group input-group-sm">
-                                                                    <input type="text" class="form-control" name="clavedes" id="clavedes" disabled>
-                                                                </div>
-                                                            </div>
-
-
-
-                                                            <div class="col-lg-2">
-                                                                <label for="cantidadides" class="col-form-label">Cantidad:</label>
-                                                                <div class="input-group input-group-sm">
-                                                                <input type="hidden" class="form-control" name="cantidaddisponible" id="cantidaddisponible" disabled>
-                                                                    <input type="text" class="form-control" name="cantidadides" id="cantidadides" disabled>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-1 justify-content-center">
-                                                                <label for="" class="col-form-label">Acción:</label>
-                                                                <div class="input-group-append input-group-sm justify-content-center d-flex">
-                                                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
-                                                                        <button type="button" id="btnagregarides" name="btnagregarides" class="btn btn-sm bg-gradient-orange" value="btnGuardari"><i class="fas fa-plus-square"></i></button>
-                                                                    </span>
-                                                                    <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
-                                                                        <button type="button" id="btlimpiarides" name="btlimpiarides" class="btn btn-sm bg-gradient-purple" value="btnlimpiari"><i class="fas fa-brush"></i></button>
-                                                                    </span>
-                                                                </div>
                                                             </div>
 
                                                         </div>
 
                                                     </div>
-
-                                                </div>
-
+                                                <?php } ?>
 
                                                 <div class="row">
 
@@ -336,7 +326,7 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                                                         <th>Herramienta </th>
                                                                         <th>Cantidad</th>
                                                                         <th>Obs</th>
-                                                                        
+
                                                                         <th>Acciones</th>
                                                                     </tr>
                                                                 </thead>
@@ -355,7 +345,7 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                                                                             <td><?php echo $rowdet['nom_her'] ?></td>
                                                                             <td><?php echo $rowdet['cantidad_her'] ?></td>
                                                                             <td><?php echo $rowdet['obs'] ?></td>
-                                                                            
+
                                                                             <td></td>
                                                                         </tr>
                                                                     <?php

@@ -152,117 +152,52 @@ $('[data-toggle="tooltip"]').tooltip()
       },
     })
 
-  $(document).on("click", "#bproveedor", function() {
-
-      $(".modal-header").css("background-color", "#007bff");
-      $(".modal-header").css("color", "white");
-
-      $("#modalProspecto").modal("show");
-
-  });
-
-
-  $(document).on("click", "#bproveedorplus", function() {
-
-      window.location.href = "cntaproveedor.php";
-
-
-  });
-
-
-  $(document).on("click", "#bpartidaplus", function() {
-
-      window.location.href = "cntapartida.php";
-
-  });
-
-
-  $(document).on("click", "#bpartida", function() {
-
-      $(".modal-header").css("background-color", "#007bff");
-      $(".modal-header").css("color", "white");
-
-      $("#modalConcepto").modal("show");
-
-      $("#claveconcepto").val("");
-      $("#concepto").val("");
-      $("#id_umedida").val("");
-      $("#usomat").val("");
-      $("#nom_umedida").val("");
-      $("#bmaterial").prop('disabled', true);
-      $("#clavemat").val("");
-      $("#material").val("");
-      $("#clave").val("");
-      $("#idprecio").val("");
-      $("#unidad").val("");
-
-      $("#precio").val("");
-      $("#cantidad").val("");
-      $("#cantidad").prop('disabled', true);
+ 
 
 
 
 
-  });
 
 
 
-  $(document).on("click", ".btnSelCliente", function() {
-      fila = $(this).closest("tr");
-
-      idprov = fila.find('td:eq(0)').text();
-      nomprov = fila.find('td:eq(2)').text();
-
-      opcion = 1;
-
-      $("#id_prov").val(idprov);
-      $("#nombre").val(nomprov);
-      $("#modalProspecto").modal("hide");
-
-  });
 
   $(document).on("click", "#btnGuardar", function() {
       folio = $("#folio").val();
       fecha = $("#fecha").val();
-      fechal = $("#fechal").val();
-      id_prov = $("#id_prov").val();
-      id_partida = $("#id_partida").val();
-      concepto = $("#concepto").val();
-      facturado = $("#cfactura").val();
-      referencia = $("#referencia").val();
-      subtotal = $("#subtotal").val();
-      iva = $("#iva").val();
-      total = $("#total").val();
-      tokenid = $("#tokenid").val();
-      opcion = $("#opcion").val();;
+     
+      creador = $("#creador").val();
+      receptor = $("#receptor").val();
+      obs = $("#obs").val();
+      opcion = 1
+
+    
 
 
-      if (subtotal.length != 0 && iva.length != 0 && total.length != 0 &&
-          concepto.length != 0 && id_partida.length != 0 &&
-          id_prov.length != 0) {
+      if (creador.length != 0 && receptor.length !=0) {
           $.ajax({
 
               type: "POST",
-              url: "bd/crudcxpherramienta.php",
+              url: "bd/crudvale.php",
               dataType: "json",
-              data: { fecha: fecha, fechal: fechal, id_prov: id_prov, id_partida: id_partida, concepto: concepto, facturado: facturado, referencia: referencia, subtotal: subtotal, iva: iva, total: total, saldo: total, tokenid: tokenid, folio: folio, opcion: opcion },
+              data: { fecha: fecha, folio: folio, creador: creador, receptor: receptor, 
+                obs: obs,  opcion: opcion },
               success: function(res) {
 
                   if (res == 0) {
                       Swal.fire({
                           title: 'Error al Guardar',
-                          text: "No se puedo guardar los datos del cliente",
+                          text: "No se puedo guardar los datos",
                           icon: 'error',
                       })
                   } else {
                       Swal.fire({
                           title: 'Operación Exitosa',
-                          text: "Presupuesto Guardado",
+                          text: "Vale Guardado",
                           icon: 'success',
                       })
 
                       window.setTimeout(function() {
-                          window.location.href = "cntacxp.php";
+                          window.location.href = "cntavale.php";
                       }, 1500);
 
                   }
@@ -326,21 +261,7 @@ $(document).on('click', '#btlimpiarides', function () {
   limpiardes()
 })
 
-  $("#subtotal").on("change keyup paste click", function() {
-      if ($('#cmanual').prop('checked')) {
 
-
-      } else {
-          if ($('#cinverso').prop('checked')) {
-
-          } else {
-              valor = $("#subtotal").val();
-              calculo(valor);
-          }
-      }
-
-
-  });
 
 //AGREGAR DESECHABLE
 $(document).on('click', '#btnagregarides', function () {
@@ -407,61 +328,7 @@ $(document).on('click', '#btnagregarides', function () {
 })
 
 
-  $("#total").on("change keyup paste click", function() {
-      if ($('#cmanual').prop('checked')) {
 
-
-      } else {
-          if ($('#cinverso').prop('checked')) {
-              valor = $("#total").val();
-              calculoinverso(valor);
-          }
-      }
-
-  });
-
-
-
-  $("#ccredito").on("click", function() {
-      if ($('#ccredito').prop('checked')) {
-          $("#fechal").prop('disabled', false);
-      } else {
-          $("#fechal").prop('disabled', true);
-      }
-      $("#fechal").val($("#fecha").val());
-
-
-  });
-
-  $("#cinverso").on("click", function() {
-      if ($('#cinverso').prop('checked')) {
-          $("#total").prop('disabled', false);
-          $("#subtotal").prop('disabled', true);
-      } else {
-          $("#total").prop('disabled', true);
-          $("#subtotal").prop('disabled', false);
-      }
-
-
-  });
-
-  $("#cmanual").on("click", function() {
-      if ($('#cmanual').prop('checked')) {
-          $("#total").prop('disabled', false);
-          $("#subtotal").prop('disabled', false);
-          $("#iva").prop('disabled', false);
-      } else {
-          if ($('#cinverso').prop('checked')) {
-              $("#total").prop('disabled', false);
-              $("#subtotal").prop('disabled', true);
-          } else {
-              $("#total").prop('disabled', true);
-              $("#subtotal").prop('disabled', false);
-          }
-          $("#iva").prop('disabled', true);
-      }
-
-  });
 
 
   function limpiar() {

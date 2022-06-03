@@ -28,15 +28,16 @@ $message = "";
 
     cursor: pointer;
 
-    
-  }
-  .tablapiezas{
-   
-  height: 100px;
-  width: 100%;
-  overflow-y: auto;
 
-    
+  }
+
+  .tablapiezas {
+
+    height: 100px;
+    width: 100%;
+    overflow-y: auto;
+
+
 
   }
 </style>
@@ -65,6 +66,7 @@ $message = "";
         <div class="row">
           <div class="col-lg-12">
             <button id="btnNuevo" type="button" class="btn bg-gradient-success btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+            <button id="btnPdf" name="btnPdf" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-file-pdf" aria-hidden="true"></i> Preview</button>
           </div>
         </div>
         <br>
@@ -102,7 +104,7 @@ $message = "";
                         <td><?php echo $dat['estado'] ?></td>
                         <td><?php echo $dat['fecha_cierre'] ?></td>
 
-                        
+
                         <td></td>
                       </tr>
                     <?php
@@ -121,69 +123,6 @@ $message = "";
     </div>
     <!-- /.card -->
 
-  </section>
-
-  <section>
-    <div class="modal fade" id="modalEtapa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-gradient-secondary">
-            <h5 class="modal-title" id="exampleModalLabel">Estado de Colocación</h5>
-
-          </div>
-          <div class="card card-widget" style="margin: 10px;">
-            <form id="formEtapa" action="" method="POST">
-              <div class="modal-body row">
-
-
-                <div class="col-sm-12">
-                  <div class="form-group input-group-sm">
-                    <input type="hidden" class="form-control" name="foliolorden" id="foliolorden" autocomplete="off" placeholder="Nombre">
-
-
-
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="form-group input-group-sm auto">
-                    <label for="etapa" class="col-form-label">Etapa de Colocación:</label>
-                    <select class="form-control" name="etapa" id="etapa">
-                      <option id="e1" value="DESCARGA">DESCARGA</option>
-                      <option id="e2" value="PROTECCION">PROTECCION</option>
-                      <option id="e3" value="COLOCACION">COLOCACION</option>
-                      <option id="e4" value="LIMPIEZA">LIMPIEZA</option>
-                      <option id="e5" value="ENTREGA">SUPERVISION Y ENTREGA</option>
-                    </select>
-                  </div>
-                </div>
-
-
-
-              </div>
-          </div>
-
-
-          <?php
-          if ($message != "") {
-          ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <span class="badge "><?php echo ($message); ?></span>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-
-            </div>
-
-          <?php
-          }
-          ?>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-            <button type="button" id="btnguardaestapa" name="btnguardaestapa" class="btn btn-success" value="btngliberar"><i class="far fa-save"></i> Guardar</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
   </section>
 
 
@@ -242,24 +181,26 @@ $message = "";
     <div class="container">
 
       <!-- Default box -->
-      <div class="modal fade" id="modalpiezas"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal fade" id="modalentrega" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-md " role="document">
           <div class="modal-content w-auto">
-            <div class="modal-header bg-gradient-primary">
-              <h5 class="modal-title" id="exampleModalLabel">PIEZAS ORDEN DE TRABAJO</h5>
+            <div class="modal-header bg-gradient-info">
+              <h5 class="modal-title" id="exampleModalLabel">DETALLE DE VALE(ENTREGA)</h5>
 
             </div>
             <br>
             <div class="table-hover responsive w-auto " style="padding:10px">
-              <table name="tablapiezas" id="tablapiezas" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
-                <thead class="text-center bg-gradient-primary">
+              <table name="tablac" id="tablac" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+                <thead class="text-center bg-gradient-info">
                   <tr>
-                    <th>ID</th>
-                    <th>ORDEN</th>
-                    <th>CONCEPTO</th>
-                    <th>MEDIDAS</th>
-                    <th>ESTADO</th>
-                    <th>ACCIONES</th>
+                    <th>Id</th>
+                    <th>Id Herramienta</th>
+                    <th>Clave </th>
+                    <th>Herramienta </th>
+                    <th>Cantidad</th>
+                    <th>Obs</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -281,7 +222,49 @@ $message = "";
   </section>
 
 
+  <section>
+    <div class="container">
 
+      <!-- Default box -->
+      <div class="modal fade" id="modalrecepcion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-md " role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-success">
+              <h5 class="modal-title" id="exampleModalLabel">DETALLE DE VALE(RECEPCION)</h5>
+
+            </div>
+            <br>
+            <div class="table-hover responsive w-auto " style="padding:10px">
+              <table name="tablad" id="tablad" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+                <thead class="text-center bg-gradient-success">
+                  <tr>
+                    <th>Id</th>
+                    <th>Id Herramienta</th>
+                    <th>Clave </th>
+                    <th>Herramienta </th>
+                    <th>Cantidad</th>
+                    <th>Obs</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+
+        </div>
+        <!-- /.card-body -->
+
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </div>
+  </section>
 
 
   <!-- /.content -->
