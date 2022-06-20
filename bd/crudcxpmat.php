@@ -34,7 +34,7 @@ switch ($opcion) {
         $res = 1;
 
         // CONSULTA DEL DETALLE
-        $consulta = "SELECT * FROM detallecxp_mat WHERE folio_cxp='$folio'";
+        $consulta = "SELECT * FROM detallecxp_mat WHERE folio_cxp='$folio' and estado_reg='1'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -87,14 +87,14 @@ switch ($opcion) {
 
         break;
 
-    case 3:
+    case 3://cancelacion de cxp
         $consulta = "UPDATE cxp SET estado_cxp='0' WHERE folio_cxp='$folio'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
 
         // CONSULTA DEL DETALLE
-        $consulta = "SELECT * FROM detallecxp_mat WHERE folio_cxp='$folio'";
+        $consulta = "SELECT * FROM detallecxp_mat WHERE folio_cxp='$folio' and estado_reg='1'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

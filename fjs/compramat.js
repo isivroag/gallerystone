@@ -313,7 +313,14 @@ tablaDet = $('#tablaDet').DataTable({
                 type: "POST",
                 url: "bd/crudcxpmat.php",
                 dataType: "json",
-                data: { fecha: fecha, fechal: fechal, id_prov: id_prov, id_partida: id_partida, concepto: concepto, facturado: facturado, referencia: referencia, subtotal: subtotal, iva: iva, total: total, saldo: total, tokenid: tokenid, folio: folio, opcion: opcion },
+                data: { fecha: fecha, 
+                  fechal: fechal,
+                   id_prov: id_prov,
+                    id_partida: id_partida,
+                     concepto: concepto, facturado: facturado,
+                      referencia: referencia, subtotal: subtotal, iva: iva,
+                       total: total, saldo: total, tokenid: tokenid, folio: folio,
+                        opcion: opcion },
                 success: function(res) {
 
                     if (res == 0) {

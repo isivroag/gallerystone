@@ -32,6 +32,19 @@ switch ($opcion) {
 
         break;
         case 2:
+            $consulta = "SELECT * FROM detallecxp_mat where id_reg='$id'";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+            foreach($data as $row){
+                $idmat=$row['id_mat'];
+            }
+
+            $consulta = "UPDATE material SET estado_mat=0, m2_mat=0 where id_mat='$idmat'";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+
+
             $consulta = "DELETE FROM detallecxp_mat where id_reg='$id'";
         
             $resultado = $conexion->prepare($consulta);
