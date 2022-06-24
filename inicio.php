@@ -835,12 +835,12 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
       </section>
 -->
       </div>
-      <!--  ABRE TABLEROS-->
+      <!--  PRESUPUESTOS PENDIENTES
       <div class="container-fluid">
         <div class="row justify-content-center">
-          <!-- Left col -->
+
           <div class="col-sm-12">
-            <!-- Custom tabs (Charts with tabs)-->
+
             <div class="card ">
               <div class="card-header bg-gradient-orange boder-0">
                 <h3 class="card-title">
@@ -856,7 +856,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                   </button>
                 </div>
 
-              </div><!-- /.card-header -->
+              </div>
 
               <div class="card-body">
                 <div class="container-fluid">
@@ -901,7 +901,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                 </div>
               </div>
 
-            </div><!-- /.card-body -->
+            </div>
           </div>
 
 
@@ -911,19 +911,19 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
 
 
-      <!-- CIERRA TABLEROS -->
+        -->
 
     </section>
 
 
 
-
+<!-- LIBERACIONES
     <section class="content">
       <div class="container-fluid">
         <div class="row justify-content-center">
 
 
-          <!-- LIBERACIONES -->
+
           <div class="col-sm-12 col-12">
 
 
@@ -972,8 +972,6 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
                       <?php
 
-                      //CONSULTA LIBERACIONES CON SALDO
-                      //ANTERIORES A ESTA SEMANA
                       $cntalib = "SELECT * FROM vliberacion_saldo where fecha_liberacion < '$fechaInicio' and estado_vta='1' and estado_ord='1' and tipo_proy='1' and edo_ord='LIBERADO' and saldo>'0'";
                       $reslib = $conexion->prepare($cntalib);
                       $reslib->execute();
@@ -1222,17 +1220,16 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                   </table>
                 </div>
               </div>
-              <!-- /.card-body-->
-
+             
             </div>
 
-            <!-- /.card -->
+       
           </div>
         </div>
       </div>
     </section>
 
-
+                    -->
   <?php } ?>
 
 
@@ -1296,7 +1293,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
           </div>
         </div>
       </div>
-
+      <!--
       <div class="row justify-content-center">
         <div class="col-sm-12 col-12">
           <div class="card">
@@ -1357,6 +1354,8 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
           </div>
         </div>
       </div>
+                    -->
+
     </div>
   </section>
 

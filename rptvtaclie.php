@@ -110,6 +110,7 @@ $message = "";
                                             <th>Total</th>
                                             <th>Saldo</th>
                                             <th>Vendedor</th>
+                                            <th>Acciones</th>
 
                                         </tr>
                                     </thead>
@@ -127,6 +128,7 @@ $message = "";
                                                 <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
                                                 <td class="text-right"><?php echo "$ " . number_format($dat['saldo'], 2) ?></td>
                                                 <td><?php echo $dat['vendedor'] ?></td>
+                                                <td></td>
 
                                             </tr>
                                         <?php
@@ -143,6 +145,7 @@ $message = "";
                                             <th  class="currency" style="text-align:right">Total:</th>
                                             <th class="text-right"></th>
                                             <th class="text-right"></th>
+                                            <th></th>
                                             <th></th>
                                           
                                         </tr>
@@ -167,7 +170,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/rptvtaclie.js"></script>
+<script src="fjs/rptvtaclie.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

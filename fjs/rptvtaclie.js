@@ -39,7 +39,12 @@ $(document).ready(function () {
         "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
         
         columnDefs: [
-          
+          {
+            targets: -1,
+            data: null,
+            defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button>\
+              </div></div>",
+        },
           {
             targets: 4,
             render: function (data, type, full, meta) {
@@ -217,7 +222,13 @@ $(document).ready(function () {
   
     //botón EDITAR
 
- 
+    $(document).on("click", ".btnEditar", function() {
+      fila = $(this).closest("tr");
+      id = parseInt(fila.find("td:eq(0)").text());
+
+      window.location.href = "venta.php?folio=" + id;
+  });
+
   
     function startTime() {
       var today = new Date()

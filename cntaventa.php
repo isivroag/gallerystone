@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM vventa WHERE estado_vta=1 and saldo>0 and tipo_proy=1 ORDER BY folio_vta";
+$consulta = "SELECT * FROM vventa WHERE estado_vta=1 and saldo>0 and edo_orden<>'LIBERADO' and tipo_proy=1 ORDER BY folio_vta";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
