@@ -136,11 +136,9 @@ $(document).ready(function () {
         sProcessing: 'Procesando...',
       },
       stateSave: true,
-      orderCellsTop: true,
-      fixedHeader: true,
+     
       paging: false,
-      scrollY:        "400px",
-      scrollCollapse: true,
+    
   
       rowCallback: function (row, data) {
   
@@ -157,6 +155,8 @@ $(document).ready(function () {
           $($(row).find('td')[4]).addClass('bg-gradient-success')
           //$($(row).find('td')[2]).css('background-color','#0CBC09');
           //$($(row).find('td')['8']).text('ENVIADO')
+        }else{
+          $($(row).find('td')[4]).addClass('bg-gradient-danger')
         }
       },
     })
@@ -221,13 +221,14 @@ $(document).ready(function () {
     function buscarpiezas(folio) {
       tablapiezas.clear();
       tablapiezas.draw();
-      $('#modalpiezas').modal('show')
+    
     
 
       $.ajax({
           type: "POST",
           url: "bd/buscardetalleot.php",
           dataType: "json",
+          async:false,
           data: { folio: folio },
 
           success: function(res) {
@@ -236,6 +237,7 @@ $(document).ready(function () {
 
              
               }
+              $('#modalpiezas').modal('show')
           },
       });
   }
