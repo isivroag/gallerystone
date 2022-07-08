@@ -220,6 +220,7 @@ $(document).ready(function() {
                         tablaVis.row
                             .add([
                                 data[i].folio_vta,
+                                data[i].folio_pres,
                                 data[i].fecha_vta,
                                 data[i].nombre,
                                 data[i].concepto_vta,

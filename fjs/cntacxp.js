@@ -166,6 +166,7 @@ $(document).ready(function () {
                                 data[i].total,
                                 data[i].saldo,
                                 data[i].fecha_limite,
+                                data[i].tipo,
                             ])
                             .draw()
 

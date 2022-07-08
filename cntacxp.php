@@ -11,8 +11,8 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
-
-$consulta = "SELECT * FROM vcxp where estado_cxp='1' order by folio_cxp";
+$mes=date('m');
+$consulta = "SELECT * FROM vcxp where estado_cxp='1' and month(fecha)='$mes' order by folio_cxp";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -36,6 +36,11 @@ $datab = $resultadob->fetchAll(PDO::FETCH_ASSOC);
 
 $message = "";
 
+$mesarreglo = array(
+  "", "ENERO",
+  "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
+);
+$mesactual = $mesarreglo[date('n')];
 
 
 ?>

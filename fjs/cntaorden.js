@@ -29,6 +29,14 @@ $(document).ready(function () {
         },
 
       },
+    {
+        targets: 6,
+        render: function (data, type, full, meta) {
+          return "<div class='text-wrap width-200'>" + data + '</div>'
+          //return "<div class='text-wrap width-200'>" + data + '</div>'
+        },
+
+      },
     ],
 
     //Para cambiar el lenguaje a español

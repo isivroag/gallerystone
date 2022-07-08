@@ -23,6 +23,11 @@ switch ($opcion) {
                 $consulta = "INSERT INTO citav (folio_vta,fecha,concepto,obs) VALUES('$folio_vta', '$fecha', '$concepto','$obs') ";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
+
+                $consulta = "UPDATE orden SET fecha_limite = '$fecha' WHERE folio_vta = '$folio_vta' ";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+
                 $res=1;
                 print json_encode($res, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
                 break;

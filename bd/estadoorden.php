@@ -7,46 +7,48 @@ $conexion = $objeto->connect();
 
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
-$estado= (isset($_POST['estado'])) ? $_POST['estado'] : '';
-$porcentaje= (isset($_POST['porcentaje'])) ? $_POST['porcentaje'] : '';
-$venta= (isset($_POST['venta'])) ? $_POST['venta'] : '';
-$fecha= (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
-$fechaini= (isset($_POST['fechaini'])) ? $_POST['fechaini'] : '';
-$fechalib= (isset($_POST['fechalib'])) ? $_POST['fechalib'] : '';
+$estado = (isset($_POST['estado'])) ? $_POST['estado'] : '';
+$porcentaje = (isset($_POST['porcentaje'])) ? $_POST['porcentaje'] : '';
+$venta = (isset($_POST['venta'])) ? $_POST['venta'] : '';
+$fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
+$fechaini = (isset($_POST['fechaini'])) ? $_POST['fechaini'] : '';
+$fechalib = (isset($_POST['fechalib'])) ? $_POST['fechalib'] : '';
 
 
-$res=0;
-if ($estado=='ACTIVO'){
+$res = 0;
+if ($estado == 'ACTIVO') {
+
+
+
     $consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje',fecha_limite='$fecha',fecha_ord='$fechaini' WHERE folio_ord='$folio'";
-}
-else if($estado=='LIBERADO'){
+} else if ($estado == 'LIBERADO') {
     $consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje',fecha_liberacion='$fechalib' WHERE folio_ord='$folio'";
-}
-else{
+} else {
     $consulta = "UPDATE orden SET edo_ord='$estado',avance='$porcentaje' WHERE folio_ord='$folio'";
-
 }
 
 $resultado = $conexion->prepare($consulta);
-if ($resultado->execute()){
-   
-    if ($venta!=''){
-        if ($estado=='ACTIVO'){
-            $edo_orden='PRODUCCION';
+if ($resultado->execute()) {
 
-        }
-        else if($estado=='LIBERADO'){
-            $edo_orden='LIBERADO'   ;     
+    if ($venta != '') {
+        $consulta = "UPDATE citav 
+                    SET fecha = concat('$fecha',' ',time(fecha)) 
+                    WHERE folio_vta='$venta'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+
+        if ($estado == 'ACTIVO') {
+            $edo_orden = 'PRODUCCION';
+        } else if ($estado == 'LIBERADO') {
+            $edo_orden = 'LIBERADO';
         }
         $consulta = "UPDATE venta SET edo_orden='$edo_orden' WHERE folio_vta='$venta'";
         $resultado = $conexion->prepare($consulta);
-        if ($resultado->execute()){
-            $res=1;
+        if ($resultado->execute()) {
+            $res = 1;
         }
-
-    }
-    else{
-        $res=1;
+    } else {
+        $res = 1;
     }
 }
 
