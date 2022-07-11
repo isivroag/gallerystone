@@ -11,16 +11,20 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
-$mes=date('m');
-$consulta = "SELECT * FROM vcxp where estado_cxp='1' and month(fecha)='$mes' order by folio_cxp";
-$resultado = $conexion->prepare($consulta);
-$resultado->execute();
-$data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 $consultag = "SET lc_time_names = 'es_ES'";
 $resultadog = $conexion->prepare($consultag);
 $resultadog->execute();
 $ejercicio=date('Y');
+
+
+$mes=date('m');
+$consulta = "SELECT * FROM vcxp where estado_cxp='1' and month(fecha)='$mes' and year(fecha)='$ejercicio' order by folio_cxp";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+$data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 //$consultag = "SELECT SUM(total) AS total,monthname(fecha) as mes FROM vcxp where estado_cxp='1' GROUP BY MONTH(fecha) order by MONTH(fecha)";
 $consultag = "SELECT SUM(total) AS total,monthname(fecha) as mes FROM vcxp where estado_cxp='1' and year(fecha)='$ejercicio 'GROUP BY year(fecha),MONTH(fecha) order by MONTH(fecha)";
