@@ -155,7 +155,36 @@ $('[data-toggle="tooltip"]').tooltip()
  
 
 
-
+    tablaCaja=$('#tablaCaja').DataTable({
+      columnDefs: [
+        {
+          targets: -1,
+          data: null,
+          defaultContent:
+            "<div class='text-center'><button class='btn btn-sm btn-success  btnSelcaja'><i class='fas fa-edit'></i></button>\
+         </div>",
+        },
+      ],
+  
+      //Para cambiar el lenguaje a español
+      language: {
+        lengthMenu: 'Mostrar _MENU_ registros',
+        zeroRecords: 'No se encontraron resultados',
+        info:
+          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+        infoFiltered: '(filtrado de un total de _MAX_ registros)',
+        sSearch: 'Buscar:',
+        oPaginate: {
+          sFirst: 'Primero',
+          sLast: 'Último',
+          sNext: 'Siguiente',
+          sPrevious: 'Anterior',
+        },
+        sProcessing: 'Procesando...',
+      },
+    })
+  
 
 
 
@@ -230,6 +259,11 @@ $(document).on('click', '#btnInsumodes', function () {
   $('#modalDes').modal('show')
 })
 
+$(document).on('click', '#btncaja', function () {
+ 
+
+  $('#modalCaja').modal('show')
+})
 
 
   
@@ -327,6 +361,43 @@ $(document).on('click', '#btnagregarides', function () {
   }
 })
 
+//AGREGAR CAJA
+
+$(document).on('click', '.btnSelcaja', function () {
+  folio = $('#folio').val()
+  fila = $(this).closest('tr')
+  caja = fila.find('td:eq(0)').text()
+  
+ 
+  opc = 4
+
+
+  if (folio.length != 0 && caja.length != 0) {
+    $.ajax({
+      type: 'POST',
+      url: 'bd/buscarherramienta.php',
+      dataType: 'json',
+      //async: false,
+      data: {
+        folio: folio,
+        caja: caja,
+        opc: opc,
+ 
+      },
+      success: function (data) {
+        
+      window.location.reload()
+      },
+    })
+  } else {
+    Swal.fire({
+      title: 'Datos Faltantes',
+      text: 'Debe ingresar todos los datos del Item',
+      icon: 'warning',
+    })
+    return false
+  }
+})
 
 
 

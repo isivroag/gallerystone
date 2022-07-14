@@ -11,6 +11,8 @@ $id_her = (isset($_POST['id_her'])) ? $_POST['id_her'] : '';
 $clave = (isset($_POST['clave'])) ? $_POST['clave'] : '';
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 $opc = (isset($_POST['opc'])) ? $_POST['opc'] : '';
+$folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
+$caja = (isset($_POST['caja'])) ? $_POST['caja'] : '';
 
 switch ($opc) {
     case 1:
@@ -35,9 +37,28 @@ switch ($opc) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=1;
+        break;
+    case 4:
 
+        $consulta = "SELECT * FROM cajah_detalle WHERE id_cajah='$caja' ORDER BY id_reg";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+        foreach($data as $row)
+        {
+            $id_her=$row['id_her'];
+            $clave_her=$row['clave_her'];
+            $nom_her=$row['nom_her'];
+            $cantidad=1;
 
+            $consulta = "INSERT INTO vale_detalle (folio_vale,id_her,cantidad_her,estado,obs) 
+            values ('$folio','$id_her','$cantidad','PENDIENTE','')";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+
+            
+        }
         break;
 }
 

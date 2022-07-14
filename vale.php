@@ -97,6 +97,11 @@ $resultadoc->execute();
 $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
 
+$cntacaja = "SELECT * FROM cajah WHERE estado_cajah=1 ORDER BY id_cajah";
+$rescaja = $conexion->prepare($cntacaja);
+$rescaja->execute();
+$datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
+
 
 ?>
 
@@ -111,7 +116,7 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
     <!-- Main content -->
     <section class="content">
 
-        <!-- Default box -->
+
         <div class="card">
             <div class="card-header bg-gradient-purple text-light">
                 <h1 class="card-title mx-auto">Vale de Entrega/Recepción de Herramienta</h1>
@@ -122,7 +127,7 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row">
                     <div class="col-lg-12">
                         <?php if ($opcion == 1) { ?>
-                            <!--<button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+
                             <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
 
                         <?php } ?>
@@ -132,7 +137,7 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
                 <br>
 
 
-                <!-- Formulario Datos de Cliente -->
+
                 <form id="formDatos" action="" method="POST">
 
 
@@ -251,6 +256,10 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
                                                             <button type="button" class="btn bg-gradient-purple btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                                                 Agregar Herramienta <i class="fas fa-plus"></i>
+                                                            </button>
+
+                                                            <button type="button" id="btncaja" class="btn bg-gradient-info btn-sm">
+                                                                Agregar Caja <i class="fas fa-plus"></i>
                                                             </button>
 
                                                         </div>
@@ -375,7 +384,6 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
 
                     </div>
-                    <!-- Formulario Agrear Item -->
 
 
             </div>
@@ -384,69 +392,114 @@ $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
             </form>
 
 
-            <!-- /.card-body -->
-
-            <!-- /.card-footer-->
         </div>
 
-</div>
-
-<!-- /.card -->
-
-</section>
 
 
-<section>
-    <div class="container">
 
-        <!-- Default box -->
-        <div class="modal fade" id="modalDes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-md" role="document">
-                <div class="modal-content w-auto">
-                    <div class="modal-header bg-gradient-primary">
-                        <h5 class="modal-title" id="exampleModalLabel">BUSCAR HERRAMIENTA</h5>
 
-                    </div>
-                    <br>
-                    <div class="table-hover table-responsive w-auto" style="padding:15px">
-                        <table name="tablaDes" id="tablaDes" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
-                            <thead class="text-center bg-gradient-primary">
-                                <tr>
+    </section>
 
-                                    <th>Id Herramienta</th>
-                                    <th>Clave</th>
-                                    <th>Herramienta</th>
-                                    <th>Cantidad</th>
-                                    <th>Seleccionar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($datades as $datd) {
-                                ?>
+
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalDes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-primary">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR HERRAMIENTA</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaDes" id="tablaDes" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-primary">
                                     <tr>
 
-                                        <td><?php echo $datd['id_her'] ?></td>
-                                        <td><?php echo $datd['clave_her'] ?></td>
-                                        <td><?php echo $datd['nom_her'] ?></td>
-                                        <td><?php echo $datd['cant_her'] ?></td>
-                                        <td></td>
+                                        <th>Id Herramienta</th>
+                                        <th>Clave</th>
+                                        <th>Herramienta</th>
+                                        <th>Cantidad</th>
+                                        <th>Seleccionar</th>
                                     </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datades as $datd) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datd['id_her'] ?></td>
+                                            <td><?php echo $datd['clave_her'] ?></td>
+                                            <td><?php echo $datd['nom_her'] ?></td>
+                                            <td><?php echo $datd['cant_her'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 
-<!-- /.content -->
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalCaja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-primary">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR HERRAMIENTA</h5>
+
+                        </div>
+                        <br>
+                        
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaCaja" id="tablaCaja" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-primary">
+                                    <tr>
+
+                                        <th>Id Caja</th>
+                                        <th>Clave</th>
+                                        <th>Descripcion</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datacaja as $row) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $row['id_cajah'] ?></td>
+                                            <td><?php echo $row['clave_cajah'] ?></td>
+                                            <td><?php echo $row['nom_cajah'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- /.content -->
 </div>
 
 

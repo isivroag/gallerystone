@@ -168,7 +168,7 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
                     <div class="row justify-content-center">
                         <div class="col-sm-11 mt-1">
                             <button id="btnAgregar" type="button" class="btn bg-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Agregar Herramienta</span></button>
-                            <input type="text" class="form-control" name="idcaja" id="idcaja" autocomplete="off" placeholder="ID">
+                            <input type="hidden" class="form-control" name="idcaja" id="idcaja" autocomplete="off" placeholder="ID">
                         </div>
 
                     </div>
@@ -216,7 +216,7 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <br>
 
-                        <input type="text" class="form-control" name="idcajah" id="idcajah" autocomplete="off" placeholder="ID">
+                        <input type="hidden" class="form-control" name="idcajah" id="idcajah" autocomplete="off" placeholder="ID">
 
                         <div class="table-hover table-responsive w-auto" style="padding:15px">
                         

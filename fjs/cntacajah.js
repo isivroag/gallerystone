@@ -10,7 +10,7 @@ $(document).ready(function () {
         defaultContent:
           "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button>\
           <button class='btn btn-sm bg-gradient-orange text-light btnMov'><i class='fas fa-exchange-alt'></i></button>\
-          <button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
+       </div>",
       },
     ],
 
