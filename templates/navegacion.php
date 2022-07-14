@@ -683,6 +683,13 @@
               </li>
 
               <li class="nav-item">
+                <a href="cntacajah.php" class="nav-link <?php echo ($pagina == 'cajah') ? "active seleccionado" : ""; ?>  ">
+                <i class="fa-solid fa-toolbox nav-icon"></i>
+                  <p>Cajas de Herramienta</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
                 <a href="cntavale.php" class="nav-link <?php echo ($pagina == 'vale') ? "active seleccionado" : ""; ?>  ">
                 <i class="fa-solid fa-screwdriver-wrench nav-icon"></i>
                   <p>Entrega/Recepción</p>
