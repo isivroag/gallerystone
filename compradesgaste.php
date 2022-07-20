@@ -53,7 +53,7 @@ if ($folio != "") {
     //BUSCAR CUENTA ABIERTA
 
 
-    $consultatmp = "SELECT * FROM cxp WHERE tokenid='$tokenid' and estado='0' and tipo='CXPINSUMODES' ORDER BY folio_cxp DESC LIMIT 1";
+    $consultatmp = "SELECT * FROM cxp WHERE tokenid='$tokenid' and estado='0' and tipo='CXPINSUMODES' and estado_cxp=1 ORDER BY folio_cxp DESC LIMIT 1";
     $resultadotmp = $conexion->prepare($consultatmp);
     $resultadotmp->execute();
     if ($resultadotmp->rowCount() >= 1) {
