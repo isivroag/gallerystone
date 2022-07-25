@@ -324,6 +324,13 @@
                 </li>
 
                 <li class="nav-item">
+                  <a href="cntaprescto.php" class="nav-link <?php echo ($pagina == 'prescto') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-file-invoice nav-icon"></i>
+                    <p>Presupuesto de Egresos</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
                   <a href="cntaproveedor.php" class="nav-link <?php echo ($pagina == 'proveedor') ? "active seleccionado" : ""; ?>  ">
                     <i class="fas fa-people-carry nav-icon"></i>
                     <p>Proveedores</p>
