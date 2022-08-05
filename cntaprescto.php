@@ -125,7 +125,7 @@ if ($resultado->execute()) {
 
                             <div class="card-header bg-purple " style="margin:0px;padding:8px">
                                 <span>
-                                    <h3>DETALLE DE PREUSPUESTO</h3>
+                                    <h3>DETALLE DE PRESUPUESTO</h3>
                                 </span>
                             </div>
 

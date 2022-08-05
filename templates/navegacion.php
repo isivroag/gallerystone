@@ -293,10 +293,10 @@
             </li>
             <!-- CIERRA INGRESOS-->
             <!--ABRE EGRESOS-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr') ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr' || $pagina == 'prescto') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr' || $pagina == 'prescto') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-dollar-sign "></i>
                   <i class=" fas fa-arrow-down "></i>
@@ -470,9 +470,9 @@
         <?php if ($_SESSION['s_rol'] != '1') {  ?>
 
           <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' ||  $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion' 
-          || $pagina == 'corte' || $pagina == 'ensamble' || $pagina == 'pulido') ? "menu-open" : ""; ?>">
+          || $pagina == 'corte' || $pagina == 'ensamble' || $pagina == 'pulido' || $pagina == 'cntaot') ? "menu-open" : ""; ?>">
             <a href="#" class="nav-link <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' ||  $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion' 
-            || $pagina == 'corte' || $pagina == 'ensamble' || $pagina == 'pulido') ? "active" : ""; ?>">
+            || $pagina == 'corte' || $pagina == 'ensamble' || $pagina == 'pulido' || $pagina == 'cntaot') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-hard-hat"></i>
 
@@ -531,7 +531,12 @@
 
 
               <!-- empieza Produccion General-->
-        
+              <li class="nav-item">
+                  <a href="cntaot.php" class="nav-link <?php echo ($pagina == 'cntaot') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-clipboard-list nav-icon"></i>
+                    <p>Consulta de OT</p>
+                  </a>
+                </li>
                
 
                 <li class="nav-item">

@@ -1,5 +1,5 @@
 <?php
-$pagina = "ordent";
+$pagina = "cntaot";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -50,14 +50,39 @@ $message = "";
             <div class="card-body">
 
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button id="btnNuevo" type="button" class="btn bg-gradient-secondary btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+                <div class="card">
+                    <div class="card-header bg-gradient-secondary">
+                        Filtro por rango de Fecha de Orden
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-2">
+                                <div class="form-group input-group-sm">
+                                    <label for="fecha" class="col-form-label">Desde:</label>
+                                    <input type="date" class="form-control" name="inicio" id="inicio">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                                <div class="form-group input-group-sm">
+                                    <label for="fecha" class="col-form-label">Hasta:</label>
+                                    <input type="date" class="form-control" name="final" id="final">
+                                    <input type="hidden" class="form-control" name="tipo_proy" id="tipo_proy" value=1>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-1 align-self-end text-center">
+                                <div class="form-group input-group-sm">
+                                    <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                   
                     </div>
                 </div>
                 <br>
                 <div class="container-fluid">
-                 
+
                     <div class="row ">
                         <div class="col-lg-12 ">
                             <div class="table-responsive ">
@@ -68,12 +93,13 @@ $message = "";
                                             <th>Id </th>
                                             <th>Folio Orden</th>
                                             <th>Folio Venta</th>
-                                            <th>Fecha Alta</th>
+                                            <th>Fecha Orden</th>
+                                            <th>Fecha OT</th>
                                             <th>Cliente</th>
                                             <th>Concepto</th>
-                                            <th>Registrado</th>
+
                                             <th>Acciones</th>
-                                            
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -81,15 +107,16 @@ $message = "";
                                         foreach ($data as $dat) {
                                         ?>
                                             <tr>
-                                            
+
                                                 <td><?php echo $dat['id_ot'] ?></td>
                                                 <td><?php echo $dat['folio_orden'] ?></td>
                                                 <td><?php echo $dat['folio_vta'] ?></td>
+                                                <td><?php echo $dat['fecha_ord'] ?></td>
                                                 <td><?php echo $dat['fecha_ot'] ?></td>
                                                 <td><?php echo $dat['nombre'] ?></td>
                                                 <td><?php echo $dat['concepto_vta'] ?></td>
-                                                <td><?php echo $dat['usuario_ot'] ?></td>
-                                                
+
+
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -104,7 +131,7 @@ $message = "";
 
             </div>
             <!-- /.card-body -->
-           
+
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->
@@ -124,7 +151,7 @@ $message = "";
                         <form id="formDatos" action="" method="POST">
                             <div class="modal-body row">
 
-                                
+
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="nom_her" class="col-form-label">Descripción:</label>
@@ -135,14 +162,14 @@ $message = "";
                                 <div class="col-sm-4">
                                     <div class="form-group input-group-sm">
                                         <label for="ubicacion" class="col-form-label">Ubicación:</label>
-                                        <input type="text" class="form-control" name="ubicacion" id="ubicacion" autocomplete="off" placeholder="ubicacion" >
+                                        <input type="text" class="form-control" name="ubicacion" id="ubicacion" autocomplete="off" placeholder="ubicacion">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-2">
                                     <div class="form-group input-group-sm">
                                         <label for="cantidad" class="col-form-label">Cant:</label>
-                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" >
+                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad">
                                     </div>
                                 </div>
 
@@ -160,7 +187,7 @@ $message = "";
                                             ?>
                                         </select>
                                     </div>
-                                
+
                                 </div>
 
 
@@ -224,7 +251,7 @@ $message = "";
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
@@ -233,7 +260,7 @@ $message = "";
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
@@ -290,7 +317,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/herramienta.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/cntaot.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
