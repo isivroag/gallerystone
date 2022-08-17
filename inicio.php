@@ -16,7 +16,7 @@ date_default_timezone_set('America/Mexico_City');
 /*FECHA INICIO DE SEMANA */
 $diaInicio = "Monday";
 $diaFin = "Sunday";
-$fechafun = date('Y-M-d');
+$fechafun = date('Y-m-d');
 $strFecha = strtotime($fechafun);
 
 $fechaInicio = date('Y-m-d', strtotime('last ' . $diaInicio, $strFecha));

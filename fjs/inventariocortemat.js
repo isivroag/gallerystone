@@ -350,6 +350,9 @@ $(document).ready(function () {
     saldo = fila.find('td:eq(11)').text()
     nmaterial = fila.find('td:eq(6)').text()
 
+
+    
+
     $('#id').val(id)
     $('#nombrep').val(nombre)
 
@@ -369,12 +372,19 @@ $(document).ready(function () {
   $('#formMov').submit(function (e) {
     e.preventDefault()
     var id = $.trim($('#id').val())
-    var descripcion = $('#descripcion').val()
-    var tipomov = $.trim($('#tipomov').val())
+    fecha=$('#fechan').val()
+    var descripcion = "Corte de Inventario al "+fecha
+    var tipomov = "Corte"
     var saldo = $('#extact').val()
-    var montomov = $('#montomov').val()
-    var saldofin = 0
-
+    var nuevo = $('#metrosn').val()
+    montomov=parseFloat(saldo)-parseFloat(nuevo)
+    
+    var saldofin = nuevo
+    
+    var alto = $('#alton').val()
+    var ancho = $('#anchon').val()
+    var largo = $('#largon').val()
+   
     usuario = $('#nameuser').val()
 
     if (id.length == 0 || tipomov.length == 0 || montomov.length == 0) {
@@ -386,81 +396,12 @@ $(document).ready(function () {
       return false
     } else {
       switch (tipomov) {
-        case 'Entrada':
-          saldofin = parseFloat(saldo) + parseFloat(montomov)
-          $.ajax({
-            url: 'bd/crudmovimientoinv.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-              id: id,
-              tipomov: tipomov,
-              saldo: saldo,
-              saldofin: saldofin,
-              montomov: montomov,
-              descripcion: descripcion,
-              usuario: usuario,
-            },
-            success: function (data) {
-              if (data == 3) {
-                Swal.fire({
-                  title: 'Operación Exitosa',
-                  text: 'Movimiento Guardado',
-                  icon: 'success',
-                })
-                $('#modalMOV').modal('hide')
-                window.location.reload()
-              } else {
-                Swal.fire({
-                  title: 'No fue posible cocluir la operacion',
-                  text: 'Movimiento No Guardado',
-                  icon: 'error',
-                })
-              }
-            },
-          })
-
-          break
-        case 'Salida':
-          saldofin = parseFloat(saldo) - parseFloat(montomov)
-          $.ajax({
-            url: 'bd/crudmovimientoinv.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-              id: id,
-              tipomov: tipomov,
-              saldo: saldo,
-              saldofin: saldofin,
-              montomov: montomov,
-              descripcion: descripcion,
-              usuario: usuario,
-            },
-            success: function (data) {
-              if (data == 3) {
-                Swal.fire({
-                  title: 'Operación Exitosa',
-                  text: 'Movimiento Guardado',
-                  icon: 'success',
-                })
-                window.location.reload()
-                $('#modalMOV').modal('hide')
-                window.location.reload()
-              } else {
-                Swal.fire({
-                  title: 'No fue posible cocluir la operacion',
-                  text: 'Movimiento No Guardado',
-                  icon: 'error',
-                })
-              }
-            },
-          })
-          break
-        case 'Inventario Inicial':
+   
+        case 'Corte':
           //Advertir y preguntar
           swal
             .fire({
-              title: 'Inventario Inicial',
+              title: 'Corte',
               text:
                 'Este movimiento cambia las Existencias totales del Producto por la cantidad establecida sin importar los movimientos anteriores ¿Desea Continuar?',
 
@@ -473,10 +414,9 @@ $(document).ready(function () {
             })
             .then(function (isConfirm) {
               if (isConfirm.value) {
-                saldofin = montomov
-
+              
                 $.ajax({
-                  url: 'bd/crudmovimientoinv.php',
+                  url: 'bd/inventariocortemat.php',
                   type: 'POST',
                   dataType: 'json',
                   data: {
@@ -486,10 +426,14 @@ $(document).ready(function () {
                     saldofin: saldofin,
                     montomov: montomov,
                     descripcion: descripcion,
+                    alto: alto,
+                    largo: largo,
+                    ancho: ancho,
+                    fecha: fecha,
                     usuario: usuario,
                   },
                   success: function (data) {
-                    if (data == 3) {
+                    if (data == 4) {
                       Swal.fire({
                         title: 'Operación Exitosa',
                         text: 'Movimiento Guardado',
@@ -499,7 +443,7 @@ $(document).ready(function () {
                       window.location.reload()
                     } else {
                       Swal.fire({
-                        title: 'No fue posible cocluir la operacion',
+                        title: 'No fue posible concluir la operacion',
                         text: 'Movimiento No Guardado',
                         icon: 'error',
                       })

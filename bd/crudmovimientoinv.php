@@ -29,12 +29,9 @@ if ($resultado->execute()) {
 switch ($tipomov) {
 
     case "Entrada":
-    
         $saldofin = $saldo + $montomov;
         break;
-
     case "Salida":
-    
         $saldofin = $saldo - $montomov;
         break;
     case "Inventario Inicial":

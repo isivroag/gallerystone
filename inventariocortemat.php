@@ -37,6 +37,7 @@ $dataest = $resultadoest->fetchAll(PDO::FETCH_ASSOC);
 
 $message = "";
 
+$fecha=date('Y-m-d');
 
 
 ?>
@@ -350,20 +351,29 @@ $message = "";
                     <div class="card card-widget" style="margin: 10px;">
                         <form id="formMov" action="" method="POST">
                             <div class="modal-body row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="id" class="col-form-label">ID:</label>
                                         <input type="text" class="form-control" name="id" id="id" autocomplete="off" placeholder="ID" disabled>
                                     </div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="claveact" class="col-form-label">Clave:</label>
                                         <input type="text" class="form-control" name="claveact" id="claveact" autocomplete="off" placeholder="Clave" disabled>
                                     </div>
                                 </div>
+                                <div class="col-sm-2">
+                                   
+                                </div>
 
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="claveact" class="col-form-label">Fecha:</label>
+                                        <input type="date" class="form-control" name="fechan" id="fechan" autocomplete="off"  value="<?php echo $fecha; ?>" >
+                                    </div>
+                                </div>
 
 
 
@@ -444,7 +454,7 @@ $message = "";
 
                                     <div class="form-group input-group-sm">
                                         <label for="extact" class="col-form-label">M2 Nuevo:</label>
-                                        <input type="text" class="form-control text-right" name="metrosn" id="metrosn" value="" placeholder="Nueva Media" >
+                                        <input type="text" class="form-control text-right" name="metrosn" id="metrosn" placeholder="Nueva Media" >
                                     </div>
                                 </div>
 
