@@ -7,6 +7,12 @@ $conexion = $objeto->connect();
 
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
+
+$largoant = (isset($_POST['largoant'])) ? $_POST['largoant'] : '';
+$altoant = (isset($_POST['altoant'])) ? $_POST['altoant'] : '';
+$m2ant = (isset($_POST['m2ant'])) ? $_POST['m2ant'] : '';
+
+
 $largo = (isset($_POST['largo'])) ? $_POST['largo'] : '';
 $alto = (isset($_POST['alto'])) ? $_POST['alto'] : '';
 $m2 = (isset($_POST['m2'])) ? $_POST['m2'] : '';

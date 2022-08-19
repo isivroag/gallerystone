@@ -608,9 +608,9 @@
 
 
           <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' 
-          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale') ? "menu-open" : ""; ?>">
+          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat' ) ? "menu-open" : ""; ?>">
             <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' 
-            || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale') ? "active" : ""; ?>">
+            || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 
@@ -655,6 +655,19 @@
                 <a href="rptinventariomat.php" class="nav-link <?php echo ($pagina == 'cntamaterial') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-boxes nav-icon"></i>
                   <p>Consulta Materiales</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="inventariocortemat.php" class="nav-link <?php echo ($pagina == 'cortemat') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-boxes-packing nav-icon"></i>
+                  <p>Corte Materiales</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="inventariomovmat.php" class="nav-link <?php echo ($pagina == 'movmat') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-table-list nav-icon"></i>
+                  <p>Movimientos Materiales</p>
                 </a>
               </li>
 

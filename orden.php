@@ -580,18 +580,18 @@ if ($folio != "") {
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <label for="ancho" class="col-form-label">Ancho:</label>
-                                                    <div class="input-group input-group-sm">
-
-                                                        <input type="text" class="form-control" name="ancho" id="ancho" disabled>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-2">
                                                     <label for="alto" class="col-form-label">Alto:</label>
                                                     <div class="input-group input-group-sm">
 
                                                         <input type="text" class="form-control" name="alto" id="alto" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <label for="ancho" class="col-form-label">Ancho:</label>
+                                                    <div class="input-group input-group-sm">
+
+                                                        <input type="text" class="form-control" name="ancho" id="ancho" disabled>
                                                     </div>
                                                 </div>
 
@@ -1186,7 +1186,7 @@ if ($folio != "") {
                     <br>
                     <div class="table-hover table-responsive w-auto" style="padding:15px">
                         <table name="tablaMat" id="tablaMat" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
-                            <thead class="text-center">
+                            <thead class="text-center bg-gradient-blue">
                                 <tr>
 
                                     <th>Id Item</th>
@@ -1423,7 +1423,7 @@ if ($folio != "") {
 
 
 <section>
-    <div class="modal fade" id="modalredimensionar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalredimensionar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header bg-gradient-primary">

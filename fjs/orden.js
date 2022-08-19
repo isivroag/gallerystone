@@ -765,9 +765,11 @@ $(document).ready(function () {
     nomumedida = fila.find('td:eq(10)').text()
 
     m2 = fila.find('td:eq(8)').text()
-    alto = fila.find('td:eq(7)').text()
-    ancho = fila.find('td:eq(6)').text()
     largo = fila.find('td:eq(5)').text()
+    
+    alto = fila.find('td:eq(6)').text()
+    ancho = fila.find('td:eq(7)').text()
+    
     ubicacion = fila.find('td:eq(11)').text()
     cantidaddis = fila.find('td:eq(12)').text()
 
@@ -1269,6 +1271,10 @@ $(document).ready(function () {
 
   $(document).on('click', '#btnguardarredimensionar', function () {
     id = $('#idmatred').val()
+    largoant = $('#largoant').val()
+    altoant = $('#altoant').val()
+    m2ant= $('#m2restantes').val()
+
     largo = $('#largonuevo').val()
     alto = $('#altonuevo').val()
     m2 = $('#validador').val()
@@ -1278,13 +1284,16 @@ $(document).ready(function () {
     if ($('#chpedaceria').prop('checked')) {
       pedaceria = 1
     }
-    console.log(pedaceria)
+  if (pedaceria==1 || ( largo!=0 && alto !=0 && m2!=0)){
     $.ajax({
       type: 'POST',
       url: 'bd/redimensionar.php',
       dataType: 'json',
       data: {
         id: id,
+        largoant : largoant,
+        altoant: altoant,
+        m2ant: m2ant,
         largo: largo,
         alto: alto,
         m2: m2,
@@ -1296,10 +1305,14 @@ $(document).ready(function () {
         if (data == 1) {
           window.location.reload()
         } else {
-          mensajeerror()
+         
         }
       },
     })
+  }else{
+    mensajeerror()
+  }
+
   })
 
   function limpiar() {
