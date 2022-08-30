@@ -36,7 +36,7 @@
             </p>
           </a>
         </li>
-        <?php if ($_SESSION['s_rol'] != '4' && $_SESSION['s_rol'] != '5') { ?>
+        <?php if ($_SESSION['s_rol'] != '4' && $_SESSION['s_rol'] != '5' ) { ?>
           <!--ABRE CATALOGOS-->
           <li class="nav-item  has-treeview <?php echo ($pagina == 'concepto' || $pagina == 'tipo' || $pagina == 'subtipo' || $pagina == 'item' || $pagina == 'formato' || $pagina == 'insumo' || $pagina == 'color' || $pagina == 'acabado' || $pagina == 'umedida' || $pagina == 'servicio') ? "menu-open" : ""; ?>">
 
@@ -192,7 +192,9 @@
             </ul>
           </li>
           <!--CIERRA CRM-->
-          <?php if ($_SESSION['s_rol'] != '1') { ?>
+
+
+          <?php if ($_SESSION['s_rol'] != '1' && $_SESSION['s_rol'] != '6') { ?>
             <!--ABRE INGRESOS-->
             <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina=="buscadorpres" || $pagina=="cntaliberaciones" 
             || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "menu-open" : ""; ?>">
@@ -466,8 +468,11 @@
           <?php } ?>
         <?php } ?>
         <!-- CIERRA ADMINISTRACION-->
+
+
+        
         <!-- ABRE PRODUCCION-->
-        <?php if ($_SESSION['s_rol'] != '1') {  ?>
+        <?php if ($_SESSION['s_rol'] != '1'  ) {  ?>
 
           <li class="nav-item has-treeview <?php echo ($pagina == 'orden' ||  $pagina == 'rptorden' ||  $pagina == 'cntarptorden' || $pagina == 'citamed' || $pagina == 'colocacion' 
           || $pagina == 'corte' || $pagina == 'ensamble' || $pagina == 'pulido' || $pagina == 'cntaot') ? "menu-open" : ""; ?>">
