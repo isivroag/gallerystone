@@ -82,7 +82,7 @@ switch ($opcion) {
                 
                 break;
         case 4:
-                $consulta = "SELECT * FROM citamed WHERE folio_cita='$id'";
+                $consulta = "SELECT * FROM vcitamed WHERE id='$id'";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

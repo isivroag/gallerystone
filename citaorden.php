@@ -15,6 +15,17 @@ $consulta = "SELECT * FROM vcitamed order by id";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+$fecha = strtotime(date("Y-m-d"));
+
+$mesactual = date("m", $fecha);
+$yearactual = date("Y", $fecha);
+
+$consulta2 = "SELECT * FROM vcitamed where month(start) ='$mesactual' and year(start)='$yearactual' order by id";
+$resultado2 = $conexion->prepare($consulta2);
+$resultado2->execute();
+$data2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 $consultaorden = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord<>'PENDIENTE' and edo_ord<>'LIBERADO' and tipop='PROYECTO' and avance=0 and date(fecha_plantilla)='2000-01-01' ORDER BY folio_ord";
 $resultadoorden = $conexion->prepare($consultaorden);
@@ -31,11 +42,14 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!-- fullCalendar -->
 <link rel="stylesheet" href="plugins/fullcalendar/main.css">
+
 <link rel="stylesheet" href="plugins/fullcalendar-daygrid/main.min.css">
 <link rel="stylesheet" href="plugins/fullcalendar-timegrid/main.min.css">
 <link rel="stylesheet" href="plugins/fullcalendar-bootstrap/main.css">
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+
 
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
 <!--Datetimepicker Bootstrap -->
@@ -127,6 +141,48 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                             <!-- THE CALENDAR -->
                             <div id="calendar"></div>
+                            <!--
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12">
+                                    <div class="table-hover table-responsive w-auto" style="padding:15px">
+
+                                        <table name="tablacitas" id="tablacitas" class="table table-sm text-nowrap table-striped table-bordered table-condensed" style="width:100%">
+                                            <thead class="text-center bg-secondary">
+                                                <tr>
+                                                    <th>Folio</th>
+
+
+                                                    <th>Fecha Programada</th>
+                                                    <th>Cliente</th>
+                                                    <th>Proyecto</th>
+                                                    <th>Fecha Atencion</th>
+                                                    <th>Responsable</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                foreach ($data2 as $dat) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $dat['folio_ord'] ?></td>
+
+
+                                                        <td><?php echo $dat['start'] ?></td>
+                                                        <td><?php echo $dat['title'] ?></td>
+                                                        <td><?php echo $dat['descripcion'] ?></td>
+                                                        <td><?php echo $dat['end'] ?></td>
+                                                        <td><?php echo $dat['responsable'] ?></td>
+                                                        <td><?php echo $dat['estado_cita'] ?></td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>-->
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -210,9 +266,28 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                         <input type="hidden" class="form-control" name="foliocita" id="foliocita">
                                     </div>
                                 </div>
-
                                 <div class="col-sm-12">
                                     <div class="form-group">
+
+                                        <label for="nombre" class="col-form-label">Cliente:</label>
+
+                                        <div class="input-group">
+
+                                            <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Cliente" disabled>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="concepto" class="col-form-label">Concepto Cita</label>
+                                        <input type="text" class="form-control" name="concepto" id="concepto" autocomplete="off" placeholder="Concepto de Cita" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+
                                         <label for="fecha" class="col-form-label">Fecha Y Hora:</label>
 
                                         <div class="input-group date" id="datetimepicker1" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
@@ -224,7 +299,7 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="responsable" class="col-form-label">Responsable:</label>
                                         <select class="form-control" name="responsable" id="responsable" autocomplete="off" placeholder="responsable">
@@ -260,8 +335,8 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                             }
                             ?>
                             <div class="modal-footer">
-                                <button type="button" id="btnCancelarf" class="btn btn-danger" ><i class="fas fa-ban"></i> Cancelar</button>
-                               
+                                <button type="button" id="btnCancelarf" class="btn btn-danger"><i class="fas fa-ban"></i> Cancelar</button>
+
                                 <button type="button" id="btnAtendido" name="btnAtendido" class="btn btn-primary" value="btnAtendido"><i class="fa-solid fa-circle-check"></i> Atendido</button>
                                 <button type="button" id="btnGuardarf" name="btnGuardarf" class="btn btn-success" value="btnGuardarf"><i class="far fa-save"></i> Guardar</button>
                             </div>

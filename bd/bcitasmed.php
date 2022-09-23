@@ -7,7 +7,7 @@ $data="";
 
 
 
-$consulta = "SELECT * FROM vcitamed where estado_cita='1' ORDER BY id";
+$consulta = "SELECT * FROM vcitamed where estado_cita<>'0' ORDER BY id";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
