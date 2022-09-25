@@ -42,7 +42,7 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
         <!-- Default box -->
         <div class="card">
             <div class="card-header bg-secondary text-light">
-                <h1 class="card-title mx-auto">BANCOS</h1>
+                <h1 class="card-title mx-auto">CAJAS DE HERRAMIENTAS</h1>
             </div>
 
             <div class="card-body">
