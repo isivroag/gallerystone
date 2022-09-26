@@ -20,14 +20,14 @@ $(document).ready(function () {
       },
 
       {
-        targets: 5,
+        targets: 3,
         render: function (data, type, full, meta) {
           return "<div class='text-wrap width-200'>" + data + '</div>'
           //return "<div class='text-wrap width-200'>" + data + '</div>'
         },
       },
-      { className: 'hide_column', targets: [4] },
       { className: 'hide_column', targets: [5] },
+      { className: 'hide_column', targets: [6] },
     ],
 
     //Para cambiar el lenguaje a español
@@ -49,22 +49,22 @@ $(document).ready(function () {
     },
 
     rowCallback: function (row, data) {
-      $($(row).find('td')['6']).css('color', 'white')
-      $($(row).find('td')['6']).addClass('text-center')
+      $($(row).find('td')['7']).css('color', 'white')
+      $($(row).find('td')['7']).addClass('text-center')
     
-      if (data[6] == 'INICIADO') {
-        //$($(row).find("td")[6]).css("background-color", "warning");
-       $($(row).find('td')[6]).addClass('bg-gradient-warning')
+      if (data[7] == 'INICIADO') {
+        //$($(row).find("td")[7]).css("background-color", "warning");
+       $($(row).find('td')[7]).addClass('bg-gradient-warning')
        
-        //$($(row).find('td')['6']).text('PENDIENTE')
-      } else if (data[6] == 'ENTREGADO') {
-        //$($(row).find("td")[6]).css("background-color", "blue");
-        $($(row).find('td')[6]).addClass('bg-gradient-info')
+        //$($(row).find('td')['7']).text('PENDIENTE')
+      } else if (data[7] == 'ENTREGADO') {
+        //$($(row).find("td")[7]).css("background-color", "blue");
+        $($(row).find('td')[7]).addClass('bg-gradient-info')
       
-        //$($(row).find('td')['6']).text('ENVIADO')
-      } else if (data[6] == 'RECIBIDO') {
-        //$($(row).find("td")[6]).css("background-color", "success");
-        $($(row).find('td')[6]).addClass('bg-gradient-success')
+        //$($(row).find('td')['7']).text('ENVIADO')
+      } else if (data[7] == 'RECIBIDO') {
+        //$($(row).find("td")[7]).css("background-color", "success");
+        $($(row).find('td')[7]).addClass('bg-gradient-success')
       
         //$($(row).find('td')['6']).text('ACEPTADO')
       }
@@ -273,6 +273,9 @@ $(document).ready(function () {
   $(document).on('click', '.btnVer', function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
+    emisor = fila.find('td:eq(0)').text()
+    receptor = fila.find('td:eq(0)').text()
+    obs = fila.find('td:eq(0)').text()
     window.location.href = 'vale.php?folio=' + folio
   })
 

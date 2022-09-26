@@ -613,9 +613,9 @@
 
 
           <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' 
-          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat' ) ? "menu-open" : ""; ?>">
+          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat'  ) ? "menu-open" : ""; ?>">
             <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' 
-            || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat') ? "active" : ""; ?>">
+            || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat' ) ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 

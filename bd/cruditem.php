@@ -11,6 +11,7 @@ $clave = (isset($_POST['clave'])) ? $_POST['clave'] : '';
 $color = (isset($_POST['color'])) ? $_POST['color'] : '';
 $acabado = (isset($_POST['acabado'])) ? $_POST['acabado'] : '';
 $tipo = (isset($_POST['tipo'])) ? $_POST['tipo'] : '';
+$claveinv = (isset($_POST['claveinv'])) ? $_POST['claveinv'] : '';
 $nombre = $nombre;
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
@@ -19,7 +20,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO item (nom_item,clave_item, id_insumo,id_color,id_acabado,tipo_item) VALUES('$nombre','$clave', '$insumo', '$color','$acabado','$tipo') ";			
+        $consulta = "INSERT INTO item (nom_item,clave_item, id_insumo,id_color,id_acabado,tipo_item,claveinv) VALUES('$nombre','$clave', '$insumo', '$color','$acabado','$tipo','$claveinv') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
@@ -29,7 +30,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE item SET nom_item='$nombre',clave_item='$clave', id_insumo='$insumo', id_color='$color', id_acabado='$acabado',tipo_item='$tipo' WHERE id_item='$id' ";		
+        $consulta = "UPDATE item SET nom_item='$nombre',clave_item='$clave', id_insumo='$insumo', id_color='$color', id_acabado='$acabado',tipo_item='$tipo',claveinv='$claveinv' WHERE id_item='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         

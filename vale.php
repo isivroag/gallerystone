@@ -35,6 +35,7 @@ if ($folio != "") {
         $firma_entregado = $dt['firma_entregado'];
         $firma_recibido = $dt['firma_recibido'];
         $obs = $dt['obs'];
+        $orden=$dt['folio_orden'];
     }
 
 
@@ -81,6 +82,7 @@ if ($folio != "") {
         $firma_entregado = $dt['firma_entregado'];
         $firma_recibido = $dt['firma_recibido'];
         $obs = $dt['obs'];
+        $orden=$dt['folio_orden'];
     }
 }
 
@@ -101,6 +103,14 @@ $cntacaja = "SELECT * FROM cajah WHERE estado_cajah=1 ORDER BY id_cajah";
 $rescaja = $conexion->prepare($cntacaja);
 $rescaja->execute();
 $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+$cntaord = "SELECT * FROM vorden WHERE edo_ord='COLOCACION' ORDER BY folio_ord";
+$resord = $conexion->prepare($cntaord);
+$resord->execute();
+$dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
+
 
 
 ?>
@@ -126,11 +136,13 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <?php if ($opcion == 1) { ?>
+                        <?php //if ($opcion == 1) { 
+                        ?>
 
-                            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
 
-                        <?php } ?>
+                        <?php // } 
+                        ?>
                     </div>
                 </div>
 
@@ -161,6 +173,27 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="text" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
                                         </div>
                                     </div>
+                                    <div class="col-sm-4">
+
+                                    </div>
+
+
+
+
+                                </div>
+                                <div class="row justify-content-sm-center">
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group input-group-sm">
+                                            <label for="folioord" class="col-form-label">Folio Orden:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" name="folioord" id="folioord" autocomplete="off" placeholder="Folio Orden" value="<?php echo $orden; ?>">
+                                                <span class="input-group-append">
+                                                    <button id="borden" type="button" class="btn btn-sm btn-secondary"><i class="fas fa-search" aria-hidden="true"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
@@ -168,9 +201,9 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
                                             <input type="hidden" class="form-control" name="entregado" id="entregado" value="<?php echo $firma_entregado; ?>" disabled>
                                             <input type="hidden" class="form-control" name="recibido" id="recibido" value="<?php echo $firma_recibido; ?>" disabled>
-
                                         </div>
                                     </div>
+
                                     <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
                                             <label for="fechac" class="col-form-label">Fecha Cierre:</label>
@@ -178,10 +211,8 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
                                     </div>
 
-
                                 </div>
                                 <div class="row justify-content-sm-center">
-
 
                                     <div class="col-lg-3">
                                         <div class="form-group input-group-sm auto">
@@ -190,7 +221,7 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
                                                 <?php
                                                 foreach ($datau as $dtu) {
                                                 ?>
-                                                    <option id="<?php echo $dtu['id_per'] ?>" value="<?php echo $dtu['nom_per'] ?>"> <?php echo $dtu['nom_per'] ?></option>
+                                                    <option id="<?php echo $dtu['id_per'] ?>" value="<?php echo $dtu['nom_per'] ?>" <?php echo $dtu['nom_per'] == $usuario_entrega ? "selected " : "" ?>> <?php echo $dtu['nom_per'] ?></option>
 
                                                 <?php
                                                 }
@@ -198,6 +229,7 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-3">
                                         <div class="form-group input-group-sm auto">
                                             <label for="receptor" class="col-form-label">Recibido Por:</label>
@@ -205,7 +237,7 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
                                                 <?php
                                                 foreach ($datau as $dtu) {
                                                 ?>
-                                                    <option id="<?php echo $dtu['id_per'] ?>" value="<?php echo $dtu['nom_per'] ?>"> <?php echo $dtu['nom_per'] ?></option>
+                                                    <option id="<?php echo $dtu['id_per'] ?>" value="<?php echo $dtu['nom_per'] ?>" <?php echo $dtu['nom_per'] == $usuario_recibe ? "selected " : "" ?>> <?php echo $dtu['nom_per'] ?></option>
 
                                                 <?php
                                                 }
@@ -463,7 +495,7 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
 
                         </div>
                         <br>
-                        
+
                         <div class="table-hover table-responsive w-auto" style="padding:15px">
                             <table name="tablaCaja" id="tablaCaja" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
                                 <thead class="text-center bg-gradient-primary">
@@ -484,6 +516,52 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo $row['id_cajah'] ?></td>
                                             <td><?php echo $row['clave_cajah'] ?></td>
                                             <td><?php echo $row['nom_cajah'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-purple">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR ORDEN</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaOrden" id="tablaOrden" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-purple">
+                                    <tr>
+
+                                        <th>Folio Orden</th>
+                                        <th>Cliente</th>
+                                        <th>Proyecto</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($dataord as $datord) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datord['folio_ord'] ?></td>
+                                            <td><?php echo $datord['nombre'] ?></td>
+                                            <td><?php echo $datord['concepto_vta'] ?></td>
                                             <td></td>
                                         </tr>
                                     <?php

@@ -149,14 +149,18 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
 
     iditem = fila.find('td:eq(0)').text()
-    nomitem = fila.find('td:eq(3)').text()
+    nomitem = fila.find('td:eq(2)').text()
+    claveinv = fila.find('td:eq(3)').text()
 
+    console.log(nomitem)
+    console.log(claveinv)
+      console.log(iditem)
     /*
      */
 
     $('#item').val(nomitem)
     $('#iditem').val(iditem)
-
+      $('#clavemat').val(claveinv)
     $('#modalItem').modal('hide')
   })
 

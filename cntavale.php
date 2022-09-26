@@ -80,6 +80,7 @@ $message = "";
                   <thead class="text-center bg-secondary">
                     <tr>
                       <th>Folio</th>
+                      <th>Folio Orden</th>
                       <th>Fecha</th>
                       <th>Usuario Inventario</th>
                       <th>Usuario Producción</th>
@@ -96,6 +97,7 @@ $message = "";
                     ?>
                       <tr>
                         <td><?php echo $dat['folio_vale'] ?></td>
+                        <td><?php echo $dat['folio_orden'] ?></td>
                         <td><?php echo $dat['fecha_vale'] ?></td>
                         <td><?php echo $dat['usuario_entrega'] ?></td>
                         <td><?php echo $dat['usuario_recibe'] ?></td>

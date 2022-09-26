@@ -86,6 +86,7 @@ $message = "";
                                             <th>Clave Acabado</th>
                                             <th>Acabado</th>
                                             <th>Tipo</th>
+                                            <th>Clave Inv</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -107,6 +108,7 @@ $message = "";
                                                 <td><?php echo $dat['clave_acabado'] ?></td>
                                                 <td><?php echo $dat['nom_acabado'] ?></td>
                                                 <td><?php echo $dat['tipo_item'] ?></td>
+                                                <td><?php echo $dat['claveinv'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -145,6 +147,13 @@ $message = "";
                                     <div class="form-group input-group-sm">
                                         <label for="clave" class="col-form-label">Clave:</label>
                                         <input type="text" class="form-control" name="clave" id="clave" autocomplete="off" placeholder="Clave">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group input-group-sm">
+                                        <label for="claveinv" class="col-form-label">Clave Inventario:</label>
+                                        <input type="text" class="form-control" name="claveinv" id="claveinv" autocomplete="off" placeholder="Clave">
                                     </div>
                                 </div>
 

@@ -11,7 +11,7 @@ $creador = (isset($_POST['creador'])) ? $_POST['creador'] : '';
 $receptor = (isset($_POST['receptor'])) ? $_POST['receptor'] : '';
 $obs = (isset($_POST['obs'])) ? $_POST['obs'] : '';
 
-
+$orden = (isset($_POST['orden'])) ? $_POST['orden'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
@@ -19,7 +19,7 @@ $res=0;
 
 switch($opcion){
     case 1: //alta
-        $consulta = "UPDATE vale set estado_vale='1',fecha_vale='$fecha',usuario_entrega='$creador',usuario_recibe='$receptor',obs='$obs'
+        $consulta = "UPDATE vale set estado_vale='1',fecha_vale='$fecha',usuario_entrega='$creador',usuario_recibe='$receptor',obs='$obs',folio_orden='$orden' 
         WHERE folio_vale='$folio' ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 

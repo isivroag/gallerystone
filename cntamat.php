@@ -19,7 +19,7 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$consultam = "SELECT id_item,clave_item,nom_item FROM item WHERE estado_item=1 and tipo_item='Material' ORDER BY id_item";
+$consultam = "SELECT id_item,clave_item,nom_item,claveinv FROM item WHERE estado_item=1 and tipo_item='Material' ORDER BY id_item";
 $resultadom = $conexion->prepare($consultam);
 $resultadom->execute();
 $datam = $resultadom->fetchAll(PDO::FETCH_ASSOC);
@@ -303,7 +303,7 @@ $message = "";
                                         <th>Id</th>
                                         <th>Clave</th>
                                         <th>Descripcion</th>
-
+                                        <th>Clave Inv</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>
@@ -315,6 +315,7 @@ $message = "";
                                 <td><?php echo $rowm['id_item']?></td>
                                 <td><?php echo $rowm['clave_item']?></td>
                                 <td><?php echo $rowm['nom_item']?></td>
+                                <td><?php echo $rowm['claveinv']?></td>
                                 <td></td>
                                 </tr>
 

@@ -198,13 +198,13 @@ tablaDet = $('#tablaDet').DataTable({
 
     iditem = fila.find('td:eq(0)').text()
     nomitem = fila.find('td:eq(2)').text()
-
+    claveinv = fila.find('td:eq(3)').text()
     /*
      */
 
     $('#itemalta').val(nomitem)
     $('#iditemalta').val(iditem)
-
+    $('#clave_alta').val(claveinv)
     $('#modalitem').modal('hide')
   })
   //termina tabla item y funciones

@@ -81,6 +81,36 @@ $('[data-toggle="tooltip"]').tooltip()
       }
   });
 
+  tablaOrden = $("#tablaOrden").DataTable({
+
+
+
+    columnDefs: [{
+        targets: -1,
+        data: null,
+        defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success bntSelOrden'><i class='fas fa-hand-pointer'></i></button></div></div>"
+    }],
+
+    //Para cambiar el lenguaje a español
+    language: {
+        lengthMenu: "Mostrar _MENU_ registros",
+        zeroRecords: "No se encontraron resultados",
+        info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+        infoFiltered: "(filtrado de un total de _MAX_ registros)",
+        sSearch: "Buscar:",
+        oPaginate: {
+            sFirst: "Primero",
+            sLast: "Último",
+            sNext: "Siguiente",
+            sPrevious: "Anterior"
+        },
+       sProcessing: "Procesando...",
+    }
+});
+
+  
+
 
  //TABLA DETALLE DE desechables
  tablaDetIndes = $('#tablaDetIndes').DataTable({
@@ -197,18 +227,19 @@ $('[data-toggle="tooltip"]').tooltip()
       creador = $("#creador").val();
       receptor = $("#receptor").val();
       obs = $("#obs").val();
+      orden=$("#folioord").val();
       opcion = 1
 
     
 
 
-      if (creador.length != 0 && receptor.length !=0) {
+      if (creador.length != 0 && receptor.length !=0 && orden) {
           $.ajax({
 
               type: "POST",
               url: "bd/crudvale.php",
               dataType: "json",
-              data: { fecha: fecha, folio: folio, creador: creador, receptor: receptor, 
+              data: { fecha: fecha, folio: folio, creador: creador,orden: orden, receptor: receptor, 
                 obs: obs,  opcion: opcion },
               success: function(res) {
 
@@ -259,6 +290,14 @@ $(document).on('click', '#btnInsumodes', function () {
   $('#modalDes').modal('show')
 })
 
+
+
+$(document).on('click', '#borden', function () {
+ 
+
+  $('#modalOrden').modal('show')
+})
+
 $(document).on('click', '#btncaja', function () {
  
 
@@ -289,6 +328,15 @@ $(document).on('click', '.btnSelDesechable', function () {
   $('#modalDes').modal('hide')
 })
 
+
+$(document).on('click', '.bntSelOrden', function () {
+  fila = $(this).closest('tr')
+  orden = fila.find('td:eq(0)').text()
+
+   $('#folioord').val(orden)
+ 
+  $('#modalOrden').modal('hide')
+})
 
 //BOTON LIMPIAR DESECHABLE
 $(document).on('click', '#btlimpiarides', function () {

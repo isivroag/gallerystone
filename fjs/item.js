@@ -19,8 +19,8 @@ $(document).ready(function() {
             { className: "hide_column", "targets": [6] },
             { className: "hide_column", "targets": [7] },
             { className: "hide_column", "targets": [9] },
-            { className: "hide_column", "targets": [10] }
-
+            { className: "hide_column", "targets": [10] },
+           // { className: "hide_column", "targets": [13] }
 
         ],
 
@@ -87,6 +87,8 @@ $(document).ready(function() {
         color = fila.find('td:eq(6)').text();
         acabado = fila.find('td:eq(9)').text();
         tipo = fila.find('td:eq(12)').text();
+        claveinv = fila.find('td:eq(13)').text();
+
         console.log(tipo);
 
         $("#nombre").val(nombre);
@@ -95,6 +97,7 @@ $(document).ready(function() {
         $("#color").val(color);
         $("#acabado").val(acabado);
         $("#tipo").val(tipo);
+        $("#claveinv").val(claveinv);
 
         opcion = 2; //editar
 
@@ -146,6 +149,7 @@ $(document).ready(function() {
         var color = $.trim($("#color").val());
         var acabado = $.trim($("#acabado").val());
         var tipo = $.trim($("#tipo").val());
+        var claveinv = $.trim($("#claveinv").val());
 
 
         console.log(nombre);
@@ -163,7 +167,7 @@ $(document).ready(function() {
                 url: "bd/cruditem.php",
                 type: "POST",
                 dataType: "json",
-                data: { nombre: nombre, clave: clave, insumo: insumo, color: color, acabado: acabado, id: id, opcion: opcion, tipo: tipo },
+                data: { nombre: nombre, clave: clave,claveinv: claveinv, insumo: insumo, color: color, acabado: acabado, id: id, opcion: opcion, tipo: tipo },
                 success: function(data) {
                     console.log(data);
                     console.log(fila);
@@ -182,11 +186,11 @@ $(document).ready(function() {
                     clave_acabado = data[0].clave_acabado;
                     acabado = data[0].nom_acabado;
                     tipo = data[0].tipo_item;
-
+                    claveinv = data[0].claveinv;
                     if (opcion == 1) {
-                        tablaVis.row.add([id, clave, nombre, id_insumo, clave_insumo, insumo, id_color, clave_color, color, id_acabado, clave_acabado, acabado, tipo]).draw();
+                        tablaVis.row.add([id, clave, nombre, id_insumo, clave_insumo, insumo, id_color, clave_color, color, id_acabado, clave_acabado, acabado, tipo,claveinv]).draw();
                     } else {
-                        tablaVis.row(fila).data([id, clave, nombre, id_insumo, clave_insumo, insumo, id_color, clave_color, color, id_acabado, clave_acabado, acabado, tipo]).draw();
+                        tablaVis.row(fila).data([id, clave, nombre, id_insumo, clave_insumo, insumo, id_color, clave_color, color, id_acabado, clave_acabado, acabado, tipo,claveinv]).draw();
                     }
                 }
             });
