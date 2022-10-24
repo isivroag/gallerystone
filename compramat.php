@@ -853,7 +853,7 @@ $dataest = $resultadoest->fetchAll(PDO::FETCH_ASSOC);
                         <form id="frmalta" action="" method="POST">
                             <div class="modal-body row mb-0 pb-0">
 
-                                <div class="col-sm-9">
+                                <div class="col-sm-7">
                                     <div class="form-group input-group-sm">
                                         <label for="itemalta" class="col-form-label">Tipo de Material:</label>
 
@@ -871,6 +871,12 @@ $dataest = $resultadoest->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="form-group input-group-sm">
                                         <label for="clave_alta" class="col-form-label">Clave:</label>
                                         <input type="text" class="form-control" name="clave_alta" id="clave_alta" autocomplete="off" placeholder="Clave">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group input-group-sm">
+                                        <label for="num_mat" class="col-form-label"># Placa:</label>
+                                        <input type="text" class="form-control" name="num_mat" id="num_mat" autocomplete="off" placeholder="# Placa">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">

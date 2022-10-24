@@ -199,6 +199,7 @@ tablaDet = $('#tablaDet').DataTable({
     iditem = fila.find('td:eq(0)').text()
     nomitem = fila.find('td:eq(2)').text()
     claveinv = fila.find('td:eq(3)').text()
+    numplaca(iditem)
     /*
      */
 
@@ -207,6 +208,24 @@ tablaDet = $('#tablaDet').DataTable({
     $('#clave_alta').val(claveinv)
     $('#modalitem').modal('hide')
   })
+
+  function numplaca(iditem){
+   
+    console.log(iditem)
+  if (iditem!=0) {
+    $.ajax({
+      type: 'POST',
+      url: 'bd/numeroplaca.php',
+      dataType: 'json',
+      data: { iditem: iditem },
+      success: function (data) {
+        console.log(data)
+        $('#num_mat').val(data)
+      },
+    })
+  } 
+
+}
   //termina tabla item y funciones
     $(document).on("click", "#bproveedor", function() {
 
@@ -412,7 +431,7 @@ tablaDet = $('#tablaDet').DataTable({
         $('#cantidad').val(1)
         $('#cantidad').prop('disabled', true)
         $('#costou').prop('disabled', false)
-    
+        
         $('#modalMat').modal('hide')
 
     });
@@ -460,6 +479,7 @@ $(document).on('click', '#btlimpiar', function () {
     costo = $('#costou').val()
     subtotal=cantidad*costo
     usuario=$('#nameuser').val();
+    
     opcion = 1
 
     if (folio.length != 0 && idmat.length != 0 && cantidad.length != 0 && costo.length != 0) {
@@ -693,6 +713,7 @@ $(document).on('click', '#btlimpiar', function () {
       var metros = $.trim($('#metrosalta').val())
       var obs = $.trim($('#obsalta').val())
       var clave = $.trim($('#clave_alta').val())
+      var numero = $.trim($('#num_mat').val())
       costo = $('#costoualta').val()
       folio = $('#folio').val()
       subtotal=1*costo
@@ -729,7 +750,8 @@ $(document).on('click', '#btlimpiar', function () {
             folio: folio,
             subtotal: subtotal,
             clave: clave,
-            usuario: usuario
+            usuario: usuario,
+            numero: numero,
           },
           success: function (data) {
             //es necesario el id del material

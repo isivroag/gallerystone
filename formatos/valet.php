@@ -97,9 +97,9 @@ function getPlantilla($folio)
     <table class="sborde" border="0" cellspacing="0" cellpadding="0">
         <thead>
             <tr>
-        
+                <th class="total"><strong>TIPO</strong></th>
                 <th class="total"><strong>CLAVE</strong></th>
-                <th class="total"><strong>HERRAMIENTA</strong></th>
+                <th class="total"><strong>DESCRIPCION</strong></th>
                 <th class="total"><strong>CANTIDAD</strong></th>
             </tr>
         </thead>
@@ -109,6 +109,7 @@ function getPlantilla($folio)
 
                 $plantilla .= '
             <tr>
+                <td class="desc">' . $row['tipo'] . '</td>
                 <td class="desc">' . $row['clave_her'] . '</td>
                 <td class="medida">' . $row['nom_her'] . '</td>
                 <td class="medida">' . $row['cantidad_her'] . '</td>

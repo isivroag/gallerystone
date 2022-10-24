@@ -35,7 +35,7 @@ if ($folio != "") {
         $firma_entregado = $dt['firma_entregado'];
         $firma_recibido = $dt['firma_recibido'];
         $obs = $dt['obs'];
-        $orden=$dt['folio_orden'];
+        $orden = $dt['folio_orden'];
     }
 
 
@@ -82,7 +82,7 @@ if ($folio != "") {
         $firma_entregado = $dt['firma_entregado'];
         $firma_recibido = $dt['firma_recibido'];
         $obs = $dt['obs'];
-        $orden=$dt['folio_orden'];
+        $orden = $dt['folio_orden'];
     }
 }
 
@@ -92,6 +92,11 @@ $resdes->execute();
 $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
 
 
+$cntades = "SELECT * FROM desechable where estado_des=1 order by id_des";
+$resdes = $conexion->prepare($cntades);
+$resdes->execute();
+$datains = $resdes->fetchAll(PDO::FETCH_ASSOC);
+
 
 $consultac = "SELECT * FROM personal WHERE estado_per=1 ORDER BY id_per";
 $resultadoc = $conexion->prepare($consultac);
@@ -99,7 +104,7 @@ $resultadoc->execute();
 $datau = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
 
-$cntacaja = "SELECT * FROM cajah WHERE estado_cajah=1 ORDER BY id_cajah";
+$cntacaja = "SELECT * FROM cajah WHERE estado_cajah=1 and bloqueado=0 ORDER BY id_cajah";
 $rescaja = $conexion->prepare($cntacaja);
 $rescaja->execute();
 $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
@@ -273,7 +278,7 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
 
 
                                                 </div>
-                                                <h1 class="card-title  text-light">Herramienta</h1>
+                                                <h1 class="card-title  text-light">DETALLE DE HERRAMIENTAS-INSUMOS</h1>
                                                 <div class="card-tools" style="margin:0px;padding:0px;">
 
 
@@ -281,23 +286,27 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
 
                                             <div class="card-body" style="margin:0px;padding:3px;">
-                                                <?php if ($opcion == 1) { ?>
-                                                    <div class="card card-widget collapsed-card " style="margin:2px;padding:5px;">
+                                                <?php if ($opcion) { ?>
+                                                    <div class="card card-widget " style="margin:2px;padding:5px;">
 
-                                                        <div class="card-header " style="margin:0px;padding:8px;">
+                                                        <div class="card-body accordion" id="addinsumo" style=" margin:0px;padding:2px 5px;">
+                                                            <div class="row justify-content-between " style="margin:2px;padding:5px;">
+                                                                <button type="button" class="btn bg-gradient-purple btn-sm" data-toggle="collapse" aria-expanded="false" aria-controls="addinsumoin" href='#addinsumoin'>
+                                                                    Agregar Herramienta <i class="fas fa-plus"></i>
+                                                                </button>
 
-                                                            <button type="button" class="btn bg-gradient-purple btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                                                Agregar Herramienta <i class="fas fa-plus"></i>
-                                                            </button>
+                                                                <button type="button" class="btn bg-gradient-info btn-sm" data-toggle="collapse" aria-expanded="false" aria-controls="addinsumoin" href='#addinsumoin2'>
+                                                                    Agregar Insumo <i class="fas fa-plus"></i>
+                                                                </button>
 
-                                                            <button type="button" id="btncaja" class="btn bg-gradient-info btn-sm">
-                                                                Agregar Caja <i class="fas fa-plus"></i>
-                                                            </button>
+                                                                <button type="button" id="btncaja" class="btn bg-gradient-primary btn-sm">
+                                                                    Agregar Caja <i class="fas fa-plus"></i>
+                                                                </button>
 
-                                                        </div>
+                                                            </div>
 
-                                                        <div class="card-body " style="margin:0px;padding:2px 5px;">
-                                                            <div class="row justify-content-sm-center">
+
+                                                            <div class="row justify-content-sm-center collapse" id="addinsumoin" data-parent="#addinsumo">
 
                                                                 <div class="col-lg-4">
                                                                     <div class="input-group input-group-sm">
@@ -349,6 +358,58 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
 
                                                             </div>
 
+                                                            <div class="row justify-content-sm-center collapse" id="addinsumoin2" data-parent="#addinsumo">
+
+                                                                <div class="col-lg-4">
+                                                                    <div class="input-group input-group-sm">
+
+                                                                        <input type="hidden" class="form-control" name="idinsumodes2" id="idinsumodes2">
+
+
+
+
+                                                                        <label for="insumodes2" class="col-form-label">Insumo:</label>
+                                                                        <div class="input-group input-group-sm">
+                                                                            <input type="text" class="form-control" name="insumodes2" id="insumodes2" disabled>
+                                                                            <span class="input-group-append">
+                                                                                <button id="btnInsumodes2" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                                            </span>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-2">
+                                                                    <label for="clavedes2" class="col-form-label">Clave:</label>
+                                                                    <div class="input-group input-group-sm">
+                                                                        <input type="text" class="form-control" name="clavedes2" id="clavedes2" disabled>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="col-lg-2">
+                                                                    <label for="cantidadides2" class="col-form-label">Cantidad:</label>
+                                                                    <div class="input-group input-group-sm">
+                                                                        <input type="hidden" class="form-control" name="cantidaddisponible2" id="cantidaddisponible2" disabled>
+                                                                        <input type="text" class="form-control" name="cantidadides2" id="cantidadides2" disabled>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-1 justify-content-center">
+                                                                    <label for="" class="col-form-label">Acción:</label>
+                                                                    <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                                            <button type="button" id="btnagregarides2" name="btnagregarides2" class="btn btn-sm bg-gradient-orange" value="btnGuardari2"><i class="fas fa-plus-square"></i></button>
+                                                                        </span>
+                                                                        <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                                            <button type="button" id="btlimpiarides2" name="btlimpiarides2" class="btn btn-sm bg-gradient-purple" value="btnlimpiari2"><i class="fas fa-brush"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
                                                         </div>
 
                                                     </div>
@@ -361,13 +422,13 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
                                                             <table name="tablaDetIndes" id="tablaDetIndes" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
                                                                 <thead class="text-center bg-gradient-purple">
                                                                     <tr>
+                                                                        <th>Reg</th>
                                                                         <th>Id</th>
-                                                                        <th>Id Herramienta</th>
+                                                                        <th>Tipo</th>
                                                                         <th>Clave </th>
-                                                                        <th>Herramienta </th>
+                                                                        <th>Herramienta/Insumo </th>
                                                                         <th>Cantidad</th>
                                                                         <th>Obs</th>
-
                                                                         <th>Acciones</th>
                                                                     </tr>
                                                                 </thead>
@@ -382,6 +443,7 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
                                                                         <tr>
                                                                             <td><?php echo $rowdet['id_reg'] ?></td>
                                                                             <td><?php echo $rowdet['id_her'] ?></td>
+                                                                            <td><?php echo $rowdet['tipo'] ?></td>
                                                                             <td><?php echo $rowdet['clave_her'] ?></td>
                                                                             <td><?php echo $rowdet['nom_her'] ?></td>
                                                                             <td><?php echo $rowdet['cantidad_her'] ?></td>
@@ -440,14 +502,14 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
             <div class="modal fade" id="modalDes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-md" role="document">
                     <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-primary">
+                        <div class="modal-header bg-gradient-purple">
                             <h5 class="modal-title" id="exampleModalLabel">BUSCAR HERRAMIENTA</h5>
 
                         </div>
                         <br>
                         <div class="table-hover table-responsive w-auto" style="padding:15px">
                             <table name="tablaDes" id="tablaDes" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
-                                <thead class="text-center bg-gradient-primary">
+                                <thead class="text-center bg-gradient-purple">
                                     <tr>
 
                                         <th>Id Herramienta</th>
@@ -491,7 +553,7 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
                 <div class="modal-dialog modal-xl modal-md" role="document">
                     <div class="modal-content w-auto">
                         <div class="modal-header bg-gradient-primary">
-                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR HERRAMIENTA</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR CAJA</h5>
 
                         </div>
                         <br>
@@ -576,6 +638,54 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
+
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalDes2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-info">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMOS</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaDes2" id="tablaDes2" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-info">
+                                    <tr>
+
+                                        <th>Id Insumo</th>
+                                        <th>Clave</th>
+                                        <th>Insumo</th>
+                                        <th>Cantidad</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datains as $datd) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datd['id_des'] ?></td>
+                                            <td><?php echo $datd['clave_des'] ?></td>
+                                            <td><?php echo $datd['nom_des'] ?></td>
+                                            <td><?php echo $datd['cant_des'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- /.content -->
 </div>

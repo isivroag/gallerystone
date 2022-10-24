@@ -11,7 +11,7 @@ $('[data-toggle="tooltip"]').tooltip()
    
    
    
-    if (operacion == 1) {
+    if (operacion ) {
       columnas = "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
         
     } else {
@@ -184,6 +184,37 @@ $('[data-toggle="tooltip"]').tooltip()
 
  
 
+    tablaDes2 = $('#tablaDes2').DataTable({
+      columnDefs: [
+        {
+          targets: -1,
+          data: null,
+          defaultContent:
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelDesechable2'><i class='fas fa-hand-pointer'></i></button></div></div>",
+        },
+      
+      ],
+  
+      //Para cambiar el lenguaje a español
+      language: {
+        lengthMenu: 'Mostrar _MENU_ registros',
+        zeroRecords: 'No se encontraron resultados',
+        info:
+          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+        infoFiltered: '(filtrado de un total de _MAX_ registros)',
+        sSearch: 'Buscar:',
+        oPaginate: {
+          sFirst: 'Primero',
+          sLast: 'Último',
+          sNext: 'Siguiente',
+          sPrevious: 'Anterior'
+        },
+        sProcessing: 'Procesando...',
+      },
+    })
+
+
 
     tablaCaja=$('#tablaCaja').DataTable({
       columnDefs: [
@@ -283,6 +314,8 @@ $('[data-toggle="tooltip"]').tooltip()
 
   });
 
+
+
 //BOTON BUSCAR DESECHABLE
 $(document).on('click', '#btnInsumodes', function () {
  
@@ -290,6 +323,11 @@ $(document).on('click', '#btnInsumodes', function () {
   $('#modalDes').modal('show')
 })
 
+$(document).on('click', '#btnInsumodes2', function () {
+ 
+
+  $('#modalDes2').modal('show')
+})
 
 
 $(document).on('click', '#borden', function () {
@@ -328,6 +366,25 @@ $(document).on('click', '.btnSelDesechable', function () {
   $('#modalDes').modal('hide')
 })
 
+$(document).on('click', '.btnSelDesechable2', function () {
+  fila = $(this).closest('tr')
+  idinsumo = fila.find('td:eq(0)').text()
+  nominsumo = fila.find('td:eq(2)').text()
+  clave = fila.find('td:eq(1)').text()
+  cantidad = fila.find('td:eq(3)').text()
+
+  /*
+   */
+  $('#idinsumodes2').val(idinsumo)
+   $('#insumodes2').val(nominsumo)
+   $('#clavedes2').val(clave)
+   $('#cantidaddisponible2').val(cantidad)
+   $('#costou2').prop('disabled', false)
+  $('#cantidadides2').prop('disabled', false)
+
+  $('#modalDes2').modal('hide')
+})
+
 
 $(document).on('click', '.bntSelOrden', function () {
   fila = $(this).closest('tr')
@@ -338,11 +395,16 @@ $(document).on('click', '.bntSelOrden', function () {
   $('#modalOrden').modal('hide')
 })
 
+
+
 //BOTON LIMPIAR DESECHABLE
 $(document).on('click', '#btlimpiarides', function () {
   limpiardes()
 })
 
+$(document).on('click', '#btlimpiarides2', function () {
+  limpiardes2()
+})
 
 
 //AGREGAR DESECHABLE
@@ -352,7 +414,7 @@ $(document).on('click', '#btnagregarides', function () {
   iddes = $('#idinsumodes').val()
 
   cantidadi = $('#cantidadides').val()
-
+  tipo="HERRAMIENTA"
   
   
   usuario = $('#nameuser').val()
@@ -370,6 +432,7 @@ $(document).on('click', '#btnagregarides', function () {
         iddes: iddes,
         cantidadi: cantidadi,
         opcion: opcion,
+        tipo: tipo,
         usuario: usuario,
       
       },
@@ -377,6 +440,7 @@ $(document).on('click', '#btnagregarides', function () {
         
         id_reg = data[0].id_reg
         id_des = data[0].id_her
+        tipo = data[0].tipo
         clave_des = data[0].clave_her
         nom_des = data[0].nom_her
         cantidad = data[0].cantidad_her
@@ -387,6 +451,7 @@ $(document).on('click', '#btnagregarides', function () {
           .add([
             id_reg,
             id_des,
+            tipo,
             clave_des,
             nom_des,
             cantidad,
@@ -397,6 +462,72 @@ $(document).on('click', '#btnagregarides', function () {
           .draw()
       
         limpiardes()
+      },
+    })
+  } else {
+    Swal.fire({
+      title: 'Datos Faltantes',
+      text: 'Debe ingresar todos los datos del Item',
+      icon: 'warning',
+    })
+    return false
+  }
+})
+
+$(document).on('click', '#btnagregarides2', function () {
+  folio = $('#folio').val()
+
+  iddes = $('#idinsumodes2').val()
+
+  cantidadi = $('#cantidadides2').val()
+
+  tipo="INSUMO"
+  
+  usuario = $('#nameuser').val()
+  opcion = 1
+
+
+  if (folio.length != 0 && iddes.length != 0 && cantidadi.length != 0 ) {
+    $.ajax({
+      type: 'POST',
+      url: 'bd/detallevale.php',
+      dataType: 'json',
+      //async: false,
+      data: {
+        folio: folio,
+        iddes: iddes,
+        tipo: tipo,
+        cantidadi: cantidadi,
+        opcion: opcion,
+        usuario: usuario,
+      
+      },
+      success: function (data) {
+        
+        id_reg = data[0].id_reg
+        id_des = data[0].id_her
+        clave_des = data[0].clave_her
+        tipo = data[0].tipo
+        nom_des = data[0].nom_her
+        cantidad = data[0].cantidad_her
+        obs = data[0].obs
+        
+
+        tablaDetIndes.row
+          .add([
+            id_reg,
+            id_des,
+            tipo,
+            clave_des,
+            nom_des,
+            cantidad,
+            obs,
+            
+            
+          ])
+          .draw()
+      
+        limpiardes2()
       },
     })
   } else {
@@ -495,6 +626,16 @@ $(document).on('click', '.btnSelcaja', function () {
       $('#costou').prop('disabled', true)
       $('#cantidadides').prop('disabled', true)
     }
+
+    function limpiardes2() {
+      $('#idinsumodes2').val('')
+      $('#insumodes2').val('')
+      
+      $('#cantidadides2').val('')
+      $('#costou2').val('')
+      $('#costou2').prop('disabled', true)
+      $('#cantidadides2').prop('disabled', true)
+    }
   function calculo(subtotal) {
 
       total = round(subtotal * 1.16, 2);
@@ -522,11 +663,13 @@ $(document).on('click', '.btnSelcaja', function () {
 
 
 // BORRAR MATERIAL
-$(document).on('click', '.btnBorrar', function () {
+$(document).on('click', '.btnBorrar', function (e) {
+  e.preventDefault()
   fila = $(this)
  
 
   id =  parseInt($(this).closest("tr").find('td:eq(0)').text());
+  tipo=$(this).closest("tr").find('td:eq(2)').text()
   usuario = $('#nameuser').val()
  
   tipooperacion = 2
@@ -535,7 +678,7 @@ $(document).on('click', '.btnBorrar', function () {
     type: 'POST',
     url: 'bd/detallevale.php',
     dataType: 'json',
-    data: { id: id, opcion: tipooperacion },
+    data: { id: id, opcion: tipooperacion,tipo: tipo },
     success: function (data) {
    
       if (data == 1) {

@@ -74,7 +74,7 @@ $(document).ready(function () {
       { className: 'text-right', targets: [9] },
       { className: 'text-right', targets: [10] },
       { className: 'text-right', targets: [11] },
-      
+      { className: 'hide_column', targets: [14] },
       
 
     ],
@@ -152,11 +152,7 @@ $(document).ready(function () {
     nomitem = fila.find('td:eq(2)').text()
     claveinv = fila.find('td:eq(3)').text()
 
-    console.log(nomitem)
-    console.log(claveinv)
-      console.log(iditem)
-    /*
-     */
+    numplaca(iditem)
 
     $('#item').val(nomitem)
     $('#iditem').val(iditem)
@@ -185,6 +181,7 @@ $(document).ready(function () {
    
     ubicacion = fila.find('td:eq(12)').text()
     obs = fila.find('td:eq(13)').text()
+    num = fila.find('td:eq(14)').text()
 
     $('#item').val(nom_item)
     $('#clavemat').val(clave)
@@ -198,7 +195,7 @@ $(document).ready(function () {
     $('#ubicacion').val(ubicacion)
     $('#metros').val(metros)
     $('#obs').val(obs)
-
+    $('#num_mat').val(num)
     opcion = 2 //editar
 
     $('.modal-header').css('background-color', '#007bff')
@@ -231,6 +228,24 @@ $(document).ready(function () {
     }
   })
 
+ function numplaca(iditem){
+   
+      console.log(iditem)
+    if (iditem!=0) {
+      $.ajax({
+        type: 'POST',
+        url: 'bd/numeroplaca.php',
+        dataType: 'json',
+        data: { iditem: iditem },
+        success: function (data) {
+          console.log(data)
+          $('#num_mat').val(data)
+        },
+      })
+    } 
+
+  }
+
   //AGREGAR ITEM
   $('#formDatos').submit(function (e) {
     e.preventDefault()
@@ -245,6 +260,7 @@ $(document).ready(function () {
     var ubicacion = $.trim($('#ubicacion').val())
     var metros = $.trim($('#metros').val())
     var obs = $.trim($('#obs').val())
+    var numero = $.trim($('#num_mat').val())
 
     if (nom_mat.length == 0 || umedida.length == 0 || id_item.length == 0 || clave_mat.length == 0) {
       Swal.fire({
@@ -271,6 +287,7 @@ $(document).ready(function () {
           opcion: opcion,
           ubicacion: ubicacion,
           metros: metros,
+          numero: numero,
           obs: obs,
         },
         success: function (data) {
@@ -289,6 +306,7 @@ $(document).ready(function () {
           m2_mat = data[0].m2_mat
           ubicacion = data[0].ubi_mat
           obs = data[0].obs_mat
+          numero=data[0].numero
           if (opcion == 1) {
             tablaVis.row
               .add([
@@ -306,6 +324,7 @@ $(document).ready(function () {
                 m2_mat,
                 ubicacion,
                 obs,
+                numero,
               ])
               .draw()
           } else {
@@ -326,6 +345,7 @@ $(document).ready(function () {
                 m2_mat,
                 ubicacion,
                 obs,
+                numero,
               ])
               .draw()
           }

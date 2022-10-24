@@ -195,10 +195,11 @@ $message = "";
               <table name="tablac" id="tablac" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
                 <thead class="text-center bg-gradient-info">
                   <tr>
-                    <th>Id</th>
-                    <th>Id Herramienta</th>
+                    <th>Reg</th>
+                    <th>Id </th>
+                    <th>Tipo</th>
                     <th>Clave </th>
-                    <th>Herramienta </th>
+                    <th>Descripcion </th>
                     <th>Cantidad</th>
                     <th>Obs</th>
                     <th>Estado</th>
@@ -240,10 +241,11 @@ $message = "";
               <table name="tablad" id="tablad" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
                 <thead class="text-center bg-gradient-success">
                   <tr>
+                    <th>Reg</th>
                     <th>Id</th>
-                    <th>Id Herramienta</th>
+                    <th>Tipo</th>
                     <th>Clave </th>
-                    <th>Herramienta </th>
+                    <th>Descripcion </th>
                     <th>Cantidad</th>
                     <th>Obs</th>
                     <th>Estado</th>

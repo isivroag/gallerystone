@@ -24,6 +24,10 @@ $resdes = $conexion->prepare($cntades);
 $resdes->execute();
 $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
 
+$cntades = "SELECT * FROM desechable where estado_des=1 order by id_des";
+$resdes = $conexion->prepare($cntades);
+$resdes->execute();
+$datains = $resdes->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -174,29 +178,29 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-sm-11">
-                        <div class="table-hover table-responsive w-auto" style="padding:15px">
-                            <table name="tabladc" id="tabladc" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
-                                <thead class="text-center bg-gradient-primary">
-                                    <tr>
-                                        <th>Id Reg</th>
-                                        <th>Id Herramienta</th>
-                                        <th>Clave</th>
-                                        <th>Herramienta</th>
-                                        <th>Acciones</th>
-                                        
+                            <div class="table-hover table-responsive w-auto" style="padding:15px">
+                                <table name="tabladc" id="tabladc" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                    <thead class="text-center bg-gradient-primary">
+                                        <tr>
+                                            <th>Id Reg</th>
+                                            <th>Id Herramienta</th>
+                                            <th>Clave</th>
+                                            <th>Herramienta</th>
+                                            <th>Acciones</th>
 
 
-                                    </tr>
-                                </thead>
-                                <tbody>
 
-                                </tbody>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                            </table>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
                         </div>
 
-                        </div>
-                        
                     </div>
                 </div>
             </div>
@@ -219,7 +223,7 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
                         <input type="hidden" class="form-control" name="idcajah" id="idcajah" autocomplete="off" placeholder="ID">
 
                         <div class="table-hover table-responsive w-auto" style="padding:15px">
-                        
+
                             <table name="tablah" id="tablah" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
                                 <thead class="text-center bg-gradient-primary">
                                     <tr>
@@ -232,21 +236,21 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php
-                                foreach ($datades as $datd) {
-                                ?>
-                                    <tr>
+                                    <?php
+                                    foreach ($datades as $datd) {
+                                    ?>
+                                        <tr>
 
-                                        <td><?php echo $datd['id_her'] ?></td>
-                                        <td><?php echo $datd['clave_her'] ?></td>
-                                        <td><?php echo $datd['nom_her'] ?></td>
-                                        <td><?php echo $datd['cant_her'] ?></td>
-                                        <td></td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
+                                            <td><?php echo $datd['id_her'] ?></td>
+                                            <td><?php echo $datd['clave_her'] ?></td>
+                                            <td><?php echo $datd['nom_her'] ?></td>
+                                            <td><?php echo $datd['cant_her'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
 
                             </table>
                         </div>
@@ -256,6 +260,171 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
+    <section>
+        <div class="modal fade" id="modalMOVINS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        <h5 class="modal-title" id="exampleModalLabel">Configurar Caja</h5>
+
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-11 mt-1">
+                            <button id="btnAgregarins" type="button" class="btn bg-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Agregar Consumible</span></button>
+                            <input type="hidden" class="form-control" name="idcajains" id="idcajains" autocomplete="off" placeholder="ID">
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-11">
+                            <div class="table-hover table-responsive w-auto" style="padding:15px">
+                                <table name="tabladc2" id="tabladc2" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                    <thead class="text-center bg-gradient-info">
+                                        <tr>
+                                            <th>Id Reg</th>
+                                            <th>Id Ins</th>
+                                            <th>Clave</th>
+                                            <th>Insumo</th>
+                                            <th>Cantidad</th>
+                                            <th>Acciones</th>
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalBuscarin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-info">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMO DE DESGASTE</h5>
+
+                        </div>
+                        <br>
+
+                        <input type="hidden" class="form-control" name="idcajains2" id="idcajains2" autocomplete="off" placeholder="ID">
+
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+
+                            <table name="tablain" id="tablain" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-info">
+                                    <tr>
+
+                                        <th>Id Insumo</th>
+                                        <th>Clave</th>
+                                        <th>Insumo</th>
+                                        <th>Cantidad</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datains as $datd) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datd['id_des'] ?></td>
+                                            <td><?php echo $datd['clave_des'] ?></td>
+                                            <td><?php echo $datd['nom_des'] ?></td>
+                                            <td><?php echo $datd['cant_des'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="modal fade " id="modalCRUDins" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">AGREGAR INSUMO</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formInsumo" action="" method="POST">
+                            <div class="modal-body row">
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="idins" class="col-form-label">Id Insumo:</label>
+                                        <input type="text" class="form-control" name="idins" id="idins" autocomplete="off" placeholder="ID">
+                                        <input type="text" class="form-control" name="idcajains3" id="idcajains3" autocomplete="off" placeholder="ID">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-6">
+
+                                    <div class="form-group input-group-sm">
+                                        <label for="claveins" class="col-form-label">Clave Insumo:</label>
+                                        <input type="text" class="form-control" name="claveins" id="claveins" autocomplete="off" placeholder="Clave">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-10">
+                                    <div class="form-group input-group-sm">
+                                        <label for="nomins" class="col-form-label">Insumo:</label>
+                                        <input type="text" class="form-control" name="nomins" id="nomins" autocomplete="off" placeholder="Insumo">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                <div class="form-group input-group-sm">
+                                        <label for="cantidadins" class="col-form-label">Cantidad:</label>
+                                        <input type="text" class="form-control" name="cantidadins" id="cantidadins" autocomplete="off" placeholder="Cantidad">
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <?php
+                            if ($message != "") {
+                            ?>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <span class="badge "><?php echo ($message); ?></span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="button" id="btnGuardarIns" name="btnGuardarIns" class="btn btn-success" value="btnGuardarIns"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </div>
 

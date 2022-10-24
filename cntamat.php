@@ -91,6 +91,7 @@ $message = "";
                                             <th>M2</th>
                                             <th>Ubicacion</th>
                                             <th>Obs</th>
+                                            <th>numero</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -114,6 +115,7 @@ $message = "";
                                               
                                                 <td><?php echo $dat['ubi_mat'] ?></td>
                                                 <td><?php echo $dat['obs_mat'] ?></td>
+                                                <td><?php echo $dat['numero'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -148,11 +150,11 @@ $message = "";
                         <form id="formDatos" action="" method="POST">
                             <div class="modal-body row">
 
-                                <div class="col-sm-9">
+                                <div class="col-sm-7">
                                     <div class="form-group input-group-sm">
                                         <label for="item" class="col-form-label">Tipo de Material:</label>
 
-                                        <input type="hidden" class="form-control" name="iditem" id="iditem" autocomplete="off" placeholder="Material">
+                                        <input type="hidden" class="form-control" name="iditem" id="iditem" autocomplete="off" placeholder="Material" onchange="numplaca()">
 
                                         <div class="input-group input-group-sm">
                                             <input type="text" class="form-control" name="item" id="item" autocomplete="off" placeholder="Material">
@@ -166,6 +168,12 @@ $message = "";
                                     <div class="form-group input-group-sm">
                                         <label for="clavemat" class="col-form-label">Clave:</label>
                                         <input type="text" class="form-control" name="clavemat" id="clavemat" autocomplete="off" placeholder="Clave">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group input-group-sm">
+                                        <label for="num_mat" class="col-form-label"># Placa:</label>
+                                        <input type="text" class="form-control" name="num_mat" id="num_mat" autocomplete="off" placeholder="# Placa">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">

@@ -36,29 +36,48 @@ switch ($opc) {
         $consulta = "DELETE FROM cajah_detalle where id_reg='$id'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        $data=1;
+        $data = 1;
         break;
     case 4:
-
+        
         $consulta = "SELECT * FROM cajah_detalle WHERE id_cajah='$caja' ORDER BY id_reg";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach($data as $row)
-        {
-            $id_her=$row['id_her'];
-            $clave_her=$row['clave_her'];
-            $nom_her=$row['nom_her'];
-            $cantidad=1;
+        foreach ($data as $row) {
+            $id_her = $row['id_her'];
+            $clave_her = $row['clave_her'];
+            $nom_her = $row['nom_her'];
+            $cantidad = 1;
 
             $consulta = "INSERT INTO vale_detalle (folio_vale,id_her,cantidad_her,estado,obs) 
             values ('$folio','$id_her','$cantidad','PENDIENTE','')";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
-
-            
         }
+        $consulta = "SELECT * FROM cajah_detalleins WHERE id_cajah='$caja' ORDER BY id_reg";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($data as $row) {
+            $id_her = $row['id_des'];
+            $clave_her = $row['clave_des'];
+            $nom_her = $row['nom_des'];
+            $cantidad = $row['cantidad_des'];
+
+            $consulta = "INSERT INTO vale_detalleins (folio_vale,id_des,cantidad_des,estado,obs) 
+            values ('$folio','$id_her','$cantidad','PENDIENTE','')";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+        }
+
+        $consulta = "UPDATE cajah SET vale='$folio',bloqueado='1' WHERE id_cajah='$caja'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+
+
         break;
 }
 

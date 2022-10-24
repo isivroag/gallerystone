@@ -22,10 +22,11 @@ $costo = (isset($_POST['costo'])) ? $_POST['costo'] : '';
 $subtotal = (isset($_POST['subtotal'])) ? $_POST['subtotal'] : '';
 $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 $clave = (isset($_POST['clave'])) ? $_POST['clave'] : '';
+$numero = (isset($_POST['numero'])) ? $_POST['numero'] : '';
 
 
-        $consulta = "INSERT INTO material (id_item,nom_mat,largo_mat,ancho_mat,alto_mat,cant_mat,id_umedida,m2_mat,ubi_mat,obs_mat,clave_mat) 
-        VALUES('$iditem','$nom_mat','$largo','$ancho','$alto','$cantidad','$umedida','$metros','$ubicacion','$obs','$clave')";			
+        $consulta = "INSERT INTO material (id_item,nom_mat,largo_mat,ancho_mat,alto_mat,cant_mat,id_umedida,m2_mat,ubi_mat,obs_mat,clave_mat,numero) 
+        VALUES('$iditem','$nom_mat','$largo','$ancho','$alto','$cantidad','$umedida','$metros','$ubicacion','$obs','$clave','$numero')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  var id, opcion,folio
+  var id, opcion,folio,tipo
   opcion = 4
 
   tablaVis = $('#tablaV').DataTable({
@@ -112,23 +112,23 @@ $(document).ready(function () {
       sProcessing: 'Procesando...',
     },
     rowCallback: function (row, data) {
-      if (data[6] == '0') {
-        //$($(row).find("td")[6]).css("background-color", "warning");
-        $($(row).find('td')[6]).addClass('bg-gradient-warning')
-        $($(row).find('td')[6]).addClass('text-white')
-        $($(row).find('td')[6]).addClass('text-center')
+      if (data[7] == '0') {
+        //$($(row).find("td")[7]).css("background-color", "warning");
+        $($(row).find('td')[7]).addClass('bg-gradient-warning')
+        $($(row).find('td')[7]).addClass('text-white')
+        $($(row).find('td')[7]).addClass('text-center')
         //$($(row).find('td')[4]).css('background-color','#EEA447');
-        $($(row).find('td')[6]).text('PENDIENTE')
-      } else if (data[6] == '1') {
-        $($(row).find('td')[6]).addClass('bg-gradient-info')
+        $($(row).find('td')[7]).text('PENDIENTE')
+      } else if (data[7] == '1') {
+        $($(row).find('td')[7]).addClass('bg-gradient-info')
         //$($(row).find('td')[4]).css('background-color','#EEA447');
-        $($(row).find('td')[6]).text('ENTREGADO')
-        $($(row).find('td')[6]).addClass('text-center')
-      } else if (data[6] == '2') {
-        $($(row).find('td')[6]).addClass('bg-gradient-success')
+        $($(row).find('td')[7]).text('ENTREGADO')
+        $($(row).find('td')[7]).addClass('text-center')
+      } else if (data[7] == '2') {
+        $($(row).find('td')[7]).addClass('bg-gradient-success')
         //$($(row).find('td')[4]).css('background-color','#EEA447');
-        $($(row).find('td')[6]).text('RECIBIDO')
-        $($(row).find('td')[6]).addClass('text-center')
+        $($(row).find('td')[7]).text('RECIBIDO')
+        $($(row).find('td')[7]).addClass('text-center')
       }
     },
   })
@@ -169,23 +169,23 @@ $(document).ready(function () {
       sProcessing: 'Procesando...',
     },
     rowCallback: function (row, data) {
-      if (data[6] == '0') {
-        //$($(row).find("td")[6]).css("background-color", "warning");
-        $($(row).find('td')[6]).addClass('bg-gradient-warning')
-        $($(row).find('td')[6]).addClass('text-white')
-        $($(row).find('td')[6]).addClass('text-center')
+      if (data[7] == '0') {
+        //$($(row).find("td")[7]).css("background-color", "warning");
+        $($(row).find('td')[7]).addClass('bg-gradient-warning')
+        $($(row).find('td')[7]).addClass('text-white')
+        $($(row).find('td')[7]).addClass('text-center')
         //$($(row).find('td')[4]).css('background-color','#EEA447');
-        $($(row).find('td')[6]).text('PENDIENTE')
-      } else if (data[6] == '1') {
-        $($(row).find('td')[6]).addClass('bg-gradient-info')
+        $($(row).find('td')[7]).text('PENDIENTE')
+      } else if (data[7] == '1') {
+        $($(row).find('td')[7]).addClass('bg-gradient-info')
         //$($(row).find('td')[4]).css('background-color','#EEA447');
-        $($(row).find('td')[6]).text('ENTREGADO')
-        $($(row).find('td')[6]).addClass('text-center')
-      } else if (data[6] == '2') {
-        $($(row).find('td')[6]).addClass('bg-gradient-success')
+        $($(row).find('td')[7]).text('ENTREGADO')
+        $($(row).find('td')[7]).addClass('text-center')
+      } else if (data[7] == '2') {
+        $($(row).find('td')[7]).addClass('bg-gradient-success')
         //$($(row).find('td')[4]).css('background-color','#EEA447');
-        $($(row).find('td')[6]).text('RECIBIDO')
-        $($(row).find('td')[6]).addClass('text-center')
+        $($(row).find('td')[7]).text('RECIBIDO')
+        $($(row).find('td')[7]).addClass('text-center')
       }
     },
   })
@@ -203,7 +203,8 @@ $(document).ready(function () {
   $(document).on('click', '.btentregado', function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
-    estado=fila.find('td:eq(6)').text()
+    tipo = fila.find('td:eq(2)').text()
+    estado=fila.find('td:eq(7)').text()
     if (estado=="PENDIENTE"){
       opcion = 4
       $.ajax({
@@ -211,10 +212,12 @@ $(document).ready(function () {
         url: 'bd/detallevale.php',
         dataType: 'json',
   
-        data: { id: id, opcion: opcion },
+        data: { id: id, opcion: opcion, tipo: tipo },
   
         success: function (res) {
           if (res==1){
+            buscarherramienta(folio)
+          }else if (res==2){
             location.reload()
           }
          
@@ -242,7 +245,8 @@ $(document).ready(function () {
   $(document).on('click', '.btnrecibido', function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
-    estado=fila.find('td:eq(6)').text()
+    estado=fila.find('td:eq(7)').text()
+    tipo = fila.find('td:eq(2)').text()
     if (estado=="ENTREGADO"){
       opcion = 5
       $.ajax({
@@ -250,10 +254,12 @@ $(document).ready(function () {
         url: 'bd/detallevale.php',
         dataType: 'json',
   
-        data: { id: id, opcion: opcion },
+        data: { id: id, opcion: opcion, tipo: tipo },
   
         success: function (res) {
           if (res==1){
+            buscarherramienta2(folio)
+          }else if (res==2){
             location.reload()
           }
          
@@ -291,7 +297,7 @@ $(document).ready(function () {
       url: 'bd/detallevale.php',
       dataType: 'json',
 
-      data: { folio: folio, opcion: opcion },
+      data: { folio: folio, opcion: opcion,tipo: tipo },
 
       success: function (res) {
         for (var i = 0; i < res.length; i++) {
@@ -299,6 +305,7 @@ $(document).ready(function () {
             .add([
               res[i].id_reg,
               res[i].id_her,
+              res[i].tipo,
               res[i].clave_her,
               res[i].nom_her,
               res[i].cantidad_her,
@@ -323,7 +330,7 @@ $(document).ready(function () {
       url: 'bd/detallevale.php',
       dataType: 'json',
 
-      data: { folio: folio, opcion: opcion },
+      data: { folio: folio, opcion: opcion, tipo: tipo },
 
       success: function (res) {
         for (var i = 0; i < res.length; i++) {
@@ -331,6 +338,7 @@ $(document).ready(function () {
             .add([
               res[i].id_reg,
               res[i].id_her,
+              res[i].tipo,
               res[i].clave_her,
               res[i].nom_her,
               res[i].cantidad_her,
