@@ -12,6 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 $tokenid = md5($_SESSION['s_usuario']);
+$nusuario=$_SESSION['s_usuario'];
 
 if (isset($_GET['folio'])) {
   $folio = $_GET['folio'];
@@ -76,7 +77,7 @@ if ($resultado->rowCount() >= 1) {
   }
 } else {
   $fecha = date('Y-m-d');
-  $consultatmp = "INSERT INTO tmp_pres (tokenid,estado_pres,fecha_pres) VALUES('$tokenid','1','$fecha')";
+  $consultatmp = "INSERT INTO tmp_pres (tokenid,estado_pres,fecha_pres,usuario) VALUES('$tokenid','1','$fecha','$nusuario')";
   $resultadotmp = $conexion->prepare($consultatmp);
   $resultadotmp->execute();
 
@@ -98,6 +99,7 @@ if ($resultado->rowCount() >= 1) {
     $gtotal = "0.00";
     $notas = "";
     $vendedor = "";
+    $tipo_proy="";
   }
 }
 
@@ -261,7 +263,7 @@ $dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
 
                   <div class="col-lg-5">
                     <div class="form-group">
-                    <input type="text" class="form-control" name="venta" id="venta" value="<?php echo $venta; ?>">
+                    <input type="hidden" class="form-control" name="venta" id="venta" value="<?php echo $venta; ?>">
                       <input type="hidden" class="form-control" name="presupuesto" id="presupuesto" value="<?php echo $presupuesto; ?>">
                       <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
                       <input type="hidden" class="form-control" name="id_pros" id="id_pros" value="<?php echo $idpros; ?>">

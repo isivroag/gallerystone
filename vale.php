@@ -111,7 +111,7 @@ $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-$cntaord = "SELECT * FROM vorden WHERE edo_ord='COLOCACION' ORDER BY folio_ord";
+$cntaord = "SELECT * FROM vorden WHERE edo_ord='COLOCACION' and estado_ord<>'0' ORDER BY folio_ord";
 $resord = $conexion->prepare($cntaord);
 $resord->execute();
 $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);

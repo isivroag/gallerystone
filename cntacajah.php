@@ -24,7 +24,7 @@ $resdes = $conexion->prepare($cntades);
 $resdes->execute();
 $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
 
-$cntades = "SELECT * FROM desechable where estado_des=1 order by id_des";
+$cntades = "SELECT * FROM consumible where estado_cons=1 order by id_cons";
 $resdes = $conexion->prepare($cntades);
 $resdes->execute();
 $datains = $resdes->fetchAll(PDO::FETCH_ASSOC);
@@ -315,7 +315,7 @@ $datains = $resdes->fetchAll(PDO::FETCH_ASSOC);
                 <div class="modal-dialog modal-xl modal-md" role="document">
                     <div class="modal-content w-auto">
                         <div class="modal-header bg-gradient-info">
-                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMO DE DESGASTE</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMO </h5>
 
                         </div>
                         <br>
@@ -331,7 +331,7 @@ $datains = $resdes->fetchAll(PDO::FETCH_ASSOC);
                                         <th>Id Insumo</th>
                                         <th>Clave</th>
                                         <th>Insumo</th>
-                                        <th>Cantidad</th>
+                                        <th>Cantidad </th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>
@@ -341,10 +341,10 @@ $datains = $resdes->fetchAll(PDO::FETCH_ASSOC);
                                     ?>
                                         <tr>
 
-                                            <td><?php echo $datd['id_des'] ?></td>
-                                            <td><?php echo $datd['clave_des'] ?></td>
-                                            <td><?php echo $datd['nom_des'] ?></td>
-                                            <td><?php echo $datd['cant_des'] ?></td>
+                                            <td><?php echo $datd['id_cons'] ?></td>
+                                            <td><?php echo $datd['clave_cons'] ?></td>
+                                            <td><?php echo $datd['nom_cons'] ?></td>
+                                            <td><?php echo $datd['cant_cons'] ?></td>
                                             <td></td>
                                         </tr>
                                     <?php
@@ -374,7 +374,7 @@ $datains = $resdes->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="form-group input-group-sm">
                                         <label for="idins" class="col-form-label">Id Insumo:</label>
                                         <input type="text" class="form-control" name="idins" id="idins" autocomplete="off" placeholder="ID">
-                                        <input type="text" class="form-control" name="idcajains3" id="idcajains3" autocomplete="off" placeholder="ID">
+                                        <input type="hidden" class="form-control" name="idcajains3" id="idcajains3" autocomplete="off" placeholder="ID">
                                     </div>
                                 </div>
                                 <div class="col-sm-2"></div>
@@ -386,13 +386,13 @@ $datains = $resdes->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                 </div>
 
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
                                         <label for="nomins" class="col-form-label">Insumo:</label>
                                         <input type="text" class="form-control" name="nomins" id="nomins" autocomplete="off" placeholder="Insumo">
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                 <div class="form-group input-group-sm">
                                         <label for="cantidadins" class="col-form-label">Cantidad:</label>
                                         <input type="text" class="form-control" name="cantidadins" id="cantidadins" autocomplete="off" placeholder="Cantidad">

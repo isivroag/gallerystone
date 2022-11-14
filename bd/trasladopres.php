@@ -33,13 +33,16 @@ foreach ($dt as $row) {
     $notas= $row['notas'];
     $vendedor= $row['vendedor'];
     $tipo_proy= $row['tipo_proy'];
+    $usuario= $row['usuario'];
 }
 
 $consulta = "UPDATE tmp_pres SET estado_pres=2 WHERE folio_pres='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
-$consulta = "INSERT INTO presupuesto (id_pros,fecha_pres,concepto_pres,ubicacion,subtotal,tokenid,estado_pres,descuento,iva,total,gtotal,folio_tmp,notas,vendedor,tipo_proy) VALUES('$id_pros','$fecha','$concepto','$ubicacion','$subtotal','$tokenid','1','$descuento','$iva','$total','$gtotal','$folio','$notas','$vendedor','$tipo_proy')";
+$consulta = "INSERT INTO presupuesto 
+(id_pros,fecha_pres,concepto_pres,ubicacion,subtotal,tokenid,estado_pres,descuento,iva,total,gtotal,folio_tmp,notas,vendedor,tipo_proy,usuario) 
+VALUES('$id_pros','$fecha','$concepto','$ubicacion','$subtotal','$tokenid','1','$descuento','$iva','$total','$gtotal','$folio','$notas','$vendedor','$tipo_proy','$usuario')";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
