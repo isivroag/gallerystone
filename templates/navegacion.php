@@ -351,10 +351,10 @@
             </li>
             <!-- CIERRA EGRESOS-->
             <!-- ABRE REPORTES-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos") ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptdiario" ) ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos") ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptdiario" ) ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class="fas fa-chart-line nav-icon"></i>
 
@@ -365,6 +365,16 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
+
+
+              <li class="nav-item">
+
+                  <a href="rptdiario.php<?php echo '?fecha=' . date("Y-m-d") ?>" class="nav-link <?php echo ($pagina == 'rptdiario') ? "active seleccionado" : ""; ?>  ">
+
+                    <i class="fa-solid fa-cash-register nav-icon"></i>
+                    <p>Ingresos Diarios</p>
+                  </a>
+                </li>
 
                 <li class="nav-item">
                   <!--

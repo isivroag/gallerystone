@@ -268,7 +268,7 @@ $(document).ready(function() {
             },
         });
 
-        $("#modalesp").modal("hide");
+       // $("#modalesp").modal("hide");
     });
 
     $(document).on("click", ".btnborrarcond", function(event) {
