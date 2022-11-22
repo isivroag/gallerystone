@@ -185,14 +185,14 @@ $message = "";
       <!-- Default box -->
       <div class="modal fade" id="modalentrega" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-md " role="document">
-          <div class="modal-content w-auto">
+          <div class="modal-content">
             <div class="modal-header bg-gradient-info">
               <h5 class="modal-title" id="exampleModalLabel">DETALLE DE VALE(ENTREGA)</h5>
 
             </div>
             <br>
-            <div class="table-hover responsive w-auto " style="padding:10px">
-              <table name="tablac" id="tablac" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+            <div class="table-hover table-responsive " style="padding:10px">
+              <table name="tablac" id="tablac" class="table table-sm table-striped table-bordered table-condensed  w-auto mx-auto" style="width:100%">
                 <thead class="text-center bg-gradient-info">
                   <tr>
                     <th>Reg</th>
@@ -231,14 +231,14 @@ $message = "";
       <!-- Default box -->
       <div class="modal fade" id="modalrecepcion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-md " role="document">
-          <div class="modal-content w-auto">
+          <div class="modal-content ">
             <div class="modal-header bg-gradient-success">
               <h5 class="modal-title" id="exampleModalLabel">DETALLE DE VALE(RECEPCION)</h5>
 
             </div>
             <br>
-            <div class="table-hover responsive w-auto " style="padding:10px">
-              <table name="tablad" id="tablad" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+            <div class="table-hover table-responsive  " style="padding:10px">
+              <table name="tablad" id="tablad" class="table table-sm table-striped table-bordered table-condensed w-auto mx-auto" style="width:100%">
                 <thead class="text-center bg-gradient-success">
                   <tr>
                     <th>Reg</th>
