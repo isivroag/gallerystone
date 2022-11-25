@@ -256,7 +256,7 @@ $message = "";
             </div>
             <br>
             <div class="table-hover responsive w-auto " style="padding:10px">
-              <table name="tablapiezas" id="tablapiezas" class="table table-sm table-striped table-bordered  compact mx-auto" style="width:100%">
+              <table name="tablapiezas" id="tablapiezas" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
                 <thead class="text-center bg-gradient-primary">
                   <tr>
                     <th>ID</th>

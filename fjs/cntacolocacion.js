@@ -136,9 +136,11 @@ $(document).ready(function () {
         sProcessing: 'Procesando...',
       },
       stateSave: true,
-     
+      orderCellsTop: true,
+      fixedHeader: true,
       paging: false,
-    
+      scrollY:"400px",
+      scrollCollapse: true,
   
       rowCallback: function (row, data) {
   
@@ -159,7 +161,10 @@ $(document).ready(function () {
           $($(row).find('td')[4]).addClass('bg-gradient-danger')
         }
       },
-    })
+
+      
+    },
+    )
   
     var fila //capturar la fila para editar o borrar el registro
     
@@ -202,7 +207,7 @@ $(document).ready(function () {
       }
 
     })
-    $(document).on('click','#etapa',function(){
+    $(document).on('click touchstart','#etapa',function(){
    
       orden=$('#foliolorden').val()
       console.log(orden)
@@ -237,7 +242,9 @@ $(document).ready(function () {
 
              
               }
+              tablapiezas.columns.adjust()
               $('#modalpiezas').modal('show')
+
           },
       });
   }
