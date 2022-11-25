@@ -32,6 +32,16 @@ switch($opcion){
         
         break;
     case 2: //modificación
+        $consulta = "UPDATE vale set fecha_vale='$fecha',usuario_entrega='$creador',usuario_recibe='$receptor',obs='$obs',folio_orden='$orden' 
+        WHERE folio_vale='$folio' ";			
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute(); 
+
+        $consulta = "SELECT id_vend,nom_vend FROM vendedor ORDER BY id_vend DESC LIMIT 1";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $res=1;
+        }
       
         break;        
     case 3://baja
@@ -39,7 +49,8 @@ switch($opcion){
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $res=1;                          
-        break;        
+        break;  
+          
 }
 
 print json_encode($res, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
