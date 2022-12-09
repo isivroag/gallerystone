@@ -1465,7 +1465,7 @@ if ($folio != "") {
 
                                 <div class="col-sm-4">
                                     <div class="form-group input-group-sm">
-                                        <label for="validador" class="col-form-label">M2 Restantes:</label>
+                                        <label for="validador" class="col-form-label">M2 Rest.:</label>
                                         <input type="text" class="form-control" name="m2restantes" id="m2restantes" autocomplete="off" placeholder="m2" disabled>
                                     </div>
                                 </div>
@@ -1473,14 +1473,14 @@ if ($folio != "") {
 
                                 <div class="col-sm-4">
                                     <div class="form-group input-group-sm">
-                                        <label for="largonuevo" class="col-form-label">Largo Anterior:</label>
+                                        <label for="largonuevo" class="col-form-label">Nuevo Largo:</label>
                                         <input type="text" class="form-control" name="largonuevo" id="largonuevo" autocomplete="off" placeholder="largonuevo" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-4">
                                     <div class="form-group input-group-sm">
-                                        <label for="altonuevo" class="col-form-label">Alto Anterior:</label>
+                                        <label for="altonuevo" class="col-form-label">Nuevo Alto:</label>
                                         <input type="text" class="form-control" name="altonuevo" id="altonuevo" autocomplete="off" placeholder="altonuevo" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
@@ -1488,7 +1488,7 @@ if ($folio != "") {
 
                                 <div class="col-sm-4">
                                     <div class="form-group input-group-sm">
-                                        <label for="validador" class="col-form-label">M2 Restantes:</label>
+                                        <label for="validador" class="col-form-label">Nuevo M2 Rest.:</label>
                                         <input type="text" class="form-control" name="validador" id="validador" autocomplete="off" placeholder="m2">
                                     </div>
                                 </div>

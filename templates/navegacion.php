@@ -38,10 +38,12 @@
         </li>
         <?php if ($_SESSION['s_rol'] != '4' && $_SESSION['s_rol'] != '5' ) { ?>
           <!--ABRE CATALOGOS-->
-          <li class="nav-item  has-treeview <?php echo ($pagina == 'concepto' || $pagina == 'tipo' || $pagina == 'subtipo' || $pagina == 'item' || $pagina == 'formato' || $pagina == 'insumo' || $pagina == 'color' || $pagina == 'acabado' || $pagina == 'umedida' || $pagina == 'servicio') ? "menu-open" : ""; ?>">
+          <li class="nav-item  has-treeview <?php echo ($pagina == 'concepto' || $pagina == 'tipo' || $pagina == 'subtipo' || $pagina == 'item' || $pagina == 'formato' 
+          || $pagina == 'insumo' || $pagina == 'color' || $pagina == 'acabado' || $pagina == 'umedida' || $pagina == 'servicio' || $pagina == 'especificacion') ? "menu-open" : ""; ?>">
 
 
-            <a href="#" class="nav-link  <?php echo ($pagina == 'concepto' || $pagina == 'tipo' || $pagina == 'subtipo' || $pagina == 'item' || $pagina == 'formato' || $pagina == 'insumo' || $pagina == 'color' || $pagina == 'acabado' || $pagina == 'umedida' || $pagina == 'servicio') ? "active" : ""; ?>">
+            <a href="#" class="nav-link  <?php echo ($pagina == 'concepto' || $pagina == 'tipo' || $pagina == 'subtipo' || $pagina == 'item' || $pagina == 'formato' 
+            || $pagina == 'insumo' || $pagina == 'color' || $pagina == 'acabado' || $pagina == 'umedida' || $pagina == 'servicio' || $pagina == 'especificacion') ? "active" : ""; ?>">
               <i class="nav-icon fas fa-cogs "></i>
               <p>
                 Catalogos
@@ -106,7 +108,12 @@
                 </a>
               </li>
 
-
+              <li class="nav-item">
+                <a href="cntaespecificacion.php" class="nav-link <?php echo ($pagina == 'especificacion') ? "active seleccionado" : ""; ?> ">
+                  <i class="fa-solid fa-note-sticky  nav-icon"></i>
+                  <p>Especificaciones</p>
+                </a>
+              </li>
             </ul>
 
           </li>
