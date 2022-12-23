@@ -1,5 +1,5 @@
 <?php
-$pagina = "cntamovp";
+$pagina = "mat";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -146,7 +146,7 @@ $message = "";
                                             <th>Exitencia Inicial</th>
                                             <th>Cantidad</th>
                                             <th>Existencia Final</th>
-
+                                            <th>Usuario</th>
 
 
                                         </tr>
@@ -163,7 +163,7 @@ $message = "";
                                                 <td><?php echo $rowdata['saldoini'] ?></td>
                                                 <td><?php echo $rowdata['cantidad'] ?></td>
                                                 <td><?php echo $rowdata['saldofin'] ?></td>
-                                                
+                                                <td><?php echo $rowdata['usuario'] ?></td>
                                             </tr>
                                         <?php
                                         }

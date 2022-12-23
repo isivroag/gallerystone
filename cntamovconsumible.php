@@ -1,5 +1,5 @@
 <?php
-$pagina = "cntamovp";
+$pagina = "insumoop";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -191,7 +191,7 @@ $message = "";
                                             <th>Total Ini</th>
                                             <th>Mov.</th>
                                             <th>Total Fin</th>
-
+                                            <th>Usuario</th>
 
 
                                         </tr>
@@ -220,6 +220,7 @@ $message = "";
                                                 <td><?php echo $rowdata['saldoint'] ?></td>
                                                 <td><?php echo $rowdata['cantidadt'] ?></td>
                                                 <td><?php echo $rowdata['saldofint'] ?></td>
+                                                <td><?php echo $rowdata['usuario'] ?></td>
                                                 
                                                 
                                             </tr>

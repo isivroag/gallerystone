@@ -74,7 +74,7 @@ $(document).ready(function () {
       { className: 'text-right', targets: [9] },
       { className: 'text-right', targets: [10] },
       { className: 'text-right', targets: [11] },
-      { className: 'hide_column', targets: [14] },
+      
       
 
     ],

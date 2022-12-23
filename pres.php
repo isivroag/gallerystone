@@ -155,6 +155,7 @@ if ($folio != "") {
                       <select class="form-control" name="tipo_proy" id="tipo_proy" disabled>
                         <option id="tipo_proy1" value="1" <?php echo ($tipo_proy == 1) ? 'selected' : '' ?>> PROYECTO</option>
                         <option id="tipo_proy2" value="2" <?php echo ($tipo_proy == 2) ? 'selected' : '' ?>> OBRA</option>
+                        <option id="tipo_proy3" value="3" <?php echo ($tipo_proy == 3) ? 'selected' : '' ?>> SUMINISTRO</option>
                       </select>
                     </div>
                   </div>

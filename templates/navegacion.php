@@ -121,12 +121,12 @@
 
           <!--ABRE CRM-->
           <li class="nav-item has-treeview <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto' || $pagina == 'supendidos' ||
-                                              $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' 
+                                              $pagina == 'presupuestoobra'  || $pagina == 'presupuestosum'|| $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' 
                                               || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "menu-open" : ""; ?>">
 
 
             <a href="#" class="nav-link <?php echo ($pagina == 'prospectos' || $pagina == 'citap' || $pagina == 'presupuesto'  || $pagina == 'supendidos'
-                                          || $pagina == 'presupuestoobra' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' 
+                                          || $pagina == 'presupuestoobra' || $pagina == 'presupuestosum' || $pagina == 'rptpresupuesto' || $pagina == 'rptpresupuestoobr' 
                                           || $pagina == 'vendedores' || $pagina == 'seguimiento') ? "active" : ""; ?>">
               <i class="nav-icon fas fa-grip-horizontal "></i>
               <p>
@@ -165,6 +165,12 @@
                 <a href="cntapresupuestoobra.php" class="nav-link <?php echo ($pagina == 'presupuestoobra') ? "active seleccionado" : ""; ?> ">
                   <i class="material-icons nav-icon">handyman</i>
                   <p>Presupuestos Obras</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="cntapresupuestosum.php" class="nav-link <?php echo ($pagina == 'presupuestosum') ? "active seleccionado" : ""; ?> ">
+                <i class="fa-solid fa-dolly nav-icon"></i>
+                  <p>Presupuestos Suministro</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -376,7 +382,7 @@
 
               <li class="nav-item">
 
-                  <a href="rptdiario.php<?php echo '?fecha=' . date("Y-m-d") ?>" class="nav-link <?php echo ($pagina == 'rptdiario') ? "active seleccionado" : ""; ?>  ">
+                  <a href="rptcorte.php<?php echo '?inicio=' . date("Y-m-d").'&fin='.date("Y-m-d") ?>" class="nav-link <?php echo ($pagina == 'rptdiario') ? "active seleccionado" : ""; ?>  ">
 
                     <i class="fa-solid fa-cash-register nav-icon"></i>
                     <p>Ingresos Diarios</p>
@@ -630,9 +636,9 @@
 
 
           <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' 
-          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat' || $pagina == 'cajah' ) ? "menu-open" : ""; ?>">
+          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat' || $pagina == 'cajah' ) ? "menu-open" : ""; ?>">
             <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop' 
-            || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat' || $pagina == 'cajah') ? "active" : ""; ?>">
+            || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'cortemat' || $pagina == 'movmat' || $pagina == 'cajah') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 
@@ -670,6 +676,13 @@
                 <a href="cntamat.php" class="nav-link <?php echo ($pagina == 'mat') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-layer-group nav-icon"></i>
                   <p>Materiales</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="cntamatpieza.php" class="nav-link <?php echo ($pagina == 'matpieza') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-cubes nav-icon"></i>
+                  <p>Materiales Piezas</p>
                 </a>
               </li>
 

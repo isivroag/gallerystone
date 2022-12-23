@@ -178,7 +178,7 @@ $message = "";
                                             <th>Exitencia Inicial</th>
                                             <th>Cantidad</th>
                                             <th>Existencia Final</th>
-
+                                            <th>Usuario</th>
 
 
                                         </tr>
@@ -195,7 +195,7 @@ $message = "";
                                                 <td><?php echo $rowdata['saldoini'] ?></td>
                                                 <td><?php echo $rowdata['cantidad'] ?></td>
                                                 <td><?php echo $rowdata['saldofin'] ?></td>
-                                                
+                                                <td><?php echo $rowdata['usuario'] ?></td>
                                             </tr>
                                         <?php
                                         }

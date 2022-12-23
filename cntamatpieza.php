@@ -1,5 +1,5 @@
 <?php
-$pagina = "mat";
+$pagina = "matpieza";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -14,7 +14,7 @@ $conexion = $objeto->connect();
 
 
 
-$consulta = "SELECT * FROM vmaterial WHERE estado_mat=1 and m2_mat > 0  ORDER BY id_mat";
+$consulta = "SELECT * FROM vmaterialpieza WHERE estado_mat=1 ORDER BY id_mat";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -55,7 +55,7 @@ $message = "";
         <!-- Default box -->
         <div class="card ">
             <div class="card-header bg-gradient-secondary text-light">
-                <h1 class="card-title mx-auto">Detalle de Materiales</h1>
+                <h1 class="card-title mx-auto">Detalle de Materiales por Pieza</h1>
             </div>
 
             <div class="card-body">
@@ -85,13 +85,8 @@ $message = "";
                                             <th>U.Medida</th>
                                             <th>Descripcion</th>
                                             <th>Cantidad</th>
-                                            <th>Largo</th>
-                                            <th>Alto</th>
-                                            <th>Ancho</th>
-                                            <th>M2</th>
                                             <th>Ubicacion</th>
                                             <th>Obs</th>
-                                            <th># Placa</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -108,14 +103,8 @@ $message = "";
                                                 <td><?php echo $dat['nom_umedida'] ?></td>
                                                 <td><?php echo $dat['nom_mat'] ?></td>
                                                 <td><?php echo $dat['cant_mat'] ?></td>
-                                                <td><?php echo $dat['largo_mat'] ?></td>
-                                                <td><?php echo $dat['alto_mat'] ?></td>
-                                                <td><?php echo $dat['ancho_mat'] ?></td>
-                                                <td><?php echo $dat['m2_mat'] ?></td>
-                                              
                                                 <td><?php echo $dat['ubi_mat'] ?></td>
                                                 <td><?php echo $dat['obs_mat'] ?></td>
-                                                <td><?php echo $dat['numero'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -164,18 +153,16 @@ $message = "";
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-2">
+
+                                </div>
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="clavemat" class="col-form-label">Clave:</label>
                                         <input type="text" class="form-control" name="clavemat" id="clavemat" autocomplete="off" placeholder="Clave">
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group input-group-sm">
-                                        <label for="num_mat" class="col-form-label"># Placa:</label>
-                                        <input type="text" class="form-control" name="num_mat" id="num_mat" autocomplete="off" placeholder="# Placa">
-                                    </div>
-                                </div>
+
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="nom_mat" class="col-form-label">Descripción:</label>
@@ -200,12 +187,7 @@ $message = "";
 
                                 </div>
 
-                                <div class="col-sm-3">
-                                    <div class="form-group input-group-sm">
-                                        <label for="metros" class="col-form-label">M2:</label>
-                                        <input type="text" class="form-control" name="metros" id="metros" autocomplete="off" placeholder="Metros 2" disabled>
-                                    </div>
-                                </div>
+
                                 <div class="col-sm-5">
                                     <div class="form-group input-group-sm auto">
                                         <label for="ubicacion" class="col-form-label">Ubicación:</label>
@@ -222,7 +204,9 @@ $message = "";
                                     </div>
 
                                 </div>
+                                <div class="col-sm-2">
 
+                                </div>
                                 <!--
                                 <div class="col-sm-5">
                                     <div class="form-group input-group-sm">
@@ -231,33 +215,14 @@ $message = "";
                                     </div>
                                 </div>
                                         -->
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="cantidad" class="col-form-label">Cant:</label>
-                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" value="1" disabled>
+                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" >
                                     </div>
                                 </div>
 
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="largo" class="col-form-label">Largo:</label>
-                                        <input type="text" class="form-control" name="largo" id="largo" autocomplete="off" placeholder="Largo">
-                                    </div>
-                                </div>
 
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="alto" class="col-form-label">Alto:</label>
-                                        <input type="text" class="form-control" name="alto" id="alto" autocomplete="off" placeholder="Alto">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="ancho" class="col-form-label">Espesor:</label>
-                                        <input type="text" class="form-control" name="ancho" id="ancho" autocomplete="off" placeholder="Ancho">
-                                    </div>
-                                </div>
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="obs" class="col-form-label">Observaciones:</label>
@@ -316,20 +281,19 @@ $message = "";
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach($datam as $rowm)
-                                {
-                                ?>
-                                <tr>
-                                <td><?php echo $rowm['id_item']?></td>
-                                <td><?php echo $rowm['clave_item']?></td>
-                                <td><?php echo $rowm['nom_item']?></td>
-                                <td><?php echo $rowm['claveinv']?></td>
-                                <td></td>
-                                </tr>
+                                    <?php foreach ($datam as $rowm) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $rowm['id_item'] ?></td>
+                                            <td><?php echo $rowm['clave_item'] ?></td>
+                                            <td><?php echo $rowm['nom_item'] ?></td>
+                                            <td><?php echo $rowm['claveinv'] ?></td>
+                                            <td></td>
+                                        </tr>
 
-                                <?php 
-                                }
-                                ?>
+                                    <?php
+                                    }
+                                    ?>
 
                                 </tbody>
                             </table>
@@ -375,7 +339,7 @@ $message = "";
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
@@ -410,7 +374,7 @@ $message = "";
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group input-group-sm">
-                                        <label for="montomov" class="col-form-label">M2 Movimiento:</label>
+                                        <label for="montomov" class="col-form-label">Cantidad Movimiento:</label>
                                         <input type="text" class="form-control text-right" name="montomov" id="montomov" value="" placeholder="Cantidad Movimiento">
                                     </div>
 
@@ -446,7 +410,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntamat.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/cntamatpieza.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

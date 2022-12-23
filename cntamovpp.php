@@ -1,5 +1,5 @@
 <?php
-$pagina = "desechable";
+$pagina = "matpieza";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -20,36 +20,32 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 } else {
     echo "<script type='text/javascript'>";
-    echo "window.location='cntadesinsumo.php'";
+    echo "window.location='cntaproducto.php'";
     echo "</script>";
 }
 
 
 
- $consulta = "SELECT * FROM vdesechable where id_des='$id'";
+ $consulta = "SELECT * FROM vmaterialpieza where id_mat='$id'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 foreach($data as $dr){
-    $clave=$dr['id_des'];
-    $descripcion=$dr['nom_des'];
-    $cantidad=$dr['cant_des'];
-    $presentacion=$dr['usos'];
-    $umedida=$dr['nom_umedida'];
-    $contenidon=$dr['totalusos'];
-
-    
-    
+    $clave=$dr['id_mat'];
+    $descripcion=$dr['nom_mat'];
+    $cantidad=$dr['cant_mat'];
+    $material=$dr['nom_item'];
+    $claveitem=$dr['clave_item'];
 
 }
 
 if (isset($_GET['fechaini']) && isset($_GET['fechafin'])){
     $fechaini=$_GET['fechaini'];
     $fechafin=$_GET['fechafin'];
-    $consulta = "SELECT * FROM mov_des where estado_movd=1 AND id_des='$id' and fecha_movd between '$fechaini' and '$fechafin' order by fecha_movd desc,id_movd desc";
+    $consulta = "SELECT * FROM mov_matpieza where estado_movp=1 AND id_mat='$id' and fecha_movp between '$fechaini' and '$fechafin' order by fecha_movp desc,id_movp desc";
 }
 else{
-    $consulta = "SELECT * FROM mov_des where estado_movd=1 AND id_des='$id' order by fecha_movd desc,id_movd desc";
+    $consulta = "SELECT * FROM mov_matpieza where estado_movp=1 AND id_mat='$id' order by fecha_movp desc,id_movp desc";
 }
 
 $resultado = $conexion->prepare($consulta);
@@ -78,7 +74,7 @@ $message = "";
         <!-- Default box -->
         <div class="card ">
             <div class="card-header bg-gradient-secondary">
-                <h4 class="card-title text-center">KARDEX DE INSUMO</h4>
+                <h4 class="card-title text-center">KARDEX DE PRODUCTO</h4>
             </div>
 
             <div class="card-body">
@@ -96,9 +92,19 @@ $message = "";
                                 </div>
                             </div>
 
-                           
+                            <div class="col-lg-2">
+                                <div class="form-group input-group-sm">
+                                    <label for="claveitem" class="col-form-label">CLAVE MAT:</label>
+                                    <input type="text" class="form-control bg-white" name="claveitem" id="claveitem" value="<?php echo $claveitem?>" placeholder="claveitem" disabled>
+                                </div>
+                            </div>
 
-                         
+                            <div class="col-lg-4">
+                                <div class="form-group input-group-sm">
+                                    <label for="material" class="col-form-label">ID:</label>
+                                    <input type="text" class="form-control bg-white" name="material" id="material" value="<?php echo $material?>" placeholder="material" disabled>
+                                </div>
+                            </div>
                             <div class="col-lg-4">
                                 
                                 <div class="form-group input-group-sm">
@@ -109,36 +115,10 @@ $message = "";
 
                             <div class="col-lg-1">
                                 <div class="form-group input-group-sm">
-                                    <label for="cantidad" class="col-form-label">Cantidad :</label>
+                                    <label for="cantidad" class="col-form-label">Existencia:</label>
                                     <input type="text" class="form-control bg-white text-center" name="cantidad" id="cantidad" value="<?php echo $cantidad?>" placeholder="cantidad" disabled>
                                 </div>
                             </div>
-
-                            <div class="col-lg-1">
-                                <div class="form-group input-group-sm">
-                                    <label for="presentacion" class="col-form-label">Usos/Unidad:</label>
-                                    <input type="text" class="form-control bg-white text-center" name="presentacion" id="presentacion" value="<?php echo $presentacion?>" placeholder="cantidad" disabled>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-1">
-                                <div class="form-group input-group-sm">
-                                    <label for="nomedida" class="col-form-label">U. Medida:</label>
-                                    <input type="text" class="form-control bg-white text-center" name="nomedida" id="nomedida" value="<?php echo $umedida?>" placeholder="cantidad" disabled>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-1">
-                                <div class="form-group input-group-sm">
-                                    <label for="contenidon" class="col-form-label">Total Usos:</label>
-                                    <input type="text" class="form-control bg-white text-center" name="contenidon" id="contenidon" value="<?php echo $contenidon?>" placeholder="cantidad" disabled>
-                                </div>
-                            </div>
-
-
-                           
 
                         </div>
                     </div>
@@ -163,12 +143,11 @@ $message = "";
                                             <th>Fecha</th>
                                             <th>Tipo Movimiento</th>
                                             <th>Descripción</th>
-                                            <th>Cant. Inicial</th>
-                                            <th>Mov.</th>
-                                            <th>Cant. Final</th>
-                                            <th>Usos Mov</th>
-                                            <th>Total Usos</th>
+                                            <th>Exitencia Inicial</th>
+                                            <th>Cantidad</th>
+                                            <th>Existencia Final</th>
                                             <th>Usuario</th>
+
 
 
                                         </tr>
@@ -178,17 +157,13 @@ $message = "";
                                         foreach ($data as $rowdata) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $rowdata['id_movd'] ?></td>
-                                                <td><?php echo $rowdata['fecha_movd'] ?></td>
-                                                <td><?php echo $rowdata['tipo_movd'] ?></td>
+                                                <td><?php echo $rowdata['id_movp'] ?></td>
+                                                <td><?php echo $rowdata['fecha_movp'] ?></td>
+                                                <td><?php echo $rowdata['tipo_movp'] ?></td>
                                                 <td><?php echo $rowdata['descripcion'] ?></td>
                                                 <td><?php echo $rowdata['saldoini'] ?></td>
                                                 <td><?php echo $rowdata['cantidad'] ?></td>
                                                 <td><?php echo $rowdata['saldofin'] ?></td>
-
-                                                <td><?php echo $rowdata['usos_mov'] ?></td>
-                                                <td><?php echo $rowdata['totalusos'] ?></td>
-                                                
                                                 <td><?php echo $rowdata['usuario'] ?></td>
                                             </tr>
                                         <?php
@@ -219,7 +194,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntamovdes.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/cntamovpp.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
