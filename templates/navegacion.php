@@ -450,10 +450,10 @@
             </li>
             <!-- CIERRA REPORTES-->
             <!--ABRE ADMINISTRACION-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb' || $pagina == 'personal') ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb' || $pagina == 'personal' || $pagina == 'flujo') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'banco' || $pagina == 'cntamovb' || $pagina == 'personal') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'banco' || $pagina == 'cntamovb' || $pagina == 'personal' || $pagina == 'flujo') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-book "></i>
 
@@ -486,6 +486,13 @@
                   </a>
                 </li>
 
+
+                <li class="nav-item">
+                  <a href="cntaflujo.php" class="nav-link <?php echo ($pagina == 'flujo') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-percent nav-icon"></i>
+                    <p>Distribución de Ingreso</p>
+                  </a>
+                </li>
               </ul>
             </li>
           <?php } ?>

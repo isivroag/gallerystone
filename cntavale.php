@@ -249,6 +249,7 @@ $message = "";
                     <th>Cantidad</th>
                     <th>Obs</th>
                     <th>Estado</th>
+                    <th>Vale</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -270,7 +271,76 @@ $message = "";
     </div>
   </section>
 
+  <section>
+    <div class="modal fade" id="modalRegreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-success">
+            <h5 class="modal-title" id="exampleModalLabel">RECEPCION DE ELEMENTOS</h5>
 
+          </div>
+          <div class="card card-widget" style="margin: 10px;">
+            <form id="formRegreso" action="" method="POST">
+              <div class="modal-body row">
+
+
+                <div class="col-sm-4">
+                  <div class="form-group input-group-sm">
+                  <input type="hidden" class="form-control" name="fregistro" id="fregistro" autocomplete="off" placeholder="Nombre">
+                    <input type="hidden" class="form-control" name="foliovale" id="foliovale" autocomplete="off" placeholder="Nombre">
+                    <input type="hidden" class="form-control" name="iditem" id="iditem" autocomplete="off" placeholder="Nombre">
+                    <input type="hidden" class="form-control" name="tipoitem" id="tipoitem" autocomplete="off" placeholder="Nombre">
+                    <label for="cantidad1" class="col-form-label">Cantidad Vale:</label>
+                    <input type="text" class="form-control" name="cantidad1" id="cantidad1" autocomplete="off" placeholder="Cantidad">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group input-group-sm">
+                    <label for="cantidad2" class="col-form-label">Cantidad Restante:</label>
+                    <input type="text" class="form-control" name="cantidad2" id="cantidad2" autocomplete="off" placeholder="Cantidad">
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group input-group-sm">
+                    <label for="cantidadr" class="col-form-label">Cantidad Usada:</label>
+                    <input type="text" class="form-control" name="cantidadr" id="cantidadr" autocomplete="off" placeholder="Cantidad" disabled>
+                  </div>
+                </div>
+              
+                <div class="col-sm-12">
+                  <div class="form-group input-group-sm">
+                    <label for="motivor" class="col-form-label">Motivo de Mov. Inventario:</label>
+                    <textarea rows="2" class="form-control" name="motivor" id="motivor" autocomplete="off" placeholder="Motivo" ></textarea>
+                  </div>
+                </div>
+
+              </div>
+          </div>
+
+
+          <?php
+          if ($message != "") {
+          ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <span class="badge "><?php echo ($message); ?></span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+
+            </div>
+
+          <?php
+          }
+          ?>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+            <button type="button" id="btnregresarcant" name="btnregresarcant" class="btn btn-success" value="btnregresarcant"><i class="far fa-save"></i> Guardar</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- /.content -->
 </div>
 <!-- Resumen de Pagos -->

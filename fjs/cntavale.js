@@ -147,9 +147,11 @@ $(document).ready(function () {
         defaultContent:
           "<div class='text-center'><div class='btn-group'>\
                 <button class='btn btn-sm btn-info btnrecibido'><i class='fa-solid fa-check-circle'></i></button>\
+                <button class='btn btn-sm bg-orange  btnajuste'><i class='text-white fa-solid fa-right-left'></i></button>\
                 </div></div>",
       },
       { className: 'hide_column', targets: [1] },
+      { className: 'hide_column', targets: [8] },
     ],
     //Para cambiar el lenguaje a español
     language: {
@@ -239,6 +241,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
     buscarherramienta2(folio)
+ 
     $('#modalrecepcion').modal('show')
   })
 
@@ -248,6 +251,9 @@ $(document).ready(function () {
     estado=fila.find('td:eq(7)').text()
     tipo = fila.find('td:eq(2)').text()
     if (estado=="ENTREGADO"){
+
+     
+
       opcion = 5
       $.ajax({
         type: 'POST',
@@ -275,6 +281,105 @@ $(document).ready(function () {
     }
    
   })
+  
+  $(document).on('click', '.btnajuste', function () {
+    fila = $(this).closest('tr')
+    registro = parseInt(fila.find('td:eq(0)').text())
+    id = fila.find('td:eq(1)').text()
+    estado=fila.find('td:eq(7)').text()
+    tipo = fila.find('td:eq(2)').text()
+    fvale = fila.find('td:eq(8)').text()
+    cantidad = fila.find('td:eq(5)').text()
+    if (estado=="ENTREGADO"){
+      $("#formRegreso").trigger("reset");
+      $("#fregistro").val(registro);
+      $("#foliovale").val(fvale);
+      $("#iditem").val(id);
+      $("#tipoitem").val(tipo);
+      $("#cantidad1").val(cantidad);
+      $('#modalRegreso').modal({ backdrop: 'static', keyboard: false })
+      $('#modalRegreso').modal('show')
+     
+/*
+      opcion = 5
+      $.ajax({
+        type: 'POST',
+        url: 'bd/detallevale.php',
+        dataType: 'json',
+  
+        data: { id: id, opcion: opcion, tipo: tipo },
+  
+        success: function (res) {
+          if (res==1){
+            buscarherramienta2(folio)
+          }else if (res==2){
+            location.reload()
+          }
+         
+        },
+      })*/
+    }else{
+      swal.fire({
+        title: 'La Herramienta ya ha sido recibida ',
+        icon: 'warning',
+        focusConfirm: true,
+        confirmButtonText: 'Aceptar',
+      })
+    }
+   
+  })
+
+  $("#cantidad2").on("change keyup paste click", function() {
+    valor1=$('#cantidad1').val();
+   
+    valor2=$('#cantidad2').val();
+    if (isNaN(valor2) == true || valor2.length==0){
+      valor2=0
+    }
+    usado=$('#cantidad1').val();
+    if (parseFloat(valor1)<parseFloat(valor2)){
+      swal.fire({
+        title: 'No es posible regresar mas elementos que los registrados en la orden',
+        icon: 'error',
+        focusConfirm: true,
+        confirmButtonText: 'Aceptar',
+      })
+    }else{
+      usado=parseFloat(valor1)-parseFloat(valor2)
+    }
+    $('#cantidadr').val(usado);
+    
+});
+
+$(document).on('click', '#btnregresarcant', function () {
+  vale=$("#foliovale").val();
+  item=$("#iditem").val();
+  tipo=$("#tipoitem").val();
+  cantidadu=$("#cantidadr").val();
+  cantidadr=$("#cantidad2").val();
+  motivo=$("#motivor").val();
+  id=$("#fregistro").val();
+
+  opcion = 6
+      $.ajax({
+        type: 'POST',
+        url: 'bd/detallevale.php',
+        dataType: 'json',
+  
+        data: { id: id, opcion: opcion, tipo: tipo, vale: vale ,item: item,cantidadu: cantidadu, cantidadr: cantidadr,motivo: motivo},
+  
+        success: function (res) {
+          if (res==1){
+            buscarherramienta2(folio)
+            $('#modalRegreso').modal('hide')
+          }else if (res==2){
+            location.reload()
+          }
+         
+        },
+      })
+})
+
 
   $(document).on('click', '.btnVer', function () {
     fila = $(this).closest('tr')
@@ -311,6 +416,7 @@ $(document).ready(function () {
               res[i].cantidad_her,
               res[i].obs,
               res[i].estado,
+            
             ])
             .draw()
         }
@@ -344,6 +450,8 @@ $(document).ready(function () {
               res[i].cantidad_her,
               res[i].obs,
               res[i].estado,
+              res[i].folio_vale,
+           
             ])
             .draw()
         }
