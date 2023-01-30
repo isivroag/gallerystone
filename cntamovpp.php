@@ -146,6 +146,9 @@ $message = "";
                                             <th>Exitencia Inicial</th>
                                             <th>Cantidad</th>
                                             <th>Existencia Final</th>
+                                            <th>M2 Inicial</th>
+                                            <th>M2 mov</th>
+                                            <th>M2 Final</th>
                                             <th>Usuario</th>
 
 
@@ -164,6 +167,9 @@ $message = "";
                                                 <td><?php echo $rowdata['saldoini'] ?></td>
                                                 <td><?php echo $rowdata['cantidad'] ?></td>
                                                 <td><?php echo $rowdata['saldofin'] ?></td>
+                                                <td><?php echo $rowdata['m2_ini'] ?></td>
+                                                <td><?php echo $rowdata['m2_cantidad'] ?></td>
+                                                <td><?php echo $rowdata['m2_final'] ?></td>
                                                 <td><?php echo $rowdata['usuario'] ?></td>
                                             </tr>
                                         <?php

@@ -85,6 +85,7 @@ $message = "";
                                             <th>U.Medida</th>
                                             <th>Descripcion</th>
                                             <th>Cantidad</th>
+                                            <th>M2</th>
                                             <th>Ubicacion</th>
                                             <th>Obs</th>
                                             <th>Acciones</th>
@@ -103,6 +104,7 @@ $message = "";
                                                 <td><?php echo $dat['nom_umedida'] ?></td>
                                                 <td><?php echo $dat['nom_mat'] ?></td>
                                                 <td><?php echo $dat['cant_mat'] ?></td>
+                                                <td><?php echo $dat['m2_mat'] ?></td>
                                                 <td><?php echo $dat['ubi_mat'] ?></td>
                                                 <td><?php echo $dat['obs_mat'] ?></td>
                                                 <td></td>
@@ -188,7 +190,7 @@ $message = "";
                                 </div>
 
 
-                                <div class="col-sm-5">
+                                <div class="col-sm-4">
                                     <div class="form-group input-group-sm auto">
                                         <label for="ubicacion" class="col-form-label">Ubicación:</label>
                                         <select class="form-control" name="ubicacion" id="ubicacion">
@@ -204,9 +206,7 @@ $message = "";
                                     </div>
 
                                 </div>
-                                <div class="col-sm-2">
-
-                                </div>
+                         
                                 <!--
                                 <div class="col-sm-5">
                                     <div class="form-group input-group-sm">
@@ -218,11 +218,16 @@ $message = "";
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="cantidad" class="col-form-label">Cant:</label>
-                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad" >
+                                        <input type="text" class="form-control" name="cantidad" id="cantidad" autocomplete="off" placeholder="Cantidad">
                                     </div>
                                 </div>
 
-
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="m2" class="col-form-label">M2:</label>
+                                        <input type="text" class="form-control" name="m2" id="m2" autocomplete="off" placeholder="M2">
+                                    </div>
+                                </div>
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
                                         <label for="obs" class="col-form-label">Observaciones:</label>
@@ -330,7 +335,7 @@ $message = "";
                                         <input type="text" class="form-control" name="id" id="id" autocomplete="off" placeholder="ID" disabled>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
 
 
                                     <div class="form-group input-group-sm">
@@ -338,7 +343,14 @@ $message = "";
                                         <input type="text" class="form-control text-right" name="extact" id="extact" value="" placeholder="Existencia Actual" disabled>
                                     </div>
                                 </div>
+                                <div class="col-sm-3">
 
+
+                                    <div class="form-group input-group-sm">
+                                        <label for="m2act" class="col-form-label">M2 Actual:</label>
+                                        <input type="text" class="form-control text-right" name="m2act" id="m2act" value="" placeholder="M2 Actual" disabled>
+                                    </div>
+                                </div>
 
 
                                 <div class="col-sm-12">
@@ -372,7 +384,7 @@ $message = "";
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="montomov" class="col-form-label">Cantidad Movimiento:</label>
                                         <input type="text" class="form-control text-right" name="montomov" id="montomov" value="" placeholder="Cantidad Movimiento">
@@ -380,7 +392,14 @@ $message = "";
 
 
                                 </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="m2mov" class="col-form-label">Cantidad Movimiento:</label>
+                                        <input type="text" class="form-control text-right" name="m2mov" id="m2mov" value="" placeholder="M2 Movimiento">
+                                    </div>
 
+
+                                </div>
                             </div>
                             <?php
                             if ($message != "") {

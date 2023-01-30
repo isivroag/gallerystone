@@ -11,9 +11,11 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
+$fechahome =strtotime(date("Y-m-d"));
+$meshome = date("m", $fechahome);
+$yearhome = date("Y", $fechahome);
 
-
-$consulta = "SELECT * FROM vpagocxc where estado_pagocxc=1 order by fecha,folio_pagocxc";
+$consulta = "SELECT * FROM vpagocxc where year(fecha)='$yearhome' and month(fecha)='$meshome' and estado_pagocxc=1 order by fecha,folio_pagocxc";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

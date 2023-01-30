@@ -164,9 +164,9 @@ $(document).ready(function () {
       nom_mat = fila.find('td:eq(6)').text() //window.location.href = "actprospecto.php?id=" + id;
       
       cantidad = fila.find('td:eq(7)').text()
-      
-      ubicacion = fila.find('td:eq(8)').text()
-      obs = fila.find('td:eq(9)').text()
+      m2 = fila.find('td:eq(8)').text()
+      ubicacion = fila.find('td:eq(9)').text()
+      obs = fila.find('td:eq(10)').text()
    
   
       $('#item').val(nom_item)
@@ -176,6 +176,7 @@ $(document).ready(function () {
       $('#nom_mat').val(nom_mat)
       
       $('#cantidad').val(cantidad)
+      $('#m2').val(m2)
       $('#ubicacion').val(ubicacion)
       
       $('#obs').val(obs)
@@ -313,13 +314,14 @@ $(document).ready(function () {
       //cambio para usar m2 como unidad de movimientos de inventario
       saldo = fila.find('td:eq(7)').text()
       nmaterial = fila.find('td:eq(6)').text()
-  
+      m2 = fila.find('td:eq(8)').text()
       
   
       $('#id').val(id)
       $('#nombrep').val(nombre)
   
       $('#extact').val(saldo)
+      $('#m2act').val(m2)
       $('#nmaterial').val(nmaterial)
   
       $('.modal-header').css('background-color', '#007bff')
@@ -334,7 +336,10 @@ $(document).ready(function () {
       var descripcion = $('#descripcion').val()
       var tipomov = $.trim($('#tipomov').val())
       var saldo = $('#extact').val()
+      var saldom2 = $('#m2act').val()
       var montomov = $('#montomov').val()
+      var m2mov = $('#m2mov').val()
+      saldofinm2=0
       var saldofin = 0
       
       usuario = $('#nameuser').val()
@@ -350,6 +355,7 @@ $(document).ready(function () {
         switch (tipomov) {
           case 'Entrada':
             saldofin = parseFloat(saldo) + parseFloat(montomov)
+            saldofinm2 = parseFloat(saldom2) + parseFloat(m2mov)
             $.ajax({
               url: 'bd/crudmovimientoinvpieza.php',
               type: 'POST',
@@ -361,6 +367,9 @@ $(document).ready(function () {
                 saldofin: saldofin,
                 montomov: montomov,
                 descripcion: descripcion,
+                saldom2: saldom2,
+                m2mov:m2mov,
+                saldofinm2:saldofinm2,
                 usuario: usuario
               },
               success: function (data) {
@@ -385,6 +394,7 @@ $(document).ready(function () {
             break
           case 'Salida':
             saldofin = parseFloat(saldo) - parseFloat(montomov)
+            saldofinm2 = parseFloat(saldom2) - parseFloat(m2mov)
             $.ajax({
               url: 'bd/crudmovimientoinvpieza.php',
               type: 'POST',
@@ -396,6 +406,9 @@ $(document).ready(function () {
                 saldofin: saldofin,
                 montomov: montomov,
                 descripcion: descripcion,
+                saldom2: saldom2,
+                m2mov:m2mov,
+                saldofinm2:saldofinm2,
                 usuario: usuario
               },
               success: function (data) {
@@ -436,7 +449,7 @@ $(document).ready(function () {
               .then(function (isConfirm) {
                 if (isConfirm.value) {
                   saldofin = montomov
-  
+                  saldofinm2 =m2mov
                   $.ajax({
                     url: 'bd/crudmovimientoinvpieza.php',
                     type: 'POST',
@@ -448,6 +461,9 @@ $(document).ready(function () {
                       saldofin: saldofin,
                       montomov: montomov,
                       descripcion: descripcion,
+                      saldom2: saldom2,
+                      m2mov: m2mov,
+                      saldofinm2: saldofinm2,
                       usuario: usuario
                     },
                     success: function (data) {

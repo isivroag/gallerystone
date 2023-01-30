@@ -12,64 +12,84 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 $fecha = date('Y-m-d');
+$obs = "";
+$estado=1;
+$folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
 
-$consulta = "SELECT * FROM cortemat where estado_corte=1";
-$resultado = $conexion->prepare($consulta);
-$resultado->execute();
-$data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-$folio = 0;
-foreach ($data as $row) {
-    $folio = $row['folio_corte'];
-}
-
-if ($folio == 0) {
-    $consulta = "INSERT INTO cortemat(fecha,estado_corte) VALUES('$fecha','1') ";
-    $resultado = $conexion->prepare($consulta);
-    $resultado->execute();
-
-    $consulta = "SELECT * FROM cortemat where estado_corte=1 ORDER BY folio_corte DESC limit 1";
+if ($folio != "") {
+    $consulta = "SELECT * FROM cortemat where folio_corte='$folio'";
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+   
+    foreach ($data as $row) {
+        $folio = $row['folio_corte'];
+        $fecha = $row['fecha'];
+        $obs = $row['obs'];
+        $estado=$row['estado_corte'];
+    }
+
+  
+} else {
+    $consulta = "SELECT * FROM cortemat where estado_corte=1";
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute();
+    $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+    $folio = 0;
     foreach ($data as $row) {
         $folio = $row['folio_corte'];
     }
 
-    $consulta = "SELECT * FROM vmaterialcto WHERE estado_mat=1 and m2_mat > 0  ORDER BY id_mat";
-    $resultado = $conexion->prepare($consulta);
-    $resultado->execute();
-    $datamat = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach($datamat as $row){
-        $id_mat=$row['id_mat'];
-        $clave_mat=$row['clave_mat'];
-        $id_item=$row['id_item'];
-        $clave_item=$row['clave_item'];
-        $nom_item=$row['nom_item'];
-        $nom_mat=$row['nom_mat'];
-        $largo_mat=$row['largo_mat'];
-        $alto_mat=$row['alto_mat'];
-        $ancho_mat=$row['ancho_mat'];
-        $m2_mat=$row['m2_mat'];
-        $id_umedida=$row['id_umedida'];
-        $nom_umedida=$row['nom_umedida'];
-        $costo=$row['costo'];
-        $nlargo=0;
-        $nalto=0;
-        $nancho=0;
-        $nm2=0;
-        $dcosto=0;
-
-        $consulta = "INSERT INTO cortemat_detalle (folio_corte,id_mat,clave_mat,id_item,clave_item,nom_item,nom_mat,largo_mat,alto_mat,ancho_mat,m2_mat,id_umedida,nom_umedida,
-        costo,nlargo,nalto,nancho,nm2,dcosto) 
-        VALUES ('$folio','$id_mat','$clave_mat','$id_item','$clave_item','$nom_item','$nom_mat','$largo_mat','$alto_mat','$ancho_mat','$m2_mat','$id_umedida','$nom_umedida',
-        '$costo','$nlargo','$nalto','$nancho','$nm2','$dcosto')";
-
+    if ($folio == 0) {
+        $consulta = "INSERT INTO cortemat(fecha,estado_corte) VALUES('$fecha','1') ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
+        $consulta = "SELECT * FROM cortemat where estado_corte=1 ORDER BY folio_corte DESC limit 1";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($data as $row) {
+            $folio = $row['folio_corte'];
+        }
+
+        $consulta = "SELECT * FROM vmaterialcto WHERE estado_mat=1 and m2_mat > 0  ORDER BY id_mat";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $datamat = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($datamat as $row) {
+            $id_mat = $row['id_mat'];
+            $clave_mat = $row['clave_mat'];
+            $id_item = $row['id_item'];
+            $clave_item = $row['clave_item'];
+            $nom_item = $row['nom_item'];
+            $nom_mat = $row['nom_mat'];
+            $largo_mat = $row['largo_mat'];
+            $alto_mat = $row['alto_mat'];
+            $ancho_mat = $row['ancho_mat'];
+            $m2_mat = $row['m2_mat'];
+            $id_umedida = $row['id_umedida'];
+            $nom_umedida = $row['nom_umedida'];
+            $costo = $row['costo'];
+            $nlargo = 0;
+            $nalto = 0;
+            $nancho = 0;
+            $nm2 = 0;
+            $dcosto = 0;
+
+            $consulta = "INSERT INTO cortemat_detalle (folio_corte,id_mat,clave_mat,id_item,clave_item,nom_item,nom_mat,largo_mat,alto_mat,ancho_mat,m2_mat,id_umedida,nom_umedida,
+            costo,nlargo,nalto,nancho,nm2,dcosto) 
+            VALUES ('$folio','$id_mat','$clave_mat','$id_item','$clave_item','$nom_item','$nom_mat','$largo_mat','$alto_mat','$ancho_mat','$m2_mat','$id_umedida','$nom_umedida',
+            '$costo','$nlargo','$nalto','$nancho','$nm2','$dcosto')";
+
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+        }
     }
 }
+
+
 
 
 $consulta = "SELECT * FROM cortemat_detalle WHERE folio_corte='$folio' order by id_reg";
@@ -110,9 +130,10 @@ $message = "";
                     <div class="col-lg-12">
 
 
-                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                        <?php if ($estado!=2){?>
                         <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-envelope-square"></i> Enviar</button>-->
+                        <?php }?>
+                        
                     </div>
                 </div>
 
@@ -132,20 +153,21 @@ $message = "";
                                 <div class="col-sm-1">
                                     <div class="form-group input-group-sm">
                                         <label for="foliocorte" class="col-form-label">Folio Operacion:</label>
-                                        <input type="text" class="form-control" name="foliocorte" id="foliocorte" autocomplete="off" value="<?php echo $folio?>">
+                                        <input type="text" class="form-control" name="foliocorte" id="foliocorte" autocomplete="off" value="<?php echo $folio ?>">
+                                        <input type="hidden" class="form-control" name="estadocorte" id="estadocorte" autocomplete="off" value="<?php echo $estado ?>">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-2">
                                     <div class="form-group input-group-sm">
-                                        <label for="claveact" class="col-form-label">Fecha:</label>
+                                        <label for="fechan" class="col-form-label">Fecha:</label>
                                         <input type="date" class="form-control" name="fechan" id="fechan" autocomplete="off" value="<?php echo $fecha; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="form-group input-group-sm">
                                         <label for="obs" class="col-form-label">Observaciones:</label>
-                                        <input type="text" class="form-control" name="obs" id="obs" autocomplete="off">
+                                        <input type="text" class="form-control" name="obs" id="obs" autocomplete="off" value="<?php echo $obs; ?>">
                                     </div>
                                 </div>
                             </div>
@@ -183,6 +205,7 @@ $message = "";
                                                     <th>N Ancho</th>
                                                     <th>N M2</th>
                                                     <th>Dif Cto</th>
+                                                    <th>Apli</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -209,7 +232,7 @@ $message = "";
                                                         <td><?php echo $dat['nancho'] ?></td>
                                                         <td><?php echo $dat['nm2'] ?></td>
                                                         <td><?php echo $dat['dcosto'] ?></td>
-                                                        
+                                                        <td><?php echo $dat['aplicado'] ?></td>
                                                         <td></td>
                                                     </tr>
                                                 <?php
@@ -264,7 +287,7 @@ $message = "";
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                <div class="form-group input-group-sm">
+                                    <div class="form-group input-group-sm">
                                         <label for="costo" class="col-form-label">Costo:</label>
                                         <input type="text" class="form-control" name="costo" id="costo" autocomplete="off" placeholder="Clave" disabled>
                                     </div>

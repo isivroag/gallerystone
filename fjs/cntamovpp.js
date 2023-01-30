@@ -118,6 +118,10 @@ $(document).ready(function () {
             $($(row).find('td')['4']).addClass('text-right')
             $($(row).find('td')['5']).addClass('text-right')
             $($(row).find('td')['6']).addClass('text-right')
+
+            $($(row).find('td')['7']).addClass('text-right')
+            $($(row).find('td')['8']).addClass('text-right')
+            $($(row).find('td')['9']).addClass('text-right')
      
 
             if (data[2] == 'Entrada') {

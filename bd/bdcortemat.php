@@ -18,7 +18,7 @@ $res=0;
 
 
 
-        $consulta = "UPDATE cortemat_detalle SET nlargo='$nlargo', nalto='$nalto', nancho='$nancho',nm2='$nm2',dcosto='$dcosto' where id_reg='$idreg' ";			
+        $consulta = "UPDATE cortemat_detalle SET nlargo='$nlargo', nalto='$nalto', nancho='$nancho',nm2='$nm2',dcosto='$dcosto',aplicado='1' where id_reg='$idreg' ";			
         $resultado = $conexion->prepare($consulta);
         if ($resultado->execute()){
             $res=1;

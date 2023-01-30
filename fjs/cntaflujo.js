@@ -32,6 +32,12 @@ $(document).ready(function () {
     paging: false,
 
     columnDefs: [
+      {
+        render: function (data, type, full, meta) {
+          return "<div class='text-wrap width-200'>" + data + '</div>'
+        },
+        targets: 1,
+      },
      
       {
         render: function (data, type, full, meta) {

@@ -686,12 +686,7 @@
                 </a>
               </li>
 
-              <li class="nav-item">
-                <a href="cntamatpieza.php" class="nav-link <?php echo ($pagina == 'matpieza') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fa-solid fa-cubes nav-icon"></i>
-                  <p>Materiales Piezas</p>
-                </a>
-              </li>
+             
 
               <li class="nav-item">
                 <a href="rptinventariomat.php" class="nav-link <?php echo ($pagina == 'cntamaterial') ? "active seleccionado" : ""; ?>  ">
@@ -701,7 +696,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="inventariocortemat.php" class="nav-link <?php echo ($pagina == 'cortemat') ? "active seleccionado" : ""; ?>  ">
+                <a href="cntacortemat.php" class="nav-link <?php echo ($pagina == 'cortemat') ? "active seleccionado" : ""; ?>  ">
                   <i class="fa-solid fa-boxes-packing nav-icon"></i>
                   <p>Corte Materiales</p>
                 </a>
@@ -712,7 +707,12 @@
                   <p>Movimientos Materiales</p>
                 </a>
               </li>
-
+              <li class="nav-item">
+                <a href="cntamatpieza.php" class="nav-link <?php echo ($pagina == 'matpieza') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-cubes nav-icon"></i>
+                  <p>Materiales Piezas</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="cntainsumoop.php" class="nav-link <?php echo ($pagina == 'insumoop') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-brush nav-icon"></i>
