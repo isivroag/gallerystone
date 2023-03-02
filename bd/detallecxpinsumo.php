@@ -14,10 +14,12 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $subtotal = (isset($_POST['subtotal'])) ? $_POST['subtotal'] : '';
 $id= (isset($_POST['id'])) ? $_POST['id'] : '';
 $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
+$actualizar = (isset($_POST['actualizar'])) ? $_POST['actualizar'] : '';
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO detallecxp_insumo (folio_cxp,id_cons,cant_cons,costo_cons,subtotal,usuario) values ('$folio','$idcons','$cantidad','$costo','$subtotal','$usuario')";
+        $consulta = "INSERT INTO detallecxp_insumo (folio_cxp,id_cons,cant_cons,costo_cons,subtotal,usuario,actualizar) 
+        values ('$folio','$idcons','$cantidad','$costo','$subtotal','$usuario','$actualizar')";
         
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();

@@ -97,6 +97,7 @@ $message = "";
                                             <th>Folio Pago</th>
                                             <th>Fecha</th>
                                             <th>Concepto</th>
+                                            <th>Metodo</th>
                                             <th>Monto</th>
                                             <th>Utilidad</th>
                                             <th>Utilidad Sug </th>
@@ -121,6 +122,7 @@ $message = "";
                                                 <td><?php echo $dat['folio_pagocxc'] ?></td>
                                                 <td><?php echo $dat['fecha'] ?></td>
                                                 <td><?php echo $dat['concepto'] ?></td>
+                                                <td><?php echo $dat['metodo'] ?></td>
                                                 <td class="text-right"><?php echo number_format($dat['monto'], 2) ?></td>
                                                 <td class="text-center"><?php echo $dat['futilidad'] ?></td>
                                                 <td class="text-right"><?php echo number_format($dat['util'], 2) ?></td>
@@ -139,6 +141,7 @@ $message = "";
                                     </tbody>
                                     <tfoot>
                                         <tr>
+                                            <th></th>
                                             <th></th>
                                             <th></th>
                                             <th></th>

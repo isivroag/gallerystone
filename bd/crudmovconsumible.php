@@ -38,7 +38,7 @@ if ($resultado->execute()) {
         $saldoinn = $rowdata['contenidon'];
         $saldoina = $rowdata['contenidoa'];
         $saldoint = $rowdata['contenidot'];
-        $saldo = $rowdata['cant_cons'];;
+        $saldo = $rowdata['cant_cons'];
 
     }
     

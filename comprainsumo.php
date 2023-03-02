@@ -506,7 +506,7 @@ $datains = $resins->fetchAll(PDO::FETCH_ASSOC);
                                         <div class="col-lg-2">
                                             <label for="costou" class="col-form-label">Costo:</label>
                                             <div class="input-group input-group-sm">
-
+                                            <input type="hidden" class="form-control" name="costoant" id="costoant" disabled  >
                                                 <input type="text" class="form-control" name="costou" id="costou" disabled  onkeypress="return filterFloat(event,this);">
                                             </div>
                                         </div>
@@ -721,6 +721,7 @@ $datains = $resins->fetchAll(PDO::FETCH_ASSOC);
                                         <th>U. Medida</th>
 
                                         <th>Cantidad</th>
+                                        <th>Costo</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>
@@ -737,6 +738,7 @@ $datains = $resins->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo $datc['nom_umedida'] ?></td>
 
                                             <td class="text-center"><?php echo $datc['cant_cons'] ?></td>
+                                            <td><?php echo $datc['costo_cons'] ?></td>
                                             <td></td>
                                         </tr>
                                     <?php

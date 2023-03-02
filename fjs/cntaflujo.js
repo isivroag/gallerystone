@@ -52,7 +52,7 @@ $(document).ready(function () {
         targets: 5,
       },
       {
-        targets: 7,
+        targets: 8,
         render: function (data, type, row, meta) {
           if (data == 1) {
             return '<div class="btn btn-sm btnasignaru"><img src="img/check.png"></img></div>'
@@ -62,7 +62,7 @@ $(document).ready(function () {
         },
       },
       {
-        targets: 10,
+        targets: 11,
         render: function (data, type, row, meta) {
           if (data == 1) {
             return '<div class="btn btn-sm btnasignarm"><img src="img/check.png"></img></div>'
@@ -72,7 +72,7 @@ $(document).ready(function () {
         },
       },
       {
-        targets: 13,
+        targets: 14,
         render: function (data, type, row, meta) {
           if (data == 1) {
             return '<div class="btn btn-sm btnasignari"><img src="img/check.png"></img></div>'
@@ -102,16 +102,17 @@ $(document).ready(function () {
     },
 
     rowCallback: function (row, data) {
-      $($(row).find('td')['6']).addClass('text-right')
-      $($(row).find('td')['7']).addClass('text-center')
-      $($(row).find('td')['8']).addClass('text-right')
+      $($(row).find('td')['7']).addClass('text-right')
+      $($(row).find('td')['8']).addClass('text-center')
       $($(row).find('td')['9']).addClass('text-right')
-      $($(row).find('td')['10']).addClass('text-center')
-      $($(row).find('td')['11']).addClass('text-right')
+      $($(row).find('td')['10']).addClass('text-right')
+      $($(row).find('td')['11']).addClass('text-center')
       $($(row).find('td')['12']).addClass('text-right')
-      $($(row).find('td')['13']).addClass('text-center')
-      $($(row).find('td')['14']).addClass('text-right')
+      $($(row).find('td')['13']).addClass('text-right')
+      $($(row).find('td')['14']).addClass('text-center')
       $($(row).find('td')['15']).addClass('text-right')
+      $($(row).find('td')['16']).addClass('text-right')
+      $($(row).find('td')['17']).addClass('text-right')
 
       
       
@@ -135,25 +136,12 @@ $(document).ready(function () {
 
       // Total over this page
       pageTotal = api
-        .column(6, { page: 'current' })
+        .column(7, { page: 'current' })
         .data()
         .reduce(function (a, b) {
           return intVal(a) + intVal(b)
         }, 0)
-      $(api.column(6).footer()).html(
-        '$' +
-          new Intl.NumberFormat('es-MX').format(
-            Math.round((pageTotal + Number.EPSILON) * 100) / 100,
-          ),
-      )
-
-      pageTotal = api
-        .column(8, { page: 'current' })
-        .data()
-        .reduce(function (a, b) {
-          return intVal(a) + intVal(b)
-        }, 0)
-      $(api.column(8).footer()).html(
+      $(api.column(7).footer()).html(
         '$' +
           new Intl.NumberFormat('es-MX').format(
             Math.round((pageTotal + Number.EPSILON) * 100) / 100,
@@ -174,12 +162,12 @@ $(document).ready(function () {
       )
 
       pageTotal = api
-        .column(11, { page: 'current' })
+        .column(10, { page: 'current' })
         .data()
         .reduce(function (a, b) {
           return intVal(a) + intVal(b)
         }, 0)
-      $(api.column(11).footer()).html(
+      $(api.column(10).footer()).html(
         '$' +
           new Intl.NumberFormat('es-MX').format(
             Math.round((pageTotal + Number.EPSILON) * 100) / 100,
@@ -200,12 +188,12 @@ $(document).ready(function () {
       )
 
       pageTotal = api
-        .column(14, { page: 'current' })
+        .column(13, { page: 'current' })
         .data()
         .reduce(function (a, b) {
           return intVal(a) + intVal(b)
         }, 0)
-      $(api.column(14).footer()).html(
+      $(api.column(13).footer()).html(
         '$' +
           new Intl.NumberFormat('es-MX').format(
             Math.round((pageTotal + Number.EPSILON) * 100) / 100,
@@ -219,6 +207,19 @@ $(document).ready(function () {
           return intVal(a) + intVal(b)
         }, 0)
       $(api.column(15).footer()).html(
+        '$' +
+          new Intl.NumberFormat('es-MX').format(
+            Math.round((pageTotal + Number.EPSILON) * 100) / 100,
+          ),
+      )
+
+      pageTotal = api
+        .column(16, { page: 'current' })
+        .data()
+        .reduce(function (a, b) {
+          return intVal(a) + intVal(b)
+        }, 0)
+      $(api.column(16).footer()).html(
         '$' +
           new Intl.NumberFormat('es-MX').format(
             Math.round((pageTotal + Number.EPSILON) * 100) / 100,
@@ -256,6 +257,7 @@ $(document).ready(function () {
                 data[i].folio_pagocxc,
                 data[i].fecha,
                 data[i].concepto,
+                data[i].metodo,
                 data[i].monto,
                 data[i].futilidad,
                 data[i].util,
@@ -315,8 +317,8 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
     pago=parseInt(fila.find('td:eq(3)').text())
-    sugerido=fila.find('td:eq(8)').text()
-    monto=fila.find('td:eq(9)').text()
+    sugerido=fila.find('td:eq(9)').text()
+    monto=fila.find('td:eq(10)').text()
 
 
    $('#modalFlujo').modal('show')
@@ -330,8 +332,8 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
     pago=parseInt(fila.find('td:eq(3)').text())
-     sugerido=fila.find('td:eq(11)').text()
-    monto=fila.find('td:eq(12)').text()
+     sugerido=fila.find('td:eq(12)').text()
+    monto=fila.find('td:eq(13)').text()
     $('#modalFlujo').modal('show')
    $('#foliopago').val(pago)
    $('#tipo').val("MANTENIMIENTO")
@@ -343,8 +345,8 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     id = parseInt(fila.find('td:eq(0)').text())
     pago=parseInt(fila.find('td:eq(3)').text())
-     sugerido=fila.find('td:eq(14)').text()
-    monto=fila.find('td:eq(15)').text()
+     sugerido=fila.find('td:eq(15)').text()
+    monto=fila.find('td:eq(16)').text()
     $('#modalFlujo').modal('show')
     $('#foliopago').val(pago)
     $('#tipo').val("IMPUESTOS")
@@ -358,10 +360,7 @@ $(document).ready(function () {
     tipo = $('#tipo').val()
     sugerido = $('#montos').val()
     importe = $('#importeflujo').val()
-console.log(folio)
-console.log(tipo)
-console.log(sugerido)
-console.log(importe)
+
       $.ajax({
         type: 'POST',
         url: 'bd/flujo.php',
@@ -376,7 +375,7 @@ console.log(importe)
         },
         success: function (res) {
           if (res == 1) {
-            //window.location.reload()
+            window.location.reload()
           } else {
             mensajeerror()
           }

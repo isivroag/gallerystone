@@ -8,14 +8,14 @@ $(document).ready(function () {
     },
     success: function () {},
   })
-
+var tipousuario = $('#tipousuario').val()
   var id, opcion
   opcion = 4
 
   var textcolumnas = permisos()
 
   function permisos() {
-    var tipousuario = $('#tipousuario').val()
+    
     var columnas = ''
 
     if (tipousuario == 5) {
@@ -51,7 +51,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a Excel',
         title: 'Inventario de Insumos',
         className: 'btn bg-success ',
-        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11] },
+        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11,14] },
       },
       {
         extend: 'pdfHtml5',
@@ -59,7 +59,7 @@ $(document).ready(function () {
         titleAttr: 'Exportar a PDF',
         title: 'Inventario de Insumos',
         className: 'btn bg-danger',
-        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11] },
+        exportOptions: { columns: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11,14] },
       },
     ],
 
@@ -77,6 +77,7 @@ $(document).ready(function () {
       { className: 'text-right', targets: [9] },
       { className: 'hide_column', targets: [12] },
       { className: 'hide_column', targets: [13] },
+      { className: 'text-right', targets: [14] },
      
     ],
 
@@ -131,6 +132,7 @@ $(document).ready(function () {
     obs = fila.find('td:eq(11)').text()
     tarjeta=fila.find('td:eq(12)').text()
     valortarjeta=fila.find('td:eq(13)').text()
+    costo = fila.find('td:eq(14)').text()
 
     $('#id_cons').val(id)
     $('#clave_cons').val(clave)
@@ -143,6 +145,12 @@ $(document).ready(function () {
     $('#contenidon').val(cerrado)
     $('#contenidoa').val(abierto)
     $('#contenidot').val(total)
+    console.log(tipousuario)
+     if (tipousuario==2 || tipousuario==3){
+      $('#costo_cons').prop('disabled', false)
+    }else{
+      $('#costo_cons').prop('disabled', true)
+    }
     if (tarjeta==0){
       $("#tarjeta").prop('checked', false);
       $("#valortarjeta").val(0)
@@ -155,7 +163,7 @@ $(document).ready(function () {
     }
 
     $('#obs').val(obs)
-
+    $('#costo_cons').val(costo)
     opcion = 2 //editar
 
     $('.modal-header').css('background-color', '#007bff')
@@ -179,6 +187,8 @@ $(document).ready(function () {
     contenidot = fila.find('td:eq(9)').text()
     ubicacion = fila.find('td:eq(10)').text()
     obs = fila.find('td:eq(11)').text()
+   
+    
     $('#ida').val(id)
     $('#umedidaa').val(id_umedida)
     $('#nom_consa').val(nom_cons)
@@ -188,7 +198,7 @@ $(document).ready(function () {
     $('#contenidoaa').val(contenidoa)
     $('#contenidota').val(contenidot)
     $('#clave_cons').val(clave)
-
+   
     opcion = 2 //editar
 
     $('.modal-header').css('color', 'white')
@@ -236,6 +246,8 @@ $(document).ready(function () {
     var contenidon = $('#contenidon').val()
     var contenidot = $('#contenidot').val()
     var presentacion = $('#presentacion').val()
+    var costo =$('#costo_cons').val()
+    console.log(costo)
     if ($("#tarjeta").prop("checked")) {
       var tarjeta =1
     }
@@ -278,7 +290,8 @@ $(document).ready(function () {
           contenidoa: contenidoa,
           contenidot: contenidot,
           tarjeta: tarjeta,
-          valortarjeta: valortarjeta
+          valortarjeta: valortarjeta,
+          costo: costo,
         },
         success: function (data) {
           id = data[0].id_cons
@@ -289,6 +302,7 @@ $(document).ready(function () {
           cantidad = data[0].cant_cons
           ubicacion = data[0].ubi_cons
           obs = data[0].obs_cons
+          costo=data[0].costo_cons
         
 
           presentacion = data[0].presentacion
@@ -313,7 +327,7 @@ $(document).ready(function () {
                 contenidot,
                 ubicacion,
                 obs,
-                tarjeta,valortarjeta,
+                tarjeta,valortarjeta,costo
               ])
               .draw()
           } else {
@@ -332,7 +346,7 @@ $(document).ready(function () {
                 contenidot,
                 ubicacion,
                 obs,
-                tarjeta,valortarjeta,
+                tarjeta,valortarjeta,costo
               ])
               .draw()
           }

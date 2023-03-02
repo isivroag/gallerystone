@@ -450,10 +450,10 @@
             </li>
             <!-- CIERRA REPORTES-->
             <!--ABRE ADMINISTRACION-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb' || $pagina == 'personal' || $pagina == 'flujo' || $pagina == 'cortemat') ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb' || $pagina == 'personal' || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'banco' || $pagina == 'cntamovb' || $pagina == 'personal' || $pagina == 'flujo' || $pagina == 'cortemat') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'banco' || $pagina == 'cntamovb' || $pagina == 'personal' || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-book "></i>
 
@@ -498,6 +498,13 @@
                   <a href="cntacortemat.php" class="nav-link <?php echo ($pagina == 'cortemat') ? "active seleccionado" : ""; ?>  ">
                     <i class="fa-solid fa-boxes-packing nav-icon"></i>
                     <p>Corte Materiales</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="cntacorteins.php" class="nav-link <?php echo ($pagina == 'corteins') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-boxes-packing nav-icon"></i>
+                    <p>Corte Insumos</p>
                   </a>
                 </li>
               </ul>

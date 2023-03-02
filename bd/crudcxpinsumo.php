@@ -30,6 +30,7 @@ switch ($opcion) {
     case 1: //alta
         $consulta = "UPDATE cxp set fecha='$fecha',fecha_limite='$fecha_limite',id_prov='$id_prov',id_partida='$id_partida',concepto='$concepto',facturado='$facturado',
         referencia='$referencia',subtotal='$subtotal',iva='$iva',total='$total',saldo='$total',estado='1' WHERE folio_cxp='$folio'";
+        
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $res = 1;
@@ -49,7 +50,8 @@ switch ($opcion) {
             $montomov = $row['cant_cons'];
             $saldofin = 0;
             $descripcion = "COMPRA DE INSUMOS CXP FOLIO: " . $folio;
-
+            $costo=$row['costo_cons'];
+            $actualizar=$row['actualizar'];
             $conversion = 0;
             $saldofinn = 0;
             $saldofina = 0;
@@ -93,8 +95,12 @@ switch ($opcion) {
             $resultado = $conexion->prepare($consulta);
         
             if ($resultado->execute()) {
-        
-                $consulta = "UPDATE consumible SET cant_cons='$saldofin',contenidon='$saldofinn',contenidot='$saldofint' WHERE id_cons='$id'";
+                if ($actualizar==1){
+                    $consulta = "UPDATE consumible SET cant_cons='$saldofin',contenidon='$saldofinn',contenidot='$saldofint',costo_cons='$costo' WHERE id_cons='$id'";
+                }else{
+                    $consulta = "UPDATE consumible SET cant_cons='$saldofin',contenidon='$saldofinn',contenidot='$saldofint' WHERE id_cons='$id'";
+                }
+                
                 $resultado = $conexion->prepare($consulta);
                 
                 if ($resultado->execute()) {

@@ -83,7 +83,7 @@ $message = "";
         <!-- Default box -->
         <div class="card ">
             <div class="card-header bg-gradient-secondary text-light">
-                <h1 class="card-title mx-auto">Detalle de Materiales</h1>
+                <h1 class="card-title mx-auto">Detalle de Insumos</h1>
             </div>
 
             <div class="card-body">
@@ -122,6 +122,7 @@ $message = "";
                                             <th>Obs</th>
                                             <th>tarjeta</th>
                                             <th>valortarjeta</th>
+                                            <th>Costo</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -145,6 +146,7 @@ $message = "";
                                                 <td><?php echo $dat['obs_cons'] ?></td>
                                                 <td><?php echo $dat['tarjeta'] ?></td>
                                                 <td><?php echo $dat['valortarjeta'] ?></td>
+                                                <td><?php echo $dat['costo_cons'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -253,7 +255,7 @@ $message = "";
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="contenidot" class="col-form-label">Contenido Total:</label>
-                                        <input type="text" class="form-control text-right" name="contenidot" id="contenidot" autocomplete="off" placeholder="Contanido Total" disabled>
+                                        <input type="text" class="form-control text-right" name="contenidot" id="contenidot" autocomplete="off" placeholder="Contenido Total" disabled>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
@@ -273,6 +275,13 @@ $message = "";
                                             </span>
                                         </div>
                                         <input type="text" class="form-control text-right" name="valortarjeta" id="valortarjeta" autocomplete="off" placeholder="Valor por ML" value="0.00" disabled onkeypress="return filterFloat(event,this);" >
+                                    </div>
+                                </div>
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                <div class="form-group input-group-sm">
+                                        <label for="costo_cons" class="col-form-label">Costo Unidad:</label>
+                                        <input type="text" class="form-control text-right" name="costo_cons" id="costo_cons" autocomplete="off" placeholder="Costo" disabled>
                                     </div>
                                 </div>
 
