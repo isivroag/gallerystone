@@ -361,12 +361,13 @@ $(document).on('click', '.btnSelInsumo', function () {
   
 
     if (folio.length != 0 && idcons.length != 0 && cantidadi.length != 0 && costo.length != 0) {
-      
-      if (costoant!=costo){
+      console.log(costoant)
+      console.log(costo)
+      if (parseFloat(costoant)!=parseFloat(costo)){
         swal
         .fire({
             title: "Costo",
-            text: "El costo del insumo es diferente al registrado con anterioridad<br>,¿Desea Actualizarlo?",
+            text: "El costo del insumo es diferente al registrado con anterioridad,¿Desea Actualizarlo?",
 
             showCancelButton: true,
             icon: "warning",
@@ -381,7 +382,7 @@ $(document).on('click', '.btnSelInsumo', function () {
               type: 'POST',
               url: 'bd/detallecxpinsumo.php',
               dataType: 'json',
-              //async: false,
+              async: false,
               data: {
                 folio: folio,
                 idcons: idcons,
@@ -435,65 +436,67 @@ $(document).on('click', '.btnSelInsumo', function () {
               },
             })
             } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
-              $.ajax({
-                type: 'POST',
-                url: 'bd/detallecxpinsumo.php',
-                dataType: 'json',
-                //async: false,
-                data: {
-                  folio: folio,
-                  idcons: idcons,
-                  cantidadi: cantidadi,
-                  subtotal, subtotal,
-                  costo: costo,
-                  opcion: opcion,
-                  usuario: usuario,
-                  //ACTUALIZAR
-                  actualizar: actualizar,
-                },
-                success: function (data) {
-                 
-                  id_reg = data[0].id_reg
-                  id_cons = data[0].id_cons
-                  nom_cons = data[0].nom_cons
-                  presentacion=data[0].presentacion
-                  nom_umedida = data[0].nom_umedida
-                  cantidad = data[0].cant_cons
-                  costo = data[0].costo_cons
-                  subtotal = data[0].subtotal
-        
-                  tablaDetIn.row
-                    .add([
-                      id_reg,
-                      id_cons,
-                      nom_cons,
-                      presentacion,
-                      nom_umedida,
-                      cantidad,
-                      costo,
-                      subtotal,
-                    ])
-                    .draw()
-                    tipo=2;
-                    $.ajax({
-                      url: "bd/sumadetalle.php",
-                      type: "POST",
-                      dataType: "json",
-                      async: false,
-                      data: { folio: folio, tipo: tipo },
-                      success: function(data) {
-                         total=data;
-                         console.log(total)
-                          $('#total').val(total)
-                          calculoinverso(total)
-                      }
-                  });
-        
-                  limpiarin()
-                },
-              })
+             
             }
         });
+      }else{
+        $.ajax({
+          type: 'POST',
+          url: 'bd/detallecxpinsumo.php',
+          dataType: 'json',
+          async: false,
+          data: {
+            folio: folio,
+            idcons: idcons,
+            cantidadi: cantidadi,
+            subtotal, subtotal,
+            costo: costo,
+            opcion: opcion,
+            usuario: usuario,
+            //ACTUALIZAR
+            actualizar: actualizar,
+          },
+          success: function (data) {
+           
+            id_reg = data[0].id_reg
+            id_cons = data[0].id_cons
+            nom_cons = data[0].nom_cons
+            presentacion=data[0].presentacion
+            nom_umedida = data[0].nom_umedida
+            cantidad = data[0].cant_cons
+            costo = data[0].costo_cons
+            subtotal = data[0].subtotal
+  
+            tablaDetIn.row
+              .add([
+                id_reg,
+                id_cons,
+                nom_cons,
+                presentacion,
+                nom_umedida,
+                cantidad,
+                costo,
+                subtotal,
+              ])
+              .draw()
+              tipo=2;
+              $.ajax({
+                url: "bd/sumadetalle.php",
+                type: "POST",
+                dataType: "json",
+                async: false,
+                data: { folio: folio, tipo: tipo },
+                success: function(data) {
+                   total=data;
+                   console.log(total)
+                    $('#total').val(total)
+                    calculoinverso(total)
+                }
+            });
+  
+            limpiarin()
+          },
+        })
       }
 
      

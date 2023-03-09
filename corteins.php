@@ -346,29 +346,29 @@ $message = "";
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="cantidadn" class="col-form-label">Nueva Cantidad:</label>
-                                        <input type="text" class="form-control text-right" name="cantidadn" id="cantidadn" autocomplete="off" placeholder="Nueva Cantidad">
+                                        <label for="cantidadn" class="col-form-label">Nueva Cant. Cerrado:</label>
+                                        <input type="number" class="form-control text-right" name="cantidadn" id="cantidadn" autocomplete="off" placeholder="Nueva Cantidad">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="contenidonn" class="col-form-label">Nuevo Cont Cerrado:</label>
-                                        <input type="text" class="form-control text-right" name="contenidonn" id="contenidonn" autocomplete="off" placeholder="Nuevo Cont Cerrado">
+                                        <input type="number" class="form-control text-right" name="contenidonn" id="contenidonn" autocomplete="off" placeholder="Nuevo Cont Cerrado" disabled>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="contenidoan" class="col-form-label">Nuevo Cont Abierto:</label>
-                                        <input type="text" class="form-control text-right" name="contenidoan" id="contenidoan" autocomplete="off" placeholder="Nuevo Cont Abierto">
+                                        <input type="number" class="form-control text-right" name="contenidoan" id="contenidoan" autocomplete="off" placeholder="Nuevo Cont Abierto">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="contenidotn" class="col-form-label">Nuevo Cont Total:</label>
-                                        <input type="text" class="form-control text-right" name="contenidotn" id="contenidotn" autocomplete="off" placeholder="Nuevo Cont Abierto">
+                                        <input type="number" class="form-control text-right" name="contenidotn" id="contenidotn" autocomplete="off" placeholder="Nuevo Cont Abierto">
                                     </div>
                                 </div>
 
