@@ -182,7 +182,7 @@ $(document).ready(function () {
     var ncontenidoa = $('#contenidoan').val()
     var ncontenidot = $('#contenidotn').val()
 
-    dcosto = ((contenidota - ncontenidot) / presentacion) * costo
+    dcosto = (( ncontenidot-contenidota ) / presentacion) * costo
 
     usuario = $('#nameuser').val()
 

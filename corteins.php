@@ -54,7 +54,7 @@ if ($folio != "") {
 
 
         //crear consulta de insumos con compras para obtener costo
-        $consulta = "SELECT * FROM vconsumible WHERE estado_cons=1 and contenidot > 0  ORDER BY id_cons";
+        $consulta = "SELECT * FROM vconsumible WHERE estado_cons=1 ORDER BY id_cons";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $datamat = $resultado->fetchAll(PDO::FETCH_ASSOC);
