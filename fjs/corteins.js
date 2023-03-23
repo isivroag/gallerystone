@@ -28,6 +28,29 @@ $(document).ready(function () {
     paging: false,
     ordering: false,
     searching: false,
+    dom:
+    "<'row justify-content-center'<'col-sm-12 col-md-4 form-group'l><'col-sm-12 col-md-4 form-group'B><'col-sm-12 col-md-4 form-group'f>>" +
+    "<'row'<'col-sm-12'tr>>" +
+    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+
+  buttons: [
+    {
+      extend: 'excelHtml5',
+      text: "<i class='fas fa-file-excel'> Excel</i>",
+      titleAttr: 'Exportar a Excel',
+      title: 'Corte de Insumos',
+      className: 'btn bg-success ',
+      exportOptions: { columns: [ 1,2,3, 5, 6,7, 8, 9, 10, 11, 12, 13,14,15,16] },
+    },
+    {
+      extend: 'pdfHtml5',
+      text: "<i class='far fa-file-pdf'> PDF</i>",
+      titleAttr: 'Exportar a PDF',
+      title: 'Corte de Insumos',
+      className: 'btn bg-danger',
+      exportOptions: { columns: [1,2,3, 5, 6,7, 8, 9, 10, 11, 12, 13,14,15,16] },
+    },
+  ],
 
     columnDefs: [
       {
