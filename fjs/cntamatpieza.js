@@ -255,14 +255,14 @@ $(document).ready(function () {
           success: function (data) {
             //tablaPersonas.ajax.reload(null, false);
             id = data[0].id_mat
-            iditem = data[0].id_item
             clave = data[0].clave_mat
+            iditem = data[0].id_item
             item = data[0].nom_item
             umedida = data[0].id_umedida
             nom_umeddia = data[0].nom_umedida
             nom_mat = data[0].nom_mat
             cantidad = data[0].cant_mat
-          
+            m2 = data[0].m2_mat
             ubicacion = data[0].ubi_mat
             obs = data[0].obs_mat
           
@@ -277,6 +277,7 @@ $(document).ready(function () {
                   nom_umeddia,
                   nom_mat,
                   cantidad,
+                  m2,
                   ubicacion,
                   obs,
                 ])
@@ -293,6 +294,7 @@ $(document).ready(function () {
                   nom_umeddia,
                   nom_mat,
                   cantidad,
+                  m2,
                   ubicacion,
                   obs,
                 ])
