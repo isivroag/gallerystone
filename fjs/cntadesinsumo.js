@@ -63,6 +63,8 @@ $(document).ready(function () {
         { className: 'text-right', targets: [9] },
         { className: 'hide_column', targets: [10] },
         { className: 'hide_column', targets: [11] },
+        { className: 'text-right', targets: [12] },
+        { className: 'hide_column', targets: [13] },
        
       ],
   
@@ -82,6 +84,24 @@ $(document).ready(function () {
           sPrevious: 'Anterior',
         },
         sProcessing: 'Procesando...',
+      },
+
+      rowCallback: function (row, data) {
+       
+        valor=parseFloat(data[5])
+        min=parseFloat(data[12])
+        if (valor == min) {
+          //$($(row).find("td")[6]).css("background-color", "warning");
+          $($(row).find('td')).addClass('bg-gradient-warning')
+          //$($(row).find('td')['9']).text('PENDIENTE')
+        } else if (valor < min) {
+          //$($(row).find("td")[9]).css("background-color", "blue");
+          $($(row).find('td')).addClass('bg-gradient-danger')
+          //$($(row).find('td')['9']).text('ENVIADO')
+        } else{
+          $($(row).find('td')).removeClass('bg-gradient-warning')
+          $($(row).find('td')).removeClass('bg-gradient-danger')
+        }
       },
     })
   
@@ -114,7 +134,8 @@ $(document).ready(function () {
 
       tarjeta=fila.find('td:eq(10)').text()
       valortarjeta=fila.find('td:eq(11)').text()
-
+      cmin=fila.find('td:eq(12)').text()
+      cmax=fila.find('td:eq(13)').text()
 
       if (tarjeta==0){
         $("#tarjeta").prop('checked', false);
@@ -137,6 +158,8 @@ $(document).ready(function () {
       $('#totalusos').val(totalusos)
       $('#ubicacion').val(ubicacion)
       $('#obs').val(obs)
+      $('#cmin').val(cmin)
+      $('#cmax').val(cmax)
 
       opcion = 2 //editar
   
@@ -193,6 +216,8 @@ $(document).ready(function () {
       }
      
       var valortarjeta = $('#valortarjeta').val()
+      var cmin = $('#cmin').val()
+      var cmax = $('#cmax').val()
   
   
       if (
@@ -200,7 +225,9 @@ $(document).ready(function () {
         umedida.length == 0 ||
         uso.length == 0 ||
         clave.length == 0 ||
-        cantidad.length == 0
+        cantidad.length == 0 ||
+        cmin.length == 0 ||
+        cmax.length == 0
         
       ) {
         Swal.fire({
@@ -227,6 +254,8 @@ $(document).ready(function () {
             tarjeta: tarjeta,
             valortarjeta: valortarjeta,
             totalusos: totalusos,
+            cmin: cmin,
+            cmax: cmax
          
           },
           success: function (data) {
@@ -244,6 +273,8 @@ $(document).ready(function () {
 
             tarjeta = data[0].tarjeta
             valortarjeta = data[0].valortarjeta
+            cmin = data[0].minimo
+            cmax = data[0].maximo
             
             if (opcion == 1) {
               tablaVis.row
@@ -260,6 +291,8 @@ $(document).ready(function () {
                   obs,
                   tarjeta,
                   valortarjeta,
+                  cmin,
+                  cmax,
                 ])
                 .draw()
             } else {
@@ -278,6 +311,8 @@ $(document).ready(function () {
                   obs,
                   tarjeta,
                   valortarjeta,
+                  cmin,
+                  cmax,
                 ])
                 .draw()
             }

@@ -81,6 +81,8 @@ $message = "";
                                             <th>Obs</th>
                                             <th>tarjeta</th>
                                             <th>valortarjeta</th>
+                                            <th>minimo</th>
+                                            <th>maximo</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -102,6 +104,8 @@ $message = "";
                                                 <td><?php echo $dat['obs_des'] ?></td>
                                                 <td><?php echo $dat['tarjeta'] ?></td>
                                                 <td><?php echo $dat['valortarjeta'] ?></td>
+                                                <td><?php echo $dat['minimo'] ?></td>
+                                                <td><?php echo $dat['maximo'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -221,6 +225,18 @@ $message = "";
                                             </span>
                                         </div>
                                         <input type="text" class="form-control text-right" name="valortarjeta" id="valortarjeta" autocomplete="off" placeholder="Valor por ML" value="0.00" disabled onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cmin" class="col-form-label">Mínimo:</label>
+                                        <input type="text" class="form-control text-right" name="cmin" id="cmin" autocomplete="off" placeholder="Min" >
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cmax" class="col-form-label">Máximo:</label>
+                                        <input type="text" class="form-control text-right" name="cmax" id="cmax" autocomplete="off" placeholder="Max" >
                                     </div>
                                 </div>
 

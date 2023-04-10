@@ -78,6 +78,8 @@ var tipousuario = $('#tipousuario').val()
       { className: 'hide_column', targets: [12] },
       { className: 'hide_column', targets: [13] },
       { className: 'text-right', targets: [14] },
+      { className: 'text-right', targets: [15] },
+        { className: 'hide_column', targets: [16] },
      
     ],
 
@@ -97,6 +99,24 @@ var tipousuario = $('#tipousuario').val()
         sPrevious: 'Anterior',
       },
       sProcessing: 'Procesando...',
+    },
+
+    rowCallback: function (row, data) {
+       
+      valor=parseFloat(data[5])
+      min=parseFloat(data[15])
+      if (valor == min) {
+        //$($(row).find("td")[6]).css("background-color", "warning");
+        $($(row).find('td')).addClass('bg-gradient-warning')
+        //$($(row).find('td')['9']).text('PENDIENTE')
+      } else if (valor < min) {
+        //$($(row).find("td")[9]).css("background-color", "blue");
+        $($(row).find('td')).addClass('bg-gradient-danger')
+        //$($(row).find('td')['9']).text('ENVIADO')
+      } else{
+        $($(row).find('td')).removeClass('bg-gradient-warning')
+        $($(row).find('td')).removeClass('bg-gradient-danger')
+      }
     },
   })
 
@@ -133,6 +153,8 @@ var tipousuario = $('#tipousuario').val()
     tarjeta=fila.find('td:eq(12)').text()
     valortarjeta=fila.find('td:eq(13)').text()
     costo = fila.find('td:eq(14)').text()
+    cmin=fila.find('td:eq(15)').text()
+    cmax=fila.find('td:eq(16)').text()
 
     $('#id_cons').val(id)
     $('#clave_cons').val(clave)
@@ -164,6 +186,8 @@ var tipousuario = $('#tipousuario').val()
 
     $('#obs').val(obs)
     $('#costo_cons').val(costo)
+    $('#cmin').val(cmin)
+    $('#cmax').val(cmax)
     opcion = 2 //editar
 
     $('.modal-header').css('background-color', '#007bff')
@@ -247,6 +271,8 @@ var tipousuario = $('#tipousuario').val()
     var contenidot = $('#contenidot').val()
     var presentacion = $('#presentacion').val()
     var costo =$('#costo_cons').val()
+    var cmin = $('#cmin').val()
+    var cmax = $('#cmax').val()
     console.log(costo)
     if ($("#tarjeta").prop("checked")) {
       var tarjeta =1
@@ -263,7 +289,9 @@ var tipousuario = $('#tipousuario').val()
       umedida.length == 0 ||
       presentacion.length == 0 ||
       contenidoa.length == 0 ||
-      cantidad.length == 0
+      cantidad.length == 0 ||
+      cmin.length == 0 ||
+      cmax.length == 0
     ) {
       Swal.fire({
         title: 'Datos Faltantes',
@@ -292,6 +320,8 @@ var tipousuario = $('#tipousuario').val()
           tarjeta: tarjeta,
           valortarjeta: valortarjeta,
           costo: costo,
+          cmin: cmin,
+          cmax: cmax
         },
         success: function (data) {
           id = data[0].id_cons
@@ -312,6 +342,8 @@ var tipousuario = $('#tipousuario').val()
 
           tarjeta = data[0].tarjeta
           valortarjeta = data[0].valortarjeta
+          cmin = data[0].minimo
+          cmax = data[0].maximo
           if (opcion == 1) {
             tablaVis.row
               .add([
@@ -327,7 +359,7 @@ var tipousuario = $('#tipousuario').val()
                 contenidot,
                 ubicacion,
                 obs,
-                tarjeta,valortarjeta,costo
+                tarjeta,valortarjeta,costo,cmin,cmax,
               ])
               .draw()
           } else {
@@ -346,7 +378,7 @@ var tipousuario = $('#tipousuario').val()
                 contenidot,
                 ubicacion,
                 obs,
-                tarjeta,valortarjeta,costo
+                tarjeta,valortarjeta,costo,cmin,cmax,
               ])
               .draw()
           }

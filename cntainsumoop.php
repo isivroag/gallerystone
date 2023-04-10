@@ -123,6 +123,8 @@ $message = "";
                                             <th>tarjeta</th>
                                             <th>valortarjeta</th>
                                             <th>Costo</th>
+                                            <th>minimo</th>
+                                            <th>maximo</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -147,6 +149,8 @@ $message = "";
                                                 <td><?php echo $dat['tarjeta'] ?></td>
                                                 <td><?php echo $dat['valortarjeta'] ?></td>
                                                 <td><?php echo $dat['costo_cons'] ?></td>
+                                                <td><?php echo $dat['minimo'] ?></td>
+                                                <td><?php echo $dat['maximo'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -265,7 +269,7 @@ $message = "";
                                     </div>
                                 </div>
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <label for="valortarjeta" class="col-form-label">Valor Por Metro Lineal:</label>
                                     <div class="form-group input-group">
 
@@ -274,44 +278,55 @@ $message = "";
                                                 <input type="checkbox" id="tarjeta" name="tarjeta">
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control text-right" name="valortarjeta" id="valortarjeta" autocomplete="off" placeholder="Valor por ML" value="0.00" disabled onkeypress="return filterFloat(event,this);" >
+                                        <input type="text" class="form-control text-right" name="valortarjeta" id="valortarjeta" autocomplete="off" placeholder="Valor por ML" value="0.00" disabled onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-4">
-                                <div class="form-group input-group-sm">
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cmin" class="col-form-label">Mínimo:</label>
+                                        <input type="text" class="form-control text-right" name="cmin" id="cmin" autocomplete="off" placeholder="Min">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cmax" class="col-form-label">Máximo:</label>
+                                        <input type="text" class="form-control text-right" name="cmax" id="cmax" autocomplete="off" placeholder="Max">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
                                         <label for="costo_cons" class="col-form-label">Costo Unidad:</label>
                                         <input type="text" class="form-control text-right" name="costo_cons" id="costo_cons" autocomplete="off" placeholder="Costo" disabled>
                                     </div>
+
                                 </div>
 
 
 
                             </div>
+
+
+                            <?php
+                            if ($message != "") {
+                            ?>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <span class="badge "><?php echo ($message); ?></span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+                        </form>
                     </div>
-
-
-                    <?php
-                    if ($message != "") {
-                    ?>
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <span class="badge "><?php echo ($message); ?></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-
-                        </div>
-
-                    <?php
-                    }
-                    ?>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
                 </div>
             </div>
-        </div>
     </section>
 
 

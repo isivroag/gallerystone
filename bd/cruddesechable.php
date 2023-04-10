@@ -21,6 +21,8 @@ $totalusos = (isset($_POST['totalusos'])) ? $_POST['totalusos'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $tarjeta = (isset($_POST['tarjeta'])) ? $_POST['tarjeta'] : '';
 $valortarjeta = (isset($_POST['valortarjeta'])) ? $_POST['valortarjeta'] : '';
+$cmin = (isset($_POST['cmin'])) ? $_POST['cmin'] : '';
+$cmax = (isset($_POST['cmax'])) ? $_POST['cmax'] : '';
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
@@ -28,8 +30,8 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO desechable (nom_des,cant_des,id_umedida,ubi_des,obs_des,usos,totalusos,clave_des,tarjeta,valortarjeta) 
-        VALUES('$nom_cons','$cantidad','$umedida','$ubicacion','$obs','$uso','$totalusos','$clave','$tarjeta','$valortarjeta')";			
+        $consulta = "INSERT INTO desechable (nom_des,cant_des,id_umedida,ubi_des,obs_des,usos,totalusos,clave_des,tarjeta,valortarjeta,minimo,maximo) 
+        VALUES('$nom_cons','$cantidad','$umedida','$ubicacion','$obs','$uso','$totalusos','$clave','$tarjeta','$valortarjeta','$cmin','$cmax')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
@@ -39,7 +41,8 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE desechable SET nom_des='$nom_cons',id_umedida='$umedida',ubi_des='$ubicacion',obs_des='$obs',clave_des='$clave',tarjeta='$tarjeta',valortarjeta='$valortarjeta' WHERE id_des='$id' ";		
+        $consulta = "UPDATE desechable SET nom_des='$nom_cons',id_umedida='$umedida',ubi_des='$ubicacion',obs_des='$obs',clave_des='$clave',
+        tarjeta='$tarjeta',valortarjeta='$valortarjeta', minimo='$cmin', maximo='$cmax' WHERE id_des='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
