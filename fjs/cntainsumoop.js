@@ -103,7 +103,7 @@ var tipousuario = $('#tipousuario').val()
 
     rowCallback: function (row, data) {
        
-      valor=parseFloat(data[5])
+      valor=parseFloat(data[9])
       min=parseFloat(data[15])
       if (valor == min) {
         //$($(row).find("td")[6]).css("background-color", "warning");

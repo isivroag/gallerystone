@@ -657,9 +657,11 @@
 
 
           <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop'
-                                              || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'movmat' || $pagina == 'cajah') ? "menu-open" : ""; ?>">
+                                              || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale' 
+                                              || $pagina == 'reordenins' || $pagina == 'reordeninsdes' || $pagina == 'movmat' || $pagina == 'cajah') ? "menu-open" : ""; ?>">
             <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop'
-                                          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale' || $pagina == 'movmat' || $pagina == 'cajah') ? "active" : ""; ?>">
+                                          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale' 
+                                          || $pagina == 'reordenins' || $pagina == 'reordeninsdes' || $pagina == 'movmat' || $pagina == 'cajah') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 
@@ -730,9 +732,23 @@
               </li>
 
               <li class="nav-item">
+                <a href="reordenins.php" class="nav-link <?php echo ($pagina == 'reordenins') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-truck-ramp-box nav-icon"></i>
+                  <p>Reorden Insumos</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
                 <a href="cntadesinsumo.php" class="nav-link <?php echo ($pagina == 'desechable') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-business-time nav-icon"></i>
                   <p>Insumos de Desgaste</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="reordeninsdes.php" class="nav-link <?php echo ($pagina == 'reordeninsdes') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-truck-ramp-box nav-icon"></i>
+                  <p>Reorden Insumos Des</p>
                 </a>
               </li>
 
