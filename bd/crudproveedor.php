@@ -16,6 +16,7 @@ $tel = (isset($_POST['tel'])) ? $_POST['tel'] : '';
 $cel = (isset($_POST['cel'])) ? $_POST['cel'] : '';
 $correo = (isset($_POST['correo'])) ? $_POST['correo'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
+$especialidad = (isset($_POST['especialidad'])) ? $_POST['especialidad'] : '';
 
 $nombre = $nombre;
 $calle = $calle;
@@ -29,21 +30,21 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO proveedor (rfc,nombre,correo, calle, col, num, cp,cd,edo,tel,cel) VALUES('$rfc','$nombre','$correo', '$calle', '$col','$num','$cp','$cd','$edo','$tel','$cel') ";			
+        $consulta = "INSERT INTO proveedor (rfc,nombre,correo, calle, col, num, cp,cd,edo,tel,cel,nom_esp) VALUES('$rfc','$nombre','$correo', '$calle', '$col','$num','$cp','$cd','$edo','$tel','$cel','$especialidad') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
-        $consulta = "SELECT id_prov, nombre,rfc,correo,calle,col,num,cp,cd,edo,tel,cel FROM proveedor ORDER BY id_prov DESC LIMIT 1";
+        $consulta = "SELECT id_prov, nombre,rfc,correo,calle,col,num,cp,cd,edo,tel,cel,nom_esp FROM proveedor ORDER BY id_prov DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE proveedor SET rfc='$rfc',nombre='$nombre',correo='$correo', calle='$calle', col='$col', num='$num', cp='$cp', cd='$cd', edo='$edo', tel='$tel', cel='$cel' WHERE id_prov='$id' ";		
+        $consulta = "UPDATE proveedor SET rfc='$rfc',nombre='$nombre',correo='$correo', calle='$calle', col='$col', num='$num', cp='$cp', cd='$cd', edo='$edo', tel='$tel', cel='$cel', nom_esp='$especialidad' WHERE id_prov='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT id_prov, nombre,rfc,correo,calle,col,num,cp,cd,edo,tel,cel FROM proveedor WHERE id_prov='$id' ";       
+        $consulta = "SELECT id_prov, nombre,rfc,correo,calle,col,num,cp,cd,edo,tel,cel,nom_esp FROM proveedor WHERE id_prov='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

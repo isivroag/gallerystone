@@ -440,12 +440,14 @@ $(document).ready(function () {
         $('#clavep').val(ClaveMaterial)
         $('#id_umedidap').val(idumedida)
         $('#nom_umedidap').val(nomumedida)
-        $('#m2p').val(m2)
+        
         
         $('#ubicacionmp').val(ubicacion)
         $('#formatop').val(formato)
         $('#cantidaddisp').val(cantidaddis)
+        $('#m2disp').val(m2)
         $('#cantidadp').prop('disabled', false)
+        $('#m2p').prop('disabled',false)
         $('#fechap').prop('disabled', false)
         $('#entregado').prop('disabled', false)
         $('#recibido').prop('disabled', false)
@@ -478,7 +480,7 @@ $(document).ready(function () {
       idmat = $('#clavematp').val()
   
       cantidad = $('#cantidadp').val()
-  
+      m2 = $('#m2p').val()
       //cambios agregar alto ancho y largo al detalle de orden
       fecha = $('#fechap').val()
       entregado = $('#entregado').val()
@@ -495,7 +497,7 @@ $(document).ready(function () {
   
     
   
-      if (folio.length != 0 && idmat.length != 0 && cantidad.length != 0 && fecha.length != 0 && entregado.length != 0 && recibido.length != 0) {
+      if (folio.length != 0 && idmat.length != 0 && cantidad.length != 0 && fecha.length != 0 && entregado.length != 0 && recibido.length != 0 && m2.length !=0 ) {
         $.ajax({
           type: 'POST',
           url: 'bd/detalleordensum.php',
@@ -505,6 +507,7 @@ $(document).ready(function () {
             folio: folio,
             idmat: idmat,
             cantidad: cantidad,
+            m2: m2,
             fecha: fecha,
             entregado: entregado,
             recibido: recibido,
@@ -613,10 +616,12 @@ $(document).ready(function () {
       $('#entregado').val('')
       $('#fechap').val('')
       $('#cantidadp').val('')
+      $('#m2p').val('')
       $('#cantidaddisp').val('')
-    
+      $('#m2disp').val('')
       $('#nom_umedidap').val('')
       $('#cantidadp').prop('disabled', true)
+      $('#m2p').prop('disabled', true)
       $('#entregado').prop('disabled', true)
       $('#recibido').prop('disabled', true)
     }

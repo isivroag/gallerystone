@@ -74,6 +74,7 @@ $(document).ready(function() {
         edo = fila.find('td:eq(9)').text();
         tel = fila.find('td:eq(10)').text();
         cel = fila.find('td:eq(11)').text();
+        especialidad = fila.find('td:eq(12)').text()
 
         $("#rfc").val(rfc);
         $("#nombre").val(nombre);
@@ -86,6 +87,7 @@ $(document).ready(function() {
         $("#edo").val(edo);
         $("#tel").val(tel);
         $("#cel").val(cel);
+        $("#especialidad").val(especialidad);
         opcion = 2; //editar
 
         $(".modal-header").css("background-color", "#007bff");
@@ -139,7 +141,7 @@ $(document).ready(function() {
         var tel = $.trim($("#tel").val());
         var cel = $.trim($("#cel").val());
         var correo = $.trim($("#correo").val());
-
+        var especialidad = $.trim($("#especialidad").val());
 
 
         if (nombre.length == 0) {
@@ -154,7 +156,7 @@ $(document).ready(function() {
                 url: "bd/crudproveedor.php",
                 type: "POST",
                 dataType: "json",
-                data: { nombre: nombre, rfc: rfc, correo: correo, calle: calle, num: num, col: col, cp: cp, cd: cd, edo: edo, tel: tel, cel: cel, id: id, opcion: opcion },
+                data: { nombre: nombre, rfc: rfc, correo: correo, calle: calle, num: num, col: col, cp: cp, cd: cd, edo: edo, tel: tel, cel: cel, id: id, opcion: opcion, especialidad: especialidad },
                 success: function(data) {
                     console.log(data);
                     console.log(fila);
@@ -172,10 +174,11 @@ $(document).ready(function() {
                     edo = data[0].edo;
                     tel = data[0].tel;
                     cel = data[0].cel;
+                    especialidad = data[0].nom_esp;
                     if (opcion == 1) {
-                        tablaVis.row.add([id, rfc, nombre, correo, calle, num, col, cp, cd, edo, tel, cel]).draw();
+                        tablaVis.row.add([id, rfc, nombre, correo, calle, num, col, cp, cd, edo, tel, cel,especialidad]).draw();
                     } else {
-                        tablaVis.row(fila).data([id, rfc, nombre, correo, calle, num, col, cp, cd, edo, tel, cel]).draw();
+                        tablaVis.row(fila).data([id, rfc, nombre, correo, calle, num, col, cp, cd, edo, tel, cel,especialidad]).draw();
                     }
                 }
             });

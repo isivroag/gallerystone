@@ -578,19 +578,34 @@ if ($folio != "") {
 
                                             
                                               
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-1">
                                                     <label for="cantidaddisp" class="col-form-label">Cantidad Disp:</label>
                                                     <div class="input-group input-group-sm">
                                                         
                                                         <input type="text" class="form-control" name="cantidaddisp" id="cantidaddisp" disabled>
                                                     </div>
                                                 </div>
+                                                <div class="col-sm-1">
+                                                    <label for="m2disp" class="col-form-label">M2 Disp:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        
+                                                        <input type="text" class="form-control" name="m2disp" id="m2disp" disabled>
+                                                    </div>
+                                                </div>
 
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-1">
                                                     <label for="cantidadp" class="col-form-label">Cantidad:</label>
                                                     <div class="input-group input-group-sm">
                                                         
                                                         <input type="text" class="form-control" name="cantidadp" id="cantidadp" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-1">
+                                                    <label for="m2p" class="col-form-label">M2:</label>
+                                                    <div class="input-group input-group-sm">
+                                                        
+                                                        <input type="text" class="form-control" name="m2p" id="m2p" disabled>
                                                     </div>
                                                 </div>
 
@@ -732,11 +747,11 @@ if ($folio != "") {
                                         <th>Material</th>
                                         <th>Formato</th>
 
-                                        <th>M2</th>
+                                        <th>M2 Disp</th>
                                         <th>Id Umedida</th>
                                         <th>U. Medida</th>
                                         <th>Ubicación</th>
-                                        <th>Cant. Disp.</th>
+                                        <th>Cant Disp</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>

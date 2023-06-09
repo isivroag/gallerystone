@@ -14,7 +14,7 @@ $ubicacion = (isset($_POST['ubicacion'])) ? $_POST['ubicacion'] : '';
 
 $obs = (isset($_POST['obs'])) ? $_POST['obs'] : '';
 $clave_mat = (isset($_POST['clave_mat'])) ? $_POST['clave_mat'] : '';
-
+$m2 = (isset($_POST['m2'])) ? $_POST['m2'] : '';
 
 
 
@@ -26,8 +26,8 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO materialpieza (id_item,nom_mat,cant_mat,id_umedida,ubi_mat,obs_mat,clave_mat) 
-        VALUES('$iditem','$nom_mat','$cantidad','$umedida','$ubicacion','$obs','$clave_mat')";			
+        $consulta = "INSERT INTO materialpieza (id_item,nom_mat,cant_mat,id_umedida,ubi_mat,obs_mat,clave_mat,m2_mat) 
+        VALUES('$iditem','$nom_mat','$cantidad','$umedida','$ubicacion','$obs','$clave_mat','$m2')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 

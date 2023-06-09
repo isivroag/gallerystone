@@ -87,6 +87,8 @@ $(document).ready(function () {
               //$($(row).find("td")[5]).css("background-color", "light-blue");
               $($(row).find('td')[7]).addClass('bg-lightblue')
               //$($(row).find('td')['7']).text('EDITADO')
+            } else if (data[7] == 'CXPPIEZA'){
+              $($(row).find('td')[7]).addClass('bg-pink')
             }
           },
     })
@@ -202,6 +204,9 @@ $(document).ready(function () {
         window.location.href = 'compraherramienta.php'
     })
 
+    $('#btnNuevoP').click(function () {
+      window.location.href = 'compramatpieza.php'
+  })
     var fila //capturar la fila para editar o borrar el registro
 
     //botón EDITAR
@@ -226,6 +231,9 @@ $(document).ready(function () {
               break;
               case 'CXPHERRAMIENTA':
                 window.location.href = 'compraherramienta.php?folio=' + id
+              break;
+              case 'CXPPIEZA':
+              window.location.href = 'compramatpieza.php?folio=' + id
               break;
         }
        
@@ -281,6 +289,9 @@ $(document).ready(function () {
               break;
               case 'CXPHERRAMIENTA':
                 varurl='bd/crudcxpherramienta.php'
+              break;
+              case 'CXPPIEZA':
+                varurl='bd/crudcxpmatpieza.php'
               break;
         }
         //agregar codigo de sweatalert2

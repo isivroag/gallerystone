@@ -57,6 +57,16 @@ switch ($tipo) {
             $total=$row['subtotal'];
         }
         break;
+    case 5://PIEZAS
+        $consulta = "SELECT sum(subtotal) as subtotal from detallecxp_matpieza where folio_cxp='$folio' GROUP BY folio_cxp";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($data as $row) {
+            $total=$row['subtotal'];
+        }
+        break;
 }
 
 print json_encode($total, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS

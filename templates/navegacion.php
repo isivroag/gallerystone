@@ -114,6 +114,8 @@
                   <p>Especificaciones</p>
                 </a>
               </li>
+
+              
             </ul>
 
           </li>
@@ -330,10 +332,10 @@
             <!-- CIERRA INGRESOS-->
             
             <!--ABRE EGRESOS-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr' || $pagina == 'prescto') ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr' || $pagina == 'prescto'  ||  $pagina == 'especialidad') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr' || $pagina == 'prescto') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr' || $pagina == 'prescto'  ||  $pagina == 'especialidad') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-dollar-sign "></i>
                   <i class=" fas fa-arrow-down "></i>
@@ -373,6 +375,13 @@
                     <p>Proveedores</p>
                   </a>
                 </li>
+
+                <li class="nav-item">
+                <a href="cntaespecialidad.php" class="nav-link <?php echo ($pagina == 'especialidad') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-screwdriver nav-icon"></i>
+                  <p>Especialidad</p>
+                </a>
+              </li>
 
                 <li class="nav-item">
                   <a href="cntacxp.php" class="nav-link <?php echo ($pagina == 'cxp') ? "active seleccionado" : ""; ?>  ">

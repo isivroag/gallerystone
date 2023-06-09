@@ -17,6 +17,11 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+$consultaesp = "SELECT * FROM especialidad WHERE estado_esp=1 ORDER BY nom_esp";
+$resultadoesp = $conexion->prepare($consultaesp);
+$resultadoesp->execute();
+$dataesp = $resultadoesp->fetchAll(PDO::FETCH_ASSOC);
+
 $message = "";
 
 
@@ -45,7 +50,7 @@ $message = "";
         <div class="row">
           <div class="col-lg-12">
             <button id="btnNuevo" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
-            <button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms" ><i class="fas fa-question-circle text-light" ></i><span class="text-light"> Ayuda</span></button>
+            <button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button>
           </div>
         </div>
         <br>
@@ -69,6 +74,7 @@ $message = "";
                       <th>Estado</th>
                       <th>Telefono</th>
                       <th>Celular</th>
+                      <th>Especialidad</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -89,6 +95,7 @@ $message = "";
                         <td><?php echo $dat['edo'] ?></td>
                         <td><?php echo $dat['tel'] ?></td>
                         <td><?php echo $dat['cel'] ?></td>
+                        <td><?php echo $dat['nom_esp'] ?></td>
 
                         <td></td>
                       </tr>
@@ -104,7 +111,7 @@ $message = "";
 
       </div>
       <!-- /.card-body -->
-     
+
       <!-- /.card-footer-->
     </div>
     <!-- /.card -->
@@ -123,10 +130,25 @@ $message = "";
           <div class="card card-widget" style="margin: 10px;">
             <form id="formDatos" action="" method="POST">
               <div class="modal-body row">
-              <div class="col-sm-5">
+                <div class="col-sm-5">
                   <div class="form-group input-group-sm">
                     <label for="rfc" class="col-form-label">RFC:</label>
                     <input type="text" class="form-control" name="rfc" id="rfc" autocomplete="off" placeholder="RFC">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group input-group-sm auto">
+                    <label for="especialidad" class="col-form-label">ESPECIALIDAD:</label>
+                    <select class="form-control" name="especialidad" id="especialidad">
+                      <?php
+                      foreach ($dataesp as $dtt) {
+                      ?>
+                        <option value="<?php echo $dtt['nom_esp'] ?>"> <?php echo $dtt['nom_esp'] ?></option>
+
+                      <?php
+                      }
+                      ?>
+                    </select>
                   </div>
                 </div>
 
@@ -231,7 +253,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/proveedor.js"></script>
+<script src="fjs/cntaproveedor.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

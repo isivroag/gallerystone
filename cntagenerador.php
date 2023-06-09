@@ -300,7 +300,7 @@ if ($folio != "") {
                                                             <td><?php echo $rowg['fin'] ?></td>
                                                             <td class="text-right"><?php echo  number_format($rowg['costo_gen'], 2) ?></td>
                                                             <td class="text-right"><?php echo  number_format($rowg['pp_gen'], 2) ?></td>
-                                                            <td></td>
+                                                            
                                                         </tr>
                                                     <?php
                                                     }
@@ -317,14 +317,8 @@ if ($folio != "") {
                                                         <th></th>
                                                         <th></th>
                                                         <th></th>
-                                                        <th class="text-right">
-
-                                                            TOTALES</th>
-                                                        <th class="text-right">
-
-
-
-                                                        </th>
+                                                        <th class="text-right">TOTALES</th>
+                                                        <th class="text-right"></th>
                                                         <th class="text-right"></th>
                                                     </tr>
 
