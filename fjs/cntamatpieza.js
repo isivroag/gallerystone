@@ -222,7 +222,7 @@ $(document).ready(function () {
       var clave_mat = $.trim($('#clavemat').val())
       var nom_mat = $.trim($('#nom_mat').val())
       var cantidad = $.trim($('#cantidad').val())
-      
+      var m2 = $.trim($('#m2').val())
       var umedida = $.trim($('#umedida').val())
       var ubicacion = $.trim($('#ubicacion').val())
      
@@ -249,6 +249,7 @@ $(document).ready(function () {
             clave_mat: clave_mat,
             id: id,
             opcion: opcion,
+            m2:m2,
             ubicacion: ubicacion,
             obs: obs,
           },
@@ -260,7 +261,7 @@ $(document).ready(function () {
             item = data[0].nom_item
             umedida = data[0].id_umedida
             nom_umeddia = data[0].nom_umedida
-            nom_mat = data[0].nom_mat
+            nom_mat = data[0].nom_mat 
             cantidad = data[0].cant_mat
             m2 = data[0].m2_mat
             ubicacion = data[0].ubi_mat
