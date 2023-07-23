@@ -1,0 +1,46 @@
+TOOLS
+COMPARAR 2 BD PARA DISTINGUIR TABLAS DIFERENTES
+            SELECT table_name, table_type
+            FROM information_schema.tables
+            WHERE table_schema = 'tecniemc_checatec'
+            AND (table_type = 'BASE TABLE' OR table_type = 'VIEW')
+            AND table_name NOT IN (
+                SELECT table_name
+                FROM information_schema.tables
+                WHERE table_schema = 'tecniemc_checa'
+                AND (table_type = 'BASE TABLE' OR table_type = 'VIEW')
+            )
+
+COMPARAR TABLAS Y CAMPOS DIFERENTES
+
+        SELECT t1.table_name, t1.column_name
+        FROM information_schema.columns AS t1
+        LEFT JOIN information_schema.columns AS t2
+            ON t1.table_name = t2.table_name
+            AND t1.column_name = t2.column_name
+        WHERE t1.table_schema = 'nombre_base_datos_1'
+            AND t2.table_schema = 'nombre_base_datos_2'
+            AND t2.column_name IS NULL
+
+2JUL23
+ BD
+    CREAR TABLA ORDENESTADO
+        CREATE TABLE `ordenestado` (
+            `id_reg` BIGINT(20) NOT NULL AUTO_INCREMENT,
+            `id_orden` BIGINT(20) NULL DEFAULT '0',
+            `estado` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+            `fecha` DATE NULL DEFAULT NULL,
+            `activo` TINYINT(4) NULL DEFAULT NULL,
+            `estado_reg` TINYINT(4) NULL DEFAULT '1',
+            PRIMARY KEY (`id_reg`) USING BTREE
+        )
+        COLLATE='latin1_swedish_ci'
+        ENGINE=InnoDB
+        ;
+
+
+4JUL23
+
+    SELECT vorden2.folio_ord,vorden2.folio_vta,vorden2.fecha_ord,vorden2.edo_ord,vorden2.nombre,vorden2.concepto_vta,vorden2.tipo_proy,vorden2.tipop,vorden2.avance,vorden2.metros
+,ordenestado.estado,ordenestado.fecha_ini,ordenestado.fecha_fin,ordenestado.activo
+FROM vorden2 JOIN ordenestado ON vorden2.folio_ord=ordenestado.id_orden

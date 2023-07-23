@@ -8,6 +8,7 @@ $conexion = $objeto->connect();
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $forden = (isset($_POST['forden'])) ? $_POST['forden'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
+$hoy = date("Y-m-d");
 
 $idesp = 0;
 
@@ -32,6 +33,10 @@ switch ($opcion) {
                 if ($resultado->execute()) {
                     $resp = 2;
                 }
+                /*
+                $consulta="INSERT INTO ordenestado (id_orden,estado,fecha,activo) VALUES ('$forden','COLOCADO','$hoy','1')";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();*/
             }
         }
         break;
@@ -52,50 +57,74 @@ switch ($opcion) {
                 if ($resultado->execute()) {
                     $resp = 2;
                 }
+
+                $consulta="UPDATE ordenestado set activo='0',fecha_fin='$hoy' where id_orden='$forden' and activo='1')";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+
+                $consulta = "INSERT INTO ordenestado (id_orden,estado,fecha_ini,fecha_fin,activo) VALUES ('$forden','ENSAMBLE','$hoy','$hoy','1')";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
             }
         }
         break;
-        case 3:
-            $consulta = "UPDATE det_ot SET estado='ENSAMBLADO' WHERE id_reg='$id' ";
-            $resultado = $conexion->prepare($consulta);
-            if ($resultado->execute()) {
-                $resp = 1;
-    
-    
-    
-                $consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='CORTADO' ";
-                $resultado = $conexion->prepare($consulta);
-                $resultado->execute();
-                if ($resultado->rowCount() == 0) {
-                    $consulta =  "UPDATE orden SET edo_ord='PULIDO',avance='75' WHERE folio_ord='$forden'";
-                    $resultado = $conexion->prepare($consulta);
-                    if ($resultado->execute()) {
-                        $resp = 2;
-                    }
-                }
-            }
-            break;
+    case 3:
+        $consulta = "UPDATE det_ot SET estado='ENSAMBLADO' WHERE id_reg='$id' ";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()) {
+            $resp = 1;
 
-            case 4:
-                $consulta = "UPDATE det_ot SET estado='PULIDO' WHERE id_reg='$id' ";
+
+
+            $consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='CORTADO' ";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            if ($resultado->rowCount() == 0) {
+                $consulta =  "UPDATE orden SET edo_ord='PULIDO',avance='75' WHERE folio_ord='$forden'";
                 $resultado = $conexion->prepare($consulta);
                 if ($resultado->execute()) {
-                    $resp = 1;
-        
-        
-        
-                    $consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='ENSAMBLADO' ";
-                    $resultado = $conexion->prepare($consulta);
-                    $resultado->execute();
-                    if ($resultado->rowCount() == 0) {
-                        $consulta =  "UPDATE orden SET edo_ord='COLOCACION',avance='90' WHERE folio_ord='$forden'";
-                        $resultado = $conexion->prepare($consulta);
-                        if ($resultado->execute()) {
-                            $resp = 2;
-                        }
-                    }
+                    $resp = 2;
                 }
-                break;
+
+                $consulta="UPDATE ordenestado set activo='0',fecha_fin='$hoy' where id_orden='$forden' and activo='1')";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+
+                $consulta = "INSERT INTO ordenestado (id_orden,estado,fecha_ini,fecha_fin,activo) VALUES ('$forden','PULIDO','$hoy','$hoy','1')";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+            }
+        }
+        break;
+
+    case 4:
+        $consulta = "UPDATE det_ot SET estado='PULIDO' WHERE id_reg='$id' ";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()) {
+            $resp = 1;
+
+
+
+            $consulta = "SELECT * FROM det_ot WHERE id_ot='$forden' and estado='ENSAMBLADO' ";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            if ($resultado->rowCount() == 0) {
+                $consulta =  "UPDATE orden SET edo_ord='COLOCACION',avance='90' WHERE folio_ord='$forden'";
+                $resultado = $conexion->prepare($consulta);
+                if ($resultado->execute()) {
+                    $resp = 2;
+                }
+
+                $consulta="UPDATE ordenestado set activo='0',fecha_fin='$hoy' where id_orden='$forden' and activo='1')";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+
+                $consulta = "INSERT INTO ordenestado (id_orden,estado,fecha_ini,fecha_fin,activo) VALUES ('$forden','COLOCACION','$hoy','$hoy','1')";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+            }
+        }
+        break;
 }
 
 

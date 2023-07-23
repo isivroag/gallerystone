@@ -396,10 +396,14 @@
             <!-- CIERRA EGRESOS-->
 
             <!-- ABRE REPORTES-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptdiario") ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" 
+            || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina== "rptordenm"
+            || $pagina == "rptdiario") ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptdiario") ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" 
+              || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina== "rptordenm"
+              || $pagina == "rptdiario") ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class="fas fa-chart-line nav-icon"></i>
 
@@ -474,6 +478,13 @@
                     <a href="rptfiscal.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'resumenventa') ? "active seleccionado" : ""; ?>  ">
                       <i class="fas fa-id-badge nav-icon"></i>
                       <p>Resumen VTA-PAGO</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="rptordenm.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'rptordenm') ? "active seleccionado" : ""; ?>  ">
+                      <i class="fa-solid fa-chart-gantt nav-icon"></i>
+                      <p>Progreso de Ordenes</p>
                     </a>
                   </li>
                 <?php  }  ?>

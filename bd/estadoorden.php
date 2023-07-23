@@ -14,7 +14,7 @@ $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
 $fechaini = (isset($_POST['fechaini'])) ? $_POST['fechaini'] : '';
 $fechalib = (isset($_POST['fechalib'])) ? $_POST['fechalib'] : '';
 
-
+$hoy=date("Y-m-d");
 $res = 0;
 if ($estado == 'ACTIVO') {
 
@@ -29,6 +29,14 @@ if ($estado == 'ACTIVO') {
 
 $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()) {
+
+    $consulta="UPDATE ordenestado set activo='0', fecha_fin='$hoy' where id_orden='$folio' and activo='1'";
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute();
+
+    $consulta="INSERT INTO ordenestado (id_orden,estado,fecha_ini,fecha_fin,activo) VALUES ('$folio','$estado','$hoy','$hoy','1')";
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute();
 
     if ($venta != '') {
         $consulta = "UPDATE citav 
