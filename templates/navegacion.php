@@ -115,7 +115,7 @@
                 </a>
               </li>
 
-              
+
             </ul>
 
           </li>
@@ -211,14 +211,14 @@
 
           <?php if ($_SESSION['s_rol'] != '1' && $_SESSION['s_rol'] != '6') { ?>
             <!--ABRE INGRESOS-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina == "buscadorpres" 
-            || $pagina == "cntaliberaciones" || $pagina == 'ventasum' || $pagina == 'cobranzasum' || $pagina == 'cntaventasum'
-            || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina == "buscadorpres"
+                                                || $pagina == "cntaliberaciones" || $pagina == 'ventasum' || $pagina == 'cobranzasum' || $pagina == 'cntaventasum'
+                                                || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina == "buscadorpres" 
-              || $pagina == "cntaliberaciones" || $pagina == 'ventasum' || $pagina == 'cobranzasum' || $pagina == 'cntaventasum'
-              || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina == "buscadorpres"
+                                            || $pagina == "cntaliberaciones" || $pagina == 'ventasum' || $pagina == 'cobranzasum' || $pagina == 'cntaventasum'
+                                            || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-dollar-sign "></i>
                   <i class=" fas fa-arrow-up "></i>
@@ -262,7 +262,7 @@
 
                 <li class="nav-item">
                   <a href="cntaventasum.php" class="nav-link <?php echo ($pagina == 'ventasum') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fa-solid fa-dolly nav-icon"></i>
+                    <i class="fa-solid fa-dolly nav-icon"></i>
                     <p>Vtas-Cob Suministro</p>
                   </a>
                 </li>
@@ -330,7 +330,7 @@
               </ul>
             </li>
             <!-- CIERRA INGRESOS-->
-            
+
             <!--ABRE EGRESOS-->
             <li class="nav-item has-treeview <?php echo ($pagina == 'proveedor' || $pagina == 'partida' || $pagina == 'cxp' || $pagina == 'cuentaegr' || $pagina == 'prescto'  ||  $pagina == 'especialidad') ? "menu-open" : ""; ?>">
 
@@ -377,11 +377,11 @@
                 </li>
 
                 <li class="nav-item">
-                <a href="cntaespecialidad.php" class="nav-link <?php echo ($pagina == 'especialidad') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fas fa-screwdriver nav-icon"></i>
-                  <p>Especialidad</p>
-                </a>
-              </li>
+                  <a href="cntaespecialidad.php" class="nav-link <?php echo ($pagina == 'especialidad') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fas fa-screwdriver nav-icon"></i>
+                    <p>Especialidad</p>
+                  </a>
+                </li>
 
                 <li class="nav-item">
                   <a href="cntacxp.php" class="nav-link <?php echo ($pagina == 'cxp') ? "active seleccionado" : ""; ?>  ">
@@ -396,14 +396,14 @@
             <!-- CIERRA EGRESOS-->
 
             <!-- ABRE REPORTES-->
-            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" 
-            || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina== "rptordenm"
-            || $pagina == "rptdiario") ? "menu-open" : ""; ?>">
+            <li class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "rptordenm2"
+                                                || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptordenm"
+                                                || $pagina == "rptdiario") ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" 
-              || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina== "rptordenm"
-              || $pagina == "rptdiario") ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "rptordenm2"
+                                            || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptordenm"
+                                            || $pagina == "rptdiario") ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class="fas fa-chart-line nav-icon"></i>
 
@@ -458,6 +458,21 @@
                     <p>Obras</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="rptordenm.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'rptordenm') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-chart-gantt nav-icon"></i>
+                    <p>Progreso de Ordenes</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+
+                  <a href="cntaavanceord.php<?php echo '?inicio=' . date("Y-m-d") . '&fin=' . date("Y-m-d") ?>" class="nav-link <?php echo ($pagina == 'rptordenm2') ? "active seleccionado" : ""; ?>  ">
+
+                  <i class="fa-solid fa-chart-gantt nav-icon"></i>
+                    <p>Avance de Ordenes</p>
+                  </a>
+                </li>
                 <!-- ABRE TOOLS ROOT-->
                 <?php if ($_SESSION['s_rol'] == '3') {  ?>
                   <li class="nav-item">
@@ -481,12 +496,7 @@
                     </a>
                   </li>
 
-                  <li class="nav-item">
-                    <a href="rptordenm.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'rptordenm') ? "active seleccionado" : ""; ?>  ">
-                      <i class="fa-solid fa-chart-gantt nav-icon"></i>
-                      <p>Progreso de Ordenes</p>
-                    </a>
-                  </li>
+
                 <?php  }  ?>
                 <!-- CIERRA TOOLS ROOT-->
               </ul>
@@ -653,7 +663,7 @@
 
         <?php }  ?>
 
- <!-- ABRE OBRA-->
+        <!-- ABRE OBRA-->
         <li class="nav-item has-treeview <?php echo ($pagina == 'ordenobra') ? "menu-open" : ""; ?>">
           <a href="#" class="nav-link <?php echo ($pagina == 'ordenobra') ? "active" : ""; ?>">
             <span class="fa-stack">
@@ -691,11 +701,11 @@
         <!-- CIERRA OBRA-->
 
 
- <!-- ABRE SUMINISTRO-->
- <li class="nav-item has-treeview <?php echo ($pagina == 'ordensum') ? "menu-open" : ""; ?>">
+        <!-- ABRE SUMINISTRO-->
+        <li class="nav-item has-treeview <?php echo ($pagina == 'ordensum') ? "menu-open" : ""; ?>">
           <a href="#" class="nav-link <?php echo ($pagina == 'ordensum') ? "active" : ""; ?>">
             <span class="fa-stack">
-            <i class="fa-solid fa-dolly "></i>
+              <i class="fa-solid fa-dolly "></i>
             </span>
             <p>Producción Suministro
               <i class="right fas fa-angle-left"></i>
@@ -736,10 +746,10 @@
 
 
           <li class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop'
-                                              || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale' 
+                                              || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale'
                                               || $pagina == 'reordenins' || $pagina == 'reordeninsdes' || $pagina == 'movmat' || $pagina == 'cajah') ? "menu-open" : ""; ?>">
             <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop'
-                                          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale' 
+                                          || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale'
                                           || $pagina == 'reordenins' || $pagina == 'reordeninsdes' || $pagina == 'movmat' || $pagina == 'cajah') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>

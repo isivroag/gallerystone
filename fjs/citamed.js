@@ -272,6 +272,7 @@ $(document).ready(function () {
     foliocita = $('#foliocita').val()
     estado = 'MEDICION'
     porcentaje = 0
+    usuario=$('#nameuser').val()
 
     opcion = 5
     id = foliocita
@@ -284,6 +285,7 @@ $(document).ready(function () {
         folio: folio,
         estado: estado,
         porcentaje: porcentaje,
+        usuario: usuario
       },
       success: function (res) {
         if (res == 1) {

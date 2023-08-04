@@ -443,6 +443,7 @@ $(document).on("click", "#btnGuardarf", function() {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
     estado = 'ENSAMBLE'
+    usuario=$('#nameuser').val();
     porcentaje=45;
 
     $.ajax({
@@ -452,7 +453,8 @@ $(document).on("click", "#btnGuardarf", function() {
       data: {
         folio: folio,
         estado: estado,
-        porcentaje: porcentaje
+        porcentaje: porcentaje,
+        usuario: usuario
       },
       success: function (res) {
         if (res == 1) {
@@ -469,6 +471,7 @@ $(document).on("click", "#btnGuardarf", function() {
     folio = parseInt(fila.find('td:eq(0)').text())
     estado = 'PULIDO'
     porcentaje=75;
+    usuario=$('#nameuser').val();
 
     $.ajax({
       url: 'bd/estadoorden.php',
@@ -477,7 +480,8 @@ $(document).on("click", "#btnGuardarf", function() {
       data: {
         folio: folio,
         estado: estado,
-        porcentaje: porcentaje
+        porcentaje: porcentaje,
+        usuario: usuario
       },
       success: function (res) {
         if (res == 1) {
@@ -496,6 +500,7 @@ $(document).on("click", "#btnGuardarf", function() {
     folio = parseInt(fila.find('td:eq(0)').text())
     estado = 'COLOCACION'
     porcentaje=90;
+    usuario=$('#nameuser').val();
 
     $.ajax({
       url: 'bd/estadoorden.php',
@@ -504,7 +509,8 @@ $(document).on("click", "#btnGuardarf", function() {
       data: {
         folio: folio,
         estado: estado,
-        porcentaje: porcentaje
+        porcentaje: porcentaje,
+        usuario: usuario
       },
       success: function (res) {
         if (res == 1) {
@@ -539,7 +545,7 @@ $(document).on("click", "#btnGuardarf", function() {
     folio = $('#foliolorden').val();
     venta= $('#foliolventa').val();
     
-    
+     usuario=$('#nameuser').val();
     fechalib=$('#fechal').val();
     estado = 'LIBERADO'
     porcentaje=100;
@@ -553,7 +559,8 @@ $(document).on("click", "#btnGuardarf", function() {
         estado: estado,
         venta:venta,
         fechalib: fechalib,
-        porcentaje: porcentaje
+        porcentaje: porcentaje,
+        usuario: usuario
       },
       success: function (res) {
         if (res == 1) {

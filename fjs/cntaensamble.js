@@ -162,12 +162,15 @@ $(document).ready(function () {
     $(document).on('click','.btncolocado',function(){
       fila = $(this).closest('tr')
       id = parseInt(fila.find('td:eq(0)').text())
-      console.log(id)
+      
       estado = fila.find('td:eq(4)').text()
-      console.log(estado)
+     
       forden =fila.find('td:eq(1)').text()
       opcion=3
-      console.log(forden)
+      usuario=$('#nameuser').val()
+
+      descripcion='ENSAMBLE PIEZA: ' + fila.find('td:eq(2)').text()+' ' + fila.find('td:eq(3)').text()
+    
       if (estado == "ENSAMBLADO"){
         Swal.fire({
           title: 'La pieza ya ha sido Ensamblada',
@@ -180,7 +183,7 @@ $(document).ready(function () {
           url: "bd/estadopieza.php",
           dataType: "json",
           async:false,
-          data: { id: id, forden: forden,opcion: opcion },
+          data: { id: id, forden: forden,opcion: opcion, usuario: usuario, descripcion: descripcion },
 
           success: function(res) {
               if (res == 1){
@@ -198,12 +201,12 @@ $(document).ready(function () {
     $(document).on('click','#etapa',function(){
    
       orden=$('#foliolorden').val()
-      console.log(orden)
+     
       var str = "";
       $( "select option:selected" ).each(function() {
         str += $( this ).text() ;
       });
-      console.log(str)
+     
       if (str == "COLOCACION"){
         $('#modalEtapa').modal('hide');
         buscarpiezas(orden)

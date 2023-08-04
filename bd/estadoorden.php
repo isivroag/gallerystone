@@ -13,6 +13,7 @@ $venta = (isset($_POST['venta'])) ? $_POST['venta'] : '';
 $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
 $fechaini = (isset($_POST['fechaini'])) ? $_POST['fechaini'] : '';
 $fechalib = (isset($_POST['fechalib'])) ? $_POST['fechalib'] : '';
+$usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 
 $hoy=date("Y-m-d");
 $res = 0;
@@ -34,7 +35,7 @@ if ($resultado->execute()) {
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
 
-    $consulta="INSERT INTO ordenestado (id_orden,estado,fecha_ini,fecha_fin,activo) VALUES ('$folio','$estado','$hoy','$hoy','1')";
+    $consulta="INSERT INTO ordenestado (id_orden,estado,fecha_ini,fecha_fin,activo,usuario,descripcion) VALUES ('$folio','$estado','$hoy','$hoy','1','$usuario','CAMBIO DE ESTADO')";
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
 

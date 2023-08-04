@@ -14,7 +14,7 @@ $(document).ready(function () {
             'use strict';
             /*dejo 2 clases: bntAgregarProducto - recuperarBoton*/
             /*capturo el id del producto*/
-            console.log(row[8])
+          
             if (row[8]=='ENTREGA'){
               return "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-regular fa-pen-to-square'></i></button>\
               <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
@@ -174,11 +174,15 @@ $(document).ready(function () {
     $(document).on('click','.btncolocado',function(){
       fila = $(this).closest('tr')
       id = parseInt(fila.find('td:eq(0)').text())
-      console.log(id)
+    
       estado = fila.find('td:eq(4)').text()
-      console.log(estado)
+  
       forden =fila.find('td:eq(1)').text()
-      console.log(forden)
+      usuario=$('#nameuser').val()
+
+      descripcion='COLOCACION PIEZA: ' + fila.find('td:eq(2)').text()+' ' + fila.find('td:eq(3)').text()
+      console.log(descripcion)
+     
       opcion=1;
       if (estado == "COLOCADO"){
         Swal.fire({
@@ -192,7 +196,7 @@ $(document).ready(function () {
           url: "bd/estadopieza.php",
           dataType: "json",
           async:false,
-          data: { id: id, forden: forden,opcion: opcion },
+          data: { id: id, forden: forden,opcion: opcion, usuario: usuario, descripcion: descripcion },
 
           success: function(res) {
               if (res == 1){
@@ -210,12 +214,12 @@ $(document).ready(function () {
     $(document).on('click touchstart','#etapa',function(){
    
       orden=$('#foliolorden').val()
-      console.log(orden)
+     
       var str = "";
       $( "select option:selected" ).each(function() {
         str += $( this ).text() ;
       });
-      console.log(str)
+     
       if (str == "COLOCACION"){
         $('#modalEtapa').modal('hide');
         buscarpiezas(orden)

@@ -77,6 +77,7 @@ $(document).ready(function () {
     venta = $('#folioventa').val()
     fecha = $('#fecha').val()
     fechaini= $('#fechai').val()
+    usuario=$('#nameuser').val()
 
     estado = 'ACTIVO'
     porcentaje = 0
@@ -99,6 +100,7 @@ $(document).ready(function () {
           fechaini,fechaini,
           venta: venta,
           porcentaje: porcentaje,
+          usuario: usuario
         },
         success: function (res) {
           if (res == 1) {
