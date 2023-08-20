@@ -123,7 +123,14 @@ $resultadoing->execute();
 $dataing = $resultadoing->fetchAll(PDO::FETCH_ASSOC);
 
 
-
+$cntaorden = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.concepto_vta,vorden.edo_ord,vorden.avance,
+max(ordenestado.fecha_ini) as fecha_ini,ordenestado.descripcion,ordenestado.usuario 
+FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini >= DATE_SUB(CURDATE(),INTERVAL 2 MONTH) and ordenestado.estado_reg='1' 
+AND ordenestado.activo=1 
+group by ordenestado.id_orden order BY vorden.avance, ordenestado.id_orden";
+$resorden = $conexion->prepare($cntaorden);
+$resorden->execute();
+$dataorden = $resorden->fetchAll(PDO::FETCH_ASSOC);
 
 /*
 $consultametros = "CALL sp_graficametros('$y','$m')";
@@ -709,6 +716,71 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
             </div>
             <!--FIN GRAFICA COMPARATIVA ML -->
 
+
+            <div class="col-sm-12">
+              <div class="card ">
+                <div class="card-header bg-gradient-orange color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Movimientos de Proyectos ultimos 2 meses
+                  </h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-orange btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row justify-content-center">
+                    <div class="col-sm-12 my-auto">
+                      <div class="table-responsive"> 
+                        <table id="tablaOrden"class="table  table-bordered table-hover table-sm table-sm table-striped  table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
+                          <thead class="text-center bg-gradient-orange">
+                            <tr>
+                              <th>Orden</th>
+                              <th>Venta</th>
+                              <th>Cliente</th>
+                              <th>Proyecto</th>
+                              <th>Estado</th>
+                              <th>Avance</th>
+                              <th>Ultimo Mov</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+
+                            foreach ($dataorden as $roworden) {
+                            ?>
+
+                              <tr>
+                                <td><?php echo $roworden['id_orden'] ?> </td>
+                                <td><?php echo $roworden['folio_vta'] ?> </td>
+                                <td><?php echo $roworden['nombre'] ?> </td>
+                                <td><?php echo $roworden['concepto_vta'] ?> </td>
+                                <td><?php echo $roworden['edo_ord'] ?> </td>
+                                <td><?php echo $roworden['avance'] ?> </td>
+                                <td><?php echo $roworden['fecha_ini'] ?> </td>
+                              </tr>
+                            <?php
+                            }
+                            ?>
+
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer -->
+              </div>
+            </div>
           </div>
 
         </section>

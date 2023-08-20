@@ -47,6 +47,88 @@ $(document).ready(function() {
         info:false,
         "searching": false
     });
+
+    tablaOrden = $("#tablaOrden").DataTable({
+
+      rowCallback: function (row, data) {
+
+        avance = data[5]
+
+        barra =
+        "<div class='progress mb-3 ' style='width:120px' > \
+              <div class='progress-bar bg-success' role='progressbar' aria-valuenow='" +
+        avance +
+        "' aria-valuemin='0' aria-valuemax='100' style='width:" +
+        avance +
+        "%'> \
+              <span class='text-light text-center'>" +
+        avance +
+        '%</span> \
+              </div> \
+              </div>'
+
+      $($(row).find('td')[5]).html(barra)
+            
+      
+        if (data[4] == 'MEDICION') {
+          //$($(row).find("td")[6]).css("background-color", "warning");
+          $($(row).find('td')[4]).addClass('bg-gradient-warning')
+          //$($(row).find('td')['4']).text('PENDIENTE')
+        } else if (data[4] == 'CORTE') {
+          //$($(row).find("td")[4]).css("background-color", "blue");
+          $($(row).find('td')[4]).addClass('bg-gradient-secondary')
+          //$($(row).find('td')['4']).text('ENVIADO')
+        } else if (data[4] == 'ENSAMBLE') {
+          //$($(row).find("td")[4]).css("background-color", "success");
+          $($(row).find('td')[4]).addClass('bg-lightblue')
+          //$($(row).find('td')['4']).text('ACEPTADO')
+        } else if (data[4] == 'PULIDO') {
+          //$($(row).find("td")[4]).css("background-color", "purple");
+          $($(row).find('td')[4]).addClass('bg-gradient-purple')
+          //$($(row).find('td')['4']).text('EN ESPERA')
+        } else if (data[4] == 'COLOCACION') {
+          //$($(row).find("td")[5]).css("background-color", "light-blue");
+  
+          $($(row).find('td')[4]).addClass('bg-gradient-orange')
+          //$($(row).find('td')['4']).text('EDITADO')
+        } else if (data[4] == 'PROCESANDO'){
+          //$($(row).find("td")[5]).css("background-color", "red");
+          $($(row).find('td')[4]).addClass('bg-gradient-warning')
+          //$($(row).find('td')['4']).text('RECHAZADO')
+        }
+        else if(data[4]=="LIBERADO") {
+          $($(row).find('td')[4]).addClass('bg-gradient-success')
+        }
+        else if(data[4]=="ACTIVO") {
+          $($(row).find('td')[4]).addClass('bg-gradient-primary')
+        }
+      },
+    
+
+
+        //Para cambiar el lenguaje a español
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sSearch": "Buscar:",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "sProcessing": "Procesando...",
+        },
+        "ordering": false,
+        "order": [[ 5, 'asc' ], [ 0, 'asc' ]],
+        paging:false,
+        info:false,
+        "searching": false
+    });
+
     tablaC1 = $("#tablallps").DataTable({
 
       rowCallback: function (row, data) {
