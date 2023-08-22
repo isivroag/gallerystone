@@ -256,7 +256,7 @@ $message = "";
             </div>
             <br>
             <div class="table-hover responsive w-auto " style="padding:10px">
-              <table name="tablapiezas" id="tablapiezas" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+              <table name="tablapiezas" id="tablapiezas" class="table table-sm table-striped table-bordered table-condensed display compact " style="width:100%">
                 <thead class="text-center bg-gradient-primary">
                   <tr>
                     <th>ID</th>
@@ -307,4 +307,4 @@ $message = "";
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-<script src="http://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>

@@ -127,7 +127,7 @@ $cntaorden = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.
 max(ordenestado.fecha_ini) as fecha_ini,ordenestado.descripcion,ordenestado.usuario 
 FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini >= DATE_SUB(CURDATE(),INTERVAL 2 MONTH) and ordenestado.estado_reg='1' 
 AND ordenestado.activo=1 
-group by ordenestado.id_orden order BY vorden.avance, ordenestado.id_orden";
+group by ordenestado.id_orden order BY vorden.avance,ordenestado.fecha_ini";
 $resorden = $conexion->prepare($cntaorden);
 $resorden->execute();
 $dataorden = $resorden->fetchAll(PDO::FETCH_ASSOC);
@@ -736,7 +736,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                   <div class="row justify-content-center">
                     <div class="col-sm-12 my-auto">
                       <div class="table-responsive"> 
-                        <table id="tablaOrden"class="table  table-bordered table-hover table-sm table-sm table-striped  table-condensed text-nowrap w-auto mx-auto" style="font-size:15px">
+                        <table id="tablaOrden"class="table  table-bordered table-hover table-sm table-sm table-striped  table-condensed text-nowrap w-auto mx-auto" style="font-size:14px">
                           <thead class="text-center bg-gradient-orange">
                             <tr>
                               <th>Orden</th>

@@ -141,6 +141,7 @@ $(document).ready(function () {
       paging: false,
       scrollY:"400px",
       scrollCollapse: true,
+      autoWidth: true,
   
       rowCallback: function (row, data) {
   
@@ -165,7 +166,7 @@ $(document).ready(function () {
       
     },
     )
-  
+    
     var fila //capturar la fila para editar o borrar el registro
     
     //Boton Cambiar Fecha
@@ -211,7 +212,19 @@ $(document).ready(function () {
       }
 
     })
-    $(document).on('click touchstart','#etapa',function(){
+
+    document.getElementById("etapa").addEventListener("change", function() {
+      var selectedValue = this.value; // Obtiene el valor de la opción seleccionada
+      orden=$('#foliolorden').val()
+      console.log(selectedValue)
+      if (selectedValue == "COLOCACION"){
+        $('#modalEtapa').modal('hide');
+        buscarpiezas(orden)
+      }
+    })
+
+    /*
+    $(document).on('change ','#etapa',function(){
    
       orden=$('#foliolorden').val()
      
@@ -219,25 +232,25 @@ $(document).ready(function () {
       $( "select option:selected" ).each(function() {
         str += $( this ).text() ;
       });
-     
+     console.log(str)
       if (str == "COLOCACION"){
         $('#modalEtapa').modal('hide');
         buscarpiezas(orden)
       }
 
-    })
+    })*/
   
     function buscarpiezas(folio) {
       tablapiezas.clear();
       tablapiezas.draw();
-    
+      $('#modalpiezas').modal('show')
     
 
       $.ajax({
           type: "POST",
           url: "bd/buscardetalleot.php",
           dataType: "json",
-          async:false,
+          async:true,
           data: { folio: folio },
 
           success: function(res) {
@@ -246,8 +259,8 @@ $(document).ready(function () {
 
              
               }
-              tablapiezas.columns.adjust()
-              $('#modalpiezas').modal('show')
+              tablapiezas.columns.adjust().draw()
+              //$('#modalpiezas').modal('show')
 
           },
       });
