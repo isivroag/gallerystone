@@ -164,7 +164,7 @@ switch ($opcion) {
                 $data = 1;
             }
         } else {
-            $consulta = "UPDATE vale_detalleins SET estado=2 where id_reg='$id'";
+            $consulta = "UPDATE vale_detalleins SET estado=2, cantidad_reg=cantidad_des where id_reg='$id'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
@@ -276,11 +276,12 @@ switch ($opcion) {
                 $data = 1;
             }
         } else {
-            $consulta = "UPDATE vale_detalleins SET estado=2 where id_reg='$id'";
+            $idcaja=0;
+            $consulta = "UPDATE vale_detalleins SET estado=2,cantidad_reg='$cantidadr' where id_reg='$id'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
-            $consulta = "SELECT * from vvale_detalle where id_reg='$id'";
+            $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='INSUMO'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -325,37 +326,43 @@ switch ($opcion) {
             $contenidoc = 0;
             $contenidoa = 0;
             $contenidot = 0;
-
-            $consulta = "SELECT * from consumible where id_cons='$item'";
+            $presentacion=0;
+            $cantidad=0;
+            $saldo=0;
+            $saldoini=0;
+            $saldofin=0;
+            $consulta = "SELECT * FROM consumible where id_cons='$item'";
             $resultado = $conexion->prepare($consulta);
             if ($resultado->execute()) {
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($data as $rowdata) {
             
                     $presentacion = $rowdata['presentacion'];
-            
-               
-            
+                    $cantidad=$rowdata['cant_cons'];
                     $saldoinn = $rowdata['contenidon'];
                     $saldoina = $rowdata['contenidoa'];
                     $saldoint = $rowdata['contenidot'];
-            
-                    $saldo = $rowdata['cant_cons'];;
+                    $saldo = $rowdata['contenidoa'];
                 }
-                $conversion = $presentacion * $montomov;
-               
-                        $saldofinn = $saldoinn - $conversion;
-                        $saldofint = $saldoint - $conversion;
-                        $saldofin = $saldo - $montomov;
+
+                $conversion =  $montomov;
+                $saldoini= $cantidad * $presentacion;
+                
+                $saldofinn = $saldoinn ;
+                $saldofina = $saldoina - $conversion;
+                $saldofint = $saldoint - $conversion;
+                $saldofin = $saldo - $montomov;
           
                 //guardar el movimiento
-                $consulta = "INSERT INTO mov_consumible(id_cons,fecha_movi,tipo_movi,cantidad,saldoini,saldofin,descripcion,usuario,saldoinn,cantidadn,saldofinn,saldoina,cantidada,saldofina,saldoint,cantidadt,saldofint) 
-                values('$item','$fecha','$tipomov','$montomov','$saldo','$saldofin','$descripcion','$usuario','$saldoinn','$conversion','$saldofinn','$saldoina','0','$saldoina','$saldoint','$conversion','$saldofint')";
+                $consulta = "INSERT INTO mov_consumible(id_cons,fecha_movi,tipo_movi,cantidad,saldoini,saldofin,descripcion,
+                usuario,saldoinn,cantidadn,saldofinn,saldoina,cantidada,saldofina,saldoint,cantidadt,saldofint) 
+                values('$item','$fecha','$tipomov','0','$cantidad','$cantidad','$descripcion',
+                '$usuario','$saldoinn','0','$saldofinn','$saldoina','$montomov','$saldofina','$saldoint','$conversion','$saldofint')";
                 $resultado = $conexion->prepare($consulta);
             
                 if ($resultado->execute()) {
             
-                    $consulta = "UPDATE consumible SET cant_cons='$saldofin',contenidon='$saldofinn',contenidot='$saldofint' WHERE id_cons='$item'";
+                    $consulta = "UPDATE consumible SET cant_cons='$cantidad',contenidon='$saldoini',contenidoa='$saldofina',contenidot='$saldofint' WHERE id_cons='$item'";
                     $resultado = $conexion->prepare($consulta);
                     
                     if ($resultado->execute()) {
@@ -373,10 +380,11 @@ switch ($opcion) {
             $res2 = $conexion->prepare($consulta2);
             $res2->execute();
             if ($res2->rowCount() == 0) {
+                $data = 2;
                 $consulta2 = "UPDATE vale SET estado='RECIBIDO', fecha_cierre='$fecha' where folio_vale='$foliovale'";
                 $res2 = $conexion->prepare($consulta2);
                 $res2->execute();
-                $data = 2;
+                
 
                 $consulta2 = "UPDATE cajah SET bloqueado=0 where vale='$foliovale'";
                 $res2 = $conexion->prepare($consulta2);

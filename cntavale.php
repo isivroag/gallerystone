@@ -12,6 +12,12 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
+$primer = date("Y-m-01");
+
+// Obtener el último día del mes en curso
+$ultimo = date("Y-m-t");
+
+//$consulta = "SELECT * FROM vale WHERE estado_vale='1' and ((fecha_vale between '$primer' and '$ultimo') or estado<>'RECIBIDO')  ORDER BY folio_vale";
 $consulta = "SELECT * FROM vale WHERE estado_vale='1' ORDER BY folio_vale";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
@@ -250,6 +256,7 @@ $message = "";
                     <th>Obs</th>
                     <th>Estado</th>
                     <th>Vale</th>
+                    <th>Recibido</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>

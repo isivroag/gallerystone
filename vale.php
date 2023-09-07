@@ -93,7 +93,7 @@ $datades = $resdes->fetchAll(PDO::FETCH_ASSOC);
 
 
 //$cntades = "SELECT * FROM consumible where estado_cons=1 order by id_cons";
-$cntades = "SELECT * FROM consumible where estado_cons=1 order by id_cons";
+$cntades = "SELECT * FROM vconsumible where estado_cons=1 order by id_cons";
 $resdes = $conexion->prepare($cntades);
 $resdes->execute();
 $datains = $resdes->fetchAll(PDO::FETCH_ASSOC);
@@ -661,6 +661,7 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
                                         <th>Clave</th>
                                         <th>Insumo</th>
                                         <th>Cantidad</th>
+                                        <th>Unidad</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>
@@ -673,7 +674,8 @@ $dataord = $resord->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo $datd['id_cons'] ?></td>
                                             <td><?php echo $datd['clave_cons'] ?></td>
                                             <td><?php echo $datd['nom_cons'] ?></td>
-                                            <td><?php echo $datd['cant_cons'] ?></td>
+                                            <td><?php echo $datd['contenidoa'] ?></td>
+                                            <td><?php echo $datd['nom_umedida'] ?></td>
                                             <td></td>
                                         </tr>
                                     <?php

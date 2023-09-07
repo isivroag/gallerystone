@@ -9,7 +9,7 @@ $(document).ready(function () {
 
   function permisos() {
  
-    if (operacion == 1 || operacion==2 || operacion==3 || operacion==6) {
+    if (operacion == 1 || operacion==2 || operacion==3 ) {
       columnas = "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-solid fa-magnifying-glass'></i></button>\
       <button class='btn btn-sm btn-info btnentregar' data-toggle='tooltip' data-placement='top' title='Firma de Equipo Entregado'><i class='fa-solid fa-person-arrow-down-to-line'></i></button>\
       <button class='btn btn-sm btn-success btnrecibir' data-toggle='tooltip' data-placement='top' title='Firma de Equipo Recibido'><i class='fa-solid fa-person-arrow-up-from-line'></i></button>\
@@ -24,6 +24,11 @@ $(document).ready(function () {
     }else if (operacion==5){
       columnas="<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-solid fa-magnifying-glass'></i></button>\
       <button class='btn btn-sm btn-info btnentregar' data-toggle='tooltip' data-placement='top' title='Firma de Equipo Entregado'><i class='fa-solid fa-person-arrow-down-to-line'></i></button>\
+      <button class='btn btn-sm bg-orange btnPdf' data-toggle='tooltip' data-placement='top' title='Imprimir'><i class='text-white fas fa-file-pdf'></i></button>\
+        </div>"
+    }else if (operacion==6){
+      columnas="<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-solid fa-magnifying-glass'></i></button>\
+      <button class='btn btn-sm btn-success btnrecibir' data-toggle='tooltip' data-placement='top' title='Firma de Equipo Recibido'><i class='fa-solid fa-person-arrow-up-from-line'></i></button>\
       <button class='btn btn-sm bg-orange btnPdf' data-toggle='tooltip' data-placement='top' title='Imprimir'><i class='text-white fas fa-file-pdf'></i></button>\
         </div>"
     }
@@ -213,8 +218,17 @@ $(document).ready(function () {
         $($(row).find('td')[7]).text('RECIBIDO')
         $($(row).find('td')[7]).addClass('text-center')
       }
+      if (data[2] === 'INSUMO') {
+        $(row).find('.btnrecibido').show();
+        $(row).find('.btnajuste').show();
+      } else if (data[2] === 'HERRAMIENTA') {
+        $(row).find('.btnrecibido').show();
+        $(row).find('.btnajuste').hide();
+      }
     },
   })
+
+  
   var fila //capturar la fila para editar o borrar el registro
 
   //Boton Cambiar Fecha
@@ -265,7 +279,7 @@ $(document).ready(function () {
     fila = $(this).closest('tr')
     folio = parseInt(fila.find('td:eq(0)').text())
     buscarherramienta2(folio)
- 
+   
     $('#modalrecepcion').modal('show')
   })
 
@@ -475,6 +489,7 @@ $(document).on('click', '#btnregresarcant', function () {
               res[i].obs,
               res[i].estado,
               res[i].folio_vale,
+              res[i].cant_req,
            
             ])
             .draw()

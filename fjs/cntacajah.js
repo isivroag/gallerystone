@@ -71,7 +71,7 @@ $(document).ready(function () {
         data: null,
         defaultContent:
           "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelInsumo'><i class='fas fa-hand-pointer'></i></button></div></div>",
-      },
+      },{ className: 'text-center', targets: [3] },
     ],
 
     //Para cambiar el lenguaje a español
