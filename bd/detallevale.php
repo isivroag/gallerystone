@@ -84,7 +84,7 @@ switch ($opcion) {
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
-            $consulta = "SELECT * from vvale_detalle where id_reg='$id'";
+            $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='HERRAMIENTA'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -108,7 +108,7 @@ switch ($opcion) {
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
-            $consulta = "SELECT * from vvale_detalle where id_reg='$id'";
+            $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='INSUMO'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -140,7 +140,7 @@ switch ($opcion) {
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
-            $consulta = "SELECT * from vvale_detalle where id_reg='$id'";
+            $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='HERRAMIENTA'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -168,7 +168,7 @@ switch ($opcion) {
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
-            $consulta = "SELECT * from vvale_detalle where id_reg='$id'";
+            $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='INSUMO'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -201,7 +201,7 @@ switch ($opcion) {
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
 
-            $consulta = "SELECT * from vvale_detalle where id_reg='$id'";
+            $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='HERRAMIENTA'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
