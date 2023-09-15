@@ -56,10 +56,7 @@ if ($folio != "") {
     $resultadou->execute();
     $datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
 
-    $consultacom = "SELECT * FROM complemento_ord WHERE id_ord='$folioorden' ORDER BY id_reg";
-    $resultadocom = $conexion->prepare($consultacom);
-    $resultadocom->execute();
-    $datacom = $resultadocom->fetchAll(PDO::FETCH_ASSOC);
+    
 
 
 
@@ -117,13 +114,13 @@ if ($folio != "") {
 <link rel="stylesheet" href="css/estilo.css">
 <style>
     .borde-titulogris {
-        border-left: grey;
+        border-left: green;
         border-style: outset;
         ;
     }
 
     .fondogris {
-        background-color: rgba(183, 185, 187, .8);
+        background-color: rgba(149, 209, 164, .8);
     }
 
     .borde-titulazul {
@@ -215,8 +212,8 @@ if ($folio != "") {
 
         <!-- Default box -->
         <div class="card">
-            <div class="card-header bg-gradient-secondary">
-                <h1 class="card-title mx-auto">ORDEN</h1>
+            <div class="card-header bg-gradient-success">
+                <h1 class="card-title mx-auto">OBRA</h1>
             </div>
 
             <div class="card-body">
@@ -244,7 +241,7 @@ if ($folio != "") {
 
 
                                 </div>
-                                <h1 class="card-title ">Datos de la Venta</h1>
+                                <h1 class="card-title ">Datos Generales de Venta</h1>
                                 <div class="card-tools" style="margin:0px;padding:0px;">
 
                                     <button type="button" class="btn bg-gradient-success btn-sm " href="#cuerpo" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
@@ -345,9 +342,9 @@ if ($folio != "") {
                         <div class="content" style="padding:5px 0px;">
 
                             <div class="card  ">
-                                <div class="card-header bg-gradient-secondary" style="margin:0px;padding:8px">
+                                <div class="card-header bg-gradient-success" style="margin:0px;padding:8px">
 
-                                    <h1 class="card-title ">DETALLE DE ORDEN</h1>
+                                    <h1 class="card-title ">Detalle de Obra</h1>
 
                                 </div>
 
@@ -357,7 +354,7 @@ if ($folio != "") {
                                         <div class="card-header fondogris " style="margin:0px;padding:8px;">
                                             <h1 class="card-title ">Dellate Principal</h1>
                                             <div class="card-tools " style="margin:0px;padding:0px;">
-                                                <button type="button" class="btn bg-secondary btn-sm " href="#principal" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
+                                                <button type="button" class="btn bg-success btn-sm " href="#principal" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
                                                     <i class="fas fa-minus"></i>
                                                 </button>
 
@@ -370,7 +367,7 @@ if ($folio != "") {
                                                 <div class="table-responsive" style="padding:2px;">
 
                                                     <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%; font-size:15px">
-                                                        <thead class="text-center bg-gradient-secondary">
+                                                        <thead class="text-center bg-gradient-success">
                                                             <tr>
                                                                 <th>Id</th>
                                                                 <th>Concepto</th>
@@ -407,60 +404,6 @@ if ($folio != "") {
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="card  borde-titulogris">
-                                        <div class="card-header fondogris " style="margin:0px;padding:8px">
-
-                                            <h1 class="card-title ">Detalle Complementario</h1>
-                                            <div class="card-tools" style="margin:0px;padding:0px;">
-                                                <button type="button" id="btnAddcom" class="btn bg-gradient-secondary btn-sm">
-                                                    <i class="fas fa-folder-minus"></i>
-                                                </button>
-                                                <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-
-                                            </div>
-                                        </div>
-                                        <div class="card-body" id="extra">
-                                            <div class="col-lg-auto">
-                                                <table name="tablaD" id="tablaD" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
-                                                    <thead class="text-center bg-gradient-secondary">
-                                                        <tr>
-                                                            <th>Id</th>
-                                                            <th>Concepto</th>
-                                                            <th>Cantidad</th>
-                                                            <th>U. Medida</th>
-                                                            <th>Acciones</th>
-
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-
-                                                        foreach ($datacom as $datcom) {
-                                                        ?>
-                                                            <tr>
-                                                                <td><?php echo $datcom['id_reg'] ?></td>
-                                                                <td><?php echo $datcom['concepto_com'] ?></td>
-                                                                <td><?php echo $datcom['cant_com'] ?></td>
-                                                                <td><?php echo $datcom['nom_umedida'] ?></td>
-                                                                <td></td>
-                                                            </tr>
-                                                        <?php
-                                                        }
-                                                        ?>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
                                 </div>
 
                             </div>
@@ -1643,7 +1586,7 @@ if ($folio != "") {
 </script>
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/orden.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/obra.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

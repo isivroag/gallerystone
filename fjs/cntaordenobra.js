@@ -22,6 +22,7 @@ $(document).ready(function () {
           defaultContent:
             "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fas fa-search'></i></button>\
             <button class='btn btn-sm bg-warning btnGeneradores' data-toggle='tooltip' data-placement='top' title='Ver Generadores'><i class='fas fa-book text-light'></i></button>\
+            <button class='btn btn-sm bg-success btnMateriales' data-toggle='tooltip' data-placement='top' title='Detalle de Materiales'><i class='fas fa-boxes text-light'></i></button>\
               </div>",
         },
         { targets: [7], type: 'num-html' },{
@@ -141,6 +142,12 @@ $(document).ready(function () {
       window.location.href = 'caratulaobra.php?folio=' + id
     })
 
+    $(document).on('click', '.btnMateriales', function () {
+      fila = $(this).closest('tr')
+      id = parseInt(fila.find('td:eq(1)').text())
+  
+      window.location.href = 'obra.php?folio=' + id
+    })
 
   
     $(document).on('click', '.btnGeneradores', function () {
