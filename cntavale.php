@@ -12,13 +12,16 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$primer = date("Y-m-01");
+$primer = (isset($_GET['inicio'])) ? $_GET['inicio'] : date("Y-m-01");
+$ultimo = (isset($_GET['fin'])) ? $_GET['fin'] : date("Y-m-t");
+
+//$primer = date("Y-m-01");
 
 // Obtener el último día del mes en curso
-$ultimo = date("Y-m-t");
+//$ultimo = date("Y-m-t");
 
-//$consulta = "SELECT * FROM vale WHERE estado_vale='1' and ((fecha_vale between '$primer' and '$ultimo') or estado<>'RECIBIDO')  ORDER BY folio_vale";
-$consulta = "SELECT * FROM vale WHERE estado_vale='1' ORDER BY folio_vale";
+$consulta = "SELECT * FROM vale WHERE estado_vale='1' and ((fecha_vale between '$primer' and '$ultimo') or estado<>'RECIBIDO')  ORDER BY folio_vale";
+//$consulta = "SELECT * FROM vale WHERE estado_vale='1' ORDER BY folio_vale";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -78,6 +81,37 @@ $message = "";
         <br>
 
         <div class="container-fluid">
+
+        <div class="card">
+            <div class="card-header bg-gradient-secondary">
+              Filtro por rango de Fecha
+            </div>
+            <div class="card-body">
+              <div class="row justify-content-center">
+                <div class="col-lg-2">
+                  <div class="form-group input-group-sm">
+                    <label for="fecha" class="col-form-label">Desde:</label>
+                    <input type="date" class="form-control" name="inicio" id="inicio" value="<?php echo $primer ?>">
+                  </div>
+                </div>
+
+                <div class="col-lg-2">
+                  <div class="form-group input-group-sm">
+                    <label for="fecha" class="col-form-label">Hasta:</label>
+                    <input type="date" class="form-control" name="final" id="final" value="<?php echo $ultimo ?>">
+
+                  </div>
+                </div>
+
+                <div class="col-lg-1 align-self-end text-center">
+                  <div class="form-group input-group-sm">
+                    <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
 
           <div class="row">
             <div class="col-lg-12">

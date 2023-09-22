@@ -228,6 +228,15 @@ $(document).ready(function () {
     },
   })
 
+
+  $("#btnBuscar").click(function () {
+    var inicio = $("#inicio").val();
+    var final = $("#final").val();
+    window.location.href =
+      "cntavale.php?inicio=" + inicio + "&fin=" + final;
+  });
+
+
   
   var fila //capturar la fila para editar o borrar el registro
 
