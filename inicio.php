@@ -123,14 +123,7 @@ $resultadoing->execute();
 $dataing = $resultadoing->fetchAll(PDO::FETCH_ASSOC);
 
 
-$cntaorden = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.concepto_vta,vorden.edo_ord,vorden.avance,
-max(ordenestado.fecha_ini) as fecha_ini,ordenestado.descripcion,ordenestado.usuario 
-FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini >= DATE_SUB(CURDATE(),INTERVAL 2 MONTH) and ordenestado.estado_reg='1' 
-AND ordenestado.activo=1 
-group by ordenestado.id_orden order BY vorden.avance,ordenestado.fecha_ini";
-$resorden = $conexion->prepare($cntaorden);
-$resorden->execute();
-$dataorden = $resorden->fetchAll(PDO::FETCH_ASSOC);
+
 
 /*
 $consultametros = "CALL sp_graficametros('$y','$m')";
@@ -630,7 +623,9 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                 <!-- /.card-footer -->
               </div>
             </div>
+            <!--INICIO AVANCE DE ORDENES -->
 
+            <!--FIN AVANCE DE ORDENES -->
             <div class="col-sm-12">
               <div class="card ">
                 <div class="card-header bg-gradient-primary color-palette border-0">
@@ -715,8 +710,113 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
               </div>
             </div>
             <!--FIN GRAFICA COMPARATIVA ML -->
+            <div class="col-sm-12">
+              <div class="card ">
+                <div class="card-header bg-gradient-primary color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fa-solid fa-chart-gantt mr-1"></i>
+                    Avance de Ordenes de Proyecto
+                    <i class=" text-orange fa-solid fa-certificate mr-1"></i>
+                  </h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-primary btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row justify-content-center">
+
+                    <div class="col-sm-12  my-auto">
+                      <div class="table-responsive">
+                        <table id="table-avance" name="table-avance" class="table  table-condensed table-bordered table-hover table-sm w-auto mx-auto" style="font-size:15px">
+                          <thead class="text-center bg-gradient-primary">
+                            <tr>
+                              <th>Folio Ord</th>
+                              <th>Folio Vta</th>
+                              <th>Cliente</th>
+                              <th>Proyecto</th>
+                              <th>Estado</th>
+                              <th style="width: 200px;">Avance</th>
+                              <th>Avance</th>
+                              <th>Acciones</th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $cons = "SELECT * FROM vorden WHERE estado_ord=1 and tipo_proy=1 and (avance<100 OR fecha_liberacion BETWEEN '$fechaInicio' AND '$fechaFin') order by avance,edo_ord,folio_ord";
+                            $resul = $conexion->prepare($cons);
+                            $resul->execute();
+                            $datos = $resul->fetchAll(PDO::FETCH_ASSOC);
+                            foreach ($datos as $row) {
+                              $avance = $row['avance'];
+                              $estado = $row['edo_ord'];
+                              $color = '';
+                              switch ($avance) {
+                                case 0:
+                                  if ($estado == 'ACTIVO') {
+                                    $color = 'bg-gradient-primary';
+                                  } elseif ($estado == 'MEDICION') {
+                                    $color = 'bg-gradient-warning text-white';
+                                  } else {
+                                    $color = 'bg-gradient-warning text-white';
+                                  }
+                                  break;
+                                case 5:
+                                  $color = 'bg-gradient-secondary';
+                                  break;
+                                case 45:
+                                  $color = 'bg-gradient-info ';
+                                  break;
+                                case 75:
+                                  $color = 'bg-gradient-purple';
+                                  break;
+                                case 90:
+                                  $estado = 'COLOCACION';
+                                  $color = 'bg-gradient-orange';
+                                  break;
+                                case 100:
+                                  $color = 'bg-gradient-success';
+                                  break;
+                              }
+                            ?>
+                              <tr>
+                                <td><?php echo $row['folio_ord'] ?></td>
+                                <td><?php echo $row['folio_vta'] ?></td>
+                                <td><?php echo $row['nombre'] ?></td>
+                                <td><?php echo $row['concepto_vta'] ?></td>
+                                <td class="text-center <?php echo $color ?>"><?php echo $estado ?></td>
+                                <td>
+                                  <div class="progress progress-xs">
+                                    <div class="progress-bar <?php echo $color ?>" style="width:<?php echo $avance ?>%"></div>
+                                  </div>
+                                </td>
+                                <td class="text-center"><span class="badge <?php echo $color ?>"><?php echo $avance ?>%</span></td>
+                                <td></td>
+                              </tr>
+                            <?php }
+                            ?>
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer -->
+              </div>
+            </div>
 
 
+
+<!-- COMENTARIO DE SECCION EL 22 DE OCTUBRE DE 2023
+                            -->
             <div class="col-sm-12">
               <div class="card ">
                 <div class="card-header bg-gradient-orange color-palette border-0">
@@ -735,24 +835,38 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                 <div class="card-body">
                   <div class="row justify-content-center">
                     <div class="col-sm-12 my-auto">
-                      <div class="table-responsive"> 
-                        <table id="tablaOrden"class="table  table-bordered table-hover table-sm table-sm table-striped  table-condensed text-nowrap w-auto mx-auto" style="font-size:14px">
+                      <div class="table-responsive">
+                        <table id="tablaOrden" class="table  table-bordered table-hover table-sm table-sm table-striped  table-condensed  w-auto mx-auto" style="font-size:14px">
                           <thead class="text-center bg-gradient-orange">
                             <tr>
                               <th>Orden</th>
                               <th>Venta</th>
                               <th>Cliente</th>
                               <th>Proyecto</th>
+                              <th>Tipo</th>
                               <th>Estado</th>
                               <th>Avance</th>
                               <th>Ultimo Mov</th>
-                              
+
                             </tr>
                           </thead>
                           <tbody>
                             <?php
+                            $cntaorden = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.concepto_vta,vorden.edo_ord,vorden.avance,vorden.tipop,
+                            max(ordenestado.fecha_ini) as fecha_ini,ordenestado.descripcion,ordenestado.usuario 
+                            FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini >= DATE_SUB(CURDATE(),INTERVAL 2 MONTH) and ordenestado.estado_reg='1' 
+                            AND ordenestado.activo=1 and vorden.estado_ord=1
+                            group by ordenestado.id_orden order BY vorden.avance,ordenestado.fecha_ini";
+                            $resorden = $conexion->prepare($cntaorden);
+                            $resorden->execute();
+                            $dataorden = $resorden->fetchAll(PDO::FETCH_ASSOC);
 
                             foreach ($dataorden as $roworden) {
+                              $estado = $roworden['edo_ord'];
+                              $avance = $roworden['avance'];
+                              if ($avance == 90) {
+                                $estado = 'COLOCACION';
+                              }
                             ?>
 
                               <tr>
@@ -760,7 +874,8 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                                 <td><?php echo $roworden['folio_vta'] ?> </td>
                                 <td><?php echo $roworden['nombre'] ?> </td>
                                 <td><?php echo $roworden['concepto_vta'] ?> </td>
-                                <td><?php echo $roworden['edo_ord'] ?> </td>
+                                <td><?php echo $roworden['tipop'] ?> </td>
+                                <td class="text-center"><?php echo $estado ?> </td>
                                 <td><?php echo $roworden['avance'] ?> </td>
                                 <td><?php echo $roworden['fecha_ini'] ?> </td>
                               </tr>
@@ -776,11 +891,10 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
                   </div>
                 </div>
-                <!-- /.card-body -->
-
-                <!-- /.card-footer -->
               </div>
             </div>
+                        
+
           </div>
 
         </section>
@@ -989,7 +1103,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
 
 
-<!-- LIBERACIONES
+    <!-- LIBERACIONES
     <section class="content">
       <div class="container-fluid">
         <div class="row justify-content-center">
@@ -1565,7 +1679,42 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
     </div>
   </section>
 
+
+
+
   <!-- CIERRA EL CONTENIDO DE HOME -->
+
+
+  <section>
+    <div class="container">
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalDetalleo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-md" role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-primary">
+              <h5 class="modal-title" id="exampleModalLabel">Detalle</h5>
+
+            </div>
+            <br>
+            <div class="table-hover table-responsive w-auto" style="padding:15px">
+              <table name="tablaDetalleo" id="tablaDetalleo" class="table table-sm table-hover table-striped table-bordered table-condensed" style="width:100%">
+                <thead class="text-center bg-gradient-primary">
+                  <tr>
+                    <th># Piezas</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </div>
 

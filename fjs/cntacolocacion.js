@@ -443,6 +443,7 @@ $(document).ready(function () {
         
         fechalib=$('#fechal').val();
         estado = 'LIBERADO'
+        usuario=$('#username').val();
         porcentaje=100;
     
         $.ajax({
@@ -453,6 +454,7 @@ $(document).ready(function () {
             folio: folio,
             estado: estado,
             venta:venta,
+            usuario: usuario,
             fechalib: fechalib,
             porcentaje: porcentaje
           },

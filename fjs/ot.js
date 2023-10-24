@@ -112,6 +112,7 @@ $(document).ready(function () {
             data: {
               folio: folio,
               estado: estado,
+              usuario:usuario,
               porcentaje: porcentaje,
             },
             success: function (res) {

@@ -75,9 +75,9 @@ $(document).ready(function () {
       " <div class='container '><div class='row'>" +
       "<div class='col-lg-12'>" +
       "<div class='table-responsive'>" +
-      "<table class='table table-sm table-striped  table-bordered table-condensed text-nowrap mx-auto ' style='width:100%'>" +
-      "<thead class='text-center bg-white '>" +
-      "<tr class='bg-white'>" +
+      "<table class='table table-sm table-striped table-sm, table-striped table-hover table-bordered table-condensed text-nowrap mx-auto ' style='width:100%'>" +
+      "<thead class='text-center bg-gradient-orange text-white'>" +
+      "<tr class=''>" +
       "<th>ESTADO</th>" +
       "<th>DESCRIPCION</th>" +
       "<th>FECHA INI</th>" +

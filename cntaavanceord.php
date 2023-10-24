@@ -15,10 +15,10 @@ $inicio = (isset($_GET['inicio'])) ? $_GET['inicio'] : '';
 $fin = (isset($_GET['fin'])) ? $_GET['fin'] : '';
 
 //if ($_SESSION['s_rol'] == '3' or $_SESSION['s_rol'] == '1' OR $_SESSION['s_rol'] == '2' ) {
-  $consulta = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.concepto_vta,vorden.edo_ord,
+  $consulta = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.concepto_vta,vorden.edo_ord,vorden.avance,vorden.estado_ord,
   max(ordenestado.fecha_ini) as fecha_ini,ordenestado.descripcion,ordenestado.usuario 
-  FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini between '$inicio' and '$fin' and ordenestado.estado_reg='1' 
-  group by ordenestado.id_orden order by vorden.folio_vta ";
+  FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini between '$inicio' and '$fin' and ordenestado.estado_reg='1' and vorden.estado_ord='1'
+  group by ordenestado.id_orden order by vorden.avance,vorden.edo_ord,vorden.folio_vta ";
 //} else {
 //  $consulta = "SELECT * FROM vpres where edo_pres='1' and estado_pres<>'RECHAZADO' and estado_pres<>'ACEPTADO' AND estado_pres<>'SUSPENDIDO' and tipo_proy=1 order by folio_pres";
 //}
@@ -124,7 +124,7 @@ tr.details td.details-control {
           <div class="row">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto " style="font-size:15px;">
+                <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed  w-auto mx-auto " style="font-size:15px;">
                   <thead class="text-center bg-gradient-orange">
                     <tr>
                       <th></th>
@@ -139,6 +139,40 @@ tr.details td.details-control {
                   <tbody>
                     <?php
                     foreach ($data as $dat) {
+                      $avance=$dat['avance'];
+                      $estado=$dat['edo_ord'];
+                      if ($avance==90){
+                        $estado="COLOCACION";
+                      }
+
+                      $color = '';
+                      switch ($avance) {
+                        case 0:
+                          if ($estado == 'ACTIVO') {
+                            $color = 'bg-gradient-primary';
+                          } elseif ($estado == 'MEDICION') {
+                            $color = 'bg-gradient-warning text-white';
+                          } else {
+                            $color = 'bg-gradient-warning text-white';
+                          }
+                          break;
+                        case 5:
+                          $color = 'bg-gradient-secondary';
+                          break;
+                        case 45:
+                          $color = 'bg-gradient-info ';
+                          break;
+                        case 75:
+                          $color = 'bg-gradient-purple';
+                          break;
+                        case 90:
+                          $estado = 'COLOCACION';
+                          $color = 'bg-gradient-orange';
+                          break;
+                        case 100:
+                          $color = 'bg-gradient-success';
+                          break;
+                      }
                     ?>
                       <tr class="">
                         <td></td>
@@ -146,8 +180,8 @@ tr.details td.details-control {
                         <td><?php echo $dat['folio_vta'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_vta'] ?></td>
-                        <td><?php echo $dat['edo_ord'] ?></td>
-                        <td><?php echo $dat['fecha_ini'] ?></td>
+                        <td class="text-center <?php echo $color?>"><?php echo $estado ?></td>
+                        <td class="text-center"><?php echo $dat['fecha_ini'] ?></td>
                       </tr>
                     <?php
                     }
