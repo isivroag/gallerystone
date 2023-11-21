@@ -7,7 +7,10 @@ $conexion = $objeto->connect();
 
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 $cel = (isset($_POST['cel'])) ? $_POST['cel'] : '';
-$nombre = $nombre;
+$ingreso = (isset($_POST['ingreso'])) ? $_POST['ingreso'] : '';
+$salariod = (isset($_POST['salariod'])) ? $_POST['salariod'] : '';
+$tipo = (isset($_POST['tipo'])) ? $_POST['tipo'] : '';
+
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
@@ -15,21 +18,21 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO personal (nom_per,cel_per) VALUES('$nombre','$cel') ";			
+        $consulta = "INSERT INTO personal (nom_per,cel_per,fechaing,salariod,tipo) VALUES('$nombre','$cel','$ingreso,'$salariod','$tipo') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
-        $consulta = "SELECT id_per,nom_per,cel_per FROM personal ORDER BY id_per DESC LIMIT 1";
+        $consulta = "SELECT * FROM personal ORDER BY id_per DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE personal SET nom_per='$nombre',cel_per='$cel' WHERE id_per='$id' ";		
+        $consulta = "UPDATE personal SET nom_per='$nombre',cel_per='$cel',fechaing='$ingreso',salariod='$salariod',tipo='$tipo' WHERE id_per='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT id_per,nom_per,cel_per FROM personal WHERE id_per='$id' ";       
+        $consulta = "SELECT * FROM personal WHERE id_per='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

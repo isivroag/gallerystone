@@ -59,6 +59,10 @@ $message = "";
                                             <th>Id</th>
                                             <th>Nombre</th>
                                             <th>Teléfono</th>
+                                            <th>Salario Diario</th>
+                                            
+                                            <th>Fecha Ingreso</th>
+                                            <th>Tipo</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -70,6 +74,10 @@ $message = "";
                                                 <td><?php echo $dat['id_per'] ?></td>
                                                 <td><?php echo $dat['nom_per'] ?></td>
                                                 <td><?php echo $dat['cel_per'] ?></td>
+                                                <td><?php echo $dat['salariod'] ?></td>
+                                                
+                                                <td><?php echo $dat['fechaing'] ?></td>
+                                                <td><?php echo $dat['tipo'] ?></td>
 
                                                 <td></td>
                                             </tr>
@@ -95,7 +103,7 @@ $message = "";
 
     <section>
         <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog " role="document">
+            <div class="modal-dialog modal-lg   " role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-gradient-lightblue">
                         <h5 class="modal-title" id="exampleModalLabel">NUEVO PERSONAL</h5>
@@ -113,10 +121,33 @@ $message = "";
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="cel" class="col-form-label">Teléfono:</label>
                                         <input type="text" class="form-control" name="cel" id="cel" autocomplete="off" placeholder="Número Teléfonico">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="ingreso" class="col-form-label">Ingreso:</label>
+                                        <input type="date" class="form-control" name="ingreso" id="ingreso" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="salariod" class="col-form-label">Salario Diario:</label>
+                                        <input type="text" class="form-control" name="salariod" id="salariod" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm">
+                                        <label for="tipo" class="col-form-label">Tipo Salario:</label>
+                                        <select class="form-control" name="tipo" id="tipo">
+                                            <option value="FIJO">FIJO</option>
+                                            <option value="FIJO DESTAJO">FIJO DESTAJO</option>
+                                            <option value="DESTAJO">DESTAJO</option>
+
+                                        </select>
                                     </div>
                                 </div>
 

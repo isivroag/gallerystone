@@ -10,7 +10,10 @@ $(document).ready(function() {
             "targets": -1,
             "data": null,
             "defaultContent": "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar'><i class='fas fa-edit'></i></button><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>"
-        }],
+        },
+    
+    
+],
 
         //Para cambiar el lenguaje a español
         "language": {
@@ -52,10 +55,21 @@ $(document).ready(function() {
         //window.location.href = "actprospecto.php?id=" + id;
         nombre = fila.find('td:eq(1)').text();
         cel = fila.find('td:eq(2)').text();
+        salariod = fila.find('td:eq(3)').text();
+       
+        ingreso=fila.find('td:eq(4)').text();
+        tipo=fila.find('td:eq(5)').text();
+
+        
+
 
 
         $("#nombre").val(nombre);
         $("#cel").val(cel);
+        $("#salariod").val(salariod);
+       4
+        $("#ingreso").val(ingreso);
+        $("#tipo").val(tipo);
 
         opcion = 2; //editar
 
@@ -100,6 +114,11 @@ $(document).ready(function() {
         e.preventDefault();
         var nombre = $.trim($("#nombre").val());
         var cel = $.trim($("#cel").val());
+        var ingreso = $.trim($("#ingreso").val());
+        var salariod = $.trim($("#salariod").val());
+        var tipo = $("#tipo").val();
+      
+
 
 
        
@@ -117,18 +136,28 @@ $(document).ready(function() {
                 url: "bd/crudpersonal.php",
                 type: "POST",
                 dataType: "json",
-                data: { nombre: nombre, cel: cel, id: id, opcion: opcion },
+                data: { nombre: nombre, 
+                    cel: cel, 
+                    ingreso: ingreso, 
+                    salariod: salariod, 
+                    id: id, 
+                    tipo: tipo,
+                    opcion: opcion },
                 success: function(data) {
                    
                     //tablaPersonas.ajax.reload(null, false);
                     id = data[0].id_per;
                     nombre = data[0].nom_per;
                     cel = data[0].cel_per;
+                    ingreso = data[0].fechaing;
+                    salariod = data[0].salariod;
+                    tipo = data[0].tipo;
+               
 
                     if (opcion == 1) {
-                        tablaVis.row.add([id, nombre,cel]).draw();
+                        tablaVis.row.add([id, nombre,cel,salariod,ingreso,tipo,]).draw();
                     } else {
-                        tablaVis.row(fila).data([id, nombre,cel ]).draw();
+                        tablaVis.row(fila).data([id, nombre,cel,salariod,ingreso,tipo, ]).draw();
                     }
                 }
             });

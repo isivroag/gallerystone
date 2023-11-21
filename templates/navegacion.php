@@ -400,12 +400,12 @@
             <!-- ABRE REPORTES-->
             <li id="lireportes" class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "rptordenm2"
                                                                 || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptordenm"
-                                                                || $pagina== "cntaavanceorden" || $pagina == "rptdiario") ? "menu-open" : ""; ?>">
+                                                                || $pagina == "cntaavanceorden" || $pagina == "rptdiario") ? "menu-open" : ""; ?>">
 
 
               <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "rptordenm2"
                                             || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptordenm"
-                                            || $pagina== "cntaavanceorden" || $pagina == "rptdiario") ? "active" : ""; ?>">
+                                            || $pagina == "cntaavanceorden" || $pagina == "rptdiario") ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class="fas fa-chart-line nav-icon"></i>
 
@@ -485,7 +485,7 @@
                   </a>
                 </li>
 
-                
+
                 <!-- ABRE TOOLS ROOT-->
                 <?php if ($_SESSION['s_rol'] == '3') {  ?>
                   <li class="nav-item">
@@ -517,10 +517,10 @@
             <!-- CIERRA REPORTES-->
 
             <!--ABRE ADMINISTRACION-->
-            <li id="liadministracion" class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb' || $pagina == 'personal' || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "menu-open" : ""; ?>">
+            <li id="liadministracion" class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb' || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'banco' || $pagina == 'cntamovb' || $pagina == 'personal' || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'banco' || $pagina == 'cntamovb'  || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-book "></i>
 
@@ -532,13 +532,7 @@
               </a>
               <ul class="nav nav-treeview">
 
-                <li class="nav-item">
-                  <a href="cntapersonal.php" class="nav-link <?php echo ($pagina == 'personal') ? "active seleccionado" : ""; ?>  ">
-                    <i class="fas fa-user nav-icon"></i>
-                    <p>Personal</p>
-                  </a>
-                </li>
-
+               
                 <li class="nav-item">
                   <a href="cntabanco.php" class="nav-link <?php echo ($pagina == 'banco') ? "active seleccionado" : ""; ?>  ">
                     <i class="fas fa-university nav-icon"></i>
@@ -576,9 +570,56 @@
                 </li>
               </ul>
             </li>
+            <!-- CIERRA ADMINISTRACION-->
+
+
+            <!--ABRE NOMINA-->
+            <li id="linomina" class="nav-item has-treeview <?php echo ( $pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden') ? "menu-open" : ""; ?>">
+
+
+              <a href="#" class="nav-link <?php echo ( $pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden') ? "active" : ""; ?>">
+                <span class="fa-stack">
+                  <i class=" fa-solid fa-people-group "></i>
+
+                </span>
+                <p>
+                  Nomina
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                  <a href="cntapersonal.php" class="nav-link <?php echo ($pagina == 'personal') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fas fa-user nav-icon"></i>
+                    <p>Personal</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="nomorden.php" class="nav-link <?php echo ($pagina == 'nomorden') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fas fa-university nav-icon"></i>
+                    <p>Ordenes</p>
+                  </a>
+                </li>
+<!--
+                <li class="nav-item">
+                  <a href="cntanomina.php" class="nav-link <?php echo ($pagina == 'cntanomina') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fa-solid fa-users-viewfinder nav-icon"></i>
+                    <p>Nominas</p>
+                  </a>
+                </li>
+                -->
+
+                
+              </ul>
+            </li>
+            <!-- CIERRA NOMINA-->
+
+
           <?php } ?>
         <?php } ?>
-        <!-- CIERRA ADMINISTRACION-->
+
 
 
 
