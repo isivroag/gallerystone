@@ -63,13 +63,13 @@ if ($vcons == 0) {
 
         <!-- Default box -->
         <div class="card ">
-            <div class="card-header bg-secondary">
+            <div class="card-header bg-lightblue ">
                 <h4 class="card-title text-center">ORDENES DE SERVICIO</h4>
             </div>
 
             <div class="card-body">
                 <div class="card">
-                    <div class="card-header bg-gradient-secondary">
+                    <div class="card-header bg-gradient-lightblue ">
                         Filtro por rango de Fecha
                     </div>
                     <div class="card-body">
@@ -112,7 +112,7 @@ if ($vcons == 0) {
                         <div class="col-lg-12">
                             <div class="table-responsive">
                                 <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
-                                    <thead class="text-center bg-secondary">
+                                    <thead class="text-center bg-lightblue ">
                                         <tr>
                                             <th>Folio</th>
                                             <th>Folio Vta</th>
@@ -167,7 +167,7 @@ if ($vcons == 0) {
     <div class="modal fade" id="modalImporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
-                <div class="modal-header bg-gradient-secondary">
+                <div class="modal-header bg-gradient-lightblue ">
                     <h5 class="modal-title" id="exampleModalLabel">Fecha de Toma de Plantilla</h5>
 
                 </div>
@@ -223,7 +223,7 @@ if ($vcons == 0) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-<script src="http://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.21/sorting/formatted-numbers.js"></script>
 <script src="plugins/moment/moment.min.js"></script>
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js"></script>
 <script src="plugins/tempusdominus-bootstrap-4/js/locale/es.js"></script>

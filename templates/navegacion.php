@@ -574,10 +574,10 @@
 
 
             <!--ABRE NOMINA-->
-            <li id="linomina" class="nav-item has-treeview <?php echo ( $pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden') ? "menu-open" : ""; ?>">
+            <li id="linomina" class="nav-item has-treeview <?php echo ( $pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden' || $pagina == 'asistencia' || $pagina == 'rptasistencia') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ( $pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ( $pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden' || $pagina == 'asistencia' || $pagina == 'rptasistencia') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fa-solid fa-people-group "></i>
 
@@ -593,6 +593,20 @@
                   <a href="cntapersonal.php" class="nav-link <?php echo ($pagina == 'personal') ? "active seleccionado" : ""; ?>  ">
                     <i class="fas fa-user nav-icon"></i>
                     <p>Personal</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="asistencia.php" class="nav-link <?php echo ($pagina == 'asistencia') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-user-check nav-icon"></i>
+                    <p>Asistencia</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="rptasistencia.php" class="nav-link <?php echo ($pagina == 'rptasistencia') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-rectangle-list nav-icon"></i>
+                    <p>Reporte de Asistencia</p>
                   </a>
                 </li>
 
