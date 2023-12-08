@@ -143,6 +143,14 @@ $(document).ready(function () {
           //$($(row).find("td")[4]).css("background-color", "purple");
           $($(row).find('td')[4]).addClass('bg-gradient-warning')
           //$($(row).find('td')['7']).text('EN ESPERA')
+        }  else if (data[4] == 'FALTA JUSTIFICADA') {
+          //$($(row).find("td")[4]).css("background-color", "purple");
+          $($(row).find('td')[4]).addClass('bg-gradient-info')
+          //$($(row).find('td')['7']).text('EN ESPERA')
+        }  else if (data[4] == 'NO CHECO') {
+          //$($(row).find("td")[4]).css("background-color", "purple");
+          $($(row).find('td')[4]).addClass('bg-gradient-danger')
+          //$($(row).find('td')['7']).text('EN ESPERA')
         } 
       },
 

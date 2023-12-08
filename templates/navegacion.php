@@ -532,7 +532,7 @@
               </a>
               <ul class="nav nav-treeview">
 
-               
+
                 <li class="nav-item">
                   <a href="cntabanco.php" class="nav-link <?php echo ($pagina == 'banco') ? "active seleccionado" : ""; ?>  ">
                     <i class="fas fa-university nav-icon"></i>
@@ -574,10 +574,10 @@
 
 
             <!--ABRE NOMINA-->
-            <li id="linomina" class="nav-item has-treeview <?php echo ( $pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden' || $pagina == 'asistencia' || $pagina == 'rptasistencia') ? "menu-open" : ""; ?>">
+            <li id="linomina" class="nav-item has-treeview <?php echo ($pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden' || $pagina == 'rptasistencia') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ( $pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden' || $pagina == 'asistencia' || $pagina == 'rptasistencia') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'personal' || $pagina == 'cntanomina' || $pagina == 'nomorden' || $pagina == 'rptasistencia') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fa-solid fa-people-group "></i>
 
@@ -596,12 +596,7 @@
                   </a>
                 </li>
 
-                <li class="nav-item">
-                  <a href="asistencia.php" class="nav-link <?php echo ($pagina == 'asistencia') ? "active seleccionado" : ""; ?>  ">
-                    <i class="fa-solid fa-user-check nav-icon"></i>
-                    <p>Asistencia</p>
-                  </a>
-                </li>
+
 
                 <li class="nav-item">
                   <a href="rptasistencia.php" class="nav-link <?php echo ($pagina == 'rptasistencia') ? "active seleccionado" : ""; ?>  ">
@@ -616,7 +611,7 @@
                     <p>Ordenes</p>
                   </a>
                 </li>
-<!--
+                <!--
                 <li class="nav-item">
                   <a href="cntanomina.php" class="nav-link <?php echo ($pagina == 'cntanomina') ? "active seleccionado" : ""; ?>  ">
                   <i class="fa-solid fa-users-viewfinder nav-icon"></i>
@@ -625,7 +620,7 @@
                 </li>
                 -->
 
-                
+
               </ul>
             </li>
             <!-- CIERRA NOMINA-->
@@ -633,9 +628,28 @@
 
           <?php } ?>
         <?php } ?>
-
-
-
+        <?php if ($_SESSION['s_rol'] != '1' && $_SESSION['s_rol'] != '4' && $_SESSION['s_rol'] != '5') {  ?>
+        <!-- ABRE OBRA-->
+        <li id="liasistencia" class="nav-item has-treeview <?php echo ($pagina == 'asistencia') ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'asistencia') ? "active" : ""; ?>">
+            <span class="fa-stack">
+              <i class=" fa-solid fa-clock "></i>
+            </span>
+            <p>Registro Asistencia
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="asistencia.php" class="nav-link <?php echo ($pagina == 'asistencia') ? "active seleccionado" : ""; ?>  ">
+                <i class="fa-solid fa-user-check nav-icon"></i>
+                <p>Asistencia</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- CIERRA OBRA-->
+        <?php }  ?>
 
         <!-- ABRE PRODUCCION-->
         <?php if ($_SESSION['s_rol'] != '1') {  ?>
@@ -808,11 +822,6 @@
 
         <!-- ABRE INVENTARIO-->
         <?php if ($_SESSION['s_rol'] != '1') { ?>
-
-
-
-
-
           <li id="liinventario" class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop'
                                                                 || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale'
                                                                 || $pagina == 'reordenins' || $pagina == 'reordeninsdes' || $pagina == 'movmat' || $pagina == 'cajah') ? "menu-open" : ""; ?>">

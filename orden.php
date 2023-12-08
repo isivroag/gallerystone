@@ -805,7 +805,7 @@ if ($folio != "") {
                                         <div class="col-sm-5">
                                         </div>
 
-                                       
+
 
                                         <!-- SEGUNDA TARJETA CON TABLA-->
                                         <div class="col-sm-6">
@@ -1121,16 +1121,17 @@ if ($folio != "") {
                             <!-- TERMINA INSUMOS DESECHABLES -->
 
                         </div>
-                       
-                    </div>
-            </div>
 
-            </form>
+                    </div>
+            
+
+                </form>
+            </div>
             <!-- TERMINA FORM -->
 
         </div>
 
-</div>
+
 
 <!-- /.card -->
 

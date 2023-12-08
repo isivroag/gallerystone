@@ -162,6 +162,9 @@ $message = "";
                                             <option value="1">ASISTENCIA</option>
                                             <option value="2">FALTA</option>
                                             <option value="3">RETARDO</option>
+                                            <!-- NUEVAS OPCIONES 4 DIC 23-->
+                                            <option value="4">FALTA JUSTIFICADA</option>
+                                            <option value="5">NO CHECO</option>
 
                                         </select>
                                     </div>
