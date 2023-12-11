@@ -18,7 +18,8 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO personal (nom_per,cel_per,fechaing,salariod,tipo) VALUES('$nombre','$cel','$ingreso,'$salariod','$tipo') ";			
+        $consulta = "INSERT INTO personal (nom_per,cel_per,fechaing,salariod,tipo)
+         VALUES('$nombre','$cel','$ingreso','$salariod','$tipo')";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
