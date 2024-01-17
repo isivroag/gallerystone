@@ -110,7 +110,13 @@ function getPlantilla($folio)
         <thead>
         <tr>
             
-            <th class="total"><strong>Materiales</strong></th>
+            
+            <th class="total">Id</th>
+            <th class="total">Concepto</th>
+            <th class="total">Descripcion</th>
+            <th class="total">Formato</th>
+            <th class="total">Cantidad</th>
+            <th class="total">U. Medida</th>
       
             
           </tr>
@@ -121,7 +127,12 @@ function getPlantilla($folio)
 
         $plantilla .= '
         <tr>
-            <td class="desc">' . $row['nom_item'] . '</td>
+            <td class="desc">'.$row['id_reg'] .'</td>
+            <td class="desc">'.$row['nom_concepto'] .'</td>
+            <td class="desc">'.$row['nom_item'] .'</td>
+            <td class="desc">'.$row['formato'] .'</td>
+            <td class="desc">'.$row['cantidad'] .'</td>
+            <td class="desc">'.$row['nom_umedida'] .'</td>
         </tr>
         ';
     }
@@ -158,8 +169,8 @@ function getPlantilla($folio)
 </table>
 <div id="details" class="clearfix">
 <div id="client">
-  <p style="text-align:justify">Superficie de Colocación: <strong>' . $tipo . '</strong></p>
-  <p style="text-align:justify">Tipo de Servicio: <strong>' . $superficie . '</strong></p>
+  <p style="text-align:justify">Superficie de Colocación: <strong>' . $superficie . '</strong></p>
+  <p style="text-align:justify">Tipo de Servicio: <strong>' . $tipo . '</strong></p>
   <p style="text-align:justify">Observaciones: <strong>' . $obs . '</strong></p>
   
 </div>
@@ -173,10 +184,13 @@ function getPlantilla($folio)
     </tr>
 </thead>
 <tbody>
-    <tr>
-        <td>
-        <img class="imagen" src=../'. $mapaurl .' alt="Photo" >
+    <tr style="align: center !important;">
+        <td style="aling:center !important">
+       
+        <img class="imagen" src=../'. $mapaurl .' alt="Photo"  >
+        
         </td>
+        
     </tr>
 </tbody>
 </table>

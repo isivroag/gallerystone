@@ -9,6 +9,7 @@ $orden = (isset($_POST['orden'])) ? $_POST['orden'] : '';
 $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
 $concepto = (isset($_POST['concepto'])) ? $_POST['concepto'] : '';
 $medida = (isset($_POST['medida'])) ? $_POST['medida'] : '';
+$tipoc = (isset($_POST['tipoc'])) ? $_POST['tipoc'] : '';
 
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
@@ -18,23 +19,87 @@ $res=0;
 
 switch($opcion){
     case 1: //alta
-        for ($i=0; $i < $cantidad; $i++){
-            $consulta = "INSERT INTO det_ot (concepto,id_ot) VALUES('$concepto','$orden') ";			
-            $resultado = $conexion->prepare($consulta);
-            if($resultado->execute()){
-                $res++;
-            }
+        switch($tipoc){
+            case 0:
+                for ($i=0; $i < $cantidad; $i++){
+                    $consulta = "INSERT INTO det_ot (concepto,id_ot,tipo) VALUES('$concepto','$orden','$tipoc') ";			
+                    $resultado = $conexion->prepare($consulta);
+                    if($resultado->execute()){
+                        $res++;
+                    }
+                }
+                break;
+            case 1:
+                $consulta = "INSERT INTO det_ot (concepto,id_ot,medida,tipo) VALUES('$concepto','$orden','$medida','$tipoc') ";			
+                $resultado = $conexion->prepare($consulta);
+                if($resultado->execute()){
+                    $res++;
+                }
+                break;
+            case 2:
+                $consulta = "INSERT INTO det_ot (concepto,id_ot,medida,tipo) VALUES('$concepto','$orden','$medida','$tipoc') ";			
+                $resultado = $conexion->prepare($consulta);
+                if($resultado->execute()){
+                    $res++;
+                }
+                break;
+            case 3:
+                $consulta = "INSERT INTO det_ot (concepto,id_ot,medida,tipo) VALUES('$concepto','$orden','$medida','$tipoc') ";			
+                $resultado = $conexion->prepare($consulta);
+                if($resultado->execute()){
+                    $res++;
+                }
+                break;
+            case 4:
+                $consulta = "INSERT INTO det_ot (concepto,id_ot,medida,tipo) VALUES('$concepto','$orden','$medida','$tipoc') ";			
+                $resultado = $conexion->prepare($consulta);
+                if($resultado->execute()){
+                    $res++;
+                }
+                break;
+
         }
+       
      
         break;
     case 2: //modificación
-        $consulta = "UPDATE det_ot SET medida='$medida' WHERE id_reg='$id' ";		
+        switch($tipoc){
+        case 0:
+        $consulta = "UPDATE det_ot SET concepto='$concepto',medida='$medida' WHERE id_reg='$id' ";		
         $resultado = $conexion->prepare($consulta);
         if($resultado->execute()){
             $res=1;
         }
-        
-       
+        break;
+        case 1:
+            $consulta = "UPDATE det_ot SET concepto='$concepto',medida='$medida' WHERE id_reg='$id' ";		
+            $resultado = $conexion->prepare($consulta);
+            if($resultado->execute()){
+                $res=1;
+            }
+            break;
+        case 2:
+            $consulta = "UPDATE det_ot SET concepto='$concepto',medida='$medida' WHERE id_reg='$id' ";		
+            $resultado = $conexion->prepare($consulta);
+            if($resultado->execute()){
+                $res=1;
+            }
+            break;
+        case 3:
+            $consulta = "UPDATE det_ot SET concepto='$concepto',medida='$medida' WHERE id_reg='$id' ";		
+            $resultado = $conexion->prepare($consulta);
+            if($resultado->execute()){
+                $res=1;
+            }
+            break;
+        case 4:
+            $consulta = "UPDATE det_ot SET concepto='$concepto',medida='$medida' WHERE id_reg='$id' ";		
+            $resultado = $conexion->prepare($consulta);
+            if($resultado->execute()){
+                $res=1;
+            }
+            break;
+    }
         break;        
     case 3://baja
         $consulta = "DELETE FROM det_ot  WHERE id_reg='$id' ";		
