@@ -584,7 +584,7 @@ if ($folio != "") {
                                 <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
                                         <label for="conceptocom" class="col-form-label">Concepto:</label>
-                                        <input type="text" class="form-control tipoc" autocomplete="off" disabled>
+                                        <input type="hidden" class="form-control tipoc" autocomplete="off" disabled>
                                         <input type="text" class="form-control" name="conceptocom" id="conceptocom" autocomplete="off" placeholder="Concepto">
                                     </div>
                                 </div>

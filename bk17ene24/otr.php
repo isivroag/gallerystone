@@ -100,6 +100,7 @@ if ($folio != "") {
 
 
 ?>
+
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
@@ -220,14 +221,7 @@ if ($folio != "") {
                                         <table name="tablaD" id="tablaD" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
                                             <thead class="text-center bg-gradient-secondary">
                                                 <tr>
-                                                    <th>Id</th>
-                                                    <th>Concepto</th>
-                                                    <th>Descripcion</th>
-                                                    <th>Formato</th>
-                                                    <th>Cantidad</th>
-                                                    <th>U. Medida</th>
-
-
+                                                    <th>Materiales</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -237,12 +231,7 @@ if ($folio != "") {
                                                 ?>
                                                     <tr>
 
-                                                        <td><?php echo $datdet['id_reg'] ?></td>
-                                                        <td><?php echo $datdet['nom_concepto'] ?></td>
                                                         <td><?php echo $datdet['nom_item'] ?></td>
-                                                        <td><?php echo $datdet['formato'] ?></td>
-                                                        <td><?php echo $datdet['cantidad'] ?></td>
-                                                        <td><?php echo $datdet['nom_umedida'] ?></td>
 
 
                                                     </tr>
@@ -262,53 +251,18 @@ if ($folio != "") {
                                             <div class="card-header bg-gradient-secondary" style="margin:0px;padding:8px">
                                                 <h1 class="card-title">Detalle OT</h1>
                                                 <div class="card-tools" style="margin:0px;padding:0px;">
-
+                                                    <button type="button" id="btnadetalle" class="btn bg-gradient-secondary btn-sm">
+                                                        <i class="fas fa-folder-plus"></i>
+                                                    </button>
                                                 </div>
-
-
                                             </div>
                                             <div class="card-body">
-                                                <div class="row justify-content-center">
-                                                <div class="col-sm-1">
-                                                        
-                                                        </div>
-                                                    <div class="col-sm-2">
-                                                        <button type="button" id="btnadetallelam" class="btn bg-gradient-secondary btn-sm">
-                                                            <i class="fas fa-square-plus"></i> LAMBRIN
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button type="button" id="btnadetalletar" class="btn bg-gradient-secondary btn-sm">
-                                                            <i class="fas fa-square-plus"></i> TARJA
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button type="button" id="btnadetalleesc" class="btn bg-gradient-secondary btn-sm">
-                                                            <i class="fas fa-square-plus"></i> ESCURRIDOR
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button type="button" id="btnadetalleest" class="btn bg-gradient-secondary btn-sm">
-                                                            <i class="fas fa-square-plus"></i> ESTUFA / PARRILLA
-                                                        </button>
-                                                    </div>
-                                                   
-                                                    <div class="col-sm-2">
-                                                        <button type="button" id="btnadetalle" class="btn bg-gradient-secondary btn-sm">
-                                                            <i class="fas fa-square-plus"></i> OTROS
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-1">
-                                                        
-                                                        </div>
-                                                </div>
                                                 <table name="tabladet" id="tabladet" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
                                                     <thead class="text-center bg-gradient-secondary">
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Concepto</th>
                                                             <th>Medida</th>
-                                                            <th>tipo</th>
                                                             <th>Acciones</th>
 
 
@@ -323,7 +277,6 @@ if ($folio != "") {
                                                                 <td><?php echo $datd['id_reg'] ?></td>
                                                                 <td><?php echo $datd['concepto'] ?></td>
                                                                 <td><?php echo $datd['medida'] ?></td>
-                                                                <td><?php echo $datd['tipo'] ?></td>
                                                                 <td></td>
                                                             </tr>
                                                         <?php
@@ -366,7 +319,7 @@ if ($folio != "") {
                                     </div>-->
 
                                 </div>
-
+                                
 
                                 <div class=" row justify-content-sm-center">
                                     <div class="col-sm-3">
@@ -397,6 +350,12 @@ if ($folio != "") {
                                         </div>
                                     </div>
                                 </div>
+
+
+
+
+
+
                                 <div class=" row justify-content-sm-center">
                                     <div class="col-sm-10">
 
@@ -439,13 +398,6 @@ if ($folio != "") {
                                     </div>
 
                                 </div>
-
-
-
-
-
-
-
 
 
                             </div>
@@ -583,7 +535,6 @@ if ($folio != "") {
                                 <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
                                         <label for="conceptocom" class="col-form-label">Concepto:</label>
-                                        <input type="hidden" class="form-control tipoc" autocomplete="off" disabled>
                                         <input type="text" class="form-control" name="conceptocom" id="conceptocom" autocomplete="off" placeholder="Concepto">
                                     </div>
                                 </div>
@@ -609,7 +560,6 @@ if ($folio != "") {
     </section>
     <!-- /.content -->
 
-    <!-- MEDIDAS OTRO -->
     <section>
         <div class="modal fade" id="modalmed" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog " role="document">
@@ -625,16 +575,15 @@ if ($folio != "") {
 
                                 <div class="col-sm-9">
                                     <div class="form-group input-group-sm">
-                                        <label for="conceptocom0" class="col-form-label">Concepto:</label>
-                                        <input type="hidden" class="form-control idreg" name="idreg0" id="idreg0" autocomplete="off" disabled>
-                                        <input type="hidden" class="form-control tipoc" id="tipoc0" autocomplete="off" disabled>
-                                        <input type="text" class="form-control concepto" name="conceptocom0" id="conceptocom0" autocomplete="off" placeholder="Concepto">
+                                        <label for="conceptocom2" class="col-form-label">Concepto:</label>
+                                        <input type="hidden" class="form-control" name="idreg" id="idreg" autocomplete="off" disabled>
+                                        <input type="text" class="form-control" name="conceptocom2" id="conceptocom2" autocomplete="off" placeholder="Concepto" disabled>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="medidacom" class="col-form-label">Medida:</label>
-                                        <input type="text" class="form-control medidacom" name="medidacom0" id="medidacom0" autocomplete="off" placeholder="Cantidad">
+                                        <input type="text" class="form-control" name="medidacom" id="medidacom" autocomplete="off" placeholder="Cantidad">
                                     </div>
                                 </div>
                             </div>
@@ -644,232 +593,13 @@ if ($folio != "") {
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="button" id="btnGuardarmed0" name="btnGuardarmed0" class="btn btn-success "><i class="far fa-save"></i> Guardar</button>
+                        <button type="button" id="btnGuardarmed" name="btnGuardarmed" class="btn btn-success" value="btnGuardarmed"><i class="far fa-save"></i> Guardar</button>
                     </div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-    <!-- FIN MEDIDAS OTRO -->
-
-    <!-- MEDIDAS LAMBRIN -->
-    <section>
-        <div class="modal fade" id="modalmed1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog " role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-gradient-secondary">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Detalle Lambrin</h5>
-
-                    </div>
-                    <div class="card card-widget" style="margin: 10px;">
-                        <form id="formmed1" action="" method="POST">
-                            <div class="modal-body row">
-
-
-                                <div class="col-sm-9">
-                                    <div class="form-group input-group-sm">
-                                        <label for="conceptocom1" class="col-form-label">Concepto:</label>
-                                        <input type="hidden" class="form-control idreg" id="idreg1" autocomplete="off" disabled>
-                                        <input type="hidden" class="form-control tipoc" id="tipoc1" autocomplete="off" disabled>
-                                        <input type="text" class="form-control concepto" name="conceptocom1" id="conceptocom1" autocomplete="off" placeholder="Concepto" value="Lambrin">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group input-group-sm">
-                                        <label for="medidacom1" class="col-form-label">Medida:</label>
-                                        <input type="text" class="form-control medidacom" name="medidacom1" id="medidacom1" autocomplete="off" placeholder="Medida">
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="button" class="btn btn-success" id="btnGuardarmed1" name="btnGuardarmed1"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- FIN MEDIDAS LAMBRIN -->
-
-    <!-- MEDIDAS TARJA -->
-    <section>
-        <div class="modal fade" id="modalmed2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-gradient-secondary">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Detalle Tarja</h5>
-
-                    </div>
-                    <div class="card card-widget" style="margin: 10px;">
-                        <form id="formmed2" action="" method="POST">
-                            <div class="modal-body row">
-
-
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="conceptocom2" class="col-form-label">Concepto:</label>
-                                        <input type="hidden" class="form-control idreg" id="idreg2" autocomplete="off" disabled>
-                                        <input type="hidden" class="form-control tipoc" id="tipoc2" autocomplete="off" disabled>
-                                        <input type="text" class="form-control concepto" name="conceptocom2" id="conceptocom2" autocomplete="off" placeholder="Concepto" value="Tarja">
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group input-group-sm">
-                                        <label for="lado2" class="col-form-label">Desde Lado:</label>
-                                        <select name="lado2" id="lado2" class="form-control">
-                                            <option value="Derecho">Derecho</option>
-                                            <option value="Izquierdo">Izquierdo</option>
-                                        </select>
-
-
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group input-group-sm">
-                                        <label for="medidacom21" class="col-form-label">Centro de Tarja (CT):</label>
-                                        <input type="text" class="form-control medidacom" name="medidacom21" id="medidacom21" autocomplete="off" placeholder="CT">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3">
-                                    <div class="form-group input-group-sm">
-                                        <label for="medidacom22" class="col-form-label">Dist. Frontal (DF):</label>
-                                        <input type="text" class="form-control medidacom" name="medidacom22" id="medidacom22" autocomplete="off" placeholder="DF">
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="button" class="btn btn-success" id="btnGuardarmed2" name="btnGuardarmed2"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- FIN MEDIDAS TARJA -->
-
-    <!-- MEDIDAS ESCRURRIDOR -->
-    <section>
-        <div class="modal fade" id="modalmed3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog " role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-gradient-secondary">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Detalle Escurridor</h5>
-
-                    </div>
-                    <div class="card card-widget" style="margin: 10px;">
-                        <form id="formmed3" action="" method="POST">
-                            <div class="modal-body row">
-
-
-                                <div class="col-sm-8">
-                                    <div class="form-group input-group-sm">
-
-                                        <input type="hidden" class="form-control idreg" id="idreg3" autocomplete="off" disabled>
-                                        <input type="hidden" class="form-control tipoc" id="tipoc3" autocomplete="off" disabled>
-
-
-                                        <label for="conceptocom3" class="col-form-label " placeholder="Concepto">Concepto:</label>
-                                        <select name="conceptocom3" id="conceptocom3" class="form-control concepto">
-                                            <option value="Escurridor Rayado">Escurridor Rayado</option>
-                                            <option value="Escurridor Rampa">Escurridor Rampa</option>
-                                        </select>
-
-
-
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="medidacom3" class="col-form-label">Medida:</label>
-                                        <input type="text" class="form-control medidacom" name="medidacom3" id="medidacom3" autocomplete="off" placeholder="Medida">
-                                    </div>
-                                </div>
-
-
-                            </div>
-                    </div>
-
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="button" class="btn btn-success" id="btnGuardarmed3" name="btnGuardarmed3"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- FIN MEDIDAS ESCURRIDOR -->
-
-    <!-- MEDIDAS ESCRURRIDOR -->
-    <section>
-        <div class="modal fade" id="modalmed4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog " role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-gradient-secondary">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Detalle Escurridor</h5>
-
-                    </div>
-                    <div class="card card-widget" style="margin: 10px;">
-                        <form id="formmed4" action="" method="POST">
-                            <div class="modal-body row">
-
-
-                                <div class="col-sm-8">
-                                    <div class="form-group input-group-sm">
-
-                                        <input type="hidden" class="form-control idreg" id="idreg4" autocomplete="off" disabled>
-                                        <input type="hidden" class="form-control tipoc" id="tipoc4" autocomplete="off" disabled>
-
-
-                                        <label for="conceptocom4" class="col-form-label concepto" placeholder="Concepto">Concepto:</label>
-                                        <select name="conceptocom4" id="conceptocom4" class="form-control concepto">
-                                            <option value="Parrilla">Parrilla</option>
-                                            <option value="Estufa Empotrable">Estufa Empotrable</option>
-                                            <option value="Estufa de Piso">Estufa de Piso</option>
-                                        </select>
-
-
-
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="medidacom4" class="col-form-label">Medida:</label>
-                                        <input type="text" class="form-control medidacom" name="medidacom4" id="medidacom4" autocomplete="off" placeholder="Medida">
-                                    </div>
-                                </div>
-
-
-                            </div>
-                    </div>
-
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="button" class="btn btn-success" id="btnGuardarmed4" name="btnGuardarmed4"><i class="far fa-save"></i> Guardar</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- FIN MEDIDAS TARJA -->
-
 </div>
 
 
