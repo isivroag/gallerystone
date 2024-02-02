@@ -65,12 +65,7 @@ $(document).ready(function () {
     },
   });
 
-  $(document).on("click", "#btnAddplano", function () {
-    //window.location.href = "prospecto.php";
-    $("#formMapa").trigger("reset");
-
-    $("#modalMAPA").modal("show");
-  });
+ 
 
   $(document).on("click", "#btnVer", function () {
     folio = $("#folioorden").val();
@@ -96,10 +91,6 @@ $(document).ready(function () {
     );
   });
 
-  $("#archivo").on("change", function () {
-    var fileName = $(this).val().split("\\").pop();
-    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-  });
 
   $(document).on("click", "#btnGuardar", function () {
     orden = $("#folioorden").val();
@@ -169,6 +160,18 @@ $(document).ready(function () {
     });
   });
 
+  $("#archivo").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+
+  $(document).on("click", "#btnAddplano", function () {
+    //window.location.href = "prospecto.php";
+    $("#formMapa").trigger("reset");
+
+    $("#modalMAPA").modal("show");
+  });
+  
   $(document).on("click", "#upload", function () {
     orden = $("#folioorden").val();
     var formData = new FormData();
@@ -618,4 +621,56 @@ $(document).ready(function () {
       },
     });
   });
+
+
+  $(document).on("click", ".beliminarimg", function (e) {
+    e.preventDefault();
+    var id = this.getAttribute('data-id');
+    // Resto del código para eliminar la imagen utilizando el 'imagenId'
+    swal.fire({
+      
+      text: "¿Desea Eliminar la imagen?",
+
+      showCancelButton: true,
+      icon: 'info',
+      focusConfirm: true,
+      confirmButtonText: "Aceptar",
+
+      cancelButtonText: "Cancelar",
+
+  }).then(function(isConfirm) {
+      if (isConfirm.value) {
+          
+         
+         
+          $.ajax({
+
+              type: "POST",
+              url: "bd/eliminarimg.php",
+              dataType: "json",
+              data: { id: id },
+              success: function(res) {
+
+                  if (res == 1) {
+                     window.location.reload()
+
+                  } else {
+                      
+                      Swal.fire({
+                          title: 'Error al eliminar la imagen',
+                          icon: 'warning',
+                      })
+                    
+
+
+                  }
+              }
+          });
+
+      } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
+          console.log("Cancelado");
+      }
+  })
+  });
+ 
 });

@@ -33,7 +33,7 @@ if ($folio != "") {
 
     $tokenid = md5($_SESSION['s_usuario']);
 
-    $consulta = "SELECT * FROM ordentrabajo JOIN vorden ON ordentrabajo.folio_orden=vorden.folio_ord where folio_orden='$folio'";
+    $consulta = "SELECT * FROM vot where folio_orden='$folio'";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
@@ -78,6 +78,11 @@ if ($folio != "") {
         $resultadod = $conexion->prepare($consultad);
         $resultadod->execute();
         $datad = $resultadod->fetchAll(PDO::FETCH_ASSOC);
+
+        $cntaimg = "SELECT * FROM imgot where folio_orden='$folioorden' order by id_reg";
+        $resimg = $conexion->prepare($cntaimg);
+        $resimg->execute();
+        $dataimg = $resimg->fetchAll(PDO::FETCH_ASSOC);
     }
 } else {
     $folio = "";
@@ -429,11 +434,16 @@ if ($folio != "") {
                                                 </div>
                                             </div>
                                             <div class="card-body" id="extra">
+                                            <?php 
+                                                foreach ($dataimg as $rowimg) {
+                                                    $mapaurl=$rowimg['mapaurl'];
+                                                ?>
                                                 <div class="row justify-content-center">
                                                     <div class="col-sm-12 text-center">
                                                         <img class="img-responsive img-fluid pad" id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 780;">
                                                     </div>
                                                 </div>
+                                                <?php }?>
                                             </div>
                                         </div>
                                     </div>

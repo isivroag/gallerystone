@@ -24,6 +24,10 @@ if ($folio != "") {
         $consulta = "INSERT INTO ordentrabajo(folio_orden,mapaurl,estado_ot) VALUES ('$folioorden','img/nd.png','0')";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
+
+        $consulta = "INSERT INTO imgot(folio_orden,mapaurl) VALUES ('$folioorden','img/nd.png')";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
     }
 
 
@@ -78,6 +82,12 @@ if ($folio != "") {
         $resultadod = $conexion->prepare($consultad);
         $resultadod->execute();
         $datad = $resultadod->fetchAll(PDO::FETCH_ASSOC);
+
+
+        $cntaimg = "SELECT * FROM imgot where folio_orden='$folioorden' order by id_reg";
+        $resimg = $conexion->prepare($cntaimg);
+        $resimg->execute();
+        $dataimg = $resimg->fetchAll(PDO::FETCH_ASSOC);
     }
 } else {
     $folio = "";
@@ -103,6 +113,33 @@ if ($folio != "") {
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<style>
+    .image-container {
+        position: relative;
+        max-width: 800px;
+        /* ajusta según tu diseño */
+    }
+
+    .beliminarimg {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        background-color: #ff0000;
+        /* color del botón */
+        color: #fff;
+        /* color del texto del botón */
+        border: none;
+        cursor: pointer;
+        display: none;
+        /* inicialmente oculto */
+    }
+
+    .image-container:hover button {
+        display: block;
+        /* muestra el botón cuando se pasa el ratón sobre la imagen */
+    }
+</style>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -270,9 +307,9 @@ if ($folio != "") {
                                             </div>
                                             <div class="card-body">
                                                 <div class="row justify-content-center">
-                                                <div class="col-sm-1">
-                                                        
-                                                        </div>
+                                                    <div class="col-sm-1">
+
+                                                    </div>
                                                     <div class="col-sm-2">
                                                         <button type="button" id="btnadetallelam" class="btn bg-gradient-secondary btn-sm">
                                                             <i class="fas fa-square-plus"></i> LAMBRIN
@@ -293,15 +330,15 @@ if ($folio != "") {
                                                             <i class="fas fa-square-plus"></i> ESTUFA / PARRILLA
                                                         </button>
                                                     </div>
-                                                   
+
                                                     <div class="col-sm-2">
                                                         <button type="button" id="btnadetalle" class="btn bg-gradient-secondary btn-sm">
                                                             <i class="fas fa-square-plus"></i> OTROS
                                                         </button>
                                                     </div>
                                                     <div class="col-sm-1">
-                                                        
-                                                        </div>
+
+                                                    </div>
                                                 </div>
                                                 <table name="tabladet" id="tabladet" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
                                                     <thead class="text-center bg-gradient-secondary">
@@ -430,11 +467,18 @@ if ($folio != "") {
                                                 </div>
                                             </div>
                                             <div class="card-body" id="extra">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-sm-12 text-center">
-                                                        <img class="img-responsive img-fluid pad" id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 780;">
+                                            <?php
+                                                foreach ($dataimg as $rowimg) {
+                                                    $mapaurl = $rowimg['mapaurl'];
+                                                    $idreg = $rowimg['id_reg'];
+                                                ?>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-sm-12 text-center image-container"  >
+                                                            <img class="img-responsive img-fluid pad " id="mapa" src="<?php echo $mapaurl ?>" alt="Photo" style="max-width: 780; ">
+                                                            <button  class="button beliminarimg"  data-id="<?php echo $idreg ?>">Eliminar</button>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>

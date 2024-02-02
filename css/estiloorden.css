@@ -248,10 +248,16 @@ footer {
 }
 
 .imagen{
-    max-width: 780px;
-    max-height: 1500px;
-    display: block !important;
-    margin: 0px auto !important;
+    max-width: 780px !important;
+    max-height: 400px !important;
+    display:block !important;
+    padding: auto;
+    margin:  auto !important;
+}
+.tdimagen{
+    text-align: center !important;
+     
+    
 }
 /*
 .sborde {

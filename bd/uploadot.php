@@ -19,11 +19,12 @@ if (is_array($_FILES) && count($_FILES) > 0) {
             include_once 'conexion.php';
             $objeto = new conn();
             $conexion = $objeto->connect();
-            $consulta="SELECT * from ordentrabajo where folio_orden='$orden'";
+            $consulta="SELECT * from imgot where folio_orden='$orden' and mapaurl='img/nd.png'";
             $resultado = $conexion->prepare($consulta); 
             $resultado->execute();
             if ($resultado->rowCount()>0){
-                $consulta = "UPDATE ordentrabajo set mapaurl='$archivo' WHERE folio_orden='$orden'";
+                $consulta = "UPDATE imgot set mapaurl='$archivo' WHERE folio_orden='$orden' and mapaurl='img/nd.png'";
+                //$consulta = "INSERT INTO imgot (folio_orden,mapaurl) VALUES ('$orden','$archivo')";
                 $resultado = $conexion->prepare($consulta); 
                 if ($resultado->execute()) {
                     echo 1;
@@ -31,7 +32,7 @@ if (is_array($_FILES) && count($_FILES) > 0) {
                     echo 0;
                 }
             }else{
-                $consulta = "INSERT INTO ordentrabajo (folio_orden,mapaurl) VALUES ('$orden','$archivo')";
+                $consulta = "INSERT INTO imgot (folio_orden,mapaurl) VALUES ('$orden','$archivo')";
                 $resultado = $conexion->prepare($consulta); 
                 if ($resultado->execute()) {
                     echo 1;

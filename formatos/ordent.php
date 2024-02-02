@@ -52,6 +52,11 @@ function getPlantilla($folio)
         $resultadod = $conexion->prepare($consultad);
         $resultadod->execute();
         $datad = $resultadod->fetchAll(PDO::FETCH_ASSOC);
+
+        $cntaimg = "SELECT * FROM imgot where folio_orden='$folioorden' order by id_reg";
+        $resimg = $conexion->prepare($cntaimg);
+        $resimg->execute();
+        $dataimg = $resimg->fetchAll(PDO::FETCH_ASSOC);
     } else {
         echo '<script type="text/javascript">';
         echo 'window.location.href="../cntaventa.php";';
@@ -176,22 +181,26 @@ function getPlantilla($folio)
 </div>
 
 </div>
-<div class="">
+<div class="" style="text-align:center">
 <table>
 <thead>
     <tr>
-    <th class="total"><strong>Despiece</strong></th>
+    <th class=""><strong>Despiece</strong></th>
     </tr>
 </thead>
-<tbody>
-    <tr style="align: center !important;">
-        <td style="aling:center !important">
+<tbody>';
+
+foreach ($dataimg as $rowimg) {
+  $mapaurl=$rowimg['mapaurl'];
+
+$plantilla.='<tr style="text-align: center !important;">
+        <td class="medida" >
        
         <img class="imagen" src=../'. $mapaurl .' alt="Photo"  >
         
-        </td>
-        
-    </tr>
+        </td>';
+}   
+$plantilla.='</tr>
 </tbody>
 </table>
 
