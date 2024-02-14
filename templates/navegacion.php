@@ -611,14 +611,14 @@
                     <p>Ordenes</p>
                   </a>
                 </li>
-                <!--
+                
                 <li class="nav-item">
                   <a href="cntanomina.php" class="nav-link <?php echo ($pagina == 'cntanomina') ? "active seleccionado" : ""; ?>  ">
                   <i class="fa-solid fa-users-viewfinder nav-icon"></i>
                     <p>Nominas</p>
                   </a>
                 </li>
-                -->
+                
 
 
               </ul>

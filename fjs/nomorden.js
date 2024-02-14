@@ -103,6 +103,8 @@ $(document).ready(function () {
       $($(row).find("td")["9"]).addClass("text-right");
       $($(row).find("td")["10"]).addClass("text-right");
       $($(row).find("td")["11"]).addClass("text-right");
+      $($(row).find("td")["12"]).addClass("text-right");
+      $($(row).find("td")["13"]).addClass("text-right");
       fecha = new Date(data[5]).getTime();
       fechaactual = new Date().getTime();
 
@@ -170,16 +172,58 @@ $(document).ready(function () {
       "nomorden.php?inicio=" + $("#inicio").val() + "&fin=" + $("#fin").val();
   });
 
+  $(document).on("click", "#btnDefinir", function (e) {
+    e.preventDefault();
+    var costo = $("#costoml").val();
+    // Resto del código para eliminar la imagen utilizando el 'imagenId'
+    swal
+      .fire({
+        text: "¿Desea definir este costo por ML para las siguientes ordenes que se procesen?",
+
+        showCancelButton: true,
+        icon: "info",
+        focusConfirm: true,
+        confirmButtonText: "Aceptar",
+
+        cancelButtonText: "Cancelar",
+      })
+      .then(function (isConfirm) {
+        if (isConfirm.value) {
+          $.ajax({
+            type: "POST",
+            url: "bd/costoml.php",
+            dataType: "json",
+            data: { costo: costo },
+            success: function (res) {
+              if (res == 1) {
+                window.location.reload();
+              } else {
+                Swal.fire({
+                  title: "Error actualizar el costo por ML",
+                  icon: "warning",
+                });
+              }
+            },
+          });
+        } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
+        }
+      });
+  });
+
   $(document).on("click", ".btnEditar", function () {
     fila = $(this).closest("tr");
+    costoml = $("#costoml").val();
 
     $("#formimporte").trigger("reset");
     $("#folioorden").val(fila.find("td:eq(0)").text());
-    metros=fila.find("td:eq(9)").text()
-    importenom=parseFloat(metros)*700
-    importenom=importenom.toFixed(2)
+    metros = fila.find("td:eq(9)").text();
+    importenom = parseFloat(metros) * parseFloat(costoml);
+    importenom = importenom.toFixed(2);
     $("#total").val(fila.find("td:eq(10)").text().replace(/,/g, ""));
     $("#importenom").val(importenom);
+    $("#costoml2").val(costoml);
+    $("#mlorden").val(metros);
+    $("#mlorigen").val(metros);
 
     $("#modalImporte").modal("show");
   });
@@ -188,41 +232,70 @@ $(document).ready(function () {
     folio = $("#folioorden").val();
     importe = $("#importenom").val();
     total = $("#total").val();
-
-    if (folio == "" || importe == "") {
-      nomensaje();
-    } else {
-      if (parseFloat(total) >= parseFloat(importe)) {
-        $.ajax({
-          url: "bd/importenom.php",
-          type: "POST",
-          dataType: "json",
-          data: {
-            folio: folio,
-            importe: importe,
-          },
-          success: function (data) {
-            if (data == 1) {
-              mensaje();
-              $("#modalImporte").modal("hide");
-              $("#formimporte").trigger("reset");
-              window.location.reload();
-            }
-          },
-          error: function (data) {
-            nomensaje();
-          },
-        });
+    ml = $("#mlorden").val();
+    costoml = $("#costoml2").val();
+    mlorigen = $("#mlorigen").val();
+    if (ml <= mlorigen) {
+      if (folio == "" || importe == "" || ml == "" || costoml == "") {
+        nomensaje();
       } else {
-        swal.fire({
-          title: "El Importe excede el Monto de la Venta",
-          icon: "error",
-          focusConfirm: true,
-          confirmButtonText: "Aceptar",
-        });
+        if (parseFloat(total) >= parseFloat(importe)) {
+          $.ajax({
+            url: "bd/importenom.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+              folio: folio,
+              importe: importe,
+              ml: ml,
+              costoml: costoml,
+            },
+            success: function (data) {
+              if (data == 1) {
+                mensaje();
+                $("#modalImporte").modal("hide");
+                $("#formimporte").trigger("reset");
+                window.location.reload();
+              }
+            },
+            error: function (data) {
+              nomensaje();
+            },
+          });
+        } else {
+          swal.fire({
+            title: "El Importe excede el Monto de la Venta",
+            icon: "error",
+            focusConfirm: true,
+            confirmButtonText: "Aceptar",
+          });
+        }
       }
+    } else {
+      swal.fire({
+        title: "ERROR ML",
+        text:"El valor de los ML no puede ser mayor al valor calculado, verifique sus datos",
+        icon: "error",
+        focusConfirm: true,
+        confirmButtonText: "Aceptar",
+      });
+
     }
   });
+
+  document.getElementById("costoml2").onblur = function () {
+    calcularimporte();
+  };
+  // SOLO NUMEROS IVA FACTURA
+  document.getElementById("mlorden").onblur = function () {
+    calcularimporte();
+  };
+  function calcularimporte() {
+    costoml = $("#costoml2").val();
+    valorml = $("#mlorden").val();
+    importe = parseFloat(costoml) * parseFloat(valorml);
+    $("#importenom").val(importe);
+  }
 
   function mensaje() {
     swal.fire({

@@ -128,8 +128,8 @@ $message = "";
                                         foreach ($data as $row) {
                                             echo '<tr><th>' . $row['nom_per'] . '</th>';
                                             $idper = $row['id_per'];
-                                      
-                                            $consultap="call sp_verfechas('$inicio','$fin','$idper')";
+
+                                            $consultap = "call sp_verfechas('$inicio','$fin','$idper')";
                                             $resultadop = $conexion->prepare($consultap);
                                             $resultadop->execute();
                                             $datap = $resultadop->fetchAll(PDO::FETCH_ASSOC);
@@ -151,7 +151,7 @@ $message = "";
                                                         $icono = "<i class='text-warning fa-solid fa-clock '></i>";
                                                         break;
                                                     case '4':
-                                                        $icono = "<i class='text-info fa-solid fa-check-to-slot '></i>";
+                                                        $icono = "<i class='text-success fa-solid fa-check-to-slot '></i>";
                                                         break;
                                                     case '5':
                                                         $icono = "<i class='text-danger fa-solid fa-square-xmark '></i>";
@@ -160,41 +160,6 @@ $message = "";
                                                 echo '<td>' . $icono . ' <span>' . $tipon . '</span></td>';
                                             }
 
-
-/*
-
-                                            while ($fechaInicio <= $fechaFin) {
-                                                $consultap = "select * from asistencia where fecha = '$cfecha' and id_per = '$idper'";
-                                                $resultadop = $conexion->prepare($consultap);
-                                                $resultadop->execute();
-                                                if ($resultado->rowCount() > 0) {
-                                                    $datap = $resultadop->fetchAll(PDO::FETCH_ASSOC);
-
-                                                    foreach ($datap as $rowp) {
-                                                        $tipo = $rowp['tipo'];
-                                                        $tipon = $rowp['tipon'];
-                                                    }
-                                                } 
-
-                                                switch ($tipo) {
-                                                    case '0':
-                                                        $icono = "<i class='text-info fa-solid fa-circle-exclamation '></i>";
-                                                        break;
-                                                    case '1':
-                                                        $icono = "<i class='text-success fa-solid fa-circle-check '></i>";
-                                                        break;
-                                                    case '2':
-                                                        $icono = "<i class='text-danger fa-solid fa-circle-xmark '></i>";
-                                                        break;
-                                                    case '3':
-                                                        $icono = "<i class='text-warning fa-solid fa-clock '></i>";
-                                                        break;
-                                                }
-
-
-                                                echo '<td>' . $icono . '<span>' . $tipon . '</span></td>';
-                                                $fechaInicio->add(new DateInterval('P1D'));
-                                            }*/
 
 
                                             echo '</tr>';

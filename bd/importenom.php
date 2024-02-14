@@ -8,8 +8,10 @@ $conexion = $objeto->connect();
 $data=0;
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $importe= (isset($_POST['importe'])) ? $_POST['importe'] : '';
+$ml= (isset($_POST['ml'])) ? $_POST['ml'] : '';
+$costoml= (isset($_POST['costoml'])) ? $_POST['costoml'] : '';
 
-$consulta = "UPDATE orden SET importenom='$importe' WHERE folio_ord='$folio'";
+$consulta = "UPDATE orden SET importenom='$importe',mlfinal='$ml',costoml='$costoml' WHERE folio_ord='$folio'";
 $resultado = $conexion->prepare($consulta);
 if ($resultado->execute()){
     $data=1;

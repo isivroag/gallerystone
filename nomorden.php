@@ -37,7 +37,14 @@ if ($vcons == 0) {
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
+$consultacto = "SELECT * from mlcosto where estado='1'";
+$resultadocto = $conexion->prepare($consultacto);
+$resultadocto->execute();
+$datacto = $resultadocto->fetchAll(PDO::FETCH_ASSOC);
+$costoml = 0;
+foreach ($datacto as $rowc) {
+    $costoml = $rowc['costo'];
+}
 
 
 ?>
@@ -68,40 +75,65 @@ if ($vcons == 0) {
             </div>
 
             <div class="card-body">
-                <div class="card">
-                    <div class="card-header bg-gradient-lightblue ">
-                        Filtro por rango de Fecha
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-2">
-                                <div class="form-group input-group-sm">
-                                    <label for="inicio" class="col-form-label">Fecha Inicio:</label>
-                                    <input type="date" class="form-control" name="inicio" id="inicio" value="<?php echo $inicio ?>">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="form-group input-group-sm">
-                                    <label for="fin" class="col-form-label">Fecha Final:</label>
-                                    <input type="date" class="form-control" name="fin" id="fin" value="<?php echo $fin ?>">
-                                </div>
-                            </div>
 
-                            <div class="col-lg-2 align-self-end text-center">
-                                <div class="form-group input-group-sm">
-                                    <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
 
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header bg-gradient-lightblue ">
+                                Filtro por rango de Fecha
+                            </div>
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="inicio" class="col-form-label">Fecha Inicio:</label>
+                                            <input type="date" class="form-control" name="inicio" id="inicio" value="<?php echo $inicio ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="fin" class="col-form-label">Fecha Final:</label>
+                                            <input type="date" class="form-control" name="fin" id="fin" value="<?php echo $fin ?>">
+                                        </div>
+                                    </div>
 
-                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                                    <div class="col-lg-2 align-self-end text-center">
+                                        <div class="form-group input-group-sm">
+                                            <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="card">
+                            <div class="card-header bg-gradient-lightblue ">
+                                Costo por Metro Lineal
+                            </div>
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="costoml" class="col-form-label">Costo ML:</label>
+                                            <input type="text" class="form-control" name="costoml" id="costoml" value="<?php echo $costoml ?>">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-3 align-self-end text-center">
+                                        <div class="form-group input-group-sm">
+                                            <button id="btnDefinir" name="btnDefinir" type="button" class="btn bg-gradient-success btn-ms"><i class="fa-regular fa-floppy-disk"></i> Definir</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -126,6 +158,8 @@ if ($vcons == 0) {
                                             <th>ML</th>
                                             <th>Importe Vta</th>
                                             <th>Importe Nom</th>
+                                            <th>VAL ML</th>
+                                            <th>Costo ML</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -146,6 +180,8 @@ if ($vcons == 0) {
                                                     <td><?php echo $row['metros'] ?></td>
                                                     <td><?php echo number_format($row['gtotal'], 2) ?></td>
                                                     <td><?php echo number_format($row['importenom'], 2) ?></td>
+                                                    <td><?php echo number_format($row['mlfinal'], 2) ?></td>
+                                                    <td><?php echo number_format($row['costoml'], 2) ?></td>
                                                     <td></td>
                                                 </tr>
                                         <?php }
@@ -165,33 +201,50 @@ if ($vcons == 0) {
 
     </section>
     <div class="modal fade" id="modalImporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-gradient-lightblue ">
-                    <h5 class="modal-title" id="exampleModalLabel">Fecha de Toma de Plantilla</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Importe Destinado a calculo de nomina</h5>
 
                 </div>
                 <div class="card card-widget" style="margin: 10px;">
                     <form id="formImporte" action="" method="POST">
                         <div class="modal-body row justify-content-center">
-                            <div class="col-sm-12">
+
+                            <div class="col-sm-4">
+                                <div class="form-group input-group-sm">
+                                    <label for="costoml2" class="col-form-label ">Costo ML:</label>
+                                    <input type="text" class="form-control text-right" name="costoml2" id="costoml2">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group input-group-sm">
+                                    <label for="mlorden" class="col-form-label ">ML:</label>
+                                    <input type="text" class="form-control text-right" name="mlorden" id="mlorden">
+                                    <input type="hidden" class="form-control text-right" name="mlorigen" id="mlorigen">
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-4">
                                 <div class="form-group input-group-sm">
                                     <input type="hidden" class="form-control" name="folioorden" id="folioorden">
                                     <input type="hidden" class="form-control" name="total" id="total">
 
 
-                                    <label for="importenom" class="col-form-label">Importe Destinado a Pago de Nomina:</label>
+                                    <label for="importenom" class="col-form-label text-right">Importe:</label>
 
-                                    <input type="text" class="form-control" name="importenom" id="importenom" >
+                                    <input type="text" class="form-control text-right" name="importenom" id="importenom">
                                 </div>
                             </div>
+
 
                         </div>
 
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                            <button type="button" id="btnGuardarimp" name="btnGuardarimp" class="btn btn-success" ><i class="far fa-save"></i> Guardar</button>
+                            <button type="button" id="btnGuardarimp" name="btnGuardarimp" class="btn btn-success"><i class="far fa-save"></i> Guardar</button>
                         </div>
                     </form>
                 </div>
