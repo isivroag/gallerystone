@@ -59,7 +59,7 @@ ON mes.id_mes=consulta1.idmes";
 $rescon = $conexion->prepare($cntacon);
 $rescon->execute();
 $datacon = $rescon->fetchAll(PDO::FETCH_ASSOC);
-
+$rescon->closeCursor();
 
 
 
@@ -74,7 +74,7 @@ foreach ($data as $regd) {
   $totalpres += 1;
   $montpres += $regd['gtotal'];
 }
-
+$resultado->closeCursor();
 $consultav = "SELECT * FROM vventa WHERE estado_vta=1 and month(fecha_vta)='$m' and year(fecha_vta)='$y'";
 $resultadov = $conexion->prepare($consultav);
 $resultadov->execute();
@@ -86,27 +86,46 @@ foreach ($datav as $regv) {
   $totalvta += 1;
   $montvta += $regv['gtotal'];
 }
+$resultadov->closeCursor();
 
 $consultaml = "SELECT vendedor,SUM(cantidadML+cantidadConv) AS mlvendido FROM vconversionvta WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' GROUP BY vendedor";
 $resultadoml = $conexion->prepare($consultaml);
 $resultadoml->execute();
 $dataml = $resultadoml->fetchAll(PDO::FETCH_ASSOC);
+$resultadoml->closeCursor();
 
 $consultavtav = "SELECT vendedor,SUM(gtotal) AS total FROM vventa WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' AND estado_vta=1 AND tipo_proy=1 GROUP BY vendedor";
 $resultadvtav = $conexion->prepare($consultavtav);
 $resultadvtav->execute();
 $datavtav = $resultadvtav->fetchAll(PDO::FETCH_ASSOC);
+$resultadvtav->closeCursor();
+
 
 $consultaml2 = "SELECT vendedor,SUM(cantidadML+cantidadConv) AS mlvendido FROM vconversionvtaobr WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' GROUP BY vendedor";
 $resultadoml2 = $conexion->prepare($consultaml2);
 $resultadoml2->execute();
 $dataml2 = $resultadoml2->fetchAll(PDO::FETCH_ASSOC);
+$resultadoml2->closeCursor();
 
 $consultavtav2 = "SELECT vendedor,SUM(gtotal) AS total FROM vventa WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' AND estado_vta=1 AND tipo_proy=2 GROUP BY vendedor";
 $resultadvtav2 = $conexion->prepare($consultavtav2);
 $resultadvtav2->execute();
 $datavtav2 = $resultadvtav2->fetchAll(PDO::FETCH_ASSOC);
+$resultadvtav2->closeCursor();
 
+//obras
+$consultavtavob = "SELECT vendedor,SUM(gtotal) AS total FROM vventa WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' AND estado_vta=1 AND tipo_proy=2 GROUP BY vendedor";
+$resultadvtavob = $conexion->prepare($consultavtavob);
+$resultadvtavob->execute();
+$datavtavob = $resultadvtavob->fetchAll(PDO::FETCH_ASSOC);
+$resultadvtavob->closeCursor();
+
+//sumnistro
+$consultavtavsum = "SELECT vendedor,SUM(gtotal) AS total FROM vventa WHERE month(fecha_vta)='$m' AND year(fecha_vta)='$y' AND estado_vta=1 AND tipo_proy=3 GROUP BY vendedor";
+$resultadvtavsum = $conexion->prepare($consultavtavsum);
+$resultadvtavsum->execute();
+$datavtavsum = $resultadvtavsum->fetchAll(PDO::FETCH_ASSOC);
+$resultadvtavsum->closeCursor();
 
 
 
@@ -115,13 +134,15 @@ $consultac = "SELECT * FROM viewcitav WHERE year(fecha)= '$y' and month(fecha)='
 $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
+$resultadoc->closeCursor();
+
 
 
 $consultaing = "SELECT SUM(monto) AS monto FROM vpagocxc WHERE month(fecha)='$m' AND YEAR(fecha)='$y' AND estado_pagocxc=1";
 $resultadoing = $conexion->prepare($consultaing);
 $resultadoing->execute();
 $dataing = $resultadoing->fetchAll(PDO::FETCH_ASSOC);
-
+$resultadoing->closeCursor();
 
 
 
@@ -230,10 +251,54 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
 
 
+$consultaao = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.concepto_vta,vorden.edo_ord,vorden.avance,vorden.estado_ord,
+max(ordenestado.fecha_ini) as fecha_ini,ordenestado.descripcion,ordenestado.usuario 
+FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini ='".date('Y-m-d', $fechahome)."' and ordenestado.estado_reg='1' and vorden.estado_ord='1'
+group by ordenestado.id_orden order by vorden.avance,vorden.edo_ord,vorden.folio_vta ";
+//} else {
+//  $consulta = "SELECT * FROM vpres where edo_pres='1' and estado_pres<>'RECHAZADO' and estado_pres<>'ACEPTADO' AND estado_pres<>'SUSPENDIDO' and tipo_proy=1 order by folio_pres";
+//}
 
+$resultadoao = $conexion->prepare($consultaao);
+$resultadoao->execute();
+$dataao = $resultadoao->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
+
+
+<style>
+  .swal-wide{
+    width:850px !important;
+}
+
+td.details-control {
+    background: url('img/details_open.png') no-repeat center center ;
+
+    cursor: pointer;
+}
+tr.details td.details-control {
+    background: url('img/details_close.png') no-repeat center center;
+
+    
+}
+.borderless td,
+    .borderless th {
+        border: none;
+    }
+    .bg1{
+      background-color: rgba(25,151,6,.6)!important;
+      color: white;
+    }
+    .bg2{
+      background-color: rgba(52,78,253,.85)!important;
+      color: white;
+    }
+    .bg3{
+      background-color: rgba(79,3,210,.6)!important;
+      color: white;
+    }
+  </style>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <!-- Content Wrapper. Contains page content -->
@@ -290,7 +355,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><?php echo $totalvta ?></h3>
+                <h3><?php echo $totalvta.": $ ". number_format($montvta,2) ?></h3>
 
                 <p># VENTAS DE <?php echo $mesactual ?></p>
               </div>
@@ -458,6 +523,133 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                 <!-- /.card-footer -->
               </div>
             </div>
+
+
+
+            <!-- GRAFICA DE VENTAS OBRAS-->
+            <div class="col-sm-6">
+              <div class="card ">
+                <div class="card-header bg-gradient-success color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Monto de Ventas Obras
+                  </h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row justify-content">
+                    <div class="col-sm-7">
+                      <canvas class="chart " id="line-chart2ob" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    <div class="col-sm-5 my-auto">
+                      <div class="table-responsive">
+                        <table class="table table-responsive table-bordered table-hover table-sm">
+                          <thead class="text-center">
+                            <tr>
+                              <th>Vendedor</th>
+                              <th>Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $totalvtasml = 0;
+                            foreach ($datavtavob as $rowml) {
+                              $totalvtasml += $rowml['total'];
+                            ?>
+                              <tr>
+                                <td><?php echo $rowml['vendedor'] ?></td>
+                                <td class="text-right"><?php echo '$ ' . number_format($rowml['total'], 2) ?></td>
+                              </tr>
+                            <?php } ?>
+
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <td>VENTAS <?php echo $mesactual ?></td>
+                              <td class="text-right text-bold"><?php echo '$ ' . number_format($totalvtasml, 2) ?></td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer -->
+              </div>
+            </div>
+            <!-- GRAFICA DE VENTAS OBRAS-->
+            <!-- GRAFICA DE VENTAS SUMINISTROS-->
+            <div class="col-sm-6">
+              <div class="card ">
+                <div class="card-header bg-gradient-success color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Monto de Ventas Suministro
+                  </h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-success btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row justify-content">
+                    <div class="col-sm-7">
+                      <canvas class="chart " id="line-chart2sum" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    <div class="col-sm-5 my-auto">
+                      <div class="table-responsive">
+                        <table class="table table-responsive table-bordered table-hover table-sm">
+                          <thead class="text-center">
+                            <tr>
+                              <th>Vendedor</th>
+                              <th>Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $totalvtasml = 0;
+                            foreach ($datavtavsum as $rowml) {
+                              $totalvtasml += $rowml['total'];
+                            ?>
+                              <tr>
+                                <td><?php echo $rowml['vendedor'] ?></td>
+                                <td class="text-right"><?php echo '$ ' . number_format($rowml['total'], 2) ?></td>
+                              </tr>
+                            <?php } ?>
+
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <td>VENTAS <?php echo $mesactual ?></td>
+                              <td class="text-right text-bold"><?php echo '$ ' . number_format($totalvtasml, 2) ?></td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer -->
+              </div>
+            </div>
+            <!-- GRAFICA DE VENTAS SUMINISTROS-->
+
+
+
+
             <?php if ($_SESSION['s_rol'] == '2' || $_SESSION['s_rol'] == '3') { ?>
               <!-- GRAFICA INGRESOS VS EGRESOS -->
               <div class="col-sm-12">
@@ -709,6 +901,102 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                 <!-- /.card-footer -->
               </div>
             </div>
+
+            <div class="col-sm-12">
+              <div class="card ">
+                <div class="card-header bg-gradient-info color-palette border-0">
+                  <h3 class="card-title">
+                    <i class="fa-solid fa-industry mr-1"></i>
+                    PRODUCCION: TAREAS REALIZADAS <?php echo date('Y-m-d', $fechahome)?>
+                    <i class=" text-orange fa-solid fa-certificate mr-1"></i>
+                  </h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn bg-gradient-info btn-sm" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="card-body">
+                <div class="row">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <table name="tablaao" id="tablaao" class="table table-hover table-sm table-striped table-bordered table-condensed  w-auto mx-auto " style="font-size:15px;">
+                  <thead class="text-center bg-gradient-info">
+                    <tr>
+                      <th></th>
+                      <th>ORDEN</th>
+                      <th>VENTA</th>
+                      <th>CLIENTE</th>
+                      <th>PROYECTO</th>
+                      <th>ESTADO ACTUAL</th>
+                      <th>FECHA INICIO</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($dataao as $datao) {
+                      $avance=$datao['avance'];
+                      $estado=$datao['edo_ord'];
+                      if ($avance==90){
+                        $estado="COLOCACION";
+                      }
+
+                      $color = '';
+                      switch ($avance) {
+                        case 0:
+                          if ($estado == 'ACTIVO') {
+                            $color = 'bg-gradient-primary';
+                          } elseif ($estado == 'MEDICION') {
+                            $color = 'bg-gradient-warning text-white';
+                          } else {
+                            $color = 'bg-gradient-warning text-white';
+                          }
+                          break;
+                        case 5:
+                          $color = 'bg-gradient-secondary';
+                          break;
+                        case 45:
+                          $color = 'bg-gradient-info ';
+                          break;
+                        case 75:
+                          $color = 'bg-gradient-purple';
+                          break;
+                        case 90:
+                          $estado = 'COLOCACION';
+                          $color = 'bg-gradient-orange';
+                          break;
+                        case 100:
+                          $color = 'bg-gradient-success';
+                          break;
+                      }
+                    ?>
+                      <tr class="">
+                        <td></td>
+                        <td><?php echo $datao['id_orden'] ?></td>
+                        <td><?php echo $datao['folio_vta'] ?></td>
+                        <td><?php echo $datao['nombre'] ?></td>
+                        <td><?php echo $datao['concepto_vta'] ?></td>
+                        <td class="text-center <?php echo $color?>"><?php echo $estado ?></td>
+                        <td class="text-center"><?php echo $datao['fecha_ini'] ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                 
+                </table>
+              </div>
+            </div>
+          </div>
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer -->
+              </div>
+            </div>
+
             <!--FIN GRAFICA COMPARATIVA ML -->
             <div class="col-sm-12">
               <div class="card ">
@@ -815,7 +1103,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
 
 
-<!-- COMENTARIO DE SECCION EL 22 DE OCTUBRE DE 2023
+            <!-- COMENTARIO DE SECCION EL 22 DE OCTUBRE DE 2023
                             -->
             <div class="col-sm-12">
               <div class="card ">
@@ -893,7 +1181,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
                 </div>
               </div>
             </div>
-                        
+
 
           </div>
 
@@ -1790,6 +2078,7 @@ include_once 'templates/footer.php';
       options: barChartOptions
     })
     /*TERMINA GRAFICA 1*/
+
     /*GRAFICA 2*/
     var barventas = $('#line-chart2').get(0).getContext('2d')
     var barventasdata = {
@@ -1835,7 +2124,107 @@ include_once 'templates/footer.php';
       data: barventasdata,
       options: barChartOptions
     })
+
+
     /*GRAFICA 2*/
+
+    /*GRAFICA 3*/
+    var barventasob = $('#line-chart2ob').get(0).getContext('2d')
+    var barventasdataob = {
+      labels: [<?php foreach ($datavtavob as $d) : ?> "<?php echo $d['vendedor'] ?>",
+        <?php endforeach; ?>
+      ],
+      datasets: [{
+        label: 'VENTAS <?php echo $mesactual ?>',
+        borderWidth: 2,
+        lineTension: 2,
+
+        data: [
+          <?php foreach ($datavtavob as $d) : ?>
+            <?php echo $d['total']; ?>,
+          <?php endforeach; ?>
+        ],
+        backgroundColor: [
+
+          'rgba(247, 103, 21, 0.5)',
+          'rgba(199, 21, 247, 0.5)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+
+          'rgb(247, 103, 21)',
+          'rgb(199, 21, 247)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }]
+    }
+
+
+
+
+
+    var barChart2ob = new Chart(barventasob, {
+      type: 'bar',
+      data: barventasdataob,
+      options: barChartOptions
+    })
+
+
+    /*GRAFICA 3*/
+
+     /*GRAFICA */
+     var barventassum = $('#line-chart2sum').get(0).getContext('2d')
+    var barventasdatasum = {
+      labels: [<?php foreach ($datavtavsum as $d) : ?> "<?php echo $d['vendedor'] ?>",
+        <?php endforeach; ?>
+      ],
+      datasets: [{
+        label: 'VENTAS <?php echo $mesactual ?>',
+        borderWidth: 2,
+        lineTension: 2,
+
+        data: [
+          <?php foreach ($datavtavsum as $d) : ?>
+            <?php echo $d['total']; ?>,
+          <?php endforeach; ?>
+        ],
+        backgroundColor: [
+
+          'rgba(247, 103, 21, 0.5)',
+          'rgba(199, 21, 247, 0.5)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+
+          'rgb(247, 103, 21)',
+          'rgb(199, 21, 247)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }]
+    }
+
+
+
+
+
+    var barChart2sum = new Chart(barventassum, {
+      type: 'bar',
+      data: barventasdatasum,
+      options: barChartOptions
+    })
+
+
+    /*GRAFICA 4*/
 
     /*GRAFICA METROS*/
     var barmetros = $('#metros-chart').get(0).getContext('2d')
