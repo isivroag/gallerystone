@@ -17,6 +17,36 @@ $(document).ready(function () {
     success: function () {},
   });
 
+  var operacion = $('#opcion').val()
+
+  var textopermiso = permisos()
+  var textopermiso2 = permisos2()
+
+  function permisos() {
+    if (operacion==1) {
+      columnas =
+      "<div class='text-center'>\
+      <button class='btn btn-sm btn-primary btnEditNom' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-hand-pointer'></i></button>\
+      <button class='btn btn-sm btn-danger btnBorrarNom' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='fas fa-trash'></i></button>\
+    </div>"
+    } else {
+      columnas = ''
+    }
+    return columnas
+  }
+
+  function permisos2() {
+    if (operacion==1) {
+      columnas ="<div class='text-center'>\
+      <button class='btn btn-sm btn-primary btnEditPer' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-search'></i></button>\
+      <button class='btn btn-sm btn-danger btnBorrarPer' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='fas fa-trash'></i></button>\
+    </div>"
+    } else {
+      columnas = ''
+    }
+    return columnas
+  }
+
   var id, opcion;
   opcion = 4;
 
@@ -174,11 +204,8 @@ $(document).ready(function () {
       {
         targets: -1,
         data: null,
-        defaultContent:
-          "<div class='text-center'>\
-              <button class='btn btn-sm btn-primary btnEditPer' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-search'></i></button>\
-              <button class='btn btn-sm btn-danger btnBorrarPer' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='fas fa-trash'></i></button>\
-            </div>",
+        defaultContent:textopermiso2
+         
       },
       { className: "hide_column", targets: [0, 1, 21] },
     ],
@@ -226,19 +253,24 @@ $(document).ready(function () {
     ordering: false,
     searching: false,
     info: false,
-    scrollX: true,
+    //scrollX: true,
+    sScrollX: "100%",
 
     columnDefs: [
       {
         targets: -1,
         data: null,
-        defaultContent:
-          "<div class='text-center'>\
-              <button class='btn btn-sm btn-primary btnEditNom' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-hand-pointer'></i></button>\
-              <button class='btn btn-sm btn-danger btnBorrarNom' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='fas fa-trash'></i></button>\
-            </div>",
+        defaultContent:textopermiso
+        ,
       },
       { targets: [0, 6], className: "hide_column" },
+      {
+        targets: 3,
+        render: function (data, type, full, meta) {
+            return "<div class='text-wrap width-200'>" + data + '</div>'
+            //return "<div class='text-wrap width-200'>" + data + '</div>'
+        },
+    },
     ],
 
     //Para cambiar el lenguaje a español
@@ -315,6 +347,8 @@ $(document).ready(function () {
         }
       }
     },
+
+    //SUMA DE LA COLUMNA ML TOMADOS
   });
 
   tablaasi = $("#tablaasi").DataTable({
@@ -348,13 +382,16 @@ $(document).ready(function () {
     folio = $("#folio").val();
     extra=$("#extra").val();
     obs=$("#obs").val();
+    retencion=$("#retencion2").val();
+    retencionu = $("#retencionu").val();
+    console.log(retencion)
 
     $.ajax({
       type: "POST",
       url: "bd/nomcalcular.php",
       dataType: "json",
       async: true,
-      data: { folio: folio, extra: extra, obs: obs },
+      data: { folio: folio, extra: extra, obs: obs, retencion: retencion, retencionu: retencionu},
       success: function (res) {
         for (var i = 0; i < res.length; i++) {
           tablaNomper.row
@@ -385,6 +422,7 @@ $(document).ready(function () {
             .draw();
         }
         buscarimportes();
+        window.location.reload();
       },
       error: function () {
         swal.fire({
@@ -441,6 +479,7 @@ $(document).ready(function () {
     folio=$("#folio").val();
     inicio = $("#periodoini").val();
     fin = $("#periodofin").val();
+    
 
     $.ajax({
       type: "POST",
@@ -455,7 +494,11 @@ $(document).ready(function () {
       });
   })
 
-  
+  $("#btnVer").click(function () {
+   
+
+    $("#modalRet").modal("show");
+  });
 
   $("#btnAgregarPer").click(function () {
     tablaPer.clear();
@@ -478,6 +521,23 @@ $(document).ready(function () {
 
     $("#modalPer").modal("show");
   });
+  $("#bntretencionu").click(function () {
+    acumret=$('#acumret').val();
+    usarret=$('#usarret').val();
+    if(parseFloat(usarret) <= parseFloat(acumret)){
+      $('#retencionu').val(usarret)
+      $("#modalRet").modal("hide");
+
+    }else{
+      swal.fire({
+        title: "El importe es mayor que las Retenciones Acumuladas",
+        icon: "error",
+        focusConfirm: true,
+        confirmButtonText: "Aceptar",
+      });
+    }
+  })
+  
 
   $("#btnAgregarOrd").click(function () {
     tablaOrd.clear();

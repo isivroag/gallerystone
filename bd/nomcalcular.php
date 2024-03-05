@@ -11,9 +11,12 @@ $conexion = $objeto->connect();
 
 $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $extra = (isset($_POST['extra'])) ? $_POST['extra'] : '';
+$retencion = (isset($_POST['retencion'])) ? $_POST['retencion'] : '';
+$retencionu = (isset($_POST['retencionu'])) ? $_POST['retencionu'] : '';
+
 $obs = (isset($_POST['obs'])) ? $_POST['obs'] : '';
 
-$consulta = "UPDATE nomina set extra='$extra', obs='$obs' where folio_nom='$folio'";
+$consulta = "UPDATE nomina set extra='$extra', retencion='$retencion', obs='$obs',retencionu='$retencionu' where folio_nom='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
@@ -29,12 +32,14 @@ if ($resultado->execute()) {
     foreach ($data as $row) {
         $importenom = $row['importe'];
         $extra = $row['extra'];
+        $retencion = $row['retencion'];
+        $retencionu = $row['retencionu'];
         $periodoini = $row['periodoini'];
         $periodofin = $row['periodofin'];
     }
 }
 $resultado->closeCursor();
-$importenom = $importenom + $extra;
+$importenom = ($importenom-$retencion) + $extra+$retencionu;
 //EMPLEADOS FIJOS
 
 

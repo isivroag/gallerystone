@@ -16,7 +16,7 @@ $fecha = date('Y-m-d');
 
 if ($folio != "") {
 
-
+    $opcion = 2;
 
     $consulta = "SELECT * FROM nomina where folio_nom='$folio'";
 
@@ -38,8 +38,15 @@ if ($folio != "") {
         $retenido = $dt['retenido'];
         $fijo = $dt['fijo'];
         $neto = $dt['neto'];
-        $extra=$dt['extra'];
-        $obs=$dt['obs'];
+        $extra = $dt['extra'];
+        $retencion = $dt['retencion'];
+        $obs = $dt['obs'];
+
+        $importef = $dt['importef'];
+        $pordest = $dt['pordest'];
+        $porret = $dt['porret'];
+        $porfinal = $dt['porfinal'];
+        $retencionu = $dt['retencionu'];
     }
 
 
@@ -60,13 +67,14 @@ if ($folio != "") {
 
 
 } else {
+    $opcion = 1;
     $consulta = "SELECT * FROM nomina WHERE aplicado=0";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
 
     if ($resultado->rowCount() == 0) {
-        $consulta = "INSERT INTO nomina(fecha,periodoini,periodofin,importe,retenido,fijo,neto,extra,usuario) VALUES('$fecha','$fecha','$fecha','0','0','0','0','0','$usuario')";
+        $consulta = "INSERT INTO nomina(fecha,periodoini,periodofin,importe,retenido,retencion,fijo,neto,extra,usuario) VALUES('$fecha','$fecha','$fecha','0','0','0','0','0','0','$usuario')";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
@@ -85,8 +93,14 @@ if ($folio != "") {
         $retenido = $row['retenido'];
         $fijo = $row['fijo'];
         $neto = $row['neto'];
-        $extra=$row['extra'];
-        $obs=$row['obs'];
+        $extra = $row['extra'];
+        $retencion = $row['retencion'];
+        $obs = $row['obs'];
+        $importef = $row['importef'];
+        $pordest = $row['pordest'];
+        $porret = $row['porret'];
+        $porfinal = $row['porfinal'];
+        $retencionu = $row['retencionu'];
     }
 }
 
@@ -116,6 +130,11 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+$consulta = "SELECT nom_retenciones.folio_nom, nomina.fecha,nom_retenciones.importe FROM nom_retenciones join nomina on nom_retenciones.folio_nom =nomina.folio_nom 
+WHERE nom_retenciones.importe>0 order by nom_retenciones.id_reg";
+$resultadoret = $conexion->prepare($consulta);
+$resultadoret->execute();
+$dataret = $resultadoret->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -244,11 +263,13 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
             <div class="m-0 p-0">
                 <br>
                 <div class="row pl-2 pb-0 pt-0">
-                    <div class="col-sm-2">
-                        <button id="bntGuardarNom" name="bntGuardarNom" type="button" class="btn bg-success btn-sm">
-                            <i class="far fa-save"></i> Guardar Nomina
-                        </button>
-                    </div>
+                    <?php if ($opcion == 1) { ?>
+                        <div class="col-sm-2">
+                            <button id="bntGuardarNom" name="bntGuardarNom" type="button" class="btn bg-success btn-sm">
+                                <i class="far fa-save"></i> Guardar Nomina
+                            </button>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
 
@@ -287,7 +308,7 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="col-sm-2">
                                         <div class="form-group input-group-sm">
                                             <label for="folio" class="col-form-label">Folio :</label>
-
+                                            <input type="hidden" class="form-control" name="opcion" id="opcion" value="<?php echo   $opcion; ?>">
                                             <input type="text" class="form-control" name="folio" id="folio" value="<?php echo   $folio; ?>" disabled>
                                         </div>
                                     </div>
@@ -317,19 +338,20 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
 
                                     <div class="col-sm-1">
-                                        <div class="form-group input-group-sm">
-                                            <label for="btnestablecer" class="col-form-label">Establecer</label>
-                                            <button type="button" class="btn bg-primary btn-sm form-control " id="btnestablecer">
-                                                <i class="fa-solid fa-calendar-days"></i>
-                                            </button>
-                                        </div>
-
+                                        <?php if ($opcion == 1) { ?>
+                                            <div class="form-group input-group-sm">
+                                                <label for="btnestablecer" class="col-form-label">Establecer</label>
+                                                <button type="button" class="btn bg-primary btn-sm form-control " id="btnestablecer">
+                                                    <i class="fa-solid fa-calendar-days"></i>
+                                                </button>
+                                            </div>
+                                        <?php } ?>
                                     </div>
 
                                 </div>
                                 <div class="row justify-content-sm-center">
 
-                                    
+
 
                                     <div class="col-sm-2">
                                         <label for="importeg" class="col-form-label ">Imp. Destajo:</label>
@@ -346,6 +368,19 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
                                     </div>
+                                    <div class="col-sm-1">
+                                        <label for="pordest" class="col-form-label ">% Dest.</label>
+
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-percent"></i>
+                                                </span>
+                                            </div>
+
+                                            <input type="text" class="form-control text-right" name="pordest" id="pordest" value="<?php echo $pordest; ?>" disabled>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-2">
                                         <label for="extra" class="col-form-label ">Imp. Extra:</label>
 
@@ -360,18 +395,9 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-1">
-                                        <div class="form-group input-group-sm">
-                                            <label for="btndefinir" class="col-form-label">Definir</label>
-                                            <button type="button" class="btn bg-primary btn-sm form-control " id="btnDefinir">
-                                                <i class="fa-solid fa-dollar-sign"></i>
-                                            </button>
-                                        </div>
 
-                                    </div>
-                                    <div class="col-sm-1"></div>
                                     <div class="col-sm-2">
-                                        <label for="fijog" class="col-form-label ">Fijo:</label>
+                                        <label for="retencionu" class="col-form-label ">Imp a usar Ret. Anteriores:</label>
 
                                         <div class="input-group input-group-sm">
                                             <div class="input-group-prepend">
@@ -380,13 +406,27 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                                 </span>
                                             </div>
 
-                                            <input type="text" class="form-control text-right" name="fijog" id="fijog" value="<?php echo $fijo; ?>">
+                                            <input type="text" class="form-control text-right" name="retencionu" id="retencionu" value="<?php echo $retencionu; ?>" disabled>
                                         </div>
 
 
                                     </div>
+
+                                    <div class="col-sm-1">
+                                        <?php if ($opcion == 1) { ?>
+                                            <div class="form-group input-group-sm">
+                                                <label for="btnVer" class="col-form-label">Ver Ret. Ant.</label>
+                                                <button type="button" class="btn bg-primary btn-sm form-control " id="btnVer">
+                                                    <i class="fa-solid fa-search"></i>
+                                                </button>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+
+
+
                                     <div class="col-sm-2">
-                                        <label for="retencion" class="col-form-label ">Retención:</label>
+                                        <label for="retencion" class="col-form-label ">Importe No Distribuido:</label>
 
                                         <div class="input-group input-group-sm">
                                             <div class="input-group-prepend">
@@ -404,6 +444,79 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
 
+
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-2">
+                                        <label for="retencion2" class="col-form-label ">Retención:</label>
+
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+
+                                            <input type="text" class="form-control text-right" name="retencion2" id="retencion2" value="<?php echo $retencion; ?>">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label for="porret" class="col-form-label ">% Ret.</label>
+
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-percent"></i>
+                                                </span>
+                                            </div>
+
+                                            <input type="text" class="form-control text-right" name="porret" id="porret" value="<?php echo $porret; ?>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="retencionf" class="col-form-label ">Imp Destajo Final a Repartir:</label>
+
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+
+                                            <input type="text" class="form-control text-right" name="retencionf" id="retencionf" value="<?php echo $importef; ?>" disabled>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label for="porfinal" class="col-form-label ">% Ret.</label>
+
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-percent"></i>
+                                                </span>
+                                            </div>
+
+                                            <input type="text" class="form-control text-right" name="porfinal" id="porfinal" value="<?php echo $porfinal; ?>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="fijog" class="col-form-label ">Fijo:</label>
+
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+
+                                            <input type="text" class="form-control text-right" name="fijog" id="fijog" value="<?php echo $fijo; ?>">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-sm-2"></div>
 
                                 </div>
                                 <div class="row justify-content-sm-center">
@@ -450,57 +563,82 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
 
                                         <div class="card-body" id="ordenes">
-                                            <div class="row">
-                                                <button id="btnAgregarOrd" type="button" class="btn bg-gradient-success btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Agregar Orden</span></button>
-                                            </div>
-                                            <br>
-                                            <div class="col-lg-12 mx-auto">
-                                                <div class="table-responsive" style="padding:2px;">
-                                                    <table name="tablaNomord" id="tablaNomord" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%; font-size:14px">
-                                                        <thead class="text-center bg-gradient-success">
-                                                            <tr>
-                                                                <th>id reg</th>
-                                                                <th>Orden</th>
-                                                                <th>Cliente</th>
-                                                                <th>Concepto</th>
-                                                                <th>Tipo</th>
-                                                                <th>Estado</th>
-                                                                <th>Avance</th>
-                                                                <th>ML</th>
-                                                                <th>% Tomado</th>
-                                                                <th>Imp Tomado</th>
-                                                                <th>% Nom Actual</th>
-                                                                <th>ML Nom Actual</th>
-                                                                <th>Importe Nom Actual</th>
-                                                                <th>Acciones</th>
-                                                            </tr>
-                                                        </thead>
-
-                                                        <tbody>
-                                                            <?php foreach ($dataord as $roword) { ?>
-                                                                <tr>
-                                                                    <td><?php echo $roword['id_reg'] ?></td>
-                                                                    <td><?php echo $roword['folio_ord'] ?></td>
-                                                                    <td><?php echo $roword['nombre'] ?></td>
-                                                                    <td><?php echo $roword['concepto_vta'] ?></td>
-                                                                    <td><?php echo $roword['tipop'] ?></td>
-                                                                    <td><?php echo $roword['edo_ord'] ?></td>
-                                                                    <td><?php echo $roword['avance'] ?></td>
-                                                                    <td><?php echo $roword['metros'] ?></td>
-                                                                    <td><?php echo $roword['tnomina'] ?></td>
-                                                                    <td><?php echo $roword['nomtomado'] ?></td>
-                                                                    <td><?php echo $roword['porcentaje'] ?></td>
-                                                                    <td><?php echo $roword['ml'] ?></td>
-                                                                    <td><?php echo $roword['importe'] ?></td>
-                                                                    <td></td>
-                                                                </tr>
-
-                                                            <?php } ?>
-                                                        </tbody>
-                                                    </table>
-
+                                            <?php if ($opcion == 1) { ?>
+                                                <div class="row">
+                                                    <button id="btnAgregarOrd" type="button" class="btn bg-gradient-success btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Agregar Orden</span></button>
                                                 </div>
+                                            <?php } ?>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-lg-12 mx-auto">
+                                                    <div class="table-responsive" style="padding:2px;">
+                                                        <table name="tablaNomord" id="tablaNomord" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%; font-size:14px">
+                                                            <thead class="text-center bg-gradient-success">
+                                                                <tr>
+                                                                    <th>id reg</th>
+                                                                    <th>Orden</th>
+                                                                    <th>Cliente</th>
+                                                                    <th>Concepto</th>
+                                                                    <th>Tipo</th>
+                                                                    <th>Estado</th>
+                                                                    <th>Avance</th>
+                                                                    <th>ML</th>
+                                                                    <th>% Tomado</th>
+                                                                    <th>Imp Tomado</th>
+                                                                    <th>% Nom Actual</th>
+                                                                    <th>ML Nom Actual</th>
+                                                                    <th>Importe Nom Actual</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
 
+                                                            <tbody>
+                                                                <?php
+                                                                $totalmlord = 0;
+                                                                $totalimpord = 0;
+                                                                foreach ($dataord as $roword) {
+                                                                    $totalmlord += $roword['ml'];
+                                                                    $totalimpord += $roword['importe'];
+                                                                ?>
+                                                                    <tr>
+                                                                        <td><?php echo $roword['id_reg'] ?></td>
+                                                                        <td><?php echo $roword['folio_ord'] ?></td>
+                                                                        <td><?php echo $roword['nombre'] ?></td>
+                                                                        <td><?php echo $roword['concepto_vta'] ?></td>
+                                                                        <td><?php echo $roword['tipop'] ?></td>
+                                                                        <td><?php echo $roword['edo_ord'] ?></td>
+                                                                        <td><?php echo $roword['avance'] ?></td>
+                                                                        <td><?php echo $roword['metros'] ?></td>
+                                                                        <td><?php echo $roword['tnomina'] ?></td>
+                                                                        <td><?php echo $roword['nomtomado'] ?></td>
+                                                                        <td><?php echo $roword['porcentaje'] ?></td>
+                                                                        <td><?php echo $roword['ml'] ?></td>
+                                                                        <td><?php echo $roword['importe'] ?></td>
+                                                                        <td></td>
+                                                                    </tr>
+
+                                                                <?php } ?>
+                                                            </tbody>
+
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-sm-6"></div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group input-group-sm">
+                                                        <label for="totalmlorden" class="col-form-label ">Suma ML:</label>
+                                                        <input type="text" class="form-control text-right" name="totalmlorden" id="totalmlorden" value="<?php echo $totalmlord ?>" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group input-group-sm">
+                                                        <label for="totalimporden" class="col-form-label ">Suma Imp:</label>
+                                                        <input type="text" class="form-control text-right" name="totalimporden" id="totalimporden" value="<?php echo $totalimpord ?>" disabled>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -517,16 +655,17 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
                                         </div>
                                         <div class="card-body" id="personal">
-                                            <div class="row justify-content-between">
-                                                <div class="col-sm-2">
-                                                    <button id="btnAgregarPer" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Agregar Personal</span></button>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <button id="btnCalcularnom" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-calculator text-light"></i><span class="text-light"> Calcular</span></button>
-                                                </div>
+                                            <?php if ($opcion == 1) { ?>
+                                                <div class="row justify-content-between">
+                                                    <div class="col-sm-2">
+                                                        <button id="btnAgregarPer" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Agregar Personal</span></button>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <button id="btnCalcularnom" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-calculator text-light"></i><span class="text-light"> Calcular</span></button>
+                                                    </div>
 
-                                            </div>
-
+                                                </div>
+                                            <?php } ?>
 
                                             <div class="col-lg-12 mx-auto">
 
@@ -1251,6 +1390,87 @@ $dataord = $resultado->fetchAll(PDO::FETCH_ASSOC);
                             <button type="button" id="btnAddOrd" name="btnAddOrd" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <div class="modal fade" id="modalRet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-success">
+                            <h5 class="modal-title" id="exampleModalLabel">RETENCIONES DE NOMINA</h5>
+
+                        </div>
+                        <br>
+                        <div class="modal-body">
+                            <div class="row justify-content-center ">
+                                <div class="col-sm-10">
+                                    <div class="table-hover table-responsive w-auto " style="padding:10px">
+                                        <table name="tablaRet" id="tablaRet" class="table table-sm table-striped table-bordered table-condensed " style="width:100%">
+                                            <thead class="text-center bg-gradient-success">
+                                                <tr>
+                                                    <th>Nomina</th>
+                                                    <th>Fecha</th>
+                                                    <th>Importe</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $mret = 0;
+                                                foreach ($dataret as $row) {
+                                                    $mret = $row['importe'];
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $row['folio_nom'] ?></td>
+                                                        <td><?php echo $row['fecha'] ?></td>
+                                                        <td><?php echo $row['importe'] ?></td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center p-3">
+                                <div class="col-sm-5">
+                                    <label for="acumret" class="col-form-label">Acumulado Ret:</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-dollar-sign"></i>
+                                            </span>
+
+                                        </div>
+                                        <input type="text" id="acumret" name="acumret" class="form-control text-right" autocomplete="off" value="<?php echo $mret ?>" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="usarret" class="col-form-label">Importe a Usar:</label>
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-dollar-sign"></i>
+                                            </span>
+
+                                        </div>
+                                        <input type="text" id="usarret" name="usarret" class="form-control text-right" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                            <button type="button" id="bntretencionu" name="bntretencionu" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

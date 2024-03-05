@@ -56,6 +56,51 @@ if ($resultado->execute()) {
             }
         }
 
+        
+        $cnta="SELECT * from nomina where folio_nom='$folio'";
+        $res=$conexion->prepare($cnta);
+        if($res->execute() ) {
+            $data=$res->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($data as $row){
+                $retencion=$row['retencion'];
+                $retencionu=$row['retencionu'];
+
+            }
+            if ($retencion>0) {
+            $cnta2="INSERT INTO nom_retenciones(folio_nom,importe) values('$folio','$retencion')";
+            $res2=$conexion->prepare($cnta2);
+            $res2->execute();
+            }
+
+            if($retencionu!=0){
+                while ($retencionu > 0) {
+                    $cnta3="SELECT * FROM nom_retenciones WHERE importe>0 and folio_nomu <> '$folio' order by folio_nom desc limit 1";
+                    $res3=$conexion->prepare($cnta3);
+                    $res3->execute();
+                    $data3 = $res3->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($data3 as $row3){
+
+                        $idreg=$row3['id_reg'];
+                        $importereg=$row3['importe'];
+                    }
+                    if($retencionu>$importereg){
+                        $retencionu=$retencionu-$importereg;
+                        $importereg=0;
+                    }
+                    else{
+                        $importereg=$importereg-$retencionu;
+                        $retencionu=0;
+                    }
+                    $cnta3="UPDATE nom_retenciones SET importe='$importereg', folio_nomu='$folio' WHERE id_reg='$idreg'";
+                    $res3=$conexion->prepare($cnta3);
+                    $res3->execute();
+
+                }
+
+            }
+        }
+
+
     }
 }
 
