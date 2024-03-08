@@ -400,12 +400,12 @@
             <!-- ABRE REPORTES-->
             <li id="lireportes" class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "rptordenm2"
                                                                 || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptordenm"
-                                                                || $pagina == "cntaavanceorden" || $pagina == "rptdiario") ? "menu-open" : ""; ?>">
+                                                                || $pagina == "cntaavanceorden" || $pagina == "rptdiario" || $pagina == "rptinventario") ? "menu-open" : ""; ?>">
 
 
               <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "rptordenm2"
                                             || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptordenm"
-                                            || $pagina == "cntaavanceorden" || $pagina == "rptdiario") ? "active" : ""; ?>">
+                                            || $pagina == "cntaavanceorden" || $pagina == "rptdiario" || $pagina == "rptinventario") ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class="fas fa-chart-line nav-icon"></i>
 
@@ -464,6 +464,13 @@
                   <a href="rptordenm.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'rptordenm') ? "active seleccionado" : ""; ?>  ">
                     <i class="fa-solid fa-chart-gantt nav-icon"></i>
                     <p>Progreso de Ordenes</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="rptinventario.php" class="nav-link <?php echo ($pagina == 'rptinventario') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-chart-gantt nav-icon"></i>
+                    <p>Reorden de Insumos</p>
                   </a>
                 </li>
 
