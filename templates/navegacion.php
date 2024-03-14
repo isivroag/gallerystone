@@ -469,7 +469,7 @@
 
                 <li class="nav-item">
                   <a href="rptinventario.php" class="nav-link <?php echo ($pagina == 'rptinventario') ? "active seleccionado" : ""; ?>  ">
-                    <i class="fa-solid fa-chart-gantt nav-icon"></i>
+                    <i class="fas fa-box nav-icon"></i>
                     <p>Reorden de Insumos</p>
                   </a>
                 </li>
@@ -524,10 +524,12 @@
             <!-- CIERRA REPORTES-->
 
             <!--ABRE ADMINISTRACION-->
-            <li id="liadministracion" class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb' || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "menu-open" : ""; ?>">
+            <li id="liadministracion" class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb'  || $pagina == 'ordencto'
+            || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "menu-open" : ""; ?>">
 
 
-              <a href="#" class="nav-link <?php echo ($pagina == 'banco' || $pagina == 'cntamovb'  || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "active" : ""; ?>">
+              <a href="#" class="nav-link <?php echo ($pagina == 'banco' || $pagina == 'cntamovb'  || $pagina == 'flujo' || $pagina == 'ordencto'
+              || $pagina == 'cortemat' || $pagina == 'corteins') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-book "></i>
 
@@ -575,6 +577,13 @@
                     <p>Corte Insumos</p>
                   </a>
                 </li>
+
+                <li class="nav-item">
+                <a href="cntaordencto.php" class="nav-link <?php echo ($pagina == 'ordencto') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-pencil-ruler nav-icon"></i>
+                  <p>Ordenes de Proyecto Costo</p>
+                </a>
+              </li>
               </ul>
             </li>
             <!-- CIERRA ADMINISTRACION-->

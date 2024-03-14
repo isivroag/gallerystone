@@ -118,6 +118,7 @@ $message = "";
                                             <th>Progreso</th>
                                             <th>Estado</th>
                                             <th>Fecha Lib</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -135,6 +136,7 @@ $message = "";
                                                 <td><?php echo $dat['avance'] ?></td>
                                                 <td><?php echo $dat['edo_ord'] ?></td>
                                                 <td><?php echo ($dat['fecha_liberacion']!='2000-01-01')?$dat['fecha_liberacion']:'' ?></td>
+                                                <td></td>
 
                                             </tr>
                                         <?php

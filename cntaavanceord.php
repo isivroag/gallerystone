@@ -84,10 +84,7 @@ tr.details td.details-control {
       <div class="card-body">
 
         <div class="row">
-          <div class="col-lg-12">
-
-            <button id="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
-          </div>
+      
         </div>
         <br>
         <div class="container-fluid">

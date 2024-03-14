@@ -47,6 +47,15 @@ $(document).ready(function () {
               //return "<div class='text-wrap width-200'>" + data + '</div>'
             },
           },
+          {
+            targets: -1,
+            data: null,
+            defaultContent:
+              "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fa-solid fa-magnifying-glass-dollar'></i></button>\
+                </div>",
+    
+                //
+          }
          
          
          
@@ -200,7 +209,12 @@ $(document).ready(function () {
     
     });
   
-
+    $(document).on('click', '.btnVer', function () {
+      fila = $(this).closest('tr')
+      id = parseInt(fila.find('td:eq(1)').text())
+  
+      window.location.href = 'ordencto.php?folio=' + id
+    })
   
     var fila //capturar la fila para editar o borrar el registro
   

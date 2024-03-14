@@ -76,6 +76,13 @@ $(document).ready(function () {
         { className: 'text-right', targets: [14] },
         { className: 'text-right', targets: [15] },
           { className: 'hide_column', targets: [16] },
+          {
+            targets: 2,
+            render: function (data, type, full, meta) {
+                return "<div class='text-wrap width-200'>" + data + '</div>'
+                //return "<div class='text-wrap width-200'>" + data + '</div>'
+            },
+        },
        
       ],
   
