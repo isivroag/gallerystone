@@ -14,8 +14,8 @@ $(document).ready(function () {
               //
         },
        
-        { targets: [7], type: 'num-html' },{
-          targets: 5,
+        { targets: [6], type: 'num-html' },{
+          targets: 4,
           render: function (data, type, full, meta) {
             return "<div class='text-wrap width-200'>" + data + '</div>'
             //return "<div class='text-wrap width-200'>" + data + '</div>'
@@ -48,15 +48,15 @@ $(document).ready(function () {
       paging: false,
   
       rowCallback: function (row, data) {
-        $($(row).find('td')['9']).css('color', 'white')
-        $($(row).find('td')['9']).addClass('text-center')
+        $($(row).find('td')['8']).css('color', 'white')
         $($(row).find('td')['8']).addClass('text-center')
-        fecha = new Date(data[6]).getTime()
+        $($(row).find('td')['9']).addClass('text-center')
+        fecha = new Date(data[5]).getTime()
         fechaactual = new Date().getTime()
         
   
         dias = parseInt(fecha - fechaactual) / (1000 * 60 * 60 * 24)
-        avance = data[8]
+        avance = data[7]
   
         barra =
           "<div class='progress mb-3 ' style='width:120px' > \
@@ -71,42 +71,42 @@ $(document).ready(function () {
                 </div> \
                 </div>'
   
-        $($(row).find('td')[8]).html(barra)
-        estadoord=data[9];
+        $($(row).find('td')[7]).html(barra)
+        estadoord=data[8];
   
     
   
-        if (data[9] == 'MEDICION') {
+        if (data[8] == 'MEDICION') {
           //$($(row).find("td")[6]).css("background-color", "warning");
-          $($(row).find('td')[9]).addClass('bg-gradient-warning')
-          //$($(row).find('td')['9']).text('PENDIENTE')
-        } else if (data[9] == 'CORTE') {
-          //$($(row).find("td")[9]).css("background-color", "blue");
-          $($(row).find('td')[9]).addClass('bg-gradient-secondary')
-          //$($(row).find('td')['9']).text('ENVIADO')
-        } else if (data[9] == 'ENSAMBLE') {
-          //$($(row).find("td")[9]).css("background-color", "success");
-          $($(row).find('td')[9]).addClass('bg-lightblue')
-          //$($(row).find('td')['9']).text('ACEPTADO')
-        } else if (data[9] == 'PULIDO') {
-          //$($(row).find("td")[9]).css("background-color", "purple");
-          $($(row).find('td')[9]).addClass('bg-gradient-purple')
-          //$($(row).find('td')['9']).text('EN ESPERA')
-        } else if (data[9] == 'COLOCACION') {
+          $($(row).find('td')[8]).addClass('bg-gradient-warning')
+          //$($(row).find('td')['8']).text('PENDIENTE')
+        } else if (data[8] == 'CORTE') {
+          //$($(row).find("td")[8]).css("background-color", "blue");
+          $($(row).find('td')[8]).addClass('bg-gradient-secondary')
+          //$($(row).find('td')['8']).text('ENVIADO')
+        } else if (data[8] == 'ENSAMBLE') {
+          //$($(row).find("td")[8]).css("background-color", "success");
+          $($(row).find('td')[8]).addClass('bg-lightblue')
+          //$($(row).find('td')['8']).text('ACEPTADO')
+        } else if (data[8] == 'PULIDO') {
+          //$($(row).find("td")[8]).css("background-color", "purple");
+          $($(row).find('td')[8]).addClass('bg-gradient-purple')
+          //$($(row).find('td')['8']).text('EN ESPERA')
+        } else if (data[8] == 'COLOCACION' || avance==90) {
           //$($(row).find("td")[5]).css("background-color", "light-blue");
   
-          $($(row).find('td')[9]).addClass('bg-gradient-orange')
-          //$($(row).find('td')['9']).text('EDITADO')
-        } else if (data[9] == 'PROCESANDO'){
+          $($(row).find('td')[8]).addClass('bg-gradient-orange')
+          //$($(row).find('td')['8']).text('EDITADO')
+        } else if (data[8] == 'PROCESANDO'){
           //$($(row).find("td")[5]).css("background-color", "red");
-          $($(row).find('td')[9]).addClass('bg-gradient-warning')
-          //$($(row).find('td')['9']).text('RECHAZADO')
+          $($(row).find('td')[8]).addClass('bg-gradient-warning')
+          //$($(row).find('td')['8']).text('RECHAZADO')
         }
-        else if(data[9]=="LIBERADO") {
-          $($(row).find('td')[9]).addClass('bg-gradient-success')
+        else if(data[8]=="LIBERADO") {
+          $($(row).find('td')[8]).addClass('bg-gradient-success')
         }
-        else if(data[9]=="ACTIVO") {
-          $($(row).find('td')[9]).addClass('bg-gradient-primary')
+        else if(data[8]=="ACTIVO") {
+          $($(row).find('td')[8]).addClass('bg-gradient-primary')
         }
       },
     })

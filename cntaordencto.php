@@ -112,12 +112,12 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
           <div class="row">
             <div class="col-lg-12">
               <div class="table-responsive">
-                <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
+                <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%; font-size:12px">
                   <thead class="text-center bg-secondary">
                     <tr>
                       <th>Folio</th>
                       <th>Folio Vta</th>
-                      <th>Folio Doc</th>
+                     
                       <th>Fecha</th>
                       <th>Cliente</th>
                       <th>Proyecto</th>
@@ -131,6 +131,9 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                       <th>Cto Ins</th>
                       <th>Cto Insd</th>
                       <th>Cto Total</th>
+                      <th>% Cto</th>
+                      <th>Importe Vta</th>
+                      <th>Utilidad</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -141,7 +144,7 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                       <tr>
                         <td><?php echo $dat['folio_ord'] ?></td>
                         <td><?php echo $dat['folio_vta'] ?></td>
-                        <td><?php echo $dat['folio_fisico'] ?></td>
+                       
                         <td><?php echo $dat['fecha_ord'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_vta'] ?></td>
@@ -155,6 +158,9 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         <td class="text-right"><?php echo number_format($dat['ctoins'],3) ?></td>
                         <td class="text-right"><?php echo number_format($dat['ctoinsd'],3) ?></td>
                         <td class="text-right"><?php echo number_format($dat['costotal'],3) ?></td>
+                        <td class="text-right"><?php echo number_format(($dat['costotal']/$dat['gtotal'])*100,3) ?></td>
+                        <td class="text-right"><?php echo number_format($dat['gtotal'],3) ?></td>
+                        <td class="text-right"><?php echo number_format($dat['gtotal']-$dat['costotal'],3) ?></td>
                         <td></td>
                       </tr>
                     <?php
