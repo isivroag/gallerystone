@@ -15,13 +15,13 @@ $tipof = (isset($_POST['tipof'])) ? $_POST['tipof'] : '';
 
 switch ($tipof) {
     case 'inicio':
-        $consulta = "SELECT * FROM vorden WHERE fecha_ord BETWEEN '$inicio' AND '$final' and estado_ord=1  and edo_ord<>'PENDIENTE' and tipo_proy=1 ORDER BY folio_ord";
+        $consulta = "SELECT * FROM vorden WHERE fecha_ord BETWEEN '$inicio' AND '$final' and estado_ord=1  and edo_ord<>'PENDIENTE' and tipo_proy=2 ORDER BY folio_ord";
         break;
     case 'limite':
-        $consulta = "SELECT * FROM vorden WHERE fecha_limite BETWEEN '$inicio' AND '$final' and estado_ord=1 and edo_ord<>'PENDIENTE' and tipo_proy=1 ORDER BY folio_ord";
+        $consulta = "SELECT * FROM vorden WHERE fecha_limite BETWEEN '$inicio' AND '$final' and estado_ord=1 and edo_ord<>'PENDIENTE' and tipo_proy=2 ORDER BY folio_ord";
         break;
     case 'liberacion':
-        $consulta = "SELECT * FROM vorden WHERE fecha_liberacion BETWEEN '$inicio' AND '$final' and estado_ord=1 and edo_ord<>'PENDIENTE' and tipo_proy=1 ORDER BY folio_ord";
+        $consulta = "SELECT * FROM vorden WHERE fecha_liberacion BETWEEN '$inicio' AND '$final' and estado_ord=1 and edo_ord<>'PENDIENTE' and tipo_proy=2 ORDER BY folio_ord";
         break;
         
 }

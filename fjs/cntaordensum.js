@@ -21,6 +21,7 @@ $(document).ready(function () {
           data: null,
           defaultContent:
             "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fas fa-search'></i></button>\
+            <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
               </div>",
         },
         { targets: [7], type: 'num-html' },{
@@ -131,6 +132,8 @@ $(document).ready(function () {
     })
   
     var fila //capturar la fila para editar o borrar el registro
+
+ 
   
     //botón EDITAR
     $(document).on('click', '.btnVer', function () {
@@ -252,22 +255,22 @@ $(document).ready(function () {
       })
     })
     $(document).on('click', '.btnLiberar', function () {
-        fila = $(this).closest('tr')
-        folio = parseInt(fila.find('td:eq(0)').text())
-        venta= parseInt(fila.find('td:eq(1)').text())
-        
-        
-        folio = parseInt(fila.find('td:eq(0)').text());
-        venta = parseInt(fila.find('td:eq(1)').text());
-        
-        $('#formOrden').trigger('reset');
-    
-        $('#modalOrden').modal('show');
-        
-        $('#fechal').val($('#fechasys').val());
-        $('#foliolorden').val(folio);
-        $('#foliolventa').val(venta);
-      })
+      fila = $(this).closest('tr')
+      folio = parseInt(fila.find('td:eq(0)').text())
+      venta= parseInt(fila.find('td:eq(1)').text())
+      
+      
+      folio = parseInt(fila.find('td:eq(0)').text());
+      venta = parseInt(fila.find('td:eq(1)').text());
+      
+      $('#formOrden').trigger('reset');
+  
+      $('#modalOrden').modal('show');
+      
+      $('#fechal').val($('#fechasys').val());
+      $('#foliolorden').val(folio);
+      $('#foliolventa').val(venta);
+    })
     
       $(document).on('click','#btngliberar',function(){
         folio = $('#foliolorden').val();
@@ -292,7 +295,7 @@ $(document).ready(function () {
           success: function (res) {
             if (res == 1) {
               mensaje()
-              window.location.href = 'cntaorden.php'
+              window.location.reload();
             } else {
               nomensaje()
             }

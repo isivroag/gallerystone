@@ -762,8 +762,8 @@
         <?php }  ?>
 
         <!-- ABRE OBRA-->
-        <li id="liobras" class="nav-item has-treeview <?php echo ($pagina == 'ordenobra') ? "menu-open" : ""; ?>">
-          <a href="#" class="nav-link <?php echo ($pagina == 'ordenobra') ? "active" : ""; ?>">
+        <li id="liobras" class="nav-item has-treeview <?php echo ($pagina == 'ordenobra' || $pagina == 'cntarptordenobra') ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'ordenobra' || $pagina == 'cntarptordenobra') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class=" fa-solid fa-building "></i>
             </span>
@@ -789,6 +789,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+                <a href="cntarptordenobra.php" class="nav-link <?php echo ($pagina == 'cntarptordenobra') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-tasks nav-icon"></i>
+                  <p>Consulta de Orden Sum</p>
+                </a>
+              </li>
+
 
 
 
@@ -800,8 +807,8 @@
 
 
         <!-- ABRE SUMINISTRO-->
-        <li id="lisuministro" class="nav-item has-treeview <?php echo ($pagina == 'ordensum') ? "menu-open" : ""; ?>">
-          <a href="#" class="nav-link <?php echo ($pagina == 'ordensum') ? "active" : ""; ?>">
+        <li id="lisuministro" class="nav-item has-treeview <?php echo ($pagina == 'ordensum' || $pagina== 'cntarptordensum') ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'ordensum' || $pagina== 'cntarptordensum') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class="fa-solid fa-dolly "></i>
             </span>
@@ -809,6 +816,7 @@
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
+
           <ul class="nav nav-treeview">
 
 
@@ -826,6 +834,13 @@
                 <p>Ordenes de Suministro</p>
               </a>
             </li>
+
+            <li class="nav-item">
+                <a href="cntarptordensum.php" class="nav-link <?php echo ($pagina == 'cntarptordensum') ? "active seleccionado" : ""; ?>  ">
+                  <i class="fas fa-tasks nav-icon"></i>
+                  <p>Consulta de Orden Sum</p>
+                </a>
+              </li>
 
 
 

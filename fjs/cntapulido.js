@@ -192,6 +192,12 @@ $(document).ready(function () {
               else if(res==2)
               {
                 window.location.reload()
+              }else if(res==3){
+                Swal.fire({
+                  title: 'Orden sin Detalle',
+                  text: 'La Orden debe tener agregados Materiales, Insumos e Insumos de Desgaste para cambiar a Colocación',
+                  icon: 'warning',
+                })
               }
           },
       });

@@ -22,7 +22,8 @@ $(document).ready(function () {
           defaultContent:
             "<div class='text-center'><button class='btn btn-sm btn-primary btnVer' data-toggle='tooltip' data-placement='top' title='Detalle'><i class='fas fa-search'></i></button>\
             <button class='btn btn-sm bg-warning btnGeneradores' data-toggle='tooltip' data-placement='top' title='Ver Generadores'><i class='fas fa-book text-light'></i></button>\
-            <button class='btn btn-sm bg-success btnMateriales' data-toggle='tooltip' data-placement='top' title='Detalle de Materiales'><i class='fas fa-boxes text-light'></i></button>\
+            <button class='btn btn-sm bg-primary btnMateriales' data-toggle='tooltip' data-placement='top' title='Detalle de Materiales'><i class='fas fa-boxes text-light'></i></button>\
+            <button class='btn btn-sm bg-success btnLiberar' data-toggle='tooltip' data-placement='top' title='Liberar'><i class='fas fa-check-circle'></i></button>\
               </div>",
         },
         { targets: [7], type: 'num-html' },{
@@ -300,7 +301,7 @@ $(document).ready(function () {
           success: function (res) {
             if (res == 1) {
               mensaje()
-              window.location.href = 'cntaorden.php'
+              window.location.reload();
             } else {
               nomensaje()
             }
