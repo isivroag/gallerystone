@@ -213,7 +213,7 @@ $(document).ready(function () {
       fila = $(this).closest('tr')
       id = parseInt(fila.find('td:eq(1)').text())
   
-      window.location.href = 'ordensum.php?folio=' + id
+      window.location.href = 'caratulaobra.php?folio=' + id
     })
   
     var fila //capturar la fila para editar o borrar el registro

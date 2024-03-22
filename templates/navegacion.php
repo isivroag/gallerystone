@@ -792,7 +792,7 @@
             <li class="nav-item">
                 <a href="cntarptordenobra.php" class="nav-link <?php echo ($pagina == 'cntarptordenobra') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-tasks nav-icon"></i>
-                  <p>Consulta de Orden Sum</p>
+                  <p>Consulta de Orden Obra</p>
                 </a>
               </li>
 
