@@ -855,10 +855,13 @@
         <?php if ($_SESSION['s_rol'] != '1') { ?>
           <li id="liinventario" class="nav-item has-treeview <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop'
                                                                 || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale'
-                                                                || $pagina == 'reordenins' || $pagina == 'reordeninsdes' || $pagina == 'movmat' || $pagina == 'cajah') ? "menu-open" : ""; ?>">
-            <a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop'
+                                                                || $pagina == 'reordenins' || $pagina == 'reordeninsdes' || $pagina == 'movmat' || $pagina == 'cajah' 
+                                                                || $pagina == 'cortemati' || $pagina == 'corteinsi'
+                                                                || $pagina == 'cortematcnta' || $pagina == 'cortemataviso') ? "menu-open" : ""; ?>"><a href="#" class="nav-link <?php echo ($pagina == 'almacen' || $pagina == 'mat' || $pagina == 'desechable' || $pagina == 'inventario' || $pagina == 'inventariogral' || $pagina == 'insumoop'
                                           || $pagina == 'herramienta' || $pagina == 'medida' || $pagina == 'cntamaterial' || $pagina == 'matpieza' || $pagina == 'estante' || $pagina == 'vale'
-                                          || $pagina == 'reordenins' || $pagina == 'reordeninsdes' || $pagina == 'movmat' || $pagina == 'cajah') ? "active" : ""; ?>">
+                                          || $pagina == 'reordenins' || $pagina == 'reordeninsdes' || $pagina == 'movmat' || $pagina == 'cajah' 
+                                          || $pagina == 'cortemati' || $pagina == 'corteinsi'
+                                          || $pagina == 'cortematcnta' || $pagina == 'cortemataviso') ? "active" : ""; ?>">
               <span class="fa-stack">
                 <i class=" fas fa-box"></i>
 
@@ -915,6 +918,15 @@
                   <p>Movimientos Materiales</p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                  <a href="cortemataviso.php" class="nav-link <?php echo ($pagina == 'cortemati' ||$pagina == 'cortemataviso' || $pagina == 'cortematcnta' ) ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-boxes-packing nav-icon"></i>
+                    <p>Corte Materiales</p>
+                  </a>
+                </li>
+
+                
               <li class="nav-item">
                 <a href="cntamatpieza.php" class="nav-link <?php echo ($pagina == 'matpieza') ? "active seleccionado" : ""; ?>  ">
                   <i class="fa-solid fa-cubes nav-icon"></i>
@@ -934,6 +946,13 @@
                   <p>Reorden Insumos</p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                  <a href="corteinsaviso.php" class="nav-link <?php echo ($pagina == 'corteinsi') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fa-solid fa-boxes-packing nav-icon"></i>
+                    <p>Corte Insumos</p>
+                  </a>
+                </li>
 
               <li class="nav-item">
                 <a href="cntadesinsumo.php" class="nav-link <?php echo ($pagina == 'desechable') ? "active seleccionado" : ""; ?>  ">

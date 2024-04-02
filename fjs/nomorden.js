@@ -235,7 +235,7 @@ $(document).ready(function () {
     ml = $("#mlorden").val();
     costoml = $("#costoml2").val();
     mlorigen = $("#mlorigen").val();
-    if (ml <= mlorigen) {
+    if (parseFloat(ml) <= parseFloat(mlorigen)) {
       if (folio == "" || importe == "" || ml == "" || costoml == "") {
         nomensaje();
       } else {

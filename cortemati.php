@@ -1,5 +1,5 @@
 <?php
-$pagina = "cortemat";
+$pagina = "cortemati";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -132,7 +132,9 @@ $message = "";
 
 
                         <?php if ($estado!=2 && ($tipou==2 || $tipou==3)){?>
-                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                        <!--
+                            <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                        -->
                         <?php }?>
                         
                     </div>
