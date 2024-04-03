@@ -253,7 +253,7 @@ if ($_SESSION['s_rol'] != '2' || $_SESSION['s_rol'] != '3') {
 
 $consultaao = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.concepto_vta,vorden.edo_ord,vorden.avance,vorden.estado_ord,
 max(ordenestado.fecha_ini) as fecha_ini,ordenestado.descripcion,ordenestado.usuario 
-FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini ='".date('Y-m-d', $fechahome)."' and ordenestado.estado_reg='1' and vorden.estado_ord='1'
+FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini ='" . date('Y-m-d', $fechahome) . "' and ordenestado.estado_reg='1' and vorden.estado_ord='1'
 group by ordenestado.id_orden order by vorden.avance,vorden.edo_ord,vorden.folio_vta ";
 //} else {
 //  $consulta = "SELECT * FROM vpres where edo_pres='1' and estado_pres<>'RECHAZADO' and estado_pres<>'ACEPTADO' AND estado_pres<>'SUSPENDIDO' and tipo_proy=1 order by folio_pres";
@@ -268,37 +268,61 @@ $dataao = $resultadoao->fetchAll(PDO::FETCH_ASSOC);
 
 
 <style>
-  .swal-wide{
-    width:850px !important;
-}
+  .swal-wide {
+    width: 850px !important;
+  }
 
-td.details-control {
-    background: url('img/details_open.png') no-repeat center center ;
+  td.details-control {
+    background: url('img/details_open.png') no-repeat center center;
 
     cursor: pointer;
-}
-tr.details td.details-control {
+  }
+
+  tr.details td.details-control {
     background: url('img/details_close.png') no-repeat center center;
 
-    
-}
-.borderless td,
-    .borderless th {
-        border: none;
+
+  }
+
+  .borderless td,
+  .borderless th {
+    border: none;
+  }
+
+  .bg1 {
+    background-color: rgba(25, 151, 6, .6) !important;
+    color: white;
+  }
+
+  .bg2 {
+    background-color: rgba(52, 78, 253, .85) !important;
+    color: white;
+  }
+
+  .bg3 {
+    background-color: rgba(79, 3, 210, .6) !important;
+    color: white;
+  }
+
+
+  @keyframes parpadeo {
+    0% {
+      opacity: 0;
     }
-    .bg1{
-      background-color: rgba(25,151,6,.6)!important;
-      color: white;
+
+    50% {
+      opacity: 1;
     }
-    .bg2{
-      background-color: rgba(52,78,253,.85)!important;
-      color: white;
+
+    100% {
+      opacity: 0;
     }
-    .bg3{
-      background-color: rgba(79,3,210,.6)!important;
-      color: white;
-    }
-  </style>
+  }
+
+  .parpadeo {
+    animation: parpadeo 3s infinite;
+  }
+</style>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <!-- Content Wrapper. Contains page content -->
@@ -355,7 +379,7 @@ tr.details td.details-control {
 
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><?php echo $totalvta.": $ ". number_format($montvta,2) ?></h3>
+                <h3><?php echo $totalvta . ": $ " . number_format($montvta, 2) ?></h3>
 
                 <p># VENTAS DE <?php echo $mesactual ?></p>
               </div>
@@ -393,6 +417,145 @@ tr.details td.details-control {
                 <i class="fas fa-dollar-sign"></i>
               </div>
               <a href="cntapagoscxc.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-sm-6">
+            <?php
+            $cntam = "SELECT MAX(fecha) as fecha FROM cortemat WHERE estado_corte=2";
+            $resm = $conexion->prepare($cntam);
+            $resm->execute();
+            $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+            $resm->closeCursor();
+
+            $fecham = "";
+            foreach ($datam as $rowm) {
+              $fecham = $rowm['fecha'];
+            }
+
+
+
+            $cntam = "SELECT * FROM vultimomovmat";
+            $resm = $conexion->prepare($cntam);
+            $resm->execute();
+            $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+            $resm->closeCursor();
+
+            $fechau = "";
+            $nitem = "";
+            $nmat = "";
+            $numero = "";
+            $descripcion = "";
+            $tipu = "";
+            foreach ($datam as $rowm) {
+              $fechau = $rowm['fecha_movp'];
+              $nitem = $rowm['nom_item'];
+              $nmat = $rowm['nom_mat'];
+              $numero = $rowm['numero'];
+              $descripcion = $rowm['descripcion'];
+              $tipu = $rowm['tipo_movp'];
+            }
+
+
+            $hoy = date('Y-m-d');
+            $fecha_obj = $fechau;
+            $diferencia = abs(strtotime($hoy) - strtotime($fecha_obj)) / (60 * 60 * 24);
+
+            if ($diferencia <= 0 || $diferencia == 1) {
+              $clase = "alert-success";
+              $icon = "fas fa-check";
+            } else if ($diferencia > 1 && $diferencia <= 3) {
+              $clase = "alert-warning parpadeo";
+              $icon = "fas fa-exclamation-triangle";
+            } else {
+              $clase = "alert-danger parpadeo";
+              $icon = "fas fa-ban";
+            }
+            ?>
+            <div class="alert <?php echo $clase ?>">
+              <div class="row justify-content-center">
+                <div class="col-sm-12">
+                  <h3 class="text-white text-center"><i class="icon <?php echo $icon ?>"></i>ULTIMA ACTUALIZACION DE INVENTARIO DE MATERIAL <i class="fas fa-layer-group "></i></h5>
+                </div>
+                <div class="col-sm-12 " style="font-size: 15px;">
+
+                  <p class="mb-0">Ultimo Corte:<strong> <?php echo $fecham ?></strong></p>
+                  <p class="mb-0">Ultimo Mov de Inventario:<br>
+                    <strong>
+                      <?php echo $fechau . ": " . mb_convert_case($tipu, MB_CASE_TITLE, "UTF-8") . " - " . mb_convert_case($nitem, MB_CASE_TITLE, "UTF-8") . " - " . mb_convert_case($nmat, MB_CASE_TITLE, "UTF-8") . " # " . $numero . "-" .  mb_convert_case($descripcion, MB_CASE_TITLE, "UTF-8")  ?>
+                    </strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <?php
+            $cntam = "SELECT MAX(fecha) as fecha FROM corteins WHERE estado_corte=2";
+            $resm = $conexion->prepare($cntam);
+            $resm->execute();
+            $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+            $resm->closeCursor();
+
+            $fecham = "";
+            foreach ($datam as $rowm) {
+              $fecham = $rowm['fecha'];
+            }
+
+            $cntam = "SELECT * FROM vultimomovins";
+            $resm = $conexion->prepare($cntam);
+            $resm->execute();
+            $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+            $resm->closeCursor();
+
+            $fechau = "";
+            $nitem = "";
+            $descripcion = "";
+            $tipu = "";
+            foreach ($datam as $rowm) {
+              $fechau = $rowm['fecha_movd'];
+              $nitem = $rowm['nom_des'];
+
+
+              $descripcion = $rowm['descripcion'];
+              $tipu = $rowm['tipo_movd'];
+            }
+
+            $hoy = date('Y-m-d');
+            $fecha_obj = $fechau;
+            $diferencia = abs(strtotime($hoy) - strtotime($fecha_obj)) / (60 * 60 * 24);
+
+            if ($diferencia <= 0 || $diferencia == 1) {
+              $clase = "alert-success";
+              $icon = "fas fa-check";
+            } else if ($diferencia > 1 && $diferencia <= 3) {
+              $clase = "alert-warning parpadeo";
+              $icon = "fas fa-exclamation-triangle";
+            } else {
+              $clase = "alert-danger parpadeo";
+              $icon = "fas fa-ban";
+            }
+            ?>
+            <div class="alert <?php echo $clase ?>">
+              <div class="row justify-content-center">
+                <div class="col-sm-12">
+                  <h3 class="text-white"><i class="icon <?php echo $icon ?>"></i>ULTIMA ACTUALIZACION DE INVENTARIO DE INSUMO <i class="fas fa-brush "></i></h5>
+                </div>
+                <div class="col-sm-12">
+
+                  <p class="mb-0">Ultimo Corte:<strong> <?php echo $fecham ?></strong></p>
+                  <p class="mb-0">Ultimo Mov de Inventario:<br>
+                    <strong>
+                      <?php echo $fechau . ": " . mb_convert_case($tipu, MB_CASE_TITLE, "UTF-8") . " - " . mb_convert_case($nitem, MB_CASE_TITLE, "UTF-8") . " - " .   mb_convert_case($descripcion, MB_CASE_TITLE, "UTF-8")  ?>
+                    </strong>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -907,7 +1070,7 @@ tr.details td.details-control {
                 <div class="card-header bg-gradient-info color-palette border-0">
                   <h3 class="card-title">
                     <i class="fa-solid fa-industry mr-1"></i>
-                    PRODUCCION: TAREAS REALIZADAS <?php echo date('Y-m-d', $fechahome)?>
+                    PRODUCCION: TAREAS REALIZADAS <?php echo date('Y-m-d', $fechahome) ?>
                     <i class=" text-orange fa-solid fa-certificate mr-1"></i>
                   </h3>
 
@@ -919,77 +1082,77 @@ tr.details td.details-control {
                   </div>
                 </div>
                 <div class="card-body">
-                <div class="row">
-            <div class="col-lg-12">
-              <div class="table-responsive">
-                <table name="tablaao" id="tablaao" class="table table-hover table-sm table-striped table-bordered table-condensed  w-auto mx-auto " style="font-size:15px;">
-                  <thead class="text-center bg-gradient-info">
-                    <tr>
-                      <th></th>
-                      <th>ORDEN</th>
-                      <th>VENTA</th>
-                      <th>CLIENTE</th>
-                      <th>PROYECTO</th>
-                      <th>ESTADO ACTUAL</th>
-                      <th>FECHA INICIO</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    foreach ($dataao as $datao) {
-                      $avance=$datao['avance'];
-                      $estado=$datao['edo_ord'];
-                      if ($avance==90){
-                        $estado="COLOCACION";
-                      }
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="table-responsive">
+                        <table name="tablaao" id="tablaao" class="table table-hover table-sm table-striped table-bordered table-condensed  w-auto mx-auto " style="font-size:15px;">
+                          <thead class="text-center bg-gradient-info">
+                            <tr>
+                              <th></th>
+                              <th>ORDEN</th>
+                              <th>VENTA</th>
+                              <th>CLIENTE</th>
+                              <th>PROYECTO</th>
+                              <th>ESTADO ACTUAL</th>
+                              <th>FECHA INICIO</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            foreach ($dataao as $datao) {
+                              $avance = $datao['avance'];
+                              $estado = $datao['edo_ord'];
+                              if ($avance == 90) {
+                                $estado = "COLOCACION";
+                              }
 
-                      $color = '';
-                      switch ($avance) {
-                        case 0:
-                          if ($estado == 'ACTIVO') {
-                            $color = 'bg-gradient-primary';
-                          } elseif ($estado == 'MEDICION') {
-                            $color = 'bg-gradient-warning text-white';
-                          } else {
-                            $color = 'bg-gradient-warning text-white';
-                          }
-                          break;
-                        case 5:
-                          $color = 'bg-gradient-secondary';
-                          break;
-                        case 45:
-                          $color = 'bg-gradient-info ';
-                          break;
-                        case 75:
-                          $color = 'bg-gradient-purple';
-                          break;
-                        case 90:
-                          $estado = 'COLOCACION';
-                          $color = 'bg-gradient-orange';
-                          break;
-                        case 100:
-                          $color = 'bg-gradient-success';
-                          break;
-                      }
-                    ?>
-                      <tr class="">
-                        <td></td>
-                        <td><?php echo $datao['id_orden'] ?></td>
-                        <td><?php echo $datao['folio_vta'] ?></td>
-                        <td><?php echo $datao['nombre'] ?></td>
-                        <td><?php echo $datao['concepto_vta'] ?></td>
-                        <td class="text-center <?php echo $color?>"><?php echo $estado ?></td>
-                        <td class="text-center"><?php echo $datao['fecha_ini'] ?></td>
-                      </tr>
-                    <?php
-                    }
-                    ?>
-                  </tbody>
-                 
-                </table>
-              </div>
-            </div>
-          </div>
+                              $color = '';
+                              switch ($avance) {
+                                case 0:
+                                  if ($estado == 'ACTIVO') {
+                                    $color = 'bg-gradient-primary';
+                                  } elseif ($estado == 'MEDICION') {
+                                    $color = 'bg-gradient-warning text-white';
+                                  } else {
+                                    $color = 'bg-gradient-warning text-white';
+                                  }
+                                  break;
+                                case 5:
+                                  $color = 'bg-gradient-secondary';
+                                  break;
+                                case 45:
+                                  $color = 'bg-gradient-info ';
+                                  break;
+                                case 75:
+                                  $color = 'bg-gradient-purple';
+                                  break;
+                                case 90:
+                                  $estado = 'COLOCACION';
+                                  $color = 'bg-gradient-orange';
+                                  break;
+                                case 100:
+                                  $color = 'bg-gradient-success';
+                                  break;
+                              }
+                            ?>
+                              <tr class="">
+                                <td></td>
+                                <td><?php echo $datao['id_orden'] ?></td>
+                                <td><?php echo $datao['folio_vta'] ?></td>
+                                <td><?php echo $datao['nombre'] ?></td>
+                                <td><?php echo $datao['concepto_vta'] ?></td>
+                                <td class="text-center <?php echo $color ?>"><?php echo $estado ?></td>
+                                <td class="text-center"><?php echo $datao['fecha_ini'] ?></td>
+                              </tr>
+                            <?php
+                            }
+                            ?>
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.card-body -->
 
@@ -1711,6 +1874,154 @@ tr.details td.details-control {
 
 
     <div class="container-fluid">
+
+      <?php
+
+      if ($_SESSION['s_rol'] == '4' || $_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '6' ) {
+      ?>
+        <div class="row">
+
+          <div class="col-sm-6">
+            <?php
+            $cntam = "SELECT MAX(fecha) as fecha FROM cortemat WHERE estado_corte=2";
+            $resm = $conexion->prepare($cntam);
+            $resm->execute();
+            $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+            $resm->closeCursor();
+
+            $fecham = "";
+            foreach ($datam as $rowm) {
+              $fecham = $rowm['fecha'];
+            }
+
+
+
+            $cntam = "SELECT * FROM vultimomovmat";
+            $resm = $conexion->prepare($cntam);
+            $resm->execute();
+            $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+            $resm->closeCursor();
+
+            $fechau = "";
+            $nitem = "";
+            $nmat = "";
+            $numero = "";
+            $descripcion = "";
+            $tipu = "";
+            foreach ($datam as $rowm) {
+              $fechau = $rowm['fecha_movp'];
+              $nitem = $rowm['nom_item'];
+              $nmat = $rowm['nom_mat'];
+              $numero = $rowm['numero'];
+              $descripcion = $rowm['descripcion'];
+              $tipu = $rowm['tipo_movp'];
+            }
+
+
+            $hoy = date('Y-m-d');
+            $fecha_obj = $fechau;
+            $diferencia = abs(strtotime($hoy) - strtotime($fecha_obj)) / (60 * 60 * 24);
+
+            if ($diferencia <= 0 || $diferencia == 1) {
+              $clase = "alert-success";
+              $icon = "fas fa-check";
+            } else if ($diferencia > 1 && $diferencia <= 3) {
+              $clase = "alert-warning parpadeo";
+              $icon = "fas fa-exclamation-triangle";
+            } else {
+              $clase = "alert-danger parpadeo";
+              $icon = "fas fa-ban";
+            }
+            ?>
+            <div class="alert <?php echo $clase ?>">
+              <div class="row justify-content-center">
+                <div class="col-sm-12">
+                  <h3 class="text-white text-center"><i class="icon <?php echo $icon ?>"></i>ULTIMA ACTUALIZACION DE INVENTARIO DE MATERIAL <i class="fas fa-layer-group "></i></h5>
+                </div>
+                <div class="col-sm-12 " style="font-size: 15px;">
+
+                  <p class="mb-0">Ultimo Corte:<strong> <?php echo $fecham ?></strong></p>
+                  <p class="mb-0">Ultimo Mov de Inventario:<br>
+                    <strong>
+                      <?php echo $fechau . ": " . mb_convert_case($tipu, MB_CASE_TITLE, "UTF-8") . " - " . mb_convert_case($nitem, MB_CASE_TITLE, "UTF-8") . " - " . mb_convert_case($nmat, MB_CASE_TITLE, "UTF-8") . " # " . $numero . "-" .  mb_convert_case($descripcion, MB_CASE_TITLE, "UTF-8")  ?>
+                    </strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <?php
+            $cntam = "SELECT MAX(fecha) as fecha FROM corteins WHERE estado_corte=2";
+            $resm = $conexion->prepare($cntam);
+            $resm->execute();
+            $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+            $resm->closeCursor();
+
+            $fecham = "";
+            foreach ($datam as $rowm) {
+              $fecham = $rowm['fecha'];
+            }
+
+            $cntam = "SELECT * FROM vultimomovins";
+            $resm = $conexion->prepare($cntam);
+            $resm->execute();
+            $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+            $resm->closeCursor();
+
+            $fechau = "";
+            $nitem = "";
+            $descripcion = "";
+            $tipu = "";
+            foreach ($datam as $rowm) {
+              $fechau = $rowm['fecha_movd'];
+              $nitem = $rowm['nom_des'];
+
+
+              $descripcion = $rowm['descripcion'];
+              $tipu = $rowm['tipo_movd'];
+            }
+
+            $hoy = date('Y-m-d');
+            $fecha_obj = $fechau;
+            $diferencia = abs(strtotime($hoy) - strtotime($fecha_obj)) / (60 * 60 * 24);
+
+            if ($diferencia <= 0 || $diferencia == 1) {
+              $clase = "alert-success";
+              $icon = "fas fa-check";
+            } else if ($diferencia > 1 && $diferencia <= 3) {
+              $clase = "alert-warning parpadeo";
+              $icon = "fas fa-exclamation-triangle";
+            } else {
+              $clase = "alert-danger parpadeo";
+              $icon = "fas fa-ban";
+            }
+            ?>
+            <div class="alert <?php echo $clase ?>">
+              <div class="row justify-content-center">
+                <div class="col-sm-12">
+                  <h3 class="text-white  text-center"><i class="icon <?php echo $icon ?>"></i>ULTIMA ACTUALIZACION DE INVENTARIO DE INSUMO <i class="fas fa-brush "></i></h5>
+                </div>
+                <div class="col-sm-12">
+
+                  <p class="mb-0">Ultimo Corte:<strong> <?php echo $fecham ?></strong></p>
+                  <p class="mb-0">Ultimo Mov de Inventario:<br>
+                    <strong>
+                      <?php echo $fechau . ": " . mb_convert_case($tipu, MB_CASE_TITLE, "UTF-8") . " - " . mb_convert_case($nitem, MB_CASE_TITLE, "UTF-8") . " - " .   mb_convert_case($descripcion, MB_CASE_TITLE, "UTF-8")  ?>
+                    </strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      <?php
+      }
+      ?>
+
       <div class="row justify-content-center">
         <div class="col-sm-12 col-12">
           <div class="card">
@@ -2177,8 +2488,8 @@ include_once 'templates/footer.php';
 
     /*GRAFICA 3*/
 
-     /*GRAFICA */
-     var barventassum = $('#line-chart2sum').get(0).getContext('2d')
+    /*GRAFICA */
+    var barventassum = $('#line-chart2sum').get(0).getContext('2d')
     var barventasdatasum = {
       labels: [<?php foreach ($datavtavsum as $d) : ?> "<?php echo $d['vendedor'] ?>",
         <?php endforeach; ?>

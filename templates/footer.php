@@ -3,7 +3,7 @@
         <div class="float-right d-none d-sm-block">
             <b>Version</b> P 3.2.6
         </div>
-        <strong>Copyright &copy; 2021 <a href="http://tecniem.com">Tecniem</a>.</strong> All rights
+        <strong>Copyright &copy;  <?php echo date('Y'); ?> <a href="http://tecniem.com">Tecniem</a>.</strong> All rights
         reserved.
     </footer>
 
@@ -49,6 +49,7 @@
     <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
+    <!--<script src="fjs/permisos.js?v=<?php echo (rand()); ?>"></script>-->
 
     <!-- AdminLTE App -->
     <script src="js/adminlte.min.js"></script>

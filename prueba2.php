@@ -2,24 +2,21 @@
 
 
 
-
-include_once 'conexion.php';
+include_once "templates/header.php";
+include_once "templates/barra.php";
+include_once "templates/navegacion.php";
+include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
+$conexion->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
 
 // Recepción de los datos enviados mediante POST desde el JS   
 
-$folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
-$extra = (isset($_POST['extra'])) ? $_POST['extra'] : '';
-$retencion = (isset($_POST['retencion'])) ? $_POST['retencion'] : '';
-$retencionu = (isset($_POST['retencionu'])) ? $_POST['retencionu'] : '';
+$folio = 1;
 
-$obs = (isset($_POST['obs'])) ? $_POST['obs'] : '';
 
-$consulta = "UPDATE nomina set extra='$extra', retencion='$retencion', obs='$obs',retencionu='$retencionu' where folio_nom='$folio'";
-$resultado = $conexion->prepare($consulta);
-$resultado->execute();
-$resultado->closeCursor();
+
+
 $importenom = 0;
 $totaldias = 0;
 
@@ -32,14 +29,12 @@ if ($resultado->execute()) {
     foreach ($data as $row) {
         $importenom = $row['importe'];
         $extra = $row['extra'];
-        $retencion = $row['retencion'];
-        $retencionu = $row['retencionu'];
         $periodoini = $row['periodoini'];
         $periodofin = $row['periodofin'];
     }
 }
 $resultado->closeCursor();
-$importenom = ($importenom-$retencion) + $extra+$retencionu;
+$importenom = $importenom + $extra;
 //EMPLEADOS FIJOS
 
 
@@ -224,7 +219,6 @@ if ($resultado->execute()) {
         
 
         $datap = $resultadop->fetchAll(PDO::FETCH_ASSOC);
-        $resultadop->closeCursor();
         
         $nr = 0;
         $asistencia = 0;
@@ -261,8 +255,6 @@ if ($resultado->execute()) {
                     $cntafalta = "INSERT INTO nom_auxcalculo (folio_nom,id_per,fecha,importe,tipo) VALUES ($folio,'$id_per','$fecha','$importediat','1')";
                     $resfalta = $conexion->prepare($cntafalta);
                     $resfalta->execute();
-                    $resfalta->closeCursor();
-                    
                     break;
                 case '3':
                     $retardo++;
@@ -301,7 +293,6 @@ if ($resultado->execute()) {
             WHERE folio_nom='$folio' and id_per='$id_per' ";
             $resnom = $conexion->prepare($cntanom);
             $resnom->execute();
-            $resnom->closeCursor();
             
         }
         $retenido += $totalretardo;
@@ -313,7 +304,6 @@ if ($resultado->execute()) {
     $resaux = $conexion->prepare($cntaaux);
     $resaux->execute();
     $dataaux = $resaux->fetchAll(PDO::FETCH_ASSOC);
-    $resaux->closeCursor();
 
     foreach ($dataaux as $rowaux) {
         $fechad = $rowaux['fecha'];
@@ -322,13 +312,8 @@ if ($resultado->execute()) {
         $cntaaux2 = "call sp_repartir('$folio','$fechad')";
         $resaux2 = $conexion->prepare($cntaaux2);
         $resaux2->execute();
-        
-        $empleados=0;
-        $empleados = $resaux2->rowCount();
         $dataaux2 = $resaux2->fetchAll(PDO::FETCH_ASSOC);
-        $resaux2->closeCursor();
-       
-        
+        $empleados = $resaux2->rowCount();
 
         if ($empleados > 0) {
             $importerepartir = $importeaux / $empleados;
@@ -341,62 +326,66 @@ if ($resultado->execute()) {
 
                 $resaux2 = $conexion->prepare($cntarepartir);
                 $resaux2->execute();
-                $resaux2->closeCursor();
 
                 $cntarepartir = "INSERT INTO nom_auxcalculo(folio_nom,id_per,fecha,importe,tipo) VALUES('$folio','$id_per','$fechad','$importerepartir',2)";
                 $resaux2 = $conexion->prepare($cntarepartir);
                 $resaux2->execute();
-                $resaux2->closeCursor();
-
-               
             }
-        }else{
-            //CODIGO PARA AGREGAR LA RETENCION POR FALTAS
-            $cntaact = "UPDATE nomina SET retenido = retenido + '$importeaux' WHERE folio_nom = '$folio'";
-            $resact = $conexion->prepare($cntaact);
-            $resact->execute();
-            $resact->closeCursor();
         }
     }
     $resaux->closeCursor();
 
-    $cntaret = "SELECT vnom_emp.id_per,COUNT(vnom_emp.id_per) AS retardos,reparto,vnom_emp.salariobd,vnom_emp.salariodestajo,vnom_emp.salariototal FROM asistencia  
+    $cnta4 = "SELECT vnom_emp.id_per,COUNT(vnom_emp.id_per) AS retardos,reparto,vnom_emp.salariobd,vnom_emp.salariodestajo,vnom_emp.salariototal FROM asistencia  
     JOIN vnom_emp ON vnom_emp.id_per=asistencia.id_per
     WHERE vnom_emp.folio_nom='$folio' and vnom_emp.tipo='DESTAJO' AND asistencia.fecha BETWEEN '$periodoini' AND '$periodofin' AND (asistencia.tipo=5 OR asistencia.tipo=3)  GROUP BY vnom_emp.id_per HAVING COUNT(vnom_emp.id_per) < 3";
-    $restret = $conexion->prepare($cntaret);
-    $restret->execute();
-    $numero = 0;
-    $numero = $restret->rowCount();
-    if ($numero == 0) {
-        $cntaact = "UPDATE nomina SET retenido=retenido+'$retenido' WHERE folio_nom = '$folio'";
-        $resact = $conexion->prepare($cntaact);
-        $resact->execute();
-    } else {
-        $retenido = $retenido / $numero;
-        $dataret = $restret->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($dataret as $rowret) {
-            $personal = $rowret['id_per'];
-            $salariobd = $rowret['salariobd'];
-            $reparto = $rowret['reparto'];
-            $salariodestajo = $rowret['salariodestajo'];
-            $salariototal = $rowret['salariototal'];
-
-            $reparto += $retenido;
-            $salariobd += $retenido;
-            $salariodestajo += $retenido;
-            $salariototal += $retenido;
-            $cntanom = "UPDATE nom_emp SET reparto='$reparto',salariobd='$salariobd',salariodestajo='$salariodestajo',salariototal='$salariototal'
-                WHERE folio_nom='$folio' and id_per='$personal' ";
-            $resnom = $conexion->prepare($cntanom);
-            $resnom->execute();
-
-
-           /* $cntaact = "UPDATE nomina SET retenido=retenido+'0' WHERE folio_nom = '$folio'";
-            $resact = $conexion->prepare($cntaact);
-            $resact->execute();*/
+    $res4 = $conexion->prepare($cnta4);
+    $res4->execute();
+    $numero = $res4->rowCount();
+   
+        //$numero = 0;
+        
+        if ($numero == 0) {
+            $cnta5 = "UPDATE nomina SET retenido='$retenido' WHERE folio_nom = '$folio'";
+            
+            $res5 = $conexion->prepare($cnta5);
+            if($res5->execute()){
+                $msg="retenido ".$retenido;
+            }else{
+                $msg="NO SE EJECUTO" . $res5->errorInfo()[2];
+            }
+            
+        } else {
+            $retenido = $retenido / $numero;
+            $dataret = $res4->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($dataret as $rowret) {
+                $personal = $rowret['id_per'];
+                $salariobd = $rowret['salariobd'];
+                $reparto = $rowret['reparto'];
+                $salariodestajo = $rowret['salariodestajo'];
+                $salariototal = $rowret['salariototal'];
+    
+                $reparto += $retenido;
+                $salariobd += $retenido;
+                $salariodestajo += $retenido;
+                $salariototal += $retenido;
+                $cntanom = "UPDATE nom_emp SET reparto='$reparto',salariobd='$salariobd',salariodestajo='$salariodestajo',salariototal='$salariototal'
+                    WHERE folio_nom='$folio' and id_per='$personal' ";
+                $resnom = $conexion->prepare($cntanom);
+                $resnom->execute();
+    
+    
+                $cnta5 = "UPDATE nomina SET retenido='0' WHERE folio_nom = '$folio'";
+                $res5 = $conexion->prepare($cnta5);
+                $res5->execute();
+                $msg="retenido 0".$numero;
+            }
         }
-    }
+    
+    
+
+  
 }
+$resultado->closeCursor();
 //EL MONTO RETENIDO DEBE SER REPARTIDO ENTRE TODOS LOS TRABAJADORES QUE NO TIENE FALTAS POR RETARDO Y SINO ENTONCES SE ACTUALIZA NOMINA COMO RETENIDO
 //CONSULTAR EL DETALLE DE ASISTENCIA PARA VER AQUELLOS TRABAJADORES QUE NO TIENEN MAS DE 3 RETARDOS O NO CHECADAS
 
@@ -415,15 +404,81 @@ $fijo = 0;
 foreach ($datamain as $rowret) {
     $fijo += $rowret['salariototal'];
 }
+$resmain->closeCursor();
 
 $cntamain = "call sp_actualizarnom('$folio','$fijo')";
 $resmain = $conexion->prepare($cntamain);
 $resmain->execute();
+$resmain->closeCursor();
 
 $cntamain = "SELECT * FROM vnom_emp WHERE folio_nom = '$folio' order by id_per";
 $resmain = $conexion->prepare($cntamain);
 $resmain->execute();
 $datamain = $resmain->fetchAll(PDO::FETCH_ASSOC);
+$resmain->closeCursor();
 
-print json_encode($datamain, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+
 $conexion = NULL;
+
+
+
+
+?>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header bg-gradient-orange">
+                <h1 class="card-title mx-auto">NOMINA</h1>
+            </div>
+
+            <div class="card-body">
+
+
+
+
+
+                <!-- INICIO FORM -->
+                <form id="formDatos" action="" method="">
+
+
+                    <div class="content">
+
+                        <div class="card card-widget" style="margin-bottom:0px;">
+
+                            <div class="card-header bg-gradient-orange " style="margin:0px;padding:8px">
+                                <h1 class="card-title ">Información de Nomina</h1>
+
+                            </div>
+
+
+                            <!-- Formulario Agrear Item -->
+
+                            <!-- Tabla -->
+                            <div class="content" style="padding:5px 0px;">
+
+                                <?php echo $msg?>
+                            </div>
+                            <!-- Formulario totales -->
+
+                        </div>
+
+                    </div>
+
+
+                </form>
+                <!-- TERMINA FORM -->
+
+            </div>
+
+        </div>
+
+        <!-- /.card -->
+
+    </section>
+</div>

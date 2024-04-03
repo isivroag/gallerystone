@@ -666,76 +666,94 @@ $dataret = $resultadoret->fetchAll(PDO::FETCH_ASSOC);
 
                                                 </div>
                                             <?php } ?>
+                                            <div class="row justify-content-center">
 
-                                            <div class="col-lg-12 mx-auto">
+                                                <div class="col-lg-12 mx-auto">
 
-                                                <div class="table-responsive" style="padding:2px;">
+                                                    <div class="table-responsive" style="padding:2px;">
 
-                                                    <table name="tablaNomper" id="tablaNomper" class="table table-sm table-striped table-bordered table-condensed mx-auto" style="width:100%; font-size:14px">
-                                                        <thead class="text-center bg-gradient-primary">
-                                                            <tr>
-                                                                <th>id_reg</th>
-                                                                <th>ID Personal</th>
-                                                                <th>Personal</th>
-                                                                <th>Dias Per</th>
-                                                                <th>Dias Trab</th>
-                                                                <th>Diario SF</th>
-                                                                <th>Bruto SF</th>
-                                                                <th>Descuento SF</th>
-                                                                <th>Bono SF</th>
-                                                                <th>Salario Fijo</th>
-                                                                <th>Porcentaje</th>
-                                                                <th>Participación</th>
-                                                                <th>Diario SD</th>
-                                                                <th>Faltas SD</th>
-                                                                <th>Retardos SD</th>
-                                                                <th>Reparto SD</th>
-                                                                <th>Bruto SD</th>
-                                                                <th>Descuento SD</th>
-                                                                <th>Bono SD</th>
-                                                                <th>Salario Destajo</th>
-                                                                <th>Salario Total</th>
-                                                                <th>tipo</th>
-                                                                <th>Acciones</th>
-
-
-
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php foreach ($dataper as $rowper) { ?>
+                                                        <table name="tablaNomper" id="tablaNomper" class="table table-sm table-striped table-bordered table-condensed mx-auto" style="width:100%; font-size:14px">
+                                                            <thead class="text-center bg-gradient-primary">
                                                                 <tr>
-                                                                    <td><?php echo $rowper['id_reg'] ?></td>
-                                                                    <td><?php echo $rowper['id_per'] ?></td>
-                                                                    <td><?php echo $rowper['nom_per'] ?></td>
-                                                                    <td><?php echo $rowper['diasp'] ?></td>
-                                                                    <td><?php echo $rowper['diast'] ?></td>
-                                                                    <td><?php echo $rowper['salariodf'] ?></td>
-                                                                    <td><?php echo $rowper['salariobf'] ?></td>
-                                                                    <td><?php echo $rowper['descuentof'] ?></td>
-                                                                    <td><?php echo $rowper['bonof'] ?></td>
-                                                                    <td><?php echo $rowper['salariofijo'] ?></td>
-                                                                    <td><?php echo $rowper['porcentaje'] ?></td>
-                                                                    <td><?php echo $rowper['participacion'] ?></td>
-                                                                    <td><?php echo $rowper['salariodd'] ?></td>
-                                                                    <td><?php echo $rowper['sanciones'] ?></td>
-                                                                    <td><?php echo $rowper['retardo'] ?></td>
-                                                                    <td><?php echo $rowper['reparto'] ?></td>
-                                                                    <td><?php echo $rowper['salariobd'] ?></td>
-                                                                    <td><?php echo $rowper['descuentod'] ?></td>
-                                                                    <td><?php echo $rowper['bonod'] ?></td>
-                                                                    <td><?php echo $rowper['salariodestajo'] ?></td>
-                                                                    <td><?php echo $rowper['salariototal'] ?></td>
-                                                                    <td><?php echo $rowper['tipo'] ?></td>
-                                                                    <td></td>
-                                                                </tr>
+                                                                    <th>id_reg</th>
+                                                                    <th>ID Personal</th>
+                                                                    <th>Personal</th>
+                                                                    <th>Dias Per</th>
+                                                                    <th>Dias Trab</th>
+                                                                    <th>Diario SF</th>
+                                                                    <th>Bruto SF</th>
+                                                                    <th>Descuento SF</th>
+                                                                    <th>Bono SF</th>
+                                                                    <th>Salario Fijo</th>
+                                                                    <th>Porcentaje</th>
+                                                                    <th>Participación</th>
+                                                                    <th>Diario SD</th>
+                                                                    <th>Faltas SD</th>
+                                                                    <th>Retardos SD</th>
+                                                                    <th>Reparto SD</th>
+                                                                    <th>Bruto SD</th>
+                                                                    <th>Descuento SD</th>
+                                                                    <th>Bono SD</th>
+                                                                    <th>Salario Destajo</th>
+                                                                    <th>Salario Total</th>
+                                                                    <th>tipo</th>
+                                                                    <th>Acciones</th>
 
-                                                            <?php } ?>
-                                                        </tbody>
-                                                    </table>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $importeemp = 0;
+                                                                foreach ($dataper as $rowper) {
+                                                                    $importeemp += $rowper['salariototal']; ?>
+                                                                    <tr>
+                                                                        <td><?php echo $rowper['id_reg'] ?></td>
+                                                                        <td><?php echo $rowper['id_per'] ?></td>
+                                                                        <td><?php echo $rowper['nom_per'] ?></td>
+                                                                        <td><?php echo $rowper['diasp'] ?></td>
+                                                                        <td><?php echo $rowper['diast'] ?></td>
+                                                                        <td><?php echo $rowper['salariodf'] ?></td>
+                                                                        <td><?php echo $rowper['salariobf'] ?></td>
+                                                                        <td><?php echo $rowper['descuentof'] ?></td>
+                                                                        <td><?php echo $rowper['bonof'] ?></td>
+                                                                        <td><?php echo $rowper['salariofijo'] ?></td>
+                                                                        <td><?php echo $rowper['porcentaje'] ?></td>
+                                                                        <td><?php echo $rowper['participacion'] ?></td>
+                                                                        <td><?php echo $rowper['salariodd'] ?></td>
+                                                                        <td><?php echo $rowper['sanciones'] ?></td>
+                                                                        <td><?php echo $rowper['retardo'] ?></td>
+                                                                        <td><?php echo $rowper['reparto'] ?></td>
+                                                                        <td><?php echo $rowper['salariobd'] ?></td>
+                                                                        <td><?php echo $rowper['descuentod'] ?></td>
+                                                                        <td><?php echo $rowper['bonod'] ?></td>
+                                                                        <td><?php echo $rowper['salariodestajo'] ?></td>
+                                                                        <td><?php echo $rowper['salariototal'] ?></td>
+                                                                        <td><?php echo $rowper['tipo'] ?></td>
+                                                                        <td></td>
+                                                                    </tr>
+
+                                                                <?php } ?>
+                                                            </tbody>
+                                                        </table>
+
+
+                                                    </div>
 
                                                 </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-sm-6"></div>
+                                                <div class="col-sm-2">
 
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group input-group-sm">
+                                                        <label for="importeemp" class="col-form-label ">Imp Emp:</label>
+                                                        <input type="text" class="form-control text-right" name="importeemp" id="importeemp" value="<?php echo $importeemp ?>" disabled>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
