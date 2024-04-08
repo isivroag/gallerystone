@@ -184,7 +184,7 @@ $message = "";
                                 <div class="card-body m-0">
                                     <div class="table-responsive ">
                                         <br>
-                                        <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%; font-size:15px">
+                                        <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%; font-size:13px">
                                             <thead class="text-center bg-gradient-secondary">
                                                 <tr>
                                                     <th>Id Reg</th>
