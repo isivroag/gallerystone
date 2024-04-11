@@ -147,7 +147,8 @@ $(document).ready(function () {
       fila = $(this).closest('tr')
       id = parseInt(fila.find('td:eq(1)').text())
   
-      window.location.href = 'obra.php?folio=' + id
+      window.location.href = 'obra.php?folio=' + id + '&tipoorg=2'
+      
     })
 
   

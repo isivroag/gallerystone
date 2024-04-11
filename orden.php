@@ -9,6 +9,7 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 
 $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
+$tipoorg = (isset($_GET['tipoorg'])) ? $_GET['tipoorg'] : '';
 
 if ($folio != "") {
     $objeto = new conn();
@@ -67,6 +68,12 @@ if ($folio != "") {
     $resmat = $conexion->prepare($cntamat);
     $resmat->execute();
     $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $cntamatpza = "SELECT * FROM vmaterialpieza where estado_mat=1 and m2_mat>0 and cant_mat>0 order by id_mat";
+    $resmatpza = $conexion->prepare($cntamatpza);
+    $resmatpza->execute();
+    $datamatpza = $resmatpza->fetchAll(PDO::FETCH_ASSOC);
 
 
     $cntains = "SELECT * FROM vconsumible where estado_cons=1 and tarjeta=0 order by id_cons";
@@ -155,6 +162,17 @@ if ($folio != "") {
     .fondopur {
         background-color: rgba(117, 74, 195, .8);
     }
+
+    .borde-titulpink {
+        border-left: #e83e8c;
+        border-style: outset;
+        ;
+    }
+
+    .fondopink {
+        background-color: rgba(232, 62, 140, .8);
+    }
+
 
 
 
@@ -260,7 +278,7 @@ if ($folio != "") {
                                     <div class="col-lg-1">
                                         <div class="form-group input-group-sm">
                                             <label for="folioorden" class="col-form-label">Folio Orden:</label>
-
+                                            <input type="hidden" class="form-control" name="tipoorg" id="tipoorg" value="<?php echo   $tipoorg; ?>" disabled>
                                             <input type="text" class="form-control" name="folioorden" id="folioorden" value="<?php echo   $folioorden; ?>" disabled>
                                         </div>
                                     </div>
@@ -1120,10 +1138,167 @@ if ($folio != "") {
                             </div>
                             <!-- TERMINA INSUMOS DESECHABLES -->
 
+                            <!-- INSUMOS MATERIALES PIEZA-->
+                            <div class="card card-widget borde-titulpink" style="margin-bottom:5px;">
+
+                                <div class="card-header fondopink " style="margin:0px;padding:8px">
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                    </div>
+                                    <h1 class="card-title text-light">Materiales por pieza</h1>
+
+                                </div>
+
+                                <div class="card-body acordion" id="addpieza" style="margin:0px;padding:3px;">
+
+                                    <div class="row justify-content-between " style="margin:2px;padding:5px;">
+
+
+                                        <div class="col-sm-2">
+                                            <button type="button" id="btnaddpieza" class="btn bg-gradient-pink btn-sm" data-toggle="collapse" aria-expanded="false" aria-controls="addpza" href='#addpza'>
+                                                Agregar Material Pieza <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="row justify-content-sm-center collapse" id="addpza" data-parent="#addpieza">
+
+                                        <div class="col-lg-4">
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="hidden" class="form-control" name="idpieza" id="idpieza">
+                                                <label for="materialpza" class="col-form-label">Material Pieza:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" name="materialpza" id="materialpza" disabled>
+                                                    <span class="input-group-append">
+                                                        <button id="btnMatpza" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+
+                                            <label for="formatopza" class="col-form-label">Formato/Descripción:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control " name="formatopza" id="formatopza" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <input type="hidden" class="form-control" name="id_umedidapza" id="id_umedidapza">
+                                            <label for="nom_umedidapza" class="col-form-label">U Medida:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control " name="nom_umedidapza" id="nom_umedidapza" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <label for="cantidaddpza" class="col-form-label">Cantidad:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="hidden" class="form-control" name="cantidaddpza" id="cantidaddpza">
+                                                <input type="text" class="form-control" name="cantidadpza" id="cantidadpza" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <label for="m2pza" class="col-form-label">M2:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="hidden" class="form-control" name="m2dpza" id="m2dpza">
+                                                <input type="text" class="form-control" name="m2pza" id="m2pza" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1 justify-content-center">
+                                            <label for="" class="col-form-label">Acción:</label>
+                                            <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                    <button type="button" id="btnagregarpza" name="btnagregarpza" class="btn btn-sm bg-gradient-orange" value="btnGuardarpza"><i class="fas fa-plus-square"></i></button>
+                                                </span>
+                                                <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                    <button type="button" id="btlimpiarpza" name="btlimpiarpza" class="btn btn-sm bg-gradient-purple" value="btnlimpiarpza"><i class="fas fa-brush"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 mx-auto">
+
+                                        <div class="table-responsive" style="padding:5px;">
+
+                                            <table name="tablaDetpza" id="tablaDetpza" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                <thead class="text-center bg-gradient-pink">
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Id Mat</th>
+                                                        <th>Clave Mat</th>
+                                                        <th>Material</th>
+                                                        <th>Formato</th>
+
+
+                                                        <th>U. Medida</th>
+
+                                                        <th>Cantidad</th>
+                                                        <th>M2</th>
+                                                        <th>Acciones</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    // poner la vista de la tabla relacionada con materiales pza
+                                                    $consultadeto = "SELECT * FROM vdetalle_ordpza where folio_ord='$folioorden' and estado_deto=1 order by id_reg";
+                                                    $resultadodeto = $conexion->prepare($consultadeto);
+                                                    $resultadodeto->execute();
+                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                    foreach ($datadeto as $rowdet) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $rowdet['id_reg'] ?></td>
+                                                            <td><?php echo $rowdet['id_mat'] ?></td>
+                                                            <td><?php echo $rowdet['clave_item'] ?></td>
+                                                            <td><?php echo $rowdet['nom_item'] ?></td>
+                                                            <td><?php echo $rowdet['formato'] ?></td>
+                                                            <td><?php echo $rowdet['nom_umedida'] ?></td>
+                                                            <td><?php echo $rowdet['cant_mat'] ?></td>
+                                                            <td><?php echo $rowdet['m2_mat'] ?></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+                            <!-- TERMINA INSUMOS DESECHABLES -->
+
                         </div>
 
                     </div>
-            
+
 
                 </form>
             </div>
@@ -1133,503 +1308,565 @@ if ($folio != "") {
 
 
 
-<!-- /.card -->
+        <!-- /.card -->
 
-</section>
-<!--TABLA MATERIALES-->
-<section>
-    <div class="container">
+    </section>
+    <!--TABLA MATERIALES-->
+    <section>
+        <div class="container">
 
-        <!-- Default box -->
-        <div class="modal fade" id="modalMat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-md" role="document">
-                <div class="modal-content w-auto">
-                    <div class="modal-header bg-gradient-primary">
-                        <h5 class="modal-title" id="exampleModalLabel">BUSCAR MATERIAL</h5>
-
-                    </div>
-                    <br>
-                    <div class="table-hover table-responsive w-auto" style="padding:15px">
-                        <table name="tablaMat" id="tablaMat" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
-                            <thead class="text-center bg-gradient-blue">
-                                <tr>
-
-                                    <th>Id Item</th>
-                                    <th>Id Material</th>
-                                    <th>Clave</th>
-                                    <th>Material</th>
-                                    <th>Formato</th>
-                                    <th>Largo</th>
-                                    <th>Alto</th>
-                                    <th>Ancho</th>
-                                    <th>M2</th>
-                                    <th>Id Umedida</th>
-                                    <th>U. Medida</th>
-                                    <th>Ubicación</th>
-                                    <th>Cant. Disp.</th>
-                                    <th>Seleccionar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($datamat as $datc) {
-                                ?>
-                                    <tr>
-
-                                        <td><?php echo $datc['id_item'] ?></td>
-                                        <td><?php echo $datc['id_mat'] ?></td>
-                                        <td><?php echo $datc['clave_item'] ?></td>
-                                        <td><?php echo $datc['nom_item'] ?></td>
-                                        <td><?php echo $datc['nom_mat'] ?></td>
-                                        <td><?php echo $datc['largo_mat'] ?></td>
-                                        <td><?php echo $datc['alto_mat'] ?></td>
-                                        <td><?php echo $datc['ancho_mat'] ?></td>
-                                        <td><?php echo $datc['m2_mat'] ?></td>
-                                        <td><?php echo $datc['id_umedida'] ?></td>
-                                        <td><?php echo $datc['nom_umedida'] ?></td>
-                                        <td><?php echo $datc['ubi_mat'] ?></td>
-                                        <td><?php echo $datc['m2_mat'] ?></td>
-                                        <td></td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- TERMINA TABLA MATERIALES -->
-
-<!-- TABLA INSUMOS -->
-<section>
-    <div class="container">
-
-        <!-- Default box -->
-        <div class="modal fade" id="modalIns" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-md" role="document">
-                <div class="modal-content w-auto">
-                    <div class="modal-header bg-gradient-primary">
-                        <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMO</h5>
-
-                    </div>
-                    <br>
-                    <div class="table-hover table-responsive w-auto" style="padding:15px">
-                        <table name="tablaIns" id="tablaIns" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
-                            <thead class="text-center">
-                                <tr>
-
-                                    <th>Id Insumo</th>
-                                    <th>Insumo</th>
-                                    <th>U. Medida</th>
-                                    <th>Cantidad Abierta Disp.</th>
-                                    <th>Seleccionar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($datains as $datc) {
-                                ?>
-                                    <tr>
-
-                                        <td><?php echo $datc['id_cons'] ?></td>
-                                        <td><?php echo $datc['nom_cons'] ?></td>
-
-
-                                        <td><?php echo $datc['nom_umedida'] ?></td>
-
-                                        <td><?php echo $datc['contenidoa'] ?></td>
-                                        <td></td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- TERMINA TABLA INSUMOS -->
-
-
-
-
-<section>
-    <div class="modal fade" id="modalCom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-gradient-secondary">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Detalle Complementario</h5>
-
-                </div>
-                <div class="card card-widget" style="margin: 10px;">
-                    <form id="formCom" action="" method="POST">
-                        <div class="modal-body row">
-
-
-                            <div class="col-sm-12">
-                                <div class="form-group input-group-sm">
-                                    <label for="concepto" class="col-form-label">Concepto:</label>
-                                    <input type="text" class="form-control" name="concepto" id="concepto" autocomplete="off" placeholder="Concepto">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group input-group-sm">
-                                    <label for="cantcom" class="col-form-label">Cantidad:</label>
-                                    <input type="text" class="form-control" name="cantcom" id="cantcom" autocomplete="off" placeholder="Cantidad">
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-3">
-                                <div class="form-group input-group-sm auto">
-                                    <label for="umedida" class="col-form-label">Unidad:</label>
-                                    <select class="form-control" name="umedida" id="umedida">
-                                        <?php
-                                        foreach ($datau as $dtu) {
-                                        ?>
-                                            <option id="<?php echo $dtu['nom_umedida'] ?>" value="<?php echo $dtu['nom_umedida'] ?>"> <?php echo $dtu['nom_umedida'] ?></option>
-
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-
-                            </div>
-
+            <!-- Default box -->
+            <div class="modal fade" id="modalMat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-primary">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR MATERIAL</h5>
 
                         </div>
-                </div>
-
-
-                <?php
-                if ($message != "") {
-                ?>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <span class="badge "><?php echo ($message); ?></span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-
-                    </div>
-
-                <?php
-                }
-                ?>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                    <button type="button" id="btnGuardarcom" name="btnGuardarcom" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- TABLA DESECHABLES -->
-<section>
-    <div class="container">
-
-        <!-- Default box -->
-        <div class="modal fade" id="modalDes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-md" role="document">
-                <div class="modal-content w-auto">
-                    <div class="modal-header bg-gradient-primary">
-                        <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMO DE DESGASTE</h5>
-
-                    </div>
-                    <br>
-                    <div class="table-hover table-responsive w-auto" style="padding:15px">
-                        <table name="tablaDes" id="tablaDes" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
-                            <thead class="text-center">
-                                <tr>
-
-                                    <th>Id Insumo</th>
-                                    <th>Insumo</th>
-                                    <th>U. Medida</th>
-                                    <th>Usos Disp.</th>
-                                    <th>Seleccionar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($datades as $datd) {
-                                ?>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaMat" id="tablaMat" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-blue">
                                     <tr>
 
-                                        <td><?php echo $datd['id_des'] ?></td>
-                                        <td><?php echo $datd['nom_des'] ?></td>
-
-
-                                        <td><?php echo $datd['nom_umedida'] ?></td>
-
-                                        <td><?php echo $datd['totalusos'] ?></td>
-                                        <td></td>
+                                        <th>Id Item</th>
+                                        <th>Id Material</th>
+                                        <th>Clave</th>
+                                        <th>Material</th>
+                                        <th>Formato</th>
+                                        <th>Largo</th>
+                                        <th>Alto</th>
+                                        <th>Ancho</th>
+                                        <th>M2</th>
+                                        <th>Id Umedida</th>
+                                        <th>U. Medida</th>
+                                        <th>Ubicación</th>
+                                        <th>Cant. Disp.</th>
+                                        <th>Seleccionar</th>
                                     </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datamat as $datc) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datc['id_item'] ?></td>
+                                            <td><?php echo $datc['id_mat'] ?></td>
+                                            <td><?php echo $datc['clave_item'] ?></td>
+                                            <td><?php echo $datc['nom_item'] ?></td>
+                                            <td><?php echo $datc['nom_mat'] ?></td>
+                                            <td><?php echo $datc['largo_mat'] ?></td>
+                                            <td><?php echo $datc['alto_mat'] ?></td>
+                                            <td><?php echo $datc['ancho_mat'] ?></td>
+                                            <td><?php echo $datc['m2_mat'] ?></td>
+                                            <td><?php echo $datc['id_umedida'] ?></td>
+                                            <td><?php echo $datc['nom_umedida'] ?></td>
+                                            <td><?php echo $datc['ubi_mat'] ?></td>
+                                            <td><?php echo $datc['m2_mat'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <!-- TERMINA TABLA MATERIALES -->
+
+    <!-- TABLA INSUMOS -->
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalIns" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-info">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMO</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaIns" id="tablaIns" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-info">
+                                    <tr>
+
+                                        <th>Id Insumo</th>
+                                        <th>Insumo</th>
+                                        <th>U. Medida</th>
+                                        <th>Cantidad Abierta Disp.</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datains as $datc) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datc['id_cons'] ?></td>
+                                            <td><?php echo $datc['nom_cons'] ?></td>
 
 
+                                            <td><?php echo $datc['nom_umedida'] ?></td>
 
-<section>
-    <div class="modal fade" id="modalredimensionar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-gradient-primary">
-                    <h5 class="modal-title" id="exampleModalLabel">Material Sobrante</h5>
-
+                                            <td><?php echo $datc['contenidoa'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="card card-widget" style="margin: 10px;">
-                    <form id="formredimensionar" action="" method="POST">
-                        <div class="modal-body ">
-                            <div class="row">
+            </div>
+        </div>
+    </section>
+
+    <!-- TERMINA TABLA INSUMOS -->
+
+
+
+
+    <section>
+        <div class="modal fade" id="modalCom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Detalle Complementario</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formCom" action="" method="POST">
+                            <div class="modal-body row">
+
+
                                 <div class="col-sm-12">
-                                    <input type="hidden" class="form-control" name="idmatred" id="idmatred" autocomplete="off" placeholder="idmatred" disabled>
-                                    <input type="hidden" class="form-control" name="tipored" id="tipored" autocomplete="off" placeholder="tipored" disabled>
-
-                                    <div class="custom-control custom-checkbox">
-                                        <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="chpedaceria">
-                                        <label for="chpedaceria" class="custom-control-label">El Material Sobrante será considerado como Pedacería</label>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row" id="divmedidas" name="divmedidas">
-
-                                <div class="col-sm-4">
                                     <div class="form-group input-group-sm">
-                                        <label for="largoant" class="col-form-label">Largo Anterior:</label>
-                                        <input type="text" class="form-control" name="largoant" id="largoant" autocomplete="off" placeholder="largoant" disabled>
+                                        <label for="concepto" class="col-form-label">Concepto:</label>
+                                        <input type="text" class="form-control" name="concepto" id="concepto" autocomplete="off" placeholder="Concepto">
                                     </div>
                                 </div>
-
                                 <div class="col-sm-4">
                                     <div class="form-group input-group-sm">
-                                        <label for="altoant" class="col-form-label">Alto Anterior:</label>
-                                        <input type="text" class="form-control" name="altoant" id="altoant" autocomplete="off" placeholder="altoant" disabled>
+                                        <label for="cantcom" class="col-form-label">Cantidad:</label>
+                                        <input type="text" class="form-control" name="cantcom" id="cantcom" autocomplete="off" placeholder="Cantidad">
                                     </div>
                                 </div>
 
 
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="validador" class="col-form-label">M2 Rest.:</label>
-                                        <input type="text" class="form-control" name="m2restantes" id="m2restantes" autocomplete="off" placeholder="m2" disabled>
+                                <div class="col-sm-3">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="umedida" class="col-form-label">Unidad:</label>
+                                        <select class="form-control" name="umedida" id="umedida">
+                                            <?php
+                                            foreach ($datau as $dtu) {
+                                            ?>
+                                                <option id="<?php echo $dtu['nom_umedida'] ?>" value="<?php echo $dtu['nom_umedida'] ?>"> <?php echo $dtu['nom_umedida'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
-                                </div>
 
-
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="largonuevo" class="col-form-label">Nuevo Largo:</label>
-                                        <input type="text" class="form-control" name="largonuevo" id="largonuevo" autocomplete="off" placeholder="largonuevo" onkeypress="return filterFloat(event,this);">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="altonuevo" class="col-form-label">Nuevo Alto:</label>
-                                        <input type="text" class="form-control" name="altonuevo" id="altonuevo" autocomplete="off" placeholder="altonuevo" onkeypress="return filterFloat(event,this);">
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-4">
-                                    <div class="form-group input-group-sm">
-                                        <label for="validador" class="col-form-label">Nuevo M2 Rest.:</label>
-                                        <input type="text" class="form-control" name="validador" id="validador" autocomplete="off" placeholder="m2">
-                                    </div>
                                 </div>
 
 
                             </div>
-
-
-                        </div>
-                </div>
-
-
-                <?php
-                if ($message != "") {
-                ?>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <span class="badge "><?php echo ($message); ?></span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-
                     </div>
 
-                <?php
-                }
-                ?>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                    <button type="button" id="btnguardarredimensionar" name="btnguardarredimensionar" class="btn btn-success" value="btnguardarredimensionar"><i class="far fa-save"></i> Guardar</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section>
-    <div class="modal fade" id="modalconfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-gradient-info">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmar Agregar Insumo</h5>
-
-                </div>
-                <div class="card card-widget" style="margin: 10px;">
-                    <form id="formconfirmar" action="" method="POST">
-                        <div class="modal-body row">
-
-
-                            <div class="col-sm-12">
-                                <div class="form-group input-group-sm">
-                                    <input type="hidden" class="form-control" name="idconstar" id="idconstar" autocomplete="off" placeholder="Concepto">
-                                    <input type="hidden" class="form-control" name="tipoconstar" id="tipoconstar" autocomplete="off" placeholder="Concepto">
-                                    <label for="conceptotar" class="col-form-label">Concepto:</label>
-                                    <input type="text" class="form-control" name="conceptotar" id="conceptotar" autocomplete="off" placeholder="Concepto" disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group input-group-sm">
-                                    <label for="existenciastar" class="col-form-label">Disponible:</label>
-                                    <input type="text" class="form-control" name="existenciastar" id="existenciastar" autocomplete="off" placeholder="Cantidad" disabled>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group input-group-sm">
-                                    <label for="cantidadtar" class="col-form-label">Cantidad:</label>
-                                    <input type="text" class="form-control" name="cantidadtar" id="cantidadtar" autocomplete="off" placeholder="Cantidad">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group input-group-sm">
-                                    <label for="unidadtar" class="col-form-label">U Medida:</label>
-                                    <input type="hidden" class="form-control" name="idunidadtar" id="idunidadtar" autocomplete="off" placeholder="Cantidad">
-                                    <input type="text" class="form-control" name="unidadtar" id="unidadtar" autocomplete="off" placeholder="Cantidad" disabled>
-                                </div>
-                            </div>
-
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
 
                         </div>
-                </div>
 
-
-                <?php
-                if ($message != "") {
-                ?>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <span class="badge "><?php echo ($message); ?></span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnGuardarcom" name="btnGuardarcom" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
                     </div>
-
-                <?php
-                }
-                ?>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                    <button type="button" id="btnguardarconfirmacion" name="btnguardarconfirmacion" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                    </form>
                 </div>
-                </form>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section>
-    <div class="modal fade" id="modalconfirmar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-gradient-purple">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmar Agregar Insumo</h5>
+    <!-- TABLA DESECHABLES -->
+    <section>
+        <div class="container">
 
-                </div>
-                <div class="card card-widget" style="margin: 10px;">
-                    <form id="formconfirmar2" action="" method="POST">
-                        <div class="modal-body row">
-
-
-                            <div class="col-sm-12">
-                                <div class="form-group input-group-sm">
-                                    <input type="hidden" class="form-control" name="idconstar2" id="idconstar2" autocomplete="off" placeholder="Concepto">
-                                    <input type="hidden" class="form-control" name="tipoconstar2" id="tipoconstar2" autocomplete="off" placeholder="Concepto">
-                                    <label for="conceptotar2" class="col-form-label">Concepto:</label>
-                                    <input type="text" class="form-control" name="conceptotar2" id="conceptotar2" autocomplete="off" placeholder="Concepto" disabled>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group input-group-sm">
-                                    <label for="existenciastar2" class="col-form-label">Disponible:</label>
-                                    <input type="text" class="form-control" name="existenciastar2" id="existenciastar2" autocomplete="off" placeholder="Cantidad" disabled>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group input-group-sm">
-                                    <label for="cantidadtar2" class="col-form-label">Cantidad:</label>
-                                    <input type="text" class="form-control" name="cantidadtar2" id="cantidadtar2" autocomplete="off" placeholder="Cantidad">
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group input-group-sm">
-                                    <label for="unidadtar2" class="col-form-label">U Medida:</label>
-                                    <input type="hidden" class="form-control" name="idunidadtar2" id="idunidadtar2" autocomplete="off" placeholder="Cantidad">
-                                    <input type="text" class="form-control" name="unidadtar2" id="unidadtar2" autocomplete="off" placeholder="Cantidad" disabled>
-                                </div>
-                            </div>
-
+            <!-- Default box -->
+            <div class="modal fade" id="modalDes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-purple">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR INSUMO DE DESGASTE</h5>
 
                         </div>
-                </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaDes" id="tablaDes" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-purple">
+                                    <tr>
+
+                                        <th>Id Insumo</th>
+                                        <th>Insumo</th>
+                                        <th>U. Medida</th>
+                                        <th>Usos Disp.</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datades as $datd) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datd['id_des'] ?></td>
+                                            <td><?php echo $datd['nom_des'] ?></td>
 
 
-                <?php
-                if ($message != "") {
-                ?>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <span class="badge "><?php echo ($message); ?></span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                                            <td><?php echo $datd['nom_umedida'] ?></td>
 
+                                            <td><?php echo $datd['totalusos'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
-                <?php
-                }
-                ?>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                    <button type="button" id="btnguardarconfirmacion2" name="btnguardarconfirmacion2" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
                 </div>
-                </form>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+
+     <!--TABLA MATERIALES PZA-->
+     <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalMatpza" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-pink">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR MATERIAL PIEZA</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaMatpza" id="tablaMatpza" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-pink">
+                                    <tr>
+
+                                        <th>Id Item</th>
+                                        <th>Id Material</th>
+                                        <th>Clave</th>
+                                        <th>Material</th>
+                                        <th>Formato</th>
+                                        <th>M2</th>
+                                        <th>Id Umedida</th>
+                                        <th>U. Medida</th>
+                                        <th>Ubicación</th>
+                                        <th>Cant. Disp.</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datamatpza as $datcpza) {
+                                    ?>
+                                        <tr>
+
+                                            <td><?php echo $datcpza['id_item'] ?></td>
+                                            <td><?php echo $datcpza['id_mat'] ?></td>
+                                            <td><?php echo $datcpza['clave_item'] ?></td>
+                                            <td><?php echo $datcpza['nom_item'] ?></td>
+                                            <td><?php echo $datcpza['nom_mat'] ?></td>
+                                            <td><?php echo $datcpza['m2_mat'] ?></td>
+                                            <td><?php echo $datcpza['id_umedida'] ?></td>
+                                            <td><?php echo $datcpza['nom_umedida'] ?></td>
+                                            <td><?php echo $datcpza['ubi_mat'] ?></td>
+                                            <td><?php echo $datcpza['cant_mat'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- TERMINA TABLA MATERIALES PZA-->
+
+
+    <section>
+        <div class="modal fade" id="modalredimensionar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-primary">
+                        <h5 class="modal-title" id="exampleModalLabel">Material Sobrante</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formredimensionar" action="" method="POST">
+                            <div class="modal-body ">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <input type="hidden" class="form-control" name="idmatred" id="idmatred" autocomplete="off" placeholder="idmatred" disabled>
+                                        <input type="hidden" class="form-control" name="tipored" id="tipored" autocomplete="off" placeholder="tipored" disabled>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="chpedaceria">
+                                            <label for="chpedaceria" class="custom-control-label">El Material Sobrante será considerado como Pedacería</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row" id="divmedidas" name="divmedidas">
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="largoant" class="col-form-label">Largo Anterior:</label>
+                                            <input type="text" class="form-control" name="largoant" id="largoant" autocomplete="off" placeholder="largoant" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="altoant" class="col-form-label">Alto Anterior:</label>
+                                            <input type="text" class="form-control" name="altoant" id="altoant" autocomplete="off" placeholder="altoant" disabled>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="validador" class="col-form-label">M2 Rest.:</label>
+                                            <input type="text" class="form-control" name="m2restantes" id="m2restantes" autocomplete="off" placeholder="m2" disabled>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="largonuevo" class="col-form-label">Nuevo Largo:</label>
+                                            <input type="text" class="form-control" name="largonuevo" id="largonuevo" autocomplete="off" placeholder="largonuevo" onkeypress="return filterFloat(event,this);">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="altonuevo" class="col-form-label">Nuevo Alto:</label>
+                                            <input type="text" class="form-control" name="altonuevo" id="altonuevo" autocomplete="off" placeholder="altonuevo" onkeypress="return filterFloat(event,this);">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group-sm">
+                                            <label for="validador" class="col-form-label">Nuevo M2 Rest.:</label>
+                                            <input type="text" class="form-control" name="validador" id="validador" autocomplete="off" placeholder="m2">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                    </div>
+
+
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnguardarredimensionar" name="btnguardarredimensionar" class="btn btn-success" value="btnguardarredimensionar"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="modal fade" id="modalconfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-info">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Agregar Insumo</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formconfirmar" action="" method="POST">
+                            <div class="modal-body row">
+
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <input type="hidden" class="form-control" name="idconstar" id="idconstar" autocomplete="off" placeholder="Concepto">
+                                        <input type="hidden" class="form-control" name="tipoconstar" id="tipoconstar" autocomplete="off" placeholder="Concepto">
+                                        <label for="conceptotar" class="col-form-label">Concepto:</label>
+                                        <input type="text" class="form-control" name="conceptotar" id="conceptotar" autocomplete="off" placeholder="Concepto" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="existenciastar" class="col-form-label">Disponible:</label>
+                                        <input type="text" class="form-control" name="existenciastar" id="existenciastar" autocomplete="off" placeholder="Cantidad" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cantidadtar" class="col-form-label">Cantidad:</label>
+                                        <input type="text" class="form-control" name="cantidadtar" id="cantidadtar" autocomplete="off" placeholder="Cantidad">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="unidadtar" class="col-form-label">U Medida:</label>
+                                        <input type="hidden" class="form-control" name="idunidadtar" id="idunidadtar" autocomplete="off" placeholder="Cantidad">
+                                        <input type="text" class="form-control" name="unidadtar" id="unidadtar" autocomplete="off" placeholder="Cantidad" disabled>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                    </div>
+
+
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnguardarconfirmacion" name="btnguardarconfirmacion" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="modal fade" id="modalconfirmar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-purple">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Agregar Insumo</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formconfirmar2" action="" method="POST">
+                            <div class="modal-body row">
+
+
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <input type="hidden" class="form-control" name="idconstar2" id="idconstar2" autocomplete="off" placeholder="Concepto">
+                                        <input type="hidden" class="form-control" name="tipoconstar2" id="tipoconstar2" autocomplete="off" placeholder="Concepto">
+                                        <label for="conceptotar2" class="col-form-label">Concepto:</label>
+                                        <input type="text" class="form-control" name="conceptotar2" id="conceptotar2" autocomplete="off" placeholder="Concepto" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="existenciastar2" class="col-form-label">Disponible:</label>
+                                        <input type="text" class="form-control" name="existenciastar2" id="existenciastar2" autocomplete="off" placeholder="Cantidad" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="cantidadtar2" class="col-form-label">Cantidad:</label>
+                                        <input type="text" class="form-control" name="cantidadtar2" id="cantidadtar2" autocomplete="off" placeholder="Cantidad">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group-sm">
+                                        <label for="unidadtar2" class="col-form-label">U Medida:</label>
+                                        <input type="hidden" class="form-control" name="idunidadtar2" id="idunidadtar2" autocomplete="off" placeholder="Cantidad">
+                                        <input type="text" class="form-control" name="unidadtar2" id="unidadtar2" autocomplete="off" placeholder="Cantidad" disabled>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                    </div>
+
+
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnguardarconfirmacion2" name="btnguardarconfirmacion2" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </div>
 

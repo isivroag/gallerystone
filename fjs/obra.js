@@ -263,6 +263,42 @@ $(document).ready(function () {
         sProcessing: 'Procesando...',
       },
     })
+
+    tablaDetpza = $("#tablaDetpza").DataTable({
+      paging: false,
+      ordering: false,
+      info: false,
+      searching: false,
+  
+      columnDefs: [
+        {
+          targets: -1,
+          data: null,
+          defaultContent:
+            "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarpza'><i class='fas fa-trash-alt'></i></button></div>",
+        },
+        // { className: 'hide_column', targets: [1] },
+        //{ className: 'hide_column', targets: [2] },
+        { className: "hide_column", targets: [1] },
+       
+      ],
+  
+      language: {
+        lengthMenu: "Mostrar _MENU_ registros",
+        zeroRecords: "No se encontraron resultados",
+        info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+        infoFiltered: "(filtrado de un total de _MAX_ registros)",
+        sSearch: "Buscar:",
+        oPaginate: {
+          sFirst: "Primero",
+          sLast: "Último",
+          sNext: "Siguiente",
+          sPrevious: "Anterior",
+        },
+        sProcessing: "Procesando...",
+      },
+    });
   
     //TABLA MATERIAL
     tablaMat = $('#tablaMat').DataTable({
@@ -357,6 +393,37 @@ $(document).ready(function () {
         sProcessing: 'Procesando...',
       },
     })
+
+    tablaMatpza = $("#tablaMatpza").DataTable({
+      ordering: false,
+      columnDefs: [
+        {
+          targets: -1,
+          data: null,
+          defaultContent:
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelMaterialpza'><i class='fas fa-hand-pointer'></i></button></div></div>",
+        },
+  
+        { className: "hide_column", targets: [0] },
+      ],
+  
+      //Para cambiar el lenguaje a español
+      language: {
+        lengthMenu: "Mostrar _MENU_ registros",
+        zeroRecords: "No se encontraron resultados",
+        info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+        infoFiltered: "(filtrado de un total de _MAX_ registros)",
+        sSearch: "Buscar:",
+        oPaginate: {
+          sFirst: "Primero",
+          sLast: "Último",
+          sNext: "Siguiente",
+          sPrevious: "Anterior",
+        },
+        sProcessing: "Procesando...",
+      },
+    });
     //BOTON BUSCAR MATERIAL
   
     $(document).on('click', '#btncalculartar', function () {
@@ -752,6 +819,13 @@ $(document).ready(function () {
     $(document).on('click', '#btnInsumodes', function () {
       $('#modalDes').modal('show')
     })
+
+    $(document).on("click", "#btnMatpza", function () {
+      // $('.modal-header').css('background-color', '#007bff')
+      $(".modal-header").css("color", "white");
+  
+      $("#modalMatpza").modal("show");
+    });
     //BOTON SELECCIONAR MATERIAL
     $(document).on('click', '.btnSelMaterial', function () {
       fila = $(this).closest('tr')
@@ -835,7 +909,39 @@ $(document).ready(function () {
   
       $('#modalDes').modal('hide')
     })
-  
+
+  $(document).on("click", ".btnSelMaterialpza", function () {
+    fila = $(this).closest("tr");
+    iditem = fila.find("td:eq(0)").text();
+    idMaterial = fila.find("td:eq(1)").text();
+    ClaveMaterial = fila.find("td:eq(2)").text();
+    NomMaterial = fila.find("td:eq(3)").text();
+
+    formato = fila.find("td:eq(4)").text();
+    m2 = fila.find("td:eq(5)").text();
+    idumedida = fila.find("td:eq(6)").text();
+    nomumedida = fila.find("td:eq(7)").text();
+
+    ubicacion = fila.find("td:eq(8)").text();
+    cantidaddis = fila.find("td:eq(9)").text();
+
+    /*
+     */
+    $("#idpieza").val(idMaterial);
+    //$('#clavemat').val(idMaterial)
+    $("#materialpza").val(NomMaterial);
+    //$('#clave').val(ClaveMaterial)
+    $("#id_umedidapza").val(idumedida);
+    $("#nom_umedidapza").val(nomumedida);
+    $("#m2dpza").val(m2);
+
+    $("#formatopza").val(formato);
+    $("#cantidaddpza").val(cantidaddis);
+    $("#cantidadpza").prop("disabled", false);
+    $("#m2pza").prop("disabled", false);
+
+    $("#modalMatpza").modal("hide");
+  });
     //BOTON LIMPIAR MATERIAL
     $(document).on('click', '#btlimpiar', function () {
       limpiar()
@@ -848,6 +954,10 @@ $(document).ready(function () {
     $(document).on('click', '#btlimpiarides', function () {
       limpiardes()
     })
+
+    $(document).on("click", "#btlimpiarpza", function () {
+      limpiarpza();
+    });
     //BOTON ELIMINAR COMPLEMENTO
     $(document).on('click', '.btnEliminarcom', function (event) {
       event.preventDefault()
@@ -957,6 +1067,7 @@ $(document).ready(function () {
       cantidaddis = $('#cantidaddis').val()
       usuario = $('#nameuser').val()
       opcion = 1
+      tipoorg=$('#tipoorg').val()
   
       if (parseFloat(cantidad) > parseFloat(cantidaddis)) {
         nomensaje()
@@ -980,6 +1091,7 @@ $(document).ready(function () {
             ancho: ancho,
             opcion: opcion,
             usuario: usuario,
+            tipoorg: tipoorg,
           },
           success: function (data) {
             id_reg = data[0].id_reg
@@ -1079,6 +1191,7 @@ $(document).ready(function () {
       cantidaddisi = $('#cantidaddisi').val()
       usuario = $('#nameuser').val()
       opcion = 1
+      tipoorg=$('#tipoorg').val()
   
       if (parseFloat(cantidadi) > parseFloat(cantidaddisi)) {
         nomensaje()
@@ -1097,6 +1210,7 @@ $(document).ready(function () {
             cantidadi: cantidadi,
             opcion: opcion,
             usuario: usuario,
+            tipoorg: tipoorg,
           },
           success: function (data) {
             if (data != 0) {
@@ -1140,6 +1254,7 @@ $(document).ready(function () {
       cantidaddisi = $('#cantidaddisides').val()
       usuario = $('#nameuser').val()
       opcion = 1
+      tipoorg=$('#tipoorg').val()
   
       if (parseFloat(cantidadi) > parseFloat(cantidaddisi)) {
         nomensaje()
@@ -1158,6 +1273,7 @@ $(document).ready(function () {
             cantidadi: cantidadi,
             opcion: opcion,
             usuario: usuario,
+            tipoorg: tipoorg
           },
           success: function (data) {
             id_reg = data[0].id_reg
@@ -1181,6 +1297,93 @@ $(document).ready(function () {
         return false
       }
     })
+    $(document).on("click", "#btnagregarpza", function () {
+      folio = $("#folioorden").val();
+  
+      idmat = $("#idpieza").val();
+      cantidaddis = $("#cantidaddpza").val();
+      cantidad = $("#cantidadpza").val();
+      m2d = $("#m2dpza").val();
+      m2 = $("#m2pza").val();
+      tipoorg = $("#tipoorg").val();
+  
+      //cambios agregar alto ancho y largo al detalle de orden
+  
+      usuario = $("#nameuser").val();
+      opcion = 1;
+      console.log(cantidad);
+      console.log(cantidaddis);
+      console.log(m2d);
+      console.log(m2);
+  
+  console.log(  parseFloat(cantidad) > parseFloat(cantidaddis) ||
+  parseFloat(m2) > parseFloat(m2d));
+      if (
+        parseFloat(cantidad) > parseFloat(cantidaddis) ||
+        parseFloat(m2) > parseFloat(m2d)
+      ) {
+        nomensaje();
+        return 0;
+      }
+  
+      console.log(cantidad);
+      console.log(cantidaddis);
+      console.log(m2d);
+      console.log(m2);
+  
+      if (folio.length != 0 && idmat.length != 0 && cantidad.length != 0 && m2.length != 0) {
+        $.ajax({
+          type: "POST",
+          url: "bd/detalleordenpza.php",
+          dataType: "json",
+          //async: false,
+          data: {
+            folio: folio,
+            idmat: idmat,
+            cantidad: cantidad,
+            m2: m2,
+            opcion: opcion,
+            usuario: usuario,
+            tipoorg: tipoorg,
+          },
+          success: function (data) {
+            id_reg = data[0].id_reg;
+            id_mat = data[0].id_mat;
+            id_item = data[0].id_item;
+            clave_item = data[0].clave_item;
+            nom_item = data[0].nom_item;
+            formato = data[0].formato;
+  
+            nom_umedida = data[0].nom_umedida;
+            cant_mat = data[0].cant_mat;
+            m2_mat = data[0].m2_mat;
+            
+  
+            tablaDetpza.row
+              .add([
+                id_reg,
+                id_mat,
+                clave_item,
+                nom_item,
+                formato,
+                nom_umedida,
+                cant_mat,
+                m2_mat,
+              ])
+              .draw();
+            limpiarpza();
+  
+          },
+        });
+      } else {
+        Swal.fire({
+          title: "Datos Faltantes",
+          text: "Debe ingresar todos los datos del Item",
+          icon: "warning",
+        });
+        return false;
+      }
+    });
   
     function nomensaje() {
       swal.fire({
@@ -1202,12 +1405,13 @@ $(document).ready(function () {
       usuario = $('#nameuser').val()
       console.log(id)
       opcion = 2
+      tipoorg=$('#tipoorg').val()
   
       $.ajax({
         type: 'POST',
         url: 'bd/detalleorden.php',
         dataType: 'json',
-        data: { id: id, opcion: opcion, usuario: usuario },
+        data: { id: id, opcion: opcion, usuario: usuario,tipoorg: tipoorg},
         success: function (data) {
           console.log(data)
           if (data == 1) {
@@ -1227,12 +1431,13 @@ $(document).ready(function () {
       usuario = $('#nameuser').val()
       console.log(id)
       opcion = 2
+      tipoorg=$('#tipoorg').val()
   
       $.ajax({
         type: 'POST',
         url: 'bd/detalleordeninsumo.php',
         dataType: 'json',
-        data: { id: id, opcion: opcion, usuario: usuario },
+        data: { id: id, opcion: opcion, usuario: usuario,tipoorg: tipoorg},
         success: function (data) {
           console.log(data)
           if (data == 1) {
@@ -1252,12 +1457,13 @@ $(document).ready(function () {
       usuario = $('#nameuser').val()
       console.log(id)
       opcion = 2
+      tipoorg=$('#tipoorg').val()
   
       $.ajax({
         type: 'POST',
         url: 'bd/detalleordendesechable.php',
         dataType: 'json',
-        data: { id: id, opcion: opcion, usuario: usuario },
+        data: { id: id, opcion: opcion, usuario: usuario,tipoorg: tipoorg},
         success: function (data) {
           console.log(data)
           if (data == 1) {
@@ -1268,6 +1474,36 @@ $(document).ready(function () {
         },
       })
     })
+
+    $(document).on("click", ".btnBorrarpza", function (e) {
+      e.preventDefault();
+  
+      fila = $(this);
+      
+      id = $(this).closest("tr").find('td:eq(0)').text()
+      mat = $(this).closest("tr").find('td:eq(1)').text()
+      usuario = $("#nameuser").val();
+      console.log(id);
+      console.log(mat);
+      opcion = 2;
+      tipoorg = $("#tipoorg").val();
+  
+      $.ajax({
+        type: "POST",
+        url: "bd/detalleordenpza.php",
+        dataType: "json",
+        data: { id: id, opcion: opcion, usuario: usuario, tipoorg: tipoorg },
+        success: function (data) {
+          console.log(data);
+          if (data == 1) {
+            tablaDetpza.row(fila.parents("tr")).remove().draw();
+            
+          } else {
+            mensajeerror();
+          }
+        },
+      });
+    });
   
     $(document).on('click', '#btnguardarredimensionar', function () {
       id = $('#idmatred').val()
@@ -1353,6 +1589,21 @@ $(document).ready(function () {
       $('#nom_umedidaindes').val('')
       $('#cantidadides').prop('disabled', true)
     }
+    function limpiarpza() {
+      $("#idpza").val("");
+      $("#materialpza").val("");
+  
+      $("#formatopza").val("");
+  
+      $("#id_umedidapza").val("");
+      $("#nom_umedidapza").val("");
+      $("#cantidaddpza").val("");
+      $("#cantidadpza").val("");
+      $("#m2dpza").val("");
+      $("#m2pza").val("");
+      $("#cantidadides").prop("disabled", true);
+    }
+
     function mensajeerror() {
       swal.fire({
         title: 'Operacion No exitosa',

@@ -10,9 +10,7 @@ $folio = (isset($_POST['folio'])) ? $_POST['folio'] : '';
 $idmat = (isset($_POST['idmat'])) ? $_POST['idmat'] : '';
 $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
-$largo = (isset($_POST['largo'])) ? $_POST['largo'] : '';
-$alto = (isset($_POST['alto'])) ? $_POST['alto'] : '';
-$ancho = (isset($_POST['ancho'])) ? $_POST['ancho'] : '';
+$m2 = (isset($_POST['m2'])) ? $_POST['m2'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
 $tipoorg = (isset($_POST['tipoorg'])) ? $_POST['tipoorg'] : '';
@@ -20,7 +18,7 @@ $tipoorg = (isset($_POST['tipoorg'])) ? $_POST['tipoorg'] : '';
 switch ($opcion) {
     case 1: //alta
         //$consulta = "INSERT INTO detalle_ord (folio_ord,id_mat,cant_mat) values ('$folio','$idmat','$cantidad')";
-        $consulta = "INSERT INTO detalle_ord (folio_ord,id_mat,cant_mat,largo,alto,ancho) values ('$folio','$idmat','$cantidad','$largo','$alto','$ancho')";
+        $consulta = "INSERT INTO detalle_ordpza (folio_ord,id_mat,cant_mat,m2_mat) values ('$folio','$idmat','$cantidad','$m2')";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
@@ -38,39 +36,41 @@ switch ($opcion) {
 
         $fechavp = date('Y-m-d');
 
-
         $saldoini = 0;
         $saldofin = 0;
+        $saldoinim2 = 0;
+        $saldofinm2 = 0;
 
 
-        $consulta = "SELECT * from material where id_mat='$idmat'";
+        $consulta = "SELECT * from materialpieza where id_mat='$idmat'";
         $resultado = $conexion->prepare($consulta);
         if ($resultado->execute()) {
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
             foreach ($data as $rowdata) {
 
-
-                $saldoini = $rowdata['m2_mat'];
+                $saldoini = $rowdata['cant_mat'];
+                $saldoinim2 = $rowdata['m2_mat'];
             }
 
 
             $saldofin = $saldoini - $cantidad;
+            $saldofinm2 = $saldoinim2 - $m2;
 
             //INSERTAR EL MOVIMIENTO
 
-            $consulta = "INSERT INTO mov_prod(id_mat,fecha_movp,tipo_movp,cantidad,saldoini,saldofin,descripcion,usuario) 
-            values('$idmat','$fechavp','$tipomov','$cantidad','$saldoini','$saldofin','$descripcion','$usuario')";
+            $consulta = "INSERT INTO mov_matpieza(id_mat,fecha_movp,tipo_movp,cantidad,saldoini,saldofin,descripcion,usuario,m2_ini,m2_cantidad,m2_final) 
+            values('$idmat','$fechavp','$tipomov','$cantidad','$saldoini','$saldofin','$descripcion','$usuario','$saldoinim2','$m2','$saldofinm2')";
             $resultado = $conexion->prepare($consulta);
 
             if ($resultado->execute()) {
                 // DESCONTAR DE INVENTARIO
 
-                $consulta = "UPDATE material SET m2_mat='$saldofin' WHERE id_mat='$idmat'";
+                $consulta = "UPDATE materialpieza SET m2_mat='$saldofinm2',cant_mat='$saldofin' WHERE id_mat='$idmat'";
                 $resultado = $conexion->prepare($consulta);
 
                 if ($resultado->execute()) {
                     //DEVUELVE LA FILA
-                    $consulta = "SELECT * FROM vdetalle_ord2 WHERE folio_ord='$folio' ORDER BY id_reg DESC LIMIT 1";
+                    $consulta = "SELECT * FROM vdetalle_ordpza WHERE folio_ord='$folio' ORDER BY id_reg DESC LIMIT 1";
                     $resultado = $conexion->prepare($consulta);
                     $resultado->execute();
                     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -85,14 +85,14 @@ switch ($opcion) {
 
         break;
     case 2:
-        $consulta = "UPDATE detalle_ord SET estado_deto=0 where id_reg='$id'";
+        $consulta = "UPDATE detalle_ordpza SET estado_deto=0 where id_reg='$id'";
 
         $resultado = $conexion->prepare($consulta);
         if ($resultado->execute()) {
 
 
             //BUSCAR MATERIAL Y CANTIDAD
-            $consulta = "SELECT * FROM detalle_ord WHERE id_reg='$id'";
+            $consulta = "SELECT * FROM detalle_ordpza WHERE id_reg='$id'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -100,6 +100,7 @@ switch ($opcion) {
             foreach ($data as $rowd) {
                 $idmat = $rowd['id_mat'];
                 $montomov = $rowd['cant_mat'];
+                $montomovm2 = $rowd['m2_mat'];
                 $folio = $rowd['folio_ord'];
             }
 
@@ -116,32 +117,35 @@ switch ($opcion) {
 
             $saldoini = 0;
             $saldofin = 0;
+            $saldoinim2 = 0;
+            $saldofinm2 = 0;
 
 
-            $consulta = "SELECT * from material where id_mat='$idmat'";
+            $consulta = "SELECT * from materialpieza where id_mat='$idmat'";
             $resultado = $conexion->prepare($consulta);
             if ($resultado->execute()) {
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($data as $rowdata) {
 
-                    $saldoini = $rowdata['m2_mat'];
+                    $saldoini = $rowdata['cant_mat'];
+                    $saldoinim2 = $rowdata['m2_mat'];
                 }
 
 
-
                 $saldofin = $saldoini + $montomov;
+                $saldofinm2 = $saldoinim2 + $montomovm2;
 
 
 
 
 
-                $consulta = "INSERT INTO mov_prod(id_mat,fecha_movp,tipo_movp,cantidad,saldoini,saldofin,descripcion,usuario) 
-                    values('$idmat','$fechavp','$tipomov','$montomov','$saldoini','$saldofin','$descripcion','$usuario')";
+                $consulta = "INSERT INTO mov_matpieza(id_mat,fecha_movp,tipo_movp,cantidad,saldoini,saldofin,descripcion,usuario,m2_ini,m2_cantidad,m2_final) 
+                    values('$idmat','$fechavp','$tipomov','$montomov','$saldoini','$saldofin','$descripcion','$usuario','$saldoinim2','$montomovm2','$saldofinm2')";
                 $resultado = $conexion->prepare($consulta);
 
                 if ($resultado->execute()) {
 
-                    $consulta = "UPDATE material SET m2_mat='$saldofin' WHERE id_mat='$idmat'";
+                    $consulta = "UPDATE materialpieza SET m2_mat='$saldofinm2',cant_mat='$saldofin' WHERE id_mat='$idmat'";
                     $resultado = $conexion->prepare($consulta);
 
                     $resultado->execute();

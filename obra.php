@@ -9,6 +9,7 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 
 $folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
+$tipoorg = (isset($_GET['tipoorg'])) ? $_GET['tipoorg'] : '';
 
 if ($folio != "") {
     $objeto = new conn();
@@ -56,7 +57,7 @@ if ($folio != "") {
     $resultadou->execute();
     $datau = $resultadou->fetchAll(PDO::FETCH_ASSOC);
 
-    
+
 
 
 
@@ -64,6 +65,11 @@ if ($folio != "") {
     $resmat = $conexion->prepare($cntamat);
     $resmat->execute();
     $datamat = $resmat->fetchAll(PDO::FETCH_ASSOC);
+
+    $cntamatpza = "SELECT * FROM vmaterialpieza where estado_mat=1 and m2_mat>0 and cant_mat>0 order by id_mat";
+    $resmatpza = $conexion->prepare($cntamatpza);
+    $resmatpza->execute();
+    $datamatpza = $resmatpza->fetchAll(PDO::FETCH_ASSOC);
 
 
     $cntains = "SELECT * FROM vconsumible where estado_cons=1 and tarjeta=0 order by id_cons";
@@ -153,6 +159,15 @@ if ($folio != "") {
         background-color: rgba(117, 74, 195, .8);
     }
 
+    .borde-titulpink {
+        border-left: #e83e8c;
+        border-style: outset;
+        ;
+    }
+
+    .fondopink {
+        background-color: rgba(232, 62, 140, .8);
+    }
 
 
 
@@ -257,7 +272,7 @@ if ($folio != "") {
                                     <div class="col-lg-1">
                                         <div class="form-group input-group-sm">
                                             <label for="folioorden" class="col-form-label">Folio Orden:</label>
-
+                                            <input type="hidden" class="form-control" name="tipoorg" id="tipoorg" value="<?php echo   $tipoorg; ?>" disabled>
                                             <input type="text" class="form-control" name="folioorden" id="folioorden" value="<?php echo   $folioorden; ?>" disabled>
                                         </div>
                                     </div>
@@ -748,7 +763,7 @@ if ($folio != "") {
                                         <div class="col-sm-5">
                                         </div>
 
-                                       
+
 
                                         <!-- SEGUNDA TARJETA CON TABLA-->
                                         <div class="col-sm-6">
@@ -1063,8 +1078,165 @@ if ($folio != "") {
                             </div>
                             <!-- TERMINA INSUMOS DESECHABLES -->
 
+                            <!-- INSUMOS MATERIALES PIEZA-->
+                            <div class="card card-widget borde-titulpink" style="margin-bottom:5px;">
+
+                                <div class="card-header fondopink " style="margin:0px;padding:8px">
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                    </div>
+                                    <h1 class="card-title text-light">Materiales por pieza</h1>
+
+                                </div>
+
+                                <div class="card-body acordion" id="addpieza" style="margin:0px;padding:3px;">
+
+                                    <div class="row justify-content-between " style="margin:2px;padding:5px;">
+
+
+                                        <div class="col-sm-2">
+                                            <button type="button" id="btnaddpieza" class="btn bg-gradient-pink btn-sm" data-toggle="collapse" aria-expanded="false" aria-controls="addpza" href='#addpza'>
+                                                Agregar Material Pieza <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="row justify-content-sm-center collapse" id="addpza" data-parent="#addpieza">
+
+                                        <div class="col-lg-4">
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="hidden" class="form-control" name="idpieza" id="idpieza">
+                                                <label for="materialpza" class="col-form-label">Material Pieza:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" name="materialpza" id="materialpza" disabled>
+                                                    <span class="input-group-append">
+                                                        <button id="btnMatpza" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+
+                                            <label for="formatopza" class="col-form-label">Formato/Descripción:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control " name="formatopza" id="formatopza" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <input type="hidden" class="form-control" name="id_umedidapza" id="id_umedidapza">
+                                            <label for="nom_umedidapza" class="col-form-label">U Medida:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control " name="nom_umedidapza" id="nom_umedidapza" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <label for="cantidaddpza" class="col-form-label">Cantidad:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="hidden" class="form-control" name="cantidaddpza" id="cantidaddpza">
+                                                <input type="text" class="form-control" name="cantidadpza" id="cantidadpza" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <label for="m2pza" class="col-form-label">M2:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="hidden" class="form-control" name="m2dpza" id="m2dpza">
+                                                <input type="text" class="form-control" name="m2pza" id="m2pza" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1 justify-content-center">
+                                            <label for="" class="col-form-label">Acción:</label>
+                                            <div class="input-group-append input-group-sm justify-content-center d-flex">
+                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
+                                                    <button type="button" id="btnagregarpza" name="btnagregarpza" class="btn btn-sm bg-gradient-orange" value="btnGuardarpza"><i class="fas fa-plus-square"></i></button>
+                                                </span>
+                                                <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
+                                                    <button type="button" id="btlimpiarpza" name="btlimpiarpza" class="btn btn-sm bg-gradient-purple" value="btnlimpiarpza"><i class="fas fa-brush"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 mx-auto">
+
+                                        <div class="table-responsive" style="padding:5px;">
+
+                                            <table name="tablaDetpza" id="tablaDetpza" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                <thead class="text-center bg-gradient-pink">
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Id Mat</th>
+                                                        <th>Clave Mat</th>
+                                                        <th>Material</th>
+                                                        <th>Formato</th>
+
+
+                                                        <th>U. Medida</th>
+
+                                                        <th>Cantidad</th>
+                                                        <th>M2</th>
+                                                        <th>Acciones</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    // poner la vista de la tabla relacionada con materiales pza
+                                                    $consultadeto = "SELECT * FROM vdetalle_ordpza where folio_ord='$folioorden' and estado_deto=1 order by id_reg";
+                                                    $resultadodeto = $conexion->prepare($consultadeto);
+                                                    $resultadodeto->execute();
+                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                    foreach ($datadeto as $rowdet) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $rowdet['id_reg'] ?></td>
+                                                            <td><?php echo $rowdet['id_mat'] ?></td>
+                                                            <td><?php echo $rowdet['clave_item'] ?></td>
+                                                            <td><?php echo $rowdet['nom_item'] ?></td>
+                                                            <td><?php echo $rowdet['formato'] ?></td>
+                                                            <td><?php echo $rowdet['nom_umedida'] ?></td>
+                                                            <td><?php echo $rowdet['cant_mat'] ?></td>
+                                                            <td><?php echo $rowdet['m2_mat'] ?></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+                            <!-- TERMINA INSUMOS DESECHABLES -->
+
                         </div>
-                       
+
                     </div>
             </div>
 
@@ -1326,6 +1498,68 @@ if ($folio != "") {
         </div>
     </div>
 </section>
+
+<!--TABLA MATERIALES PZA-->
+<section>
+    <div class="container">
+
+        <!-- Default box -->
+        <div class="modal fade" id="modalMatpza" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-md" role="document">
+                <div class="modal-content w-auto">
+                    <div class="modal-header bg-gradient-pink">
+                        <h5 class="modal-title" id="exampleModalLabel">BUSCAR MATERIAL PIEZA</h5>
+
+                    </div>
+                    <br>
+                    <div class="table-hover table-responsive w-auto" style="padding:15px">
+                        <table name="tablaMatpza" id="tablaMatpza" class="table table-sm table-striped table-bordered table-condensed" style="width:100%">
+                            <thead class="text-center bg-gradient-pink">
+                                <tr>
+
+                                    <th>Id Item</th>
+                                    <th>Id Material</th>
+                                    <th>Clave</th>
+                                    <th>Material</th>
+                                    <th>Formato</th>
+                                    <th>M2</th>
+                                    <th>Id Umedida</th>
+                                    <th>U. Medida</th>
+                                    <th>Ubicación</th>
+                                    <th>Cant. Disp.</th>
+                                    <th>Seleccionar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($datamatpza as $datcpza) {
+                                ?>
+                                    <tr>
+
+                                        <td><?php echo $datcpza['id_item'] ?></td>
+                                        <td><?php echo $datcpza['id_mat'] ?></td>
+                                        <td><?php echo $datcpza['clave_item'] ?></td>
+                                        <td><?php echo $datcpza['nom_item'] ?></td>
+                                        <td><?php echo $datcpza['nom_mat'] ?></td>
+                                        <td><?php echo $datcpza['m2_mat'] ?></td>
+                                        <td><?php echo $datcpza['id_umedida'] ?></td>
+                                        <td><?php echo $datcpza['nom_umedida'] ?></td>
+                                        <td><?php echo $datcpza['ubi_mat'] ?></td>
+                                        <td><?php echo $datcpza['cant_mat'] ?></td>
+                                        <td></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- TERMINA TABLA MATERIALES PZA-->
 
 
 

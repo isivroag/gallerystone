@@ -12,6 +12,7 @@ $cantidadi = (isset($_POST['cantidadi'])) ? $_POST['cantidadi'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
+$tipoorg = (isset($_POST['tipoorg'])) ? $_POST['tipoorg'] : '';
 
 
 switch ($opcion) {
@@ -31,7 +32,11 @@ switch ($opcion) {
             $resultado->execute();
             $id = $idcons;
             $tipomov = "Salida";
-            $descripcion = "Usado en Orden Folio:" . $folio;
+            if ($tipoorg==1){
+                $descripcion = "Usado en Proyecto Folio:" . $folio;
+            }else{
+                $descripcion = "Usado en Obra Folio:" . $folio;
+            }
             $montomov = $cantidadi;
 
             $fechavp = date('Y-m-d');
@@ -111,7 +116,11 @@ switch ($opcion) {
 
 
             $tipomov = "Entrada Can";
-            $descripcion = "Cancelacion en Orden Reg:" . $folio;
+            if ($tipoorg==1){
+                $descripcion = "Cancelación en Proyecto Reg:" . $folio;
+            }else{
+                $descripcion = "Cancelación en Obra Reg:" . $folio;
+            }
 
             $fechavp = date('Y-m-d');
 

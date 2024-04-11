@@ -422,8 +422,35 @@ $dataao = $resultadoao->fetchAll(PDO::FETCH_ASSOC);
 
         </div>
 
-        <div class="row">
+        <div class="row justify-content-center">
+          <div class="col-sm-12">
+            <div class="card ">
+              <div class="card-header bg-gradient-primary color-palette border-0">
 
+                <h3 class="card-title">AVISOS</h3>
+
+
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-12 mb-0">
+                    <p class="p-0 m-0"><a href="#" data-toggle="modal" data-target="#modalAviso1">- VER ULTIMA ACTUALIZACION DE INVENTARIO DE MATERIAL</a></p>
+                  </div>
+                  <div class="col-sm-12 mb-0">
+                    <p class="p-0 m-0"><a href="#" data-toggle="modal" data-target="#modalAviso2">- VER ULTIMA ACTUALIZACION DE INVENTARIO DE INSUMOS</a></p>
+                  </div>
+                  <div class="col-sm-12 mb-0">
+                    <p class="p-0 m-0"><a href="#" data-toggle="modal" data-target="#modalproduccion">- VER RESUMEN ACTIVIDADES DE ORDENES</a></p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!--  
           <div class="col-sm-6">
             <?php
             $cntam = "SELECT MAX(fecha) as fecha FROM cortemat WHERE estado_corte=2";
@@ -558,7 +585,7 @@ $dataao = $resultadoao->fetchAll(PDO::FETCH_ASSOC);
               </div>
             </div>
           </div>
-
+          -->
         </div>
 
 
@@ -1877,7 +1904,7 @@ $dataao = $resultadoao->fetchAll(PDO::FETCH_ASSOC);
 
       <?php
 
-      if ($_SESSION['s_rol'] == '4' || $_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '6' ) {
+      if ($_SESSION['s_rol'] == '4' || $_SESSION['s_rol'] == '5' || $_SESSION['s_rol'] == '6') {
       ?>
         <div class="row">
 
@@ -2306,6 +2333,256 @@ $dataao = $resultadoao->fetchAll(PDO::FETCH_ASSOC);
                 </thead>
                 <tbody>
 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section>
+    <div class="container">
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalAviso1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-warning">
+              <h5 class="modal-title" id="exampleModalLabel">ADVERTENCIA</h5>
+
+            </div>
+            <div class="col-sm-12  p-0 m-0">
+              <?php
+              $cntam = "SELECT MAX(fecha) as fecha FROM cortemat WHERE estado_corte=2";
+              $resm = $conexion->prepare($cntam);
+              $resm->execute();
+              $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+              $resm->closeCursor();
+
+              $fecham = "";
+              foreach ($datam as $rowm) {
+                $fecham = $rowm['fecha'];
+              }
+
+
+
+              $cntam = "SELECT * FROM vultimomovmat";
+              $resm = $conexion->prepare($cntam);
+              $resm->execute();
+              $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+              $resm->closeCursor();
+
+              $fechau = "";
+              $nitem = "";
+              $nmat = "";
+              $numero = "";
+              $descripcion = "";
+              $tipu = "";
+              foreach ($datam as $rowm) {
+                $fechau = $rowm['fecha_movp'];
+                $nitem = $rowm['nom_item'];
+                $nmat = $rowm['nom_mat'];
+                $numero = $rowm['numero'];
+                $descripcion = $rowm['descripcion'];
+                $tipu = $rowm['tipo_movp'];
+              }
+
+
+              $hoy = date('Y-m-d');
+              $fecha_obj = $fechau;
+              $diferencia = abs(strtotime($hoy) - strtotime($fecha_obj)) / (60 * 60 * 24);
+
+              if ($diferencia <= 0 || $diferencia == 1) {
+                $clase = "alert-success";
+                $icon = "fas fa-check";
+              } else if ($diferencia > 1 && $diferencia <= 3) {
+                $clase = "alert-warning ";
+                $icon = "fas fa-exclamation-triangle";
+              } else {
+                $clase = "alert-danger ";
+                $icon = "fas fa-ban";
+              }
+              ?>
+              <div class="alert <?php echo $clase ?>">
+                <div class="row justify-content-center">
+                  <div class="col-sm-12">
+                    <h3 class="text-white text-center"><i class="icon <?php echo $icon ?>"></i>ULTIMA ACTUALIZACION DE INVENTARIO DE MATERIAL <i class="fas fa-layer-group "></i></h5>
+                  </div>
+                  <div class="col-sm-12 " style="font-size: 15px;">
+
+                    <p class="mb-0">Ultimo Corte:<strong> <?php echo $fecham ?></strong></p>
+                    <p class="mb-0">Ultimo Mov de Inventario:<br>
+                      <strong>
+                        <?php echo $fechau . ": " . mb_convert_case($tipu, MB_CASE_TITLE, "UTF-8") . " - " . mb_convert_case($nitem, MB_CASE_TITLE, "UTF-8") . " - " . mb_convert_case($nmat, MB_CASE_TITLE, "UTF-8") . " # " . $numero . "-" .  mb_convert_case($descripcion, MB_CASE_TITLE, "UTF-8")  ?>
+                      </strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalAviso2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content w-auto ">
+            <div class="modal-header bg-gradient-warning">
+              <h5 class="modal-title" id="exampleModalLabel">ADVERTENCIA</h5>
+
+            </div>
+            <div class="col-sm-12 p-0 m-0">
+              <?php
+              $cntam = "SELECT MAX(fecha) as fecha FROM corteins WHERE estado_corte=2";
+              $resm = $conexion->prepare($cntam);
+              $resm->execute();
+              $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+              $resm->closeCursor();
+
+              $fecham = "";
+              foreach ($datam as $rowm) {
+                $fecham = $rowm['fecha'];
+              }
+
+              $cntam = "SELECT * FROM vultimomovins";
+              $resm = $conexion->prepare($cntam);
+              $resm->execute();
+              $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+              $resm->closeCursor();
+
+              $fechau = "";
+              $nitem = "";
+              $descripcion = "";
+              $tipu = "";
+              foreach ($datam as $rowm) {
+                $fechau = $rowm['fecha_movd'];
+                $nitem = $rowm['nom_des'];
+
+
+                $descripcion = $rowm['descripcion'];
+                $tipu = $rowm['tipo_movd'];
+              }
+
+              $hoy = date('Y-m-d');
+              $fecha_obj = $fechau;
+              $diferencia = abs(strtotime($hoy) - strtotime($fecha_obj)) / (60 * 60 * 24);
+
+              if ($diferencia <= 0 || $diferencia == 1) {
+                $clase = "alert-success";
+                $icon = "fas fa-check";
+              } else if ($diferencia > 1 && $diferencia <= 3) {
+                $clase = "alert-warning ";
+                $icon = "fas fa-exclamation-triangle";
+              } else {
+                $clase = "alert-danger ";
+                $icon = "fas fa-ban";
+              }
+              ?>
+              <div class="alert <?php echo $clase ?>">
+                <div class="row justify-content-center">
+                  <div class="col-sm-12">
+                    <h3 class="text-white text-center"><i class="icon <?php echo $icon ?>"></i>ULTIMA ACTUALIZACION DE INVENTARIO DE INSUMO <i class="fas fa-brush "></i></h5>
+                  </div>
+                  <div class="col-sm-12">
+
+                    <p class="mb-0">Ultimo Corte:<strong> <?php echo $fecham ?></strong></p>
+                    <p class="mb-0">Ultimo Mov de Inventario:<br>
+                      <strong>
+                        <?php echo $fechau . ": " . mb_convert_case($tipu, MB_CASE_TITLE, "UTF-8") . " - " . mb_convert_case($nitem, MB_CASE_TITLE, "UTF-8") . " - " .   mb_convert_case($descripcion, MB_CASE_TITLE, "UTF-8")  ?>
+                      </strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalproduccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg " role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-primary">
+              <h5 class="modal-title" id="exampleModalLabel">RESUMEN DE PRODCCION</h5>
+
+            </div>
+            <br>
+            <div class="table-hover table-responsive w-auto" style="padding:15px">
+              <table name="tabladetallep" id="tabladetallep" class="table table-sm table-hover table-striped table-bordered table-condensed" style="width:100%">
+                <thead class="text-center bg-gradient-primary">
+                  <tr>
+                    <th>ORDEN</th>
+                    <th>USUARIO</th>
+                    <th>PROCESO</th>
+                    <th># PIEZAS EJECUTADAS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $fechap = date('Y-m-d', $fechahome);
+                  $cntam = "SELECT id_orden,usuario,estado,fecha_ini,COUNT(estado_reg) as piezas FROM ordenestado GROUP BY id_orden,usuario,fecha_ini having fecha_ini='$fechap'";
+                  $resm = $conexion->prepare($cntam);
+                  $resm->execute();
+                  $datam = $resm->fetchAll(PDO::FETCH_ASSOC);
+                  $resm->closeCursor();
+
+                  foreach ($datam as $rowm) {
+
+                    $estado = $rowm['estado'];
+                    $color = '';
+                    switch ($estado) {
+                      case 'ACTIVO':
+
+                        $color = 'bg-gradient-primary';
+
+                        break;
+                      case 'MEDICION':
+                        $color = 'bg-gradient-warning text-white';
+                        break;
+                      case 'CORTE':
+                        $color = 'bg-gradient-secondary';
+                        break;
+                      case 'ENSAMBLE':
+                        $color = 'bg-gradient-info ';
+                        break;
+                      case 'PULIDO':
+                        $color = 'bg-gradient-purple';
+                        break;
+                      case 'COLOCACION':
+                       
+                        $color = 'bg-gradient-orange';
+                        break;
+                      case 'LIBERACION':
+                        $color = 'bg-gradient-success';
+                        break;
+                    }
+                  ?>
+                    <tr>
+                      <td><?php echo $rowm['id_orden']; ?></td>
+                      <td><?php echo $rowm['usuario']; ?></td>
+                      <td class="<?php echo $color; ?>"><?php echo $rowm['estado']; ?></td>
+                      <td class="text-center"><?php echo $rowm['piezas']; ?></td>
+                    </tr>
+                  <?php
+                  } ?>
                 </tbody>
               </table>
             </div>
