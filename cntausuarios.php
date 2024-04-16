@@ -69,7 +69,7 @@ $message = "";
                                             <th>Password</th>
                                             <th>Edo</th>
                                             <th>rol_usuario</th>
-                                            <th>id rol</th>
+                                          
                                             <th>rol</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -86,7 +86,7 @@ $message = "";
                                                 <td><?php echo $dat['password'] ?></td>
                                                 <td><?php echo $dat['edo_usuario'] ?></td>
                                                 <td><?php echo $dat['rol_usuario'] ?></td>
-                                                <td><?php echo $dat['id'] ?></td>
+                                             
                                                 <td><?php echo $dat['rol'] ?></td>
 
 
@@ -198,7 +198,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/usuario.js"></script>
+<script src="fjs/usuario.js?v=<?php echo(rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

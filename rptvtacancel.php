@@ -1,5 +1,5 @@
 <?php
-$pagina = "cntaventa";
+$pagina = "vtacancel";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -12,11 +12,11 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 if ($_SESSION['s_rol'] == '3') {
-    $consulta = "SELECT * FROM vventa where estado_vta=1 order by folio_vta";
+    $consulta = "SELECT * FROM vventa where estado_vta=0 order by folio_vta";
 }
 else
 {
-    $consulta = "SELECT * FROM vventa where estado_vta=1 order by folio_vta";
+    $consulta = "SELECT * FROM vventa where estado_vta=0 order by folio_vta";
 }
 
 
@@ -99,8 +99,11 @@ $message = "";
                                             <th>Proyecto</th>
                                             <th>Ubicación</th>
                                             <th>Total</th>
+                                            
 
                                             <th>Vendedor</th>
+                                            <th>Total</th>
+                                            <th>Acciones</th>
 
                                         </tr>
                                     </thead>
@@ -118,6 +121,8 @@ $message = "";
                                                 <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
 
                                                 <td><?php echo $dat['vendedor'] ?></td>
+                                                <td><?php echo $dat['tipop'] ?></td>
+                                                <td></td>
 
                                             </tr>
                                         <?php
@@ -157,7 +162,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/rptventas.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/rptvtacancel.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

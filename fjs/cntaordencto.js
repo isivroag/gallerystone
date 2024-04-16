@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+ 
     var id, opcion
     opcion = 4
   

@@ -116,6 +116,7 @@ $(document).ready(function () {
           data: null,
           defaultContent:
             "<div class='text-center'><div class='btn-group'>\
+            <button class='btn btn-sm btn-primary btnEditar'><i class='fas fa-search'></i></button>\
             <button class='btn btn-sm btn-info btnReactivar' data-toggle='tooltip' data-placement='top' title='Reactivar'><i class='fas fa-check-square '></i></button>\
             </div></div>",
         },{
@@ -309,7 +310,12 @@ $(document).ready(function () {
   
 
   
+    $(document).on('click', '.btnEditar', function () {
+      fila = $(this).closest('tr')
+      id = parseInt(fila.find('td:eq(1)').text())
   
+      window.location.href = 'prescan.php?folio=' + id
+    })
    
   
   

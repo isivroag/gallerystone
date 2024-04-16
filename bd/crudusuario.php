@@ -24,7 +24,7 @@ switch($opcion){
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
-        $consulta = "SELECT * FROM w_usuario JOIN rol ON w_usuario.rol_usuario=rol.id WHERE w_usuario.id_usuario<>'".$_SESSION['s_id_usuario']."' ORDER BY w_usuario.id_usuario DESC LIMIT 1";
+        $consulta = "SELECT * FROM w_usuario JOIN rol ON w_usuario.rol_usuario=rol.id ORDER BY w_usuario.id_usuario DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -41,7 +41,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;        
     case 3://baja
-        $consulta = "DELETE FROM usuario WHERE id_usuario='$id_usuario' ";		
+        $consulta = "UPDATE w_usuario SET edo_usuario=0 WHERE id_usuario='$id_usuario'";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data=1;                          

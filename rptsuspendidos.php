@@ -11,10 +11,10 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
-if ($_SESSION['s_rol'] == '3' or $_SESSION['s_rol'] == '2' ) {
-  $consulta = "SELECT * FROM vpres where edo_pres='1' and  estado_pres='SUSPENDIDO' order by folio_pres";
+if ($_SESSION['s_rol'] == '3' or $_SESSION['s_rol'] == '2') {
+  $consulta = "SELECT * FROM vpres where edo_pres='1' and (estado_pres='SUSPENDIDO' or estado_pres='RECHAZADO') order by folio_pres";
 } else {
-  $consulta = "SELECT * FROM vpres where edo_pres='1' and estado_pres='RECHAZADO'  AND estado_pres='SUSPENDIDO' order by folio_pres";
+  $consulta = "SELECT * FROM vpres where edo_pres='1' and (estado_pres='RECHAZADO' or estado_pres='RECHAZADO') AND estado_pres='SUSPENDIDO' order by folio_pres";
 }
 
 $resultado = $conexion->prepare($consulta);
@@ -30,36 +30,41 @@ $message = "";
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <style>
-.swal-wide{
-    width:850px !important;
-}
+  .swal-wide {
+    width: 850px !important;
+  }
 
-td.details-control {
-    background: url('img/details_open.png') no-repeat center center ;
+  td.details-control {
+    background: url('img/details_open.png') no-repeat center center;
 
     cursor: pointer;
-}
-tr.details td.details-control {
+  }
+
+  tr.details td.details-control {
     background: url('img/details_close.png') no-repeat center center;
 
-    
-}
-.borderless td,
-    .borderless th {
-        border: none;
-    }
-    .bg1{
-      background-color: rgba(25,151,6,.6)!important;
-      color: white;
-    }
-    .bg2{
-      background-color: rgba(52,78,253,.85)!important;
-      color: white;
-    }
-    .bg3{
-      background-color: rgba(79,3,210,.6)!important;
-      color: white;
-    }
+
+  }
+
+  .borderless td,
+  .borderless th {
+    border: none;
+  }
+
+  .bg1 {
+    background-color: rgba(25, 151, 6, .6) !important;
+    color: white;
+  }
+
+  .bg2 {
+    background-color: rgba(52, 78, 253, .85) !important;
+    color: white;
+  }
+
+  .bg3 {
+    background-color: rgba(79, 3, 210, .6) !important;
+    color: white;
+  }
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -85,14 +90,14 @@ tr.details td.details-control {
         </div>
         <br>
         <div class="container-fluid">
-       
+
           <div class="row">
             <div class="col-lg-12">
               <div class="table-responsive">
                 <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto " style="font-size:15px;">
                   <thead class="text-center bg-gradient-orange">
                     <tr>
-                    <th></th>
+                      <th></th>
                       <th>Folio</th>
                       <th>Fecha</th>
                       <th>Cliente</th>
@@ -103,9 +108,9 @@ tr.details td.details-control {
                       <th>Total</th>
                       <th>Estado</th>
                       <th>Tipo</th>
-                      
+
                       <th>Acciones</th>
-                      
+
                     </tr>
                   </thead>
                   <tbody>
@@ -122,21 +127,21 @@ tr.details td.details-control {
                         <td><?php echo $dat['vendedor'] ?></td>
                         <td><?php echo $dat['usuario'] ?></td>
                         <td class="text-right"><?php echo "$ " . number_format($dat['gtotal'], 2) ?></td>
-                        <td><?php echo $dat['estado_pres']?>
-                        <td><?php echo $dat['tipop']?>
-                        
-                
-                            </td>
+                        <td><?php echo $dat['estado_pres'] ?>
+                        <td><?php echo $dat['tipop'] ?>
 
 
-                       
+                        </td>
+
+
+
                         <td></td>
                       </tr>
                     <?php
                     }
                     ?>
                   </tbody>
-                 
+
                 </table>
               </div>
             </div>

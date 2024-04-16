@@ -1,4 +1,7 @@
 <?php
+
+
+
 $pagina = "ordencto";
 
 include_once "templates/header.php";
@@ -14,7 +17,7 @@ $conexion = $objeto->connect();
 
 $fechaActual = new DateTime();
 $fechaInicioMesAnterior = new DateTime();
-$fechaInicioMesAnterior->modify('first day of last month');
+$fechaInicioMesAnterior->modify('first day of this month');
 
 $fechaFinalMesEnCurso = new DateTime();
 $fechaFinalMesEnCurso->modify('last day of this month');
@@ -32,8 +35,57 @@ $consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord<>'PENDIENTE' an
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+$folio = 0;
+foreach ($data as $row) {
+  $folio = $row['folio_ord'];
+
+  $cnta = "SELECT * FROM vdetalle_ord2cto where folio_ord='$folio' and estado_deto=1 order by id_reg";
+  $res = $conexion->prepare($cnta);
+  $res->execute();
+  $data = $res->fetchAll(PDO::FETCH_ASSOC);
+  $totalmat = 0;
+  foreach ($data as $rowdet) {
+    $totalmat += $rowdet['costo'];
+  }
+  $res->closeCursor();
+
+  $cnta = "SELECT * FROM vconsumibleord where folio_ord='$folio' and estado_detalle=1 order by id_reg";
+  $res = $conexion->prepare($cnta);
+  $res->execute();
+  $data = $res->fetchAll(PDO::FETCH_ASSOC);
+  $totalinsumo = 0;
+  foreach ($data as $rowdet) {
+    $totalinsumo += $rowdet['costo'];
+  }
+  $res->closeCursor();
+
+  $cnta = "SELECT * FROM vdesechableordcto where folio_ord='$folio' and estado_detalle=1 order by id_reg";
+  $res = $conexion->prepare($cnta);
+  $res->execute();
+  $data = $res->fetchAll(PDO::FETCH_ASSOC);
+  $totalinsumod = 0;
+  foreach ($data as $rowdet) {
+    $totalinsumod += $rowdet['costo'];
+  }
+  $res->closeCursor();
+
+  $cntaact = "call sp_actualizarctoorden('$folio','$totalmat','$totalinsumo','$totalinsumod')";
+  $resact = $conexion->prepare($cntaact);
+  $resact->execute();
+
+  $resact->closeCursor();
+}
 $fecha = date('Y-m-d');
 $message = "";
+$resultado->closeCursor();
+
+$consulta = "SELECT * FROM vorden WHERE estado_ord=1 and edo_ord<>'PENDIENTE' and avance<=90 and edo_ord<>'LIBERADO' and tipop='PROYECTO' or (fecha_liberacion BETWEEN '$inicio' AND '$fin') ORDER BY folio_ord";
+$resultado = $conexion->prepare($consulta);
+$resultado->execute();
+$data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+$fecha = date('Y-m-d');
+$message = "";
+$resultado->closeCursor();
 
 $consulta = "SELECT * FROM personal where estado_per=1 order by id_per";
 $resultado = $conexion->prepare($consulta);
@@ -47,6 +99,7 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     cursor: pointer;
   }
+
 </style>
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -71,119 +124,120 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-      <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header bg-gradient-secondary ">
-                                Filtro por rango de Fecha
-                            </div>
-                            <div class="card-body">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-4">
-                                        <div class="form-group input-group-sm">
-                                            <label for="inicio" class="col-form-label">Fecha Inicio:</label>
-                                            <input type="date" class="form-control" name="inicio" id="inicio" value="<?php echo $inicio ?>">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group input-group-sm">
-                                            <label for="fin" class="col-form-label">Fecha Final:</label>
-                                            <input type="date" class="form-control" name="fin" id="fin" value="<?php echo $fin ?>">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2 align-self-end text-center">
-                                        <div class="form-group input-group-sm">
-                                            <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header bg-gradient-secondary ">
+                Filtro por rango de Fecha
+              </div>
+              <div class="card-body">
+                <div class="row justify-content-center">
+                  <div class="col-lg-4">
+                    <div class="form-group input-group-sm">
+                      <label for="inicio" class="col-form-label">Fecha Inicio:</label>
+                      <input type="date" class="form-control" name="inicio" id="inicio" value="<?php echo $inicio ?>">
                     </div>
-                  
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group input-group-sm">
+                      <label for="fin" class="col-form-label">Fecha Final:</label>
+                      <input type="date" class="form-control" name="fin" id="fin" value="<?php echo $fin ?>">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 align-self-end text-center">
+                    <div class="form-group input-group-sm">
+                      <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                    </div>
+                  </div>
                 </div>
-        </div>
-      
 
-        <div class="container-fluid">
-
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="table-responsive">
-                <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%; font-size:12px">
-                  <thead class="text-center bg-secondary">
-                    <tr>
-                      <th>Folio</th>
-                      <th>Folio Vta</th>
-                     
-                      <th>Fecha</th>
-                      <th>Cliente</th>
-                      <th>Proyecto</th>
-                   
-                      <th>Fecha Inst.</th>
-                      <th>Tipo</th>
-                      <th>Progreso</th>
-                      <th>Estado</th>
-                      <th>Cto Nom</th>
-                      <th>Cto Mat</th>
-                      <th>Cto Ins</th>
-                      <th>Cto Insd</th>
-                      <th>Cto Total</th>
-                      <th>% Cto</th>
-                      <th>Importe Vta</th>
-                      <th>Utilidad</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    foreach ($data as $dat) {
-                    ?>
-                      <tr>
-                        <td><?php echo $dat['folio_ord'] ?></td>
-                        <td><?php echo $dat['folio_vta'] ?></td>
-                       
-                        <td><?php echo $dat['fecha_ord'] ?></td>
-                        <td><?php echo $dat['nombre'] ?></td>
-                        <td><?php echo $dat['concepto_vta'] ?></td>
-                        
-                        <td><?php echo $dat['fecha_limite'] ?></td>
-                        <td><?php echo $dat['tipop'] ?></td>
-                        <td><?php echo $dat['avance'] ?></td>
-                        <td><?php echo $dat['edo_ord'] ?></td>
-                        <td class="text-right"><?php echo number_format($dat['importenom'],3) ?></td>
-                        <td class="text-right"><?php echo number_format($dat['ctomat'],3) ?></td>
-                        <td class="text-right"><?php echo number_format($dat['ctoins'],3) ?></td>
-                        <td class="text-right"><?php echo number_format($dat['ctoinsd'],3) ?></td>
-                        <td class="text-right"><?php echo number_format($dat['costotal'],3) ?></td>
-                        <td class="text-right"><?php echo number_format(($dat['costotal']/$dat['gtotal'])*100,3) ?></td>
-                        <td class="text-right"><?php echo number_format($dat['gtotal'],3) ?></td>
-                        <td class="text-right"><?php echo number_format($dat['gtotal']-$dat['costotal'],3) ?></td>
-                        <td></td>
-                      </tr>
-                    <?php
-                    }
-                    ?>
-                  </tbody>
-                </table>
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
-      <!-- /.card-body -->
+
+      
+
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-responsive">
+              <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%; font-size:12px">
+                <thead class="text-center bg-secondary">
+                  <tr>
+                    <th>Folio</th>
+                    <th>Folio Vta</th>
+
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Proyecto</th>
+
+                    <th>Fecha Inst.</th>
+                    <th>Tipo</th>
+                    <th>Progreso</th>
+                    <th>Estado</th>
+                    <th>Cto Nom</th>
+                    <th>Cto Mat</th>
+                    <th>Cto Ins</th>
+                    <th>Cto Insd</th>
+                    <th>Cto Total</th>
+                    <th>% Cto</th>
+                    <th>Importe Vta</th>
+                    <th>Utilidad</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  foreach ($data as $dat) {
+                  ?>
+                    <tr>
+                      <td><?php echo $dat['folio_ord'] ?></td>
+                      <td><?php echo $dat['folio_vta'] ?></td>
+
+                      <td><?php echo $dat['fecha_ord'] ?></td>
+                      <td><?php echo $dat['nombre'] ?></td>
+                      <td><?php echo $dat['concepto_vta'] ?></td>
+
+                      <td><?php echo $dat['fecha_limite'] ?></td>
+                      <td><?php echo $dat['tipop'] ?></td>
+                      <td><?php echo $dat['avance'] ?></td>
+                      <td><?php echo $dat['edo_ord'] ?></td>
+                      <td class="text-right"><?php echo number_format($dat['importenom'], 3) ?></td>
+                      <td class="text-right"><?php echo number_format($dat['ctomat'], 3) ?></td>
+                      <td class="text-right"><?php echo number_format($dat['ctoins'], 3) ?></td>
+                      <td class="text-right"><?php echo number_format($dat['ctoinsd'], 3) ?></td>
+                      <td class="text-right"><?php echo number_format($dat['costotal'], 3) ?></td>
+                      <td class="text-right"><?php echo number_format(($dat['costotal'] / $dat['gtotal']) * 100, 3) ?></td>
+                      <td class="text-right"><?php echo number_format($dat['gtotal'], 3) ?></td>
+                      <td class="text-right"><?php echo number_format($dat['gtotal'] - $dat['costotal'], 3) ?></td>
+                      <td></td>
+                    </tr>
+                  <?php
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
-    <!-- /.card -->
+    <!-- /.card-body -->
 
-  </section>
+</div>
+<!-- /.card -->
 
- 
+</section>
 
-  <!-- /.content -->
+
+
+<!-- /.content -->
 </div>
 <!-- Resumen de Pagos -->
 

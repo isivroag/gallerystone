@@ -213,12 +213,14 @@
             <!--ABRE INGRESOS-->
             <li id="liingresos" class="nav-item has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina == "buscadorpres"
                                                                 || $pagina == "cntaliberaciones" || $pagina == 'ventasum' || $pagina == 'cobranzasum' || $pagina == 'cntaventasum'
-                                                                || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "menu-open" : ""; ?>">
+                                                                || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina=='vtacancel'
+                                                                || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "menu-open" : ""; ?>">
 
 
               <a href="#" class="nav-link <?php echo ($pagina == 'cliente' || $pagina == 'venta' || $pagina == 'cntaventaobr' || $pagina == "buscadorpres"
                                             || $pagina == "cntaliberaciones" || $pagina == 'ventasum' || $pagina == 'cobranzasum' || $pagina == 'cntaventasum'
-                                            || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "active" : ""; ?>">
+                                            || $pagina == 'ventaobra' || $pagina == 'cobranza' || $pagina == 'cobranzaobra' || $pagina=='vtacancel'
+                                            || $pagina == 'citav' || $pagina == 'cntaventa' || $pagina == 'preorden') ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-dollar-sign "></i>
                   <i class=" fas fa-arrow-up "></i>
@@ -284,6 +286,13 @@
                   <a href="rptventasum.php" class="nav-link <?php echo ($pagina == 'cntaventasum') ? "active seleccionado" : ""; ?>  ">
                     <i class="fas fa-search-plus nav-icon"></i>
                     <p>Consulta de Sumnistro</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="rptvtacancel.php" class="nav-link <?php echo ($pagina == 'vtacancel') ? "active seleccionado" : ""; ?>  ">
+                    <i class="fas fa-ban nav-icon"></i>
+                    <p>Ventas Canceladas</p>
                   </a>
                 </li>
 
