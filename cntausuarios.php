@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM w_usuario JOIN rol ON w_usuario.rol_usuario=rol.id WHERE w_usuario.id_usuario<>'".$_SESSION['s_id_usuario']."' and edo_usuario=1 ORDER BY w_usuario.id_usuario";
+$consulta = "SELECT * FROM w_usuario JOIN rol ON w_usuario.rol_usuario=rol.id WHERE w_usuario.id_usuario<>'".$_SESSION['s_id_usuario']."' and edo_usuario=1 AND rol_usuario<>3 ORDER BY w_usuario.id_usuario";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -42,7 +42,7 @@ $message = "";
 
         <!-- Default box -->
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-gradient-orange">
                 <h1 class="card-title mx-auto">Usuarios</h1>
             </div>
 
@@ -116,7 +116,7 @@ $message = "";
         <div class="modal fade" id="modalU" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header bg-gradient-primary">
+                    <div class="modal-header bg-gradient-orange">
                         <h5 class="modal-title" id="exampleModalLabel">NUEVO USUARIO</h5>
 
                     </div>

@@ -1021,13 +1021,19 @@
 
 
         <!-- ABRE USUARIOS-->
-        <?php if ($_SESSION['s_rol'] == '3') {
+        <?php if ($_SESSION['s_rol'] == '3' || $_SESSION['s_rol'] == '2') {
         ?>
           <hr class="sidebar-divider">
           <li id="liusuarios" class="nav-item">
             <a href="cntausuarios.php" class="nav-link <?php echo ($pagina == 'usuarios') ? "active" : ""; ?> ">
               <i class="fas fa-user-shield"></i>
               <p>Usuarios</p>
+            </a>
+          </li>
+          <li id="libitacora" class="nav-item">
+            <a href="cntabitacora.php<?php echo '?inicio=' . date("Y-m-d") . '&fin=' . date("Y-m-d") ?>" class="nav-link <?php echo ($pagina == 'bitacora') ? "active" : ""; ?> ">
+              <i class="fas fa-file-shield"></i>
+              <p>Bitacora</p>
             </a>
           </li>
         <?php
