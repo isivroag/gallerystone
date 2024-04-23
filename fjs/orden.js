@@ -10,6 +10,34 @@ $(document).ready(function () {
   });
 
   var id, opcion, fpago;
+  var textomat,textoins,textoinsd,textopza;
+   permisos();
+
+  function permisos() {
+    var tipousuario = $("#tipousuario").val();
+     textomat = "";
+     textoins = "";
+     textoinsd = "";
+     textopza = "";
+
+    if (tipousuario == 2 || tipousuario == 3) {
+      textomat =
+        "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>";
+        textoins =
+        "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarIn'><i class='fas fa-trash-alt'></i></button></div>";
+        textoinsd =
+        "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarDes'><i class='fas fa-trash-alt'></i></button></div>";
+        textopza =
+        "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarpza'><i class='fas fa-trash-alt'></i></button></div>";
+    } else {
+      textomat = "";
+      textoins = "";
+      textoinsd = "";
+      textopza = "";
+    }
+   
+    return ;
+  }
 
   tablaVis = $("#tablaV").DataTable({
     paging: false,
@@ -162,8 +190,7 @@ $(document).ready(function () {
       {
         targets: -1,
         data: null,
-        defaultContent:
-          "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
+        defaultContent: textomat,
       },
       // { className: 'hide_column', targets: [1] },
       //{ className: 'hide_column', targets: [2] },
@@ -200,8 +227,7 @@ $(document).ready(function () {
       {
         targets: -1,
         data: null,
-        defaultContent:
-          "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarIn'><i class='fas fa-trash-alt'></i></button></div>",
+        defaultContent: textoins,
       },
       { className: "hide_column", targets: [1] },
     ],
@@ -234,8 +260,7 @@ $(document).ready(function () {
       {
         targets: -1,
         data: null,
-        defaultContent:
-          "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarDes'><i class='fas fa-trash-alt'></i></button></div>",
+        defaultContent: textoinsd,
       },
       { className: "hide_column", targets: [1] },
     ],
@@ -267,13 +292,11 @@ $(document).ready(function () {
       {
         targets: -1,
         data: null,
-        defaultContent:
-          "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarpza'><i class='fas fa-trash-alt'></i></button></div>",
+        defaultContent: textopza,
       },
       // { className: 'hide_column', targets: [1] },
       //{ className: 'hide_column', targets: [2] },
       { className: "hide_column", targets: [1] },
-     
     ],
 
     language: {
@@ -1306,8 +1329,10 @@ $(document).ready(function () {
     console.log(m2d);
     console.log(m2);
 
-console.log(  parseFloat(cantidad) > parseFloat(cantidaddis) ||
-parseFloat(m2) > parseFloat(m2d));
+    console.log(
+      parseFloat(cantidad) > parseFloat(cantidaddis) ||
+        parseFloat(m2) > parseFloat(m2d)
+    );
     if (
       parseFloat(cantidad) > parseFloat(cantidaddis) ||
       parseFloat(m2) > parseFloat(m2d)
@@ -1321,7 +1346,12 @@ parseFloat(m2) > parseFloat(m2d));
     console.log(m2d);
     console.log(m2);
 
-    if (folio.length != 0 && idmat.length != 0 && cantidad.length != 0 && m2.length != 0) {
+    if (
+      folio.length != 0 &&
+      idmat.length != 0 &&
+      cantidad.length != 0 &&
+      m2.length != 0
+    ) {
       $.ajax({
         type: "POST",
         url: "bd/detalleordenpza.php",
@@ -1347,7 +1377,6 @@ parseFloat(m2) > parseFloat(m2d));
           nom_umedida = data[0].nom_umedida;
           cant_mat = data[0].cant_mat;
           m2_mat = data[0].m2_mat;
-          
 
           tablaDetpza.row
             .add([
@@ -1362,7 +1391,6 @@ parseFloat(m2) > parseFloat(m2d));
             ])
             .draw();
           limpiarpza();
-
         },
       });
     } else {
@@ -1468,9 +1496,9 @@ parseFloat(m2) > parseFloat(m2d));
     e.preventDefault();
 
     fila = $(this);
-    
-    id = $(this).closest("tr").find('td:eq(0)').text()
-    mat = $(this).closest("tr").find('td:eq(1)').text()
+
+    id = $(this).closest("tr").find("td:eq(0)").text();
+    mat = $(this).closest("tr").find("td:eq(1)").text();
     usuario = $("#nameuser").val();
     console.log(id);
     console.log(mat);
@@ -1486,7 +1514,6 @@ parseFloat(m2) > parseFloat(m2d));
         console.log(data);
         if (data == 1) {
           tablaDetpza.row(fila.parents("tr")).remove().draw();
-          
         } else {
           mensajeerror();
         }

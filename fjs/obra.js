@@ -10,6 +10,35 @@ $(document).ready(function () {
     })
   
     var id, opcion, fpago
+
+    var textomat,textoins,textoinsd,textopza;
+   permisos();
+
+  function permisos() {
+    var tipousuario = $("#tipousuario").val();
+     textomat = "";
+     textoins = "";
+     textoinsd = "";
+     textopza = "";
+
+    if (tipousuario == 2 || tipousuario == 3) {
+      textomat =
+        "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>";
+        textoins =
+        "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarIn'><i class='fas fa-trash-alt'></i></button></div>";
+        textoinsd =
+        "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarDes'><i class='fas fa-trash-alt'></i></button></div>";
+        textopza =
+        "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarpza'><i class='fas fa-trash-alt'></i></button></div>";
+    } else {
+      textomat = "";
+      textoins = "";
+      textoinsd = "";
+      textopza = "";
+    }
+   
+    return ;
+  }
   
     tablaVis = $('#tablaV').DataTable({
       paging: false,
@@ -156,7 +185,7 @@ $(document).ready(function () {
       },
     })
     //TABLA DETALLED DE MATERIAL
-    tablaDet = $('#tablaDet').DataTable({
+    tablaDet = $("#tablaDet").DataTable({
       paging: false,
       ordering: false,
       info: false,
@@ -166,36 +195,34 @@ $(document).ready(function () {
         {
           targets: -1,
           data: null,
-          defaultContent:
-            "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
+          defaultContent: textomat,
         },
         // { className: 'hide_column', targets: [1] },
         //{ className: 'hide_column', targets: [2] },
-        { className: 'hide_column', targets: [9] },
-        { className: 'hide_column', targets: [10] },
-        { className: 'hide_column', targets: [12] },
+        { className: "hide_column", targets: [9] },
+        { className: "hide_column", targets: [10] },
+        { className: "hide_column", targets: [12] },
       ],
   
       language: {
-        lengthMenu: 'Mostrar _MENU_ registros',
-        zeroRecords: 'No se encontraron resultados',
-        info:
-          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
-        infoFiltered: '(filtrado de un total de _MAX_ registros)',
-        sSearch: 'Buscar:',
+        lengthMenu: "Mostrar _MENU_ registros",
+        zeroRecords: "No se encontraron resultados",
+        info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+        infoFiltered: "(filtrado de un total de _MAX_ registros)",
+        sSearch: "Buscar:",
         oPaginate: {
-          sFirst: 'Primero',
-          sLast: 'Último',
-          sNext: 'Siguiente',
-          sPrevious: 'Anterior',
+          sFirst: "Primero",
+          sLast: "Último",
+          sNext: "Siguiente",
+          sPrevious: "Anterior",
         },
-        sProcessing: 'Procesando...',
+        sProcessing: "Procesando...",
       },
-    })
+    });
   
     //TABLA DETALLE DE INSUMOS
-    tablaDetIn = $('#tablaDetIn').DataTable({
+    tablaDetIn = $("#tablaDetIn").DataTable({
       paging: false,
       ordering: false,
       info: false,
@@ -205,32 +232,30 @@ $(document).ready(function () {
         {
           targets: -1,
           data: null,
-          defaultContent:
-            "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarIn'><i class='fas fa-trash-alt'></i></button></div>",
+          defaultContent: textoins,
         },
-        { className: 'hide_column', targets: [1] },
+        { className: "hide_column", targets: [1] },
       ],
   
       language: {
-        lengthMenu: 'Mostrar _MENU_ registros',
-        zeroRecords: 'No se encontraron resultados',
-        info:
-          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
-        infoFiltered: '(filtrado de un total de _MAX_ registros)',
-        sSearch: 'Buscar:',
+        lengthMenu: "Mostrar _MENU_ registros",
+        zeroRecords: "No se encontraron resultados",
+        info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+        infoFiltered: "(filtrado de un total de _MAX_ registros)",
+        sSearch: "Buscar:",
         oPaginate: {
-          sFirst: 'Primero',
-          sLast: 'Último',
-          sNext: 'Siguiente',
-          sPrevious: 'Anterior',
+          sFirst: "Primero",
+          sLast: "Último",
+          sNext: "Siguiente",
+          sPrevious: "Anterior",
         },
-        sProcessing: 'Procesando...',
+        sProcessing: "Procesando...",
       },
-    })
+    });
   
     //TABLA DETALLE DE desechables
-    tablaDetIndes = $('#tablaDetIndes').DataTable({
+    tablaDetIndes = $("#tablaDetIndes").DataTable({
       paging: false,
       ordering: false,
       info: false,
@@ -240,30 +265,28 @@ $(document).ready(function () {
         {
           targets: -1,
           data: null,
-          defaultContent:
-            "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarDes'><i class='fas fa-trash-alt'></i></button></div>",
+          defaultContent: textoinsd,
         },
-        { className: 'hide_column', targets: [1] },
+        { className: "hide_column", targets: [1] },
       ],
   
       language: {
-        lengthMenu: 'Mostrar _MENU_ registros',
-        zeroRecords: 'No se encontraron resultados',
-        info:
-          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
-        infoFiltered: '(filtrado de un total de _MAX_ registros)',
-        sSearch: 'Buscar:',
+        lengthMenu: "Mostrar _MENU_ registros",
+        zeroRecords: "No se encontraron resultados",
+        info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+        infoFiltered: "(filtrado de un total de _MAX_ registros)",
+        sSearch: "Buscar:",
         oPaginate: {
-          sFirst: 'Primero',
-          sLast: 'Último',
-          sNext: 'Siguiente',
-          sPrevious: 'Anterior',
+          sFirst: "Primero",
+          sLast: "Último",
+          sNext: "Siguiente",
+          sPrevious: "Anterior",
         },
-        sProcessing: 'Procesando...',
+        sProcessing: "Procesando...",
       },
-    })
-
+    });
+  
     tablaDetpza = $("#tablaDetpza").DataTable({
       paging: false,
       ordering: false,
@@ -274,13 +297,11 @@ $(document).ready(function () {
         {
           targets: -1,
           data: null,
-          defaultContent:
-            "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrarpza'><i class='fas fa-trash-alt'></i></button></div>",
+          defaultContent: textopza,
         },
         // { className: 'hide_column', targets: [1] },
         //{ className: 'hide_column', targets: [2] },
         { className: "hide_column", targets: [1] },
-       
       ],
   
       language: {

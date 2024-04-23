@@ -54,6 +54,14 @@ foreach ($datacto as $rowc) {
 
         cursor: pointer;
     }
+
+    .amarillot {
+  background-color: rgba(249, 152, 37, 0.5); /* Amarillo con 50% de opacidad */
+}
+
+.rojot {
+  background-color: rgba(255, 0, 0, 0.5); /* Rojo con 50% de opacidad */
+}
 </style>
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -158,8 +166,10 @@ foreach ($datacto as $rowc) {
                                             <th>ML</th>
                                             <th>Importe Vta</th>
                                             <th>Importe Nom</th>
-                                            <th>VAL ML</th>
+                                            <th>Val ML</th>
                                             <th>Costo ML</th>
+                                            <th>Bloqueonom</th>
+                                            <th>Bloqueouso</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -182,6 +192,8 @@ foreach ($datacto as $rowc) {
                                                     <td><?php echo number_format($row['importenom'], 2) ?></td>
                                                     <td><?php echo number_format($row['mlfinal'], 2) ?></td>
                                                     <td><?php echo number_format($row['costoml'], 2) ?></td>
+                                                    <td><?php echo $row['bloqueonom'] ?></td>
+                                                    <td><?php echo $row['bloqueouso'] ?></td>
                                                     <td></td>
                                                 </tr>
                                         <?php }

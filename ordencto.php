@@ -127,6 +127,17 @@ if ($folio != "") {
         background-color: rgba(117, 74, 195, .8);
     }
 
+    .borde-titulpink {
+        border-left: #e83e8c;
+        border-style: outset;
+        ;
+    }
+
+    .fondopink {
+        background-color: rgba(232, 62, 140, .8);
+    }
+
+
 
 
 
@@ -384,9 +395,7 @@ if ($folio != "") {
 
                                             <h1 class="card-title ">Detalle Complementario</h1>
                                             <div class="card-tools" style="margin:0px;padding:0px;">
-                                                <button type="button" id="btnAddcom" class="btn bg-gradient-secondary btn-sm">
-                                                    <i class="fas fa-folder-minus"></i>
-                                                </button>
+                                               
                                                 <button type="button" class="btn bg-gradient-secondary btn-sm " href="#extra" data-card-widget="collapse" aria-expanded="false" title="Collapsed">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
@@ -552,7 +561,7 @@ if ($folio != "") {
                                             <div class="form-group input-group-sm">
                                                 <label for="totalmat" class="col-form-label">Importe Material:</label>
 
-                                                <input type="text" class="form-control text-right" name="totalmat" id="totalmat" value="<?php echo   number_format($totalmat,3); ?>" disabled>
+                                                <input type="text" class="form-control text-right" name="totalmat" id="totalmat" value="<?php echo   number_format($totalmat, 3); ?>" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -612,9 +621,9 @@ if ($folio != "") {
                                                     $resultadodeto = $conexion->prepare($consultadeto);
                                                     $resultadodeto->execute();
                                                     $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                    $totalinsumo=0;
+                                                    $totalinsumo = 0;
                                                     foreach ($datadeto as $rowdet) {
-                                                        $totalinsumo+=$rowdet['costo'];
+                                                        $totalinsumo += $rowdet['costo'];
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $rowdet['id_reg'] ?></td>
@@ -642,15 +651,15 @@ if ($folio != "") {
                                 </div>
 
                                 <div class="row justify-content-center">
-                                        <div class="col-sm-8"></div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group input-group-sm">
-                                                <label for="totalins" class="col-form-label">Importe Insumos:</label>
+                                    <div class="col-sm-8"></div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group input-group-sm">
+                                            <label for="totalins" class="col-form-label">Importe Insumos:</label>
 
-                                                <input type="text" class="form-control text-right" name="totalins" id="totalins" value="<?php echo number_format($totalinsumo,3); ?>" disabled>
-                                            </div>
+                                            <input type="text" class="form-control text-right" name="totalins" id="totalins" value="<?php echo number_format($totalinsumo, 3); ?>" disabled>
                                         </div>
                                     </div>
+                                </div>
 
                             </div>
                             <!-- TERMINA INSUMOS USADOS -->
@@ -699,9 +708,9 @@ if ($folio != "") {
                                                     $resultadodeto = $conexion->prepare($consultadeto);
                                                     $resultadodeto->execute();
                                                     $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                    $totalinsumod=0;
+                                                    $totalinsumod = 0;
                                                     foreach ($datadeto as $rowdet) {
-                                                        $totalinsumod+=$rowdet['costo'];
+                                                        $totalinsumod += $rowdet['costo'];
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $rowdet['id_reg'] ?></td>
@@ -717,9 +726,7 @@ if ($folio != "") {
                                                         </tr>
                                                     <?php
                                                     }
-                                                    $cntaact = "call sp_actualizarctoorden('$folioorden','$totalmat','$totalinsumo','$totalinsumod')";
-                                                    $resact = $conexion->prepare($cntaact);
-                                                    $resact->execute();
+                                                   
 
                                                     ?>
 
@@ -733,19 +740,117 @@ if ($folio != "") {
                                 </div>
 
                                 <div class="row justify-content-center">
-                                        <div class="col-sm-8"></div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group input-group-sm">
-                                                <label for="totalinsumodes" class="col-form-label">Importe Insumos de Desgaste:</label>
+                                    <div class="col-sm-8"></div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group input-group-sm">
+                                            <label for="totalinsumodes" class="col-form-label">Importe Insumos de Desgaste:</label>
 
-                                                <input type="text" class="form-control text-right" name="totalinsumodes" id="totalinsumodes" value="<?php echo   number_format($totalinsumod,3); ?>" disabled>
-                                            </div>
+                                            <input type="text" class="form-control text-right" name="totalinsumodes" id="totalinsumodes" value="<?php echo   number_format($totalinsumod, 3); ?>" disabled>
                                         </div>
                                     </div>
+                                </div>
 
 
                             </div>
                             <!-- TERMINA INSUMOS DESECHABLES -->
+
+                            <div class="card card-widget borde-titulpink" style="margin-bottom:5px;">
+
+                                <div class="card-header fondopink " style="margin:0px;padding:8px">
+                                    <div class="card-tools" style="margin:0px;padding:0px;">
+
+
+                                    </div>
+                                    <h1 class="card-title text-light">Materiales por pieza</h1>
+
+                                </div>
+
+
+
+
+                                <div class="row">
+
+                                    <div class="col-lg-12 mx-auto">
+
+                                        <div class="table-responsive" style="padding:5px;">
+
+                                            <table name="tablaDetpza" id="tablaDetpza" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                <thead class="text-center bg-gradient-pink">
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Id Mat</th>
+                                                        <th>Clave Mat</th>
+                                                        <th>Material</th>
+                                                        <th>Formato</th>
+
+
+                                                        <th>U. Medida</th>
+
+                                                        <th>Cantidad</th>
+                                                        <th>M2</th>
+                                                        <th>Costo Uni</th>
+                                                        <th>Costo</th>
+
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    // poner la vista de la tabla relacionada con materiales pza
+                                                    $consultadeto = "SELECT * FROM vdetalle_ordpzacto where folio_ord='$folioorden' and estado_deto=1 order by id_reg";
+                                                    $resultadodeto = $conexion->prepare($consultadeto);
+                                                    $resultadodeto->execute();
+                                                    $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                    $totalpieza = 0;
+                                                    foreach ($datadeto as $rowdet) {
+                                                        $totalpieza = $totalpieza + $rowdet['costo'];
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $rowdet['id_reg'] ?></td>
+                                                            <td><?php echo $rowdet['id_mat'] ?></td>
+                                                            <td><?php echo $rowdet['clave_item'] ?></td>
+                                                            <td><?php echo $rowdet['nom_item'] ?></td>
+                                                            <td><?php echo $rowdet['formato'] ?></td>
+                                                            <td><?php echo $rowdet['nom_umedida'] ?></td>
+                                                            <td><?php echo $rowdet['cant_mat'] ?></td>
+                                                            <td><?php echo $rowdet['m2_mat'] ?></td>
+                                                            <td><?php echo $rowdet['costouni'] ?></td>
+                                                            <td><?php echo $rowdet['costo'] ?></td>
+
+                                                        </tr>
+                                                    <?php
+                                                    }
+
+                                                    $cntaact = "call sp_actualizarctoorden('$folioorden','$totalmat','$totalinsumo','$totalinsumod','$totalpieza')";
+                                                    $resact = $conexion->prepare($cntaact);
+                                                    $resact->execute();
+                                                    ?>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-8"></div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group input-group-sm">
+                                            <label for="totalinsumodes" class="col-form-label">Importe Material Pieza:</label>
+
+                                            <input type="text" class="form-control text-right" name="totalpieza" id="totalpieza" value="<?php echo   number_format($totalpieza, 3); ?>" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
 
                         </div>
 

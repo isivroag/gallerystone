@@ -69,7 +69,18 @@ foreach ($data as $row) {
   }
   $res->closeCursor();
 
-  $cntaact = "call sp_actualizarctoorden('$folio','$totalmat','$totalinsumo','$totalinsumod')";
+
+  $cnta = "SELECT * FROM vdetalle_ordpzacto where folio_ord='$folio' and estado_deto=1 order by id_reg";
+  $res = $conexion->prepare($cnta);
+  $res->execute();
+  $data = $res->fetchAll(PDO::FETCH_ASSOC);
+  $totalpieza = 0;
+  foreach ($data as $rowdet) {
+    $totalpieza = $totalpieza + $rowdet['costo'];
+  }
+  $res->closeCursor();
+
+  $cntaact = "call sp_actualizarctoorden('$folio','$totalmat','$totalinsumo','$totalinsumod','$totalpieza')";
   $resact = $conexion->prepare($cntaact);
   $resact->execute();
 
@@ -99,7 +110,6 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     cursor: pointer;
   }
-
 </style>
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -159,7 +169,7 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
 
-      
+
 
       <div class="container-fluid">
 
@@ -181,9 +191,11 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                     <th>Progreso</th>
                     <th>Estado</th>
                     <th>Cto Nom</th>
+                    <th>Cto Nom Tomado</th>
                     <th>Cto Mat</th>
                     <th>Cto Ins</th>
                     <th>Cto Insd</th>
+                    <th>Cto MPza</th>
                     <th>Cto Total</th>
                     <th>% Cto</th>
                     <th>Importe Vta</th>
@@ -208,9 +220,11 @@ $dataper = $resultado->fetchAll(PDO::FETCH_ASSOC);
                       <td><?php echo $dat['avance'] ?></td>
                       <td><?php echo $dat['edo_ord'] ?></td>
                       <td class="text-right"><?php echo number_format($dat['importenom'], 3) ?></td>
+                      <td class="text-right"><?php echo number_format($dat['nomtomado'], 3) ?></td>
                       <td class="text-right"><?php echo number_format($dat['ctomat'], 3) ?></td>
                       <td class="text-right"><?php echo number_format($dat['ctoins'], 3) ?></td>
                       <td class="text-right"><?php echo number_format($dat['ctoinsd'], 3) ?></td>
+                      <td class="text-right"><?php echo number_format($dat['ctopza'], 3) ?></td>
                       <td class="text-right"><?php echo number_format($dat['costotal'], 3) ?></td>
                       <td class="text-right"><?php echo number_format(($dat['costotal'] / $dat['gtotal']) * 100, 3) ?></td>
                       <td class="text-right"><?php echo number_format($dat['gtotal'], 3) ?></td>

@@ -9,7 +9,7 @@ $conexion = $objeto->connect();
 
 
 
-$consulta = "SELECT * from vorden2 where importenom<>0 and tnomina<>importenom and nomtomado<>100 and mlfinal<>0 ORDER BY avance,folio_ord";
+$consulta = "SELECT * from vorden2 where importenom<>0 and tnomina<>importenom and nomtomado<>100 and mlfinal<>0 and bloqueouso= 0 ORDER BY avance,folio_ord";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

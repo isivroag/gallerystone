@@ -57,11 +57,13 @@ $(document).ready(function () {
         defaultContent:
           "<div class='text-center'>\
             <button class='btn btn-sm btn-primary btnEditar' data-toggle='tooltip' data-placement='top' title='Establer Importe Nom'><i class='fa-solid fa-money-bills'></i></button>\
+            <button class='btn btn-sm btn-warning btnbloquear' data-toggle='tooltip' data-placement='top' title='Bloquear'><i class='fa-solid fa-lock text-white'></i></button>\
               </div>",
 
         //
       },
-
+      { targets: [14], className: "hide_column" },
+      { targets: [15], className: "hide_column" },
       { targets: [6], type: "num-html" },
       {
         targets: 4,
@@ -162,6 +164,14 @@ $(document).ready(function () {
           $($(row).find("td")[8]).text("COLOCACION");
         }
       }
+      if (data[14] == 1) {
+        $($(row).find("td")).addClass("amarillot");
+      }
+      if (data[15] == 1) {
+        $($(row).find("td")).addClass("rojot");
+      }
+
+
     },
   });
 
@@ -213,21 +223,69 @@ $(document).ready(function () {
   $(document).on("click", ".btnEditar", function () {
     fila = $(this).closest("tr");
     costoml = $("#costoml").val();
+    estadouso = fila.find("td:eq(15)").text();
+    estadonom = fila.find("td:eq(14)").text();
 
-    $("#formimporte").trigger("reset");
-    $("#folioorden").val(fila.find("td:eq(0)").text());
-    metros = fila.find("td:eq(9)").text();
-    importenom = parseFloat(metros) * parseFloat(costoml);
-    importenom = importenom.toFixed(2);
-    $("#total").val(fila.find("td:eq(10)").text().replace(/,/g, ""));
-    $("#importenom").val(importenom);
-    $("#costoml2").val(costoml);
-    $("#mlorden").val(metros);
-    $("#mlorigen").val(metros);
+    if(estadouso == 1 || estadonom == 1){
+      swal.fire({
+        title: "ORDEN BLOQUEADA",
+        text: "No es posible modificar la orden",
+        icon: "error",
+        focusConfirm: true,
+        confirmButtonText: "Aceptar",
+      });
+    }
+    else{
+      $("#formimporte").trigger("reset");
+      $("#folioorden").val(fila.find("td:eq(0)").text());
+      metros = fila.find("td:eq(9)").text();
+      importenom = parseFloat(metros) * parseFloat(costoml);
+      importenom = importenom.toFixed(2);
+      $("#total").val(fila.find("td:eq(10)").text().replace(/,/g, ""));
+      $("#importenom").val(importenom);
+      $("#costoml2").val(costoml);
+      $("#mlorden").val(metros);
+      $("#mlorigen").val(metros);
+  
+      $("#modalImporte").modal("show");
+    }
+    
 
-    $("#modalImporte").modal("show");
+   
   });
 
+  $(document).on("click", ".btnbloquear", function () {
+    fila = $(this).closest("tr");
+   
+    
+    folio = fila.find("td:eq(0)").text();
+    estado = fila.find("td:eq(15)").text();
+    $.ajax({
+      url: "bd/bloqueoorden.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        folio: folio,
+        estado: estado,
+        
+      },
+      success: function (data) {
+        if (data == 1) {
+          mensaje();
+          
+          window.location.reload();
+        }
+      },
+      error: function (data) {
+        nomensaje();
+      },
+    });
+    
+  });
+
+
+
+  
   $(document).on("click", "#btnGuardarimp", function () {
     folio = $("#folioorden").val();
     importe = $("#importenom").val();

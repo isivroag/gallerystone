@@ -409,12 +409,12 @@
             <!-- ABRE REPORTES-->
             <li id="lireportes" class="nav-item has-treeview <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "rptordenm2"
                                                                 || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptordenm"
-                                                                || $pagina == "cntaavanceorden" || $pagina == "rptdiario" || $pagina == "rptinventario") ? "menu-open" : ""; ?>">
+                                                                || $pagina == "cntaavanceorden" || $pagina == "rptdiario" || $pagina == "tiempo" || $pagina == "rptinventario") ? "menu-open" : ""; ?>">
 
 
               <a href="#" class="nav-link <?php echo ($pagina == 'resultados' || $pagina == "seguimientopres" || $pagina == "fichas" || $pagina == "rptordenm2"
                                             || $pagina == "resumenventa" || $pagina == "resumenobra" || $pagina == "graficoanual" || $pagina == "pvendidos" || $pagina == "rptordenm"
-                                            || $pagina == "cntaavanceorden" || $pagina == "rptdiario" || $pagina == "rptinventario") ? "active" : ""; ?>">
+                                            || $pagina == "cntaavanceorden" || $pagina == "rptdiario" ||  $pagina == "tiempo" || $pagina == "rptinventario") ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class="fas fa-chart-line nav-icon"></i>
 
@@ -494,6 +494,15 @@
 
                 <li class="nav-item">
 
+                  <a href="cntatiempo.php<?php echo '?inicio=' . date("Y-m-d") . '&fin=' . date("Y-m-d") ?>" class="nav-link <?php echo ($pagina == 'tiempo') ? "active seleccionado" : ""; ?>  ">
+
+                    <i class="fa-solid fa-clock nav-icon"></i>
+                    <p>Duración de proyectos</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+
                   <a href="cntaavanceorden.php" class="nav-link <?php echo ($pagina == 'cntaavanceorden') ? "active seleccionado" : ""; ?>  ">
 
                     <i class="fa-solid fa-chalkboard nav-icon"></i>
@@ -534,11 +543,11 @@
 
             <!--ABRE ADMINISTRACION-->
             <li id="liadministracion" class="nav-item has-treeview <?php echo ($pagina == 'banco'  || $pagina == 'cntamovb'  || $pagina == 'ordencto'
-            || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins') ? "menu-open" : ""; ?>">
+            || $pagina == 'flujo' || $pagina == 'cortemat' || $pagina == 'corteins' ) ? "menu-open" : ""; ?>">
 
 
               <a href="#" class="nav-link <?php echo ($pagina == 'banco' || $pagina == 'cntamovb'  || $pagina == 'flujo' || $pagina == 'ordencto'
-              || $pagina == 'cortemat' || $pagina == 'corteins') ? "active" : ""; ?>">
+              || $pagina == 'cortemat' || $pagina == 'corteins' ) ? "active" : ""; ?>">
                 <span class="fa-stack">
                   <i class=" fas fa-book "></i>
 
