@@ -73,7 +73,7 @@ $(document).ready(function () {
         
   
         dias = parseInt(fecha - fechaactual) / (1000 * 60 * 60 * 24)
-        avance = data[8]
+        avance = parseFloat(data[8])
   
         barra =
           "<div class='progress mb-3 ' style='width:120px' > \

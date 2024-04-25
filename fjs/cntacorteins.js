@@ -67,7 +67,59 @@ $(document).ready(function () {
     })
   
     $('#btnNuevo').click(function () {
-        window.location.href="corteins.php"
+
+      $.ajax({
+        url: "bd/buscarvales.php",
+        type: "POST",
+        dataType: "json",
+        async: false,
+        data: {},
+        success: function (data) {
+          if (data == 1) {
+            swal
+              .fire({
+                title: "¿Esta seguro de continuar?",
+                html: "<strong>Este proceso guardará las medidas y cantidades actuales de todos los materiales en inventario.<br><br>\
+                  Es vital terminar este procedimiento antes de usar materiales en otros procesos \
+                  <br>De lo contrario, los movimientos de otros módulos podrían sobrescribirse, comprometiendo la integridad de tus registros.</strong>",
+  
+                showCancelButton: true,
+                icon: "warning",
+                focusConfirm: true,
+                confirmButtonText: "Continuar",
+  
+                cancelButtonText: "Cancelar",
+  
+                //background: "#F4B554 ",
+                confirmButtonColor: "#0C9935",
+                cancelButtonColor: "#d33",
+              })
+              .then(function (isConfirm) {
+                if (isConfirm.value) {
+                  window.location.href="corteins.php"
+                } else if (isConfirm.dismiss === swal.DismissReason.cancel) {
+                }
+              });
+          } else {
+            swal
+              .fire({
+                title: "Operación No permitida",
+                html: "<div class='text-justify'><strong>No es posible comenzar con el proceso de Corte<br><br>\
+                  Para usar este modulo es necesario que todos los Vales de Entrega/Recepción esten cerrados.\
+                  </strong></div>",
+                icon: "warning",
+                focusConfirm: true,
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#0C9935",
+  
+              })
+              
+  
+          
+          }
+        },
+      });
+        
     })
 
     $('.btnMov').click(function(){
