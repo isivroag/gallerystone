@@ -42,6 +42,7 @@ $(document).ready(function() {
         opcion = 1; //alta
     });
 
+  /*
     $("#btnAyuda").click(function() {
         var ancho = 1000;
         var alto = 800;
@@ -53,7 +54,7 @@ $(document).ready(function() {
         window.open(url, "AYUDA", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
 
 
-    });
+    });*/
 
     var fila; //capturar la fila para editar o borrar el registro
 
