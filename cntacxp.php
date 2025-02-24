@@ -85,7 +85,7 @@ $mesactual = $mesarreglo[date('n')];
             <button id="btnNuevoD" type="button" class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Insumo Desgaste</span></button>
             <button id="btnNuevoH" type="button" class="btn bg-gradient-purple btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Herramienta</span></button>
             <button id="btnNuevoP" type="button" class="btn bg-gradient-pink btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Material Piezas</span></button>
-            <button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button>
+            <a href="help/cxpagar/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
           </div>
         </div>
         <br>

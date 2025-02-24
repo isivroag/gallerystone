@@ -66,8 +66,16 @@ if ($resultado->execute()) {
             </div>
 
             <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <a href="help/rptobras/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                    </div>
+                </div>
+                <br>
 
                 <div class="row">
+
                     <div class="col-lg-12">
 
 
@@ -163,7 +171,7 @@ if ($resultado->execute()) {
 
 
                                             <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" ><i class="fas fa-plus"></i>
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                 </button>
                                             </div>
                                             <div class="row justify-content-center form-group">

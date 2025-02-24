@@ -118,7 +118,7 @@ $(document).ready(function () {
         val = '$ ' + val
         return val
     }
-
+/*
     $('#btnAyuda').click(function () {
         var ancho = 1000
         var alto = 800
@@ -141,7 +141,7 @@ $(document).ready(function () {
             'scrollbar=si,location=no,resizable=si,menubar=no',
         )
     })
-
+*/
     $('#btnBuscar').click(function () {
         var inicio = $('#inicio').val()
         var final = $('#final').val()

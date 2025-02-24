@@ -80,6 +80,11 @@ $data3 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
 
                 <br>
                 <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        <a href="help/seguimiento/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-lg-12">

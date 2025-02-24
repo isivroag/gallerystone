@@ -74,6 +74,13 @@ if ($resultado->execute()) {
             </div>
 
             <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <a href="help/rptresultados/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                    </div>
+                </div>
+                <br>
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -151,7 +158,7 @@ if ($resultado->execute()) {
                                                     <label for="<?php echo $reging['nom_t_concepto'] ?>" class="col-form-label"><a href="detalleing.php?<?php echo 'mes=' . $mesactual . '&ejercicio=' . $yearactual . '&concepto=' . $reging['nom_t_concepto'] ?>"><?php echo strtoupper($reging['nom_t_concepto']) ?>: </a></label>
                                                 </div>
 
-                                                
+
 
                                                 <div class="col-sm-4">
                                                     <div class="input-group input-group-sm">
@@ -210,7 +217,7 @@ if ($resultado->execute()) {
                                                     <label for="<?php echo $registro['nom_cuentaegr'] ?>" class="col-form-label"><a data-toggle="collapse" href="#<?php echo 'det' . $registro['id_cuentaegr'] ?>" role="button" aria-expanded="false" aria-controls="collapseExample"><?php echo $registro['nom_cuentaegr'] ?>: </a></label>
                                                 </div>
 
-                                                
+
 
                                                 <div class="col-sm-4">
                                                     <div class="input-group input-group-sm">
@@ -228,20 +235,20 @@ if ($resultado->execute()) {
 
 
                                             </div>
-                                            
+
                                             <div class="collapse" id="<?php echo 'det' . $registro['id_cuentaegr'] ?>">
                                                 <?php
                                                 foreach ($dataegresosp as $regpartida) {
                                                 ?>
-                                                    <div class="row justify-content-center m-2" >
-                                                        
-                                                        
+                                                    <div class="row justify-content-center m-2">
+
+
                                                         <div class="col-sm-2 pl-2  ">
 
                                                             <label for="<?php echo $regpartida['nom_partida'] ?>" class="col-form-label "><a href="detalleegr.php?<?php echo 'mes=' . $mesactual . '&ejercicio=' . $yearactual . '&concepto=' . $regpartida['nom_partida'] ?>"><?php echo $regpartida['nom_partida'] ?>: </a></label>
                                                         </div>
 
-                                                        
+
 
                                                         <div class="col-sm-3">
                                                             <div class="input-group input-group-sm">
@@ -253,7 +260,7 @@ if ($resultado->execute()) {
                                                                 <input type="text" class="form-control text-right bg-white" name="<?php echo $regpartida['nom_partida'] ?>" id="<?php echo $regpartida['nom_partida'] ?>" value="<?php echo number_format($regpartida['total'], 2) ?>" disabled>
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
 
                                                 <?php

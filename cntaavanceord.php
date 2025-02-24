@@ -15,7 +15,7 @@ $inicio = (isset($_GET['inicio'])) ? $_GET['inicio'] : '';
 $fin = (isset($_GET['fin'])) ? $_GET['fin'] : '';
 
 //if ($_SESSION['s_rol'] == '3' or $_SESSION['s_rol'] == '1' OR $_SESSION['s_rol'] == '2' ) {
-  $consulta = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.concepto_vta,vorden.edo_ord,vorden.avance,vorden.estado_ord,
+$consulta = "SELECT ordenestado.id_orden,vorden.folio_vta,vorden.nombre,vorden.concepto_vta,vorden.edo_ord,vorden.avance,vorden.estado_ord,
   max(ordenestado.fecha_ini) as fecha_ini,ordenestado.descripcion,ordenestado.usuario 
   FROM ordenestado JOIN vorden ON ordenestado.id_orden=vorden.folio_ord where ordenestado.fecha_ini between '$inicio' and '$fin' and ordenestado.estado_reg='1' and vorden.estado_ord='1'
   group by ordenestado.id_orden order by vorden.avance,vorden.edo_ord,vorden.folio_vta ";
@@ -36,36 +36,41 @@ $message = "";
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <style>
-.swal-wide{
-    width:850px !important;
-}
+  .swal-wide {
+    width: 850px !important;
+  }
 
-td.details-control {
-    background: url('img/details_open.png') no-repeat center center ;
+  td.details-control {
+    background: url('img/details_open.png') no-repeat center center;
 
     cursor: pointer;
-}
-tr.details td.details-control {
+  }
+
+  tr.details td.details-control {
     background: url('img/details_close.png') no-repeat center center;
 
-    
-}
-.borderless td,
-    .borderless th {
-        border: none;
-    }
-    .bg1{
-      background-color: rgba(25,151,6,.6)!important;
-      color: white;
-    }
-    .bg2{
-      background-color: rgba(52,78,253,.85)!important;
-      color: white;
-    }
-    .bg3{
-      background-color: rgba(79,3,210,.6)!important;
-      color: white;
-    }
+
+  }
+
+  .borderless td,
+  .borderless th {
+    border: none;
+  }
+
+  .bg1 {
+    background-color: rgba(25, 151, 6, .6) !important;
+    color: white;
+  }
+
+  .bg2 {
+    background-color: rgba(52, 78, 253, .85) !important;
+    color: white;
+  }
+
+  .bg3 {
+    background-color: rgba(79, 3, 210, .6) !important;
+    color: white;
+  }
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -84,40 +89,43 @@ tr.details td.details-control {
       <div class="card-body">
 
         <div class="row">
-      
+          <div class="col-lg-12">
+
+            <a href="help/rptavanceord/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+          </div>
         </div>
         <br>
         <div class="container-fluid">
-        <div class="card">
-          <div class="card-header bg-gradient-orange">
-            Filtro por rango de Fecha
-          </div>
-          <div class="card-body">
-            <div class="row justify-content-center">
-              <div class="col-lg-2">
-                <div class="form-group input-group-sm">
-                  <label for="fecha" class="col-form-label">Desde:</label>
-                  <input type="date" class="form-control" name="inicio" id="inicio" value="<?php echo $inicio ?>">
-                </div>
-              </div>
-
-              <div class="col-lg-2">
-                <div class="form-group input-group-sm">
-                  <label for="fecha" class="col-form-label">Hasta:</label>
-                  <input type="date" class="form-control" name="final" id="final" value="<?php echo $fin ?>">
-                 
-                </div>
-              </div>
-
-              <div class="col-lg-1 align-self-end text-center">
-                <div class="form-group input-group-sm">
-                  <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
-                </div>
-              </div>
+          <div class="card">
+            <div class="card-header bg-gradient-orange">
+              Filtro por rango de Fecha
             </div>
-          
+            <div class="card-body">
+              <div class="row justify-content-center">
+                <div class="col-lg-2">
+                  <div class="form-group input-group-sm">
+                    <label for="fecha" class="col-form-label">Desde:</label>
+                    <input type="date" class="form-control" name="inicio" id="inicio" value="<?php echo $inicio ?>">
+                  </div>
+                </div>
+
+                <div class="col-lg-2">
+                  <div class="form-group input-group-sm">
+                    <label for="fecha" class="col-form-label">Hasta:</label>
+                    <input type="date" class="form-control" name="final" id="final" value="<?php echo $fin ?>">
+
+                  </div>
+                </div>
+
+                <div class="col-lg-1 align-self-end text-center">
+                  <div class="form-group input-group-sm">
+                    <button id="btnBuscar" name="btnBuscar" type="button" class="btn bg-gradient-success btn-ms"><i class="fas fa-search"></i> Buscar</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
-        </div>
           <div class="row">
             <div class="col-lg-12">
               <div class="table-responsive">
@@ -136,10 +144,10 @@ tr.details td.details-control {
                   <tbody>
                     <?php
                     foreach ($data as $dat) {
-                      $avance=$dat['avance'];
-                      $estado=$dat['edo_ord'];
-                      if ($avance==90){
-                        $estado="COLOCACION";
+                      $avance = $dat['avance'];
+                      $estado = $dat['edo_ord'];
+                      if ($avance == 90) {
+                        $estado = "COLOCACION";
                       }
 
                       $color = '';
@@ -177,14 +185,14 @@ tr.details td.details-control {
                         <td><?php echo $dat['folio_vta'] ?></td>
                         <td><?php echo $dat['nombre'] ?></td>
                         <td><?php echo $dat['concepto_vta'] ?></td>
-                        <td class="text-center <?php echo $color?>"><?php echo $estado ?></td>
+                        <td class="text-center <?php echo $color ?>"><?php echo $estado ?></td>
                         <td class="text-center"><?php echo $dat['fecha_ini'] ?></td>
                       </tr>
                     <?php
                     }
                     ?>
                   </tbody>
-                 
+
                 </table>
               </div>
             </div>

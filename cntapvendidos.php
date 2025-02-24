@@ -1,5 +1,5 @@
 <?php
-$pagina = "resultados";
+$pagina = "pvendidos";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -72,6 +72,13 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <a href="help/rptprodvend/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                    </div>
+                </div>
+                <br>
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -156,8 +163,8 @@ $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                                                 <td><?php echo $dat['id_item'] ?></td>
                                                                 <td><?php echo $dat['nom_item'] ?></td>
                                                                 <td class="text-center"><?php echo $dat['nventas'] ?></td>
-                                                                <td class="text-right"><?php echo number_format($dat['cantidadvendida'],2) ?></td>
-                                                                <td class="text-right"><?php echo number_format($dat['montovendido'],2) ?></td>
+                                                                <td class="text-right"><?php echo number_format($dat['cantidadvendida'], 2) ?></td>
+                                                                <td class="text-right"><?php echo number_format($dat['montovendido'], 2) ?></td>
                                                             </tr>
                                                         <?php
                                                         }

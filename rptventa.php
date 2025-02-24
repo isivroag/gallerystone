@@ -13,9 +13,7 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 if ($_SESSION['s_rol'] == '3') {
     $consulta = "SELECT * FROM vventa where estado_vta=1 order by folio_vta";
-}
-else
-{
+} else {
     $consulta = "SELECT * FROM vventa where estado_vta=1 order by folio_vta";
 }
 
@@ -51,8 +49,7 @@ $message = "";
 
                 <div class="row">
                     <div class="col-lg-12">
-
-
+                        <a href="help/cntaproyectos/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
                     </div>
                 </div>
                 <br>
@@ -61,7 +58,9 @@ $message = "";
                         <div class="card-header bg-gradient-success">
                             Filtro por rango de Fecha
                         </div>
+
                         <div class="card-body">
+
                             <div class="row justify-content-center">
                                 <div class="col-lg-2">
                                     <div class="form-group input-group-sm">
@@ -83,7 +82,7 @@ $message = "";
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="row">
@@ -134,7 +133,7 @@ $message = "";
                                             <th class="currency" style="text-align:right">Total:</th>
                                             <th class="text-right"></th>
                                             <th></th>
-                                            
+
                                         </tr>
                                     </tfoot>
                                 </table>

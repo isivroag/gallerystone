@@ -32,6 +32,7 @@ switch ($opcion) {
 
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
+            $resultado->closeCursor();
 
             $consulta = "SELECT * from vvale_detalle where folio_vale='$folio' and id_her='$iddes' and estado_reg='1' and tipo='HERRAMIENTA'";
 
@@ -39,12 +40,14 @@ switch ($opcion) {
             $resultado->execute();
 
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+            $resultado->closeCursor();
         } else {
             $consulta = "INSERT INTO vale_detalleins (folio_vale,id_des,cantidad_des,estado,obs) 
             values ('$folio','$iddes','$cantidad','PENDIENTE','')";
 
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
+            $resultado->closeCursor();
 
             $consulta = "SELECT * from vvale_detalle where folio_vale='$folio' and id_her='$iddes' and estado_reg='1' and tipo='INSUMO'";
 
@@ -52,6 +55,7 @@ switch ($opcion) {
             $resultado->execute();
 
             $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+            $resultado->closeCursor();
         }
 
 
@@ -64,6 +68,7 @@ switch ($opcion) {
         }
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
+        $resultado->closeCursor();
 
 
         $data = 1;
@@ -76,6 +81,7 @@ switch ($opcion) {
 
 
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        $resultado->closeCursor();
         break;
     case 4:
         $res = 0;
@@ -83,6 +89,7 @@ switch ($opcion) {
             $consulta = "UPDATE vale_detalle SET estado=1 where id_reg='$id'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
+            $resultado->closeCursor();
 
             $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='HERRAMIENTA'";
             $resultado = $conexion->prepare($consulta);
@@ -92,6 +99,8 @@ switch ($opcion) {
             foreach ($data as $row) {
                 $foliovale = $row['folio_vale'];
             }
+            $resultado->closeCursor();
+
             $consulta2 = "SELECT * from vale_detalle where folio_vale='$foliovale' and estado='0' and estado_reg='1'";
             $res2 = $conexion->prepare($consulta2);
             $res2->execute();
@@ -103,10 +112,12 @@ switch ($opcion) {
             } else {
                 $data = 1;
             }
+            $res2->closeCursor();
         } else {
             $consulta = "UPDATE vale_detalleins SET estado=1 where id_reg='$id'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
+            $resultado->closeCursor();
 
             $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='INSUMO'";
             $resultado = $conexion->prepare($consulta);
@@ -116,6 +127,7 @@ switch ($opcion) {
             foreach ($data as $row) {
                 $foliovale = $row['folio_vale'];
             }
+            $resultado->closeCursor();
             $consulta2 = "SELECT * from vvale_detalle where folio_vale='$foliovale' and estado='0' and estado_reg='1'";
             $res2 = $conexion->prepare($consulta2);
             $res2->execute();
@@ -127,6 +139,7 @@ switch ($opcion) {
             } else {
                 $data = 1;
             }
+            $res2->closeCursor();
         }
 
 
@@ -139,6 +152,7 @@ switch ($opcion) {
             $consulta = "UPDATE vale_detalle SET estado=2 where id_reg='$id'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
+            $resultado->closeCursor();
 
             $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='HERRAMIENTA'";
             $resultado = $conexion->prepare($consulta);
@@ -148,25 +162,30 @@ switch ($opcion) {
             foreach ($data as $row) {
                 $foliovale = $row['folio_vale'];
             }
+            $resultado->closeCursor();
             $consulta2 = "SELECT * from vvale_detalle where folio_vale='$foliovale' and estado='1' and estado_reg='1'";
             $res2 = $conexion->prepare($consulta2);
             $res2->execute();
             if ($res2->rowCount() == 0) {
                 $consulta2 = "UPDATE vale SET estado='RECIBIDO', fecha_cierre='$fecha' where folio_vale='$foliovale'";
-                $res2 = $conexion->prepare($consulta2);
-                $res2->execute();
+                $res3 = $conexion->prepare($consulta2);
+                $res3->execute();
                 $data = 2;
+                $res3->closeCursor();
 
                 $consulta2 = "UPDATE cajah SET bloqueado=0 where vale='$foliovale'";
-                $res2 = $conexion->prepare($consulta2);
-                $res2->execute();
+                $res3 = $conexion->prepare($consulta2);
+                $res3->execute();
+                $res3->closeCursor();
             } else {
                 $data = 1;
             }
+            $res2->closeCursor();
         } else {
             $consulta = "UPDATE vale_detalleins SET estado=2, cantidad_reg=cantidad_des where id_reg='$id'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
+            $resultado->closeCursor();
 
             $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='INSUMO'";
             $resultado = $conexion->prepare($consulta);
@@ -176,18 +195,22 @@ switch ($opcion) {
             foreach ($data as $row) {
                 $foliovale = $row['folio_vale'];
             }
+            $resultado->closeCursor();
+
             $consulta2 = "SELECT * from vvale_detalle where folio_vale='$foliovale' and estado='1' and estado_reg='1'";
             $res2 = $conexion->prepare($consulta2);
             $res2->execute();
             if ($res2->rowCount() == 0) {
                 $consulta2 = "UPDATE vale SET estado='RECIBIDO', fecha_cierre='$fecha' where folio_vale='$foliovale'";
-                $res2 = $conexion->prepare($consulta2);
-                $res2->execute();
+                $res3 = $conexion->prepare($consulta2);
+                $res3->execute();
+                $res3->closeCursor();
                 $data = 2;
 
                 $consulta2 = "UPDATE cajah SET bloqueado=0 where vale='$foliovale'";
-                $res2 = $conexion->prepare($consulta2);
-                $res2->execute();
+                $res3 = $conexion->prepare($consulta2);
+                $res3->execute();
+                $res3->closeCursor();
             } else {
                 $data = 1;
             }
@@ -200,6 +223,7 @@ switch ($opcion) {
             $consulta = "UPDATE vale_detalle SET estado=2 where id_reg='$id'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
+            $resultado->closeCursor();
 
             $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='HERRAMIENTA'";
             $resultado = $conexion->prepare($consulta);
@@ -209,19 +233,22 @@ switch ($opcion) {
             foreach ($data as $row) {
                 $foliovale = $row['folio_vale'];
             }
+            $resultado->closeCursor();
 
             //buscar la cajah
-            $consultacaja = "SELECT * FROM  cajah where vale='$vale'";
+            $consultacaja = "SELECT * FROM  cajah where vale='$foliovale'";
             $rescaja = $conexion->prepare($consultacaja);
             $rescaja->execute();
             $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
             foreach ($datacaja as $row) {
                 $idcaja = $row['id_cajah'];
             }
+            $rescaja->closeCursor();
             //buscar el item de la cajah y cambiar la cantidad de elementos
             $cntarest = "UPDATE cajah_detalle SET estado_reg=0 where id_cajah='$idcaja' and id_her='$item'";
             $res3 = $conexion->prepare($cntarest);
             $res3->execute();
+            $res3->closeCursor();
             //disminuir de inventario la herramienta
 
 
@@ -229,7 +256,7 @@ switch ($opcion) {
             $saldo = 0;
             $montomov = $cantidadu;
             $saldofin = 0;
-            $descripcion = "SALIDA POR VALE: " . $vale . " " . $motivo;
+            $descripcion = "SALIDA POR VALE: " . $foliovale . " " . $motivo;
 
 
 
@@ -242,6 +269,7 @@ switch ($opcion) {
                     $saldo = $rowdatam['cant_her'];
                 }
             }
+            $resultadom->closeCursor();
 
             $saldofin = $saldo - $montomov;
 
@@ -250,11 +278,12 @@ switch ($opcion) {
             $resultadom = $conexion->prepare($consultam);
             if ($resultadom->execute()) {
             }
-
+            $resultadom->closeCursor();
             $consultam = "UPDATE herramienta SET cant_her='$saldofin' WHERE id_her='$item'";
             $resultadom = $conexion->prepare($consultam);
             if ($resultadom->execute()) {
             }
+            $resultadom->closeCursor();
 
             // termina disminuir inventario de la herramienta
 
@@ -265,21 +294,25 @@ switch ($opcion) {
             $res2->execute();
             if ($res2->rowCount() == 0) {
                 $consulta2 = "UPDATE vale SET estado='RECIBIDO', fecha_cierre='$fecha' where folio_vale='$foliovale'";
-                $res2 = $conexion->prepare($consulta2);
-                $res2->execute();
+                $res3 = $conexion->prepare($consulta2);
+                $res3->execute();
+                $res3->closeCursor();
                 $data = 2;
 
                 $consulta2 = "UPDATE cajah SET bloqueado=0 where vale='$foliovale'";
-                $res2 = $conexion->prepare($consulta2);
-                $res2->execute();
+                $res3 = $conexion->prepare($consulta2);
+                $res3->execute();
+                $res3->closeCursor();
             } else {
                 $data = 1;
             }
+            $res2->closeCursor();
         } else {
-            $idcaja=0;
+            $idcaja = 0;
             $consulta = "UPDATE vale_detalleins SET estado=2,cantidad_reg='$cantidadr' where id_reg='$id'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
+            $resultado->closeCursor();
 
             $consulta = "SELECT * from vvale_detalle where id_reg='$id' and tipo='INSUMO'";
             $resultado = $conexion->prepare($consulta);
@@ -289,24 +322,27 @@ switch ($opcion) {
             foreach ($data as $row) {
                 $foliovale = $row['folio_vale'];
             }
+            $resultado->closeCursor();
 
             //buscar la cajah
-            $consultacaja = "SELECT * FROM  cajah where vale='$vale'";
+            $consultacaja = "SELECT * FROM  cajah where vale='$foliovale'";
             $rescaja = $conexion->prepare($consultacaja);
             $rescaja->execute();
             $datacaja = $rescaja->fetchAll(PDO::FETCH_ASSOC);
             foreach ($datacaja as $row) {
                 $idcaja = $row['id_cajah'];
             }
+            $rescaja->closeCursor();
             //buscar el item de la cajah y cambiar la cantidad de elementos
-            if ($cantidadr==0){
+            if ($cantidadr == 0) {
                 $cntarest = "UPDATE cajah_detalleins SET estado_reg=0, cantidad_des=0 where id_cajah='$idcaja' and id_des='$item'";
-            }else{
+            } else {
                 $cntarest = "UPDATE cajah_detalleins SET cantidad_des='$cantidadr' where id_cajah='$idcaja' and id_des='$item'";
             }
-            
+
             $res3 = $conexion->prepare($cntarest);
             $res3->execute();
+            $res3->closeCursor();
             //disminuir de inventario la herramienta
 
 
@@ -326,19 +362,20 @@ switch ($opcion) {
             $contenidoc = 0;
             $contenidoa = 0;
             $contenidot = 0;
-            $presentacion=0;
-            $cantidad=0;
-            $saldo=0;
-            $saldoini=0;
-            $saldofin=0;
+            $presentacion = 0;
+            $cantidad = 0;
+            $saldo = 0;
+            $saldoini = 0;
+            $saldofin = 0;
+
             $consulta = "SELECT * FROM consumible where id_cons='$item'";
             $resultado = $conexion->prepare($consulta);
             if ($resultado->execute()) {
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($data as $rowdata) {
-            
+
                     $presentacion = $rowdata['presentacion'];
-                    $cantidad=$rowdata['cant_cons'];
+                    $cantidad = $rowdata['cant_cons'];
                     $saldoinn = $rowdata['contenidon'];
                     $saldoina = $rowdata['contenidoa'];
                     $saldoint = $rowdata['contenidot'];
@@ -346,34 +383,56 @@ switch ($opcion) {
                 }
 
                 $conversion =  $montomov;
-                $saldoini= $cantidad * $presentacion;
-                
-                $saldofinn = $saldoinn ;
+                $saldoini = $cantidad * $presentacion;
+
+                $saldofinn = $saldoinn;
                 $saldofina = $saldoina - $conversion;
                 $saldofint = $saldoint - $conversion;
                 $saldofin = $saldo - $montomov;
-          
+
                 //guardar el movimiento
                 $consulta = "INSERT INTO mov_consumible(id_cons,fecha_movi,tipo_movi,cantidad,saldoini,saldofin,descripcion,
-                usuario,saldoinn,cantidadn,saldofinn,saldoina,cantidada,saldofina,saldoint,cantidadt,saldofint) 
+                usuario,saldoinn,cantidadn,saldofinn,saldoina,cantidada,saldofina,saldoint,cantidadt,saldofint,usuario) 
                 values('$item','$fecha','$tipomov','0','$cantidad','$cantidad','$descripcion',
-                '$usuario','$saldoinn','0','$saldofinn','$saldoina','$montomov','$saldofina','$saldoint','$conversion','$saldofint')";
+                '$usuario','$saldoinn','0','$saldofinn','$saldoina','$montomov','$saldofina','$saldoint','$conversion','$saldofint','$usuario')";
                 $resultado = $conexion->prepare($consulta);
-            
+
+
+
+
+//NUEVO CODIGO PARA INSERTAR EN ORDEN EL MOVIMIENTO
                 if ($resultado->execute()) {
-            
+                    //BUSCAR A QUE ORDEN PERTENECE EL MOVIMIENTO
+                    $cntav = "SELECT * FROM vale where folio_vale='$foliovale'";
+                    $resv = $conexion->prepare($cntav);
+                    if ($resv->execute()) {
+                        $datav = $resv->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($datav as $row) {
+                            $folioorden = $row['folio_orden'];
+                        }
+                        $resv->closeCursor();
+
+                        //INSERTAR EL MOVIMIENTO EN EL DETALLE DE LA ORDEN
+
+                        $consulta = "INSERT INTO consumible_ord (folio_ord,id_cons,cantidad) values ('$folioorden','$item','$montomov')";
+                        $resultado = $conexion->prepare($consulta);
+                        $resultado->execute();
+                        $resultado->closeCursor();
+                    }
+                    $resv->closeCursor();
                     $consulta = "UPDATE consumible SET cant_cons='$cantidad',contenidon='$saldoini',contenidoa='$saldofina',contenidot='$saldofint' WHERE id_cons='$item'";
                     $resultado = $conexion->prepare($consulta);
-                    
+
                     if ($resultado->execute()) {
                         $res = 1;
                     }
-            
+                    $resultado->closeCursor();
                 }
+                $resultado->closeCursor();
             }
+            $resultado->closeCursor();
 
 
-         
             // termina disminuir inventario de la herramienta
 
             $consulta2 = "SELECT * from vvale_detalle where folio_vale='$foliovale' and estado='1' and estado_reg='1'";
@@ -384,7 +443,7 @@ switch ($opcion) {
                 $consulta2 = "UPDATE vale SET estado='RECIBIDO', fecha_cierre='$fecha' where folio_vale='$foliovale'";
                 $res2 = $conexion->prepare($consulta2);
                 $res2->execute();
-                
+
 
                 $consulta2 = "UPDATE cajah SET bloqueado=0 where vale='$foliovale'";
                 $res2 = $conexion->prepare($consulta2);

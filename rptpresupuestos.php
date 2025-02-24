@@ -51,7 +51,7 @@ $message = "";
 
                 <div class="row">
                     <div class="col-lg-12">
-
+                    <a href="help/cntaprespro/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
 
                     </div>
                 </div>

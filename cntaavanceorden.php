@@ -95,6 +95,12 @@ $message = "";
             </div>
 
             <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <a href="help/rptpizarra/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                    </div>
+                </div>
 
 
                 <br>
@@ -190,9 +196,9 @@ $message = "";
                                                         </div>
                                                     </div>
                                                 </td>";
-                                        } else {
-                                            echo "<td></td>";
-                                        }
+                                            } else {
+                                                echo "<td></td>";
+                                            }
 
                                             if ($i < $corte) {
                                                 $consulta = "SELECT folio_ord,folio_vta,nombre,concepto_vta,if(avance=90,'COLOCACION',edo_ord) as edo_ord,avance FROM vorden 
@@ -227,9 +233,9 @@ $message = "";
                                                         </div>
                                                     </div>
                                                 </td>";
-                                        } else {
-                                            echo "<td></td>";
-                                        }
+                                            } else {
+                                                echo "<td></td>";
+                                            }
 
                                             if ($i < $ensamble) {
                                                 $consulta = "SELECT folio_ord,folio_vta,nombre,concepto_vta,if(avance=90,'COLOCACION',edo_ord) as edo_ord,avance FROM vorden 
@@ -264,9 +270,9 @@ $message = "";
                                                         </div>
                                                     </div>
                                                 </td>";
-                                        } else {
-                                            echo "<td></td>";
-                                        }
+                                            } else {
+                                                echo "<td></td>";
+                                            }
                                             if ($i < $pulido) {
                                                 $consulta = "SELECT folio_ord,folio_vta,nombre,concepto_vta,if(avance=90,'COLOCACION',edo_ord) as edo_ord,avance FROM vorden 
                                                                 WHERE edo_ord='PULIDO' and estado_ord=1 AND tipo_proy=1 AND (avance<100 OR fecha_liberacion >= DATE_SUB(CURDATE(),INTERVAL 1 MONTH) )";
@@ -300,9 +306,9 @@ $message = "";
                                                         </div>
                                                     </div>
                                                 </td>";
-                                        } else {
-                                            echo "<td></td>";
-                                        }
+                                            } else {
+                                                echo "<td></td>";
+                                            }
                                             if ($i < $colocacion) {
                                                 $consulta = "SELECT folio_ord,folio_vta,nombre,concepto_vta,if(avance=90,'COLOCACION',edo_ord) as edo_ord,avance FROM vorden 
                                                 WHERE if(avance=90,'COLOCACION',edo_ord)='COLOCACION' and estado_ord=1 AND tipo_proy=1 AND (avance<100 OR fecha_liberacion >= DATE_SUB(CURDATE(),INTERVAL 1 MONTH) )";
@@ -336,9 +342,9 @@ $message = "";
                                                         </div>
                                                     </div>
                                                 </td>";
-                                        } else {
-                                            echo "<td></td>";
-                                        }
+                                            } else {
+                                                echo "<td></td>";
+                                            }
                                             if ($i < $liberado) {
                                                 $consulta = "SELECT folio_ord,folio_vta,nombre,concepto_vta,if(avance=90,'COLOCACION',edo_ord) as edo_ord,avance FROM vorden 
                                                     WHERE edo_ord='LIBERADO' and estado_ord=1 AND tipo_proy=1 AND (avance<100 OR fecha_liberacion >= DATE_SUB(CURDATE(),INTERVAL 1 MONTH) )";
@@ -372,9 +378,9 @@ $message = "";
                                                         </div>
                                                     </div>
                                                 </td>";
-                                        } else {
-                                            echo "<td></td>";
-                                        }
+                                            } else {
+                                                echo "<td></td>";
+                                            }
 
 
                                             ?>

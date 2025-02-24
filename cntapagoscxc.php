@@ -41,6 +41,13 @@ $message = "";
                 <h4 class="card-title text-center">COBRANZA</h4>
             </div>
 
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="help/pagos/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                </div>
+            </div>
+          
+
             <div class="card-body">
 
                 <div class="card">
@@ -112,7 +119,7 @@ $message = "";
                                             <tr>
                                                 <td><?php echo $dat['folio_vta'] ?></td>
                                                 <td><?php echo $dat['cliente'] ?></td>
-                                                <td ><?php echo $dat['concepto_vta'] ?></td>
+                                                <td><?php echo $dat['concepto_vta'] ?></td>
                                                 <td><?php echo $dat['folio_pagocxc'] ?></td>
                                                 <td><?php echo $dat['fecha'] ?></td>
                                                 <td><?php echo $dat['concepto'] ?></td>
@@ -145,8 +152,8 @@ $message = "";
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            
-                                            
+
+
                                         </tr>
                                     </tfoot>
                                 </table>

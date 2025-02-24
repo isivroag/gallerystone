@@ -1536,7 +1536,13 @@ $(document).ready(function () {
     if ($("#chpedaceria").prop("checked")) {
       pedaceria = 1;
     }
-    if (pedaceria == 1 || (largo != 0 && alto != 0 && m2 != 0)) {
+      console.log(pedaceria);
+      console.log(largo);
+      console.log(alto);
+      console.log(m2);
+      console.log(pedaceria == 1 || (largo != 0 && alto != 0 && m2 != 0 && largo>0 && alto>0 && m2>0))
+
+    if (pedaceria == 1 || (largo != 0 && alto != 0 && m2 != 0 && largo>0 && alto>0 && m2>0)) {
       $.ajax({
         type: "POST",
         url: "bd/redimensionar.php",
@@ -1555,13 +1561,19 @@ $(document).ready(function () {
         },
         success: function (data) {
           if (data == 1) {
-            window.location.reload();
+           // window.location.reload();
           } else {
           }
         },
       });
     } else {
-      mensajeerror();
+      swal.fire({
+        title: "Operacion No exitosa",
+        text: "Es obligatorio poner las medidas restante de la placa o mandar el restante a pedacería",
+        icon: "error",
+        focusConfirm: true,
+        confirmButtonText: "Aceptar",
+      });
     }
   });
 

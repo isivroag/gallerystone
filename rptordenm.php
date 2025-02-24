@@ -14,11 +14,11 @@ $conexion = $objeto->connect();
 
 $inicio = (isset($_GET['inicio'])) ? $_GET['inicio'] : '';
 $fin = (isset($_GET['fin'])) ? $_GET['fin'] : '';
-$vcons=0;
-if ($inicio=='' && $fin==''){
-    $vcons=1;
+$vcons = 0;
+if ($inicio == '' && $fin == '') {
+    $vcons = 1;
 }
-if ($vcons==0){
+if ($vcons == 0) {
     $consulta = "SELECT * from vorden2 where tipop='PROYECTO' AND (avance>0 AND avance<100) or fecha_liberacion BETWEEN '$inicio' AND '$fin'";
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
@@ -56,7 +56,14 @@ if ($vcons==0){
             </div>
 
             <div class="card-body">
-            <div class="card">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <a href="help/rptprogorden/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
                     <div class="card-header bg-gradient-secondary">
                         Filtro por rango de Fecha
                     </div>
@@ -116,24 +123,24 @@ if ($vcons==0){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-                                            if ($vcons==0){
-                                            foreach($data as $row){?>
-                                            <tr>
-                                                <td><?php echo $row['folio_ord']?></td>
-                                                <td><?php echo $row['folio_vta']?></td>
-                                                <td><?php echo $row['fecha_ord']?></td>
-                                                <td><?php echo $row['nombre']?></td>
-                                                <td><?php echo $row['concepto_vta']?></td>
-                                                <td><?php echo $row['fecha_liberacion']?></td>
-                                                <td><?php echo $row['tipop']?></td>
-                                                <td><?php echo $row['avance']?></td>
-                                                <td><?php echo $row['edo_ord']?></td>
-                                                <td><?php echo $row['metros']?></td>
-                                                <td></td>
-                                            </tr>
+                                        <?php
+                                        if ($vcons == 0) {
+                                            foreach ($data as $row) { ?>
+                                                <tr>
+                                                    <td><?php echo $row['folio_ord'] ?></td>
+                                                    <td><?php echo $row['folio_vta'] ?></td>
+                                                    <td><?php echo $row['fecha_ord'] ?></td>
+                                                    <td><?php echo $row['nombre'] ?></td>
+                                                    <td><?php echo $row['concepto_vta'] ?></td>
+                                                    <td><?php echo $row['fecha_liberacion'] ?></td>
+                                                    <td><?php echo $row['tipop'] ?></td>
+                                                    <td><?php echo $row['avance'] ?></td>
+                                                    <td><?php echo $row['edo_ord'] ?></td>
+                                                    <td><?php echo $row['metros'] ?></td>
+                                                    <td></td>
+                                                </tr>
                                         <?php }
-                                        }?>
+                                        } ?>
                                     </tbody>
                                 </table>
                             </div>
