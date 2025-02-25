@@ -39,8 +39,15 @@ $message = "";
             </div>
 
             <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
 
-              
+                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                        <a href="help/asistencia/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                    </div>
+                </div>
+                <br>
+
 
                 <div class="container-fluid">
                     <div class="card">
@@ -52,11 +59,11 @@ $message = "";
                                 <div class="col-lg-2">
                                     <div class="form-group input-group-sm">
                                         <label for="fecha" class="col-form-label">Fecha:</label>
-                                        <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha?>">
+                                        <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha ?>">
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div class="col-lg-1 align-self-end text-center">
                                     <div class="form-group input-group-sm">
@@ -89,11 +96,11 @@ $message = "";
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $consulta="CALL sp_asistencia('$fecha')";
+                                        $consulta = "CALL sp_asistencia('$fecha')";
                                         $resultado = $conexion->prepare($consulta);
                                         $resultado->execute();
                                         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-                                        
+
                                         foreach ($data as $dat) {
                                         ?>
                                             <tr>
@@ -138,9 +145,9 @@ $message = "";
 
 
                                 <div class="col-sm-7">
-                                
-                                <input type="hidden" class="form-control" name="idreg" id="idreg" autocomplete="off" placeholder="Nombre">
-                                <input type="hidden" class="form-control" name="idper" id="idper" autocomplete="off" placeholder="Nombre">
+
+                                    <input type="hidden" class="form-control" name="idreg" id="idreg" autocomplete="off" placeholder="Nombre">
+                                    <input type="hidden" class="form-control" name="idper" id="idper" autocomplete="off" placeholder="Nombre">
                                     <div class="form-group input-group-sm">
                                         <label for="nombre" class="col-form-label">Nombre:</label>
                                         <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" placeholder="Nombre" disabled>
@@ -149,11 +156,11 @@ $message = "";
                                 <div class="col-sm-2">
                                     <div class="form-group input-group-sm">
                                         <label for="fecha2" class="col-form-label">Fecha:</label>
-                                        <input type="date" class="form-control" name="fecha2" id="fecha2" value="<?php echo $fecha?>" disabled>
+                                        <input type="date" class="form-control" name="fecha2" id="fecha2" value="<?php echo $fecha ?>" disabled>
                                     </div>
                                 </div>
 
-                       
+
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="tipo" class="col-form-label">Estado de Asistencia:</label>

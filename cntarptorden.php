@@ -45,7 +45,15 @@ $message = "";
             </div>
 
             <div class="card-body">
-            <div class="row">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                        <a href="help/consultaorden/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
                     <div class="col-lg-12">
 
 
@@ -59,9 +67,9 @@ $message = "";
                                         <label for="tipof" class="col-form-label">Fecha de:</label>
                                         <select class="form-control" name="tipof" id="tipof" value="inicio">
                                             <option id="inicio" value="inicio" selected>Inicio</option>
-                                            <option id="limite" value="limite" >Limite</option>
-                                            <option id="liberacion" value="liberacion" >Liberación</option>
-                                           
+                                            <option id="limite" value="limite">Limite</option>
+                                            <option id="liberacion" value="liberacion">Liberación</option>
+
 
                                         </select>
                                     </div>
@@ -135,7 +143,7 @@ $message = "";
                                                 <td><?php echo $dat['tipop'] ?></td>
                                                 <td><?php echo $dat['avance'] ?></td>
                                                 <td><?php echo $dat['edo_ord'] ?></td>
-                                                <td><?php echo ($dat['fecha_liberacion']!='2000-01-01')?$dat['fecha_liberacion']:'' ?></td>
+                                                <td><?php echo ($dat['fecha_liberacion'] != '2000-01-01') ? $dat['fecha_liberacion'] : '' ?></td>
                                                 <td></td>
 
                                             </tr>
@@ -143,7 +151,7 @@ $message = "";
                                         }
                                         ?>
                                     </tbody>
-                               
+
                                 </table>
                             </div>
                         </div>

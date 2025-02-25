@@ -48,9 +48,17 @@ $message = "";
             </div>
 
             <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
 
+                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                        <a href="help/consultaot/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                    </div>
+                </div>
+                <br>
 
                 <div class="card">
+
                     <div class="card-header bg-gradient-secondary">
                         Filtro por rango de Fecha de Orden
                     </div>
@@ -77,7 +85,7 @@ $message = "";
                                 </div>
                             </div>
                         </div>
-                   
+
                     </div>
                 </div>
                 <br>

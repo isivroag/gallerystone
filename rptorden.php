@@ -46,7 +46,15 @@ $message = "";
             </div>
 
             <div class="card-body">
-            <div class="row">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-succes btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                        <a href="help/produccionml/" target="_blank" rel="noopener"><button id="btnAyuda" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-question-circle text-light"></i><span class="text-light"> Ayuda</span></button></a>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
                     <div class="col-lg-12">
 
 
@@ -155,7 +163,7 @@ $message = "";
                                             <th></th>
                                             <th></th>
                                             <th style="text-align:right">Total:</th>
-                                            
+
                                             <th class="text-right"></th>
                                             <th></th>
                                             <th></th>
@@ -185,7 +193,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/rptorden.js?v=<?php echo(rand()); ?>"></script>
+<script src="fjs/rptorden.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
